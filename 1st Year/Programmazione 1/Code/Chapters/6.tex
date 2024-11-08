@@ -1,0 +1,33 @@
+\section{Libreria ctype.h}
+\section{Switch(), case, break}
+\section{Argc, Argv}
+\section{Divisione di un progetto su più files}
+I progetti che andrai a creare non saranno sempre di piccole dimensioni come in questo momento; è esattamente per questo che è necessario introdurre la strategia \textbf{Divide et Impera} al tuo modus operandi.\par\quad
+La prima cosa fondamentale è l'organizzazione della cartella; non puoi tenere tutto in una singola directory, nossignore. La struttura di base è sempre la seguente:
+\begin{itemize}
+    \item \textit{MainDirectory}; Cartella principale contenente l'intero programma.
+    \begin{itemize}
+        \item \textit{src}; Cartella contenente il codice sorgente.
+        \item \textit{obj}; Cartella contenente il codice oggetto.
+        \item \textit{bin}; Cartella contenente il codice eseguibile.
+        \item \textit{Makefile}; Script che se letto dal compiler, esegue tutte le istruzioni di linking o compiling ivi scritte.
+        \item \textit{README}; File testuale con spiegazioni sul codice.
+    \end{itemize}
+\end{itemize}
+Preparato l'ambiente di lavoro, è ora possibile iniziare la scrittura del codice, il quale verrà salvato nella cartella \textit{src}. Normalmente, finita la scrittura basterebbe una semplice riga di comando a gcc per compilare il programma, ma noi dobbiamo collegare tutto; ed è qui che entra in gioco \textbf{Makefile}.\par
+Questo file dovrà contenere tutte le istruzioni per il compilatore e viene scritto come segue:
+\begin{verbatim}
+    all: program 
+    program: program.o subfile.o 
+        gcc -o program program.o subfile.o 
+    program.o: program.c 
+        gcc -c program.c 
+    subfile.o: subfile.c 
+        gcc -c subfile.c 
+\end{verbatim}
+Risulta molto comodo perché risparmia la scrittura dei comandi da terminale, inoltre è molto semplice da modificare dovesse questa azione essere richiesta. È possibile inoltre aggiungere dei flag in cima al file per indicare i comandi da eseguire in una determinata linea; una scrittura non dissimile dall'invocazione.\par\quad
+Grazie ad esso è possibile direzionare i files nelle rispettive cartelle, come gli eseguibili in bin e gli oggetto in obj. Nella scrittura in C è necessaria anche una cartella \textit{hdr}, contenente le librerie personalizzate da includere nel main. Si tratta di files dall'estensione ".h" contenenti tipi di dato e funzioni user-defined che, se opportunamente incluse, saranno utilizzabili nel main con una semplice dichiarazione o invocazione. Se questa cosa non t'attizza non so cosa possa farlo.
+
+%
+
+\section{Debugger GDB}

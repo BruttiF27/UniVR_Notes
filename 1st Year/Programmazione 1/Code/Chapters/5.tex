@@ -1,0 +1,245 @@
+\section{Memoria Dinamica}
+Finora hai potuto vedere il funzionamento della memoria statica; la quale viene sempre allocata mediante il compilatore prendendo una zona riservata della stack prima che il programma venga attivato e non sarà possibile modificarne i limiti.\par\quad
+L'utilizzo della memoria dinamica porta la soluzione a questo problema, poiché consente di allocare memoria durante l'esecuzione del programma. Per poterlo fare è necessario introdurre la libreria digitale \textbf{stdlib.h}, che porta con sé le seguenti funzioni:
+\begin{itemize}
+    \item \textit{malloc(dimensione);} Consente di allocare un determinato numero di bytes nella heap.
+    \item \textit{calloc(totale, dimensione);} Alloca per un determinato numero di elementi un determinato numero di bytes nella heap.
+    \item \textit{realloc(puntatore, dimensione);} Utilizzata se vi è la necessità di aggiungere ulteriore memoria mantenendo i dati già salvati\footnote{Se non riesce ad allocare memoria, ritorna un puntatore a NULL. Puoi usare questo comportamento a tuo vantaggio per effettuare dei controlli.}.
+    \item \textit{free(puntatore);} Consente di liberare lo spazio precedentemente utilizzato.
+\end{itemize}
+
+La modalità preferibile per allocare spazio è utilizzare l'operatore \textbf{sizeof(variabile)}, che ricava automaticamente la dimensione in byte di una determinata variabile\footnote{Non riesce, tuttavia, a calcolare la memoria dinamica e quindi va indicato il numero di variabili per cui allocare la memoria.}. Tuttavia, attenzione, perché c'è differenza fra le seguenti scritture:
+\begin{verbatim}
+    int *ptr;
+    ...
+    malloc(sizeof(ptr));        //Alloca la dimensione del puntatore.
+    malloc(sizeof(*ptr));       /*Alloca la dimensione del dato all'indirizzo
+    ...                         del puntatore.*/
+\end{verbatim}
+La memoria dinamica si comporta \textit{come un array} e il tipo di dato è specificato dal puntatore. È possibile accedervi utilizzando un indice come è fattibile la dereferenziazione per accedere al primo elemento.\par\quad
+Ricorda sempre di \textit{liberare la memoria} quando hai finito di utilizzarla; non vorresti mai degli spazi ancora occupati per un programma la cui esecuzione è già terminata, nevvero?
+\begin{verbatim}
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+
+    //Dichiaro la variabile ed alloco la memoria
+    int *ptr;
+    ptr = calloc(5, sizeof(*ptr));
+
+    //Inserisco i numeri in posizioni precise
+    *ptr = 1;
+    ptr[1] = 2;
+    ptr[2] = 3;
+    ptr[4] = 5;
+
+    //Stampo quanto dato
+    printf("%d, %d, %d, %d, %d\n", ptr[0], ptr[1], ptr[2], ptr[3], ptr[4]);
+
+    //Libero la memoria
+    free(ptr);
+    ptr = NULL;
+    
+    return 0;
+}   
+\end{verbatim}
+Il meme più conosciuto di C è forse quello dei \textbf{Memory Leaks}. Questo problema avviene quando la memoria allocata non viene mai liberata e le conseguenze riguardano il rallentamento del computer. Tre consigli per evitare che ciò succeda:
+\begin{itemize}
+    \item Controlla gli errori mediante costrutti condizionali, sicché non vi siano errori quando la memoria non può essere usata.
+    \item Libera SEMPRE la memoria quando smetti di utilizzarla.
+    \item Setta il puntatore a NULL dopo aver liberato la memoria per essere sicuro che non si comporti in modo strano.
+\end{itemize}
+
+Quanto visto vale per le singole variabili e va benissimo; normalmente vengono chiesti però gli \textbf{Array Dinamici} con tutte le loro relative funzioni che sono già state trattate in precedenza. La loro dichiarazione segue la seguente sintassi e può essere utilizzata con ogni tipo di dato; anche se user-defined. Useremo come esempio int:
+\begin{verbatim}
+    //Dichiaro il puntatore
+    int *ptr;
+    
+    //Cast forzato a puntatore variabile e alloca la dimensione del tipo.
+    ptr = (int*) malloc(sizeof(int));
+\end{verbatim}
+
+%
+
+\section{Liste Dinamiche}
+Parliamo ora dell'ultimo argomento del corso, obiettivamente il più difficile da immaginare e da rispecchiare sul codice: le \textbf{Liste Dinamiche}. Si tratta di un costrutto di tipo ricorsivo che permette di legare come \textit{nodi} degli insiemi di dati.\par\quad
+Personalmente mi ha aiutato molto immaginare le liste come uno di quei magneti delle uova di Pasqua, perché come vedrai, ci è possibile aggiungere un elemento in testa o in coda ad essa, modificare il nodo desiderato, distruggere tutto e, ovviamente, visualizzare il contenuto della lista. Non indugiamo oltre e studiamo i metodi per lavorare con questo costrutto.\newline
+
+Una lista dinamica necessita prima di tutto due \textit{tipi strutturato}; uno che contenga l'intera lista ed uno sotto forma di puntatore per spostarsi fra i nodi. Tutti gli altri elementi dipenderanno da ciò che si vuole creare; per esempio nella creazione di un registro scolastico verranno usate delle stringhe al posto dei nostri due interi. Dichiarata la struttura, è buona prassi far \textit{puntare la lista a NULL} per evitare errori.
+
+\begin{verbatim}
+    typedef struct node{        //Dichiarazione dello strutturato "node"
+        int a;
+        int b;
+        struct node *next;      //puntatore al nodo seguente
+    }lista;                     //Dichiarazione della lista "lista"
+
+    lista* l1 = NULL;           //Puntare a nulla per poter lavorare
+\end{verbatim}
+
+Dichiarato ciò, è ora possibile lavorare sulla lista. Vediamo una ad una tutte le funzioni base che ti serviranno. Ricorda che qualunque funzione debba modificare la lista, avrà come tipo di dato una variabile puntatore del costrutto. Inoltre, un piccolo monito: non sperare nemmeno di passare l'esame senza conoscere questo argomento.\newline
+
+\textbf{- Inserimento in testa}:\par
+Siccome dobbiamo modificare la struttura della lista, la funzione è un puntatore a lista. Per far sì che funzioni è necessario dichiarare un'altra variabile temporanea \textit{tmp} sulla quale avverrà l'effettivo lavoro, per evitare di perdere i dati sui quali si andrà a lavorare.\par\quad
+Ci sono due metodi per inserire in testa: passare le variabili alla funzione oppure richiederle nella stessa. Ritengo la seconda opzione la migliore in quanto permette una scrittura più pulita ed organizzata, ma ora entriamo nel vivo.\par\quad
+Nel caso in cui \textit{tmp} punti a qualcosa, sarà possibile inserire dati. Qui si richiede l'input da tastiera (o si assegnano le variabili allo spazio apposito) per poi assegnare la lista iniziale al nodo seguente di tmp. Abbiamo ora inserito \textit{in testa a "lista" l'insieme di tmp}. Infine si assegnerà alla lista la variabile lavorata \textit{tmp} per salvare quanto fatto. Ritornerà la variabile lista.
+
+\begin{verbatim}
+lista *insTesta(lista* l1){
+        
+    lista *tmp;                             //Per tenere la testa puntata
+    tmp = (elem*) malloc(sizeof(elem));     //Creo lo spazio per tmp
+
+    if(tmp != NULL){
+        scanf("%d%d", &tmp->a, &tmp->b);
+        tmp->next = l1;                     //La testa segue il nuovo nodo
+        l1 = tmp;                           //Aggiorno la lista
+    } else {
+        printf("Memoria esaurita!\n");      //Un semplice failproof
+    }
+    return l1;                              //Ritorno la lista modificata
+}
+\end{verbatim}
+
+\textbf{- Inserimento in coda}:\par
+L'inserimento in coda modifica la struttura principale della lista solo quando questa è vuota. In caso contrario la funzione sarà \textit{void}. Si richiede la dichiarazione di un'altra variabile puntatore \textit{prev}, insieme a \textit{tmp}, con lo scopo di poterle assegnare il valore della testa e scorrerla per darle i valori di \textit{tmp} finché non finisce.\par\quad
+Se \textit{tmp} punta a qualcosa, è possibile inserire dati in essa e in tal caso, se la lista principale \textit{l1} è finita, ovvero punta a \textit{NULL}, le si dà tutto il contenuto di tmp. In caso contrario, si scorre l'intera lista assegnando \textit{l1} a \textit{prev}, fintanto che non finisce, assegna il valore di tmp al \textit{prossimo nodo di prev} e passa al prossimo nodo.
+\begin{verbatim} 
+lista *insCoda(lista *l1){
+
+    lista *prev;
+    lista *tmp;
+    tmp = (elem*) malloc(sizeof(elem));
+
+    if(tmp != NULL){
+        tmp->next = NULL;                 //Il prossimo nodo punterà al nulla
+        scanf("%d%d", &tmp->a, &tmp->b);
+		
+        if(l1 == NULL){                   //Se l1 punta al nulla              
+            l1 = tmp;                     //l1 diventa tmp
+        } else {                          //Altrimenti scorri l'intera lista
+            for(prev = l1; prev->next != NULL; prev = prev->next){
+            }
+            prev->next = tmp;
+        }
+    } else {
+        printf("Memoria esaurita!\n");
+    }
+
+    return l1;
+}
+\end{verbatim}
+
+\textbf{- Ricerca di un elemento specifico}:\par
+Classica richiesta base da esame; per poterla realizzare avrai bisogno di una funzione che riceva la lista e l'elemento da cercare\footnote{Se preferibile, puoi richiederlo all'interno della funzione.}per poi riportarne l'eventuale presenza o assenza.\par\quad
+Crea la tua solita variabile tmp e scorrila interamente spostandoti dallo stato corrente a quello successivo; aggiungi una condizione per verificare la presenza del ricercato ed infine ritorna il risultato.
+\begin{verbatim}
+int findEl(lista *l1, int n){
+
+    int flag;
+    lista *tmp;
+
+    tmp = (lista*) malloc(sizeof(lista));
+    tmp = l1;
+	
+    for(; tmp; tmp = tmp->next){}          //Scorri la lista
+        if(tmp->a == n){
+            flag = 1;
+        }
+    }
+        
+    return (flag);
+}
+\end{verbatim}
+
+\textbf{- Eliminazione di un elemento della lista}:\par
+La rimozione di un elemento richiede la dichiarazione di tre variabili puntatori lista in una funzione che riceve la lista primaria e l'elemento killer che rimuoverà il nodo.\par\quad
+Scorri la lista; se l'elemento è trovato salvalo in una variabile \textit{canc}, che verrà liberata in seguito, e lega il nodo successivo a quello precedente, così da non lasciare spazi vuoti nella lista. Ritorna infine la tua lista primaria modificata.
+\begin{verbatim}
+lista *rmv(lista *l1, int n){
+
+    lista *curr, *prec, *canc;
+    int found = 0;
+
+    curr = l1;
+    prec = NULL;      
+
+    while(curr && !found){
+        if(curr->a == n){               //Se è presente il killer
+            found = 1;                  //Alza il flag
+            canc = curr;                //Mettilo in canc
+            curr = curr->next;          //Sostituiscilo col successivo     
+            if(prec!=NULL){
+                prec->next = curr;      //Se ci sono ancora elementi, avanza.
+            } else {
+                l1 = curr;              //Hai finito.
+            }
+            free(canc);                 //Libera il nodo
+        } else {                        //Altrimenti scorri
+            prec=curr;
+            curr = curr->next;     
+        }
+    }
+    
+    return l1;
+}
+\end{verbatim}
+
+\textbf{- Visualizzazione dei contenuti della lista}:
+
+\begin{verbatim}
+void visualizza(lista *l1){
+
+    while(l1 != NULL){
+        printf("%d %d", l1->a, l1->b);
+        l1 = l1->next;
+    }
+    printf("\n");  
+}
+\end{verbatim}
+
+\textbf{- Distruzione della lista}:
+
+\begin{verbatim}
+lista *dtr(lista *l1){
+
+    lista *tmp;
+  
+    while(l1 != NULL){
+        tmp = l1;
+        l1 = l1->next;
+        free(tmp);
+    }
+    
+    return NULL;
+}
+\end{verbatim}
+
+%
+
+\section{Esercizi}
+Ex 1: Si scriva un programma che riceve in input una sequenza di numeri dalla lunghezza indefinita che termina con il numero sentinella "-1". I numeri devono essere salvati in un array dinamico e stampati a video senza il sentinella.\par
+Per esempio:\par\quad
+    inputs: 1 5 7 9 4 -1\par\quad 
+    outputs: 1 5 7 9 4\newline
+
+Ex 2: Si scriva un programma che riceva di base un totale di 5 numeri da salvare in un array dinamico. Raggiunta la fine dello spazio, chiede all'utente se vuole aggiungere ulteriori numeri e se sì, quanti. Terminato l'inserimento bisognerà stampare a video l'array come è stato inserito e dopo con i numeri in ordine crescente.\par
+Per esempio:\par\quad
+    inputs: 1 5 7 9 4\par\quad 
+    outputs: 1 5 7 9 4 - 1 4 5 7 9\newline
+
+Ex 3: Si scriva un programma dove vengono letti da tastiera 10 interi e salvati in un array statico. Questi verranno inseriti in un array dinamico insieme alle proprie occorrenze ed infine verrà stampato quest'ultimo vettore. Usare uno struct per l’array dinamico. I numeri possono ripetersi nell'array dinamico, ma bisognerà aggiornare le loro occorrenze. Punti bonus se il programma è scomposto in funzioni.\par
+Per esempio:\par\quad
+    inputs: 1122234451\par\quad 
+    outputs: (1,2) (2,3) (3,1) (4,2) (5,1)(1,1)\newline
+
+Ex 4: Si scriva un programma capace di eseguire tutte le funzioni riguardanti le liste. La scelta della funzione da eseguire si effettua tramite un menu; da scrivere quindi: Inserimento in testa, Inserimento in coda, Ricerca di un elemento, Eliminazione di un elemento, Stampa degli elementi della lista, Distruzione della lista.\newline
+
+Ex 5:\newline
+
+Ex 6: Si scriva un programma che ricevute due sequenze di numeri di lunghezza indefinita che terminano con "-99" (Non incluso nelle sequenze), inserisce la prima nella lista L1 e la seconda in L2. Si crei una terza lista con in ordine crescente tutti i numeri di L1 ed L2, inseriti una sola volta.\par
+Per esempio:\par\quad
+    inputs1: 1 3 2 5 9 9 -99\par\quad
+    inputs2: -1 4 2 7 6 -99\par\quad
+    outputs: -1, 2, 3, 4, 5, 6, 7, 9\newline

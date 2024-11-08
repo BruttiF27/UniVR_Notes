@@ -1,0 +1,231 @@
+\section{Esercizi di base}
+Ex 1:
+
+
+Ex 2:
+
+
+Ex 3:
+
+
+Ex 4:
+
+
+Ex 5:
+
+
+Ex 6:
+\section{Condizioni e cicli}
+Ex 1:
+
+
+Ex 2:
+
+
+Ex 3:
+
+
+Ex 4:
+
+
+Ex 5:
+
+
+Ex 6:
+\section{Vettori e Matrici}
+Ex 1:
+
+
+Ex 2:
+
+
+Ex 3:
+
+
+Ex 4:
+
+
+Ex 5:
+
+
+Ex 6:
+\section{Funzioni e Struct}
+Ex 1:
+
+
+Ex 2:
+
+
+Ex 3:
+
+
+Ex 4:
+
+
+Ex 5:
+
+
+Ex 6:
+\section{Stringhe e Puntatori}
+Ex 1:
+
+
+Ex 2:
+
+
+Ex 3:
+
+
+Ex 4:
+
+
+Ex 5:
+
+
+Ex 6:
+\section{Memoria dinamica e Liste}
+Ex 1: Si scriva un programma che riceve in input una sequenza di numeri dalla lunghezza indefinita che termina con il numero sentinella ”-1”. I numeri devono essere salvati in un array dinamico e stampati a video senza il sentinella.\par
+Per esempio:\par\quad
+    inputs: 1 5 7 9 4 -1\par\quad 
+    outputs: 1 5 7 9 4
+\begin{verbatim}
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(){
+
+    int *a;
+    int n, j, i = 0;
+
+    //Alloco lo spazio per un int.
+    a = (int*) malloc(sizeof(int));
+
+    //Failproof per sicurezza.
+    if(a == NULL){
+        printf("Memoria non allocata\n");
+    } else {
+        do {
+            scanf("%d", &n);
+			
+            if(n != -1) {
+                a[i] = n;
+                i++;
+
+                //Riallocazione di memoria. È posta dopo i dati già ricevuti.
+                a = (int*) realloc(a, i + i * sizeof(int));
+				
+                if(!a){
+                    printf("Riallocazione fallita\n");
+                    n = -1;
+                }
+            }
+        } while(n != -1);
+		
+        j = i;
+    }
+	
+    printf("Array inserito: ");
+    for(i = 0; i < j; i++){
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+
+    //Liberazione della memoria utilizzata.
+    free(a);
+    a = NULL;
+	
+    return 0;
+}
+\end{verbatim}
+
+Ex 2:
+
+
+Ex 3: Si scriva un programma dove vengono letti da tastiera 10 interi e salvati in un array statico. Questi verranno inseriti in un array dinamico insieme alle proprie occorrenze ed infine verrà stampato quest'ultimo vettore. Usare uno struct per l’array dinamico. I numeri possono ripetersi nell'array dinamico, ma bisognerà aggiornare le loro occorrenze. Punti bonus se il programma è scomposto in funzioni.\par
+Per esempio:\par\quad
+    inputs: 1122234451\par\quad 
+    outputs: (1,2) (2,3) (3,1) (4,2) (5,1) (1,1)
+\begin{verbatim}
+#include<stdio.h>
+#include<stdlib.h>
+
+#define N 10
+
+typedef struct{
+	int num;
+	int occ;
+}data;
+
+void writeArray(int *);
+
+int main(){
+
+    int stc[N];
+	
+    printf("Inserire 10 valori: ");
+    for(int i = 0; i < N; i++){
+        scanf("%d", &stc[i]);
+    }
+	
+    //Void allo scopo di mantenere il main pulito
+    writeArray(stc);
+	
+    return 0;
+}
+
+void writeArray(int *stc){
+
+    int i = 0;
+    int j = 0;
+    int count = 1;
+    int tmp, size;
+    data *dynamic;
+	
+    dynamic = (data*) malloc(sizeof(data));
+	
+    if(dynamic == NULL){
+        printf("Errore in allocazione memoria\n");
+    }
+	
+    for(i = 0; i < N; i++){
+    /*tmp serve a salvare i numeri. Siccome non è inizializzato, sarà sempre
+    diverso dal primo numero.*/
+        if(tmp != stc[i]) {
+            tmp = stc[i];
+        }
+        //Guarda una posizione avanti. Se uguale aumenta le occorrenze di 1.
+        if(stc[i] == stc[i+1]) {
+            count++;
+        /*Se entra in else alla prossima lettura il numero è diverso.
+        Salviamo quello corrente e le occorrenze nell'array dinamico.*/
+        } else {
+            dynamic[j].num = tmp;
+            dynamic[j].occ = count;
+            j++;
+			
+            count = 1;
+        }
+        size = j;
+		
+        /*Riallocazione della memoria perché altrimenti esplode.
+        Nel senso, non avrebbe abbastanza spazio per 10 numeri.*/
+        dynamic = (data*) realloc(dynamic, size + size * sizeof(data));
+    }
+	
+    printf("Array dinamico: ");
+    for(int j = 0; j < size; j++){
+        printf("(%d, %d) ", dynamic[j].num, dynamic[j].occ);
+    }
+    printf("\n");
+	
+    free(dynamic);
+    dynamic = NULL;
+}
+\end{verbatim}
+Ex 4:
+
+
+Ex 5:
+
+
+Ex 6:

@@ -1,0 +1,109 @@
+\section{Che cos'è la logica matematica?}
+La \textbf{Logica Matematica} ha lo scopo di formalizzare concetti matematici in una lingua artificiale, per dare una certezza di significato al linguaggio naturale, il quale risulterebbe ambiguo. Similmente a quest'ultimo, anche i linguaggi della logica si compongono di grammatica, significato e regole, identificati rispettivamente in:
+\begin{itemize}
+    \item \textbf{Sintassi}: Definisce la corretta scrittura delle formule logiche.
+    \item \textbf{Semantica}: Definisce il significato delle formule logiche.
+    \item \textbf{Sistemi Deduttivi}: Strumenti sintattici utili a manipolare formule e costruire dimostrazioni, dette derivazioni.
+\end{itemize}
+Abbiamo quindi un insieme di parole da assemblare (sintassi) che con diverse combinazioni possono creare sentenze dai diversi significati (semantica) ed il tutto segue un determinato insieme di regole (sistemi deduttivi). Tutto ciò consente di creare teoremi, anch'essi composti da più parti:
+\begin{itemize}
+    \item \textbf{Enunciato}; Ciò che il teorema vuole esprimere.
+    \item \textbf{Dimostrazione}; La prova formalizzata di quanto espresso.
+\end{itemize}
+Sarà nostro compito dimostrare gli enunciati in base alle richieste degli esercizi.
+
+%
+
+\section{Connettivi e Quantificatori}
+Qui sono elencati tutti i connettivi e i quantificatori utilizzati nel corso, con lo scopo di familiarizzare con loro a prescindere da quando verranno o meno utilizzati.\par
+\textbf{Connettivi}:
+\begin{itemize}
+    \item \textbf{Congiunzione} $\land$: Ritorna vero solo se tutti gli elementi sono veri.
+    \item \textbf{Disgiunzione} $\lor$: Ritorna vero se almeno un elemento è vero.
+    \item \textbf{Negazione} $\neg$: Rende falso il vero e viceversa.
+    \item \textbf{Implicazione} $\Longrightarrow$: Corrisponde a "Se, allora", ritorna vero nei casi $0 \to 1$ oppure $1 \to 1$, mentre è falso se $1 \to 0$ oppure $0 \to 0$.
+    \item \textbf{Doppia Implicazione} $\iff$: Corrisponde a "se e solo se, allora" e si rappresenta tramite due implicazioni: $(\phi \to \psi) \land (\psi \to \phi)$.
+    \item \textbf{Bottom} $\bot$: Indica il valore di assurdo, $0$.
+    \item \textbf{Top} $\top$: Indica il valore di verità, $1$.
+\end{itemize}
+\textbf{Quantificatori}:
+\begin{itemize}
+    \item \textbf{Esiste} $\exists$: Indica l'esistenza di un elemento con una determinata proprietà.
+    \item \textbf{Per ogni} $\forall$: indica che per ogni caso considerato, esiste un elemento con una data proprietà.
+\end{itemize}
+
+%----- Da finire -----
+
+\section{Strumenti di lavoro}
+Introduciamo in linguaggio naturale il funzionamento di tutti i nostri strumenti e strategie che utilizzeremo per la dimostrazione dei teoremi:
+\begin{itemize}
+    \item \textbf{Induzione Strutturale}
+    \item \textbf{Ricorsione Primitiva}
+    \item \textbf{Deduzione Naturale}: Processo di dimostrazione di una data formula a partire da delle ipotesi.
+    \item \textbf{Tabella di Verità}: Tabella che mostra ogni singolo caso presentabile per un determinato enunciato.
+    \item \textbf{Valutazione di Verità}: Nella semantica, il processo di verifica della veridicità di una formula, esaminando il risultato di ogni singola formula presente nell'enunciato.
+    \item \textbf{Sostituzione}
+    \item \textbf{Modello}
+    \item \textbf{Contromodello}
+\end{itemize}
+
+%
+
+\section{Domande di Teoria}
+
+%
+
+
+
+%Se serve, questo è per inquadrare i teoremi. \begin{theorem}
+%    Here goes a theorem.   
+%\end{theorem}
+
+%E questo è per la prova conseguente.\begin{proof}
+%        Here goes the proof
+%\end{proof}
+
+%\begin{corollary}
+%    Here goes a collorary
+%\end{corollary}
+
+%\begin{eg}
+%    Here goes an example
+%\end{eg}
+
+%\begin{note}
+%    Here goes a note 
+%\end{note}
+
+%\begin{lemma}
+%    Here goes a lemma
+%\end{lemma}
+
+%\begin{prop}
+%    Here goes a proposition
+%\end{prop}
+
+%\begin{definition}
+%    Here goes a definition 
+%\end{definition}
+
+\section{Appunti da rielaborare}
+Abbiamo a disposizione diverse strategie e strumenti che verranno elencati come segue:\newline
+
+\textbf{- Principio di induzione}\par
+Il principio di induzione matematica è utilizzato per dimostrare sequenze di numeri interi e relative proprietà. Si basa su due passi: 
+\begin{itemize}
+    \item Passo base; Prova la veridicità di un evento in un caso iniziale semplice.
+    \item Passo induttivo; Prova con un determinato valore incognito n, e quindi in qualunque altro caso, l'evento. 
+\end{itemize}
+Gli elementi di lavoro in questo caso sono numeri interi non negativi. Un esempio di dimostrazione induttiva è la disequazione di Bernoulli, che probabilmente avrai visto in analisi.\newline
+
+\textbf{- Sentenze}\par
+Sono le combinazioni dei singoli elementi dell'alfabeto ed equivalgono alle proposizioni in lingua vera e possono assumere solamente due valori: vero o falso. Ne esistono di due tipi:\begin{itemize}
+    \item \textit{Minimale}; Quando non si può scomporre ulteriormente.
+    \item \textit{Composta}; Quando è composta da più sentenze minimali, ed è quindi scomponibile.
+\end{itemize}
+Il processo di formalizzazione logica si divide in due passi; l'utilizzo di un linguaggio apposito che utilizza solo proposizioni ad-hoc e specificare una procedura che permetta di ottenere solo risultati veri o falsi.\newline
+
+\textbf{- Segnature}\par
+Le segnature servono a mostrare gli elementi di lavoro di un determinato insieme; ovvero quali sono i simboli, i connettivi e quanti sono.\newline

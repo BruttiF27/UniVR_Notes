@@ -1,0 +1,204 @@
+\section{Numeri immaginari e operazioni in \C}
+Il campo di lavoro dell'Algebra Lineare si espande anche nell'insieme numerico \C, ovvero quello dei numeri complessi ed il più grande fra tutti. Qui introduciamo le \textbf{unità immaginarie} $i$, grazie alle quali è possibile scrivere orrori Lovecraftiani come $i^2 = -1$, che potrà essere sempre sostituito a -1, dovessi trovarlo nei tuoi calcoli.\par
+Ci è quindi possibile ottenere qualunque numero in qualunque situazione e da qui, infatti, il seguente teorema.
+\begin{theorem}
+    \textbf{Teorema Fondamentale dell'Algebra}\par
+    Un'equazione polinomiale di grado n della forma $a_0 + a_1z + ... + a_nz = 0$, dove $a_n ≠ 0$, ammette \textit{n} soluzioni nell'insieme \C
+\end{theorem}
+Passiamo ordunque alle operazioni dell'insieme numerico. Oltre alle quattro elementari, sarà ancora possibile utilizzare potenze, radici e anche coordinate. In tutti gli esempi seguenti vale la scrittura $z_1 = (a + bi), z_2 = (c + di)$.
+\begin{itemize}
+    \item \textit{Addizione}: Raccogli \textit{i} e somma tutto il resto.
+    \begin{eg}
+        $z_1 + z_2 = (a + bi) + (c + di) = (a + c) + (b + d)i$\par
+        $(6 + 7i) + (-12 + 17i) = (6 - 12) + (7 + 17)i = -6 + 24i$
+    \end{eg}
+    \item \textit{Sottrazione}: Non dissimile dall'addizione, al sottraendo si negheranno gli elementi.
+    \begin{eg}
+        $z_1 - z_2 = (a + bi) + (-c -di) = (a - c) + (b - d)i$
+    \end{eg}
+    \item \textit{Moltiplicazione}: La classica moltiplicazione fra polinomi.
+    \begin{eg}
+        $z_1 × z_2 = (a + bi)(c + di) = ac + adi + bci + bdi^2 = (ac - bd) + (ad + bc)i$
+    \end{eg}
+    \item \textit{Divisione}: Una razionalizzazione, in sintesi.
+    \begin{eg}
+        $\frac{1 + 2i}{2 - i} = \frac{1 + 2i}{2 - i} \times \frac{2 - i}{2 - i} = \frac{2 + i + 4i + 2i^2}{4 + 2i - 2i - i^2} = \frac{8i}{8} = i$
+    \end{eg}
+\end{itemize}
+Altri casi particolari di numeri sono:
+\begin{itemize}
+    \item \textit{Opposto}: Si dice tale quando sommato algebricamente ad un altro numero riporta 0 come risultato. $z_1 + z_2 = 0$
+    \item \textit{Coniugato}: Il numero complesso avente la stessa parte reale e parte immaginaria di segno opposto rispetto a \textit{z}. $z = a + bi, \overline{z} = a - bi$
+    \item \textit{Modulo}: Il numero \textit{z} maggiore di 0 che vale $|z| = \sqrt{a^2+b^2}$
+\end{itemize}
+\begin{note}
+    Seguono ora le relative proprietà di quanto appena visto:
+\begin{itemize}
+    \item $z_1 \times \overline{z_1} = a^2 + b^2 = |z_1|^2$
+    \item $\overline{z_1 + z_2} = (a + c) - (b + d)i$
+    \item $\overline{z_1 \times z_2} = \overline{z_1} \times \overline{z_2}$
+    \item $\frac{\overline{1}}{z_1} = \frac{1}{\overline{z_1}}, z \neq 0$
+    \item $\frac{\overline{z_1}}{\overline{z_2}} = \overline{z \times \frac{1}{z_2}} = \overline{z_1} \times \frac{1}{z_2} = \overline{z_1} \times \frac{1}{\overline{z_2}}, z_2 \neq 0$
+    \item $\frac{1}{z_1} = \frac{a - bi}{a^2 + b^2} = \frac{\overline{z_1}}{|z_2|^2}$ 
+\end{itemize}
+\end{note} 
+Osserviamo ora che per ogni numero complesso, quando messo su un piano di riferimento, le sue coordinate (a, b) rappresentano parte reale \textit{a} e parte immaginaria \textit{b}. Ci è quindi possibile lavorare sulle \textbf{coordinate polari} attraverso le formule trigonometriche.
+
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+\includegraphics[width=1\linewidth]{Images/polCoord.png}
+\caption{\label{fig:graph} Grafico delle coordinate polari}
+\end{figure}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+\begin{itemize}
+    \item r = lunghezza del segmento $\overline{oz}$, ovvero il \textit{raggio polare}.
+    \item $\alpha$ = ampiezza dell'angolo.
+    \item o = Origine del grafico.
+\end{itemize}
+\end{minipage}
+
+%
+
+\section{Forme dei Numeri Complessi}
+Possiamo ottenere la forma trigonometrica di un numero complesso attraverso la coppia delle coordinate. Per facilitare la comprensione è consigliato guardare il piano di lavoro.
+
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+\includegraphics[width=1\linewidth]{Images/graphPos.png}
+\caption{\label{fig:graph} Valori nel piano cartesiano}
+\end{figure}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+Queste sono le \textbf{forme trigonometriche}; tuttavia a noi serve la forma algebrica, ottenibile utilizzando seno e coseno, ovvero:\par
+$sin(\alpha) = \frac{b}{r}$, $cos(\alpha) = \frac{a}{r}$\par
+$z = (rcos(\alpha)) + (rsin(\alpha))i = r(cos(\alpha) + isin(\alpha))$
+\begin{itemize}
+    \item $z_1 = (1, 0) = 1$ -> $cos(0) + isin(0)$
+    \item $z_2 = (1, \frac{\pi}{2}) = i$ -> $cos(\frac{\pi}{2}) + isin(\frac{\pi}{2})$
+    \item $z_3 = (1, \pi) = -1$ -> $cos(\pi) + isin(\pi)$
+    \item $z_4 = (1, \frac{3}{2}\pi) = -i$ -> $cos(\frac{3}{2}\pi) + isin(\frac{3}{2}\pi)$
+\end{itemize}
+\end{minipage}
+Similmente al comportamento delle funzioni trigonometriche, per moltiplicare due forme trigonometriche si utilizza la formula di duplicazione.
+\begin{eg}
+    $z_1 = r(cos(\alpha) + isin(\alpha))$, $z_2 = s(cos(\beta) + isin(\beta))$\par
+    $z_1 \times z_2 = r \times s(cos(\alpha) + isin(\alpha))(cos(\beta) + isin(\beta))$\par\quad\quad\quad
+    $= r \times s [(cos(\alpha)cos(\beta) - sin(\alpha)sin(\beta)) + (cos(\alpha)sin(\beta) + sin(\alpha)cos(\beta)i]$\par\quad\quad\quad
+    $= r \times s[cos(\alpha + \beta) + sin(\alpha + \beta)i]$
+\end{eg}
+
+%
+
+\section{Formula di De Moivre e radici n-esime}
+Oltre alle quattro operazioni elementari ci è possibile lavorare anche con potenze e radici. 
+\begin{theorem}
+    \textbf{Formula di De Moivre}\par
+    Consente di calcolare la potenza di un numero complesso espresso in forma trigonometrica o esponenziale.
+\end{theorem}
+\begin{eg}
+    $z = r(cos(\alpha) + isin(\alpha)) \in \C, n \in \N.$\par
+    $z^n = r^n[cos(n \times \alpha) + isin(n \times \alpha)]$\newline
+    
+    $z = \sqrt{3}+i$\par
+    $z = 2[cos(\frac{\pi}{6}) + isin(\frac{\pi}{6})] = z^6 = 2^6[cos(\pi) + isin(\pi)] = 2^6[-1 +i \times 0] = 2^6 \times -1 = -64$
+\end{eg}
+Si dicono invece radici n-esime di \textit{y} le soluzioni dell'equazione $x^n = y$, dove $y \in\C, n \in\N$. Esisteranno poi \textit{n} radici n-esime complesse $z_0, z_1, ..., z_n$ di \textit{y}. Verranno utilizzati come dati l'ampiezza $\alpha$ dell'angolo, il valore $2\pi$ per le radianti ed un numero \textit{k} per consentire di "coprire" ogni posizione della circonferenza nel piano; in pratica segna l'istanza di un determinato punto. Si scrivono come segue:\par
+Se $y = r(cos(\alpha) + isin(\alpha)$, allora per $k = 0, 1, ..., n-1$ vale la seguente scrittura:\par
+$z_n = \sqrt[n]{r} [cos(\frac{\alpha+k2\pi}{n}) + isin(\frac{\alpha+k2\pi}{n})$
+
+Essendo inoltre nell'insieme \C, possono esistere anche le radici quadrate dei numeri negativi, come è anche possibile utilizzare la formula quadratica per trovare le soluzioni.
+
+\begin{theorem}
+    \textbf{Teorema delle Radici complesse}\par
+    Sia $a \in\R$ tale che \textit{a} < 0; esisteranno precisamente due radici quadrate di \textit{a} in \C.
+\end{theorem}
+
+\begin{minipage}{0.5\textwidth}
+\begin{figure}[H]
+\includegraphics[width=1\linewidth]{Images/radCompl.png}
+\caption{\label{fig:graph} Piano del segmento $\overline{ao}$}
+\end{figure}
+\end{minipage}\hfill
+\begin{minipage}{0.5\textwidth}
+Il segmento $\overline{ao}$ svolge la medesima funzione di \textit{r} ed in questo caso vale: $a = (-a)(cos(\pi)+isin(\pi))$\par
+E grazie al teorema delle radici otteniamo le due soluzioni desiderate:
+\begin{itemize}
+    \item $z_0 = \sqrt{-a}(cos(\frac{\pi}{2}) + isin(\frac{\pi}{2}) = i\sqrt{-a}$
+    \item $z_1 = \sqrt{-a}(cos(\frac{3}{2}\pi) + isin(\frac{3}{2}\pi) = -i\sqrt{a}$
+\end{itemize}
+\end{minipage}
+
+%
+
+\section{Esercizi}
+\begin{enumerate}
+    \item \textbf{Che cos'è un numero complesso? Qual è il suo insieme di definizione e quali elementi ha in più rispetto all'insieme R?}\par\quad
+    Per numero complesso si intende un dato valore \textit{i} chiamato \textbf{Unità immaginaria}. Consente di ottenere risultati che in R risulterebbero impossibili. Detiene la seguente proprietà: $(0,1) \times (1,0) = (-1,0)$, la quale dona la dinamica principale dell'insieme dei complessi: $i^2 = -1$.\par\quad
+    L'insieme di definizione dei numeri complessi C è un sovrainsieme di R.
+    \item \textbf{Che forme possono assumere i numeri complessi e in che modo si ottengono?}\par\quad
+    I numeri complessi possono assumere una \textbf{forma algebrica} ed una \textbf{forma trigonometrica}. La prima risulta utile quando bisogna effettuare calcoli letterali. Si scrive $z = a + bi$ e usa le seguenti formule:
+    \begin{itemize}
+        \item $(a + bi) + (c + di) = (a + c) + i(b + d)$.
+        \item $(a + bi) \times (c + di) = (ac - bd) + i(ad + bc)$.
+    \end{itemize}
+    Per quanto riguarda la seconda forma, i punti del piano sono identificabili con coordinate cartesiane e polari. In merito alle seconde:
+    \begin{itemize}
+        \item \textbf{Raggio polare}; Semiretta ottenuta tracciando una linea da un dato punto fino all'origine.
+        \item \textbf{Angolo polare}; Angolo la cui ampiezza è ottenuta tracciando un semicerchio partendo dall'asse positivo e terminando sul punto.
+    \end{itemize}
+    Si scrive $z = \rho(a + bi)$, dove:
+    \begin{itemize}
+        \item $a = cos(\Theta)$.
+        \item $b = sin(\Theta)$.
+    \end{itemize}
+    \item \textbf{Cosa si intende per coniugato e modulo di un numero complesso?}
+    \begin{itemize}
+        \item Coniugato di z; $\overline{z} = a - bi$
+        \item Modulo di z; $|z| = \sqrt{a^2 + b^2}$
+    \end{itemize}
+    \item \textbf{Enunciare la formula di De Moivre.}\par\quad
+    La formula di De Moivre consente di ottenere la potenza di un numero complesso espresso in forma trigonometrica. $z^n = r^n(cos(n\times\alpha) + isin(n\times\alpha))$.
+    \item \textbf{Cosa si intende per radici n-esime?}\par\quad
+    Dato un numero complesso \textit{y}, esistono n radici n-esime complesse $z_0, z_1, ..., z_n$ di y. Inoltre, se in forma trigonometrica, le radici si presenteranno nella seguente forma per $k = 0, ..., n-1$: $z_k = \sqrt[n]{r} \times (cos(\frac{\alpha + k2\pi}{n}) + isin(\frac{\alpha + k2\pi}{n}))$
+    \item \textbf{Enunciare il teorema fondamentale dell'algebra.}\par\quad
+    Dato un qualsiasi polinomio $p(x)$ a coefficienti complessi di grado maggiore o uguale a 1, avrà almeno una radice complessa. Il polinomio è di forma:\par$p(x) = a_nx^n + a_{n-1}x^{n-1} + ... + a_2x^2 + a_1x + a_0$, con $n \geq 1$.
+\end{enumerate}
+
+%\begin{theorem}
+%    Here goes a theorem.
+%\end{theorem}
+
+%\begin{proof}
+%        Here goes the proof
+%\end{proof}
+
+%\begin{corollary}
+%    Here goes a collorary
+%\end{corollary}
+
+%\begin{eg}
+ %   Here goes an example
+%\end{eg}
+
+%\begin{note}
+%    Here goes a note 
+%\end{note}
+
+%\begin{lemma}
+ %   Here goes a lemma
+%\end{lemma}
+
+%\begin{prop}
+ %   Here goes a proposition
+%\end{prop}
+
+%\begin{definition}
+ %   Here goes a definition 
+
+ %\end{definition}
+
+%\begin{pmatrix}
+ %  1 & 2 & 3\\
+ %   a & b & c
+%\end{pmatrix}

@@ -1,0 +1,53 @@
+\documentclass[12pt,a4paper]{book} 
+\input{Configs/Configs}
+
+\begin{document}
+\renewcommand{\contentsname}{\vspace{0cm} Indice \vspace{-2cm}}
+
+\begin{titlepage}
+\vspace*{2cm}
+
+\noindent
+\vspace*{0.5cm}
+\titlefont{Algebra e\par Matematica di Base}
+
+\vspace{1.5cm}
+\epigraph{Corso di Laurea in Informatica - Università degli Studi di Verona}%
+{ \textsc{Federico Brutti}}
+\null\vfill
+\vspace*{1cm}
+\noindent
+\hfill
+\begin{minipage}{0.7\linewidth}
+    \begin{flushright}
+        \printauthor
+    \end{flushright}
+\end{minipage}
+%
+\begin{minipage}{0.02\linewidth}
+    \rule{1pt}{70pt}
+\end{minipage}
+\titlepagedecoration
+\end{titlepage}
+
+\let\cleardoublepage=\clearpage
+\tableofcontents
+\blankpage
+
+\chapter{Insiemi}
+\input{Chapters/1}
+\newpage
+\chapter{Relazioni e Funzioni}
+\input{Chapters/2}
+\newpage
+\chapter{Numeri Naturali}
+\input{Chapters/3}
+\newpage
+\chapter{Cardinalità}
+\input{Chapters/4}
+\newpage
+\chapter{Strutture Algebriche}
+\input{Chapters/5}
+\newpage
+
+\end{document}

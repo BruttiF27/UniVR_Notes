@@ -3,24 +3,172 @@ Onestamente non ho la benché minima idea di cosa tratti matematica di base; tut
     \textbf{Insieme}\par
     Gruppo di elementi aventi una stessa proprietà. Si indica con una lettera maiuscola.
 \end{definition}
-Pare ovvio che con questi insiemi sia possibile operare in qualche modo; introduciamo dunque tutte le varie possibilità insieme alle loro proprietà.
+Pare ovvio che con questi insiemi sia possibile operare in qualche modo; per prima cosa elenchiamo i simboli utilizzati nel corso:\par
+\textbf{Connettivi}:
+\begin{itemize}
+    \item \textbf{Congiunzione}: $\land$\par
+    Ritorna vero solo se tutti gli elementi sono veri.
+    \item \textbf{Disgiunzione}: $\lor$\par
+    Ritorna vero se almeno un elemento è vero.
+    \item \textbf{Negazione}: $\neg$\par
+    Rende falso il vero e viceversa.
+    \item \textbf{Implicazione}: $\implies$\par
+    Corrisponde a "Se, allora", ritorna vero nei casi $0 \to 1$ oppure $1 \to 1$, mentre è falso se $1 \to 0$ oppure $0 \to 0$.
+    \item \textbf{Doppia Implicazione}: $\iff$\par
+    Corrisponde a "se e solo se, allora" e viene rappresentata mediante due implicazioni: $(\phi \to \psi) \land (\psi \to \phi)$.
+    \item \textbf{Bottom}: $\bot$\par
+    Indica il valore di assurdo, $0$.
+    \item \textbf{Top}: $\top$\par
+    Indica il valore di verità, $1$.
+\end{itemize}
+\textbf{Quantificatori}:
+\begin{itemize}
+    \item \textbf{Esiste}: $\exists$\par
+    Indica l'esistenza di un elemento con una determinata proprietà.
+    \item \textbf{Per ogni}: $\forall$\par
+    Indica che per ogni caso considerato, esiste un elemento con una data proprietà.
+\end{itemize}
+Ed ora introduciamo tutte le varie operazioni insieme alle loro proprietà.
 
 \section{Operazioni fra gli insiemi}
+Distinguiamo inizialmente i due casi in cui è possibile operare con gli insiemi:
 \begin{itemize}
-    \item \textbf{Appartenenza, contenimento e sottoinsieme}
-    \item \textbf{Unione}
-    \item \textbf{Intersezione}
-    \item \textbf{Differenza}
-    \item \textbf{Insieme Potenza}
-    \item \textbf{Prodotto cartesiano}
-    \item \textbf{Insieme delle parti}
-    \item \textbf{Complementare di un insieme}
-    \item \textbf{Generalizzazione di operazioni}
+    \item \textbf{Coppie}, collezioni di oggetti dove è possibile distinguere il primo elemento dal secondo. Si distinguono in:
+    \begin{itemize}
+        \item \textbf{Ordinate}: $(A, B) = \{\{x\}, \{x, y\}\}$\par
+        Insieme dove gli elementi sono legati da una determinata relazione di ordinamento.
+        \item \textbf{Non ordinate}: $(A, B) = (B, A)$\par
+        Gli insiemi di questo tipo saranno sempre uguali se contengono gli stessi identici elementi, a prescindere dall'ordine in cui sono scritti.
+    \end{itemize}
+    \item \textbf{N-uple}, dove sono presenti più di due insiemi, trattato più avanti.
+\end{itemize}
+Ed ora possiamo iniziare con le operazioni effettive:
+\begin{itemize}
+    \item \textbf{Appartenenza, contenimento e sottoinsieme}\par
+    Diciamo che un elemento $x$ appartiene ad un insieme $A$ quando rispetta i criteri per farne parte, come avere una determinata proprietà o caratteristica.
+    \begin{definition}
+        \textbf{Appartenenza e non appartenenza}\par
+        Data una proprietà $P$ requisito per far parte dell'insieme $A$, definiamo formalmente:
+        \begin{itemize}
+            \item \textbf{Appartenenza}: $x \in A$, $A = \{x | P(x)\}$\par
+            All'insieme $A$ appartiene l'elemento $x$ tale che $x$ abbia una data proprietà P.
+            \item \textbf{Non appartenenza}: $y \notin A$\par
+            All'insieme $A$ non appartiene $y$.
+        \end{itemize}
+    \end{definition}
+    Diremo poi che un insieme $B$ è sottoinsieme di $A$ quando il primo è interamente contenuto nel secondo. Ciò non necessariamente significa che sia uguale, tuttavia.
+    \begin{definition}
+        \textbf{Sottoinsiemi}\par
+        Dati due insiemi $A$ e $B$ diremo che $B$ possiamo avere i seguenti casi:
+        \begin{itemize}
+            \item \textbf{Sottoinsieme Improprio}: $B \subseteq A$, $\forall x.(x \in A \implies x \in B)$\par
+            Quando ogni elemento appartiene a $B$, appartiene anche ad $A$.
+            \item \textbf{Uguaglianza}: $A = B$, $\forall x.(x \in A \iff x \in B)$\par
+            Quando due insiemi sono perfettamente uguali.
+            \item \textbf{Sottoinsieme Proprio}: $B \subset A$\par
+            Quando tutti gli elementi di $B$ appartengono ad $A$ e $A \neq B$.
+        \end{itemize}
+    \end{definition}
+    Abbiamo infine l'elemento neutro, detto \textbf{Insieme Vuoto}, scritto con $A = \emptyset$, il quale indica un insieme privo di elementi.
+    \item \textbf{Unione}\par
+    L'unione fra due insiemi risulta come un terzo insieme contenente gli elementi di entrambi. Formalmente:
+    \begin{definition}
+        \textbf{Unione} $A \cup B = \{a | a \in A \lor a \in B\} = C$\par
+        Unisce gli elementi di $A$ a quelli di $B$ per creare un nuovo insieme $C$ che contiene tutti gli elementi dei primi due senza ripetizioni. Detiene inoltre le seguenti proprietà:
+        \begin{itemize}
+            \item $A \cup \emptyset = \emptyset$
+            \item $(A \cup B) = (B \cup A)$
+            \item $(A \cup B \cup C) = (A \cup B) \cup C$
+            \item $A \cup A$
+            \item $A \subseteq C \land B \subseteq C = A \cup B \subseteq C$
+            \item $A \subseteq C \iff A \cup Z = C$
+        \end{itemize}
+    \end{definition}
+    \item \textbf{Intersezione}\par
+    L'intersezione prende solamente gli elementi comuni ad $A$ e $B$.
+    \begin{definition}
+        \textbf{Intersezione} $A \cap B = \{x|x \in A \land x \in B\}$\par
+        Dati due insiemi $A,B$, crea un insieme $C$ che contiene esclusivamente gli elementi comuni ai primi due. Detiene le seguenti proprietà:
+        \begin{itemize}
+            \item $A \cap \emptyset = \emptyset$
+            \item $A \cap B = B \cap A$
+            \item $A \cap (B \cap C) = (A \cap C) \cap C$
+            \item $A \cap A = A$
+            \item $C \subseteq A \land C \subseteq B \implies C \subseteq A \cap B$
+            \item $A \subseteq B \iff A \cap B = A$
+            \item $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
+        \end{itemize}
+    \end{definition}
+    \item \textbf{Differenza}\par
+    La differenza fra insiemi sottrae gli elementi di $B$ a quelli di $A$.
+    \begin{definition}
+        \textbf{Differenza} $A \setminus B = \{x|x \in A \land  x \notin B$\}\par
+        Dati due insiemi $A,B$, l'operazione differenza sottrae tutti gli elementi di $B$ a quelli di $A$. Nel caso in cui gli insiemi non abbiano elementi in comune, l'operazione non avrà effetto. Detiene le seguenti proprietà:
+        \begin{itemize}
+            \item $A \setminus \emptyset = A$
+            \item $A \setminus A = \emptyset$
+            \item $(A \setminus B) \cap B = \emptyset$
+            \item $(A \setminus B) \cup A = A$
+            \item $A \cup B = (A \setminus B) \cup (A \cap B) \cup (B \setminus A)$
+        \end{itemize}
+    \end{definition}
+    Un'altra operazione molto utile sempre in questo senso è la \textbf{Differenza Simmetrica}, la quale permette di ricavare esclusivamente gli elementi unici da due insiemi.
+    \begin{definition}
+        \textbf{Differenza Simmetrica} $A \triangle B = (A \setminus B) \cup (B \setminus A)$\par
+        Dati due insiemi $A, B$, la differenza simmetrica effettua un'unione fra la differenza $A\setminus B$ e $B\setminus A$, con lo scopo di ottenere Tutti gli elementi appartenenti ai due insiemi che non sono ripetuti. Detiene le seguenti proprietà:
+        \begin{itemize}
+            \item $A \triangle B = (A \cup B) \setminus (A \cap B)$
+            \item $A \triangle B = B \triangle A$
+            \item $(A \triangle B) \triangle C = A \triangle (B \triangle C)$
+            \item $A \cap (B \triangle C) = (A \cap B) \triangle (A \cap C)$
+            \item $A \triangle \emptyset = A$
+            \item $A \triangle A = \emptyset$
+            \item $(A \triangle B) \cap C = (A \cap C) \triangle (B \cap C)$
+        \end{itemize}
+    \end{definition}
+    \item \textbf{Insieme Potenza}\par
+    INFORMATI IN MERITO
+    \item \textbf{Generalizzazione di operazioni}  \par
+    INFORMATI IN MERITO
 \end{itemize}
 
 \subsection{Leggi di De Morgan}
+
+%
+
 \section{Relazioni fra insiemi}
+INSERISCI DEFINIZIONE DI RELAZIONE FRA INSIEMI
+\begin{itemize}
+    \item \textbf{Prodotto cartesiano}\par
+    Il Prodotto Cartesiano è una relazione fra due insiemi dove a partire dagli elementi di $A$, crea tutte le coppie possibili con gli elementi di $B$. Giuro è più semplice a vederlo.
+
+    \begin{definition}
+        \textbf{Prodotto Cartesiano} $A \times B = \{(x,y)| x \in A \land y \in B\}$\par
+        Dati due insiemi $A,B$, si definisce il loro prodotto cartesiano l'insieme di tutte le coppie ordinate di elementi, indicati da $(a, b)$, tali che il primo elemento a della coppia appartenga all'insieme A e il secondo elemento b della coppia appartenga all'insieme B.
+    \end{definition}
+
+    \begin{eg}
+        \textbf{Calcolo di un prodotto cartesiano}\par
+        \begin{center}
+            $A = {1, 2}$, $B = {3, 4}$\par
+            $A \times B = C = {(1,3), (1,4), (2,3), (2,4)}$
+        \end{center}
+    \end{eg}
+
+    CONTINUA DA QUA
+    
+    \item \textbf{Insieme delle parti}
+    \item \textbf{Insieme complementare}
+    \item \textbf{Relazione inversa}
+    \item \textbf{Composizione}
+    \item \textbf{Relazione chiusa}
+\end{itemize}
+
+%
+
 \section{Principi di dimostrazione}
+Il processo di dimostrazione matematica è un algoritmo deduttivo utilizzato per provare la verità di ipotesi arbitrarie basandosi sul ragionamento logico. Un metodo frequentemente utilizzato è la \textbf{Dimostrazione per assurdo}, dove si parte dal presupposto che la tesi sia falsa. Se si riesce a concludere il processo senza incappare in contraddizioni, hai provato che la tesi è falsa, altrimenti è vera.\par\quad
+Ho l'impressione che qui manchino un pò di cose.
 
 \section{Domande di teoria}
 

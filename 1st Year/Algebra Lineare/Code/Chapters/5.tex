@@ -1,6 +1,117 @@
-\section{Definizioni del merito}
-\section{Base di una Matrice}
-Almeno credo sia di una matrice, il titolo è un placeholder. In ogni caso comprende base come sistema di coordinate e di forma ridotta, ulteriori considerazioni sulla base e teorema di esistenza della base.
-\section{Teorema di Steinitz}
-\section{Definizione e Corollario di Dimensione}
+\section{Definizione e calcolo}
+Il \textbf{Determinante} di una matrice è un numero utile per la descrizione di alcune proprietà algebriche e e geometriche della stessa. Si ottiene di base in questi tre modi:
+\begin{definition}
+    \textbf{Calcolo del determinante di una matrice}\par
+    Chiariamo che serve necessariamente avere una matrice quadrata, dove $n$ indica il numero di righe o colonne.
+    \begin{itemize}
+        \item Se $n = 1$, la matrice avrà una singola entrata.\par
+        $A = (a)$, \textit{det}$A = a$.
+        \item Se $n = 2$, la matrice avrà quattro entrate\par$A =$
+        $\begin{pmatrix}
+            a & b\\
+            c & d
+        \end{pmatrix}$, \textit{det}$A = ad - bc$.
+        \item Se $n \geq 3$, la matrice avrà nove entrate o più. Vale la formula generale\par
+        $A = (a_{ij})_{1\leq ij \leq n}$, \textit{det}$A = \sum^{n}_{j = 1}(-1)^{j+1} \times a_{1j} \times $\textit{det}$A_{1j}$.\par
+        Dove $A_{1j}$ è la matrice ottenuta da $A$ cancellando la prima riga e la colonna $j$. Tuttavia siccome la scrittura del terzo caso è illeggibile (Cristo ti sfido a capirla), propongo un esempio pratico.
+    \end{itemize}
+\end{definition}
+\begin{eg}
+    Calcolo del determinante di una matrice $A$ dove $n = 3$.\par
+    \begin{center}
+    $\begin{pmatrix}
+        1 & 2 & 3\\
+        0 & 1 & 3\\
+        1 & 2 & 0
+    \end{pmatrix} = \begin{pmatrix}
+        a_{11} & a_{12} & a_{13}\\
+        a_{21} & a_{22} & a_{23}\\
+        a_{31} & a_{32} & a_{33}
+    \end{pmatrix}$
+    \end{center}
+    Tieni a mente la formula e sostituisci:\par
+    \begin{center}
+    \textit{det}$A = (-1)^{1+1} \times 1_{11} \times$ \textit{det}$\begin{pmatrix}
+        \cancel{1} & \cancel{2} & \cancel{3}\\
+        \cancel{0} & 1 & 3\\
+        \cancel{1} & 2 & 0
+    \end{pmatrix} + (-1)^{2+1} \times 2_{12} \times$ \textit{det}$\begin{pmatrix}
+        \cancel{1} & \cancel{2} & \cancel{3}\\
+        0 & \cancel{1} & 3\\
+        1 & \cancel{2} & 0
+    \end{pmatrix} + (-1)^{3+1} \times 3_{13} \times$ \textit{det}$\begin{pmatrix}
+        \cancel{1} & \cancel{2} & \cancel{3}\\
+        0 & 1 & \cancel{3}\\
+        1 & 2 & \cancel{0}
+    \end{pmatrix} = +1\times1(1\times0) - (2\times3)] + [-2\times2(0\times0)-(1\times3)] + [1\times3(0\times2)-(1\times1)] =$\par
+    $-6+6-3 = -3$
+    \end{center}
+    So che può sembrare un casino, ma se lo leggi piano e con calma potrai capirne i segreti.
+\end{eg}
+Tuttavia quello del calcolo del determinante è un processo particolarmente tedioso, ed è per questo che introduciamo i due teoremi seguenti.
+\subsection{Teorema di Sarrus}
+A detta del Dr. Er Lucertola, nemmeno Sarrus usava Sarrus, ma nel caso in cui ti trovassi davanti ad una matrice quadrata 3x3, riesce a semplificare di molto i calcoli attraverso il seguente algoritmo:
+\begin{definition}
+    \textbf{Teorema di Sarrus}\par
+    Data una matrice quadrata 3x3, è possibile calcolare il determinante attraverso la formula:\par
+    \begin{center}
+        det$A = (a_{11}\times a_{22}\times a_{33}) + (a_{12}\times a_{23}\times a_{31}) + (a_{13}\times a_{21}\times a_{32}) - (a_{13}\times a_{22}\times a_{31}) - (a_{11}\times a_{23}\times a_{32}) - (a_{12}\times a_{21}\times a_{33})$.
+    \end{center}
+    In forma matriciale, dove $+$ indica gli elementi da sommare e $-$ quelli da sottrarre, per una visione più chiara:
+    \begin{center}
+        $\begin{pmatrix}
+        +a_{11} & +a_{12} & +a_{13}-\\
+        a_{21} & +a_{22}- & +a_{23}-\\
+        a_{31}- & a_{32}- & +a_{33}-
+    \end{pmatrix} \begin{pmatrix}
+        a_{11}- & a_{12}-\\
+        +a_{21}- & a_{22}\\
+        +a_{31} & +a_{32}
+    \end{pmatrix}$
+    \end{center}
+    Qua è da trovare una forma per mostrarlo diversa, sai.
+\end{definition}
+\begin{eg}
+    \textbf{Calcolo del determinante di una matrice mediante il teorema di Sarrus}
+    \begin{center}
+      $A = \begin{pmatrix}
+        1 & 2 & 3\\
+        0 & 1 & 3\\
+        1 & 2 & 0
+    \end{pmatrix} \begin{pmatrix}
+        1 & 2\\
+        0 & 1\\
+        1 & 2
+    \end{pmatrix}$
+    \end{center}
+    \begin{center}
+    \textit{det}$A = 0+6+0-3-6-0 = -3$
+    \end{center}
+    Che è corretto.
+\end{eg}
+\subsection{Teorema di Laplace}
+L'algoritmo di Laplace è invece universalmente utile, per questo è il più forte, mio padre. Vale per ogni matrice quadrata nxn e il determinante può essere sviluppato per ogni riga o colonna.
+\begin{definition}
+    \textbf{Algoritmo di Laplace}\par
+    Data una qualunque matrice quadrata nxn, è possibile ottenere il determinante di una matrice $A$ in uno di questi due modi:
+    \begin{itemize}
+        \item Se sviluppi per riga $i$\par
+        INSERISCI FORMULA
+        \item Se sviluppi per colonna $j$\par
+        INSERISCI FORMULA
+    \end{itemize}
+    MANCA TUTTO IL RESTO.
+\end{definition}
+\section{Utilizzi del determinante}
 \section{Esercizi}
+
+5.1.2 Teorema di Laplace
+
+5.2 UTILIZZI DEL DETERMINANTE
+5.2 Determinante e la trasposta
+5.2 Proposizione: Det di matrici triangolari
+5.2 Teorema: Det di un prodotto con una matrice elementare
+5.2 Corollario: invertibile se e solo se Det non-nullo
+5.2 Corollario: Det di un prodotto di matrici
+5.2 Teorema: invertibile se e solo se Det non-nullo (2x2)
+5.2 La regola di Cramer

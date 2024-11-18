@@ -24,10 +24,35 @@ Pare ovvio che con questi insiemi sia possibile operare in qualche modo; per pri
 \textbf{Quantificatori}:
 \begin{itemize}
     \item \textbf{Esiste}: $\exists$\par
-    Indica l'esistenza di un elemento con una determinata proprietà.
+    Indica l'esistenza di un elemento con una determinata proprietà. Normalmente si usa legato ad una proprietà di un elemento, quindi per dimostrarlo serve quest'ultimo e la prova di tale proprietà.
     \item \textbf{Per ogni}: $\forall$\par
-    Indica che per ogni caso considerato, esiste un elemento con una data proprietà.
+    Indica che per ogni caso considerato, esiste un elemento con una data proprietà. Per dimostrarlo serve supporre un elemento e trovare una prova della proprietà ad esso associata.
 \end{itemize}
+Dai connettivi e i quantificatori abbiamo anche i seguenti assiomi logici:
+\begin{itemize}
+    \item \textbf{Tautologie}\par
+    Formule che risultano vere in ogni istanza presa in esame. Un esempio di tautologia sono le leggi di De Morgan, fondamentali per l'insiemistica.
+    \begin{eg}
+        \textbf{Tautologia}\par
+        \begin{itemize}
+            \item \textbf{Semplice}:\par
+            Data una formula $P$ abbiamo che $P\implies P$ è sempre vera, quindi una tautologia. Per dimostrarla troviamo una prova di $P$ e hai fatto.
+            \item \textbf{Modus Ponens}:\par
+            Se $P, Q$ sono due formule, allora $(P\implies Q) \implies (\neg Q \implies \neg P)$ è tautologia. Per dimostrarla è necessario trovare le prove di ambo le ipotesi, dopodiché supponi le prove per $[\neg P := (P \implies \bot)]$ e $[\neg Q := (Q \implies \bot)]$.\par
+            Supponi ora $P$. Da $P\implies Q$ traiamo $Q$, dalla quale possiamo trarre $Q \implies \bot$, quindi $\bot$. La formula quindi vale perché dall'assurdo si può derivare qualunque cosa.
+        \end{itemize}
+    \end{eg}
+    \item \textbf{Principio del terzo escluso}:\par
+    Data la formula $(P \lor \neg P)$, non c'è nessun altro elemento fra $P \land \neg P$ o $P \lor \neg P$.
+    \item \textbf{Eliminazione della doppia negazione}:\par
+    Dall'assurdo possiamo derivare qualunque cosa, di conseguenza possiamo derivare una formula $P$ da $\bot$.
+    \begin{eg}
+        \begin{center}
+            $\neg\neg P \implies P := \neg P \implies \bot := (P \implies \bot) \implies \bot$.
+        \end{center}
+    \end{eg}
+\end{itemize}
+
 Ed ora introduciamo tutte le varie operazioni insieme alle loro proprietà.
 
 \section{Operazioni fra gli insiemi}
@@ -61,9 +86,9 @@ Ed ora possiamo iniziare con le operazioni effettive:
         \textbf{Sottoinsiemi}\par
         Dati due insiemi $A$ e $B$ diremo che $B$ possiamo avere i seguenti casi:
         \begin{itemize}
-            \item \textbf{Sottoinsieme Improprio}: $B \subseteq A$, $\forall x.(x \in A \implies x \in B)$\par
+            \item \textbf{Sottoinsieme Improprio}: $B \subseteq A \iff \forall x.(x \in A \implies x \in B)$\par
             Quando ogni elemento appartiene a $B$, appartiene anche ad $A$.
-            \item \textbf{Uguaglianza}: $A = B$, $\forall x.(x \in A \iff x \in B)$\par
+            \item \textbf{Uguaglianza}: $A = B \iff \forall x.(x \in A \iff x \in B)$\par
             Quando due insiemi sono perfettamente uguali.
             \item \textbf{Sottoinsieme Proprio}: $B \subset A$\par
             Quando tutti gli elementi di $B$ appartengono ad $A$ e $A \neq B$.
@@ -99,6 +124,22 @@ Ed ora possiamo iniziare con le operazioni effettive:
             \item $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$
         \end{itemize}
     \end{definition}
+    \item \textbf{Prodotto cartesiano}\par
+    Il Prodotto Cartesiano è una relazione fra due insiemi dove a partire dagli elementi di $A$, crea tutte le coppie possibili con gli elementi di $B$. Giuro è più semplice a vederlo.
+
+    \begin{definition}
+        \textbf{Prodotto Cartesiano} $A \times B = \{(x,y)| x \in A \land y \in B\}$\par
+        Dati due insiemi $A,B$, si definisce il loro prodotto cartesiano l'insieme di tutte le coppie ordinate di elementi, indicati da $(a, b)$, tali che il primo elemento a della coppia appartenga all'insieme A e il secondo elemento b della coppia appartenga all'insieme B.
+    \end{definition}
+
+    \begin{eg}
+        \textbf{Calcolo di un prodotto cartesiano}\par
+        Non è molto dissimile da un prodotto di polinomi; moltiplichi ogni elemento di A per ogni elemento di B, come segue:
+        \begin{center}
+            $A = {1, 2}$, $B = {3, 4}$\par
+            $A \times B = C = {(1,3), (1,4), (2,3), (2,4)}$
+        \end{center}
+    \end{eg}
     \item \textbf{Differenza}\par
     La differenza fra insiemi sottrae gli elementi di $B$ a quelli di $A$.
     \begin{definition}
@@ -126,6 +167,19 @@ Ed ora possiamo iniziare con le operazioni effettive:
             \item $(A \triangle B) \cap C = (A \cap C) \triangle (B \cap C)$
         \end{itemize}
     \end{definition}
+    \item \textbf{Famiglie di insiemi}\par
+    \begin{definition}
+        \textbf{Famiglie di insiemi} - $\chi := \{X_i | i \in I\}$\par
+        Se ad ogni elemento $i$ di un insieme non vuoto $I$ corrisponde un insieme $X_i, i \to X_i$, allora l'insieme di insiemi $X_i$ è chiamato \textbf{famiglia di insiemi} ed $I$ è il suo insieme di indicizzazione.
+    \end{definition}
+    INSERISCI ESEMPIO
+    \item \textbf{Insieme delle parti}\par
+    \begin{definition}
+        \textbf{Insieme delle parti} - $P(X) := \{A | A \subseteq X\}$\par
+        Definiamo l'insieme delle parti $P(X)$ l'insieme di tutti i sottoinsiemi di $X$.
+    \end{definition}
+    INSERIRE ESEMPIO
+    \item \textbf{Insieme complementare}
     \item \textbf{Insieme Potenza}\par
     INFORMATI IN MERITO
     \item \textbf{Generalizzazione di operazioni}  \par
@@ -137,38 +191,80 @@ Ed ora possiamo iniziare con le operazioni effettive:
 %
 
 \section{Relazioni fra insiemi}
-INSERISCI DEFINIZIONE DI RELAZIONE FRA INSIEMI
+Ci è possibile mettere in relazione gli elementi di due o più insiemi diversi\footnote{Il totale degli insiemi nella relazione è dato dall'arietà. Se è unaria, sarà per un insieme, se binaria per due e così via.}. Diciamo infatti che se $x\in X$ e $y\in Y$, i due elementi sono in relazione se la loro coppia $(x,y)$ è in una relazione $R$, intesa come sottoinsieme $R$ di $X \times Y$. A partire da questo possiamo definire le seguenti relazioni notevoli:
 \begin{itemize}
-    \item \textbf{Prodotto cartesiano}\par
-    Il Prodotto Cartesiano è una relazione fra due insiemi dove a partire dagli elementi di $A$, crea tutte le coppie possibili con gli elementi di $B$. Giuro è più semplice a vederlo.
-
-    \begin{definition}
-        \textbf{Prodotto Cartesiano} $A \times B = \{(x,y)| x \in A \land y \in B\}$\par
-        Dati due insiemi $A,B$, si definisce il loro prodotto cartesiano l'insieme di tutte le coppie ordinate di elementi, indicati da $(a, b)$, tali che il primo elemento a della coppia appartenga all'insieme A e il secondo elemento b della coppia appartenga all'insieme B.
-    \end{definition}
-
-    \begin{eg}
-        \textbf{Calcolo di un prodotto cartesiano}\par
-        \begin{center}
-            $A = {1, 2}$, $B = {3, 4}$\par
-            $A \times B = C = {(1,3), (1,4), (2,3), (2,4)}$
-        \end{center}
-    \end{eg}
-
-    CONTINUA DA QUA
-    
-    \item \textbf{Insieme delle parti}
-    \item \textbf{Insieme complementare}
+    \item \textbf{Corrispondenze}
     \item \textbf{Relazione inversa}
-    \item \textbf{Composizione}
+    \item \textbf{Composizione delle operazioni}
     \item \textbf{Relazione chiusa}
 \end{itemize}
 
 %
 
 \section{Principi di dimostrazione}
-Il processo di dimostrazione matematica è un algoritmo deduttivo utilizzato per provare la verità di ipotesi arbitrarie basandosi sul ragionamento logico. Un metodo frequentemente utilizzato è la \textbf{Dimostrazione per assurdo}, dove si parte dal presupposto che la tesi sia falsa. Se si riesce a concludere il processo senza incappare in contraddizioni, hai provato che la tesi è falsa, altrimenti è vera.\par\quad
-Ho l'impressione che qui manchino un pò di cose.
+Il processo di dimostrazione matematica è un algoritmo deduttivo utilizzato per provare la verità di ipotesi arbitrarie basandosi sul ragionamento logico. Esistono più metodi per arrivare ad una stessa soluzione:
+\begin{itemize}
+    \item \textbf{Dimostrazione per assurdo}\par
+    Partiamo dal presupposto che la tesi sia falsa. Se si riesce a concludere il processo senza incappare in contraddizioni si è dimostrato che la tesi è falsa, altrimenti è vera.\par
+    \begin{eg}
+        \textbf{Dimostrazione per assurdo}\par
+        INSERISCI ESEMPIO.
+    \end{eg}
+    \item \textbf{Dimostrazione per induzione}\par
+    Algoritmo basato sul passaggio dallo specifico al generale, si compone di due passi:
+    \begin{enumerate}
+        \item Passo base, dove si prende un valore comodo per provare la veridicità della tesi nel caso più facile.
+        \item Passo induttivo, dove si prova, basandosi sul caso base, che valga anche per tutte le istanze successive.
+    \end{enumerate}
+    \begin{eg}
+        \textbf{Dimostrazione per induzione su $\mathbb{N}$}\par
+        INSERISCI ESEMPIO
+    \end{eg}
+    \begin{eg}
+        \textbf{Dimostrazione per induzione su $\mathbb{N}^*$}\par
+        Definiamo l'insieme numerico di lavoro come $\mathbb{N}^* = \mathbb{N} \setminus \{0\} = \{1, 2, ..., n\}$\par
+        Tesi da provare: $\theta(n) = \forall n \in \mathbb{N}^*.(1+2+...+n=\dfrac{n(n+1)}{2})$
+        \begin{itemize}
+            \item \textbf{Passo base}:\par
+            Testiamo se la tesi vale sostituendo $n$ a $1$\par
+            \begin{center}
+                $\theta(1) \iff 1 = \dfrac{1(1+1)}{2} = 1$, che è vera.
+            \end{center}
+            \item \textbf{Passo induttivo}:\par
+            Espandiamo il ragionamento per $\theta(n+1)$. Va sostituito $(n+1)$ alla singola $n$ presente nella tesi iniziale.
+            \begin{center}
+                $\theta(n+1) \iff (1+2+...+n+(n+1)) = \dfrac{(n+1)((n+1)+1)}{2} = \dfrac{(n+1)(n+2)}{2}$
+            \end{center}
+            Adesso proviamo che il risultato ottenuto è valido:
+            \begin{center}
+                $\dfrac{n(n+1)}{2}+(n+1) = \dfrac{n(n+1) + 2(n+1)}{2} = \dfrac{n^2+3n+2}{2} = \dfrac{(n+1)(n+2)}{2}$
+            \end{center}
+        \end{itemize}
+        Come volevasi dimostrare.
+    \end{eg}
+    \item \textbf{Dimostrazione per ricorsione}\par
+    La ricorsione si costituisce anch'essa di due casi, ovvero il caso base, da dove inizia tutto, ed il caso ricorsivo, che avanza tenendo conto dei valori precedentemente ottenuti.
+    \begin{eg}
+        \textbf{Dimostrazione per ricorsione}\par
+        Definiamo la funzione $n!$:
+        \begin{itemize}
+            \item Passo base\par
+            Se $n = 0 \implies 1$
+            \item Passo ricorsivo\par
+            Se $n > 0 \implies (n-1)! \times n$ 
+        \end{itemize}
+        Proviamo a ragionare come si comporta tale funzione quando sostituiamo alla $n$ i valori presi in esame. Otterremo che:
+        \begin{center}
+            $0! = (0-1)! \times1 = 1$\par
+            $1! = (1-1)!\times1 = 1\times1 = 1$\par
+            $2! = (2-1)!\times2 = 1\times2 = 2$\par
+            $3! = (3-2)!\times3 = 2\times3 = 6$\par
+            $4! = (4-3)!\times4 = 6\times4 = 24$\par
+        \end{center}
+    \end{eg}
+\end{itemize}
+
+
 
 \section{Domande di teoria}
 

@@ -179,11 +179,6 @@ Ed ora possiamo iniziare con le operazioni effettive:
         Definiamo l'insieme delle parti $P(X)$ l'insieme di tutti i sottoinsiemi di $X$.
     \end{definition}
     INSERIRE ESEMPIO
-    \item \textbf{Insieme complementare}
-    \item \textbf{Insieme Potenza}\par
-    INFORMATI IN MERITO
-    \item \textbf{Generalizzazione di operazioni}  \par
-    INFORMATI IN MERITO
 \end{itemize}
 
 \subsection{Leggi di De Morgan}
@@ -191,12 +186,46 @@ Ed ora possiamo iniziare con le operazioni effettive:
 %
 
 \section{Relazioni fra insiemi}
-Ci è possibile mettere in relazione gli elementi di due o più insiemi diversi\footnote{Il totale degli insiemi nella relazione è dato dall'arietà. Se è unaria, sarà per un insieme, se binaria per due e così via.}. Diciamo infatti che se $x\in X$ e $y\in Y$, i due elementi sono in relazione se la loro coppia $(x,y)$ è in una relazione $R$, intesa come sottoinsieme $R$ di $X \times Y$. A partire da questo possiamo definire le seguenti relazioni notevoli:
+Ci è possibile mettere in relazione gli elementi di due o più insiemi diversi\footnote{Il totale degli insiemi nella relazione è dato dall'arietà. Se è unaria, sarà per un insieme, se binaria per due e così via.}. Diciamo infatti che se $x\in X$ e $y\in Y$, i due elementi sono in relazione se la loro coppia $(x,y)$ è in una relazione $R$, intesa come sottoinsieme $R$ di $X \times Y$. Segue definizione formale:
+\begin{definition}
+    \textbf{Corrispondenza}\par
+    Una corrispondenza dell'insieme $X$ nell'insieme $Y$ è un qualunque insieme $R . R \subseteq X \times Y$. Se la coppia $(x,y) \in R$ si dice che $x$ corrisponde a $y$ nella corrispondenza $R$. Si scrive anche\par
+    \begin{center}
+        $xRy :\iff (x,y) \in R$
+    \end{center}
+\end{definition}
+A partire da questo possiamo trovare i seguenti casi:
 \begin{itemize}
-    \item \textbf{Corrispondenze}
-    \item \textbf{Relazione inversa}
-    \item \textbf{Composizione delle operazioni}
-    \item \textbf{Relazione chiusa}
+    \item Un elemento di $X$ può corrispondere a più elementi di $Y$ e viceversa.
+    \item Un elemento di $X$ può corrispondere a più elementi di $Y$, i quali a loro volta corrispondono ad altri elementi di $X$.
+    \item Relazione vuota, dove in $X$ non ci sono elementi che corrispondono agli elementi di $Y$.
+\end{itemize}
+\begin{eg}
+    INSERISCI ESEMPIO DI RELAZIONE
+\end{eg}
+Ed ora possiamo definire questi altri casi notevoli
+
+
+\begin{itemize}
+    \item \textbf{Relazione inversa}\par
+    \begin{definition}
+        \textbf{Relazione inversa} - $R^{-1} \subseteq Y \times X$\par
+        La relazione inversa sussiste solamente se abbiamo la certezza che esista la coppia $(x,y) \in R$. La definiamo formalmente come:
+        \begin{center}
+            $R^{-1} := \{(y,x) \in Y \times X . (y,x) \in R\}$
+        \end{center}
+    \end{definition}
+    INSERISCI ESEMPIO
+    \item \textbf{Composizione delle operazioni}\par
+    Ti ricorderai il problema delle funzioni composte; è esattamente la stessa cosa: più funzioni messe insieme.
+    \begin{definition}
+        \textbf{Composizione delle operazioni}\par
+        Se $R \subseteq X \times Y \land S \subseteq Y \times Z$, la loro composizione $S \circ R\subseteq X \times Z$ è definita come segue:
+        \begin{center}
+            $S \circ R := \{(x,z) \in X \times Z . \exists y \in Y . ((x,y) \in R \land (y,z) \in S)\}$
+        \end{center}
+    \end{definition}
+    INSERISCI ESEMPIO CON LA DIAGONALE.
 \end{itemize}
 
 %
@@ -263,8 +292,6 @@ Il processo di dimostrazione matematica è un algoritmo deduttivo utilizzato per
         \end{center}
     \end{eg}
 \end{itemize}
-
-
 
 \section{Domande di teoria}
 

@@ -1,18 +1,130 @@
 \section{Lo spazio Vettoriale}
-\section{Combinazione Lineare, Insieme di Generatori}
-\section{Il Sottospazio Vettoriale}
-Anche intersezione e somma di sottospazi
-\section{Spazio delle Colonne e Spazio Nullo}
-\section{Esercizi}
+Iniziamo ora un argomento più complesso e astratto rispetto agli altri; abbiamo visto che i sistemi lineari si possono scrivere sotto forma matriciale e che l'insieme soluzione è esprimibile mediante vettori. Un insieme di questi vettori, spartanamente, viene chiamato \textbf{Spazio Vettoriale} su un determinato campo. Formalmente:
+\begin{definition}
+    \textbf{Spazio vettoriale sul campo $\mathbb{K}$}\par
+    Uno spazio vettoriale sul campo $\mathbb{K}$ è un insieme $V$, i cui elementi sono detti vettori $v$ ed è dotato delle seguenti due operazioni:
+    \begin{itemize}
+        \item \textbf{Somma di vettori}\par
+        Dati due vettori $v,w \in V$, quest'operazione interna associa un terzo vettore $u \in V$ alla somma dei primi due e si scrive $u = v+w$.
+        \item \textbf{Moltiplicazione per scalare}\par
+        Dato uno scalare $t \in \mathbb{K}$ ed un vettore $v \in V$, quest'operazione esterna associa un nuovo vettore $u \in V$ al prodotto fra i primi due elementi e si scrive $u = t\times v$.
+    \end{itemize}
+\end{definition}
+Come potrai immaginare, la presenza di operazioni implica anche l'esistenza di relative proprietà. Qui le elenchiamo tutte, anche le più ovvie, dove $\alpha, \beta \in \mathbb{K}$, $u,v,w \in V$:\par
+\begin{prop}
+    \textbf{Proprietà delle operazioni negli spazi vettoriali}
+    \begin{itemize}
+        \item \textbf{Proprietà commutativa}\par
+        L'ordine in cui sono effettuate le operazioni non cambia il risultato.
+        \begin{center}
+            $v+w = w+v$.
+        \end{center}
+        \item \textbf{Proprietà associativa}\par
+        Ci è possibile effettuare un'operazione prima dell'altra e non cambiare il risultato.
+        \begin{center}
+             $(v+u)+w = v+(u+w)$, $(\alpha \times \beta)v = \alpha(\beta \times v)$.
+        \end{center}
+        \item \textbf{Proprietà distributiva}\par
+        Nel moltiplicare più elementi per uno scalare, il moltiplicatore viene distribuito a tutti loro.
+        \begin{center}
+            $\alpha(v+w) = \alpha v + \alpha w$, $(\alpha \times \beta)v = \alpha v + \beta v$.
+        \end{center}
+        \item \textbf{Elemento neutro}\par
+        Elemento tale per cui la sua somma o moltiplicazione per scalare con un vettore restituisce il vettore stesso.
+        \begin{center}
+            $v + v_0 = v$, $v \times 1 = v$.
+        \end{center}
+        \item \textbf{Elementi inversi}\par
+        Elemento tale per cui se sommato al primo risulta zero.
+        \begin{center}
+            $w + v = 0 \iff v = -w$.
+        \end{center}
+    \end{itemize}
+\end{prop}
 
-4.1 Definizione di spazio vettoriale
-4.1 Osservazioni
-4.2 Definizione: combinazione lineare
-4.2 Definizioni: insieme di generatori, finitamente generato
-4.3 Definizione: sottospazio
+%
+
+\section{Combinazione Lineare, Insieme di Generatori}
+Quando abbiamo un vettore risultante dalla moltiplicazione di una serie di vettori con una serie di scalari, si dice \textbf{Combinazione lineare} dei vettori $v_1,...,v_n$ con coefficienti $t_1,...,t_n$. Lo definiamo formalmente come:
+\begin{definition}
+    \textbf{Combinazione lineare}\par
+    Sia $V$ uno spazio vettoriale su $\mathbb{K}$ e siano i vettori $v_1,...,v_n \in V$ con $t_1,...,t_n \in \mathbb{K}$. Il vettore risultante dalla loro moltiplicazione è:
+    \begin{center}
+        $v = t_1v_1 + t_2v_2 + ... + t_nv_n$
+    \end{center}
+    ed è detto combinazione lineare dei vettori $v_n$ con coefficienti della combinazione $t_n$.
+\end{definition}
+Risulta un pò difficile da immaginare in senso pratico, quindi propongo il seguente esempio:
+\begin{eg}
+    \textbf{Combinazione lineare}
+    \begin{center}
+        $v = \begin{pmatrix}
+        1\\
+        2\\
+        3
+        \end{pmatrix}$ è la combinazione lineare dei vettori: $e_1 = \begin{pmatrix}
+        1\\
+        0\\
+        0
+        \end{pmatrix}$, $e_2 = \begin{pmatrix}
+        0\\
+        1\\
+        0
+        \end{pmatrix}$, $e_3 = \begin{pmatrix}
+        0\\
+        0\\
+        1
+        \end{pmatrix}$\newline
+        
+        I coefficienti di combinazione sono rispettivamente $1,2,3$; infatti risulta che:
+        \begin{center}
+            $\begin{pmatrix}
+            1\\
+            2\\
+            3
+            \end{pmatrix} = 1\begin{pmatrix}
+        1\\
+        0\\
+        0
+        \end{pmatrix} +2\begin{pmatrix}
+        0\\
+        1\\
+        0
+        \end{pmatrix}+3\begin{pmatrix}
+        0\\
+        0\\
+        1
+        \end{pmatrix}$
+        \end{center}
+    \end{center}
+\end{eg}
+Hai potuto osservare che la combinazione lineare è \textit{generata} da un insieme di vettori. Nello specifico questo viene chiamato \textbf{Insieme di generatori}. Alcuni spazi vettoriali sono determinati da un insieme finito, come quello nell'esempio, e vengono definiti come spazi \textbf{finitamente generati}. Ci è inoltre possibile ottenere l'insieme di generatori di uno spazio vettoriale con il seguente ragionamento:
+\begin{eg}
+    Ottenimento dell'insieme di generatori\par
+    INSERISCI ESEMPIO
+\end{eg}
+
+%
+
+\section{Il Sottospazio Vettoriale}
+Può capitare che uno spazio vettoriale ne contenga altri; in tal caso lo chiameremo \textbf{Sottospazio vettoriale}. Per far sì che siano tali devono valere le seguenti proprietà:
+\begin{itemize}
+    \item Somma vettoriale e moltiplicazione per scalare.
+    \item Deve essere un insieme non vuoto.
+\end{itemize}
+
+
 4.3 Definizione: sottospazio generato da un insieme
 4.3 Definizione: intersezione e somma di sottospazi
+
+%
+
+\section{Spazio delle Colonne e Spazio Nullo}
 4.4 Definizione: spazio delle colonne
 4.4 Proposizione: spazio delle colonne e sistemi lineari
 4.4 Definizione: spazio nullo
 4.4 Proposizione: spazio nullo `e un sottospazio
+
+%
+
+\section{Esercizi}

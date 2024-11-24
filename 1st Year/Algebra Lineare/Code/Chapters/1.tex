@@ -22,7 +22,7 @@ Passiamo ordunque alle operazioni dell'insieme numerico. Oltre alle quattro elem
     \end{eg}
     \item \textit{Divisione}: Una razionalizzazione, in sintesi.
     \begin{eg}
-        $\frac{1 + 2i}{2 - i} = \frac{1 + 2i}{2 - i} \times \frac{2 - i}{2 - i} = \frac{2 + i + 4i + 2i^2}{4 + 2i - 2i - i^2} = \frac{8i}{8} = i$
+        $\dfrac{1 + 2i}{2 - i} = \dfrac{1 + 2i}{2 - i} \times \dfrac{2 - i}{2 - i} = \dfrac{2 + i + 4i + 2i^2}{4 + 2i - 2i - i^2} = \dfrac{8i}{8} = i$
     \end{eg}
 \end{itemize}
 Altri casi particolari di numeri sono:
@@ -37,9 +37,9 @@ Altri casi particolari di numeri sono:
     \item $z_1 \times \overline{z_1} = a^2 + b^2 = |z_1|^2$
     \item $\overline{z_1 + z_2} = (a + c) - (b + d)i$
     \item $\overline{z_1 \times z_2} = \overline{z_1} \times \overline{z_2}$
-    \item $\frac{\overline{1}}{z_1} = \frac{1}{\overline{z_1}}, z \neq 0$
-    \item $\frac{\overline{z_1}}{\overline{z_2}} = \overline{z \times \frac{1}{z_2}} = \overline{z_1} \times \frac{1}{z_2} = \overline{z_1} \times \frac{1}{\overline{z_2}}, z_2 \neq 0$
-    \item $\frac{1}{z_1} = \frac{a - bi}{a^2 + b^2} = \frac{\overline{z_1}}{|z_2|^2}$ 
+    \item $\dfrac{\overline{1}}{z_1} = \dfrac{1}{\overline{z_1}}, z \neq 0$
+    \item $\dfrac{\overline{z_1}}{\overline{z_2}} = \overline{z \times \dfrac{1}{z_2}} = \overline{z_1} \times \dfrac{1}{z_2} = \overline{z_1} \times \dfrac{1}{\overline{z_2}}, z_2 \neq 0$
+    \item $\dfrac{1}{z_1} = \dfrac{a - bi}{a^2 + b^2} = \dfrac{\overline{z_1}}{|z_2|^2}$ 
 \end{itemize}
 \end{note} 
 Osserviamo ora che per ogni numero complesso, quando messo su un piano di riferimento, le sue coordinate (a, b) rappresentano parte reale \textit{a} e parte immaginaria \textit{b}. Ci è quindi possibile lavorare sulle \textbf{coordinate polari} attraverso le formule trigonometriche.
@@ -71,18 +71,19 @@ Possiamo ottenere la forma trigonometrica di un numero complesso attraverso la c
 \end{minipage}\hfill
 \begin{minipage}{0.5\textwidth}
 Queste sono le \textbf{forme trigonometriche}; tuttavia a noi serve la forma algebrica, ottenibile utilizzando seno e coseno, ovvero:\par
-$sin(\alpha) = \frac{b}{r}$, $cos(\alpha) = \frac{a}{r}$\par
+$sin(\alpha) = \dfrac{b}{r}$, $cos(\alpha) = \dfrac{a}{r}$\par
 $z = (rcos(\alpha)) + (rsin(\alpha))i = r(cos(\alpha) + isin(\alpha))$
 \begin{itemize}
     \item $z_1 = (1, 0) = 1$ -> $cos(0) + isin(0)$
-    \item $z_2 = (1, \frac{\pi}{2}) = i$ -> $cos(\frac{\pi}{2}) + isin(\frac{\pi}{2})$
+    \item $z_2 = (1, \dfrac{\pi}{2}) = i$ -> $cos(\dfrac{\pi}{2}) + isin(\dfrac{\pi}{2})$
     \item $z_3 = (1, \pi) = -1$ -> $cos(\pi) + isin(\pi)$
-    \item $z_4 = (1, \frac{3}{2}\pi) = -i$ -> $cos(\frac{3}{2}\pi) + isin(\frac{3}{2}\pi)$
+    \item $z_4 = (1, \dfrac{3}{2}\pi) = -i$ -> $cos(\dfrac{3}{2}\pi) + isin(\dfrac{3}{2}\pi)$
 \end{itemize}
 \end{minipage}
 Similmente al comportamento delle funzioni trigonometriche, per moltiplicare due forme trigonometriche si utilizza la formula di duplicazione.
 \begin{eg}
-    $z_1 = r(cos(\alpha) + isin(\alpha))$, $z_2 = s(cos(\beta) + isin(\beta))$\par
+    $z_1 = r(cos(\alpha) + isin(\alpha))$, $z_2 = s(cos(\beta) + isin(\beta))$\newline
+    
     $z_1 \times z_2 = r \times s(cos(\alpha) + isin(\alpha))(cos(\beta) + isin(\beta))$\par\quad\quad\quad
     $= r \times s [(cos(\alpha)cos(\beta) - sin(\alpha)sin(\beta)) + (cos(\alpha)sin(\beta) + sin(\alpha)cos(\beta)i]$\par\quad\quad\quad
     $= r \times s[cos(\alpha + \beta) + sin(\alpha + \beta)i]$
@@ -101,11 +102,11 @@ Oltre alle quattro operazioni elementari ci è possibile lavorare anche con pote
     $z^n = r^n[cos(n \times \alpha) + isin(n \times \alpha)]$\newline
     
     $z = \sqrt{3}+i$\par
-    $z = 2[cos(\frac{\pi}{6}) + isin(\frac{\pi}{6})] = z^6 = 2^6[cos(\pi) + isin(\pi)] = 2^6[-1 +i \times 0] = 2^6 \times -1 = -64$
+    $z = 2[cos(\dfrac{\pi}{6}) + isin(\dfrac{\pi}{6})] = z^6 = 2^6[cos(\pi) + isin(\pi)] = 2^6[-1 +i \times 0] = 2^6 \times -1 = -64$
 \end{eg}
 Si dicono invece radici n-esime di \textit{y} le soluzioni dell'equazione $x^n = y$, dove $y \in\C, n \in\N$. Esisteranno poi \textit{n} radici n-esime complesse $z_0, z_1, ..., z_n$ di \textit{y}. Verranno utilizzati come dati l'ampiezza $\alpha$ dell'angolo, il valore $2\pi$ per le radianti ed un numero \textit{k} per consentire di "coprire" ogni posizione della circonferenza nel piano; in pratica segna l'istanza di un determinato punto. Si scrivono come segue:\par
 Se $y = r(cos(\alpha) + isin(\alpha)$, allora per $k = 0, 1, ..., n-1$ vale la seguente scrittura:\par
-$z_n = \sqrt[n]{r} [cos(\frac{\alpha+k2\pi}{n}) + isin(\frac{\alpha+k2\pi}{n})$
+$z_n = \sqrt[n]{r} [cos(\dfrac{\alpha+k2\pi}{n}) + isin(\dfrac{\alpha+k2\pi}{n})$
 
 Essendo inoltre nell'insieme \C, possono esistere anche le radici quadrate dei numeri negativi, come è anche possibile utilizzare la formula quadratica per trovare le soluzioni.
 
@@ -124,8 +125,8 @@ Essendo inoltre nell'insieme \C, possono esistere anche le radici quadrate dei n
 Il segmento $\overline{ao}$ svolge la medesima funzione di \textit{r} ed in questo caso vale: $a = (-a)(cos(\pi)+isin(\pi))$\par
 E grazie al teorema delle radici otteniamo le due soluzioni desiderate:
 \begin{itemize}
-    \item $z_0 = \sqrt{-a}(cos(\frac{\pi}{2}) + isin(\frac{\pi}{2}) = i\sqrt{-a}$
-    \item $z_1 = \sqrt{-a}(cos(\frac{3}{2}\pi) + isin(\frac{3}{2}\pi) = -i\sqrt{a}$
+    \item $z_0 = \sqrt{-a}(cos(\dfrac{\pi}{2}) + isin(\dfrac{\pi}{2}) = i\sqrt{-a}$
+    \item $z_1 = \sqrt{-a}(cos(\dfrac{3}{2}\pi) + isin(\dfrac{3}{2}\pi) = -i\sqrt{a}$
 \end{itemize}
 \end{minipage}
 
@@ -160,7 +161,7 @@ E grazie al teorema delle radici otteniamo le due soluzioni desiderate:
     \item \textbf{Enunciare la formula di De Moivre.}\par\quad
     La formula di De Moivre consente di ottenere la potenza di un numero complesso espresso in forma trigonometrica. $z^n = r^n(cos(n\times\alpha) + isin(n\times\alpha))$.
     \item \textbf{Cosa si intende per radici n-esime?}\par\quad
-    Dato un numero complesso \textit{y}, esistono n radici n-esime complesse $z_0, z_1, ..., z_n$ di y. Inoltre, se in forma trigonometrica, le radici si presenteranno nella seguente forma per $k = 0, ..., n-1$: $z_k = \sqrt[n]{r} \times (cos(\frac{\alpha + k2\pi}{n}) + isin(\frac{\alpha + k2\pi}{n}))$
+    Dato un numero complesso \textit{y}, esistono n radici n-esime complesse $z_0, z_1, ..., z_n$ di y. Inoltre, se in forma trigonometrica, le radici si presenteranno nella seguente forma per $k = 0, ..., n-1$: $z_k = \sqrt[n]{r} \times (cos(\dfrac{\alpha + k2\pi}{n}) + isin(\dfrac{\alpha + k2\pi}{n}))$
     \item \textbf{Enunciare il teorema fondamentale dell'algebra.}\par\quad
     Dato un qualsiasi polinomio $p(x)$ a coefficienti complessi di grado maggiore o uguale a 1, avrà almeno una radice complessa. Il polinomio è di forma:\par$p(x) = a_nx^n + a_{n-1}x^{n-1} + ... + a_2x^2 + a_1x + a_0$, con $n \geq 1$.
 \end{enumerate}

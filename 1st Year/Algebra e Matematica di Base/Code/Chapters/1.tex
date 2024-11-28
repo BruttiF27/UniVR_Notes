@@ -18,8 +18,6 @@ Pare ovvio che con questi insiemi sia possibile operare in qualche modo; per pri
     Corrisponde a "se e solo se, allora" e viene rappresentata mediante due implicazioni: $(\phi \to \psi) \land (\psi \to \phi)$.
     \item \textbf{Bottom}: $\bot$\par
     Indica il valore di assurdo, $0$.
-    \item \textbf{Top}: $\top$\par
-    Indica il valore di verità, $1$.
 \end{itemize}
 \textbf{Quantificatori}:
 \begin{itemize}
@@ -32,7 +30,7 @@ Dai connettivi e i quantificatori abbiamo anche i seguenti assiomi logici:
 \begin{itemize}
     \item \textbf{Tautologie}\par
     Formule che risultano vere in ogni istanza presa in esame. Un esempio di tautologia sono le leggi di De Morgan, fondamentali per l'insiemistica.
-    \begin{eg}
+    \begin{definition}
         \textbf{Tautologia}\par
         \begin{itemize}
             \item \textbf{Semplice}:\par
@@ -41,18 +39,30 @@ Dai connettivi e i quantificatori abbiamo anche i seguenti assiomi logici:
             Se $P, Q$ sono due formule, allora $(P\implies Q) \implies (\neg Q \implies \neg P)$ è tautologia. Per dimostrarla è necessario trovare le prove di ambo le ipotesi, dopodiché supponi le prove per $[\neg P := (P \implies \bot)]$ e $[\neg Q := (Q \implies \bot)]$.\par
             Supponi ora $P$. Da $P\implies Q$ traiamo $Q$, dalla quale possiamo trarre $Q \implies \bot$, quindi $\bot$. La formula quindi vale perché dall'assurdo si può derivare qualunque cosa.
         \end{itemize}
-    \end{eg}
-    \item \textbf{Principio del terzo escluso}:\par
+    \end{definition}
+    \item \textbf{Principio del terzo escluso} - $PEM_P$:\par
     Data la formula $(P \lor \neg P)$, non c'è nessun altro elemento fra $P \land \neg P$ o $P \lor \neg P$.
-    \item \textbf{Eliminazione della doppia negazione}:\par
+    \begin{prop}
+        \textbf{Principio del terzo escluso}
+        \begin{center}
+            $(P \lor \neg P)$.
+        \end{center}
+    \end{prop}
+    \item \textbf{Eliminazione della doppia negazione} $DNE_P$:\par
     Dall'assurdo possiamo derivare qualunque cosa, di conseguenza possiamo derivare una formula $P$ da $\bot$.
-    \begin{eg}
+    \begin{prop}
+        \textbf{Eliminazione della doppia negazione}\par
         \begin{center}
             $\neg\neg P \implies P := \neg P \implies \bot := (P \implies \bot) \implies \bot$.
         \end{center}
-    \end{eg}
+    \end{prop}
 \end{itemize}
-
+Da questi ultimi due assiomi logici traiamo anche le seguenti formule vere, la cui dimostrazione è lasciata per esercizio:
+\begin{enumerate}
+    \item $PEM_P \implies DNE_P$.
+    \item $\neg\neg P \implies P$.
+    \item $(\neg Q \implies \neg P) \implies (P \implies Q)$.
+\end{enumerate}
 Ed ora introduciamo tutte le varie operazioni insieme alle loro proprietà.
 
 \section{Operazioni fra gli insiemi}
@@ -86,28 +96,33 @@ Ed ora possiamo iniziare con le operazioni effettive:
         \textbf{Sottoinsiemi}\par
         Dati due insiemi $A$ e $B$ diremo che $B$ possiamo avere i seguenti casi:
         \begin{itemize}
-            \item \textbf{Sottoinsieme Improprio}: $B \subseteq A \iff \forall x.(x \in A \implies x \in B)$\par
+            \item \textbf{Sottoinsieme improprio}: $B \subseteq A \iff \forall x.(x \in A \implies x \in B)$\par
             Quando ogni elemento appartiene a $B$, appartiene anche ad $A$.
             \item \textbf{Uguaglianza}: $A = B \iff \forall x.(x \in A \iff x \in B)$\par
             Quando due insiemi sono perfettamente uguali.
-            \item \textbf{Sottoinsieme Proprio}: $B \subset A$\par
+            \item \textbf{Sottoinsieme proprio}: $B \subset A$\par
             Quando tutti gli elementi di $B$ appartengono ad $A$ e $A \neq B$.
         \end{itemize}
     \end{definition}
-    Abbiamo infine l'elemento neutro, detto \textbf{Insieme Vuoto}, scritto con $A = \emptyset$, il quale indica un insieme privo di elementi.
+    Abbiamo infine l'elemento neutro, detto \textbf{Insieme Vuoto}, scritto con $A = \emptyset$, il quale indica un insieme privo di elementi; è sottoinsieme di tutti gli insiemi, perché di base ogni collezione di elementi contiene il vuoto, il quale verrà riempito con questi ultimi.
     \item \textbf{Unione}\par
     L'unione fra due insiemi risulta come un terzo insieme contenente gli elementi di entrambi. Formalmente:
     \begin{definition}
         \textbf{Unione} $A \cup B = \{a | a \in A \lor a \in B\} = C$\par
         Unisce gli elementi di $A$ a quelli di $B$ per creare un nuovo insieme $C$ che contiene tutti gli elementi dei primi due senza ripetizioni. Detiene inoltre le seguenti proprietà:
         \begin{itemize}
-            \item $A \cup \emptyset = \emptyset$
+            \item $A \cup \emptyset = A$
             \item $(A \cup B) = (B \cup A)$
             \item $(A \cup B \cup C) = (A \cup B) \cup C$
             \item $A \cup A$
             \item $A \subseteq C \land B \subseteq C = A \cup B \subseteq C$
             \item $A \subseteq C \iff A \cup Z = C$
         \end{itemize}
+        Con questa operazione ci è possibile generalizzare le coppie non ordinate come segue, dati tre insiemi arbitrari $X_1,X_2,X_3$:
+        \begin{center}
+            $\{X_1,X_2,X_3\} = \{X_1\} \cup \{X_2\} \cup \{X_3\}$.
+        \end{center}
+        Ogni insieme può quindi essere rappresentato come l'unione di tutte le sue parti; la stessa cosa vale anche per i numeri naturali che vedremo in seguito.
     \end{definition}
     \item \textbf{Intersezione}\par
     L'intersezione prende solamente gli elementi comuni ad $A$ e $B$.
@@ -176,12 +191,52 @@ Ed ora possiamo iniziare con le operazioni effettive:
     \item \textbf{Insieme delle parti}\par
     \begin{definition}
         \textbf{Insieme delle parti} - $P(X) := \{A | A \subseteq X\}$\par
-        Definiamo l'insieme delle parti $P(X)$ l'insieme di tutti i sottoinsiemi di $X$.
+        Definiamo l'insieme delle parti $P(X)$ l'insieme di tutti i sottoinsiemi di $X$. Traiamo inoltre le seguenti conseguenze logiche:
+        \begin{itemize}
+            \item \textbf{Proprietà}:
+            \begin{enumerate}
+                \item $A \cup A^c = X$.
+                \item $A \cap A^c = \emptyset$.
+                \item $(A^c)^c = A$.
+                \item $X^c = \emptyset$.
+                \item $\emptyset^c = X$.
+                \item $A / B = A \cap B^c$
+                \item $A \subseteq B \iff B^c \subseteq A^c$.
+            \end{enumerate}
+            \item \textbf{Proposizioni}:\par
+                \begin{enumerate}
+                \item $\emptyset \in P(X)$.
+                \item $X \in P(X)$.
+                \item $A \subseteq X \iff A \in P(X)$.
+                \item $x \in X \iff \{x\} \in P(X)$.
+            \end{enumerate}
+        \end{itemize}
+        Definiamo inoltre \textbf{Complemento di un insieme} o insieme complementare $A^c$ di $A$ in $X$ come la il risultato dell'operazione $X / A$; formalmente:
+        \begin{center}
+            $A^c := X / A := \{x \in X | x \notin A\}$
+        \end{center}
     \end{definition}
-    INSERIRE ESEMPIO
+    \begin{eg}
+        \textbf{Insieme delle parti}\par
+        Parola chiave "comprende OGNI sottoinsieme ricavabile dall'insieme originale". Osserva e capisci la pattern.
+        \begin{itemize}
+            \item Se $X = \emptyset \implies P(\emptyset) := \{\emptyset\}$.
+            \item Se $X = 1 := \{0\} \implies P(\{0\}) := \{\emptyset,\{0\}\}$.
+            \item Se $X = 2 := \{0,1\} \implies P(\{0,1\}) := \{\emptyset, \{0\}, \{1\}, \{0,1\}\}$.
+        \end{itemize}
+    \end{eg}
 \end{itemize}
 
 \subsection{Leggi di De Morgan}
+Le leggi di De Morgan sono delle formule importanti per la teoria degli insiemi: consentono di mettere in relazione l'operazione di unione con l'operazione di intersezione. Segue definizione formale:
+\begin{definition}
+    \textbf{Leggi di De Morgan}:\par
+    Siano gli insiemi: $A\subseteq X,B\subseteq X, A^c \subseteq X, B^c\subseteq X$. Valgono le seguenti ipotesi:
+    \begin{enumerate}
+        \item $(A \cup B)^c = A^c \cap B^c$.
+        \item $(A \cap B)^c = A^c \cup B^c$.
+    \end{enumerate}
+\end{definition}
 
 %
 
@@ -189,23 +244,18 @@ Ed ora possiamo iniziare con le operazioni effettive:
 Ci è possibile mettere in relazione gli elementi di due o più insiemi diversi\footnote{Il totale degli insiemi nella relazione è dato dall'arietà. Se è unaria, sarà per un insieme, se binaria per due e così via.}. Diciamo infatti che se $x\in X$ e $y\in Y$, i due elementi sono in relazione se la loro coppia $(x,y)$ è in una relazione $R$, intesa come sottoinsieme $R$ di $X \times Y$. Segue definizione formale:
 \begin{definition}
     \textbf{Corrispondenza}\par
-    Una corrispondenza dell'insieme $X$ nell'insieme $Y$ è un qualunque insieme $R . R \subseteq X \times Y$. Se la coppia $(x,y) \in R$ si dice che $x$ corrisponde a $y$ nella corrispondenza $R$. Si scrive anche\par
+    Una corrispondenza dell'insieme $X$ nell'insieme $Y$ è un qualunque insieme $R \subseteq X \times Y$. Se la coppia $(x,y) \in R$ si dice che $x$ corrisponde a $y$ nella corrispondenza $R$. Si scrive anche\par
     \begin{center}
         $xRy :\iff (x,y) \in R$
     \end{center}
 \end{definition}
-A partire da questo possiamo trovare i seguenti casi:
+Lavorando con le corrispondenze possiamo trovare i seguenti casi base:
 \begin{itemize}
     \item Un elemento di $X$ può corrispondere a più elementi di $Y$ e viceversa.
     \item Un elemento di $X$ può corrispondere a più elementi di $Y$, i quali a loro volta corrispondono ad altri elementi di $X$.
     \item Relazione vuota, dove in $X$ non ci sono elementi che corrispondono agli elementi di $Y$.
 \end{itemize}
-\begin{eg}
-    INSERISCI ESEMPIO DI RELAZIONE
-\end{eg}
-Ed ora possiamo definire questi altri casi notevoli
-
-
+A partire da queste nozioni ci è possibile definire i seguenti casi notevoli:
 \begin{itemize}
     \item \textbf{Relazione inversa}\par
     \begin{definition}
@@ -214,8 +264,11 @@ Ed ora possiamo definire questi altri casi notevoli
         \begin{center}
             $R^{-1} := \{(y,x) \in Y \times X . (y,x) \in R\}$
         \end{center}
+        Traiamo inoltre la seguente proprietà:
+        \begin{center}
+            $f(x)^{-1} = f(x) \land g(x) = g(x)^{-1}$
+        \end{center}
     \end{definition}
-    INSERISCI ESEMPIO
     \item \textbf{Composizione delle operazioni}\par
     Ti ricorderai il problema delle funzioni composte; è esattamente la stessa cosa: più funzioni messe insieme.
     \begin{definition}
@@ -224,6 +277,12 @@ Ed ora possiamo definire questi altri casi notevoli
         \begin{center}
             $S \circ R := \{(x,z) \in X \times Z . \exists y \in Y . ((x,y) \in R \land (y,z) \in S)\}$
         \end{center}
+        E ne traiamo le seguenti conclusioni, date le relazioni $R \subseteq X \times Y$, $S \subseteq Y \times Z$ e $T \subseteq Z \times W$:
+        \begin{itemize}
+            \item $Diag(Y) \circ R = R$.
+            \item $R \circ Diag(X) = R$.
+            \item $T \circ (S \circ R) = (T \circ S) \circ R$.
+        \end{itemize}
     \end{definition}
     INSERISCI ESEMPIO CON LA DIAGONALE.
 \end{itemize}

@@ -10,7 +10,7 @@ Conosci già gli elementi di $\mathbb{N}$; si tratta di un intervallo che compre
     \item Supponi un $n \in \mathbb{N}$ e prova l'ipotesi $\phi(n+1)$.
     \item Concludi che $\forall n \in \mathbb{N}$ vale $\phi(n)$.
 \end{enumerate}
-Per i nostri scopi useremo inoltre i seguenti assiomi:
+Per i nostri scopi useremo inoltre i seguenti assiomi, i quali renderanno più semplice la risoluzione degli esercizi:
 \begin{prop}
     \textbf{Assiomi di Peano}\par
     \begin{itemize}
@@ -20,18 +20,142 @@ Per i nostri scopi useremo inoltre i seguenti assiomi:
     $[\phi(0) \land \forall n \in \mathbb{N}.(\phi(n) \implies \phi(Succ(n))] \implies \forall n \in \mathbb{N}.(\phi(n))$
 \end{itemize}
 \end{prop}
-Proviamo adesso ad effettuare una prima $IND_{\mathbb{N}}$ dimostrando la validità della seguente formula
+
 \begin{eg}
-    \textbf{Dimostrazione per $IND_{\mathbb{N}}$ della formula $\forall n \in \mathbb{N}.[(1+2024)^n \geq 1+n\times 2024]$}\par
+    \textbf{Dimostrazione con $IND_{\mathbb{N}}$}\par
+    INSERISCI ESEMPIO con $\forall n \in \mathbb{N}.[(1+2024)^n \geq 1+n\times 2024]$.
+\end{eg}
+
+Considera che è possibile operare anche in un insieme dei naturali dove non fa parte lo zero, formalmente definito come $\mathbb{N^*} = \mathbb{N} / \{0\}$. Il procedimento per le dimostrazioni non cambia, semplicemente il passo base sarà con il numero $1$. Abbiamo inoltre un algoritmo equivalente a quanto visto denominato $IND_<$.
+
+\begin{eg}
+    \textbf{Dimostrazione con $IND_{\mathbb{N}^*}$}\par
+    Definiamo l'insieme numerico di lavoro come $\mathbb{N}^* = \mathbb{N} \setminus \{0\} = \{1, 2, ..., n\}$\par
+    Tesi da provare: $\theta(n) = \forall n \in \mathbb{N}^*.(1+2+...+n=\dfrac{n(n+1)}{2})$
+    \begin{itemize}
+        \item \textbf{Passo base}:\par
+        Testiamo se la tesi vale sostituendo $n$ a $1$\par
+        \begin{center}
+            $\theta(1) \iff 1 = \dfrac{1(1+1)}{2} = 1$, che è vera.
+        \end{center}
+        \item \textbf{Passo induttivo}:\par
+        Espandiamo il ragionamento per $\theta(n+1)$. Va sostituito $(n+1)$ alla singola $n$ presente nella tesi iniziale.
+        \begin{center}
+            $\theta(n+1) \iff (1+2+...+n+(n+1)) = \dfrac{(n+1)((n+1)+1)}{2} = \dfrac{(n+1)(n+2)}{2}$
+        \end{center}
+        Adesso proviamo che il risultato ottenuto è valido:
+        \begin{center}
+            $\dfrac{n(n+1)}{2}+(n+1) = \dfrac{n(n+1) + 2(n+1)}{2} = \dfrac{n^2+3n+2}{2} = \dfrac{(n+1)(n+2)}{2}$
+        \end{center}
+    \end{itemize}
+    Come volevasi dimostrare.
+\end{eg}
+
+\begin{eg}
+    \textbf{Dimostrazione con $IND_<$}\par
     INSERISCI ESEMPIO.
 \end{eg}
-Considera che è possibile operare anche in un insieme dei naturali dove non fa parte lo zero, formalmente definito come $\mathbb{N^*} = \mathbb{N} / \{0\}$. Il procedimento per le dimostrazioni non cambia, semplicemente il passo base sarà con il numero $1$.\par\quad
-Abbiamo inoltre un algoritmo equivalente a quanto visto denominato $IND_<$ INSERISCI ESEMPIO.
 
 %
 
 \section{Principali operazioni ed elementi}
-Addizione in N, funzione successiva, proprietà commutativa, ordinamento in N, proprietà associativa.
+Dove è sempre possibile utilizzare l'induzione per la dimostrazione dei teoremi, risulta particolarmente comodo provare determinate relazioni e operazioni per \textbf{Ricorsione}. Anch'essa è composta di due casi:
+\begin{enumerate}
+    \item Caso base, da dove inizia la dimostrazione.
+    \item Caso ricorsivo, il quale avanza tenendo conto dei valori precedentemente ottenuti.
+\end{enumerate}
+L'esempio più semplice, spesso usato anche nella programmazione, è la formalizzazione del concetto di fattoriale.
+\begin{eg}
+    \textbf{Dimostrazione con ricorsione}\par
+    \begin{itemize}
+        \item Passo base\par
+        Se $n = 0 \implies 1$
+        \item Passo ricorsivo\par
+        Se $n > 0 \implies (n-1)! \times n$ 
+    \end{itemize}
+    Proviamo a ragionare come si comporta tale funzione quando sostituiamo alla $n$ i valori presi in esame. Otterremo che:
+    \begin{center}
+        $0! = (0-1)! \times1 = 1$\par
+        $1! = (1-1)!\times1 = 1\times1 = 1$\par
+        $2! = (2-1)!\times2 = 1\times2 = 2$\par
+        $3! = (3-2)!\times3 = 2\times3 = 6$\par
+        $4! = (4-3)!\times4 = 6\times4 = 24$\par
+    \end{center}
+\end{eg}
+Adesso è ora di distruggere tutto ciò che è stato insegnato alle scuole elementari sulla matematica; definiamo tutte le operazioni elementari:
+\begin{itemize}
+    \item \textbf{Funzione Successore}
+    \item \textbf{Addizione}
+        \begin{itemize}
+            \item \textbf{Proprietà commutativa}
+            \item \textbf{Proprietà associativa}
+        \end{itemize}
+    \item \textbf{Ordinamento, concetto di minimo}\par
+    Partiamo dal presupposto che per parlare di ordinamento abbiamo bisogno di definire cosa rende un numero maggiore o minore di un altro. Assorbito tal concetto, diciamo che ogni sottoinsieme non vuoto di $\mathbb{N}$ ha necessariamente un elemento minimo, formalmente $\exists n \in N$, dove $n \in A, \forall \alpha \in A.(n <= \alpha)$.
+    \begin{proof}
+        \textbf{Concetto di minimo $MIN$}\par
+        Iniziamo supponendo un insieme $A$ non vuoto ed un elemento $n \in A$. Diciamo che:
+        \begin{itemize}
+            \item $0 \in A$, se non lo è, passa al numero successivo, altrimenti hai trovato il minimo.
+            \item $1 \in A$, se non lo è, passa ancora al successivo, altrimenti hai trovato il minimo. Ripeti il processo fin quando non trovi il numero.
+        \end{itemize}
+    \end{proof}
+    Tuttavia, attenzione: il concetto di minimo non vale per i sovrainsiemi numerici di $\mathbb{N}$, a meno che non venga preso un insieme proprio. Puoi inoltre usare lo stesso ragionamento per trovare il valore massimo in un insieme i cui estremi sono definiti.\par\quad
+    Un'altra particolarità del principio di minimo è che implica la validità del principio del terzo escluso nei numeri naturali:
+    \begin{theorem}
+        $MIN \implies PEM_P$\par 
+    \end{theorem}
+    \begin{proof}
+        \textbf{Ricorsione}\par
+        Sia una formula $P$, dimostriamo che vale il principio del terzo escluso, ovvero $(P \lor \neg P)$.\par
+        \begin{center}
+            $A_P = \{1\} \cup \{x \in \mathbb{N} | x = 0 \land P\}$\par
+            $1 \in A_P$, quindi $A_P$ non è vuoto.
+        \end{center}
+        Non essendo un insieme vuoto, avrà per forza un minimo. CVD.
+    \end{proof}
+    Possiamo ottenere uno stesso risultato anche induttivamente, effettuando il seguente ragionamento:
+    \begin{proof}
+        $IND_\mathbb{N}$\par
+        Sia ora $n = min(A_P)$, abbiamo che $[n = 0 \lor \exists m \in \mathbb{N}.(n = succ(m))]$.\par
+        Chiamiamo il minimo $P$ e dimostriamo che vale $(P \lor \neg P)$:
+        \begin{center}
+            $0 \in A_P \implies P$\par
+            Se il minimo è 1, P non è valida, di conseguenza vale $\neg P$, quindi:\par
+             $P_A.(0=0)\implies (0\in A_P) \implies 0 = minA_P$.\par
+             Qui hai trovato l'assurdo ricavando che il minimo è $0$.
+        \end{center}
+        CVD, vale $(P \lor \neg P)$.
+    \end{proof}
+    \item \textbf{Moltiplicazione}\par
+    La moltiplicazione è la seconda operazione elementare che consente di esprimere ogni singolo numero naturale. Viene definita ricorsivamente come segue:
+    \begin{definition}
+        \textbf{Moltiplicazione} - $m,n \in N$\par
+        \begin{itemize}
+            \item $m\times0 = 0$
+            \item $m\times succ(n) = m\times n+m$
+        \end{itemize} 
+    \end{definition}
+    Vediamo un esempio pratico con la funzione successivo:
+    \begin{eg}
+        \textbf{Esercizio su moltiplicazione}\par
+        AGGIUNGI SPIEGAZIONI - RICOMINCIA DA QUA
+        \begin{center}
+            $2\times 3 = 2\times succ(2) =$\par
+            $2\times 2 + 2 = 2\times succ(1) + 2 =$\par
+            $2\times 1 + 2 + 2 = 2\times succ(0) + 2 + 2 =$\par
+            $2\times 0 + 2 + 2 + 2 = 0 + 2 + 2 + 2 = 6$.
+        \end{center}
+    \end{eg}
+        \begin{itemize}
+            \item \textbf{Proprietà distributiva}
+        \end{itemize}
+    \item \textbf{Elevamento a potenza}
+    \item \textbf{Equivalenza}
+\end{itemize}
+
+%
+
 \section{Costruzione di interi e razionali}
 \section{Fattorizzazione e teorema fondamentale dell'aritmetica}
 \section{Congruenze}
@@ -39,46 +163,7 @@ Addizione in N, funzione successiva, proprietà commutativa, ordinamento in N, p
 \section{Esercizi}
 
 \section{Appunti}
-Per il principio del minimo MIN, ogni insieme ha un elemento minimo e non è vuoto. Quindi esisterà $\exists n \in N$, dove $n \in A, \forall \alpha \in A.(n <= \alpha)$. Nei precedenti appunti è stata confutata la tesi (Non tutti gli insiemi hanno un minimo) indirettamente.\par
-Un'altra prova per MIN:\par
-\begin{center}
-    $A \neq 0/$, sia $n \in A$.\par
-    $0 \in A \lor 0 \cancel{\in} A$, continua ad andare avanti finché non trovi il minimo dell'insieme.
-\end{center}
 
-\begin{theorem}
-    Il principio MIN implica il principio del terzo escluso PEM
-\end{theorem}
-\begin{proof}
-    Sia $P$ una formula, dimostriamo che vale $(P \lor \neg P)$.
-    \begin{center}
-        $A_P = \{1\} \cup \{x \in \mathbb{N} | x = 0 \land P\}$\par
-        $1 \in A_P$, quindi $A_P$ non è vuoto.
-    \end{center}
-    Non essendo un insieme vuoto, avrà per forza un minimo.
-\end{proof}
-
-Sia $n = min(A_P)$, abbiamo che $n = 0 \lor \exists m \in \mathbb{N}. (n = succ(m))$. Con questa formula troviamo il minimo per induzione, che chiamiamo $P$. Dimostriamo quindi che vale $P \lor \neg P$.\par
-\begin{center}
-    $0 \in A_P \implies P$\par
-    Se il minimo è 1, P non è valida, quindi vale $\neg P$, quindi: $P_A. 0=0 \implies 0 \in A_P \implies 0 = minA_P$. Hai trovato l'assurdo.\newline
-
-    Hai provato che vale $P \lor \neg P$.
-\end{center}
-
-- \textbf{Moltiplicazione in $\mathbb{N}$}
-\begin{definition}
-    $m,n \in N$\par
-    Definizione ricorsiva:
-    \begin{itemize}
-        \item $m 0 = 0$
-        \item $m succ(n) = m*n+m$
-    \end{itemize} 
-\end{definition}
-
-\begin{eg}
-    $2\times 3 = 2 \times succ(2) = 2 \times 2 + 2 = 2 \times succ(1) + 2 = 2 * 1 + 2 + 2 = 2 \times succ(o) + 2 + 2 = 2*0 + 2 + 2 + 2 = 0 + 2 + 2 + 2 = 6$.
-\end{eg}
 
 \begin{eg}
     $1 \times 1 = 1$\par

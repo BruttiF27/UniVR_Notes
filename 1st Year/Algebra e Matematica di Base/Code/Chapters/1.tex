@@ -290,65 +290,19 @@ A partire da queste nozioni ci è possibile definire i seguenti casi notevoli:
 %
 
 \section{Principi di dimostrazione}
-Il processo di dimostrazione matematica è un algoritmo deduttivo utilizzato per provare la verità di ipotesi arbitrarie basandosi sul ragionamento logico. Esistono più metodi per arrivare ad una stessa soluzione:
+Il processo di dimostrazione matematica è un algoritmo deduttivo utilizzato per provare la verità o falsità di ipotesi arbitrarie basandosi sul ragionamento logico. Il processo si effettua formalizzando i concetti espressi nell'enunciato e consideriamo l'esercizio concluso quando si è riusciti a dimostrare tutto. Esistono inoltre più metodi per arrivare a una stessa soluzione:
 \begin{itemize}
+    \item \textbf{Dimostrazione per prova diretta}\par
+    Molto semplicemente si prende l'enunciato e si prova a dimostrare quanto richiesto, senza fare magheggi di alcun tipo.
+    \begin{eg}
+        \textbf{Dimostrazione per prova diretta}\par
+        INSERISCI ESEMPIO.
+    \end{eg}
     \item \textbf{Dimostrazione per assurdo}\par
-    Partiamo dal presupposto che la tesi sia falsa. Se si riesce a concludere il processo senza incappare in contraddizioni si è dimostrato che la tesi è falsa, altrimenti è vera.\par
+    Partiamo dal presupposto che la tesi sia falsa. Se si riesce a concludere il processo senza incappare in contraddizioni, si è dimostrato che la tesi è falsa, altrimenti è vera.\par
     \begin{eg}
         \textbf{Dimostrazione per assurdo}\par
         INSERISCI ESEMPIO.
-    \end{eg}
-    \item \textbf{Dimostrazione per induzione}\par
-    Algoritmo basato sul passaggio dallo specifico al generale, si compone di due passi:
-    \begin{enumerate}
-        \item Passo base, dove si prende un valore comodo per provare la veridicità della tesi nel caso più facile.
-        \item Passo induttivo, dove si prova, basandosi sul caso base, che valga anche per tutte le istanze successive.
-    \end{enumerate}
-    \begin{eg}
-        \textbf{Dimostrazione per induzione su $\mathbb{N}$}\par
-        INSERISCI ESEMPIO
-    \end{eg}
-    \begin{eg}
-        \textbf{Dimostrazione per induzione su $\mathbb{N}^*$}\par
-        Definiamo l'insieme numerico di lavoro come $\mathbb{N}^* = \mathbb{N} \setminus \{0\} = \{1, 2, ..., n\}$\par
-        Tesi da provare: $\theta(n) = \forall n \in \mathbb{N}^*.(1+2+...+n=\dfrac{n(n+1)}{2})$
-        \begin{itemize}
-            \item \textbf{Passo base}:\par
-            Testiamo se la tesi vale sostituendo $n$ a $1$\par
-            \begin{center}
-                $\theta(1) \iff 1 = \dfrac{1(1+1)}{2} = 1$, che è vera.
-            \end{center}
-            \item \textbf{Passo induttivo}:\par
-            Espandiamo il ragionamento per $\theta(n+1)$. Va sostituito $(n+1)$ alla singola $n$ presente nella tesi iniziale.
-            \begin{center}
-                $\theta(n+1) \iff (1+2+...+n+(n+1)) = \dfrac{(n+1)((n+1)+1)}{2} = \dfrac{(n+1)(n+2)}{2}$
-            \end{center}
-            Adesso proviamo che il risultato ottenuto è valido:
-            \begin{center}
-                $\dfrac{n(n+1)}{2}+(n+1) = \dfrac{n(n+1) + 2(n+1)}{2} = \dfrac{n^2+3n+2}{2} = \dfrac{(n+1)(n+2)}{2}$
-            \end{center}
-        \end{itemize}
-        Come volevasi dimostrare.
-    \end{eg}
-    \item \textbf{Dimostrazione per ricorsione}\par
-    La ricorsione si costituisce anch'essa di due casi, ovvero il caso base, da dove inizia tutto, ed il caso ricorsivo, che avanza tenendo conto dei valori precedentemente ottenuti.
-    \begin{eg}
-        \textbf{Dimostrazione per ricorsione}\par
-        Definiamo la funzione $n!$:
-        \begin{itemize}
-            \item Passo base\par
-            Se $n = 0 \implies 1$
-            \item Passo ricorsivo\par
-            Se $n > 0 \implies (n-1)! \times n$ 
-        \end{itemize}
-        Proviamo a ragionare come si comporta tale funzione quando sostituiamo alla $n$ i valori presi in esame. Otterremo che:
-        \begin{center}
-            $0! = (0-1)! \times1 = 1$\par
-            $1! = (1-1)!\times1 = 1\times1 = 1$\par
-            $2! = (2-1)!\times2 = 1\times2 = 2$\par
-            $3! = (3-2)!\times3 = 2\times3 = 6$\par
-            $4! = (4-3)!\times4 = 6\times4 = 24$\par
-        \end{center}
     \end{eg}
 \end{itemize}
 

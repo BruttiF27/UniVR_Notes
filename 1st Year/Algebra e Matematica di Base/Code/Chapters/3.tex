@@ -91,7 +91,10 @@ Adesso è ora di distruggere tutto ciò che è stato insegnato alle scuole eleme
             \item \textbf{Proprietà associativa}
         \end{itemize}
     \item \textbf{Ordinamento, concetto di minimo}\par
-    Partiamo dal presupposto che per parlare di ordinamento abbiamo bisogno di definire cosa rende un numero maggiore o minore di un altro. Assorbito tal concetto, diciamo che ogni sottoinsieme non vuoto di $\mathbb{N}$ ha necessariamente un elemento minimo, formalmente $\exists n \in N$, dove $n \in A, \forall \alpha \in A.(n <= \alpha)$.
+    Partiamo dal presupposto che per parlare di ordinamento abbiamo bisogno di definire cosa rende un numero maggiore o minore di un altro. Assorbito tal concetto, diciamo che ogni sottoinsieme non vuoto di $\mathbb{N}$ ha necessariamente un elemento minimo, formalmente:
+    \begin{center}
+        $\exists n \in N$, dove $n \in A, \forall \alpha \in A.(n <= \alpha)$.
+    \end{center}
     \begin{proof}
         \textbf{Concetto di minimo $MIN$}\par
         Iniziamo supponendo un insieme $A$ non vuoto ed un elemento $n \in A$. Diciamo che:
@@ -136,160 +139,171 @@ Adesso è ora di distruggere tutto ciò che è stato insegnato alle scuole eleme
             \item $m\times succ(n) = m\times n+m$
         \end{itemize} 
     \end{definition}
-    Vediamo un esempio pratico con la funzione successivo:
+    Seguono esempi pratici per miglior comprensione:
     \begin{eg}
-        \textbf{Esercizio su moltiplicazione}\par
-        AGGIUNGI SPIEGAZIONI - RICOMINCIA DA QUA
+        \textbf{Dimostrare che $2\times 3 = 6$}\par
+        Il senso dei passaggi è che, in base alla definizione ricorsiva della moltiplicazione e a quella della funzione successivo, puoi ridurre tutti i numeri nella formula al minimo ed arrivare a una somma.
         \begin{center}
-            $2\times 3 = 2\times succ(2) =$\par
-            $2\times 2 + 2 = 2\times succ(1) + 2 =$\par
-            $2\times 1 + 2 + 2 = 2\times succ(0) + 2 + 2 =$\par
-            $2\times 0 + 2 + 2 + 2 = 0 + 2 + 2 + 2 = 6$.
+            $2\times 3 = 2\times succ(2) = 2\times 2 + 2 =$ $2\times succ(1) + 2 =$\par
+            $2\times 1 + 2 + 2 = 2\times succ(0) + 2 + 2 = 2\times 0 + 2 + 2 + 2 =$\par
+            $0 + 2 + 2 + 2 = 6$.
+        \end{center}
+        Questo procedimento può tranquillamente valere anche per numeri incogniti. Infatti, se vogliamo dimostrare che $m\times 1 = m$, opereremo allo stesso modo:
+        \begin{center}
+            $m \times 1 = m \times succ(0) = m \times 0 + m = 0 + m = m$
         \end{center}
     \end{eg}
         \begin{itemize}
-            \item \textbf{Proprietà distributiva}
+            \item \textbf{Proprietà distributiva}\par
+            La moltiplicazione ha giustamente la sua proprietà distributiva, ovvero rende possibile "distribuire" l'operazione a più valori se ambo devono essere moltiplicati. 
+            \begin{prop}
+                La proprietà distributiva viene definita ricorsivamente e ha i seguenti casi:
+                \begin{enumerate}
+                    \item $m(l+n) = m\times l+m\times n$
+                    \item $m(l\times n) = (m\times l)n$
+                    \item $m\times n = n\times m$
+                    \item $m\times n = 0 \implies m = 0 \lor n = 0$
+                \end{enumerate}
+            \end{prop}
+            \begin{proof}
+                La proprietà è definita tramite induzione come segue:
+                \begin{center}
+                    Supponiamo che $\forall m \in N . [\forall n \in N.(m*n = 0 \implies m= 0 \lor n = 0]$
+                \end{center}
+                \begin{itemize}
+                    \item Il caso base vale per identità. Bella fortuna.\par
+                    $\phi(0) \iff \forall n \in N . (0\times n = 0 \implies 0=0 \lor n = 0)$.
+                    \item Passo induttivo\par
+                    $\phi(n) \implies \phi(succ(n))\iff$\par
+                    $\quad \forall n \in N .[(succ(n)\times n = 0)\implies succ(m) = 0 \lor  n = 0]$, $[] = \theta(n)$
+                    \item Abbiamo ottenuto la formula $\theta(n)$, sulla quale possiamo operare:\par
+                    $\theta(n) \iff succ(m)\times n = 0 \implies succ(m) = 0 \lor n = 0)$.
+                    \item Il suo caso base vale fortunatamente per identità:\par
+                    $\theta(0) \iff succ(m) \times 0 = 0 \implies succ(m) = 0 \lor 0=0$.
+                    \item Passo induttivo.\par
+                    $\theta(n) \implies \theta(succ(n)) \iff$\par
+                    $\quad succ(n) = 0 \implies succ(m = 0 \lor succ(n)) = 0$.
+                    \item Proviamo a verificare la proprietà\par
+                    $succ(m) \times succ(n) = 0 \iff succ(m)\times n + succ(m) = 0 \implies$\par
+                    $succ(m)\times n = 0 \land succ(m) = 0$.\par
+                    Questa formula risulta falsa per l'assioma di Peano 1, infatti il successore di $0$ è $1$, non $0$.
+                \end{itemize}
+                La formula qui è in ogni caso dimostrata grazie al funzionamento del connettivo $\implies$. Il falso implica il vero. CVD
+            \end{proof}
         \end{itemize}
-    \item \textbf{Elevamento a potenza}
-    \item \textbf{Equivalenza}
+    \item \textbf{Elevamento a potenza}\par
+    Contrariamente a quello che si può pensare, l'elevamento a potenza è un'operazione fattibile nell'insieme $\mathbb{N}$ e anche questa viene definita ricorsivamente:
+    \begin{definition}
+        \textbf{Elevamento a potenza}
+        \begin{itemize}
+            \item $m^0 = 1$
+            \item $m^{succ(n)} := m^n * m$
+        \end{itemize}
+    \end{definition}
+    Vediamo un semplice esempio usando la definizione.
+    \begin{eg}
+        Dimostrare che $2^3 = 8$\par
+        Come visto nella moltiplicazione, anche qui è necessario vedere i numeri sotto la lente della funzione successivo, per poi usare la definizione di moltiplicazione e ottenere il risultato.\par
+        $2^3 = 2^{succ(2)} = 2^2 \times 2 = 2^{succ(1)} \times 2 = 2^1 \times 2 \times 2 = 2^{succ(0)}\times2\times2 = 2^0\times2\times2\times2 =$\par
+        \begin{center}
+            $1\times2\times2\times2 = 8$. CVD
+        \end{center}
+    \end{eg}
 \end{itemize}
 
 %
 
 \section{Costruzione di interi e razionali}
-\section{Fattorizzazione e teorema fondamentale dell'aritmetica}
-\section{Congruenze}
-\section{Domande di teoria}
-\section{Esercizi}
-
-\section{Appunti}
-
-
-\begin{eg}
-    $1 \times 1 = 1$\par
-    $1 * 1 = 1 * succ(0) = 1 * 0 + 1 = 0 + 1 = 1$
-\end{eg}
-
-\begin{eg}
-    $m * 1 = m$\par
-    $m * 1 = m * succ(0) = m * 0 + m = 0 + m = m$
-\end{eg}
-
-\begin{eg}
-    $1 * m = m$\par
-    $\forall m \in N . (1*m = m)$\par
-    $\phi 0 = 1 * 0 = 0$\par
-    $\phi(m) \implies \phi(succ(m)) \iff 1 * succ(m) = succ(m)$\par
-    $1*succ(m) = 1*m + 1 = m+1 = succ(m)$\par
-    $\phi(m) \iff \ * m = m$.
-\end{eg}
-
-\begin{eg}
-    $0 * m = 0$\par
-    $\forall m \in N(0*m = 0)$\par
-    $\phi(0) \iff 0*0 = 0$ Per definizione\par
-    $\phi(succ(m)) \iff 0 * succ(m) = 0$\par
-    $0 * succ(m) = 0 * m + 0 = 0+0 = 0$
-\end{eg}
-
-La moltiplicazione è distributiva rispetto all'addizione.
+Finora ci siamo concentrati sull'insieme numerico dei numeri naturali $\mathbb{N}$, ma come è possibile definire gli altri sovrainsiemi che compongono la matematica? Partiamo dal basso per ora e cerchiamo di definire i \textbf{Numeri interi}, appartenenti all'insieme $\mathbb{Z}$:
 \begin{definition}
-    Proprietà distributiva\par
-    \begin{enumerate}
-        \item $m(l+n) = m*l+m*n$
-        \item $m(l*n) = (m*l)n$
-        \item $m*n = n*m$
-        \item $m*n = 0 \implies m = 0 \lor n = 0$
-    \end{enumerate}
-\end{definition}
-
-\begin{proof}
-    $\forall m \in N . [\forall n \in N.(m*n = 0 \implies m= 0 \lor n = 0]$\par
-    $\phi(0) \iff \forall n \in N . (0*n = 0 \implies 0=0 \lor n = 0$ Vale banalmente per identità\par
-    $\phi(n) \implies \phi(succ(n)), \phi(succ(n)) \iff \forall n \in N . (succ(n)*n = 0 \implies succ(m) = 0 \lor  n = 0$\newline
-
-    $\theta(n) \iff succ(m)*n = 0 \implies succ(m) = 0 \lor n = 0)$\par
-    $\theta(0) \iff succ(m) * 0 = 0 \implies succ(m) = 0 \lor 0=0$ vale banalmente per identità.\par
-    $\theta(n) \implies \theta(succ(n)), \theta(succ(n)) \iff succ(n = 0 \implies succ(m = 0 \lor succ(n) = 0$\par
-    $succ(m) * succ(n) = 0 \iff succ(m)*n + succ(m) = 0 \implies succ(m)*n = 0 \land succ(m) = 0$ Questa è falsa per peano 1. Il successore di 0 è 1.\par
-    La formula è dimostrata per il funzionamento del connettivo implica 0->1.
-\end{proof}
-
-\begin{eg}
-    Dimostrare $m < n$, tenendo conto della definizione ricorsiva della moltiplicazione.\newline
-
-    $m < n \implies m*l < n*l$, dove $l >= 1$\par
-    $m < n \iff \exists k \in N^*(n = m+k), k >= 1$\newline
-
-    Per ricorsione:\par
-    $n = m+k, k <= 1$\par
-    $m*l < n*l$\par
-    $n*l = (m+k)l = m*l + k*l, k*l >= 1$\par
-    $k >= 1, l >= 1, k*l >= 1$\par
-    $k = 1 + \sigma$, $l = 1 + \sigma'$\par
-    $k*l = (1+\sigma)(1+\sigma') = 1+\sigma' + \sigma + \sigma * \sigma' >= 1$\newline
-
-    Per induzione:\par
-    $\forall l \in N^*[(m*l < n*l)]$, $m,n . m < n$, $\phi(l) = []$\par
-    $\phi(1) \iff m*l < n*l \iff m < n$ vale\par
-    $\phi(l) \implies \phi(succ(l))$\par
-    $\phi(succ(l)) \iff m * succ(l) < n * succ(l)$\par
-    $m * succ(l) = m * l + m$\par
-    $n * succ(l) = n*l +n$\par
-    $m*l < n*l = m < n$
-\end{eg}
-
-\begin{eg}
-    Dimostrare che $m <= m*n, n >= 1$\par
-    $m <= n \iff \exists k \in N . (n = m+k), k >= 0$\newline
-    
-    Per m fissato:\par
-    $\forall n \in N^*.[(m <= m*n)], \theta(n) = []$\par
-    $\theta(1) \iff m <= m*1 = m$ vale\par
-    $\theta(n) \implies \theta(succ(n)) \iff m <= m *succ(n) \iff m <= m(n+1) = m*n+m$\par
-    $\theta(n) \iff m <= m*n <= m*n + n = n*succ(m)$\par
-\end{eg}
-
-Per ogni numero naturale definiamo:
-\begin{definition} Potenza\par
-    \begin{itemize}
-        \item $m^0 = 1$
-        \item $m^{succ(n)} := m^n * m$
-    \end{itemize}
-    $2^3 = 2^{succ(2)} = 2^2 * 2 = 2^{succ(1)} * 2 = 2^1 * 2 * 2 = 2^{succ(0)}*2*2 = 2^0*2*2*2 = 1*2*2*2 = 8$.
-\end{definition}
-
-- Costruzione dei numeri interi\par
-Come definire gli interi? $\mathbb{N} \cup \{0\} \cup \mathbb{N}$\par
-$N^* tilde N_*, N^* \cap N_* = void$.\par
-
-\begin{eg}
-    Proviamo a rappresentare -1 con i numeri naturali. Ne serviranno due:
+    \textbf{Insieme dei numeri interi relativi $\mathbb{Z}$}\par
+    Fondamentalmente l'unione dell'insieme dei naturali con quello dei loro opposti, formalmente:
     \begin{center}
-        $-1 = 0-1$\par
-        $= 1-2$ e così via.
+        $\mathbb{Z} = \mathbb{N} \cup \{0\} \cup \mathbb{N}^-$
     \end{center}
-    Puoi provare a farlo anche con 0, 1, 2 e altri. Questo per dire che tutti i numeri si possono rappresentare mediante una relazione di sottrazione. Ci consente di rendere due coppie scritte in modo diverso uguali grazie alla definizione di funzione.
+    Dove i rispettivi insiemi sono:
+    \begin{itemize}
+        \item $\mathbb{N} = \{0,1,2,...,n\}$.
+        \item $\mathbb{N}^- = \{-1,-2,...,-n\}$.
+    \end{itemize}
+    Il ragionamento vale pure per l'insieme dei naturali senza $0$, $\mathbb{N}^*$. Importante ricordare che siccome stai unendo due opposti, se provi a trovare un'intersezione fra i due, otterrai un insieme vuoto.
+    \begin{center}
+        $N^* \sim N_*, N^* \cap N_* = \emptyset$
+    \end{center}
+\end{definition}
+Abbiamo aggiunto all'equazione dello studio i numeri negativi: come possiamo rappresentarli? Ebbene, serviranno due numeri.
+\begin{eg}
+    Rappresentazione dei numeri negativi.\par
+    \begin{center}
+        $-1 = 0-1 = 1-2$\par
+        $-2 = 0-2 = 1-3$\par
+        e così via.
+    \end{center}
+    Questa scrittura vale anche con 0, 1, 2 e altri. Tutti i numeri si possono infatti rappresentare mediante una relazione di sottrazione. Ci consente di rendere due coppie scritte in modo diverso uguali grazie alla definizione di funzione.
 \end{eg}
-
-Supponiamo le coppie $(m,n) tilde (m',n')$, le quali devono essere appunto equivalenti, avremo di conseguenza che $m-n = m'-n'$. Possiamo spostare i termini coi criteri di equivalenza, varrà quindi: $m + n' = m' + n$.\par
-\begin{prop}
-    \textbf{tilde è un'equivalenza su NxN}.
-\end{prop}
-
+Adesso approfondiamo un simbolo raramente utilizzato negli studi della matematica alle scuole dell'obbligo: $\sim$, indicante l'equivalenza. Ci permette di identificare gli oggetti disuguali che però sono equivalenti. Diamone una definizione formale:
+\begin{definition}
+    \textbf{Equivalenza}\par
+    Una relazione si dice equivalente quando rispetta questi tre criteri:
+    \begin{enumerate}
+        \item La relazione è riflessiva.
+        \item La relazione è simmetrica.
+        \item La relazione è transitiva.
+    \end{enumerate}
+    Supponiamo ora le coppie $(m,n)\sim(m',n')$. Se queste sono equivalenti, come indicato dalla tilde, sarà possibile utilizzare i classici criteri di equivalenza per le equazioni. Varranno quindi le seguenti scritture \textit{equivalenti}:
+    \begin{center}
+        $m-n = m'-n' \sim m + n' = m' + n$
+    \end{center}
+    Diremo inoltre che $\sim$ è un'equivalenza su $\mathbb{N}\times\mathbb{N}$.
+\end{definition}
 \begin{proof}
-    Equivalenza\par
-    $(m,n) tilde (m,n) \iff m+n = m+n$. La relazione è riflessiva.\par
-    $(m,n) tilde (m',n') \implies (m',n') tilde (m,n) \implies m+n' = m'+n \implies m'+n = m+n'$. La relazione è simmetrica.\par
-    $ (m,n) tilde (m',n') \iff m+n' = m'+n ! (m',n')tilde(m'',n'') \iff m'+n'' = m''+n'$\par
-    $(m,n) tilde (m'',n'') \iff m+n'' = m'' + n$.\par
-    $B = m'+n'' = m''+n' \implies m'+n'' + n = m'' +n' +n$\par
-    Quanto ottenuto fa ottenere $A = m+n'+n'' = m'' +n'+n \iff m+n'' = m''+n$. La relazione è quindi transitiva.\par
+    \textbf{Relazione di equivalenza}
+    \begin{itemize}
+        \item La relazione è riflessiva.\par
+        $(m,n) \sim (m,n) \iff m+n = m+n$.
+        \item La relazione è simmetrica.\par
+        $(m,n) \sim (m',n') \implies (m',n') \sim (m,n) \implies m+n' = m'+n \implies$\par
+        \quad$m'+n = m+n'$. 
+        \item La relazione è transitiva.\par
+        $(m,n) \sim (m',n') \iff m+n' = m'+n \land (m',n')\sim(m'',n'') \iff$\par
+        \quad$m'+n'' = m''+n' \land (m,n) \sim (m'',n'') \iff m+n'' = m'' + n$\par
+        Abbiamo ora che:\par
+        $m' + n'' = m''+n' \implies m'+n+n'' = m''+n'+n$\par
+        \quad$\implies m'+n'+n'' = m''+n'+n$\par
+        \quad$\implies m+n'' = m''+n$. Un termine vale l'altro. Transitività dimostrata.
+    \end{itemize}
 \end{proof}
+Sapendo tutto ciò, ci è possibile dare una definizione rigorosa dell'insieme dei relativi:
+\begin{definition}
+    \textbf{Definizione rigorosa dell'insieme $\mathbb{Z}$}\par
+    Definiamo $\mathbb{Z}$ l'insieme delle classi di equivalenza $\mathbb{Z}:=(\mathbb{N}\times\mathbb{N})/\sim$, ovvero:
+    \begin{center}
+        $\mathbb{Z} = \{[(m,n)]_{\sim} | (m,n) \in \mathbb{N}\times\mathbb{N}\} = \biggl\{\{(m',n') \in \mathbb{N}\times\mathbb{N} | (m',n') \sim (m,n)\} | (m,n) \in \mathbb{N}\times\mathbb{N}\biggr\}$.
+    \end{center}
+    Come visto prima, ci è possibile definire ogni numero tramite sottrazioni. Vedi queste coppie come se fossero una funzione di sottrazione e avrai capito tutto.
+    \begin{itemize}
+        \item $0_{\mathbb{Z}} = [(0,0)]_\sim$
+        \item $1_{\mathbb{Z}} = [(1,0)]_\sim$
+        \item $-1_{\mathbb{Z}} = [(0,1)]_\sim$
+        \item $2_{\mathbb{Z}} = [(2,0)]_\sim$
+        \item $-2_{\mathbb{Z}} = [(0,2)]_\sim$
+    \end{itemize}
+    Puoi potenzialmente andare avanti ad infinitum con questa scrittura.
+\end{definition}
+
+
+
+
+
+
+
+
+
+
 
 \begin{definition}
-    $\mathbb{Z}:= \mathbb{N}\times \mathbb{N}/tilde, (m,n) tilde(m',n') \iff m+n' = m'+n$\par
-    $Z = \{[(m,n)]_{tilde} | (m,n) \in NxN$\par
+    
+    \par
     $[(m,n)]_{\sim}:= \{(m',n') \in NxN | (m',n') tilde (m,n)\}$\par
     $0_Z .= [(0,0)]_{tilde} = [(1,1)]_{tilde} \iff (0,0) tilde (1,1)$\par
     $1_Z := [(1,0)]_{tilde} = [(2,1)]_{tilde}, (1,0) tilde (2,1)$
@@ -304,4 +318,98 @@ Supponiamo le coppie $(m,n) tilde (m',n')$, le quali devono essere appunto equiv
 
 
 
+%
 
+\section{Fattorizzazione e teorema fondamentale dell'aritmetica}
+\section{Congruenze}
+\section{Domande di teoria}
+\section{Esercizi}
+\begin{enumerate}
+    \item Dimostrare che $1 \times 1 = 1$.\par
+    \begin{proof}
+        Banalmente sostituisci i termini nella definizione di moltiplicazione e vedi i numeri come i successori del loro valor precedente
+        \begin{center}
+            $1 \times 1 = 1 \times succ(0) = 1 \times 0 + 1 = 1$
+        \end{center} 
+    \end{proof}
+    \item Dimostrare che $1 \times m = m$.\par
+    \begin{proof}
+        Questa volta ragioniamo per induzione
+        \begin{center}
+            Supponiamo innanzitutto che $\forall m \in N . (1\times m = m)$\par
+        \end{center}
+        \begin{itemize}
+            \item Il caso base vale banalmente per definizione di moltiplicazione\par
+            $\phi (0) = 1 \times 0 = 0$.
+            \item Per gli assiomi di Peano, diciamo che:\par
+            $\phi(m) \implies \phi(succ(m)) \iff 1 \times succ(m) = succ(m)$.
+            \item Mentre per la definizione del caso ricorsivo della moltiplicazione abbiamo:\par
+            $1\times succ(m) = 1\times m + 1 = m+1 = succ(m)$.
+            \item Avendo dimostrato il passo induttivo, possiamo dire che vale anche per $m$:\par
+            $\phi(m) \iff 1 \times m = m$. CVD
+        \end{itemize}
+    \end{proof}
+    \item Dimostrare che $0 \times m = 0$.\par
+    \begin{proof}
+        Anche qui risulta comodo ragionare per induzione\par
+        \begin{center}
+            Supponiamo che $\forall m \in N(0\times m = 0)$.
+        \end{center}
+        \begin{itemize}
+            \item Abbiamo che il caso base vale per definizione:\par
+            $\phi(0) \iff 0\times 0 = 0$.
+            \item Usiamo ancora gli assiomi di Peano per implicare la funzione successiva.\par
+            $\phi(m) \implies \phi(succ(m)) \iff 0 \times succ(m) = 0$.
+            \item Usiamo la definizione di moltiplicazione e sostituiamo i termini:\par
+            $0 \times succ(m) = 0 \times m + 0 = 0+0 = 0$. CVD
+        \end{itemize}
+    \end{proof}
+    \item Dimostrare induttivamente e ricorsivamente che  $m < n$.\par
+    Per entrambe le dimostrazioni valgono le seguenti supposizioni:
+    \begin{enumerate}
+        \item $m < n \implies m*l < n*l$, dove $l >= 1$
+        \item $m < n \iff \exists k \in N^*(n = m+k), k >= 1$
+    \end{enumerate}
+    \begin{proof}
+        Per induzione\par
+        AGGIUSTA
+        \begin{itemize}
+            \item $\forall l \in N^*[(m*l < n*l)]$, $m,n . m < n$, $\phi(l) = []$
+            \item $\phi(1) \iff m*l < n*l \iff m < n$ vale
+            \item $\phi(l) \implies \phi(succ(l))$
+            \item $\phi(succ(l)) \iff m * succ(l) < n * succ(l)$
+            \item $m * succ(l) = m * l + m$
+            \item $n * succ(l) = n*l +n$
+            \item $m*l < n*l = m < n$
+        \end{itemize}
+    \end{proof}
+    \begin{proof}
+        Per ricorsione\par
+        AGGIUSTA
+        \begin{itemize}
+            \item $n = m+k, k <= 1$
+            \item $m*l < n*l$
+            \item $n*l = (m+k)l = m*l + k*l, k*l >= 1$
+            \item $k >= 1, l >= 1, k*l >= 1$ 
+            \item $k = 1 + \sigma$, $l = 1 + \sigma'$
+            \item $k*l = (1+\sigma)(1+\sigma') = 1+\sigma' + \sigma + \sigma * \sigma' >= 1$
+        \end{itemize}
+    \end{proof}
+    \item Dimostrare che $m <= m*n$, dove $n >= 1$.\par
+    \begin{proof}
+        AGGIUSTA - Per lavorare su questa dimostrazione risulta utile fissare un $m$. Detto ciò:
+        \begin{center}
+            Supponiamo la formula: $m <= n \iff \exists k \in N . (n = m+k), k >= 0$.
+        \end{center}
+        \begin{itemize}
+            \item $\forall n \in N^*.[(m <= m*n)], \theta(n) = []$
+            \item $\theta(1) \iff m <= m*1 = m$ vale
+            \item $\theta(n) \implies \theta(succ(n)) \iff m <= m *succ(n) \iff m <= m(n+1) = m*n+m$
+            \item $\theta(n) \iff m <= m*n <= m*n + n = n*succ(m)$
+    \end{itemize}
+    \end{proof}    
+\end{enumerate}
+
+%
+
+\section{Appunti}

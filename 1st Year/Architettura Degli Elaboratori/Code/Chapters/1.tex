@@ -1,0 +1,239 @@
+\section{Elaboratori e codifica dell'informazione}
+Informatica è un acronimo che sta per \textit{informazione automatica} ed il suo scopo è la risoluzione dei problemi mediante \textbf{algoritmi}\footnote{Insiemi di istruzioni non ambigue che risolvono un problema.}. Per quanto riguarda la qualità di esecuzione, esistono elaboratori più e meno efficienti, ma il nostro scopo principale è la creazione dei primi e ottimizzarli quanto più possibile. Esistono due tipi di macchine con le quali è possibile lavorare:
+\begin{itemize}
+    \item \textbf{Sistemi Embedded}; composte da solo hardware, capaci di eseguire un singolo algoritmo.
+    \item \textbf{Sistemi General Purpose}; composte dal connubio hardware-software, sono capaci di eseguire diversi algoritmi.
+\end{itemize}
+Nel corso di Programmazione hai potuto vedere il passaggio da algoritmo a software, ma qui ci concentreremo sulla comunicazione algoritmo ad hardware, che chiamiamo \textbf{Sintesi Logica}. In ogni caso, il sistema operativo lavora con il \textbf{linguaggio macchina}\footnote{Detto anche codice oggetto; si tratta di una sequenza di "0" ed "1" con un significato specifico per la macchina.}, il quale deve essere tradotto per essere leggibile da noi comuni mortali.\par\quad
+Come prima cosa, le informazioni vengono recepite dalla macchina per poi essere codificate ed inviate al sistema operativo; \textbf{Input}. Il tutto viene poi decodificato per far sì che si possa leggere; \textbf{Output}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/ricezioneInformazioni.png}
+    \caption{Ciclo di elaborazione informazioni}
+    \label{fig:enter-label}
+\end{figure}
+
+Gli elaboratori hanno risorse limitate e non è quindi possibile inserire infinite informazioni, ma il problema viene arginato dividendo in tanti pezzi l'informazione registrata, \textit{Campionamento}, ed approssimando quanto possibile ad un numero che la macchina può leggere \textit{Discretizzazione}. Vale qui il \textbf{Teorema di Shannon}; data una funzione in un intervallo di campionamento e discretizzazione, questi algoritmi garantiscono la presenza di un errore.\par\quad
+Le informazioni vengono ricevute ovviamente in un determinato arco di tempo, che viene misurato in \textbf{Hertz}.\footnote{Generalmente l'unità di misura dei processi. $1Hz = 1ms$}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/codifica.png}
+    \caption{Processo di ricezione delle informazioni}
+    \label{fig:enter-label}
+\end{figure}
+
+Passiamo ora invece alla \textit{codifica}. Questo processo consiste nell'assegnazione di un codice binario ad ogni frammento di informazione entro un certo numero di \textit{bits}. Supponiamo di avere $12M$ unità di informazioni e dobbiamo trovare un numero di bit adeguato per poterle contenere tutte.\par\quad
+Il ragionamento va basato sulla potenza del 2. Abbiamo bisogno di 4b perché $2^4 = 16$ e sono quindi abbastanza per contenere le $12M$.\par\quad
+Si possono scegliere diversi tipi di codifica a seconda delle caratteristiche del calcolatore, di cui due più importanti:
+\begin{itemize}
+    \item \textit{Velocità di elaborazione}; La frequenza di campionamento produce risultati ad una certa frequenza in Hz. Se la codifica richiedesse più tempo si perderebbero dati e quindi deve essere sempre maggiore o uguale alla frequenza di campionamento.
+    \item \textit{Facilità di calcolo}; Su alcune architetture è reso più semplice l'elaborazione delle informazioni.
+\end{itemize}
+
+Ricorda sempre: \textbf{Bits are bits}; questo significa che (nei circuiti combinatori) due sequenze di bit identiche saranno comprese come la stessa informazione, quindi è necessario fare attenzione a come codificare; inoltre, il bit più a sinitra è detto più significativo, mentre l'opposto è il meno significativo. Infine, è possibile codificare pressoché qualunque cosa, come immagini, musica, e video, ma i dati più importanti rimangono i numeri e i caratteri; i quali sono codificati mediante il codice \textbf{ASCII} dove i primi 127b sono comuni a tutte le lingue.
+
+%
+
+\section{Operazioni in base 2}
+Il nostro campo di lavoro è, come avrai capito, la base 2; nella quale valgono le solite quattro operazioni elementari, che adesso vedremo una per una nella loro forma binaria. Addizione, sottrazione e moltiplicazione sono intuitive e non dovrebbero portare problemi.
+
+\begin{verbatim}
+  - Addizione -               - Sottrazione -             - Moltiplicazione -
+0   0       0               0   0       0                    0   0       0
+0   1       1               0   1       1 (Carry-in)         0   1       0
+1   0       1               1   0       1                    1   0       0
+1   1       0 (Carry-out)   1   1       0                    1   1       1
+\end{verbatim}
+
+La divisione è tuttavia un altro paio di maniche; può risultare contro-intuitiva a causa dell'utilizzo della sottrazione. Vediamo con un esempio: $\frac{11001}{101}$, ovvero $\frac{25}{5}$.
+
+\noindent \begin{minipage}{0.3\textwidth}
+    \vspace{1cm}
+    \includegraphics[width=1\textwidth]{Images/divBin.png}
+    \label{fig:enter-label}
+\end{minipage}
+\hspace{0.05\textwidth}
+\begin{minipage}{0.6\textwidth}
+La logica dietro la divisione binaria è poter sottrarre il divisore al dividendo nel caso in cui questo "stia dentro" al primo. Poco chiaro? lascia che ti guidi.\par\quad
+Abbassa 110 e sottraigli 101 perché il divisore ci sta una volta. Otterrai 001, al quale dovrai aggiungere la cifra successiva del dividendo e scriverai "1" come prima cifra del risultato.\par\quad
+Osserva che 10 non ci sta in 101, quindi non gli si può sottrarre nulla e scriverai "0" come seconda cifra del risultato, procedendo ad abbassare l'ultima cifra del dividendo ed ottenere il numero 101 che, guarda un pò, è uguale al divisore e quindi ci sta dentro. $101 - 101 = 000$, è una divisione intera senza resto. Scrivi "1" come ultima cifra del risultato e hai finito.\newline
+\end{minipage}
+
+Passiamo alle ultime due operazioni, utili per la \textit{codifica in virgola mobile}, la quale vedremo nelle prossime sezioni, e per velocizzare moltiplicazione e divisione:
+\begin{itemize}
+    \item \textbf{Shift Left}; Aggiunge uno zero alla fine del numero (Sposta tutte le cifre a sinistra di una posizione). $1101 \times ShiftL = 11010$.
+    \item \textbf{Shift Right}; Sposta le cifre a destra ed aggiunge uno 0 a sinistra. $1101 \times ShiftR = 0110$.
+\end{itemize}
+
+%
+                        
+\section{Codifica dei numeri}
+In questa sezione vedremo come codificare i numeri e le particolarità di ogni algoritmo che svolge tale funzione. Tieni a mente che non esiste una codifica superiore alle altre ed ognuna di loro ha un suo perché. Inoltre, la pool di domande da esame comprende ognuna di queste codifiche quindi ti tocca imparartele lo stesso. Tutti questi algoritmi lavorano su cifre binarie e sono basati sulla \textit{Notazione posizionale}\footnote{Il valore di un numero è dato dalla posizione delle sue cifre.}.
+
+%
+
+\subsection{Codifica standard}
+La codifica standard è un algoritmo utile per lavorare con numeri interi positivi. Bisogna inizialmente prendere la potenza del 2 più grande che si avvicina al numero da codificare, ma che non lo supera, per poi sottrarla all'altro. Ripetere fin quando il numero iniziale non è "0". Vediamo un esempio:
+\begin{verbatim}
+    Numero da codificare: 683
+
+    683 - 512 = 171             Valore 1 in posizione bit 9
+    171 - 128 = 43              Valore 1 in posizione bit 7
+    43 - 32 = 11                Valore 1 in posizione bit 5
+    11 - 8 = 3                  Valore 1 in posizione bit 3
+    3 - 2 = 1                   Valore 1 in posizione bit 1
+    1 - 1 = 0                   Valore 1 in posizione bit 0
+
+    Codifica standard di 683 = 1010101011
+\end{verbatim}
+
+%
+
+\subsection{Codifica in modulo e segno}
+La codifica in modulo e segno non è molto dissimile dalla precedente; infatti l'unica differenza è l'utilizzo di un bit in più nella parte più significativa per marcare il segno positivo "0" o negativo "1".
+\begin{verbatim}
+    Numeri da codificare: 227, -227
+
+    227 - 128 = 99              Valore 1 in posizione bit 7
+    99 - 64 = 35                Valore 1 in posizione bit 6
+    35 - 32 = 3                 Valore 1 in posizione bit 5
+    3 - 2 = 1                   Valore 1 in posizione bit 1
+    1 - 1 = 0                   Valore 1 in posizione bit 0
+
+    Ottenuta la codifica standard; 11100011 aggiungiamo il bit del segno:
+    227 = 011100011, -227 = 111100011
+\end{verbatim}
+
+%
+
+\subsection{Codifica in virgola fissa}
+La codifica in virgola fissa è un algoritmo capace di tradurre i numeri razionali considerando separatamente parte intera e decimale. Abbiamo la fortuna che la virgola rimane nella stessa posizione della base 10.\par\quad
+in primo luogo bisogna codificare la parte intera come una normale codifica in modulo (eventualmente anche in segno), mentre per trovare quella decimale bisogna moltiplicare per 2 il numero. Se il risultato è maggiore o uguale a 1, si scrive 1 e si verifica la stessa condizione per la parte decimale risultante. Di norma è specificato quanti bit di precisione deve avere la parte decimale, perché spesso troverai numeri periodici (dove trovi cifre decimali uguali in verifica) e andresti avanti all'infinito.\par\quad
+Se ti vuoi male e vuoi verificare la correttezza del tuo risultato decimale, puoi sommare tutte le potenze negative di 2 e vedere cosa ti esce. Molto probabilmente, un risultato approssimato.
+
+\begin{verbatim}
+    Numero da codificare: 56,83 in 4b di precisione
+
+    Parte intera: 56                    Parte decimale: 0,83
+    56 - 32 = 24    1 in bit 5          0,83 × 2 = 1,66     1 in bit -1
+    24 - 16 = 8     1 in bit 4          0,66 × 2 = 1,32     1 in bit -2
+    8 - 8 = 0       1 in bit 3          0,32 × 2 = 0,64     0 in bit -3
+                                        0,64 × 2 = 1,28     1 in bit -4
+    Risultato: 111000,1101
+\end{verbatim}
+
+%
+
+\subsection{Codifica in virgola mobile}
+La codifica in virgola mobile o \textit{Floating Point} consente di ottenere numeri particolarmente grandi e piccoli. Risulta utile quindi per avvicinarsi al concetto di numero reale.\par\quad
+Un numero in floating point si esprime nella formula di \textit{Notazione scientifica}\footnote{$N =  \pm Mant \times Base^{\pm exp}$} e si divide in tre parti a cui è associato un numero specifico di bits da un totale di 32 (float) oppure 64 (double); le quali sono:
+
+\begin{itemize}
+    \item \textit{Segno}; 1b
+    \item \textit{Esponente}; 8b, oppure 9b in doppia precisione.
+    \item \textit{Mantissa}; 23b, oppure 54b in doppia precisione.
+\end{itemize}
+
+Prima di poter lavorare sul numero è necessario \textbf{normalizzarlo}\footnote{Si intende portarlo in una forma dove rimane una singola cifra intera.} attraverso le operazioni di shifting viste prima. Dipendentemente da quante posizioni sono modificate, sarà necessario sommare, se shiftR o sottrarre, se shiftL, tal numero all'esponente. Ottenuto l'esponente, bisogna sommargli $+127$\footnote{Questa operazione si dice \textit{Eccesso 127} ed è necessaria per codificare l'esponente nello standard IEEE754.}.Inoltre, nella codifica della mantissa la cifra intera non è mai scritta perché è sempre la stessa e si può omettere. Vediamo ora i due tipi di esercizi proposti:
+\begin{verbatim}
+Ex. 1: Si codifichi in virgola mobile il numero -30,375
+
+    1. Convertiamo in binario il numero con la codifica in virgola fissa:
+    Parte intera: 30 = 11110                Parte decimale: 0,375 = 011
+    30 - 16 = 14                            0,375 × 2 = 0,75
+    14 - 8 = 6                              0,75 × 2 = 1,5
+    6 - 4 = 2                               0,5 × 2 = 1
+    2 - 2 = 0
+
+    Codifica in virgola fissa: 11110,011
+
+    2. Procediamo con la normalizzazione:
+    11110,011 / 1000 = 1,1110011 × 2^4      Sommeremo 4 all'esponente. 
+    
+    La mantissa sarà inoltre: 1110011...0.
+
+    3. Troviamo l'esponente:
+    Non c'è un esponente nel numero richiesto, quindi: 4 + 127 = 131.
+
+    131 - 128 = 3       1 in bit 7
+    3 - 2 = 1           1 in bit 1
+    1 - 1 = 0           1 in bit 0
+
+    131 = 10000011 - Esponente trovato!
+
+    4. Ricomponiamo il tutto
+
+    - Segno: 1
+    - Esponente: 10000011
+    - Mantissa: 1110011...0
+
+    La codifica in virgola mobile di -30,375 è: 1 10000011 1110011...0
+    
+
+
+Ex 2: Quale decimale è la codifica in virgola mobile 0100011001000110...0?
+
+    1. Dividiamo nelle varie parti i bits
+    - Segno: 0
+    - Esponente: 10001100
+    - Mantissa: 1000110...0
+
+    2. Otteniamo l'esponente decimale
+    128 + 8 + 4 = 140
+    140 - 127 = 13 - Esponente trovato!
+
+    3. Ricaviamo la mantissa
+    Considera che ora stai lavorando con cifre decimali, quindi le potenze
+    del 2 dove sta il valore 1 saranno negative. In questo caso notiamo
+    che si trovano nelle posizioni -1, -5 e -6, quindi:
+    
+    2^-1 + 2^-5 + 2^-6 = 0,547 - Valore della mantissa trovato!
+
+    4. Ricostruiamo il decimale
+    Il segno è positivo, ricorda di sommare 1 alla mantissa trovata e
+    moltiplica ad essa l'esponente. Hai finito.
+    
+    1 × 1,547 × 2^13
+\end{verbatim}
+
+Ci sono infine alcuni casi di cifre particolari a cui fare attenzione:
+\begin{itemize}
+    \item $+0$; Tutte le cifre a 0.
+    \item $-0$; Tutte le cifre a 0, tranne quella del segno.
+    \item $+\infty$; Esponente massimo, il resto a 0.
+    \item $-\infty$; Esponente massimo e bit segno a 1, il resto a 0.
+    \item \textit{Not a Number}; Qualunque numero superi gli infiniti.
+    \item $2$; Tutte le cifre a 0, tranne il bit più significativo dell'esponente.
+    \item $2^{-145}$; Tutte le cifre a 0 tranne il bit meno significativo. Si tratta del numero più piccolo ottenibile.
+\end{itemize}
+
+\subsection{Codifica in complemento a 1 e a 2}
+Parleremo solamente della codifica in complemento a 2 in quanto è un singolo passaggio in più rispetto a quella ad 1 ed è anche più utile rispetto alla prima.\par\quad
+Il suo scopo principale è dividere a metà il totale delle codifiche ottenibili da $2^nb$, rendendo più semplice ottenere numeri lunghi. Vediamo il procedimento:
+
+\begin{verbatim}
+    Diciamo di avere a disposizione 4 bits, quindi 16 combinazioni diverse. 
+    Per ottenere il complemento ad 1 basta invertire tutte le cifre, mentre
+    per il complemento a 2 bisognerà poi sommare 1 ad ogni combinazione.
+    Per esempio: codificare -3 in complemento a 2 con 4b di precisione.
+
+    3 = 0011 -> 1100 in compl. ad 1
+    1100 + 1 = 1101 in compl. a 2
+
+    Qui sotto lascio una piccola lista per esercitazione.
+    
+    Codifica normale                Compl. ad 1                 Compl. a 2
+    0000 = 0                        1111 = -8                   1111 = -1
+    0001 = 1                        1110 = -7                   1110 = -2
+    0010 = 2                        1101 = -6                   1101 = -3
+    0011 = 3                        1100 = -5                   1100 = -4
+    0100 = 4                        1011 = -4                   1011 = -5
+    0101 = 5                        1010 = -3                   1010 = -6
+    0110 = 6                        1001 = -2                   1001 = -7
+    0111 = 7                        1000 = -1                   1000 = -8
+\end{verbatim}
+\subsection{Codifica in esadecimale}
+
+Soon!\newpage

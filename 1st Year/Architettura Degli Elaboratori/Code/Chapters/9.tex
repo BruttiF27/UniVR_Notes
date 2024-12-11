@@ -1,0 +1,165 @@
+\section{Introduzione al linguaggio Assembly}
+Quando collocate nella memoria, le istruzioni macchina hanno una forma binaria, illeggibile dalla persona; per questo ci si affida alla forma simbolica dell'istruzione, chiamata \textbf{Assembly Language}. Si tratta di un linguaggio comune a tutti gli elaboratori, usato come base per creare gli ISA propri della macchina.\par\quad
+Consente di accedere ai registri della CPU, Scrivere un codice ottimizzato per una specifica architettura di microprocessore e di ottimizzare sezioni dei programmi a livello hardware. Esistono due tipi di convenzioni o regole:
+\begin{itemize}
+    \item Quelle che definiscono la forma simbolica del linguaggio che formerà il \textbf{Programma Sorgente}.
+    \item Quelle che definiscono la forma numerica che formerà il \textbf{Programma Oggetto} e il passaggio all'altro tipo.
+\end{itemize}
+Il compito di controllare la correttezza sintattica del codice è affidato all'\textbf{Assembler}, il quale eventualmente genererà la forma numerica corrispondente a quanto scritto sotto forma di file con \textit{estensione ".o"}. L'ISA utilizzato per gli esercizi è \textbf{AT\&T}, la cui unica differenza dal più comune \textbf{Intel 80x86} è l'utilizzo di un \% prima del nome dei registri.
+\begin{itemize}
+    \item ISA AT\&T:\par\quad
+    ADDL \%EAX, \%EBX
+    \item ISA INTEL 80X86:\par\quad
+    ADD EAX, EBX
+\end{itemize}
+Utilizzeremo registri dalla dimensione base di 16b. Scrivendo "E" all'inizio del loro nome diventeranno \textit{extended registers}, dalla dimensione di 32b. Si dividono in:\newline
+
+\textbf{- Generici}:
+\begin{itemize}
+    \item \textit{AX}, Accumulation Register; Accumulatore di operazioni aritmetiche e contenitore del risultato.
+    \item \textit{BX}, Base Register; Per le operazioni di indirizzamento alla memoria.
+    \item \textit{CX}, Counter Register; Usato per contare, per esempio, l'indice nei cicli.
+    \item \textit{DX}, Data Register; Usato nelle operazioni di I/O, divisioni e moltiplicazioni.
+\end{itemize}
+\textbf{- Di segmento}:
+\begin{itemize}
+    \item \textit{CS}, Code Segment; Punta alla zona di memoria che contiene il codice e fa accedere all'istruzione successiva. Non può essere modificato.
+    \item \textit{DS}, Data Segment; Punta alla zona di memoria che contiene i dati.
+    \item \textit{ES}, Extra Segment: Spesso usato come registro ausiliario.
+    \item \textit{SS}, Stack Segment; Punta alla zona di memoria dove risiede la stack.
+\end{itemize}
+\textbf{- Puntatore}:
+\begin{itemize}
+    \item \textit{SP}, Stack Pointer; Punta alla cima della stack. Viene modificato dalle istruzioni PUSH e POP\footnote{Rispettivamente inserimento ed estrazione di un dato dalla stack}.
+    \item \textit{BP}, Base Pointer; Punta alla base della porzione di stack gestita in quel punto dal codice.
+    \item \textit{IP}, Instruction Pointer; Punta alla prossima istruzione da eseguire.
+\end{itemize}
+\textbf{- Indice}:
+\begin{itemize}
+    \item \textit{SI}, Source Index; Punta alla stringa/Vettore sorgente.
+    \item \textit{DI}, Destination Index; Punta alla stringa/vettore destinazione.
+    \item \textit{FLAGS}; Memorizza lo stato corrente del processore. Ogni bit fornisce un'informazione diversa.
+\end{itemize}
+
+Infine vediamo le modalità di indirizzamento:
+\begin{itemize}
+    \item \textit{A registro}, [\%EAX, \%EBX]\par\quad
+    L'operando è contenuto in un registro il cui nome è specificato nell'istruzione.
+    \item \textit{Diretto o Assoluto}, [(\%EAX), \%EBX]\par\quad
+    L'operando è contenuto in una locazione di memoria e l'indirizzo di quest'ultimo è specificato nell'istruzione.
+\end{itemize}
+
+%
+
+\section{Istruzioni e sintassi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Stringhe e numeri}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Debugging e Makefile}
+Il debugging è una parte fondamentale per il controllo di eventuali problemi nel codice che è stato scritto. Quello che sarà utilizzato è \textbf{GDB}, il debugger di GNU.\par
+È necessario assemblare il programma con le seguenti linee di comando da terminale:
+\begin{verbatim}
+    # Per creare il codice oggetto coi flag di debug
+    > as -gstabs -o file.o file.s
+    
+    # Linking del file oggetto ad un nuovo file eseuibile
+    > ld -o file file.o
+\end{verbatim}
+
+Seguono comandi utili generali per GDB. È possibile utilizzarli anche per i programmi C se è necessario:
+\begin{verbatim}
+    # Run del debugger
+    > gdb nomeEseguibile
+
+    # Cambio visualizzazione. Utile per osservare il workflow e lo stato dei 
+      registri. Dopo aver dato il comando, premere invio per cambiare visuale.
+    > lay next
+
+    # Setta un breakpoint al punto indicato
+    > break nomeFunzione / numeroRiga
+
+    # Passa alla prossima istruzione
+    > next / nexti
+
+    # Va avanti fino al prossimo breakpoint
+    > continue
+
+    # Refresha la visuale. Si bugga spesso.
+    > ref
+\end{verbatim}
+
+Adesso andiamo invece a vedere ulteriori comandi specifici per i programmi Assembly:
+\begin{verbatim}
+    # Stampa a video i valori contenuti nei vari registri.
+    > info registers
+
+    # Stampa il valore nel registro in binario, decimale, hex.
+    > p/t $eax
+    > p/d $eax
+    > p/x $eax
+
+    # Trova l'indirizzo della variabile e stamoa 4B
+    > x/4b &variabile
+
+    # Stampa il valore di una variabile.
+    > print nomeVariabile
+
+    # Stampa il valore di un registro come stringa.
+    > x/s $eax
+\end{verbatim}
+Tuttavia, attenzione. Assemblare un progamma con i flag di debug peggiora le prestazioni totali; inoltre comporta problemi di sicurezza perché consentirebbe di leggere il codice sorgente tramite debugger.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Relazione ISA-FSMD su LC3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Funzioni e passaggio di parametri}
+Prima di parlare di funzioni è necessario chiarire il funzionamento dei due tipi di strutture di dato:
+\begin{itemize}
+    \item \textit{LIFO}; Last In, First Out, si tratta delle dinamiche governanti la stack. Immagina un secchio nel quale stai ponendo dei libri, noterai sicuramente che ti è possibile rimuovere solamente l'ultimo inserito.
+    \item \textit{FIFO}; First In, First Out, facilmente comprensibile immaginando un tubo con una bocca che si chiude quando inserisci qualcosa ed un culo sempre aperto. Sarà possibile prelevare solo gli elementi in fondo alla pila.
+\end{itemize}
+Nei programmi Assembly è possibile utilizzare la stack mediante due comandi:
+\begin{verbatim}
+    # Mette il valore contenuto in eax nella stack. [32b]
+    pushl %eax
+
+    # Preleva l'ultimo valore inserito in stack e lo inserisce in eax. [32b]
+    popl %eax
+\end{verbatim}
+Per il funzionamento della stack, ogni volta in cui si pusha qualche valore su di essa, il registro \%esp si decrementa, perché il valore più alto è alla base, mentre in cima sta 0.\par\quad
+Conoscere questa dinamica è importante, perché consente un maggiore spazio di manovra nel salvataggio dei dati. Inoltre, possiamo capire come dare parametri da terminale quando si attiva un programma. La linea di comando conta come una stringa ed è quella il path dell'eseguibile. Tutti gli indirizzi dei parametri (stringhe) dati vengono impilati sulla stack, insieme al loro numero totale, che starà sempre in cima ad essi.\par\quad
+Per poterli utilizzare bisogna usare il comando popl due volte per rimuovere prima il totale dei parametri, e poi prelevare il primo valore e salvarlo su qualche registro. Il comando dal terminale è infatti letto dall'assembler da destra a sinistra.\par\quad
+Una cosa utile è inoltre la possibilità di ottenere un valore dalla stack in qualunque posizione senza che esso venga prelevato, utilizzando la modalità di \textit{Indirizzamento più spiazzamento}.
+\begin{verbatim}
+    # Salva in ecx il valore in stack alla posizione +8 rispetto ad esp
+      (vista come posizione 0).    
+    movl 8(%esp), %ecx
+\end{verbatim}
+
+Passiamo alle \textbf{funzioni}; è realisticamente impensabile voler scrivere tutto un programma in un singolo file, sia per motivi di lettura, che di debugging e controllo. Divideremo quindi il progetto in vari sottoprogrammi. Ciò è possibile tramite la seguente scrittura:
+\begin{verbatim}
+    # Nel file main, si invoca la funzione.
+    call nomeFile
+    
+        # Nel file nomeFile
+            # Dichiarazione della funzione
+            .type nomeFunzione, @function
+            .
+            # Blocco di istruzioni
+            .
+        # Ritorno al file chiamante la funzione
+        ret
+\end{verbatim}
+Con queste conoscenze sei ora pronto a lavorare al progetto richiesto. Se non lo consegnerai entro i termini, perderai ogni cosa e avrai sprecato tempo.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Confronto con il linguaggio C}

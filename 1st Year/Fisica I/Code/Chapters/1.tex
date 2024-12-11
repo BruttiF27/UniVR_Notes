@@ -1,0 +1,137 @@
+\section{Grandezze Fisiche}
+Si dice \textbf{grandezza fisica} una proprietà misurabile mediante un dispositivo apposito\footnote{Come i chili sono misurati con le bilance}.\par
+Si esprimono nella formula "valore $\times$ unità di misura". Distinguiamo le:
+\begin{itemize}
+    \item \textit{Fondamentali}; Concetti indipendenti l'uno dall'altro indefinibili in termini di altre grandezze.
+    \item \textit{Derivate}; Definibili mettendo in relazione le grandezze fondamentali.
+\end{itemize}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c | c}
+       \textbf{Grandezze fondamentali} & \textbf{Grandezze derivate}\\
+       &\\
+       Lunghezza $[L]$ & Superficie $[L^2]$ \\
+       Massa $[M]$ & Volume $[L^3]$\\
+       Tempo $[t]$ & Velocità $[L/t]$\\
+       Intensità di corrente $[i]$ & Accelerazione $[L/t^2]$\\
+       Temperatura assoluta $[T]$ & Forza $[M\times L/t^2]$\\
+       & Pressione $[(M\times L/t^2)/L^2]$\\
+    \end{tabular}
+    \caption{Grandezze Fisiche}
+    \label{tab:my_label}
+\end{table}
+Noi gente sana di mente utilizziamo l'insieme di unità di misura \textbf{Sistema Internazionale}, gruppo di grandezze particolarmente comodo perché i multipli e i sottomultipli sono ottenibili moltiplicando o dividendo per 10.\par\quad
+Nello svolgimento degli esercizi è bene tenere a mente queste linee guida per la scrittura dei risultati:
+\begin{itemize}
+    \item \textit{Cifre significative}; Se il numero è decimale, è possibile ignorare tutti gli 0 a partire da destra finché non si trova una cifra diversa.\par Ex. $0,0250 = 0,025$.
+    \item \textit{Notazione scientifica}; Utile per contrarre numeri molto grandi o piccoli. Si moltiplica o divide il dato fino alla forma $1,0 \times 10^n$ oppure $1,0 \times 10^-n$ se decimale.\par Ex. $27522 = 2,7 \times 10^4$.
+\end{itemize}
+
+%
+
+\subsection{Analisi dimensionale}
+L'\textbf{analisi dimensionale} è un accertamento sulla grandezza fisica risultante dell'equazione presa in esame. Funziona considerando le unità di misura come variabili in un'equazione.
+\begin{eg}
+    Prendiamo la seguente formula indicante una velocità: $v = at$.\par
+    Per controllare se è dimensionalmente corretta, si sostituiscono ai valori nell'equazione le loro unità di misura. Se le misure sono concordanti, la formula sarà corretta.\par
+    Abbiamo quindi: $v = L/T$, $a = L/T^2$, $t = T$.\newline
+
+    Otteniamo la seguente equazione: $\dfrac{L}{T} = \dfrac{L}{\cancel{T^2}}\times \cancel{T} \to \dfrac{L}{T} = \dfrac{L}{T}$
+\end{eg}
+
+%
+
+\section{Vettori}
+I \textbf{vettori}, indicati con $\overrightarrow{A}$, sono oggetti nel piano cartesiano definiti mediante due misure: la distanza da un punto detto \textit{origine} e la direzione orientata relativamente ad un \textit{asse di riferimento}. Utilizzano \textbf{grandezze vettoriali}, espresse con un valore e una direzione, e possono essere rappresentati in un sistema di coordinate cartesiane o polari. Useremo le seguenti formule per ottenere le coordinate:
+\begin{itemize}
+    \item Coordinate cartesiane in funzione delle polari; $x = rcos(\theta)$, $y = rsin(\theta)$.
+    \item Coordinate polari in funzione delle cartesiane; $tan(\theta) = \dfrac{y}{x}$, $r = \sqrt{x^2 + y^2}$.
+\end{itemize}
+La grandezza del vettore si dice \textbf{modulo} ed è un valore sempre positivo. La presenza di valori implica che è possibile operarci; è possibile effettuare:
+\begin{itemize}
+    \item \textit{Somma fra vettori}; $\overrightarrow{A} + \overrightarrow{B} = \overrightarrow{C}$
+    \begin{itemize}
+        \item \textit{Metodo punta-coda} - INSERIRE IMMAGINE\par
+        Il vettore risultante è ottenuto attaccando la testa del primo vettore $A$ alla coda dell'altro $B$. Traccia una linea dalla coda di $A$ alla testa di $B$ e hai fatto.
+        \item \textit{Somma delle parti} - INSERIRE IMMAGINE\par
+        I vettori possono essere visti come la somma delle proprie componenti, ovvero nella forma $\overrightarrow{A} = A_x\hat{i} + A_y\hat{j}$, dove le varie A sono i moduli delle proiezioni dati dalle formule $A_x = Acos(\theta), A_y = Asin(\theta)$, mentre le lettere con accento circonflesso i vettori unitari che determinano la direzione.\par
+        Ciò rende possibile utilizzare le formule polari viste prima:\par$A = \sqrt{A_x^2 + A_y^2}$, $\theta = tan^-1(\dfrac{A_y}{A_x})$.
+    \end{itemize}
+    Questa operazione gode di proprietà commutativa e associativa.
+    \item \textit{Sottrazione fra vettori}; $\overrightarrow{A} - \overrightarrow{B} = \overrightarrow{C}$\par
+    La sottrazione usa la definizione di \textbf{opposto}, definito come $\overrightarrow{A} + \overrightarrow{-A} = 0$. Si tratta di un vettore parallelo al primo, ma con verso opposto.\par
+    Attacca le code dei due vettori e traccia una linea che collega le teste: questo è il tuo risultato.
+    \item \textit{Moltiplicazione con scalare}; $n\overrightarrow{A}$\par
+    Abbastanza autoesplicativo, serve solo a modificare il modulo ed eventualmente direzione se è negativo.
+\end{itemize}
+
+%
+
+\section{Domande di teoria}
+\begin{enumerate}
+    \item \textbf{Quali sono le tre grandezze fondamentali della fisica?}
+    \begin{itemize}
+        \item Massa [Kg]; Quantità di materia contenuta in un oggetto.
+        \item Lunghezza [m]; Distanza fra due punti nello spazio.
+        \item Tempo [s]; Specifica istanza di tempo misurata rispetto ad una iniziale.
+    \end{itemize}
+    Tutte le altre grandezze sono derivate da queste tre mediante combinazioni matematiche.
+    \item \textbf{In cosa consiste l'analisi dimensionale?}\par
+    Si tratta di un controllo effettuato sull'equazione sulla quale si lavora per avere la conferma che la grandezza risultante sia quella desiderata. Si attua mediante il calcolo letterale. Se è stato fatto correttamente i due membri dell'equazione avranno la stessa dimensione.
+    \item \textbf{Che scopo ha la notazione scientifica?}\par
+    La notazione scientifica risulta utile per scrivere un numero particolarmente grande o piccolo in forma ridotta e quindi più leggibile. Consigliabile approssimare solo una volta ottenuto il risultato finale. Ex. $1500 = 1,5\times10^3$.
+    \item \textbf{Cos'è un vettore? Che grandezza usa? Com'è definito e quali operazioni si possono fare?}\par
+    Un vettore $\overrightarrow{A}$ è un oggetto definito mediante due grandezze: distanza da un punto detto origine e direzione orientata relativamente ad un asse di riferimento. Utilizza le grandezze vettoriali, definite tramite un valore con la sua unità di misura e una direzione in funzione di un asse di riferimento.\par
+    Le operazioni effettuabili sono:
+    \begin{itemize}
+        \item Somma fra vettori; svolta tramite metodo testa-coda oppure con la somma fra le due proiezioni su asse x e y.
+        \item Sottrazione fra vettori; una somma algebrica che utilizza la definizione di opposto per il vettore interessato.
+        \item Moltiplicazione con scalare; influisce sulla grandezza (o modulo) del vettore senza modificare verso e direzione.
+    \end{itemize}
+    \item \textbf{Qual è lo scopo dei vettori unitari?}\par
+    I vettori unitari \^{i}, \^{j}, \^{k}, sono vettori unidimensionali di modulo 1; servono a dare la direzione di un vettore normale. Contribuiscono a trovare il vettore completo nella seguente formula: $\overrightarrow{A} = A_xi + A_yj + A_zk$.
+\end{enumerate}
+
+\section{Esercizi}
+
+\begin{theorem}
+    Here goes a theorem.
+\end{theorem}
+
+\begin{proof}
+        Here goes the proof
+\end{proof}
+
+
+\begin{corollary}
+    Here goes a collorary
+\end{corollary}
+
+\begin{eg}
+    Here goes an example
+\end{eg}
+
+\begin{note}
+    Here goes a note 
+\end{note}
+
+
+\begin{lemma}
+    Here goes a lemma
+\end{lemma}
+
+\begin{prop}
+    Here goes a proposition
+\end{prop}
+
+
+\begin{definition}
+    Here goes a definition 
+\end{definition}
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+Prima di iniziare, è doverosa un'introduzione per non continuare spaesati. L'algebra è una branca della matematica che si occupa dello studio di espressioni e strutture algebriche; nello specifico, ovvero il nostro caso, l'\textbf{Algebra Lineare} studia anche i sistemi di equazioni lineari, ovvero dove le incognite compaiono con grado 1.\par\quad
+Il nostro scopo è riuscire a trovare le soluzioni dei sistemi dati; queste sono i valori che se sostituiti alle incognite delle equazioni del sistema, le rendono vere. Necessitiamo dunque di un algoritmo per capire quando un sistema ammette soluzioni o meno e, nel caso, di trovarle tutte.\par\quad
+L'elemento di lavoro principale sono i \textbf{Polinomi}, espressioni algebriche composte da \textit{incognite}, indicate con $x,y$ e \textit{costanti}, indicate con $a,b,c$. Li definiamo come segue:
+\begin{definition}
+	\textbf{Polinomio}\par
+	Espressione algebrica ottenuta manipolando costanti e variabili usando addizione, sottrazione e moltiplicazione.
+\end{definition}
+I polinomi possono poi presentarsi con diversi esponenti; definiamo \textbf{Grado di un polinomio} il valore dell'esponente massimo che compare nella scrittura, ed è indicato con $deg(P(x))$. Ci è possibile trovare le soluzioni dei polinomi a una o più variabili e vengono formalmente definite come segue:
+\begin{definition}
+    \textbf{Radici di un polinomio}\par
+    Valori o il vettore, se in più variabili, che annullano il polinomio, ovvero fanno in modo che risulti:
+    \begin{center}
+        $P(x) = 0$
+    \end{center}
+\end{definition}
+Come già visto in ogni scuola superiore immaginabile, possiamo avere polinomi di grado 1, con una sola soluzione, di grado 2, con due, trovate con la formula quadratica, e così via. Abbiamo inoltre i soliti polinomi notevoli:
+\begin{itemize}
+    \item Quadrato di binomio: $x^2+2ax+a^2 = (x+a)^2$
+    \item Differenza di quadrati: $x^2-a^2 = (x-a)(x+a)$
+    \item Somma e prodotto: $x^2+ax+b = (x+x_1)(x+x_2)$, dove $a = x_1+x_2$, $b = x_1*x_2$
+    \item Polinomi di grado 3: $x^3+ax^2+bx+c$\par
+    Onestamente da rivedere. Una cosa dubbia, questa.
+\end{itemize}
+Ok, basta richiami, buttiamoci dentro.

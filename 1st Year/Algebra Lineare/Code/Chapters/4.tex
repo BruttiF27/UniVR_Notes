@@ -41,6 +41,7 @@ Come potrai immaginare, la presenza di operazioni implica anche l'esistenza di r
         \end{center}
     \end{itemize}
 \end{prop}
+Queste proprietà valgono anche se si volesse spostare il focus su matrici, insiemi numerici, insiemi di polinomi e successioni. Vale addirittura la somma fra vettori geometrica. Puoi provare a dimostrarlo ma è inutilmente tedioso, quindi prendilo per assioma.
 
 %
 
@@ -98,13 +99,91 @@ Risulta un pò difficile da immaginare in senso pratico, quindi propongo il segu
         \end{center}
     \end{center}
 \end{eg}
-Hai potuto osservare che la combinazione lineare è \textit{generata} da un insieme di vettori. Nello specifico questo viene chiamato \textbf{Insieme di generatori}. Alcuni spazi vettoriali sono determinati da un insieme finito, come quello nell'esempio, e vengono definiti come spazi \textbf{finitamente generati}. Ci è inoltre possibile ottenere l'insieme di generatori di uno spazio vettoriale con il seguente ragionamento:
+Hai potuto osservare che la combinazione lineare è \textit{generata} da un insieme di vettori. Nello specifico questo viene chiamato \textbf{Insieme di generatori}. Alcuni spazi vettoriali sono determinati da un insieme finito, come quello nell'esempio, e vengono definiti come spazi \textbf{finitamente generati}. Ci è inoltre possibile dimostrare, partendo da una combinazione lineare, se è o meno un insieme di generatori di un dato spazio $V$. Generalmente:
+\begin{prop}
+    \textbf{Quando una combinazione lineare è un insieme di generatori?}\par
+    Diciamo che la combinazione dei vettori elementari $\{e_1, ..., e_n\}$ è un insieme di generatori dello spazio $\mathbb{K}^n$ se e solo se ogni vettore elementare presenta il valore $1$ in una sola riga, il quale verrà moltiplicato per uno scalare, ed in tutte le altre il valore $0$.
+\end{prop}
 \begin{eg}
-    Ottenimento dell'insieme di generatori\par
-    INSERISCI ESEMPIO
+    Dato lo spazio $V = \mathbb{K}^3$ diciamo che il seguente insieme è un insieme di generatori di $V$:
+    \begin{center}
+        $\left\{
+            e_1 =\begin{pmatrix}
+                1\\
+                0\\
+                0
+            \end{pmatrix}, e_2 =\begin{pmatrix}
+                0\\
+                1\\
+                0
+            \end{pmatrix}, e_3 =\begin{pmatrix}
+                0\\
+                0\\
+                1
+            \end{pmatrix}
+        \right\}$
+    \end{center}
+    Ciò vale solamente se vale la seguente operazione:
+    \begin{center}
+        $v_1e_1 + v_2e_2 + v_3e_3 = V = v_1\begin{pmatrix}
+                1\\
+                0\\
+                0
+            \end{pmatrix} + v_2\begin{pmatrix}
+                0\\
+                1\\
+                0
+            \end{pmatrix} + v_3\begin{pmatrix}
+                0\\
+                0\\
+                1
+            \end{pmatrix} = \begin{pmatrix}
+                v_1\\
+                v_2\\
+                v_3
+            \end{pmatrix}$
+    \end{center}
+    Bisogna infatti prendere i vettori dell'insieme; moltiplicare loro un qualsiasi vettore $V$ e se il risultato postumo alla somma è uguale al vettore iniziale, hai dimostrato che l'insieme è un insieme di generatori di $V$.
+\end{eg}
+\begin{eg}
+    Ma qual è la logica dietro i vettori da moltiplicare scelti? Prova a vedere l'insieme supposto di generatori come un sistema lineare dove ogni caso deve essere uguale a $1$, perché deve ritornare il vettore $V$. Procediamo dunque con un secondo esempio, dato $V = \mathbb{R}^2$ diciamo che il seguente insieme è un insieme di generatori di $V$:
+    \begin{center}
+        $\left\{
+            r_1 =\begin{pmatrix}
+                1\\
+                3
+            \end{pmatrix}, r_2 =\begin{pmatrix}
+                1\\
+                1
+            \end{pmatrix}, r_3 =\begin{pmatrix}
+                0\\
+                1
+            \end{pmatrix}
+        \right\}$
+    \end{center}
+    Quindi, testiamolo. Immaginiamo l'insieme supposto di generatori come un sistema lineare e poniamo ogni equazione ad $1$:
+    \begin{center}
+        $\begin{cases}
+            1x_1+1x_2+0 = 1 \iff x_1 = 0\\
+            3x_1+1x_2+1x_3 = 1 \iff x_3 = -3x_1
+        \end{cases}$
+    \end{center}
+    Ora che sappiamo cosa ottenere, rifletti su \textit{come} ottenerli. Noti che la prima riga dell'insieme ha i valori $1+1+0$, quindi per arrivare ad $1$ servirà moltiplicare per un numero negativo. Prendiamo quindi il vettore $(v_1-v_2)$.\par\quad
+    Nella seconda riga abbiamo che per ottenere $1$, dobbiamo rimuovere quel $3$, quindi moltiplicheremo una colonna per $-3$, prendiamo il vettore $(v_2-v_1)$. Risolviamo.
+    \begin{center}
+        $(v_1-v_2)(r_1) + (v_2)(r_2) + 3(v_2-v_1)(r_3) =
+        \begin{pmatrix}
+            v_1-v_2 + v_2 + 0\\
+            3(v_1-v_2) + v_2 + 3(v_2-v_1)
+        \end{pmatrix} = \begin{pmatrix}
+            v_1\\
+            v_2
+        \end{pmatrix}$
+    \end{center}
+    Abbiamo la conferma che è un insieme di generatori.
 \end{eg}
 
-%
+% RIPRENDI DA QUA
 
 \section{Il Sottospazio Vettoriale}
 Può capitare che uno spazio vettoriale ne contenga altri; in tal caso lo chiameremo \textbf{Sottospazio vettoriale}. Per far sì che siano tali devono valere le seguenti proprietà:
@@ -112,7 +191,6 @@ Può capitare che uno spazio vettoriale ne contenga altri; in tal caso lo chiame
     \item Somma vettoriale e moltiplicazione per scalare.
     \item Deve essere un insieme non vuoto.
 \end{itemize}
-
 
 4.3 Definizione: sottospazio generato da un insieme
 4.3 Definizione: intersezione e somma di sottospazi

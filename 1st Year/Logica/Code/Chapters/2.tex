@@ -110,191 +110,204 @@ Terminiamo con due ultimi concetti sintattici definiti ricorsivamente:
 %
 
 \section{Semantica}
-
-% ----- Continua da qua -----
-
-\section{Sistemi Deduttivi}
-\section{Correttezza e Completezza}
-\section{Esercizi}
-
-
-
-\section{Appunti}
-\subsection{Semantica}
-Finora abbiamo studiato il valore sintattico delle frasi, ma non dimentichiamo che, come nella lingua italiana, una composizione di frasi può avere un significato; qui nel linguaggio logico è necessario analizzare gli enunciati per determinarne eventualmente verità o falsità. Come fare?
+Finora abbiamo studiato il valore sintattico delle frasi, ma non dimentichiamo che, come nella lingua italiana, una composizione di frasi può avere un significato; nel linguaggio logico è necessario analizzare gli enunciati per determinarne eventualmente verità, col valore di $1$,  o falsità, col valore di $0$. Come fare?
 \begin{definition}
     \textbf{Valutazione di verità}\par
-    Per comodità indichiamo il valore di verità con 1 e quello di falsità con 0; quindi sia la funzione $V : PROP \to \{0, 1\}$, tale che valgano le seguenti relazioni:
-    \begin{enumerate}
+    Sia la funzione $V:PROP\to \{0,1\}$, ovvero $V \in PROP$ che può ritornare uno dei due valori fra $0,1$. Questa è tale che:
+    \begin{itemize}
         \item $V[\bot] = 0$
         \item $V[\neg\psi] = 1 \iff V[\psi] = 0$
         \item $V[\psi \land \phi] = 1 \iff V[\psi] = 1 \land V[\phi] = 1$
         \item $V[\psi \lor \phi] = 1 \iff V[\psi] = 1 \lor V[\phi] = 1$
         \item $V[\psi \to \phi] = 1 \iff V[\psi] = 0 \lor V[\phi] = 1$
         \item $V[\psi \iff \phi] = 1 \iff V[\psi] = V[\phi]$
-    \end{enumerate}
+    \end{itemize}
+    Si ricorda più facilmente pensando alle tavole di verità delle varie funzioni. Difatti, è la loro definizione ricorsiva.
 \end{definition}
-Queste relazioni sono riassumibili in tabelle di verità, molto utili in ogni caso ci si presenti davanti. Ora, considera le variabili che abbiamo usato finora; queste possono indicare composizioni di formule al loro interno, quindi non essere atomiche, si definiscono infatti \textbf{metavariabili}, e per conoscere il loro valore semantico è necessario valutare i loro simboli proposizionali. Ciò avviene grazie alla \textbf{Valutazione atomica}, la base per definire tutte le valutazioni di verità.
+Ora, considera le variabili che abbiamo usato finora; queste possono indicare composizioni di formule al loro interno, quindi non essere atomiche, si definiscono infatti \textbf{metavariabili}, e per conoscere il loro valore semantico è necessario valutare i loro simboli proposizionali. Ciò avviene grazie alla \textbf{Valutazione atomica}, la base per definire tutte le valutazioni di verità.\par\quad
+Il concetto è definito in modo astratto, ma fondamentalmente devi scomporre la formula fin quando ogni suo elemento diventa atomico. Dopo aver valutato i singoli valori, ricava il risultato in base ai connettivi usati.
 \begin{definition}
     \textbf{Valutazione atomica}\par
-    Sia la funzione $V : AT \to \{1, 0\}$ tale che $v[\bot] = 0$\newline
-
-    Seguirà la valutazione come risultato:\par
-    $[\cdot]_v : PROP \to \{1, 0\}$ Tale che $[\alpha]_v = v[\alpha]$ per $\alpha \in AT$.
+Sia la seguente funzione:
+    \begin{center}
+        $V : AT \to \{1, 0\}$ tale che $v[\bot] = 0$.
+    \end{center}
+Data una valutazione atomica $v$, esiste ed è unica una valutazione:
+    \begin{center}
+        $[\cdot]_v : PROP \to \{1, 0\}$, Tale che $[\alpha]_v = v[\alpha]$ per $\alpha \in AT$.
+    \end{center}
 \end{definition}
-Si possono presentare alcuni casi notevoli davanti alla valutazione del significato di un enunciato, come:
+Nel caso in cui nell'esercizio non venga richiesto se cercare verità o falsità, si valuta ogni singolo caso. Vediamo ora un esempio:
+\begin{eg}
+    Effettuare valutazione di verità sulla formula: $(\phi \land \psi) \implies (\neg\psi \lor \phi)$.\par
+    Partiamo da un ragionamento semplice: avendo un'implicazione, le uniche istanze che possono riportare un valore vero, data la formula $P \implies Q$, sono $0\to 1$, $1\to 1$, $0\to 0$.\par\quad Muoviamoci ora per determinare i valori delle singole formule atomiche, una metavariabile alla volta, in base alle istanze discusse:
+    \begin{itemize}
+        \item $P = [(\phi \land \psi)]_v = 0 \iff [\phi]_v = 0$ OR $[\psi]_v = 0$.
+        \item $Q = [(\neg\psi \lor \phi)]_v = 1 \iff [\neg\psi]_v = 1$ OR $[\phi]_v = 1 \iff [\psi]_v = 0$ OR $[\phi]_v = 1$.
+    \end{itemize}
+    Nella formula $P$ abbiamo ricavato che almeno una delle due variabili deve avere un valore di falsità. Guardando infatti la formula $Q$, notiamo che $[\psi]_v = 0$. L'ipotesi è confermata e non andando incontro a contraddizioni, abbiamo dimostrato che la formula è \textbf{vera}.
+\end{eg}
+Si possono inoltre presentare alcuni casi notevoli davanti alla valutazione del significato di un enunciato, come:
 \begin{definition}
-    \textbf{Concordanza}\par
-    Dato un insieme finito di proposizioni P, se due valutazioni sono uguali, si dicono concordanti su P. Nel caso in cui una formula proposizionale è vera in ogni caso, si dice \textbf{Tautologia} e si indica con $[\alpha]_v = 1$.
+    \textbf{Concordanza e Tautologia}
+    \begin{itemize}
+        \item Dato un insieme finito di proposizioni $P$, se due valutazioni differenti risultano uguali, si dicono concordanti su $P$.
+        \item Se una formula proposizionale è vera in ogni caso, si dice \textbf{Tautologia} e si indica con $[\alpha]_v = 1$.
+    \end{itemize}
 \end{definition}
 Negli esercizi verranno utilizzate le seguenti scritture, con $\alpha\in PROP$ generica:
 \begin{itemize}
     \item $\vDash \alpha:$ Tautologia.
     \item $\vdash \alpha:$ Teorema.
 \end{itemize}
-Per dimostrare una tautologia è necessario controllare che sia vera per ogni singolo caso; se in un'istanza si rivela falsa, non è tautologia.
+Per dimostrare una tautologia è necessario controllare che sia vera per ogni singolo caso; se in un'istanza si rivela falsa, non è tale.
 \begin{theorem}
-    \textbf{Tautologie Notevoli} - Inserire formule
+    \textbf{Tautologie Notevoli}
     \begin{itemize}
-        \item Legge di De Morgan
-        \item Negazione Involutiva
-        \item Legge Commutativa
-        \item Legge Distributiva
-        \item Legge Associativa
+        \item Leggi di De Morgan:
+        \begin{center}
+            $\vDash \neg(\phi \land \psi) \iff (\neg\phi \lor \neg\psi)$, $\vDash \neg(\phi \lor \psi) \iff (\neg\phi \land \neg\psi)$.
+        \end{center}
+        \item Negazione Involutiva:
+        \begin{center}
+            $\vDash \phi \iff \neg\neg\phi$.
+        \end{center}
+        \item Leggi Commutative:
+        \begin{center}
+            $\vDash(\phi \land \psi) \iff (\psi \land \phi)$, $(\phi \lor \psi) \iff (\psi \lor \phi)$.
+        \end{center}
+        \item Leggi Distributive:
+        \begin{center}
+            $\vDash\phi \land (\psi \lor \gamma) \iff ((\phi \land \psi) \lor (\phi \land \gamma))$, $\phi \lor (\psi \land \gamma) \iff ((\phi \lor \psi) \land (\phi \lor \gamma))$.
+        \end{center}
+        \item Legge Associativa:
+        \begin{center}
+            $\vDash\phi \land(\psi \land \gamma) \iff (\phi\land\psi)\land\gamma$, $\phi\lor(\psi\lor\gamma) \iff (\phi\lor\psi)\lor\gamma$.
+        \end{center}
     \end{itemize}
 \end{theorem}
-Questo concetto e ragionamento può essere esteso anche ad un insieme determinato di proposizioni, che chiameremo $\Gamma$. Definiamo quindi:
+L'algoritmo di valutazione della verità può essere esteso anche ad un insieme determinato di proposizioni, che chiameremo $\Gamma$. Definiamo quindi:
 \begin{definition}
     \textbf{Soddisfacibilità di una formula e conseguenza logica}\par
-    La valutazione di verità si estende ad un insieme di proposizioni arbitrario $\Gamma$ tale che: $[\Gamma]_v = 1 \iff \forall\alpha \in \Gamma$ | $[\alpha]_v = 1$\footnote{Inoltre, se $[\Gamma]_v \neq 1$, significa che c'è almeno una valutazione dove risulta falsa, non che lo sono tutte. Se si afferma invece che $[\Gamma]_v = 0$, tutte le valutazioni saranno false.}.\newline
-
-    Da questo insieme di proposizioni è possibile anche trarre delle conclusioni, dette \textit{conseguenze logiche}. Si dice che una proposizione $\psi$ segue logicamente da un insieme $\Gamma$ se la verità delle proposizioni in esso contenute implica la verità di $\psi$; formalmente:\par
-    Dato l'insieme $\Gamma$ di formule, si dice $\psi$ conseguenza logica delle formule di $\Gamma$ e si scrive $\Gamma \vDash \psi$. Se $[\Gamma]_v = 1 \to [\psi]_v = 1$. Se l'insieme vuoto implica una valutazione positiva di $\alpha$, abbiamo una tautologia.
+    La valutazione di verità si estende ad un insieme di proposizioni arbitrario $\Gamma$ tale che:
+    \begin{center}
+        $[\Gamma]_v = 1 \iff \forall\alpha \in \Gamma$ | $[\alpha]_v = 1$.
+    \end{center}
+    Attenzione, se $[\Gamma]_v \neq 1$, significa che c'è \textit{almeno una} valutazione dove risulta falsa, ma non che lo sono tutte. Se si afferma invece che $[\Gamma]_v = 0$, tutte le valutazioni saranno false.\par\quad
+    Da questo insieme di proposizioni è possibile anche trarre delle conclusioni, dette \textbf{conseguenze logiche}. Si dice che una proposizione $\phi$ segue logicamente da un insieme $\Gamma$ se la verità delle proposizioni in esso contenute implica la verità di $\phi$.\par\quad
+    Dato infatti l'insieme $\Gamma$ di formule, si dice $\psi$ conseguenza logica delle formule di $\Gamma$ e si scrive: 
+    \begin{center}
+        $\Gamma \vDash \psi$, ovvero in questo caso: $[\Gamma]_v = 1 \implies [\psi]_v = 1$.
+    \end{center}
+    Inoltre, se un insieme vuoto implica la verità di una formula, abbiamo dimostrato una tautologia.
 \end{definition}
-Diremo infine che una formula $\psi$ è detta \textit{soddisfacibile} se esiste una valutazione \textit{v} per cui risulti vera, altrimenti è \textit{insoddisfacibile}. A sua volta, questo concetto si può applicare agli insiemi di proposizioni. $\Gamma$ si dice soddisfacibile quando una sua formula $\psi$ è sempre vera data una certa valutazione, altrimenti è insoddisfacibile.
+Diremo infine che una formula $\psi$ è detta \textbf{soddisfacibile} se esiste una valutazione $v$ per cui risulti vera, altrimenti è \textbf{insoddisfacibile}. Il concetto si può estendere agli insiemi di proposizioni; $\Gamma$ si dice soddisfacibile quando una sua formula $\psi$ è sempre vera data una certa valutazione, altrimenti è insoddisfacibile. Formalmente:
 \begin{eg}
-    \textbf{Soddisfacibilità di un insieme $\Gamma$}\par
+    \textbf{Soddisfacibilità di un insieme $\Gamma$}
     \begin{itemize}
         \item Se $\{p\} \in \Gamma$, $[p]_v = 1$ e quindi l'insieme è soddisfacibile.
         \item Se $\{p, \neg p\} \in \Gamma$, non tutte le valutazioni di \textit{p} sono vere in quanto contraddittorie e quindi l'insieme non è soddisfacibile. 
     \end{itemize}
 \end{eg}
-
-La \textbf{Sostituzione} è invece un'utile tecnica per sostituire variabili sotto un unico simbolo e rendere la scrittura più leggibile e semplice. Mettiamo di avere diverse variabili, tutte scritte in modo diverso, ma alcune di queste hanno lo stesso identico valore di altre; qui è possibile usufruire di questa tecnica.
+Le proprietà della conseguenza logica saranno riprese in seguito nella sezione dei sistemi deduttivi, in quanto saranno usate per la deduzione naturale. Parliamo ora invece di \textbf{Sostituzione proposizionale}, una tecnica che consente, in una formula $\phi$, di sostituire tutte le occorrenze di una formula $p_1$ con un'altra $\psi$.
 \begin{definition}
-    \textbf{Sostituzione Proposizionale}\par
-    Sia la formula: $\phi = ((p1 \to (p5 \lor p1)) \land p3)$. Qui è possibile sostituire tutti i p1 con $\psi$. Il passaggio intermedio si scrive $\phi[\psi/p1]$\footnote{Significa che $\psi$ sostituirà il valore p1.} e risulta con:\par
-    $\phi = ((\psi \to (p5 \lor \psi)) \land p3)$.\newline
-
-    Se un termine nella formula presa in esame non compare affatto, è ovvio che la sostituzione non avrà alcuno scopo.
+    \textbf{Sostituzione proposizionale}
+    \begin{center}
+        Sia la formula: $\phi = ((p_1 \to (p_5 \lor p_1)) \land p_3)$.
+    \end{center}
+    Qui è possibile sostituire tutti i simboli $p_1$ con $\psi$. Il passaggio intermedio si scrive $\phi[\psi/p_1]$, ovvero che $\psi$ sostituirà il valore $p_1$. Risulterà:
+    \begin{center}
+        $\phi = ((\psi \to (p_5 \lor \psi)) \land p_3)$.
+    \end{center}
+    Se un termine nella formula presa in esame non compare affatto, è ovvio che la sostituzione non avrà alcuno scopo o effetto.
 \end{definition}
-\begin{theorem}
-    \textbf{Proprietà della sostituzione}\par
-    Siano $\psi_1, \psi_2$ due formule e $p \in AT$. Se $\vDash \psi_1 \iff \psi_2$, prendendo una formula generica $\phi$ otteniamo che:\par
-    $\vDash \phi[\psi_1/p] \iff \phi[\psi_2/p]$.\newline
-
-    Ci è quindi possibile tirar fuori dal cappello magico nuove formule, perché questa scrittura è equivalente alla prima.
-\end{theorem}
-
-Formalizziamo infine il concetto di \textbf{Relazione di equivalenza}. Molto semplicemente, i simboli $\leftrightarrow, \iff$ Rappresentano rispettivamente equivalenza semantica e sintattica; sono una scrittura compatta del seguente concetto: $\phi \iff \psi = (\phi \to \psi) \land (\psi \to \phi)$. Restituisce il valore di vero solamente quando entrambe le formule sono vere.\footnote{Ciò implica anche che se le formule sono equivalenti e la valutazione di una delle due è vera, lo sarà per forza anche l'altra.}\par
+Seguono ora le proprietà dell'algoritmo appena discusso:
+\begin{prop}
+    Sia la funzione $[\psi/p]:PROP\to PROP$ tale che:
+    \begin{itemize}
+        \item $\phi[\psi/p] = \bot$ se $\phi = \bot$.
+        \item $\phi[\psi/p] = \phi$ se $\phi \in AT \land \phi \neq p$.
+        \item $\phi[\psi/p] = \psi$ se $\phi = p$.
+        \item $\neg(\phi)[\psi/p] = \neg(\phi[\psi/p])$.
+        \item $(\phi_1 \circ \phi_2)[\psi/p] = (\phi_1[\psi/p] \circ \phi_2[\psi/p])$, dove $\circ = \{\land, \lor, \implies\}$.
+    \end{itemize}
+\end{prop}
+E ora sblocchiamo il vero potenziale della sostituzione. Ragiona: se due formule risultano uguali, avranno egual valore nelle valutazioni. Se sono tali, sono intercambiabili, o anche meglio, scriverle allo stesso modo. Ciò ci consente di raggruppare più formule \textbf{equivalenti} sotto uno stesso termine, rendendo l'enunciato nettamente più semplice, infatti:
+\begin{prop}
+    \textbf{Sostituzione di formule equivalenti}\par
+    Siano due formule $\phi_1\, \phi_2$ e $p\in AT$. Se le prime due formule sono equivalenti sintatticamente, ovvero $\vDash \phi_1 \longleftrightarrow \phi_2$, prendendo una formula generica $\psi$ possiamo scrivere:
+    \begin{center}
+        $\psi[\phi_1/p] \longleftrightarrow \psi[\phi_2/p]$.
+    \end{center}
+    La relazione di \textbf{equivalenza sintattica} $\longleftrightarrow$ è data dalle seguenti proprietà:
+    \begin{center}
+        Siano $\vDash \phi_1 \longleftrightarrow \phi_1'$, $\vDash \phi_2 \longleftrightarrow \phi_2'$
+    \end{center}
+    Varranno le seguenti relazioni:
+    \begin{itemize}
+        \item $\vDash \phi_1 \implies \phi_2 \longleftrightarrow \phi_1' \implies \phi_2$.
+        \item $\vDash \phi_1 \land \phi_2 \longleftrightarrow \phi_1' \land \phi_2'$.
+        \item $\vDash \phi_1 \lor \phi_2 \longleftrightarrow \phi_1' \lor \phi_2'$.
+    \end{itemize}
+\end{prop}
+Formalizziamo infine il concetto di \textbf{Relazione di equivalenza}. Molto semplicemente, i simboli $\longleftrightarrow, \iff$ Rappresentano rispettivamente equivalenza sintattica e semantica; sono una scrittura compatta del seguente concetto: 
+\begin{center}
+    $\phi \iff \psi = (\phi \to \psi) \land (\psi \to \phi)$.
+\end{center}
+Restituisce il valore di vero solamente quando entrambe le formule sono vere.\footnote{Ciò implica anche che se le formule sono equivalenti e la valutazione di una delle due è vera, lo sarà per forza anche l'altra.}\par
 Una relazione di equivalenza R si scrive $\approx$ ed è tale se vengono rispettati questi tre criteri:
 \begin{enumerate}
-    \item \textit{Riflessività}; $\forall a \in A$ | $aRa$.
-    \item \textit{Transitività}; $\forall a, b, c \in A$ | $(aRb \land bRc) \to aRc$.
-    \item \textit{Simmetria}; $\forall a, b \in A$ | $aRb \to bRa$.
+    \item \textbf{Riflessività}; $\forall a \in A$ | $aRa$.
+    \item \textbf{Transitività}; $\forall a, b, c \in A$ | $(aRb \land bRc) \to aRc$.
+    \item \textbf{Simmetria}; $\forall a, b \in A$ | $aRb \to bRa$.
 \end{enumerate}
-Diremo infine che date due formule $\phi, \psi \in PROP$, se $\vDash \phi \leftrightarrow \psi$, si scriverà $\phi \approx \psi$.
-
-%
-
-\subsection{Lavorare con la Logica Proposizionale}
-Prima di iniziare a lavorare, è necessario introdurre il concetto di \textbf{Sistema Deduttivo}. Si tratta di un costrutto che fornisce una struttura formale di regole inferenziali che permettono di derivare una conclusione a partire da alcune premesse.\par\quad
-Che cosa consente tutto ciò? Ora possiamo effettuare lavori di deduzione per verificare la veridicità di una formula data.
-
-%
-
-\subsection{Induzione e Ricorsione}
-Le dimostrazioni per \textbf{induzione strutturale} e \textbf{ricorsione primitiva} sono concetti fondamentali che ti verranno sicuramente richiesti all'esame; quindi vediamoli nello specifico.
 \begin{theorem}
-    \textbf{Principio di Induzione strutturale sull'insieme PROP}\par
-    Considera una proprietà P da provare su PROP, quindi $P \subseteq PROP$ supponendo veri ambo gli enunciati:
-    \begin{itemize}
-        \item $\forall\psi\in AT$, vale $P[\phi]$. 
-        \item $\forall\psi,\phi\in PROP$, valgono $P[\psi], P[\phi]$
-    \end{itemize}
-    Varranno quindi le relazioni $(\psi \land \phi), (\psi \lor \phi), (\psi \to \phi)$.
+    \textbf{Relazione di equivalenza}
+    \begin{center}
+        Date due formule $\phi, \psi \in PROP$, se $\vDash \phi \leftrightarrow \psi$, si scriverà $\phi \approx \psi$.
+    \end{center}
 \end{theorem}
-Allora, noi dobbiamo provare la formula P su PROP. Supponiamo che per ogni formula atomica e per ogni elemento di PROP valga la proprietà. Ne consegue che sarà valida anche su $(\psi \land \phi), (\psi \lor \phi), (\psi \to \phi)$, comportando al fatto che $\forall\psi\in PROP$ valga $P[\psi]$.
-\begin{proof}
-    Basta dimostrare che $PROP \subseteq P$. Nota che P gode delle tre proprietà di PROP e di conseguenza, per minimalità di PROP, si ha la dimostrazione.
-\end{proof}
-Questo era un esempio teorico, vediamo un esercizio:
-\begin{eg}
-    Si dimostri per induzione strutturale la formula $p_2\to(p_3\lor p_2)$ che gode della proprietà P\par
-    \begin{enumerate}
-        \item $P[p_2]$, $P[p_3 \lor p_2]$
-        \item $P[p_2 \to (p_3 \lor p_2)]$ - Finito.
-    \end{enumerate}
-\end{eg}
-Se si ha un linguaggio definito tramite induzione è sicuramente possibile utilizzare anche la ricorsione primitiva, che vedremo adesso. Se hai prestato attenzione alle lezioni di programmazione, ti sarà tutto molto più comprensibile.\par
-La ricorsione si occupa di partire da una determinata formula per arrivare ad un caso base; vediamo un esempio messo a paragone con il linguaggio C:
-\begin{eg}
-    Cifre pari nel numero $\alpha = 25781$\par
-    Definiamo la proprietà P, la quale ricevuto un numero $\alpha$, riporta quante sono le sue cifre pari.
-    \begin{enumerate}
-        \item $P[\alpha] = n = P[\alpha]$, se $\alpha \% 2 \neq 0$.
-        \item $P[\alpha] = n = P[\alpha] + 1$, se $\alpha \% 2 = 0$.
-        \item $P[\alpha] = \alpha / 10$, se $\alpha > 10$
-        \item $P[\alpha] = n$, se $\alpha < 10$
-    \end{enumerate}
-\end{eg}
-In C, questa funzione ricorsiva riceverebbe in input il numero 25781 e mediante l'operazione "modulo 2" è possibile capire se un numero è pari o dispari dipendentemente dal resto della divisione per 2. Se il numero è maggiore di 10, significa che ci sono altre cifre da controllare, quindi ritorna il valore del numero diviso 10 per passare alla successiva a sinistra. Se il numero è minore di 10, dopo l'ultimo controllo ritornerà il valore di n, ovvero le cifre pari di cui abbiamo bisogno.\par\quad
-Descrivere il caso base appropriatamente è di fondamentale importanza; poiché senza di esso, la ricorsione andrebbe avanti ad infinitum.
-\begin{proof}
-    Si trovi quante cifre pari sono contenute nel numero $\alpha = 25781$
-    \begin{enumerate}
-        \item $25781 \%2 \neq 0 \to n = 0$, $\alpha = \alpha / 10$
-        \item $2578 \%2 = 0 \to n = 0+1$, $\alpha = \alpha / 10$
-        \item $257 \%2 \neq 0 \to n = 1+0$, $\alpha = \alpha / 10$
-        \item $25 \%2 \neq 0 \to n = 1+0$, $\alpha = \alpha / 10$
-        \item $2 \%2 = 0 \to n = 1+1$, $\alpha = \alpha / 10$, arrivati al caso base.
-    \end{enumerate}
-    Numeri pari $n \in \alpha = 2$
-\end{proof}
-
-\subsection{Tabelle di Verità}
 
 %
 
-\subsection{Deduzione Naturale}
-La \textbf{Deduzione naturale} è un metodo di ragionamento puramente sintattico. Si effettua stabilendo:
-\begin{itemize}
-    \item \textit{Assunzioni}; Ragionamenti temporanei.
-    \item \textit{Derivazioni}; Dalle formule è possibile effettuare derivazioni attraverso determinate leggi. Ogni passaggio si dice \textbf{Passo di derivazione}.
-    \item \textit{Scaricamento}; La chiusura delle assunzioni fatte all'inizio.
-\end{itemize}
-Tutte le derivazioni sono rappresentate graficamente tramite \textbf{alberi}, dove in cima stanno le \textit{foglie}, ovvero le assunzioni e alla base la \textit{radice}, che è la formula da derivare. Una derivazione è conclusa solamente quando ogni foglia è stata \textit{chiusa}, quindi scaricata.
+\section{Sistemi Deduttivi}
+Prima di iniziare a lavorare, è necessario introdurre il concetto di \textbf{Sistema Deduttivo}. Si tratta di un costrutto che fornisce una struttura formale di regole inferenziali, le quali permettono di derivare una conclusione a partire da alcune premesse.\par\quad
+Nell'enunciare un teorema, è necessario fornire anche la sua dimostrazione, poiché, senza di essa, definiamo il primo \textbf{congettura}. La dimostrazione di un teorema è definita come un algoritmo: sequenza di passi non ambigui mirati ad arrivare alla tesi partendo dalle ipotesi. I passi sono tutto lo svolgimento che effettueremo per dimostrare l'enunciato e si chiama \textbf{deduzione}. 
 \begin{definition}
-    \textbf{Teorema}\par
-    Una determinata formula $\psi$ si dice teorema se esiste una derivazione per cui l'insieme delle ipotesi $Hp[D] = \varnothing$, ovvero quando è vuoto poiché tutte le foglie sono state chiuse. Possono inoltre esistere più derivazioni per un singolo teorema.
+    \textbf{Deduzione Naturale}\par
+    Metodo di ragionamento puramente sintattico. Si effettua stabilendo:
+    \begin{itemize}
+        \item \textbf{Assunzioni}; Ragionamenti temporanei.
+        \item \textbf{Derivazioni}; Dalle formule è possibile effettuare derivazioni attraverso determinate leggi. Ogni passaggio si dice \textbf{Passo di derivazione}.
+        \item \textbf{Scaricamento}; La chiusura delle assunzioni fatte all'inizio.
+    \end{itemize}
+    Ogni derivazione è rappresentata tramite \textbf{alberi}, dove le \textbf{foglie} sono le ipotesi e la \textbf{radice} l'enunciato. Una dimostrazione si dice completa quando ogni foglia è chiusa, ovvero quando si è scaricata ogni ipotesi; si indica con $Hp[D] = \emptyset$.\par
+    La scrittura significa che l'insieme delle ipotesi della derivazione $D$ è vuoto. Possono inoltre esistere più derivazioni per un singolo teorema.
 \end{definition}
 Passiamo ora alle \textbf{Regole deduttive}. Si tratta di algoritmi utili per la derivazione delle formule nella deduzione naturale. Si dividono in due tipi:
 \begin{itemize}
-    \item \textit{Introduzione}; Premesse collegate introducendo un connettivo logico.
-    \item \textit{Eliminazione}; Dalle premesse è possibile rimuovere un connettivo logico.
+    \item \textbf{Introduzione}; Premesse collegate introducendo un connettivo logico.
+    \item \textbf{Eliminazione}; Dalle premesse è possibile rimuovere un connettivo logico.
 \end{itemize}
-Negli esercizi, le regole deduttive consentono di effettuare i passi di derivazione e sono rappresentati in forma di frazione. Sopra stanno le premesse, sotto la conclusione e a fianco la regola utilizzata. Le formule all'interno di parentesi quadre sono poi ipotesi assunte/scaricate da una determinata regola di derivazione, la quale dovrà essere appropriatamente numerata. Vedremo come fare insieme alla rappresentazione delle regole a nostra disposizione:
+Negli esercizi, le regole deduttive consentono di effettuare i passi di derivazione e sono rappresentati in forma di frazione. Sopra stanno le premesse, sotto la conclusione e a fianco la regola utilizzata. Le formule all'interno di parentesi quadre sono poi ipotesi assunte/scaricate da una determinata regola di derivazione, la quale dovrà essere appropriatamente numerata. Vediamo come fare insieme alla rappresentazione delle regole a nostra disposizione:
 \begin{itemize}
-    \item \textbf{Regole dell'implicazione} $(\to)$\par
+    \item \textbf{Regole dell'implicazione} $(\to)$
     \begin{itemize}
         \item \textbf{Introduzione dell'implicazione}\par
-        Se dall’ipotesi $\alpha$ segue $\beta$, con una certa derivazione D, allora si deriva $\alpha \to \beta$ tramite l’introduzione dell’implicazione.\par
-        Questa regola assume/scarica come ipotesi l’implicante dell'implicazione, indicando quella formula tra le parentesi quadre e un indice.\par
-        \begin{center}
-            \Large$\frac{[\beta]^1}{\alpha \to \beta}I^1$
-        \end{center}
+        Se dall’ipotesi $\alpha$ segue $\beta$, con una certa derivazione D, allora si deriva $\alpha \to \beta$ tramite l’introduzione dell’implicazione. Questa regola assume/scarica come ipotesi l’implicante dell'implicazione.
+        \begin{prooftree}
+            \AxiomC{$[\beta]^1$}
+            \RightLabel{$\to I^1$}
+            \UnaryInfC{$\alpha \to \beta$}
+        \end{prooftree}
         \item \textbf{Eliminazione dell'implicazione}\par
-        
+        Chiamato anche \textit{modus ponens}, se da due derivazioni $D_1, D_2$ otteniamo $\alpha$ e $\alpha \to \beta$, possiamo concludere $\beta$ eliminando il connettivo.
+        \begin{prooftree}
+            \AxiomC{$\alpha$}
+            \AxiomC{$\alpha \to \beta$}
+            \RightLabel{$\to E^1$}
+            \BinaryInfC{$\beta$}
+        \end{prooftree}
         \item \textbf{Indebolimento}\par
         
     \end{itemize}
@@ -330,5 +343,7 @@ Negli esercizi, le regole deduttive consentono di effettuare i passi di derivazi
     
 \end{itemize}
 
+% ----- Continua da qua -----
 
-assiomi, prove indirette, derivabilità.
+\section{Correttezza e Completezza}
+\section{Esercizi}

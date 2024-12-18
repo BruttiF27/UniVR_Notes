@@ -1,20 +1,48 @@
 \section{Dipendenza e Indipendenza Lineare}
-§6. Dipendenza e indipendenza lineare (vedi [GS, Capitolo II])
-6.1 Proposizione
-6.2 Definizione: linearmente dipendente
+Partiamo subito con un concetto necessario per introdurre l'argomento della sezione; è possibile che gli insiemi di generatori abbiano a loro volta dei sottoinsiemi. Prendiamo infatti lo spazio dei valori reali $\mathbb{K} = \mathbb{R}$, lo spazio vettoriale $V = \mathbb{R}^2$ e il seguente insieme di generatori:
+\begin{center}
+    $C = \left\{\begin{pmatrix}
+        0\\
+        1
+    \end{pmatrix}, \begin{pmatrix}
+        1\\
+        0
+    \end{pmatrix}, \begin{pmatrix}
+        2\\
+        3
+    \end{pmatrix}\right\}$
+\end{center}
+I coefficienti per generare i vettori $x,y$ non sono univocamente determinati, infatti puoi arrivare ad una soluzione con più strade, basta pensare a come sono definiti gli insiemi numerici: ogni numero può essere rappresentato come somma o sottrazione di altri.\par\quad
+Se si trovano soluzioni più efficienti per arrivare al vettore richiesto, ci si trova di fronte ad un \textbf{sottoinsieme di generatori}, i cui elementi devono necessariamente essere capaci di ricreare i vettori dell'insieme non utilizzati. In tal merito diciamo che $C$ è \textbf{linearmente dipendente}, poiché un suo vettore può essere espresso come combinazione lineare degli altri. Facciamo ora una piccola osservazione:
+\begin{prop}
+    Se $\{v_1,...,v_n\}$ è un insieme di generatori di uno spazio vettoriale $V$ e se $v_n$ è combinazione lineare di $v_1,...,v_{n-1}$, allora quest'ultimo insieme è un insieme di generatori di $V$. Di conseguenza, ciò che viene applicato agli insiemi di generatori vale anche per i loro sottoinsiemi.
+\end{prop}
+Ora possiamo definire formalmente l'argomento della sezione:
+\begin{definition}
+    \textbf{Dipendenza e Indipendenza Lineare}\par
+    Dati i vettori di uno spazio vettoriale, quindi $v_1,...,v_n \in V$, il loro insieme si dice linearmente \textbf{dipendente} se almeno uno di quei vettore è una combinazione lineare degli altri. Ne consegue inoltre che se un insieme non è linearmente dipendente, sarà linearmente \textbf{indipendente}.
+\end{definition}
+La cosa comoda è che per dimostrare l'indipendenza lineare di un insieme esistono tre teoremi perfettamente equivalenti
+
+\begin{theorem}
+    PALLEPISELLOSONOQUASOLOPERSEPARAREGLIARGOMENTI.
+\end{theorem}
+
 6.3 Teorema: linear indipendenza
 6.4 Definizione: base
 6.5 Osservazione: base `e come un sistema di coordinate
 6.6 Base di C(U ), U una matrice in forma ridotta
 11/04/24
-6.7 Proposizione: base, insieme di generatori minimo, insieme massimamente linearmente indipen-
-dente
+6.7 Proposizione: base, insieme di generatori minimo, insieme massimamente linearmente indipendente
 6.8 Teorema: esistenza della base
 6.9 Teorema di Steinitz: ogni insieme linearmente indipendente pu`o essere completato a una base
 6.10 Corollario: ogni base ha lo stesso numero di elementi
 6.11 Definizione: dimensione
 6.12 Corollario
 6.13 Proposizione: dimensioni di sottospazi
+
+% ----- CONTINUA DA QUA LEZ. 21 -----
+
 \section{Applicazioni Lineari}
 §7. Applicazioni lineari (vedi [GS, Capitolo II])
 7.1 Definizione: applicazione lineare

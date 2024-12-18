@@ -183,25 +183,167 @@ Hai potuto osservare che la combinazione lineare è \textit{generata} da un insi
     Abbiamo la conferma che è un insieme di generatori.
 \end{eg}
 
-% RIPRENDI DA QUA
-
 \section{Il Sottospazio Vettoriale}
 Può capitare che uno spazio vettoriale ne contenga altri; in tal caso lo chiameremo \textbf{Sottospazio vettoriale}. Per far sì che siano tali devono valere le seguenti proprietà:
 \begin{itemize}
     \item Somma vettoriale e moltiplicazione per scalare.
     \item Deve essere un insieme non vuoto.
 \end{itemize}
-
-4.3 Definizione: sottospazio generato da un insieme
-4.3 Definizione: intersezione e somma di sottospazi
+Esistono anche altri tipi di spazi, appositi per polinomi, serie e applicazioni; anche in questi casi sussistono queste proprietà. Inoltre, come gli spazi normali, anche questi possono essere generati da un insieme. Definiamo infatti:
+\begin{definition}
+    \textbf{Sottospazio generato da un insieme, intersezione}\par
+    Il sottospazio $<v_1,...,v_n>$ dello spazio V si dice sottospazio generato dall'insieme $v_1,...v_n$, dove quest'ultimo comprende tutte le combinazioni dei vettori in esso contenuto.
+\end{definition}
+Da questa definizione deriviamo due operazioni che prendono la forma di intersezione e unione di sottospazi vettoriali.
+\begin{itemize}
+    \item \textbf{Intersezione}\par
+    Siano due sottospazi $U,W$ sullo spazio $V \in \mathbb{K}$. L'intersezione fra i due sarà anch'essa un sottospazio di $V$ e si scrive:
+    \begin{center}
+        $U \cap W := \{v \in V|v \in U \land v \in W\}$
+    \end{center}
+    \begin{eg}
+        Dato lo spazio $V = \mathbb{R}^2$ e due sottospazi $U,W$, dove:
+        \begin{center}
+            $ U =\left<\begin{pmatrix}
+                1\\
+                n
+            \end{pmatrix}\right>, W =\left<\begin{pmatrix}
+                1\\
+                m
+            \end{pmatrix}\right>$
+        \end{center}
+        Abbiamo che l'intersezione è: $U \cap W = \{0_v\}$ perché non hanno punti in comune.
+    \end{eg}
+    \item \textbf{Unione}\par
+    Siano due sottospazi $U,W$ sullo spazio $V \in K$. L'unione è generalmente definita come:
+    \begin{center}
+        $U \cup W = \{v \in V|v \in U \lor v \in W\}$
+    \end{center}
+    Tuttavia, il risultato non è un sottospazio vettoriale di $V$.
+    \begin{eg}
+        Dato lo spazio $V = \mathbb{R}^2$ e due sottospazi $U,W$, dove:
+        \begin{center}
+            $ U =\left<\begin{pmatrix}
+                0\\
+                1
+            \end{pmatrix}\right> = \begin{pmatrix}
+                0\\
+                \alpha
+            \end{pmatrix}$, $W =\left<\begin{pmatrix}
+                1\\
+                0
+            \end{pmatrix}\right> = \begin{pmatrix}
+                \alpha\\
+                0
+            \end{pmatrix}$, dove per entrambi $\alpha \in \mathbb{R}$.
+        \end{center}
+        Prendiamo un singolo vettore determinato per entrambi i sottospazi; avremo che:
+        \begin{itemize}
+            \item $u = \begin{pmatrix}
+                0\\
+                1
+            \end{pmatrix} \to u \in U \cup W$.
+            \item $w = \begin{pmatrix}
+                1\\
+                0
+            \end{pmatrix} \to w \in U \cup W$.
+        \end{itemize}
+        Tuttavia la somma fra i vettori $u,w$ risulterà non appartenente all'unione dei sottospazi $U,W$, quindi è dimostrato che l'unione non è un sottospazio vettoriale di $V$.
+    \end{eg}
+\end{itemize}
 
 %
 
 \section{Spazio delle Colonne e Spazio Nullo}
-4.4 Definizione: spazio delle colonne
-4.4 Proposizione: spazio delle colonne e sistemi lineari
-4.4 Definizione: spazio nullo
-4.4 Proposizione: spazio nullo `e un sottospazio
+Possiamo aggiungere le matrici all'equazione? Ma non vedo perché no. Per questi casi riguardanti i sottospazi definiamo:
+\begin{definition}
+    \textbf{Spazio delle colonne}\par
+    Sia una matrice $A_{m\times n} = (a_{ij})$ sullo spazio $\mathbb{K}$ generato da ogni singola colonna di $A$. Diciamo che il sottospazio $C(A)$ di $\mathbb{K}^m$ è lo spazio delle colonne di $A$ e si scrive:
+    \begin{center}
+        $C(A) = \left<\begin{pmatrix}
+            a_{11}\\
+            ...\\
+            a_{m1}
+        \end{pmatrix}, ..., \begin{pmatrix}
+            a_{1n}\\
+            ...\\
+            a_{mn}
+        \end{pmatrix}\right>$
+    \end{center}
+    Più semplicemente, ogni colonna della matrice $A$ è vista come un vettore del sottospazio ed il loro insieme è lo spazio delle colonne.\par\quad
+    Inoltre, lo spazio delle colonne $C(A)$ consiste di tutti i vettori $b \in \mathbb{K}$ per i quali il sistema lineare $Ax = b$ ammette soluzione.
+\end{definition}
+Propongo quindi direttamente un esempio pratico data la complessità di una dimostrazione generale:
+\begin{eg}
+    \textbf{Lo spazio delle colonne $C(A)$ è un sottospazio vettoriale di $\mathbb{K}$}\par
+    Sia uno spazio vettoriale $\mathbb{K} = \mathbb{R}$ e la matrice $A$:
+    \begin{center}
+        $A = \begin{pmatrix}
+            1 & 2 & 0\\
+            0 & 5 & 6
+        \end{pmatrix}$ 
+    \end{center}
+    Avremo quindi il seguente spazio delle colonne $C(A)$:
+    \begin{center}
+        $C(A) =\left\{\begin{pmatrix}
+            a\\
+            b
+        \end{pmatrix} \in \mathbb{R}^2|\exists x,y,z \in \mathbb{R}|\begin{pmatrix}
+            a\\
+            b
+        \end{pmatrix} = x\begin{pmatrix}
+            1\\
+            0
+        \end{pmatrix} + y\begin{pmatrix}
+            2\\
+            5
+        \end{pmatrix} + z\begin{pmatrix}
+            0\\
+            6
+        \end{pmatrix}\right\} \subseteq \mathbb{R}^2$
+    \end{center}
+    Svolgiamo i calcoli per ottenere il vettore dai coefficienti $a,b$:
+    \begin{center}
+        $\begin{pmatrix}
+            a\\
+            b
+        \end{pmatrix} = \begin{pmatrix}
+            x+2y\\
+            5y+6z
+        \end{pmatrix} \implies \begin{pmatrix}
+            x+2y\\
+            5y+6z
+        \end{pmatrix} = \begin{pmatrix}
+            1 & 2 & 0\\
+            0 & 5 & 6
+        \end{pmatrix} \begin{pmatrix}
+            x\\
+            y\\
+            z
+        \end{pmatrix}$
+    \end{center}
+    Quindi gli elementi di $C(A)$ sono i vettori dai coefficienti $a,b \in \mathbb{R}$ tali che il seguente sistema lineare abbia una soluzione:
+    \begin{center}
+        $A\begin{pmatrix}
+            x\\
+            y\\
+            z
+        \end{pmatrix} = \begin{pmatrix}
+            a\\
+            b
+        \end{pmatrix}$
+    \end{center}
+    Troviamoli, dunque. Se il vettore con coefficienti $x,y,z$ è soluzione del sistema, allora avremo per definizione che la somma delle colonne della matrice risulterà il vettore con coefficienti $a,b$, ovvero la combinazione lineare delle colonne.
+\end{eg}
+Penserai ora alla teoria degli insiemi e agli argomenti appena visti. Ogni insieme contiene anche il vuoto, ovvero l'elemento neutro. Bella pensata, ce l'hai anche qua. Definiamo:
+\begin{definition}
+    \textbf{Spazio nullo}\par
+    Sia una matrice $A = (a_{ij})$ sullo spazio $\mathbb{K}$. Diciamo spazio nullo di $A$ il seguente insieme:
+    \begin{center}
+        $N(A) := \{v \in \mathbb{K}^n | Av = 0\}$
+    \end{center}
+    Si tratta in parole povere di un vettore dove ogni coefficiente è uguale a $0$. Capirai che se gli moltiplichi una matrice otterrai una matrice con soli zeri. Si tratta inoltre di un sottospazio di $\mathbb{K}^n$.
+\end{definition}
 
 %
 

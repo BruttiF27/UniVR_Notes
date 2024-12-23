@@ -309,41 +309,182 @@ Negli esercizi, le regole deduttive consentono di effettuare i passi di derivazi
             \BinaryInfC{$\beta$}
         \end{prooftree}
         \item \textbf{Indebolimento}\par
-        
+        Caso particolare nell'introduzione dell'implicazione. Nel caso in cui $\alpha \notin Hp(D)$ e si possiede già come ipotesi la formula dell'implicato, si può accettare la formula senza scaricare $\alpha$.\par\quad
+        Fondamentalmente, se hai una formula tipo $\alpha \implies (\beta \implies \alpha)$, puoi evitare di derivare beta, perché stai già considerando il caso $\alpha = 1$.
+        \begin{prooftree}
+            \AxiomC{$[\alpha]^1$}
+            \RightLabel{$\to I$}
+            \UnaryInfC{$\beta \to \alpha$}
+            \RightLabel{$\to I^1$}
+            \UnaryInfC{$\alpha \to (\beta \to \alpha)$}
+        \end{prooftree}
     \end{itemize}
-    \item \textbf{Regole della congiunzione} $(\land)$\par
+    \item \textbf{Regole della congiunzione} $(\land)$
     \begin{itemize}
         \item \textbf{Introduzione dell'AND}\par
-
+        Se da due derivazioni si arriva ad ottenere $\alpha$ e $\beta$, possiamo derivarli introducendo AND.
+        \begin{prooftree}
+            \AxiomC{$\alpha$}
+            \AxiomC{$\beta$}
+            \RightLabel{$\land I$}
+            \BinaryInfC{$\alpha \land \beta$}
+        \end{prooftree}
         \item \textbf{Eliminazione dell'AND}\par
-        
+        Se da una derivazione arriviamo alla formula $\alpha \land \beta$ è possibile derivare una di queste due variabili e si dirà rispettivamente eliminazione dell'and a sinistra o destra.
+        \begin{prooftree}
+            \AxiomC{$\alpha \land \beta$}
+            \RightLabel{$\land E_l$}
+            \UnaryInfC{$\alpha$}
+        \end{prooftree} \begin{prooftree}
+            \AxiomC{$\alpha \land \beta$}
+            \RightLabel{$\land E_r$}
+            \UnaryInfC{$\beta$}
+        \end{prooftree}
     \end{itemize}
-    \item \textbf{Regole del bottom} $(\bot)$\par
+    \item \textbf{Regole del bottom} $(\bot)$
     \begin{itemize}
         \item \textbf{Riduzione ad assurdo (RAA)}\par
-
+        Se da un'ipotesi $\neg\alpha$ deriviamo $\bot$, ed è possibile farlo perché $\neg\alpha = \alpha \to \bot$, possiamo derivare $\alpha$ dall'assurdo.
+        \begin{prooftree}
+            \AxiomC{$[\neg\alpha]^1$}
+            \RightLabel{$\to I$}
+            \UnaryInfC{$\bot$}
+            \RightLabel{$RAA^1$}
+            \UnaryInfC{$\alpha$}
+        \end{prooftree}
         \item \textbf{Eliminazione del bottom}\par
-        
+        Ex falso quod libet - Dall'assurdo tutto è derivabile. Eliminando il bottom puoi derivare qualunque formula ti pare... purché non sia composta.
+        \begin{prooftree}
+            \AxiomC{$\bot$}
+            \RightLabel{$\bot_i$}
+            \UnaryInfC{$\alpha$}
+        \end{prooftree}
     \end{itemize}
-    \item \textbf{Regole della disgiunzione} $(\lor)$\par
+    \item \textbf{Regole della disgiunzione} $(\lor)$
     \begin{itemize}
         \item \textbf{Introduzione dell'OR}\par
-
+        Se dalla derivazione si arriva ad una formula $\alpha$, è possibile derivare $\alpha \lor \beta$ introducendo OR. La cosa funziona anche se arrivi a beta.
+        \begin{prooftree}
+            \AxiomC{$\alpha$}
+            \RightLabel{$\lor I_l$}
+            \UnaryInfC{$\alpha \lor \beta$}
+        \end{prooftree}
+        \begin{prooftree}
+            \AxiomC{$\beta$}
+            \RightLabel{$\lor I_r$}
+            \UnaryInfC{$\alpha \lor \beta$}
+        \end{prooftree}
         \item \textbf{Eliminazione dell'OR}\par
-        
+        Qui le cose iniziano a farsi più complicate; la formula usa un ragionamento per casi, dove $P \to U$, $Q \to U$. Pensandoci, ne consegue direttamente che se prendi $P \lor Q$, implicherai sempre $U$. La stessa cosa fa l'eliminazione di OR.\par\quad
+        Diciamo quindi di ottenere la formula $\alpha \lor \beta$ da una derivazione. Le due variabili diventeranno le foglie da chiudere per concludere una formula $\gamma$.\par\quad
+        Riassumendo: prima derivi la formula all'estrema sinistra, che lega le due formule con OR. Poi prendi singolarmente le due variabili legate e lavora su di esse per derivare la formula gamma. Fatto ciò, potrai concludere gamma.
+        \begin{prooftree}
+            \AxiomC{$\alpha \lor \beta$}
+            \AxiomC{$[\alpha]^1$}
+            \UnaryInfC{...}
+            \UnaryInfC{$\gamma$}
+            \AxiomC{$[\beta]^1$}
+            \UnaryInfC{...}
+            \UnaryInfC{$\gamma$}
+            \RightLabel{$\lor E^1$}
+            \TrinaryInfC{$\gamma$}
+        \end{prooftree}
     \end{itemize}
-    \item \textbf{Regole della doppia implicazione} $(\leftrightarrow)$\par
+    \item \textbf{Regole della doppia implicazione} $(\leftrightarrow)$
     \begin{itemize}
         \item \textbf{Introduzione della doppia implicazione}\par
-
+            Se partendo da un'ipotesi $\alpha$ derivi $\beta$ e da un'altra ipotesi $\beta$ derivi $\alpha$, è possibile derivare una doppia implicazione.
+            \begin{prooftree}
+                \AxiomC{$[\alpha]^1$}
+                \UnaryInfC{...}
+                \UnaryInfC{$\beta$}
+                \AxiomC{$[\beta]^1$}
+                \UnaryInfC{...}
+                \UnaryInfC{$\alpha$}
+                \RightLabel{$\leftrightarrow I^1$}
+                \BinaryInfC{$\alpha \leftrightarrow \beta$}
+            \end{prooftree}
         \item \textbf{Eliminazione della doppia implicazione}\par
-        
-    \end{itemize}
-    \item \textbf{Assiomi}\par
-    
+            Se da due derivazioni si ottengono una formula $\alpha$ e una doppia implicazione contenente tale formula, è possibile derivare l'altro ramo della doppia implicazione. Quindi:
+            \begin{prooftree}
+                \AxiomC{$\alpha$}
+                \AxiomC{$\alpha \leftrightarrow \beta$}
+                \RightLabel{$\leftrightarrow E^1$}
+                \BinaryInfC{$\beta$}
+            \end{prooftree}
+            \begin{prooftree}
+                \AxiomC{$\beta$}
+                \AxiomC{$\beta \leftrightarrow \alpha$}
+                \RightLabel{$\leftrightarrow E^1$}
+                \BinaryInfC{$\alpha$}
+            \end{prooftree}
+    \end{itemize}    
 \end{itemize}
 
-% ----- Continua da qua -----
+%
 
 \section{Correttezza e Completezza}
+T'è mai capitato di chiederti se ci fosse una qualche relazione fra conseguenza logica $\Gamma \vDash \phi$ e derivabilità $\Gamma \vdash \phi$? Ebbene, questa domanda mette in dubbio la veridicità del sistema di deduzione naturale tutto. Come facciamo a sapere che non è contraddittorio?\par\quad
+Allo scopo di rimuovere ogni dubbio, procediamo con la dimostrazione di come la deduzione naturale è \textbf{corretta}.
+\begin{theorem}
+    \textbf{Teorema di Correttezza per la deduzione naturale}\par
+    Se dall'insieme $\Gamma$ deriviamo una formula $\phi$, questa è anche sua conseguenza logica.
+    \begin{center}
+        $\Gamma \vdash \phi \implies \Gamma \vDash \phi$.
+    \end{center}
+\end{theorem}
+\begin{proof}
+    La dimostrazione procede per induzione sull'altezza delle derivazioni. Scriviamo
+    \begin{itemize}
+        \item Passo base: Se $D = \phi$, siccome $\phi \vDash \phi$, abbiamo la tesi.
+        \item Passo induttivo: Consideriamo ogni regola vista per la deduzione naturale e procediamo a definirle. Se tutte risultano vere, hai dimostrato la correttezza.
+    \end{itemize}
+    \begin{enumerate}
+        \item \textbf{AND introduction}:\par
+        Abbiamo derivazione $D = \land I$. Le due derivazioni $D_1, D_2 \in Hp(D)$. Per il lemma sulla conseguenza logica abbiamo che $Hp(D_1), Hp(D_2) \vDash \phi \land \psi$. Effettuando un'unione avremo che $Hp(D_1) \cup Hp(D_2) = Hp(D)$. Ne consegue che $Hp(D) \vDash \phi \land \psi$.
+        \item AND elimination
+        \item IMPLIES introduction
+        \item IMPLIES elimination
+        \item OR introduction
+        \item OR elimination
+        \item RAA
+        \item BOTTOM elimination
+    \end{enumerate}
+    Hai finito. Inoltre, come diretta conseguenza immediata abbiamo l'assenza di contraddizioni nell'insieme delle deduzioni naturali. Prova a supporre $\vdash \bot$. Per la correttezza avremmo $\vDash \bot$, che è impossibile.
+\end{proof}
+E questa è la prima parte, la quale riguarda la sintassi. Ora dobbiamo \textbf{completare} il cerchio, provando che:7
+
+\begin{theorem}
+    \textbf{Teorema di completezza per la deduzione naturale}\par
+    Tutto ciò che si può dire semanticamente, lo si può dire anche sintatticamente.
+    \begin{center}
+        $\Gamma \vDash \phi \implies \Gamma \vdash \phi$.
+    \end{center}
+\end{theorem}
+Per dolor nostro, non è possibile dimostrare questo teorema senza pensare. Dobbiamo prima introdurre il concetto di \textbf{Consistenza}. Diremo che un insieme è consistente quando non deriva assurdità, altrimenti è inconsistente. Segue quindi che:
+\begin{prop}
+    \textbf{Relazioni di consistenza}\par
+    \begin{itemize}
+        \item $\Gamma \vdash \bot$
+        \item $\forall \phi, \Gamma \vdash \phi$
+        \item $\exists \phi, \Gamma \vdash \phi \land \Gamma \vdash \neg \phi$
+    \end{itemize}
+\end{prop}
+Diremo poi che se un insieme è consistente, allora sarà soddisfacibile e viceversa. Possiamo estendere il concetto e raggiungere insiemi massimali consistenti, sui quali si basa il teorema di completezza.
+\begin{definition}
+    \textbf{Insiemi massimali consistenti}\par
+    Un insieme di formule $\Gamma$ si dice massimale consistente se è consistente e non esiste alcun insieme consistente $\Delta \neq \Gamma$ che è anche $\Gamma \subseteq \Delta$.\par\quad
+    Inoltre, ogni insieme consistente $\Gamma$ è contenuto in almeno un insieme massimale consistente.
+\end{definition}
+
+
+
+
+
+
+
+
+
+% ----- Continua da qua Libro pag.70 -----
+
 \section{Esercizi}

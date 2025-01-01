@@ -20,19 +20,176 @@ Se si trovano soluzioni più efficienti per arrivare al vettore richiesto, ci si
 Ora possiamo definire formalmente l'argomento della sezione:
 \begin{definition}
     \textbf{Dipendenza e Indipendenza Lineare}\par
-    Dati i vettori di uno spazio vettoriale, quindi $v_1,...,v_n \in V$, il loro insieme si dice linearmente \textbf{dipendente} se almeno uno di quei vettore è una combinazione lineare degli altri. Ne consegue inoltre che se un insieme non è linearmente dipendente, sarà linearmente \textbf{indipendente}.
+    Dati i vettori di uno spazio vettoriale, quindi $v_1,...,v_n \in V$, il loro insieme si dice linearmente \textbf{dipendente} se almeno uno di quei vettori è una combinazione lineare degli altri. Ne consegue inoltre che se un insieme non è linearmente dipendente, sarà linearmente \textbf{indipendente}.
 \end{definition}
-La cosa comoda è che per dimostrare l'indipendenza lineare di un insieme esistono tre teoremi perfettamente equivalenti
-
+Per dimostrare che un insieme di vettori è linearmente indipendente si utilizzano tre teoremi, tutti perfettamente equivalenti l'uno con l'altro.
 \begin{theorem}
-    PALLEPISELLOSONOQUASOLOPERSEPARAREGLIARGOMENTI.
+    Siano i vettori $v_1,...,v_n \in \mathbb{V}$, allora:
+    \begin{enumerate}
+        \item L'insieme $\{v_1, ..., v_n\}$ è linearmente indipendente.
+        \item Se $\sum_{i=1}^{n} \alpha_i v_i = \sum_{i=1}^{n} \beta_i v_i$, per $\alpha_1,...,\alpha_n$ e $\beta_1,...,\beta_n$, entrambi appartenenti allo spazio $\mathbb{K}$, allora $\alpha_i = \beta_i \forall 1\leq i\leq n$.
+        \item Se i valori $\alpha_1, ..., \alpha_n \in \mathbb{K}$ sono tali per cui $\alpha_1v_1 + ... + \alpha_nv_n = 0_v$, allora tutte le alfa saranno uguali a 0.
+    \end{enumerate}
+    Se valgono tutte e tre queste condizioni, hai dimostrato un'indipendenza lineare.
 \end{theorem}
+\begin{proof}
+    Essendo che sono equivalenti, è possibile dimostrare uno a partire dall'altro, ma esiste una strategia migliore per contrarre i passaggi. Pay attention.\par
+    Prima dimostra che $2 \to 3$, poi che $\neg2 \to \neg1 \to \neg3$. Iniziamo.
+    \begin{itemize}
+        \item $Th(2) \to Th(3)$\par
+        Se la somma di prodotti dello spazio vettoriale è uguale a $0$, allora ogni scalare $\alpha_1 = ... = \alpha_n = 0$. Dimostrato.
+        \item $\neg Th(2) \to \neg Th(1)$\par
+        Supponiamo esistano scalari $\alpha_1,...,\alpha_n$ e $\beta_1, ..., \beta_n$, entrambi nello spazio $\mathbb{K}$ tali che $(\exists j.1\leq j\leq n)$ per il quale: $[(\alpha_j \neq \beta_j) \land (\sum_{i=1}^{n} \alpha_i v_i = \sum_{i=1}^{n} \beta_i v_i)]$.\par
+        Abbiamo quindi che $0_v = (\sum_{i=1}^{n} \alpha_i v_i - \sum_{i=1}^{n} \beta_i v_i)$, che per proprietà associativa è uguale a $[\sum_{i=1}^{n}(\alpha_i-\beta_i)v_i]$, da cui $(\alpha_j - \beta_j \neq 0)$.\par
+        Possiamo quindi dire che $0_v = \left[\sum_{i=1}^{n}(\dfrac{\alpha_i-\beta_i}{\alpha_j-\beta_j})v_i\right]$.\par
+        In tal caso, avremo un $v_j = \left[\sum_{i=1}^{j-1}(\dfrac{\beta_i-\alpha_i}{\alpha_j-\beta_j})v_i\right] + \left[\sum_{i=j+1}^{n}(\dfrac{\beta_i-\alpha_i}{\alpha_j-\beta_j})v_i\right]$.
+        \item $\neg Th(1) \to \neg Th(3)$\par
+        Raggiunte le nostre ipotesi, teniamo buona la $j$ supposta e aggiungiamo che:\par
+        $(\exists \alpha_1, ..., \alpha_{j-1}, \alpha_{j+1}, ..., \alpha_n \in \mathbb{K})$ tali che $v_j = [(\sum_{i=1}^{j-1} \alpha_i v_i) + (\sum_{i=j+1}^{n} \alpha_i v_i)]$\par
+        Controlliamo dunque $0_v = v_j - v_j = \alpha_1v_1 + ... + \alpha_jv_j + ... + \alpha_nv_n$.\par
+        Proprio qui la moltiplicazione fra $\alpha_jv_j \neq 0$, perché $\alpha_j = -1$. Assurdo. $Th(3)$ non vale.
+    \end{itemize}
+    Non valgono le ipotesi false, di conseguenza è stato dimostrato che i teoremi sono equivalenti e utilizzabili per dimostrare indipendenza lineare.
+\end{proof}
+\begin{eg}
+    Dimostrazione di indipendenza lineare\par
+    Dato lo spazio degli scalari $\mathbb{K} = \mathbb{R}$ e lo spazio vettoriale $\mathbb{V} = \mathbb{R}^2$, dimostriamo che l'insieme seguente è linearmente indipendente:
+    \begin{center}
+        $\left\{\begin{pmatrix}
+            0\\
+            1
+        \end{pmatrix}, \begin{pmatrix}
+            3\\
+            2
+        \end{pmatrix}\right\}$
+    \end{center}
+    Moltiplichiamo il vettore $0_v$ ad ogni elemento dell'insieme, il quale farà le veci per ogni $\alpha \in \mathbb{R}$. Ogni soluzione trovata sarà per forza uguale a 0. Per verificarlo moltiplica l'alfa corrispondente al vettore, noterai che risulterà sempre $0$. Per questo teorema, l'insieme è linearmente indipendente.
+\end{eg}
+L'esempio appena visto è applicabile anche alle matrici, pure con coefficienti complessi. Basterà semplicemente sostituire ad ogni alfa una matrice i cui elementi sono tutti uguali a $0$. Inoltre, generalmente diciamo che:
+\begin{itemize}
+    \item Un insieme $\{v\} \subseteq V$ è linearmente indipendente se s.se $v \neq 0_v$.
+    \item Un insieme $\{v_1,v_2\} \subseteq V$ è linearmente dipendente s.se $\exists \alpha \in \mathbb{K}.v_1 = \alpha v_2$ o viceversa.
+\end{itemize}
+Andiamo avanti, perché ora possiamo parlare di \textbf{Basi} di uno spazio vettoriale. Diamone subito una definizione formale.
+\begin{definition}
+    \textbf{Base di uno spazio vettoriale}\par
+    Sia $\mathbb{V}$ uno spazio vettoriale e $v_1,...,v_n \in \mathbb{V}$ i suoi elementi. L'insieme $B = \{v_1,...,v_n\}$ è detto base di $\mathbb{V}$ se:
+    \begin{itemize}
+        \item B è un insieme di generatori.
+        \item B è linearmente indipendente.
+    \end{itemize}
+    In merito, $B$ è base di $\mathbb{V}$ s.se ogni vettore di $\mathbb{V}$ può essere scritto in modo unico come combinazione lineare degli elementi di $B$. Possiamo di conseguenza vedere la base come \textbf{sistema di coordinate} di $\mathbb{V}$. Possiamo infatti scrivere:
+    \begin{center}
+        $v = (\alpha_1 v_1 + ... + \alpha_n v_n$), con $\alpha_1, ..., \alpha_n$ univocamente determinati.\par
+        Notazione: $[v]_B = \begin{pmatrix}
+            \alpha_1\\
+            ...\\
+            \alpha_n
+        \end{pmatrix}$ - Le alfa sono univocamente determinate perché $B$ è una base.
+    \end{center}
+    Dato ora lo spazio $\mathbb{V} = \mathbb{K}^n$, diremo infine che l'insieme $\mathcal{E}_n$ seguente, è la \textbf{Base canonica} dell'insieme $\mathbb{K}^n$.
+    \begin{center}
+        $\mathcal{E}_n = \left\{e_1 = \begin{pmatrix}
+            1\\
+            0\\
+            ...\\
+            0
+        \end{pmatrix}, e_2 = \begin{pmatrix}
+            0\\
+            1\\
+            ...\\
+            0
+        \end{pmatrix}, ..., e_n = \begin{pmatrix}
+            0\\
+            0\\
+            ...\\
+            1
+        \end{pmatrix}\right\}$
+    \end{center}
+\end{definition}
+\begin{eg}
+    Determinare se $C$ è una base dello spazio $\mathbb{V} = \mathbb{R}^2$\par
+    Per prima cosa bisogna dimostrare che $C$ è un insieme di generatori.
+    \begin{center}
+        $C = \left\{\begin{pmatrix}
+            0\\
+            1
+        \end{pmatrix}, \begin{pmatrix}
+            3\\
+            2
+        \end{pmatrix}\right\} \implies \begin{cases}
+            0+3 = v_1\\
+            1+2 = v_2
+        \end{cases}$
+    \end{center}
+    Noti che puoi ottenere $v_1$ moltiplicando per $\dfrac{v_1}{3}$ la seconda colonna, modificando in tal modo il sistema:
+    \begin{center}
+        $\begin{cases}
+            0+\dfrac{3}{3}v_1 = v_1\\
+            1+\dfrac{2}{3}v_1 = v_2
+        \end{cases} \implies \begin{cases}
+            v_1 = v_1\\
+            1+\dfrac{2}{3}v_1 = v_2
+        \end{cases}$
+    \end{center}
+    Ora bisogna pensare a come ottenere $v_2$ con l'altra colonna. Hai la fortuna di avere un $1$, quindi puoi direttamente moltiplicare per $v_2$, che è la variabile necessaria, ma anche per $-\dfrac{2}{3}v_1$, per rimuovere la zavorra. Quindi:
+    \begin{center}
+        $\begin{cases}
+            v_1 = v_1\\
+            v_2-\dfrac{2}{3}v_1 + \dfrac{2}{3}v_1 = v_2
+        \end{cases} \implies \begin{cases}
+            v_1 = v_1\\
+            v_2 = v_2
+        \end{cases}$ Confermato insieme di generatori.\par
+        Operazioni eseguite: $(r_1)(v_2-\dfrac{2}{3}v_1) + (r_2)(\dfrac{1}{3}v_1)$.
+    \end{center}
+    Per il punto 3 del teorema 7.3, $C$ è una base di $\mathbb{V}$. Useremo infine la notazione apposita per scrivere la base di uno spazio:
+    \begin{center}
+        $[v]_C = \begin{pmatrix}
+            v_2 - \dfrac{2}{3}v_1\\
+            \dfrac{1}{3}v_1
+        \end{pmatrix}$
+    \end{center}
+    E hai finito.
+\end{eg}
+\begin{prop}
+    \textbf{Base di una matrice ridotta}\par
+    Considera la seguente matrice ridotta $U$. Le sue colonne dominanti formano una base dell'insieme di tutte le colonne $C(U)$:
+    \begin{center}
+        $U = \begin{pmatrix}
+            1 & 3 & 5 & 3 & 2\\
+            0 & 0 & 1 & -2 & 1\\
+            0 & 0 & 0 & 0 & 1\\
+            0 & 0 & 0 & 0 & 0
+        \end{pmatrix} \implies \left\{\begin{pmatrix}
+            1\\
+            0\\
+            0\\
+            0
+        \end{pmatrix}, \begin{pmatrix}
+            5\\
+            1\\
+            0\\
+            0
+        \end{pmatrix}, \begin{pmatrix}
+            2\\
+            1\\
+            1\\
+            0
+        \end{pmatrix}\right\} = B$
+    \end{center}
+    Dimostrare indipendenza lineare è presto detto grazie al punto 3 del teorema 7.3. Per dimostrare che $B$ è un insieme di generatori, invece, bisogna notare che i vettori di $C(U)$ sono combinazioni lineari dei vettori in $B$. Altrimenti puoi dimostrare la cosa facendo appello alla proposizione 7.1. Hai finito.
+\end{prop}
 
-6.3 Teorema: linear indipendenza
-6.4 Definizione: base
-6.5 Osservazione: base `e come un sistema di coordinate
-6.6 Base di C(U ), U una matrice in forma ridotta
-11/04/24
+
+
+
+
+
+
+
+
+
 6.7 Proposizione: base, insieme di generatori minimo, insieme massimamente linearmente indipendente
 6.8 Teorema: esistenza della base
 6.9 Teorema di Steinitz: ogni insieme linearmente indipendente pu`o essere completato a una base
@@ -41,7 +198,7 @@ La cosa comoda è che per dimostrare l'indipendenza lineare di un insieme esisto
 6.12 Corollario
 6.13 Proposizione: dimensioni di sottospazi
 
-% ----- CONTINUA DA QUA LEZ. 21 -----
+% ----- CONTINUA DA QUA LEZ. 22 -----
 
 \section{Applicazioni Lineari}
 §7. Applicazioni lineari (vedi [GS, Capitolo II])

@@ -1,10 +1,100 @@
-La \textbf{Logica del Primo Ordine}, o dei Predicati è un'espansione della Logica Proposizionale. La novità principale è la presenza di due nuovi simboli detti \textbf{Quantificatori}: \textit{Per ogni} $\forall$ ed \textit{Esiste} $\exists$, con i quali sarà possibile descrivere strutture matematiche. La loro particolarità è che legano più di ogni altro connettivo.
+La \textbf{Logica del Primo Ordine}, o dei Predicati è un'espansione della Logica Proposizionale. La novità principale è la presenza di due nuovi simboli detti \textbf{Quantificatori}, i quali legano più di ogni altro connettivo e ci consentiranno di descrivere strutture matematiche:
+\begin{itemize}
+    \item \textbf{Per ogni} - $\forall$\par
+    Introduce una proprietà valida per ogni variabile a lui legata.
+    \item \textbf{Esiste} - $\exists$\par
+    Introduce l'esistenza di un elemento con una data proprietà.
+\end{itemize}
+Da qui in poi intenderò "logica dei predicati" con l'acronimo \textbf{FOL}, ovvero First Order Logic.
+
+%
 
 \section{Sintassi}
+Essendo la FOL un'espansione della logica proposizionale, è corretto pensare che tutte le entità sintattiche studiate finora siano presenti anche in questo linguaggio.\par
+Più precisamente è formato da:
+\begin{itemize}
+    \item \textbf{Connettivi}; $\land, \lor, \to, \bot$.
+    \item \textbf{Quantificatori}; Visti poco fa, $\forall, \exists$.
+    \item \textbf{Simboli di variabili}; Insieme numerabile $Var = \{v_0, v_1, ...\}$, i cui elementi si dicono variabili. Queste verranno indicate con una lettera ed indicizzate.
+    \item \textbf{Simboli di relazione}; Sono tutti i simboli n-ari utilizzati per le relazioni.
+    \begin{eg}
+        Arietà delle relazioni\par
+        Ritengo necessario approfondire, quindi ascoltami bene. Abbiamo un insieme di simboli che indicano relazioni fra variabili di un numero potenzialmente infinito, ragion per cui n-arie. In precedenza ho menzionato il significato di \textbf{arietà}, ovvero quante variabili può contenere una data relazione. Diremo, per capire meglio:
+        \begin{itemize}
+            \item \textbf{Relazione un-aria} $R^{(1)}$\par
+            Relazione che coinvolge una singola variabile, come una semplice proprietà. L'essere un numero pari è una proprietà.
+            \item \textbf{Relazione bin-aria} $R^{(2)}$\par
+            Relazione che coinvolge due variabili. In questo caso possiamo parlare di operazioni come l'addizione o la moltiplicazione; infatti per eseguirle abbiamo bisogno di due variabili. Le operazioni menzionate sono dunque relazioni binarie.
+        \end{itemize}
+    \end{eg}
+    \item \textbf{Simboli di funzione}; Simboli n-ari utilizzati come argomento per le variabili nell'insieme di lavoro. Prendiamo per esempio ogni $n \in \mathbb{N}$; avremo di conseguenza un insieme delle funzioni $F^{n}$ dove alla $n$ sostituiremo il numero apposito.
+    \item \textbf{Simbolo opzionale}; Relazione binaria non appartenente a $R^{(2)}$. Se esiste un $n \geq 1$ tale che $F^{(n)} \neq \emptyset$, allora l'alfabeto $L$ deve contenere il simbolo $=$.
+    \item \textbf{Simbolo ausiliare}; Parentesi tonde "$()$", punto "$.$" e virgola "$,$".
+\end{itemize}
+Avremo infine un insieme delle \textbf{costanti}, corrispondente a $F^{(0)}$ e denotato con \textbf{C} e l'insieme \textbf{L-stringhe}, il quale contiene tutte le stringhe componibili usando i simboli appena visti.\par\quad
+Un'ulteriore novità della FOL sono i \textbf{termini}; il punto di partenza per l'ottenimento delle formule logiche.
+\begin{definition}
+    \textbf{L-termini}\par
+    Dato l'alfabeto $L$, l'insieme $TERM_L$ dei termini è il più piccolo insieme $X$ tale che:
+    \begin{itemize}
+        \item $Var \in X$.
+        \item $C \in X$.
+        \item Se $t_1, ..., t_n \in X$ e $f$ è un simbolo di funzione n-aria, allora $f(t_1, ..., t_n) \in X$.
+    \end{itemize}
+\end{definition}
+\begin{definition}
+    \textbf{L-formule}\par
+    Dato l'alfabeto $L$, l'insieme $FORM_L$ delle formule è il più piccolo insieme $X$ tale che:
+    \begin{itemize}
+        \item $\bot \in X$.
+        \item Se $t_1, t_2 \in TERM_L$, allora $t_1 = t_2 \in X$.
+        \item Se $P$ è una relazione k-aria e $t_1,...,t_k \in TERM_L$, allora $P(t_1,...,t_k) \in X$.
+        \item Se $\phi, \psi \in X$, allora $\phi \circ \psi \in X$, dove $circ \in \{\land, \lor, \to\}$.
+        \item Se $x \in Var$ e $\phi \in X$, allora $Qx.(\phi) \in X$, dove $Q \in \{\forall, \exists\}$.
+    \end{itemize}
+\end{definition}
+Ovviamente l'esistenza di questi due concetti implica la presenza di \textbf{sottotermini} e \textbf{sottoformule}, dove tuttavia spiegarli risulta ridondante. Parliamo ora invece delle istanze in cui si possono trovare le variabili; ovvero \textbf{libere} e \textbf{legate}. Considera la seguente formula:
+\begin{center}
+    $\forall x.(P(x,y)) \to \forall z.(Q(z,x))$
+\end{center}
+Puoi osservare che nel primo ramo la variabile $x$ è legata dal quantificatore per ogni, mentre $y$ no, risultando quindi libera. Nel secondo ramo invece $z$ risulta quella legata. Tieni a mente inoltre che se una variabile è legata in un ramo, ciò vale solo per la specifica zona.
+\begin{definition}
+    \textbf{Occorrenze libere, insieme FV}\par
+    Sia $\phi \in FORM_L$, allora si dice che un'occorrenza di $x \in Var$ è libera se non occorre in una sottoformula del tipo $Qx.y$, dove $Q$ è il quantificatore.\par
+    Indichiamo infine l'insieme delle variabili libere con la notazione $FV[\phi]$, dove nelle parentesi quadre si inserisce il simbolo indicante una formula. Infatti con la notazione si intende il concetto di "Variabili libere nella formula $\phi$".
+\end{definition}
+\begin{definition}
+    \textbf{Insieme delle variabili libere}\par
+    INSERT DEFINITION
+\end{definition}
+\begin{definition}
+    \textbf{Insieme delle variabili chiuse}\par
+    INSERTO DEFINITION
+\end{definition}
+
+
+% - Continua da qua - Pag.73 dispense
+
 \section{Sistemi Deduttivi}
 formalizzazione, contromodello, struttura di Peano
+
+%
+
 \section{Semantica}
+
+%
+
 \section{Esercizi}
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Appunti}
 \subsection{Strutture e Tipi di Similarità}
 \subsection{Derivazione Semantica}

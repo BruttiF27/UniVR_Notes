@@ -61,24 +61,125 @@ Puoi osservare che nel primo ramo la variabile $x$ è legata dal quantificatore 
 \begin{definition}
     \textbf{Occorrenze libere, insieme FV}\par
     Sia $\phi \in FORM_L$, allora si dice che un'occorrenza di $x \in Var$ è libera se non occorre in una sottoformula del tipo $Qx.y$, dove $Q$ è il quantificatore.\par
-    Indichiamo infine l'insieme delle variabili libere con la notazione $FV[\phi]$, dove nelle parentesi quadre si inserisce il simbolo indicante una formula. Infatti con la notazione si intende il concetto di "Variabili libere nella formula $\phi$".
+    Indichiamo infine l'insieme delle variabili libere con la notazione $FV[\phi]$, dove nelle parentesi quadre si inserisce il simbolo indicante una formula. Infatti con la notazione si intende il concetto di "Variabili libere nella formula $\phi$". In merito, definiamo con precisione:
+    \begin{definition}
+        \textbf{Insieme delle variabili libere}\par
+        \begin{itemize}
+            \item Sull'insieme dei termini $TERM_L$:\par
+            $FV[c] = \emptyset$.\par
+            $FV[x] = \{x\}$.\par
+            $FV[f(t_1, ..., t_n)] = FV[t_1] \cup FV[t_2] \cup ... \cup FV[t_n]$.
+            \item Sull'insieme delle formule $FORM_L$:\par
+            $FV[\bot] = \emptyset$.\par
+            $FV[t_1 = t_2] = FV[t_1] \cup FV[t_2]$.\par
+            $FV[P(t_1, ..., t_n)] = FV[t_1] \cup ... \cup FV[t_n]$.\par
+            $FV[\phi \circ \psi] = FV[\phi] \cup FV[\psi]$, dove $\circ = \{\to, \land, \lor\}$\par
+            $FV[Qx.\phi] = FV[\phi] / \{x\}$, dove $Q \in \{\forall, \exists\}$.
+        \end{itemize}
+    \end{definition}
+    \begin{definition}
+        \textbf{Insieme delle variabili chiuse}\par
+        \begin{itemize}
+            \item Sull'insieme dei termini $TERM_L$:\par
+            $BV[t] = \emptyset$.\par
+            Un termine $t \in TERM_L$ si dice chiuso quando l'insieme delle variabili libere riguardante il termine è vuoto, quindi $FV[t] = \emptyset$.
+            \item Sull'insieme delle formule $FORM_L$:\par
+            $BV[\bot] = BV[t = u] = FV[R(t_1, ..., t_n)] = \emptyset$.\par
+            $BV[\phi \circ \psi] = BV[\phi] \cup BV[\psi]$, dove  $\circ = \{\to, \land, \lor\}$\par
+            $BV[Qx.\phi] = BV[\phi] \cup \{x\}$, dove $Q \in \{\forall, \exists\}$.\par
+            Una formula $\phi \in FORM_L$ si dice chiusa quando al suo interno non ci sono variabili libere, quindi $FV[\phi] = \emptyset$. In questo caso si parla di \textbf{enunciato}.
+        \end{itemize}
+    \end{definition}
 \end{definition}
+Il concetto di variabile libera e legata porta con sé tutto un nuovo set di regole per la sintassi, i sistemi deduttivi e anche la semantica, perché limita lo spazio di manovra che avevamo prima, aggiungendo condizioni da rispettare. In particolare, definiamo ora la sostituzione come tale:
 \begin{definition}
-    \textbf{Insieme delle variabili libere}\par
-    INSERT DEFINITION
+    \textbf{Sostituzione di una variabile}\par
+    Per quanto riguarda i termini, definiamo ricorsivamente la sostituzione di una variabile $x$ con un termine $t$ in un termine $u$ come:
+    \begin{itemize}
+        \item $c[t/x] = c$. Che vuoi, sostituire una costante?
+        \item $x[t/x] = t$.
+        \item $y[t/x] = y$, per $y \neq x$.
+        \item $f(t_1, ..., t_n)[t/x] = f(t_1[t/x], ..., t_n[t/x])$.
+    \end{itemize}
+    La sostituzione di una variabile $x$ con un termine $t$ in una formula $\phi$ è invece induttivamente definita assumendo che $t$ sia libero per $x$ in $\phi$, altrimenti l'operazione di sostituzione è indefinita.
+    \begin{itemize}
+        \item $\bot[t/x] = \bot$. Davvero, sostituire una variabile in una formula assurda non ha senso.
+        \item $(t_1 = t_2)[t/x] = (t_1[t/x] = t_2[t/x])$. Associatività.
+        \item $R(t_1, ..., t_n)[t/x] = R(t_1[t/x], ..., t_n[t/x])$.
+        \item $(\phi \circ \psi)[t/x] = (\phi[t/x] \circ \psi[t/x])$, dove $\circ = \{\to, \land, \lor\}$.
+        \item Con $Q \in \{\forall, \exists\}$ abbiamo i seguenti due casi:
+        \begin{enumerate}
+            \item Se $y = x \implies (Qx.\phi)[t/x] = (Qx.\phi)$.
+            \item Se $y \neq x \implies (Qy.\phi)[t/x] = (Qy.\phi[t/x])$.
+        \end{enumerate}
+    \end{itemize}
 \end{definition}
-\begin{definition}
-    \textbf{Insieme delle variabili chiuse}\par
-    INSERTO DEFINITION
-\end{definition}
+E questi sono i casi utili per sostituire variabili in termini e formule. Abbiamo parlato di vincoli, però; quali sono? Ebbene, sono fortunatamente solo due:
+\begin{itemize}
+    \item Non è possibile sostituire variabili legate a un quantificatore.
+    \item Non è possibile creare vincoli diversi da quelli statati inizialmente. Ciò significa che non tutti i termini possono essere utilizzati per la sostituzione.
+\end{itemize}
+In merito al secondo caso, possiamo trarre una conclusione: l'unico modo per non creare ulteriori vincoli è lavorare su \textbf{termini liberi}.\par\quad
+Diciamo che un termine $t$ è libero per $x$ in $\phi$, dopo la sostituzione $\phi[t/x]$ se tutte le occorrenze delle variabili in $t$ sono libere. Vediamo ora qualche esempio:
+\begin{eg}
+    \textbf{Sostituzioni di termini per variabili in una formula}\par
+    Sia la formula $\sigma = \forall x.(R(z,x))$. Proviamo ad effettuare le seguenti sostituzioni:
+    \begin{enumerate}
+        \item $\forall x.(R(z,x))[f(z)/z] \to \forall x.(R(f(z),x)$. Valida, rispetta i vincoli.
+        \item $\forall x.(R(z,x))[f(x)/z] \to \forall x.(R(f(x),x)$. Non va bene, crea un nuovo legame per $f(x)$. Infatti non era libero per $x$ in $\sigma$.
+        \item $\forall x.(R(z,x))[f(z)/x] \to \forall x.(R(z,x))$. La sostituzione non ha effetto.
+    \end{enumerate}
+\end{eg}
 
-
-% - Continua da qua - Pag.73 dispense
+% 
 
 \section{Sistemi Deduttivi}
-formalizzazione, contromodello, struttura di Peano
+Ribadisco che in quanto \textit{estensione} della logica proposizionale, la FOL mantiene tutte le regole per la deduzione naturale studiate finora, aggiungendo solamente quelle per i quantificatori.
+\begin{itemize}
+    \item \textbf{Regole di per ogni} - $\forall$:
+    \begin{itemize}
+        \item \underline{Introduzione di $\forall$}:\par
+        Per poter introdurre il per ogni, occorre che la variabile $x$ nella formula $\phi$ possa assumere un valore generico e quindi \textit{non vincolato} da nessuna delle ipotesi della derivazione, ovvero $x$ \textbf{non deve comparire libera nelle ipotesi}.\par
+        Il procedimento effettua una sostituzione in $y$ per $x$ nella $\phi$, come segue:
+        \begin{prooftree}
+            \AxiomC{$...$}
+            \UnaryInfC{$\phi(x)$}
+            \RightLabel{$\forall I$}
+            \UnaryInfC{$\forall y.\phi(y)$}
+        \end{prooftree} La sostituzione è corretta perché $x \notin Hp(D)$, ma è stata derivata. Ci è inoltre possibile derivare $\forall x.\phi(x)$ da quanto ottenuto, perché ogni variabile è libera per sé stessa; quindi:
+        \begin{prooftree}
+            \AxiomC{$...$}
+            \UnaryInfC{$\phi(x)$}
+            \RightLabel{$\forall I$}
+            \UnaryInfC{$\forall y.\phi(y)$}
+            \RightLabel{$[x/y]$}
+            \UnaryInfC{$\forall x.\phi(x)$}
+        \end{prooftree}
+        \item \underline{Eliminazione di $\forall$}:\par
+        Se vale $\forall x.\phi(x)$, allora $\phi$ vale per qualunque valore di $x$ e quindi per un valore $t$ corrispondente ad un valore di $x$. $\phi(t)$ deve quindi valere per ogni termine $t$ libero per $x$ in $\phi$.
+        \begin{prooftree}
+            \AxiomC{$...$}
+            \UnaryInfC{$\forall x.\phi(x)$}
+            \RightLabel{$\forall E$}
+            \UnaryInfC{$\phi(t)$}
+        \end{prooftree} Non ci sono problemi per quanto riguarda l'ipotesi. Puoi eliminare il per ogni anche se parti da quella formula.
+    \end{itemize}
+    \item \textbf{Regole di esiste} - $\exists$:
+    \begin{itemize}
+        \item \underline{Introduzione di $\exists$}:
+        \item \underline{Eliminazione di $\exists$}:
+    \end{itemize}
+\end{itemize}
 
-%
+
+
+
+
+
+
+
+
+% - Continua da qua - Pag.81 dispense
 
 \section{Semantica}
 
@@ -100,3 +201,4 @@ formalizzazione, contromodello, struttura di Peano
 \subsection{Derivazione Semantica}
 \subsection{Deduzione Naturale}
 \subsection{Teoremi di Correttezza e Completezza}
+formalizzazione, contromodello, struttura di Peano

@@ -166,24 +166,87 @@ Ribadisco che in quanto \textit{estensione} della logica proposizionale, la FOL 
     \end{itemize}
     \item \textbf{Regole di esiste} - $\exists$:
     \begin{itemize}
-        \item \underline{Introduzione di $\exists$}:
-        \item \underline{Eliminazione di $\exists$}:
+        \item \underline{Introduzione di $\exists$}:\par
+        Diciamo che se è possibile derivare $\phi(t)$ per un termine $t$, si deduce che esista una $x$ tale per cui valga $\phi(x)$.\par\quad
+        Quindi, se una proprietà vale per $t$, allora esiste un valore $x$ per cui continua a valere dove $t$ è libero per $x$ nella proprietà.
+        \begin{prooftree}
+            \AxiomC{$...$}
+            \UnaryInfC{$\phi(t)$}
+            \RightLabel{$\exists I$}
+            \UnaryInfC{$\exists x.\phi(x)$}
+        \end{prooftree}
+        \item \underline{Eliminazione di $\exists$}:\par
+        Resa più comprensibile se vista come la scrittura compatta di $[\phi(0) \lor \phi(1) \lor ... \lor \phi(n)]$, dove almeno una di queste proprietà è valida sull'insieme di lavoro.
+        \begin{prooftree}
+            \AxiomC{$\exists x.\phi(x)$}
+            \AxiomC{$[\phi[t/x]]^k$}
+            \UnaryInfC{$...$}
+            \UnaryInfC{$\gamma$}
+            \RightLabel{$\exists E^k$}
+            \BinaryInfC{$\gamma$}
+        \end{prooftree}
+        In questa formula è necessario aver derivato $\exists x.\phi(x)$. Siccome non si hanno informazioni aggiuntive su quale valore faccia valere $\phi$, allora non è possibile avere una regola generale che faccia derivare $\phi(t)$ da questa formula per un termine $t$.\par
+        Più semplicemente, deriva $\exists x.\phi(x)$ per poter concludere la formula $\gamma$.
     \end{itemize}
 \end{itemize}
 
-
-
-
-
-
-
-
-
-% - Continua da qua - Pag.81 dispense
+%
 
 \section{Semantica}
+Per poter lavorare con il significato della FOL, è necessario prima introdurre il concetto di struttura matematica.
+\begin{definition}
+    \textbf{Struttura matematica}\par
+    Quadrupla del tipo: $U = \left<A, \mathbb{R}, \mathbb{F}, \mathbb{C}\right>$, dove:
+    \begin{itemize}
+        \item $A$ è l'insieme rappresentante il dominio della struttura, il quale non deve essere vuoto.
+        \item $\mathbb{R}$ è l'insieme delle relazioni sul dominio.
+        \item $\mathbb{F}$ è l'insieme delle funzioni sul dominio.
+        \item $\mathbb{C}$ è un sottoinsieme del dominio che contiene gli elementi costanti.
+    \end{itemize}
+    \begin{eg}
+        Considera una quadrupla coi seguenti campi:
+        \begin{itemize}
+        \item $A = \mathbb{N}$, ovvero l'insieme dei numeri naturali. 
+        \item $\mathbb{R} = \{\leq\}$, ovvero l'insieme delle relazioni della struttura è composto dalla sola relazione di maggiore o uguale.
+        \item $\mathbb{F} = \{+,\times,succ\}$, ovvero le funzioni attuabili sull'insieme sono somma, moltiplicazione e successivo.
+        \item $\mathbb{C} = \{0,1\}$, ovvero che le costanti di questo insieme sono i numeri $0, 1$.
+    \end{itemize}
+    \end{eg}
+\end{definition}
+A queste strutture è possibile associare un linguaggio della FOL; introducendo il concetto di \textbf{L-Struttura}, la quale sarà poi semanticamente interpretata mediante una \textbf{U-Valutazione}.
+\begin{definition}
+    \textbf{L-Struttura/L-Interpretazione}\par
+    Corrisponde ad ogni coppia $U = \left<A, (\_)^U\right>$ con dominio $A \neq \emptyset$ e funzione $(\_)^U$ la quale assegna un'interpretazione agli oggetti base del linguaggio. Espandendo:
+    \begin{itemize}
+        \item $\forall c \in C$ assegna un elemento $c^U \in A$.
+        \item $\forall f \in F^k$, con $k > 0$, assegna una funzione $f^U:A^k \to A \in \mathbb{F}$.
+        \item $\forall R \in R^n$, con $n > 0$, assegna una relazione $R^U \subseteq A^n \in \mathbb{R}$.
+    \end{itemize}
+    \begin{definition}
+        \textbf{U-Valutazione}\par
+        Data una $L$-struttura $U$, la $U$-valutazione è una funzione $\rho:Var \to |U|$, dove la scrittura $|U|$ indica il dominio della struttura.
+    \end{definition}
+\end{definition}
+Useremo la notazione $\rho_U$ per indicare una valutazione sulla struttura $U$. Se si considera una $L$-struttura $U$ e un elemento $a \in |U|$, con $\rho[a/x]$, allora possiamo denotare la valutazione come:
+\begin{center}
+    $\rho_U[a/x](y) = \begin{cases}
+        x \neq y \to \rho_U(y)\\
+        a
+    \end{cases}$
+\end{center}
+\begin{definition}
+    \textbf{Interpretazione dei termini}\par
+    Dato un linguaggio $L$ ed una $L$-struttura $U$, definiamo ricorsivamente la funzione di interpretazione $[\_]^U:\mathcal{E}_U \to TERM_L \to |U|$.
+    \begin{itemize}
+        \item $[c]_{\rho_U}^{U} = c^U$.
+        \item $[x]_{\rho_U}^{U} = \rho_U(x)$
+        \item $[f(t_1, ..., t_n)]_{\rho_U}^{U} = f^U([t_1]_{\rho_U}^{U}, ..., [t_n]_{\rho_U}^{U})$.
+    \end{itemize}
+\end{definition}
 
-%
+
+
+% - Continua da qua - Pag.86 dispense
 
 \section{Esercizi}
 
@@ -197,8 +260,6 @@ Ribadisco che in quanto \textit{estensione} della logica proposizionale, la FOL 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Appunti}
-\subsection{Strutture e Tipi di Similarità}
 \subsection{Derivazione Semantica}
-\subsection{Deduzione Naturale}
 \subsection{Teoremi di Correttezza e Completezza}
 formalizzazione, contromodello, struttura di Peano

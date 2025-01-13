@@ -358,22 +358,148 @@ Una scrittura unica? Inutile girarci intorno; possiamo usarla come sistema di co
     Per dimostrarlo, è sufficiente verificare le due relazioni di prima. Fidati che risultano vere. Grazie a ciò chiamiamo l'applicazione lineare $c_B$ l'\textbf{applicazione delle coordinate rispetto alla base ordinata B}.
 \end{definition}
 \begin{eg}
-    INSERISCI ESEMPIO.
+    Sia lo spazio $V = \mathbb{R}_2[x]$ e la base $B = \{b_1 = 1+x, b_2 = 1+x^2, b_3 = x+x^2\}$\par
+    Prendiamo il vettore utile $v = 3+2x-x^2 \in V$, che sarà utilizzato poi come vettore soluzioni, e calcoliamo lo spazio delle colonne $c_B(v)$, che sarà la base, quindi è $[v]_B$.\par
+    Capiamo che $B$ è una base di $v$, sappiamo che esistono tre scalari $\alpha_1, \alpha_2, \alpha_3 \in \mathbb{R}$ tali che:
+    \begin{center}
+        $v = \alpha_1b_1 + \alpha_2b_2 + \alpha_3b_3$
+    \end{center}
+    Ovvero che, sostituendo alle $b$ i loro rispettivi valori otteniamo:
+    \begin{center}
+        $v = \alpha_1(1+x) + \alpha_2(1+x^2) + \alpha_3(x+x^2) = (\alpha_1+\alpha_2)+(\alpha_1+\alpha_3)x+(\alpha_2+\alpha_3)x^2$
+    \end{center}
+    Abbiamo quindi gli scalari e le soluzioni. Cosa possiamo creare? Che domande, ma una matrice aumentata, ovviamente. Da qua puoi ridurla al minimo con Gauss come al solito.
+    \begin{center}
+        $\begin{cases}
+            \alpha_1+\alpha_2 = 3\\
+            \alpha_1+\alpha_3 = 2\\
+            \alpha_2+\alpha_3 = -1
+        \end{cases} \implies \begin{pmatrix}
+            1 & 1 & 0 & 3\\
+            1 & 0 & 1 & 2\\
+            0 & 1 & 1 & -1
+        \end{pmatrix} \implies \begin{pmatrix}
+            1 & 0 & 0 & 3\\
+            0 & 1 & 0 & 0\\
+            0 & 0 & 1 & -1
+        \end{pmatrix}$
+    \end{center}
+    Adesso possiamo risolvere il sistema lineare preso dalla matrice aumentata ridotta.
+    \begin{center}
+        $\begin{cases}
+            \alpha_1 = 3\\
+            \alpha_2 = 0\\
+            \alpha_3 = -1
+        \end{cases} \implies v = 3b_1 + 0b_2 - b_3 \implies [v]_B = \begin{pmatrix}
+            3\\
+            0\\
+            1
+        \end{pmatrix}$
+    \end{center}
 \end{eg}
+Un'altra cosa utile da tenere a mente è che generalmente, se una base $B = \{b_1, ..., b_n\}$ è una base di $\mathbb{K}^n$, allora la matrice $A = (b_1, ..., b_n)$ è invertibile e $c_B = f_{A^-1}$.\par\quad
+Passiamo al prossimo macroargomento: gli \textbf{isomorfismi}; i quali ci consentiranno di espandere le nostre competenze usando funzioni inverse.
+\begin{definition}
+    \textbf{Isomorfismo}\par
+    Sia un'applicazione lineare $f:V \to W$. Questa è detta \textbf{isomorfismo} se esiste un'altra applicazione lineare $g:W \to V$ tale che:
+    \begin{itemize}
+        \item $gf(v) = v$ per ogni $v \in V$.
+        \item $fg(w) = w$ per ogni $w \in W$.
+    \end{itemize}
+    Diremo quindi che $g$ è l'inversa di $f$ e la denoteremo come $f^{-1}$. Inoltre gli spazi $W, V$ sono isomorfi e vengono indicati con $V \cong W$.
+    \begin{prop}
+        \textbf{Egual dimensione}\par
+        Siano ora $V, W \in \mathbb{K}$ due spazi vettoriali e $f:V\to W$ un isomorfismo.\par\quad
+        Se $B = \{b_1, ..., b_n\}$ è una base di $V$, allora $C = \{f(b_1), ..., f(b_n)\}$ è una base di $W$, ed in particolare $dim_{\mathbb{K}}V = dim_{\mathbb{K}}W = n$. Non a caso valgono queste due relaizoni:
+        \begin{itemize}
+            \item $C$ è un insieme di generatori di $W$.\par
+            Infatti per ogni $w \in W$ esistono $n$ scalari in $\mathbb{K}$ tali che $f^{-1} \in V$, $f^{-1} = \alpha_1b_1+...+\alpha_nb_n$, da cui:
+            \begin{center}
+                $w = ff^{-1}(w) = f(\alpha_1b_1+...+\alpha_nb_n) = \alpha_1f(b_1) + ... + \alpha_nf(b_n)$.
+            \end{center}
+            \item $C$ è linearmente indipendente.\par
+            Considera, se $0_w = \alpha_1f(b_1) + ... + \alpha_nf(b_n)$, proviamo a trovare $0_v = f^{-1}(0_w)$.
+            \begin{center}
+                $f^{-1}(0_w) = f^{-1}(\alpha_1f(b_1) + ... + \alpha_nf(b_n)$, raccogliendo la $f$...\par
+                $f^{-1}f(\alpha_1b_1+...+\alpha_nb_n)$
+            \end{center}
+            Ora, siccome $B$ è una base di $V$, abbiamo che tutti gli scalari sono uguali a $0$, quindi $\alpha_1, ..., \alpha_n = 0$, confermando l'indipendenza lineare.
+        \end{itemize}
+    \end{prop}
+    \begin{prop}
+        \textbf{Matrici associate alle applicazioni}\par
+        Diciamo ora di avere un isomorfismo $f:\mathbb{K}^n \to \mathbb{K}^m$ e $A$ la matrice ad esso associata, quindi che $f(v) = f_A(v) = Av$, dove $v \in \mathbb{K}^n$.\par\quad
+        Consideriamo ora la funzione inversa di $f$, che esiste necessariamente in quanto isomorfismo, e la matrice $B$ ad essa associata, quindi $f^{-1}(w) = f_B(w) = Bw$, dove $w \in \mathbb{K}^m$. Tutto ciò porta ad avere:
+        \begin{itemize}
+            \item Per ogni $v \in \mathbb{K}^n$: $v = f^{-1}f(v) = f^{-1}Av = BAv \implies BA = I_n$.
+            \item Per ogni $w \in \mathbb{K}^m$: $w = ff^{-1}(w) = fBw = ABw \implies AB = I_m$.
+        \end{itemize}
+        Possiamo concludere che $f_A$ è un isomorfismo poiché abbiamo capito che $A$ è una matrice invertibile, \textbf{condizione necessaria e sufficiente} per il fatto. Proviamolo:
+        \begin{itemize}
+            \item Per ogni $v \in \mathbb{K}^n$: $f_{A^{-1}}f_A(v) = A^{-1}Av = v$.
+            \item Per ogni $w \in \mathbb{K}^m$: $f_Af_{A^{-1}}(w) = AA^{-1}w = w$. 
+        \end{itemize}
+    \end{prop}
+\end{definition}
+Abbiamo parlato di scritture univocamente determinate, no? Possiamo passare finalmente all'applicazione delle coordinate sugli spazi. Diamone inizialmente una definizione.
+\begin{theorem}
+    \textbf{Applicazione di coordinate è un isomorfismo}\par
+    Sia $V$ uno spazio vettoriale su $\mathbb{K}$ e $B = \{b_1, ..., b_n\}$ una sua base. L'applicazione delle coordinate seguente è un isomorfismo:
+    \begin{center}
+        $c_B:V \to \mathbb{K}^n$.
+    \end{center}
+    \begin{proof}
+        Come dimostrare un isomorfismo? Trovare un'applicazione lineare inversa di quella fra le nostre mani. Quindi che esista:
+        \begin{center}
+            $g_B:\mathbb{K}^n \to V$, dove $\mathbb{K}^n = \begin{pmatrix}
+                \alpha_1\\
+                ...\\
+                \alpha_n
+            \end{pmatrix}$, $V = g_B(\sum_{i=1}^{n} \alpha_i\beta_i)$
+        \end{center}
+        Procediamo, dunque, a dimostrare che $g_B$ è l'inversa di $c_B$:
+        \begin{center}
+            $c_Bg_B \begin{pmatrix}
+                \alpha_1\\
+                ...\\
+                \alpha_n
+            \end{pmatrix} = c_B(\sum_{i=1}^{n} \alpha_i\beta_i) = [\sum_{i=1}^{n} \alpha_i\beta_i]_B = \begin{pmatrix}
+                \alpha_1\\
+                ...\\
+                \alpha_n
+            \end{pmatrix}$
+        \end{center}
+        Sia ora $v = \sum_{i=1}^{n} \alpha_i\beta_i \in V$, allora:
+        \begin{center}
+            $g_Bc_B(v) = g_B([\sum_{i=1}^{n} \alpha_i\beta_i]) = g_B\begin{pmatrix}
+                \alpha_1\\
+                ...\\
+                \alpha_n
+            \end{pmatrix} = \sum_{i=1}^{n} \alpha_i\beta_i = v$.
+        \end{center}
+        Abbiamo ottenuto $v$, CVD, $c_B$ è un isoformismo e $g_B$ la sua inversa.
+    \end{proof}
+    \begin{corollary}
+        \textbf{Isomorfismo e dimensione}\par
+        Diciamo che due spazi vettoriali $V, W$ sono isomorfi se e solo se hanno egual dimensione, quindi $dimV = dimW$.
+        \begin{proof}
+            Supponiamo esista un isomorfismo $f:V\to W$, $B$ base di $V$ e $D$ base di $W$. Possiamo usare l'isomorfismo $c_B$ e ottenere la scrittura:
+            \begin{center}
+                $c_Dfg_B = c_Dfc_B^{-1}:\mathbb{K}^n \to \mathbb{K}^m$
+            \end{center}
+            C'è roba da aggiungere qua.
+        \end{proof}
+    \end{corollary}
+\end{theorem}
 
 
 
 
 
-7.3 Definizione: isomorfismo
-7.5 Applicazione delle coordinate Kn → Kn
-7.6 Teorema: l’applicazione delle coordinate `e un isomorfismo
-7.7 Osservazione: isomorfismi e dimensione
-7.8 Corollario: due spazi vettoriali sono isomorfismi se e solo se hanno la stessa dimensione
 7.9 Teorema e definizione: matrice del cambio di base
 7.10 Teorema e definizione: matrice associata a f rispetto a basi
 
-% ----- CONTINUA DA QUA LEZ. 24 pag.8 -----
+% ----- CONTINUA DA QUA LEZ. 25 pag. 5 -----
 
 \section{Rango e Nullità}
 §8. Rango e nullit`a (vedi [GS, Capitolo II])

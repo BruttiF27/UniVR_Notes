@@ -485,21 +485,128 @@ Abbiamo parlato di scritture univocamente determinate, no? Possiamo passare fina
         \begin{proof}
             Supponiamo esista un isomorfismo $f:V\to W$, $B$ base di $V$ e $D$ base di $W$. Possiamo usare l'isomorfismo $c_B$ e ottenere la scrittura:
             \begin{center}
-                $c_Dfg_B = c_Dfc_B^{-1}:\mathbb{K}^n \to \mathbb{K}^m$
+                $c_Dfg_B = c_Dfc_B^{-1}:\mathbb{K}^n \to \mathbb{K}^m$, con inversa $c_Bf^{-1}c^{-1}_D : \mathbb{K}^m \to \mathbb{K}^n$
             \end{center}
-            C'è roba da aggiungere qua.
+            Svolgendo il procedimento, noterai che $\mathbb{K}^n, \mathbb{K}^n$ sono isomorfi ed $m = n$ perché $c_Dfc_B^{-1} = f_A$ per una certa matrice $A$ invertibile. Quindi avremo che $n =$ n. colonne di $A = $ n. righe di $A = m$.\par\quad
+            Supponiamo ora invece che $dim_\mathbb{K}V = dim_\mathbb{K}W$, quindi avremo la seguente scrittura di conseguenza:
+            \begin{center}
+                $V \longrightarrow \mathbb{K}^n \longleftarrow W$
+            \end{center}
+            Dove, per precisazione:
+            \begin{itemize}
+                \item Per $V \to \mathbb{K}^n$ abbiamo $c_B$
+                \item Per $W \to \mathbb{K}^n$ abbiamo $c_D$
+                \item Per $\mathbb{K}^n \to V$ abbiamo $c^{-1}_B$
+                \item Per $\mathbb{K}^n \to W$ abbiamo $c^{-1}_D$
+            \end{itemize}
+            Da cui infine $c_Bc^{-1}_D$ è un isomorfismo con inversa $c_Dc_B^{-1}$. Hai finito.
         \end{proof}
     \end{corollary}
 \end{theorem}
-
-
-
+Facciamo vedere un esempio perché sta roba qua è un casino diobono si capisce poco e niente.
+\begin{eg}
+    \textbf{Dimostriamo che $f:V\to W$ è un isomorfismo}\par
+    Siano:
+    \begin{itemize}
+        \item $V = \mathbb{R}_1[x] = \{a_0 + a_1x | a_0, a_1 \in \mathbb{R}\}$.
+        \item $B = \{1, x\}$, base di $V$.
+        \item $W = \mathbb{R}^2$.
+        \item $D = \left\{\begin{pmatrix}
+            -1\\
+            -1
+        \end{pmatrix}, \begin{pmatrix}
+            1\\
+            0
+        \end{pmatrix}\right\}$, base di $W$.
+    \end{itemize}
+    Innanzitutto, cosa vogliono dire i vari elementi della scrittura dell'applicazione $f:V \to W$? $V$ è lo spazio di partenza, ovvero i valori prima che gli venga applicata la funzione, mentre $W$ è lo spazio che contiene i valori post-applicazione. Scriviamo quindi che:
+    \begin{center}
+        $f:V = (a_0a_1x) \to W = f(a_0a_1x) = \begin{pmatrix}
+            a_0a_1x\\
+            a_0
+        \end{pmatrix}$
+    \end{center}
+    Per dimostrare che è un isoformismo bisogna poi provare che quest'applicazione abbia un'inversa $f^{-1}:W \to V$.
+    \begin{center}
+        $f^{-1}:W = \begin{pmatrix}
+            v_1\\
+            v_2
+        \end{pmatrix} \to V = f^{-1}\left(\begin{pmatrix}
+            v_1\\
+            v_2
+        \end{pmatrix}\right) = v_2 + (v_1-v_2)x$
+    \end{center}
+    Proviamo dunque ad effettuare le seguenti operazioni:
+    \begin{itemize}
+        \item $f^{-1}f(a_0a_1x) = a_0+[(a_0+a_1)-a_0]x = a_0+a_1x$. Ok.
+        \item $ff^{-1}\left(\begin{pmatrix}
+            v_1\\
+            v_2
+        \end{pmatrix}\right) = \begin{pmatrix}
+            (v_2+v_1)-v_2\\
+            v_2
+        \end{pmatrix} = \begin{pmatrix}
+            v_1\\
+            v_2
+        \end{pmatrix}$. Ok.
+    \end{itemize}
+    Le due operazioni riportano al valore iniziale dato in pasto alla funzione. Abbiamo dimostrato che $f$ è un isoformismo e $f^{-1}$ è la sua inversa.
+\end{eg}
+Pensa ora a come potrebbe funzionare con le matrici. Siano $A$ una matrice e $U$ la sua ridotta, ambo su $\mathbb{K}$. Lo spazio delle colonne $C(A)$ e $C(U)$ sono isomorfi, e quindi abbiamo che rispettivi ranghi e dimensione avranno lo stesso valore.
+\begin{proof}
+    Sia $E$ la matrice invertibile data dal prodotto delle matrici elementari di EG, quindi $U = EA$, $A = E^{-1}U$.\par\quad
+    Definiamo ora un'applicazione $f:C(U) \to C(A)$, definita da $f = f_E$, quindi per ogni vettore nello spazio delle colonne della matrice ridotta. $f(v) = E(v)$.\par\quad
+    Noi sappiamo che $E$ è invertibile e quindi abbiamo che $f^{-1} = f_{E^{-1}}$. Di conseguenza, $f$ è un isomorfismo e $C(U) \cong C(A)$.
+\end{proof}
+Abbiamo notato che le colonne dominanti di una forma ridotta $U$ di $A$ formano una base di $C(U)$. Quindi possiamo dire che le colonne di $A$ corrispondenti alle colonne \textit{dominanti} di $U$ formano una base di $C(A)$. Segue esempio:
+\begin{eg}
+    Sia la matrice $A$ la cui forma ridotta $U$ è ottenuta con EG:\begin{center}
+        $A = \begin{pmatrix}
+            3 & 2 & 0\\
+            -1 & 0 & 2\\
+            1 & \frac{2}{3} & 0
+        \end{pmatrix} \implies \begin{pmatrix}
+            1 & \frac{2}{3} & 0\\
+            0 & 1 & 3\\
+            0 & 0 & 0
+        \end{pmatrix} = U \implies \left\{\begin{pmatrix}
+            3\\
+            -1\\
+            1
+        \end{pmatrix}, \begin{pmatrix}
+            2\\
+            0\\
+            \frac{2}{3}
+        \end{pmatrix}\right\}$, base di $C(A)$.
+    \end{center}
+    Abbiamo inoltre che $EA = U$
+    \begin{center}
+        $f_{E^{-1}}\left(\begin{pmatrix}
+            1\\
+            0\\
+            0
+        \end{pmatrix}\right) = \begin{pmatrix}
+            3\\
+            -1\\
+            1
+        \end{pmatrix}$, $f_{E^{-1}}\left(\begin{pmatrix}
+            \frac{2}{3}\\
+            1\\
+            0
+        \end{pmatrix}\right) = \begin{pmatrix}
+            2\\
+            0\\
+            \frac{2}{3}
+        \end{pmatrix}$
+    \end{center}
+    Infine abbiamo che $rk(A) = rk(A^T)$.
+\end{eg}
 
 
 7.9 Teorema e definizione: matrice del cambio di base
 7.10 Teorema e definizione: matrice associata a f rispetto a basi
 
-% ----- CONTINUA DA QUA LEZ. 25 pag. 5 -----
+% ----- CONTINUA DA QUA LEZ. 27 pag. 1 -----
 
 \section{Rango e Nullità}
 §8. Rango e nullit`a (vedi [GS, Capitolo II])

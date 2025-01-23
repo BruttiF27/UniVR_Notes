@@ -1,4 +1,39 @@
 \section{Definizione}
+Partiamo dal problema che fa nascere il senso di questo argomento: data un'applicazione lineare ed uno spazio vettoriale sul quale opera noi vogliamo trovare una base $B$ di $V$ tale che la matrice $A$ che rappresenta l'applicazione rispetto alla base sia la più semplice possibile.\par\quad
+Questa forma ambita è la matrice quadrata diagonale di ordine $n = dimV$, i cui elementi al di fuori della diagonale principale sono nulli. Per i nostri scopi inseriremo il valore $\lambda$ a tutti gli elementi della diagonale principale. Da questa ricerca della base si arriva all'introduzione dei concetti di questa sezione: \textbf{Autovettori} e \textbf{Autovalori}.\newline
+
+\textbf{- Che cosa sono autovettori e autovalori?}\par
+Partiamo dalle definizioni; esiste un significato distinto di entrambi i concetti per applicazioni lineari e matrici ed è bene tenerli entrambi a mente.
+\begin{definition}
+    \textbf{Autovettori e autovalori di un'applicazione lineare}\par
+    Sia $f:V\to V$ un'applicazione lineare. Un vettore tale che $v \in V$ si dice \textbf{autovettore} della funzione se:
+    \begin{itemize}
+        \item $v$ non è il vettore nullo.
+        \item Esiste uno scalare $\lambda \in \mathbb{K}$ tale che $f(v) = \lambda v$.
+    \end{itemize}
+    Inoltre, lo scalare $\lambda$ è univocamente determinato dal vettore $v$ e si dice \textbf{autovalore} della funzione relativo all'autovettore $v$.
+\end{definition}
+Ottenendo gli autovalori possiamo dire di poter creare uno spazio che li racchiude tutti; lo chiamiamo \textbf{autospazio}. Per ogni $\lambda \in \mathbb{K}$ poniamo la seguente formula:
+\begin{center}
+    $V_\lambda = Ker(f-\lambda I) = \{v \in V:f(v) = \lambda v\}$
+\end{center}
+questo sottospazio vettoriale di $V$ si dice autospazio di $f$ relativo all'autovalore $\lambda$ ed i suoi elementi non nulli sono tutti gli autovettori dell'applicazione relativi all'autovalore a lei dato.\par\quad
+Per le matrici il concetto si rivela più semplice e intuitivo, anche se alla fine gli elementi più utilizzati rimarranno gli autovalori.
+\begin{definition}
+    \textbf{Autovettori e autovalori di una matrice}\par
+    Sia $A$ una matrice quadrata di ordine $n$. Un vettore $x \in \mathbb{C}^n$ non nullo si dice \textbf{autovettore} della matrice se esiste uno scalare $\lambda \in \mathbb{C}$ tale che valga:
+    \begin{center}
+        $Ax = \lambda x$
+    \end{center}
+    Come per le applicazioni, lo scalare $\lambda$ è univocamente determinato dal vettore $x$ e viene chiamato \textbf{autovalore} di $A$ relativo all'autovettore $x$.
+\end{definition}
+\textbf{- Come si ottengono autovettori e autovalori?}\par
+Palle\newline
+
+\textbf{- A cosa servono autovettori e autovalori?}\par
+
+
+
 §9. Autovalori e autovettori (vedi [GS, Capitolo V])
 9.1 Definizione: autovalore e autovettore
 9.2 Osservazione: autovettori sono soluzioni di un sistema lineare
@@ -14,5 +49,24 @@ rispetto a B nel dominio e codominio `e diagonale.
 
 
 \section{Esercizi}
+\section{Appunti}
+Gli autovettori e gli autovalori si ottengono mediante la ricerca del polinomio caratteristico. Suppongo che il primo \textbf{SUPPOSIZIONE, VERIFICARE} sia lo stesso polinomio trovato, mentre è certo che gli autovalori siano le radici, quindi le soluzioni, dello stesso.\par\quad
+La ricerca del polinomio ha luogo con la formula $det(A-\lambda I_n)$, dove:
+\begin{itemize}
+    \item $A$ è la matrice presa sotto esame.
+    \item $\lambda$ è lo scalare che verrà moltiplicato alla matrice identità.
+    \item $I_n$ è la matrice identità di ordine $n$.
+\end{itemize}
+ Per ordine si intende quanto è lunga. Essendo che normalmente si lavora con matrici quadrate $3x3$, l'ordine sarà, appunto, $3$.\par\quad
+ Per il calcolo del determinante è consigliato semplificare per la riga o colonna che presenta più zeri, in tal modo da ridurre al minimo i calcoli e quindi i possibili sbagli. Fondamentalmente l'operazione consiste nella sottrazione fra la matrice sotto esame $A$ e una matrice diagonale i cui elementi della diagonale principale sono tutti $-\lambda$.\par\quad
+ In termini ancora più semplici parliamo della matrice $A$ con aggiunto il termine $-\lambda$ alla sua diagonale principale.\par\quad
+ Fatto ciò è possibile calcolare il determinante. Se ti trovi incasinato con le lambda è normale. Spesso è necessario scomporre il polinomio in forma più leggibile. Prega che non sia un grado sì alto da usare Ruffini. Bleah.\newline
 
+ Trovati gli autovalori sarà sempre richiesto di calcolare molteplicità algebrica e geometrica. La prima è semplicissima, il suo valore corrisponde a quante volte è presente l'autovalore nel polinomio. La molteplicità geometrica invece richiede più passaggi, data la formula $m_g = n -rk(A - \lambda I_n)$:
+ \begin{itemize}
+     \item $n$ è l'ordine della matrice. Se hai una quadrata sarà uguale per righe e colonne. Per esempio se la matrice è $3x3 \to n = 3$. Semplice.
+     \item Calcola il rango della matrice risultante dall'operazione $A - \lambda I_n$ tramite Gauss. Non fare cazzate, di solito è semplice.
+ \end{itemize}
+La molteplicità geometrica è necessariamente un valore che segue questa restrizione: $m_a \leq 1 \leq m_g$, quindi è necessariamente maggiore o uguale della sua controparte algebrica. Ciò dà un utile sicurezza per il controllo calcoli.\newline
 
+Da questi dati è possibile determinare se una matrice è o meno \textbf{diagonalizzabile}. Qua termina la mia conoscenza.

@@ -23,3 +23,35 @@
 11.8 Algoritmo di Gram-Schmidt
 11.9 Corollario: ogni sottospazio possiede una base ortonormale
 \section{Esercizi}
+\section{Appunti}
+Non so molto delle matrici diagonalizzabili, né delle matrici simili. Tuttavia so come determinare se una base è ortogonale o ortonormale.\par\quad
+Per il primo caso bisogna partire da uno spazio vettoriale, diciamo che ha quattro vettori. Per ognuno di questi è necessario verificare l'ortogonalità, ovvero moltiplicare ogni coppia realizzabile. Prendendo l'esempio dell'insieme da quattro vettori, dovremo effettuare moltiplicazioni per:
+\begin{itemize}
+    \item v1, v2
+    \item v1, v3
+    \item v1, v4
+    \item v2, v3
+    \item v2, v4
+    \item v3, v4
+\end{itemize}
+Se anche una sola della somma di prodotti di questi vettori dovesse risultare diversa da $0$, allora l'insieme preso sotto esame NON SARÀ ortogonale.\newline
+
+Passiamo invece alla base ortonormale. Per lavorarci è necessario introdurre il concetto di norma. Non lo so che cos'è, ma si calcola per il singolo vettore.\par\quad
+Diciamo di avere il seguente vettore $v$. La norma è data dalla seguente formula:
+\begin{center}
+    $v = \begin{pmatrix}
+        -1\\
+        0\\
+        i\\
+        -1
+    \end{pmatrix} \implies ||v|| = \sqrt{-1^2+0^2+i^2-1^2} = \sqrt{1+1-1} = 1$
+\end{center}
+Se e solo se valgono le seguenti condizioni possiamo dire che uno spazio vettoriale è una base ortonormale del suo insieme di definizione, sia esso $\mathbb{R}^n$ oppure $\mathbb{C}^n$:
+\begin{itemize}
+    \item Lo spazio vettoriale è base ortogonale.
+    \item Tutti i vettori dello spazio hanno norma uguale ad $1$.
+\end{itemize}
+
+
+
+

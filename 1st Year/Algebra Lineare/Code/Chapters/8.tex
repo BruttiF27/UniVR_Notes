@@ -1,41 +1,316 @@
 \section{Diagonalizzazione di una Matrice}
-§10. Diagonalizzazione di una matrice (vedi [GS, Capitolo V])
-10.1 Proposizione: Propriet`a delle matrici simili
-10.2 Teorema: diagonalizabile se e solo se esiste una base di autovettori
-10.3 Corollario: autovettori distinti diagonalizzabile
-10.4 Osservazione: non `e necessario
-10.5 Lemma
-10.6 Teorema: condizioni per diagonalizzabilit`a
-09/05/24
-10.7 Algoritmo per diagonalizzazione
-10.8 Osservazione: diagonalizzazione su R
-10.9 Teorema Spettrale
+Prima di parlare dell'argomento principale della sezione, è necessario definire propriamente quanto appena menzionato nel precedente capitolo. Abbiamo detto che due matrici possono essere \textbf{simili}.
+\begin{definition}
+    \textbf{Matrici simili e relative proprietà}\par
+    Siano due matrici $N,M$. Queste si dicono simili se esiste una terza matrice tale che valga la relazione:
+    \begin{center}
+        $N = S^{-1}MS$
+    \end{center}
+    Questa tipologia di matrice detiene le seguenti proprietà:
+    \begin{itemize}
+        \item Determinanti, polinomi caratteristici e autovalori di due matrici simili sono uguali.
+        \begin{center}
+            $detA = detB$, $p_A = p_B$, $\{\lambda_{A1}, ..., \lambda_{An}\} = \{\lambda_{B1}, ..., \lambda_{Bn}\}$
+        \end{center}
+        \item Le matrici $A^m, B^m$ sono simili.
+        \begin{center}
+            $A^m = SB^mS^{-1}$
+        \end{center}
+        \item Se $B$ è la matrice diagonale a cui è associato un suo autovalore ed è ottenibile tramite la formula delle matrici simili, allora il determinante dell'altra $A$ si ottiene moltiplicando gli autovalori e la matrice è ottenibile moltiplicando la diagonale.
+        \begin{center}
+            $[B = (-\lambda I_n)] \land [B = S^{-1}AS] \to [detA = \lambda_1 \times ... \times \lambda_n] \land [A = S(-\lambda^mI_n)S^{-1}]$
+        \end{center}
+    \end{itemize}
+\end{definition}
+Inoltre, se $M$ è simile ad una matrice diagonale, diciamo che questa è \textbf{diagonalizzabile} sul suo insieme di definizione, e da qui il tema principale. Generalmente, una matrice è tale se e solo se esiste una base di $\mathbb{K}^n$ formata da autovettori di una matrice $A$.
+\begin{eg}
+    Sia la matrice $A$ con autovalori $\lambda_1 = 3$, $\lambda_2 = 1$.
+    \begin{center}
+        $A = \begin{pmatrix}
+            5 & 2\\
+            4 & -1
+        \end{pmatrix}$, con rispettivamente $\left\{\begin{pmatrix}
+            1\\
+            1
+        \end{pmatrix}\right\}$ base di $E_A(\lambda_1)$ e $\left\{\begin{pmatrix}
+            1\\
+            2
+        \end{pmatrix}\right\}$ base di $E_A(\lambda_2)$
+    \end{center}
+    Questi due \textbf{autovettori} formano lo spazio che ha come ruolo essere la \textbf{base} di $\mathbb{R}^2$, quindi l'insieme $\{b_1, b_2\}$, condizione sufficiente per determinare la diagonalizzazione. Come conseguenza diretta, $A$ è anche \textbf{simile} alla matrice diagonale $D$. Quindi, sostituendo i valori trovati avremo:
+    \begin{center}
+        $D = \begin{pmatrix}
+            \lambda & 0\\
+            0 & \lambda
+        \end{pmatrix} = \begin{pmatrix}
+            3 & 0\\
+            0 & 1
+        \end{pmatrix}$, $S = (b_1, b_2) = \begin{pmatrix}
+            1 & 1\\
+            1 & 2
+        \end{pmatrix}, S^{-1} = \begin{pmatrix}
+            2 & -1\\
+            -1 & 1
+        \end{pmatrix}$
+    \end{center}
+\end{eg}
+Infine, un'altra condizione sufficiente, ma non necessaria per determinare la diagonalizzazione è la presenza di autovalori distinti. Riassumendo, una matrice $A$ è diagonalizzabile se vale almeno una di queste tre istanze:
+\begin{itemize}
+    \item \textbf{Condizione sufficiente}: È simile alla matrice diagonale.
+    \item \textbf{Condizione sufficiente}: Possiede $n$ autovalori distinti.
+    \item \textbf{Condizione necessaria e sufficiente}: Esiste una base di $\mathbb{K}^n$ formata dai suoi autovettori.
+\end{itemize}
+Consideriamo adesso una matrice generica $A$ con autovalori distinti $\lambda_1, ..., \lambda_n$ e le rispettive molteplicità $m_a, m_g$. Con questo presupposto e, sapendo che la matrice è diagonalizzabile, valgono le relazioni:
+\begin{itemize}
+    \item Possiamo ottenere il valore dell'ordine di $A$ sommando tutte le molteplicità algebriche degli autovalori.
+    \begin{center}
+        $m_{a_1}, + ... + m_{a_r} = n$
+    \end{center}
+    \item Per ogni autovalore, la sua molteplicità geometrica è sempre minore o uguale rispetto all'algebrica.
+    \begin{center}
+        $\forall i.[1 \leq i \leq r]$,  $[1 \leq m_{g_i} \leq m_{a_i}]$
+    \end{center}
+\end{itemize}
+Entriamo ora nel vivo dell'argomento: in che modo si può diagonalizzare una matrice a patto che valgano i presupposti appena visti? Abbiamo un algoritmo apposito composto da alcuni passi.
+\begin{prop}
+    \textbf{Algoritmo per la diagonalizzazione di una matrice}\par
+    \begin{enumerate}
+        \item Calcolare il polinomio caratteristico e le due molteplicità per ogni autovalore.
+        \begin{center}
+            $p_A = det(A - \lambda-I_n)$, $m_a = \#\lambda_i$, $m_g = n-rk(A-\lambda_iI_n)$
+        \end{center}
+        \item Verifica la condizione di diagonalizzabilità. Le molteplicità sono uguali per ogni autovalore oppure la somma delle molteplicità algebriche ritorna l'ordine? Allora la tua matrice è diagonalizzabile.
+        \begin{center}
+            $m_a = m_g \lor m_{a_1} + ... + m_{a_r} = n$
+        \end{center}
+        \item Determinare una base dell'autospazio o nucleo. L'unione delle basi trovate per ogni autovalore fornisce una nuova base dello spazio di definizione composta dagli autovettori della matrice $A$.
+        \begin{center}
+            $E_A(\lambda_i) = ker(A-\lambda_iI_n)$
+        \end{center}
+        \item Richiama la formula delle matrici simili $A = PDP^{-1}$. Lo scopo è ottenere una matrice diagonale, ovvero $D$, la quale è data dalla matrice diagonale dove ogni elemento della diagonale è a sua volta una matrice diagonale del rispettivo autovalore. In altri termini, ogni elemento di $D$ è la matrice $(\lambda_iI_n)$, dove $i$ varia in base all'autovalore.
+        \begin{center}
+            $D = \begin{pmatrix}
+                \begin{pmatrix}
+                    \lambda_1 & 0\\
+                    0 & \lambda_1
+                \end{pmatrix} & 0\\
+                0 & \begin{pmatrix}
+                    \lambda_r & 0\\
+                    0 & \lambda_r
+                \end{pmatrix}
+            \end{pmatrix}$
+        \end{center}
+        \item Procedi calcolando la terza matrice e la sua inversa. La matrice $P$ si ottiene dai vettori della base calcolata al punto 3.
+        \begin{center}
+            $P = \{v_1, v_2, ..., v_n\}$, $P^{-1} = \dfrac{P}{det(P)}$
+        \end{center}
+        \item Ora abbiamo tutto gli elementi necessari per calcolare $D$. Lavora.
+        \begin{center}
+            $A = PDP^{-1} \implies D = P^{-1}AP$
+        \end{center}
+    \end{enumerate}
+\end{prop}
+Finora abbiamo considerato solamente l'insieme di definizione dei numeri complessi $\mathbb{C}$, ma tutto ciò vale anche nel sottoinsieme $\mathbb{R}$? Per delineare uno spazio di manovra ci aiuta il seguente teorema:
+\begin{theorem}
+    \textbf{Teorema Spettrale}\par
+    Sia $A$ una matrice simmetrica, ovvero che $A = A^T$. Allora tutti gli autovalori di $A$ sono reali e di conseguenza la matrice è diagonalizzabile su $\mathbb{R}$.
+\end{theorem}
+
+%
+
 \section{Basi Ortonormali}
-§11. Basi ortonormali (vedi [GS, Capitolo III])
-11.1 Definizione: matrice coniugata, H-trasposta e prodotto interno
-11.2 Definizione: norma (euclidea)
-11.3 Interpretazione geometrica in R2
-11.4 Definizione: ortogonale
-11.5 Proposizione: insieme ortogonale `e linearmente indipendente
-11.6 Osservazione: coefficienti per base ortogonale
-23/05/24
-11.7 Definizione: ortonormale
-11.8 Algoritmo di Gram-Schmidt
-11.9 Corollario: ogni sottospazio possiede una base ortonormale
+Anche in questa sezione è necessario partire dagli elementi base per lavorare con il concetto principale. Introduciamo quindi le matrici \textbf{H-trasposte} e \textbf{coniugate}.\par\quad
+Ti sta salendo il PTSD da inizio programma? Dovrebbe, e se ti ricordi la dinamica di coniugato e modulo ti sarà molto più comprensibile l'intero processo.
+\begin{definition}
+    \textbf{Matrice H-trasposta e coniugata}\par
+    Sia una matrice $A$ su $\mathbb{C}$. La sua coniugata $\overline{A}$ nega i numeri complessi e, trasponendola, otterremo la matrice H-trasposta $A^H$.
+    \begin{center}
+        $A = \begin{pmatrix}
+            1 & 0 & -i\\
+            2-i & 3i & 1
+        \end{pmatrix} \implies \overline{A} = \begin{pmatrix}
+            1 & 0 & i\\
+            2+i & -3i & 1
+        \end{pmatrix} \implies \overline{A^T} = \begin{pmatrix}
+            1 & 2+i\\
+            0 & -3i\\
+            i & 1
+        \end{pmatrix} = A^H$
+    \end{center}
+    Un caso speciale ha luogo se non ti trovi nei complessi. Essendo che la matrice coniugata nega solamente le unità immaginarie, allora per ogni sottoinsieme di $\mathbb{C}$,  $A^H = A^T$.
+\end{definition}
+Passiamo ora alle basi dell'argomento principale: \textbf{prodotto interno} e \textbf{norma euclidea}. È molto importante che si capiscano queste operazioni perché ne sono parte fondante, ma soprattutto sono almeno sette punti all'esame.
+\begin{definition}
+    \textbf{Prodotto interno}\par
+    Siano due vettori $v,w \in \mathbb{K}^n$. La loro moltiplicazione si dice \textbf{prodotto interno}.
+    \begin{center}
+        $(v|w) = v^H\times w = \overline{v_1}w_1 + \overline{v_2}w_2 + ... + \overline{v_n}w_n$
+    \end{center}
+    Questa operazione detiene le seguenti proprietà:
+    \begin{itemize}
+        \item $(v|w) = \overline{(w|v)}$
+        \item $(v|\alpha w + \beta z) = \alpha(v|w) + \beta(v|z)$
+        \item $(\alpha v + \beta w|z) = \overline{\alpha}(v|z) + \overline{\beta}(w|z)$
+        \item Con $v \neq 0 \implies (v|v) = v^Hv = \overline{v_1}v_1 + ... + \overline{v_n}v_n = |v_1|^2 + ... + |v_n|^2$
+    \end{itemize}
+\end{definition}
+\begin{definition}
+    \textbf{Norma euclidea}\par
+    Sia il vettore $v \in \mathbb{K}^n$. Chiamiamo norma euclidea il numero reale risultante dalla radice del prodotto interno del vettore.
+    \begin{center}
+        $||v|| = \sqrt{(v|v)} \in \mathbb{R} > 0$
+    \end{center}
+    Viene anche questa con il suo set di proprietà:
+    \begin{itemize}
+        \item $||\alpha v|| = \sqrt{(\alpha v| \alpha v)} = \sqrt{\alpha(\alpha v|v)} = \sqrt{\overline{\alpha}\alpha(v|v)} = \sqrt{|\alpha|^2(v|v)} = |\alpha|\sqrt{(v|v)} = |\alpha| \times ||v||$
+        \item Con $v \neq 0 \implies ||v|| > 0$
+        \item Disuguaglianza triangolare: $||v+w|| \leq ||v|| + ||w||$
+    \end{itemize}
+\end{definition}
+Passiamo finalmente al piatto principale che giuro non è così male come potresti pensare. Cercando di rendere la cosa più semplice e ristretta possibile, ometterò ogni rappresentazione geometrica della cosa, siccome ritengo possa confondere inutilmente. Parliamo dunque di \textbf{ortogonalità} ed \textbf{ortonormalità}.
+\begin{definition}
+    \textbf{Ortogonalità}\par
+    Dati due vettori $v,w$, questi si dicono \textbf{ortogonali} se il loro prodotto interno è uguale a $0$.
+    \begin{center}
+        $(v|w) = 0 \implies v \bot w$
+    \end{center}
+    La definizione è espandibile anche agli spazi vettoriali, i quali si dicono ortogonali se ogni istanza in cui è calcolabile il prodotto interno senza ripetizioni questo è uguale a $0$.\par\quad
+    Per esempio, se avessimo uno spazio vettoriale con quattro vettori, dovremmo effettuare prodotti interni per:
+    \begin{center}
+        $(v_1|v_2), (v_1|v_3), (v_1|v_4), (v_2|v_3), (v_2|v_4), (v_3|v_4)$
+    \end{center}
+    Ripeto, se anche uno solo di questi prodotti interni dovesse risultare diverso da $0$, allora l'insieme preso sotto esame non sarà ortogonale.\par\quad
+    Inoltre, se uno spazio vettoriale è ortogonale, come conseguenza diretta sarà anche linearmente indipendente.
+\end{definition}
+\begin{definition}
+    \textbf{Ortonormalità}\par
+    Dato uno spazio vettoriale, se la norma euclidea di ogni vettore è uguale ad $1$, si dice che è \textbf{ortonormale}.
+    \begin{center}
+        $||v_i|| = 1 \forall i.[1\leq i \leq m]$
+    \end{center}
+    Se questo spazio $B = \{v_1, ..., v_m\}$ è una base ortonormale di $\mathbb{K}^n$, allora vale:
+    \begin{center}
+        $\alpha_k = (v_K|u) \forall k. [1 \leq k \leq n]$
+    \end{center}
+\end{definition}
+Quindi abbiamo capito come verificare se uno spazio vettoriale è ortonormale. Tuttavia, è possibile effettuare anche un'operazione di \textbf{ortonormalizzazione} quando l'insieme non è tale. Ciò avviene mediante il seguente algoritmo:
+\begin{theorem}
+    \textbf{Algoritmo di Gram-Schmidt per l'ortonormalizzazione}\par
+    Sia un insieme di generatori $\{v_1, ..., v_n\}$ di un sottospazio vettoriale $U$ di $\mathbb{K}^n$. Possiamo scrivere che:
+    \begin{itemize}
+        \item $u_1 = v_1$
+        \item $u_2 = v_2 -\alpha_{12}u_1$
+        \item $u_3 = v_3 -\alpha_{13}u_1 -\alpha_{23}u_2$
+        \item Continua...
+        \item $u_k = v_k-\sum_{i = 1}^{k-1}\alpha_{ik}u_i$, dove $\alpha_{ik} = \dfrac{(u_i|v_k)}{(u_i|u_i)}$
+    \end{itemize}
+    Otteniamo dunque $\{u_1, ..., u_m\}$, un insieme di generatori ortogonale di $U$. Normalizzando i suoi vettori si ottiene un insieme di generatori ortonormale $U'$ i cui vettori saranno $u'$.
+    \begin{center}
+        $u'_k = \dfrac{u_k}{||u_k||}$
+    \end{center}
+\end{theorem}
+Inoltre, ogni sottospazio non nullo di $\mathbb{K}^n$ possiede una base ortonormale, evitandoci calcoli tediosi per la dimostrazione. Segue esempio di algoritmo causa difficile definizione.
+\begin{eg}
+    \textbf{Trovare base ortonormale A}\par
+    Ci viene dato lo spazio vettoriale $U$, il quale, dopo un'attenta verifica, non si rivela nemmeno ortogonale.
+    \begin{center}
+        $U = \left<u_1 = \begin{pmatrix}
+            1\\
+            -1\\
+            1
+        \end{pmatrix}, u_2 = \begin{pmatrix}
+            0\\
+            -2\\
+            1
+        \end{pmatrix}\right> \subset \mathbb{R}^3 \implies (u_1|u_2) = 0+2-1 = 3$. Non ortogonale.
+    \end{center}
+    Dobbiamo di conseguenza utilizzare l'algoritmo di Gram-Schmidt per prima ortogonalizzare lo spazio e poi ortonormalizzarlo. Andiamo per passi:\newline
+    
+    - \textbf{Ortogonalizzazione}:\par
+    Procediamo ad utilizzare la formula apposita per rendere ortogonale l'insieme.
+    \begin{itemize}
+        \item $u'_1 = u_1 = \begin{pmatrix}
+            1\\
+            -1\\
+            1
+        \end{pmatrix}$
+        \item $u'_2 = u_2-\alpha_{12}u'_1 = u_2-u'_1 = \begin{pmatrix}
+            0\\
+            2\\
+            -1
+        \end{pmatrix} - \begin{pmatrix}
+            1\\
+            -1\\
+            1
+        \end{pmatrix} = \begin{pmatrix}
+            -1\\
+            -1\\
+            0
+        \end{pmatrix}$\par
+        $\alpha_{12} = \dfrac{(u'_1|u_2)}{(u'_1|u'_1)} = \dfrac{3}{3} = 1$
+    \end{itemize}
+    Abbiamo ricavato l'insieme $U'$, confermiamo ora che è ortogonale:
+    \begin{center}
+        $U' = \left<u'_1 = \begin{pmatrix}
+            1\\
+            -1\\
+            1
+        \end{pmatrix}, u'_2 = \begin{pmatrix}
+            -1\\
+            -1\\
+            0
+        \end{pmatrix}\right> \implies (u'_1|u'_2) = -1+1+0 = 0$. Ortogonale.
+    \end{center}
+    Da questo possiamo passare alla normalizzazione dividendo ogni vettore per la propria norma.\par
+    - \textbf{Ortonormalizzazione}:\par
+    \begin{itemize}
+        \item $u''_1 = \dfrac{u'_1}{||u'_1||} = \begin{pmatrix}
+            1\\
+            -1\\
+            1
+        \end{pmatrix} / \sqrt{(u'_1|u'_1)} = \begin{pmatrix}
+            1\\
+            -1\\
+            1
+        \end{pmatrix} / \sqrt{3} = \begin{pmatrix}
+            1\\
+            -1\\
+            1
+        \end{pmatrix}\dfrac{\sqrt{3}}{3} = \left\{\dfrac{\sqrt{3}}{3}, -\dfrac{\sqrt{3}}{3}, \dfrac{\sqrt{3}}{3}\right\}$
+        \item $u''_2 = \dfrac{u'_2}{||u'_2||} = \begin{pmatrix}
+            -1\\
+            -1\\
+            0
+        \end{pmatrix} / \sqrt{(u'_2|u'_2)} = \begin{pmatrix}
+            -1\\
+            -1\\
+            0
+        \end{pmatrix} / \sqrt{2} = \begin{pmatrix}
+            -1\\
+            -1\\
+            0
+        \end{pmatrix}\dfrac{\sqrt{2}}{2} = \left\{-\dfrac{\sqrt{2}}{2}, -\dfrac{\sqrt{2}}{2}, 0\right\}$
+    \end{itemize}
+    Abbiamo ottenuto l'insieme $U''$, che è la base ortonormale $A$ richiesta all'inizio.
+    \begin{center}
+        $U'' = \left<\begin{pmatrix}
+            \frac{\sqrt{3}}{3}\\
+            -\frac{\sqrt{3}}{3}\\
+            \frac{\sqrt{3}}{3}
+        \end{pmatrix}, \begin{pmatrix}
+            -\frac{\sqrt{2}}{2}\\
+            -\frac{\sqrt{2}}{2}\\
+            0            
+        \end{pmatrix}\right> = A$
+    \end{center}
+\end{eg}
+
+
+
+
+
 \section{Esercizi}
 \section{Appunti}
-Non so molto delle matrici diagonalizzabili, né delle matrici simili. Tuttavia so come determinare se una base è ortogonale o ortonormale.\par\quad
-Per il primo caso bisogna partire da uno spazio vettoriale, diciamo che ha quattro vettori. Per ognuno di questi è necessario verificare l'ortogonalità, ovvero moltiplicare ogni coppia realizzabile. Prendendo l'esempio dell'insieme da quattro vettori, dovremo effettuare moltiplicazioni per:
-\begin{itemize}
-    \item v1, v2
-    \item v1, v3
-    \item v1, v4
-    \item v2, v3
-    \item v2, v4
-    \item v3, v4
-\end{itemize}
-Se anche una sola della somma di prodotti di questi vettori dovesse risultare diversa da $0$, allora l'insieme preso sotto esame NON SARÀ ortogonale.\newline
-
 Passiamo invece alla base ortonormale. Per lavorarci è necessario introdurre il concetto di norma. Non lo so che cos'è, ma si calcola per il singolo vettore.\par\quad
 Diciamo di avere il seguente vettore $v$. La norma è data dalla seguente formula:
 \begin{center}

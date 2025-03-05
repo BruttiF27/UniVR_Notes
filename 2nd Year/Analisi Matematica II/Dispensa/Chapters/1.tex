@@ -1,0 +1,77 @@
+\section{Modelli differenziali}
+Passiamo da uno studio numerico ad uno particolarmente più astratto. Analisi matematica 2 è una materia molto importante non solo per consolidare le nozioni del predecessore che compongono il toolset necessario per lavorare qui, ma anche perché renderà il resto delle materie di stampo matematico più comprensibili e approcciabili.\par
+Iniziamo riprendendo le funzioni; ne hai viste di ogni tipo, da sole, composte, inverse etc... e adesso lavorerai con famiglie di funzioni.
+\begin{definition}
+	\textbf{Equazione differenziale ordinaria}\newline
+	Definiamo equazione differenziale di ordine $n$ un'equazione del tipo:
+	\begin{center}
+		$F(t, y, y', y'', ..., y^n)$
+	\end{center}
+	Dove $y(t)$ è la funzione incognita ed $F$ è una funzione assegnata delle $n+2$ variabili $(t, y, y', y'', ..., y^n)$ a valori reali. Diremo inoltre il suo \textbf{ordine} l'ordine massimo di derivata che compare.
+\end{definition}
+Come potrai immaginare, l'esistenza di un'equazione implica l'esistenza di una soluzione. Non sarà bello, ma per ottenerla sarà necessario l'aiuto degli integrali.
+\begin{definition}
+	\textbf{Curva integrale dell'equazione differenziale}\newline
+	Diciamo curva integrale o soluzione dell'equazione nell'intervallo $I \subset \mathbb{R}$ una funzione $\phi(t)$, definita almeno in $I$ e a valori reali, per cui risulti:
+	\begin{center}
+		$F(t, \phi(t), \phi'(t), \phi''(t), ..., \phi^n(t)) = 0$, $\forall t \in I$
+	\end{center}
+	In merito, ci servirà ottenere l'\textbf{integrale generale}, ovvero una formula che rappresenti la famiglia di tutte le soluzioni dell'equazione.
+\end{definition}
+Concetti di base ottenuti; benvenuto in analisi matematica 2.
+
+%
+
+\section{Equazioni differenziali del primo ordine}
+Le equazioni differenziali del primo ordine si presentano con un'incognita, una funzione e solo una derivata. Quindi, nella forma:
+\begin{center}
+	$F(t, y, y') = 0$
+\end{center}
+Dove $F$ è la funzione assegnata di $t, y, y'$ a valori reali.\newline
+
+Un esempio di tale forma è la ricerca delle primitive di una funzione $f$ continua su $I$. Prende infatti la forma:
+\begin{center}
+	$y'(t) = f(t)$, con soluzioni $y(t) = \int f(t)dt+c$, dove $c \in \mathbb{R}$
+\end{center}
+Essendo che l'equazione ha infinite soluzioni distinte dalla costante arbitraria $c$, ne traiamo che generalmente l'insieme delle soluzioni di un'equazione differenziale del primo ordine è costituito da più funzioni, dipendenti dal parametro $c: t \to \phi(t;c)$. Questa scrittura è l'\textbf{integrale generale} menzionato prima.\par
+Abbiamo inoltre la condizione supplementare $y(t_0) = y_0$, la quale ci permette di selezionare una soluzione precisa. Ciò introduce un concetto specifico:
+
+\begin{definition}
+	\textbf{Problema di Cauchy}\newline
+	Chiamiamo problema di Cauchy il processo di risoluzione di un'equazione differenziale che detiene una condizione supplementare. Assume la forma:
+	\begin{center}
+		$\begin{cases}
+			F(t, y, y') = 0\\
+			y(t_0) = y_0
+		\end{cases}$
+	\end{center}
+\end{definition}
+
+Può capitare che l'equazione prenda una forma dove la derivata è uguale al resto delle funzioni e variabili; chiamiamo questa scrittura \textbf{forma normale}.
+\begin{center}
+	$y'(t) = f(t, y(t))$
+\end{center}
+
+per concludere, vediamo adesso un esempio di risoluzione di un problema di Cauchy
+
+% Inserisci esempio
+
+\subsection{Equazioni a variabili separabili}
+Le equazioni a variabili separabili sono un caso particolare di equazioni differenziali ordinarie del primo ordine, caratterizzate dalla presenza di una funzione $f$ prodotto di due funzioni, una della sola variabile $t$ e l'altra solo dell'incognita $y$. Si presentano nella forma:
+\begin{center}
+	$y' = a(t)b(y) \equiv a(t) = \dfrac{y'}{b(y)}$
+\end{center}
+con $a$ funzione continua su un intervallo $I \subset \mathbb{R}$ e $b$ funzione continua su un intervallo $J \subset \mathbb{R}$.
+Dalle conoscenze di logica, noterai che questa scrittura è possibile in quanto la variabile $t$ è libera in $b$, quindi se la sposti non ti causa alcun problema.
+
+% ----- CONTINUA DA QUI -----
+
+\subsection{Equazioni lineari del primo ordine}
+
+%
+
+\section{Equazioni differenziali lineari del secondo ordine}
+Comprende "Generalità", "Struttura dell'integrale generale"
+\subsection{Equazioni lineari omogenee a coeffcienti costanti}
+\subsection{Equazioni lineari non omogenee a coefficienti costanti}
+Comprende "Metodo di somiglianza"

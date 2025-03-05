@@ -1,0 +1,136 @@
+\section{Organizzazione e descrizione dei dati}
+Repetita iuvant, la statistica descrittiva si occupa dei metodi di esposizione e sintesi dei dati. Si presuppone che questi siano rappresentati chiaramente ed esistono metodi standard come i seguenti:
+
+% Inserisci primi tre tipi di grafico, Line graph, Grafico a barre e grafico a linee.
+
+Questi grafici svolgono la medesima funzione e sta al singolo capire quale sia il più adatto per mostrare le tendenze di un dato fenomeno. Osservando le immagini possiamo concludere che esistono due tipi di variabili: \textbf{numeriche}, che mostrano un dato in forma di numero e \textbf{categoriche}, le quali rappresentano una caratteristica. A partire da ciò, possiamo introdurre i concetti di:
+\begin{itemize}
+	\item \textbf{Frequenza assoluta}; Occorrenze di un valore.
+	\item \textbf{Frequenza relativa}; Rapporto fra la frequenza assoluta ed il numero di osservazioni effettuate.
+	\item \textbf{Frequenza percentuale}; La frequenza relativa moltiplicata per 100.
+\end{itemize}
+In particolare, se si nota una certa pattern sulle variabili categoriche di un dato campione, è possibile utilizzarle per effettuare studi di correlazione, mentre per quanto riguarda le numeriche abbiamo una struttura più complessa. Queste infatti possono assumere due forme in un dato campione o intervallo:
+\begin{itemize}
+	\item \textbf{Forma discreta}; Se assumono un singolo valore finito, come il numero degli studenti in una classe.
+	\item \textbf{Forma continua}; Se possono assumere qualsiasi valore possibile, come altezza, età o temperatura.
+\end{itemize}
+Creando i grafici in base alle variabili ottenute, è possibile dare delle interpretazioni, come le \textbf{simmetriche}, \textbf{modali} o \textbf{bimodali}. Fondamentalmente si parla solo del modo in cui i dati sono mostrati. Seguono esempi:
+
+% Inserisci esempi per interpretazione simmetrica, modale e bimodale.
+
+Ora abbiamo tutti gli strumenti di base per effettuare calcoli statistici e mostrarli di conseguenza.
+
+%
+
+\section{Grandezze per la sintesi dei dati}
+Piuttosto che buttarci a capofitto nella scrittura dei dati, è necessario capire in che modo essi devono essere presentati; infatti anche la statistica richiede una scrittura matematica formale. A partire da un dato campione di dati $(x_1, x_2, ..., x_n)$ abbiamo:
+\begin{itemize}
+	\item \textbf{Media campionaria}; La semplice media aritmetica dei valori.
+	\begin{eg}
+		\textbf{Calcolo della media aritmetica}\par
+		Somma ogni valore e dividi il risultato per il totale dei numeri nell'insieme.
+		\begin{center}
+			Dato l'insieme numerico $(1, 2, 3)$\par
+			La media è: $\dfrac{1+2+3}{3} = 2$.
+		\end{center}
+	\end{eg}
+	\item \textbf{Mediana campionaria}; Il valore centrale, assumendo che i dati siano scritti in ordine crescente.
+	\begin{eg}
+		\textbf{Calcolo della mediana se cardinalità dispari}\par
+		Ordina i tuoi valori in ordine crescente. In questo caso non è necessario svolgere calcoli, prendi direttamente il valore al centro.
+		\begin{center}
+			Dato l'insieme numerico $(1, 2, 3)$\par
+			La mediana è: $2$.
+		\end{center}
+	\end{eg}
+	
+	\begin{eg}
+		\textbf{Calcolo della mediana se cardinalità pari}\par 
+		Ordina i tuoi valori in ordine crescente e prendi i due centrali. Effettuando la media aritmetica fra di loro otterrai la tua mediana.
+		\begin{center}
+			Dato l'insieme numerico $(1, 2, 3, 4)$\par
+			La mediana è: $\dfrac{2+3}{2} = 2,5$.
+		\end{center}
+	\end{eg}
+	\item \textbf{Moda campionaria}; Il valore che compare più frequentemente. Se più mode sono presenti, si dicono \textbf{valori modali}.
+	\begin{eg}
+		\textbf{Calcolo della moda}\par
+		\begin{center}
+			Dato l'insieme numerico $(1, 2, 2, 3, 5, 7)$\par 
+			La moda è: $2$.
+		\end{center}
+	\end{eg}
+\end{itemize}
+Queste tre misure danno informazioni in merito al valore attorno al quale si posizionano i dati. Tuttavia è possibile che questi compaiano anche in modo sparso, ed è per questo che hanno introdotto gli \textbf{indici di dispersione}, i quali hanno lo scopo opposto, ovvero di mostrare quanto i dati si disperdano intorno ad un dato valore centrale. Quelli utili al nosrto studio sono:
+\begin{itemize}
+	\item \textbf{Varianza campionaria}; La media aritmetica del valore della distanza dei dati dalla media campionaria elevato al quadrato.
+	\begin{center}
+		\[s^2 = \dfrac{1}{n-1} \sum_{i=1}^{n} (x_i-\overline{x})^2\]
+	\end{center}
+	Dove gli elementi nella formula sono:
+	\begin{itemize}
+		\item $n$: Numero di elementi nell'insieme.
+		\item $x_i$: Un elemento dell'insieme.
+	\end{itemize}
+	\begin{eg}
+		\textbf{Calcolo della varianza campionaria}\par
+		\begin{center}
+			Dato il campione $(3, 4, 6, 7, 10)$, calcoliamo prima la media \[\overline{x} = \dfrac{3+4+6+7+10}{5} = 6\]\par
+			Applichiamo ora la formula per un valore: \[s^2_{x_1} = \dfrac{1}{5-1}(3-6)^2 = \dfrac{(-3)^2}{4}\]\par
+			Applica lo stesso procedimento per tutti gli altri. La varianza campionaria è: \[s^2 = \dfrac{[(-3)^2 + (-2)^2 + 0^2 + 1^2 + 4^2]}{4} = 7,5\]
+		\end{center}
+	\end{eg}
+	\item \textbf{Deviazione standard campionaria}; La radice della varianza campionaria. Mantiene l'unità di misura iniziale.
+	\begin{center}
+		\[s = \sqrt{\dfrac{1}{n-1} \sum_{i=1}^{n} (x_i-\overline{x})^2}\]
+	\end{center}
+\end{itemize}
+Quando si lavora coi grafici, risulta utile avere dei checkpoints per delimitare i dati in percentuali; la funzione è svolta dagli \textbf{indici di posizione relativi}. Ne esistono due tipi:
+\begin{itemize}
+	\item \textbf{Percentili}; Diciamo tale un valore $p.(0\leq p \leq 100)$, il quale è maggiore di una percentuale $p$ dei dati e minore della restante percentuale $100-p$. Se questo dato risulta unico (relativo), allora diremo che è il \textit{percentile p-esimo} dell'insieme. Se invece non è unico (intero), allora sono esattamente due valori ed il percentile effettivo è dato dalla loro media aritmetica.\par
+	\begin{eg}
+		\textbf{Calcolo del p-esimo percentile}\par 
+		Dato l'insieme ordinato delle 25 città più popolose d'America, calcolare il 10° e l'80° percentile. Per calcolarli, abbiamo già a disposizione che $n = 25$, ovvero la numerosità (totale degli elementi) dell'insieme. I percentili sono invece rispettivamente $p_1 = 0,1$ e $p_2 = 0,8$. Abbiamo ora tutti i dati che ci servono.
+		\begin{center}
+			Ricerchiamo la posizione da prendere per entrambi: $np_1 = 25\times 0,1 = 2,5$, $np_2 = 25\times 0,8 = 20$
+		\end{center}
+		Per $p_1$ il 10° percentile è il terzo dato più piccolo per arrotondamento per eccesso.\par 
+		Per $p_2$, siccome è un numero intero, l'80° percentile è la media degli elementi in posizioni 20, 21 a partire dai più piccoli.
+	\end{eg}
+	\item \textbf{Quartili}; Questi sono come dei percentili notevoli. Separano in quattro parti un campione numerico. Questi sono il \textbf{25°}, \textbf{50°}, corrispondente alla mediana campionaria, ed il \textbf{75°}; vengono chiamati rispettivamente primo, secondo e terzo quartile. Inoltre, la differenza fra il primo ed il terzo quartile viene detta \textbf{scarto interquartile}.
+\end{itemize}
+Per rappresentare al meglio i percentili si utilizza un grafico \textbf{boxplot}, il quale introduce anche il concetto di \textbf{outliers}, ovvero valori estremamente piccoli o grandi rispetto al resto dei dati. La media ne è particolarmente suscettibile, ed è per questo che si tende a preferire la mediana.
+
+% Inserisci esempio boxplot
+
+%
+
+\section{Campioni normali e correlazione}
+Il concetto di pattern-recognition aiuta molto nello studio dei dati. Sarà capitato infatti di osservare grafici, in particolare istogrammi, che presentano qualche somiglianza, oppure che i dati prendano la forma di una curva. Ciò non è casuale, infatti esiste addirittura un tipo di grafico che si presenta spesso, dalle seguenti caratteristiche:
+\begin{itemize}
+	\item Presenta un solo massimo ed è in corrispondenza della mediana.
+	\item Decresce da ambo i lati simmetricamente, creando una curva a campana.
+\end{itemize}
+Sotto queste restrizioni possiamo dichiarare un dato campione \textbf{normale}, il quale ha la tendenza ad avere media e mediana con valori simili. Ovviamente avere grafici perfettamente simmetrici risulta impossibile, quindi si tende ad approssimare, ma esistono anche altre forme come la \textbf{skewed form}, ovvero che presenta una curva più ripida da una parte, oppure la \textbf{bimodale}, che presenta due massimi, quindi una curva che ricorda le gobbe di un cammello.
+
+% Inserisci esempi di campione normale, skewed e bimodale
+
+Capiterà poi di dover lavorare con sequenze di coppie di numeri; in tal caso risulta utile l'utilizzo di uno \textbf{scatter plot}, o grafico di dispersione. Il pregio in primis di questa rappresentazione è la possibilità di vedere se esiste una correlazione fra i dati raccolti, e se è così, sarà possibile notare che i punti nel grafico prenderanno (circa) la forma di una retta. Il concetto di correlazione si può infatti ricondurre ad una funzione lineare.\par 
+Ma in che modo possiamo dire che i dati sono correlati? Ebbene, esiste un coefficiente apposito, dalla formula particolarmente dolorosa.
+\begin{definition}
+	\textbf{Coefficiente di correlazione campionaria}\par 
+	Sia dato un campione bivariato $(x_i, y_i)$, dove $i \in \mathbf{N}$, con medie campionarie $\overline{x}, \overline{y}$ e deviazioni standard campionarie $s_x, s_y$ per i soli dati $x,y$ rispettivamente. Allora si dice coefficiente di correlazione campionaria $r$ la quantità:
+	\begin{center}
+		\[r = \dfrac{\sum_{i=1}^{n}(x_i - \overline{x})(y_i - \overline{y})}{(n-1)s_xs_y} \]
+	\end{center}
+\end{definition}
+Il coefficiente può assumere solo la forma di $-1 \leq r \leq 1$. Più il valore è alto, più positivamente sono correlati i dati, altrimenti si dicono correlati negativamente.
+
+%
+
+\section{Riepilogo grafici e tabelle}
+Line graph, grafico a barre, grafico a linee, box plot, scatter plot e tant'altro.
+
+%
+
+\section{Appunti}

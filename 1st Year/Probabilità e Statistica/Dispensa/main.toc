@@ -1,0 +1,11 @@
+\contentsline {chapter}{\numberline {1}Introduzione}{5}{}%
+\contentsline {chapter}{\numberline {2}Statistica Descrittiva}{7}{}%
+\contentsline {section}{\numberline {2.1}Organizzazione e descrizione dei dati}{7}{}%
+\contentsline {section}{\numberline {2.2}Grandezze per la sintesi dei dati}{8}{}%
+\contentsline {section}{\numberline {2.3}Campioni normali e correlazione}{11}{}%
+\contentsline {section}{\numberline {2.4}Riepilogo grafici e tabelle}{12}{}%
+\contentsline {section}{\numberline {2.5}Appunti}{12}{}%
+\contentsline {chapter}{\numberline {3}Probabilità}{13}{}%
+\contentsline {chapter}{\numberline {4}Statistica Inferenziale}{15}{}%
+\contentsline {chapter}{\numberline {5}Regressione}{17}{}%
+\contentsline {chapter}{\numberline {6}Il Linguaggio R}{19}{}%

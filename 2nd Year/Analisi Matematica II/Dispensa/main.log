@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  5 MAR 2025 19:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  6 MAR 2025 13:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -231,8 +231,9 @@ e
 \c@definition=\count286
 \c@eg=\count287
 \c@lemma=\count288
-)
 \c@corollary=\count289
+)
+\c@note=\count290
 LaTeX Font Info:    Trying to load font information for U+msa on input line 14.
 
 
@@ -269,32 +270,48 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--31
  []
 
 [6]
-Overfull \hbox (28.08946pt too wide) in paragraph at lines 76--76
+Overfull \hbox (15.98189pt too wide) in paragraph at lines 81--82
+\OT1/cmr/m/n/12 Tuttavia non sar^^Ra sem-pre pos-si-bile ri-cavare $\OML/cmm/m/
+it/12 y$ \OT1/cmr/m/n/12 es-plici-ta-mente o ridurre l'equazione
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
+
+ []
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 119--120
+
+ []
+
+
+Overfull \hbox (28.08946pt too wide) in paragraph at lines 137--137
 []\OT1/cmr/bx/n/14.4 Equazioni lin-eari non omo-ge-nee a co-ef-fi-ci-enti costa
 nti 
  []
 
-) [7] [8
+) [8] [9] [10
 
 ]
 Chapter 2.
-(./Chapters/2.tex) [9] [10
+(./Chapters/2.tex) [11] [12
 
 ]
 Chapter 3.
-(./Chapters/3.tex) [11] [12
+(./Chapters/3.tex) [13] [14
 
 ]
 Chapter 4.
-(./Chapters/4.tex) [13] [14
+(./Chapters/4.tex) [15] [16
 
 ]
 Chapter 5.
-(./Chapters/5.tex) [15] [16
+(./Chapters/5.tex) [17] [18
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [17] (./main.aux (./Configs/formats.aux)
+(./Chapters/6.tex) [19] (./main.aux (./Configs/formats.aux)
 (./Configs/boxes.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -302,30 +319,36 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3433 strings out of 476182
- 52190 string characters out of 5795596
- 1930975 words of memory out of 5000000
- 25379 multiletter control sequences out of 15000+600000
- 568496 words of font info for 75 fonts, out of 8000000 for 9000
+ 3459 strings out of 476182
+ 52614 string characters out of 5795596
+ 1931975 words of memory out of 5000000
+ 25402 multiletter control sequences out of 15000+600000
+ 569478 words of font info for 79 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 64i,8n,70p,396b,242s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12
-.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.
-pfb>
-Output written on main.pdf (17 pages, 153279 bytes).
+ 64i,8n,70p,396b,317s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/sha
+re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (19 pages, 218372 bytes).
 PDF statistics:
- 124 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
+ 167 PDF objects out of 1000 (max. 8388607)
+ 105 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

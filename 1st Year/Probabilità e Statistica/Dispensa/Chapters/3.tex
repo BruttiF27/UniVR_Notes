@@ -31,15 +31,70 @@ Inoltre, se gli insiemi $A,B$ sono tali che la loro intersezione sia vuota, si d
 %
 
 \section{Calcolo della probabilità}
-La probabilità è una funzione che riceve un evento $A$ o direttamente lo spazio campionario e provoca i seguenti risultati:
-\begin{enumerate}
-	\item $P(A)$ è un valore compreso fra $0$ e $1$
-	\item $P(S) = 1$
-	\item Se $A$ e $B$ sono incompatibili, allora $P(A \cup B) = P(A) + P(B)$
-\end{enumerate}
-Questi vengono chiamati \textbf{assiomi di Kolmogorov} e ne traiamo le seguenti proprietà:
-
-% TODO ----- INSERISCI LE PROPRIETÀ
+Fortunatamente esiste una concezione standard sulle caratteristiche assunte dalla probabilità. Associamo infatti ad ogni evento $E$ sullo spazio campionario $S$, un valore denotato con $P(E)$, detto \textbf{probabilità dell'evento} $E$. Il comportamento della funzione è dato dai seguenti \textbf{assiomi di Kolmogorov}:
+\begin{definition}
+	\textbf{Assiomi di Kolmogorov}\newline
+	\begin{enumerate}
+		\item $P(A)$ è un valore compreso fra $0$ e $1$.
+		\item $P(S) = 1$.
+		\item Se $A$ e $B$ sono incompatibili, allora $P(A \cup B) = P(A) + P(B)$.
+	\end{enumerate}
+	Questi detengono inoltre le seguenti proprietà:
+	\begin{itemize}
+		\item Siano $A, B$ due eventi tali che $A \subseteqq B$, allora:
+		\begin{center}
+			$\begin{cases}
+				B = S \implies S / A = A^c \implies P(A^c) = 1 - P(A)\\
+				P(B / A) = P(B) - P(A)
+			\end{cases}$
+		\end{center}
+		\item Se $A_1, A_2, ..., A_k$ sono eventi a due a due incompatibili, quindi disgiunti, allora:
+		\begin{center}
+			\[P\left(\bigcup_{i = 1}^k A_i\right) = \sum_{i = 1}^{k} P(A_i)\]
+		\end{center}
+		\item Siano $A, B$ due eventi generici, allora:
+		\begin{center}
+			$P(A \cup B) = P(A) + P(B) - P(A \cap B)$
+		\end{center}
+	\end{itemize}
+\end{definition}
+Un primo caso di studio per la probabilità è il suo calcolo ad \textbf{esiti equiprobabili}; ciò significa che ogni evento ha la stessa chance di avvenire rispetto agli altri. L'esempio classico è il lancio di un dado; implicando che questo non sia truccato, ogni faccia ha $\frac{1}{6}$ di possibilità di uscire. Formalmente la definiamo con la seguente scrittura:
+\begin{center}
+	$P(A) = \dfrac{|A|}{|S|}$
+\end{center}
+\begin{eg}
+	Quali sono le probabilità che lanciando due volte un dado esca il valore 7?\newline
+	Innanzitutto dobbiamo chiederci quale sia lo spazio campionario e gli eventi. Sappiamo che è un dado, quindi avremo rispettivamente:
+	\begin{itemize}
+		\item $S = \{1, 2, 3, 4, 5, 6\}$
+		\item $E_1 = \{1\}, ..., E_6 = \{6\}$
+	\end{itemize}
+	Ora, potremmo fare bruteforcing facendoci del male, ma il trucco per questi esercizi (entro certi limiti) è disegnare una tabella dei risultati, prendere il totale di quante volte si presenta il valore richiesto e poi applicare la formula dell'approccio frequentista. In questo caso:
+	\begin{center}
+		\begin{tabular}{|c||c|c|c|c|c|c|}
+			\hline
+			- & 1 & 2 & 3 & 4 & 5 & 6\\
+			\hline
+			\hline
+			1 & 2 & 3 & 4 & 5 & 6 & 7\\
+			\hline
+			2 & 3 & 4 & 5 & 6 & 7 & 8\\
+			\hline
+			3 & 4 & 5 & 6 & 7 & 8 & 9\\
+			\hline
+			4 & 5 & 6 & 7 & 8 & 9 & 10\\
+			\hline
+			5 & 6 & 7 & 8 & 9 & 10 & 11\\
+			\hline
+			6 & 7 & 8 & 9 & 10 & 11 & 12\\
+			\hline
+		\end{tabular}
+	\end{center}
+	Notiamo che il valore $7$ compare $6$ volte ed il totale degli esiti ottenibili è $6 \times 6 = 36$. Il risultato sarà dato quindi da:
+	\begin{center}
+		$\dfrac{6}{36} = \dfrac{1}{6}$, soluzione dell'esercizio.
+	\end{center}
+\end{eg}
 
 %
 

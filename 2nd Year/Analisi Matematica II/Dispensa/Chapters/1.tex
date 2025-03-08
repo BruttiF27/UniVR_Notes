@@ -112,23 +112,53 @@ Tuttavia non sarà sempre possibile ricavare $y$ esplicitamente o ridurre l'equa
 		\begin{center}
 			\[\int\dfrac{dy}{y^3} = \int tdt+c \implies -\dfrac{1}{2y^2} = \dfrac{t^2}{2}+c\]
 		\end{center}
+		Svolgiamo i passaggi intermedi riguardanti i calcoli:
+		\begin{itemize}
+			\item $-\dfrac{1}{2y^2} = \dfrac{t^2}{2}+c \implies \left(-\dfrac{1}{2y^2}\right)^{-1} = \left(\dfrac{t^2}{2}+c\right)^{-1}$
+			\item $-2y^2 = \dfrac{2}{t^2+2c} \implies -y^2 = \dfrac{1}{t^2+2c}$
+			\item $y^2 = -\dfrac{1}{t^2-2c} \implies y^2 = \dfrac{1}{-t^2-2c}$
+		\end{itemize}
 		Che porta infine ad avere:
 		\begin{center}
 			$y = \pm\dfrac{1}{\sqrt{k-t^2}}$, $k = -2c$
 		\end{center}
 		\item \textbf{Imponi la condizione di Cauchy}\newline
-		
-		% TODO ----- Continua l'esempio con il fogliettino strappato
-		
+		Sostituiamo alla $y$ lo zero dato dalla restrizione e l'uno al valore arbitrario $c$. Otterrai che:
+		\begin{center}
+			$y(0) = \dfrac{1}{\sqrt{1-t^2}}$
+		\end{center}
+		e hai ufficialmente finito.
 	\end{enumerate}
 \end{eg}
 
-% ----- CONTINUA DA QUI -----
-
 \subsection{Equazioni lineari del primo ordine}
-Equazioni le cui soluzioni sono espresse da un sottospazio vettoriale di dimensione 1 per il primo ordine, di dimensione 2 per il secondo.
+Tipo di equazioni differenziali ordinarie, dove $F$ è lineare in $y$ e $y'$, le cui soluzioni sono espresse mediante uno spazio vettoriale di dimensione 1. Si presentano nella forma:
+\begin{center}
+	$a_1(t)y'(t) + a_2(t)y(t) = g(t)$
+\end{center}
+Con $a_1$, $a_2$ funzioni continue su un intervallo. Anch'esse detengono una forma normale, ottenibile se il coefficiente $a_1(t)$ non si annulla.
+\begin{center}
+	$y'(t) +a(t)y(t) = f(t)$
+\end{center}
+Anche qui $a$ ed $f$ sono continue sull'intervallo $I \subset R$.\newline
 
-% TODO ----- Il prof ricomincia da qua -----
+Diciamo inoltre:
+\begin{itemize}
+	\item \textbf{Equazione completa} se $f$ non è identicamente nulla; la soluzione si ottiene aggiungendo al suo integrale generale una sua soluzione particolare.
+	\item \textbf{Equazione omogenea} se $f \equiv 0$; la soluzione è generalmente indicata con le z, quindi: $z'(t) + a(t)z(t) = 0$.
+\end{itemize}
+Capiamo quindi che il procedimento da attuare si compone di due passi: prima la ricerca di un integrale generale dell'equazione omogenea, poi trovare la soluzione particolare da aggiungere a quella completa.\newline
+
+La \textbf{ricerca della soluzione dell'equazione omogenea} inizia moltiplicando ambo i membri dell'equazione per $e^{A(t)}$, dove $A(t)$ è una primitiva di $a(t)$, quindi vale $A'(t) = a(t)$.
+\begin{center}
+	$z'(t)+a(t)z(t) = 0 \implies z'(t)e^{A(t)}+a(t)z(t)e^{A(t)} = 0 \equiv [z(t)e^{A(t)}]'$
+\end{center}
+Ne ricaviamo che: $z(t) = ce^{A(t)} \implies z(t) = ce^{\int a(t)dt}$ e avremo che la forma della soluzione, dove $z_0$ è una soluzione particolare, sarà:
+\begin{center}
+	$z = cz_0$
+\end{center}
+
+% TODO ----- Continua da qua -----
 %
 
 \section{Equazioni differenziali lineari del secondo ordine}

@@ -16,3 +16,7 @@
 \contentsline {chapter}{\numberline {4}Statistica Inferenziale}{17}{}%
 \contentsline {chapter}{\numberline {5}Regressione}{19}{}%
 \contentsline {chapter}{\numberline {6}Il Linguaggio R}{21}{}%
+\contentsline {section}{\numberline {6.1}Introduzione}{21}{}%
+\contentsline {section}{\numberline {6.2}Funzioni di base}{22}{}%
+\contentsline {subsection}{\numberline {6.2.1}Variabili e funzioni di uso generale}{22}{}%
+\contentsline {subsection}{\numberline {6.2.2}Vettori e matrici}{22}{}%

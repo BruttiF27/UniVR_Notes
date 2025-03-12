@@ -38,9 +38,6 @@ Fortunatamente esiste una concezione standard sulle caratteristiche assunte dall
 		\item $P(A)$ è un valore compreso fra $0$ e $1$.
 		\item $P(S) = 1$.
 		\item Se $A$ e $B$ sono incompatibili, allora $P(A \cup B) = P(A) + P(B)$.
-	\end{enumerate}
-	Questi detengono inoltre le seguenti proprietà:
-	\begin{itemize}
 		\item Siano $A, B$ due eventi tali che $A \subseteqq B$, allora:
 		\begin{center}
 			$\begin{cases}
@@ -56,7 +53,7 @@ Fortunatamente esiste una concezione standard sulle caratteristiche assunte dall
 		\begin{center}
 			$P(A \cup B) = P(A) + P(B) - P(A \cap B)$
 		\end{center}
-	\end{itemize}
+	\end{enumerate}
 \end{definition}
 Un primo caso di studio per la probabilità è il suo calcolo ad \textbf{esiti equiprobabili}; ciò significa che ogni evento ha la stessa chance di avvenire rispetto agli altri. L'esempio classico è il lancio di un dado; implicando che questo non sia truccato, ogni faccia ha $\frac{1}{6}$ di possibilità di uscire. Formalmente la definiamo con la seguente scrittura:
 \begin{center}
@@ -95,6 +92,35 @@ Un primo caso di studio per la probabilità è il suo calcolo ad \textbf{esiti e
 		$\dfrac{6}{36} = \dfrac{1}{6}$, soluzione dell'esercizio.
 	\end{center}
 \end{eg}
+Puta caso, devi lavorare con una quantità di dati abnorme; utilizzare la tabella precedente per analizzare è impensabile, hai una vaga idea di quanto grande verrebbe? Viene ad aiutarci il seguente ragionamento, scrivibile tramite \textbf{coefficienti binomiali}:
+\begin{eg}
+	\textbf{Calcolo combinatorio con coefficiente binomiale}\newline
+	Diciamo di avere una gara a cui partecipano 10 atleti. In quanti modi possiamo assegnare i vari posti del podio? Avremo:
+	\begin{itemize}
+		\item 10 modi per il primo posto.
+		\item 9 modi per il secondo, in quanto il primo è già stato assegnato.
+		\item 8 modi per il terzo, per la medesima ragione.
+	\end{itemize}
+	Supponiamo di voler uccidere tutti quelli che perdono e che quindi considereremo solo i tre posti del podio. Allora quali sarebbero i possibili esiti?
+	\begin{center}
+		ABC, ACB, CAB, CBA, BAC, BCA, quindi $3\times 2\times 1 = 6$ esiti.
+	\end{center}
+	Questo calcolo si può esprimere più facilmente mediante l'utilizzo dei fattoriali, Gli esiti totali possibili saranno quindi:
+	\begin{center}
+		$\dfrac{(10\times9\times8)}{(3\times2\times1)} = \dfrac{10!}{7!\times3!}$
+	\end{center}
+	Perché è sbucato fuori un $7!$ dal nulla? Ebbene, quelli sono tutti i numeri che non ci interessano, in quanto vogliamo solamente i posti del podio.
+\end{eg}
+\noindent Da questo esempio traiamo dunque una formula generale, in inglese chiamata \textbf{n choose k}, la quale ha due varianti dipendentemente se ci interessa (caso 1) o meno (caso 2) l'ordine dei dati:
+\begin{center}
+	$\begin{cases}
+		\dfrac{n!}{(n-k)!k!}\\
+		\dfrac{n!}{(n-k)!}
+	\end{cases} \implies \begin{pmatrix}
+	n\\
+	k
+	\end{pmatrix}$
+\end{center}
 
 %
 

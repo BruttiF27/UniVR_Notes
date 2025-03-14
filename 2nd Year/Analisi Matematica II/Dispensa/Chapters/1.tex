@@ -23,22 +23,22 @@ Concetti di base ottenuti; benvenuto in analisi matematica 2.
 %
 
 \section{Equazioni differenziali del primo ordine}
-Le equazioni differenziali del primo ordine si presentano con un'incognita, una funzione e solo una derivata. Quindi, nella forma:
-\begin{center}
-	$F(t, y, y') = 0$
-\end{center}
-Dove $F$ è la funzione assegnata di $t, y, y'$ a valori reali.\newline
-
-Un esempio di tale forma è la ricerca delle primitive di una funzione $f$ continua su $I$. Prende infatti la forma:
-\begin{center}
-	$y'(t) = f(t)$, con soluzioni $y(t) = \int f(t)dt+c$, dove $c \in \mathbb{R}$
-\end{center}
-Essendo che l'equazione ha infinite soluzioni distinte dalla costante arbitraria $c$, ne traiamo che generalmente l'insieme delle soluzioni di un'equazione differenziale del primo ordine è costituito da più funzioni, dipendenti dal parametro $c: t \to \phi(t;c)$. Questa scrittura è l'\textbf{integrale generale} menzionato prima.\par
-Abbiamo inoltre la condizione supplementare $y(t_0) = y_0$, la quale ci permette di selezionare una soluzione precisa. Ciò introduce un concetto specifico:
-
+\begin{definition}
+	\textbf{Equazione differenziale del primo ordine}\par
+	\noindent Si dice tale qualunque equazione differenziale si presenti con un'incognita, una funzione e una singola derivata. Avrà infatti la forma:
+	\begin{center}
+		$F(t, y, y') = 0$, con $F$ funzione assegnata di $t, y, y'$ a valori reali
+	\end{center}
+	Tali equazioni si risolvono attraverso l'integrazione delle stesse. Queste prenderanno una forma generale del tipo:
+	\begin{center}
+		$y'(t) = f(t)$, con soluzioni $y(t) = \int f(t)dt+c$, dove $c \in \mathbb{R}$
+	\end{center}
+\end{definition}
+\noindent Essendo che l'equazione ha infinite curve integrali distinte dalla costante arbitraria $c$, ne traiamo che l'insieme delle soluzioni di un'equazione differenziale del primo ordine è costituito da più funzioni, dipendenti dal parametro $c: t \to \phi(t;c)$. Questa scrittura è l'\textbf{integrale generale} menzionato prima.\par
+Qua sorge una domanda importante: sarebbe possibile determinarne una curva integrale precisa? Il quesito ha soluzione nell'aggiunta della \textbf{condizione di Cauchy}, da qui in poi riferita come \textit{restrizione}. Infatti, applicandola all'integrale generale di un'equazione differenziale, ci consente di determinare il valore della costante arbitraria in sua funzione. Questa aggiunta forma il sovramenzionato costrutto:
 \begin{definition}
 	\textbf{Problema di Cauchy}\newline
-	Chiamiamo problema di Cauchy il processo di risoluzione di un'equazione differenziale che detiene una condizione supplementare. Assume la forma:
+	Chiamiamo problema di Cauchy il processo risolutivo di un'equazione differenziale che detiene una condizione supplementare, con lo scopo ultimo di trovare una soluzione precisa. Assume la forma:
 	\begin{center}
 		$\begin{cases}
 			F(t, y, y') = 0\\
@@ -46,26 +46,54 @@ Abbiamo inoltre la condizione supplementare $y(t_0) = y_0$, la quale ci permette
 		\end{cases}$
 	\end{center}
 \end{definition}
+\noindent Osserviamo le modalità di risoluzione dei suddetti problemi. Per quanto riguarda il lavoro sulle equazioni differenziali si tratta sempre di determinare prima la curva integrale, per poi applicare ad essa la restrizione del problema.
+\begin{eg}
+	\textbf{Risolvere il seguente problema di Cauchy}
+	\begin{center}
+		$\begin{cases}
+			y' = -e^{-x}\\
+			y(0) = 3
+		\end{cases}$
+	\end{center}
+	Per prima cosa è necessario trovare la curva integrale dell'equazione differenziale, quindi procediamo con l'integrazione.
+	\begin{center}
+		\[\int -e^{-x} dx = e^{-x}+c\]
+	\end{center}
+	Abbiamo trovato la soluzione generale. Non basta: troviamo quel valore della costante $c$ in funzione della condizione per far sì che torni. Per applicarla, sostituiamo alle $x$ il valore $0$ e poniamo l'equazione uguale a $3$:
+	\begin{center}
+		$e^{-0} + c = 3 \implies 1+c = 3 \implies c = 2$		
+	\end{center}
+	Abbiamo trovato il valore richiesto. Sostituiamolo alla costante nella soluzione generale dell'equazione differenziale per trovare la specifica.
+	\begin{center}
+		$Soluzione: y(x) = e^{-x} + 2$
+	\end{center}
+\end{eg}
 
-Può capitare che l'equazione prenda una forma dove la derivata è uguale al resto delle funzioni e variabili; chiamiamo questa scrittura \textbf{forma normale}.
+\noindent Lavorando con questo costrutto è cosa buona e giusta ordinare gli elementi dell'equazione. La forma standard più chiara, detta \textbf{forma normale}, vede la derivata uguale al resto dei dati, ovvero:
 \begin{center}
 	$y'(t) = f(t, y(t))$
 \end{center}
+Il procedimento osservato per i problemi di Cauchy è generale e varrà per tutti gli argomenti ad esso inerenti, seppur si possano trovare alcune differenze per i casi particolari trattati nelle successive sezioni.
 
-per concludere, vediamo adesso un esempio di risoluzione di un problema di Cauchy
-
-% Inserisci esempio
+%
 
 \subsection{Equazioni a variabili separabili}
-Le equazioni a variabili separabili sono un caso particolare di equazioni differenziali ordinarie del primo ordine, caratterizzate dalla presenza di una funzione $f$ prodotto di due funzioni, una della sola variabile $t$ e l'altra solo dell'incognita $y$. Si presentano nella forma:
-\begin{center}
-	$y' = a(t)b(y)$
-\end{center}
-con $a$ funzione continua su un intervallo $I \subset \mathbb{R}$ e $b$ funzione continua su un intervallo $J \subset \mathbb{R}$. Supponendo invece che $b(y) \neq 0$ otteniamo la scrittura:
-\begin{center}
-	$a(t) = \dfrac{y'}{b(y)}$
-\end{center}
-Prendendo ora un'ipotetica soluzione $y(t)$, l'equazione soddisfa la seguente identità, la quale prendendo gli integrali definiti di ambo i membri fa ottenere:
+\begin{definition}
+	\textbf{Equazioni differenziali a variabili separabili}\par
+	\noindent Questo è un caso particolare di equazioni differenziali ordinarie del primo ordine. La derivata è data dal prodotto di due funzioni $a, b$, la prima continua su un intervallo $I \subset \mathbb{R}$ e la seconda su un intervallo $J \subset \mathbb{R}$. Si presentano nella forma:
+	\begin{center}
+		$y' = a(t)b(y)$
+	\end{center}	
+\end{definition}
+Da questa definizione, vedendo che si parla di prodotti, è necessario distinguere due istanze di lavoro:
+\begin{itemize}
+	\item Se il numero $\overline{y}$ è una soluzione dell'equazione $b(y) = 0$, la funzione costante $y(t) = \overline{y}$ è una soluzione valida, detta \textbf{integrale singolare}. Il secondo membro si annulla perché $b(\overline{y}) = 0$, come anche il primo, perché la derivata di una costante è $0$.
+	\item Supponendo $b(y) \neq 0$ abbiamo il seguente caso più comune ed elaborato, ovvero la forma:
+	\begin{center}
+		$a(t) = \dfrac{y'}{b(y)}$
+	\end{center}
+\end{itemize}
+\noindent È necessario ampliare il discorso sul secondo caso. Prendiamo un'ipotetica soluzione $y(t)$, allora l'equazione soddisferà la seguente identità, la quale prendendo gli integrali definiti di ambo i membri fa ottenere:
 \begin{center}
 	\[\dfrac{y'(t)}{b(y(t))} = a(t) \implies \int\dfrac{y'(t)}{b(y(t))}dt = \int a(t)dt+c\]
 \end{center}
@@ -73,14 +101,14 @@ Nell'integrale di sinistra è consentito effettuare un cambio di variabile $y = 
 \begin{center}
 	\[\int \dfrac{dy}{b(y)} = \int a(t)dt+c\]
 \end{center}
-Così abbiamo ottenuto l'integrale generale dell'equazione differenziale.\par
-Inoltre, se la funzione $B(y)$ è una primitiva di $\dfrac{1}{b(y)}$ e $A(t)$ una primitiva di $a(t)$, allora l'integrale generale è assegnato dalla seguente equazione in \textbf{forma implicita}:
+Che risulta essere l'integrale generale dell'equazione differenziale.\par
+Inoltre, se la funzione $B(y)$ è una primitiva di $\frac{1}{b(y)}$ e $A(t)$ una primitiva di $a(t)$, allora l'integrale generale è assegnato dalla seguente equazione in \textbf{forma implicita}:
 \begin{center}
 	$B(y) = A(t)+c$, con $c$ costante arbitraria.
 \end{center}
-Tuttavia non sarà sempre possibile ricavare $y$ esplicitamente o ridurre l'equazione in forma normale. È esattamente per questo che esiste una forma generale del problema di Cauchy ad-hoc per questi casi.
+\noindent Adesso ragioniamo; in che modo il problema di Cauchy si adatta a questo tipo di equazioni? Abbiamo una forma apposita:
 \begin{theorem}
-	\textbf{Problema di Cauchy per ED a variabili separabili}\newline
+	\textbf{Problema di Cauchy per ED a variabili separabili}
 	\begin{center}
 		$\begin{cases}
 			y' = a(t)b(y)\\
@@ -100,6 +128,17 @@ Tuttavia non sarà sempre possibile ricavare $y$ esplicitamente o ridurre l'equa
 
 \begin{eg}
 	\textbf{Risolvere il problema di Cauchy}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	\begin{center}
 		$\begin{cases}
 			y' = ty^3\\
@@ -107,29 +146,35 @@ Tuttavia non sarà sempre possibile ricavare $y$ esplicitamente o ridurre l'equa
 		\end{cases}$
 	\end{center}
 	\begin{enumerate}
-		\item \textbf{Calcolare l'integrale generale dell'equazione differenziale}\newline
-		Notiamo innanzitutto che $y = 0$ è integrale singolare\footnote{Soluzione che soddisfa anche l'equazione $F_{y'}(t, y, y') = 0$.} per l'equazione, ma a noi serve quello generale, quindi poniamo $y \neq 0$. Separando le variabili e svolgendo gli integrali abbiamo:
+		\item \textbf{Calcola l'integrale generale dell'equazione differenziale}\newline
+		Anzitutto, poniamo $y \neg 0$, poiché a noi serve trovare l'integrale generale, non quello singolare. Procediamo con la separazione delle variabili:
+		\begin{center}
+			$y' = ty^3 \implies \dfrac{dy}{dt} = ty^3 \implies \dfrac{dy}{y^3} = t dt$
+		\end{center}
+		Adesso possiamo procedere ad integrare le due parti distinte, quindi:
 		\begin{center}
 			\[\int\dfrac{dy}{y^3} = \int tdt+c \implies -\dfrac{1}{2y^2} = \dfrac{t^2}{2}+c\]
 		\end{center}
-		Svolgiamo i passaggi intermedi riguardanti i calcoli:
+		Effettuiamo i passaggi algebrici per ricavare la funzione y:
 		\begin{itemize}
 			\item $-\dfrac{1}{2y^2} = \dfrac{t^2}{2}+c \implies \left(-\dfrac{1}{2y^2}\right)^{-1} = \left(\dfrac{t^2}{2}+c\right)^{-1}$
-			\item $-2y^2 = \dfrac{2}{t^2+2c} \implies -y^2 = \dfrac{1}{t^2+2c}$
-			\item $y^2 = -\dfrac{1}{t^2-2c} \implies y^2 = \dfrac{1}{-t^2-2c}$
+			\item $-2y^2 = \dfrac{2}{t^2+2c} \implies -y^2 = \dfrac{1}{t^2+2c} \implies y^2 = -\dfrac{1}{t^2-2c}$
 		\end{itemize}
-		Che porta infine ad avere:
+		Che porta infine ad avere la soluzione generale:
 		\begin{center}
-			$y = \pm\dfrac{1}{\sqrt{k-t^2}}$, $k = -2c$
+			$y = \pm\dfrac{1}{\sqrt{-2c-t^2}}$
 		\end{center}
 		\item \textbf{Imponi la condizione di Cauchy}\newline
-		Sostituiamo alla $y$ lo zero dato dalla restrizione e l'uno al valore arbitrario $c$. Otterrai che:
+		Notiamo che il valore posto della condizione è positivo, di conseguenza la soluzione di $y$ è tale che appartiene all'intervallo $(0, +\infty)$ e considereremo solamente la radice positiva della soluzione generale.\par
+		Detto ciò, determiniamo il valore di $y(t)$ applicando la condizione; per renderci la vita ulteriormente facile, applichiamo una piccola sostituzione sulla costante. D'altronde è arbitraria. Dopodiché diamole il valore della condizione.
 		\begin{center}
-			$y(0) = \dfrac{1}{\sqrt{1-t^2}}$
+			for $k = -2c \implies y(t) = \dfrac{1}{\sqrt{k-t^2}} \implies y(t) = \dfrac{1}{\sqrt{1-t^2}}$
 		\end{center}
-		e hai ufficialmente finito.
+		Soluzione specifica dell'equazione.
 	\end{enumerate}
 \end{eg}
+
+% TODO ----- Rielabora da qua
 
 \subsection{Equazioni lineari del primo ordine}
 Tipo di equazioni differenziali ordinarie, dove $F$ è lineare in $y$ e $y'$, le cui soluzioni sono espresse mediante uno spazio vettoriale di dimensione 1. Si presentano nella forma:
@@ -157,6 +202,25 @@ Ne ricaviamo che: $z(t) = ce^{A(t)} \implies z(t) = ce^{\int a(t)dt}$ e avremo c
 \begin{center}
 	$z = cz_0$
 \end{center}
+La \textbf{ricerca della soluzione particolare dell'equazione completa} si effettua attraverso il metodo generale di \textbf{variazione delle costanti}. L'idea è trovare una soluzione simile all'equazione legando la costante alla variabile $t$, facendola diventare la funzione $c(t)$. Cercheremo quindi la soluzione di forma:
+\begin{center}
+	$\overline{y}(t) = C(t)e^{-A(t)}$
+\end{center}
+Il nostro compito è determinare la $c(t)$ tale che la funzione $\overline{y}$ risulti la soluzione dell'equazione completa. Andiamo per passi:
+\begin{itemize}
+	\item Otteniamo:
+	\begin{center}
+		$\overline{y}'(t) = c'(t)e^{-A(t)} - c(t)a(t)e^{-A(t)}$
+	\end{center}
+	\item Inserendo le corrispondenti informazioni nell'equazione completa otteniamo:
+	\begin{center}
+		$e^{-A(t)} [c'(t) - c(t)a(t)] + a(t)C(t) e^{-A(t)} = f(t) \implies e^{-A(t)} C'(t) = f(t)$
+	\end{center}
+	\item Da cui $C'(t) = f(t)e^{A(t)}$ e quindi:
+	\begin{center}
+		\[c(t) = \int f(s)e^{A(s)} ds\]
+	\end{center}
+\end{itemize} 
 
 % TODO ----- Continua da qua -----
 %

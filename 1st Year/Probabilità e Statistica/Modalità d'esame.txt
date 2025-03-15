@@ -1,4 +1,4 @@
 L'esame di probabilità e statistica, differentemente dagli anni scorsi, non è diviso in parti ed è privo di parziali.
 
-Si tratta di una prova informatizzata, con domande a crocette e aperte.
+Si tratta di una prova informatizzata, con domande a crocette e aperte, della durata totale di 1h30min.
 Le domande tratteranno gli argomenti di teoria (risoluzione di esercizi) e lettura/completamento di R-scripts.

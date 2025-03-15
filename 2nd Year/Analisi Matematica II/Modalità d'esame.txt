@@ -1,0 +1,4 @@
+Esame in presenza composto da varie domande di risoluzione esercizi.
+
+Argomenti sicuramente richiesti:
+- 2 domande su equazioni differenziali di secondo ordine

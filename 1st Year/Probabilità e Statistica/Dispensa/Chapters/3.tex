@@ -122,9 +122,113 @@ Puta caso, devi lavorare con una quantità di dati abnorme; utilizzare la tabell
 	\end{pmatrix}$
 \end{center}
 
+% TODO ----- Aggiungi esempio del mazzo da poker
+
 %
 
 \section{Probabilità condizionata}
+Finora abbiamo utilizzato l'approccio frequentista per il calcolo delle probabilità di un evento, considerandole come a loro stanti. È tuttavia possibile che la probabilità di un evento $A$ possa essere influenzata da un altro $B$. Chiamiamo questo concetto \textbf{probabilità condizionata} e prende la formula matematica:
+\begin{center}
+	$P(A|B) = \dfrac{P(A\cap B)}{P(B)}$
+\end{center}
+Personalmente leggo la formula come "probabilità di $A$ sotto $B$". Quest'ultimo evento può quindi influenzare il primo positivamente, aumentandone la probabilità, oppure negativamente, diminuendola. Un'altra particolarità riguarda lo spazio campionario; essendo che stiamo valutando un'istanza dove $B$ avviene sicuramente, sarà proprio questo lo spazio. Possiamo infatti spaccare le istanze:
+\begin{itemize}
+	\item Succedono $A$ e $B$; quindi la probabilità condizionata.
+	\item Succede $A$, ma non $B$; quindi la probabilità senza influenze.
+\end{itemize}
+È necessario conoscere i valori di entrambe le istanze per il calcolo della probabilità effettiva, infatti compone la seguente:
+\begin{definition}
+	\textbf{Formula delle probabilità totali}\par
+	Formula utilizzata per il calcolo delle probabilità di un evento il cui esperire è condizionato da un altro. Siano $A,B$ due eventi generici.
+	\begin{center}
+		$P(A) = (A|B)P(B) + P(A|B^c)P(B^c)$
+	\end{center}
+	Dove il primo addendo rappresenta la probabilità condizionata ed il secondo quella di $A$ a sé stante.
+\end{definition}
+
+\begin{eg}
+	\textbf{Calcolo di probabilità condizionata}\newline
+	\noindent Siano due urne tali che:
+	\begin{itemize}
+		\item A contiene 2 palline rosse e 4 verdi.
+		\item B contiene 3 palline rosse e 2 verdi.
+	\end{itemize}
+	Si lancia ora un dado; se esce 6 si estrae da A, altrimenti da B. Calcolare la probabilità di estrarre una pallina verde.\par
+	Introduciamo i seguenti due eventi in base al risultato del dado:
+	\begin{enumerate}
+		\item $E$, Il dado mostra $6$.
+		\item $F$, La pallina estratta è verde.
+	\end{enumerate}
+	\noindent Potremmo elencare ogni singola permutazione dati i pochi casi, ma useremo la formula della probabilità totale per pulizia. Attualmente deteniamo i seguenti dati:
+	\begin{itemize}
+		\item $P(F|E) = \frac{4}{6}$, date le $6$ palline di A, di cui $4$ verdi.
+		\item $P(F|E^c) = \frac{2}{5}$, date le $5$ palline di B, di cui $2$ verdi.
+		\item $P(E) = \frac{1}{6}$, probabilità del dado di far uscire $6$.
+		\item $P(E^c) = \frac{5}{6}$, ogni altro numero del dado.
+	\end{itemize}
+	Ciò che abbiamo è sufficiente per utilizzare la formula della probabilità totale. Risulterà infatti:
+	\begin{center}
+		$P(F) = P(F|E)P(E) + P(F|E^c)P(E^c) = \dfrac{4}{6}\times \dfrac{1}{6} + \dfrac{2}{5}\times \dfrac{5}{6} = \dfrac{4}{9}$
+	\end{center}
+\end{eg}
+\noindent Se pensi che sia possibile ottenere algebricamente le altre probabilità della formula, hai avuto un'ottima idea. Infatti per le probabilità condizionate abbiamo un nome apposito, che è:
+\begin{definition}
+	\textbf{Formula e teorema di Bayes}\par
+	Necessaria per il calcolo della singola probabilità condizionata di un evento.
+	\begin{center}
+		$P(A|B) = \dfrac{P(B|A)P(A)}{P(B)}$
+	\end{center}
+	Sia ora ${B_1, B_2, ..., B_n}$ una partizione dello spazio campionario. Ne segue il teorema:
+	\begin{center}
+		$P(B_i|A) = \dfrac{P(A|B_i)P(B_i)}{\sum^n_{j=1} P(A|B_j)P(B_j)}$
+	\end{center}
+\end{definition}
+
+\begin{eg}
+	\textbf{Calcolo di probabilità con formula di Bayes}\par
+	\noindent Abbiamo un esame a 4 risposte multiple. Gli studenti iscritti si dividono in:
+	\begin{itemize}
+		\item Preparato, corrispondente all'80\% del totale. Risponde correttamente al 90\%.
+		\item Impreparato, il 20\% rimanente, che risponde a caso. Quindi hanno un 25\% di azzeccare la risposta.
+	\end{itemize}
+	Qual è la probabilità di prendere l'esame di uno studente preparato fra tutti?\newline
+	
+	\noindent Definiamo gli eventi come $A$, ovvero che lo studente sia preparato, e $B$, quella di azzeccare una risposta, che è necessariamente condizionata dal primo evento. Elenchiamo i dati che abbiamo fin da subito:
+	\begin{itemize}
+		\item $P(A) = 0,8$
+		\item $P(A^c) = 0,2$
+		\item $P(B|A) = 0,9$
+		\item $P(B|A^c) = 0,25$
+	\end{itemize}
+	Dobbiamo trovare $P(A|B)$, ma procediamo per passi. Innanzitutto ci serve $P(B)$, ovvero la probabilità di azzeccare la risposta in generale. Usiamo la formula delle probabilità totali:
+	\begin{center}
+		$P(B) = P(B|A)P(A) + P(B|A^c)P(A^c) = 0,9\times 0,8 + 0,25\times 0,2 = 0,72 + 0,05 = 0,77$
+	\end{center}
+	Ora possiamo muoverci facendo delle asserzioni algebriche. Considera che $P(A|B)P(B) = P(A\cap B) = P(B\cap a) = P(B|A)P(A)$, da cui otteniamo la formula di Bayes: 
+	\begin{center}
+		$P(A|B) = \dfrac{P(B|A)P(A)}{P(B)}$
+	\end{center}
+	La quale, sostituendo le variabili con i loro rispettivi valori, ci darà il risultato:
+	\begin{center}
+		$P(A|B) = \dfrac{0,72}{0,77} = 0.935$
+	\end{center}	
+\end{eg}
+E se invece avessimo due eventi completamente \textbf{indipendenti}? Questi si dicono tali se, dati per esempio A, B, vale la relazione:
+\begin{center}
+	$P(A \cap B) = P(A)P(B)$
+\end{center}
+Per esempio, se lancio due dadi, la probabilità che escano i valori 6 e 5 separatamente è $\frac{1}{36}$, perché mi va bene una sola combinazione. Infatti:
+\begin{center}
+	$P(A \cap B) = \dfrac{1}{6}\times \dfrac{1}{6} = \dfrac{1}{36}$
+\end{center}
+Abbiamo appurato che i due dadi non si influenzano fra di loro. Se ci fossero invece tre eventi avremmo le seguenti relazioni, dati A, B, C:
+\begin{itemize}
+	\item $P(A \cap B \cap C) = P(A)P(B)P(C)$
+	\item $P(A \cap B) = P(A)P(B)$
+	\item $P(A \cap C) = P(A)P(C)$
+	\item $P(B \cap C) = P(B)P(C)$
+\end{itemize}
+Ovviamente, per casi richiedenti più di tre eventi, si dovranno verificare le istanze per tutti i successivi.
 
 %
 

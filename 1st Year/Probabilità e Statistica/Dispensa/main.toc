@@ -9,14 +9,14 @@
 \contentsline {section}{\numberline {3.1}Elementi di probabilità}{13}{}%
 \contentsline {section}{\numberline {3.2}Calcolo della probabilità}{14}{}%
 \contentsline {section}{\numberline {3.3}Probabilità condizionata}{16}{}%
-\contentsline {section}{\numberline {3.4}Variabili aleatorie}{16}{}%
-\contentsline {section}{\numberline {3.5}Distribuzioni congiunte}{16}{}%
-\contentsline {section}{\numberline {3.6}Classi notevoli di variabili aleatorie}{16}{}%
-\contentsline {section}{\numberline {3.7}Statistiche campionarie}{16}{}%
-\contentsline {chapter}{\numberline {4}Statistica Inferenziale}{17}{}%
-\contentsline {chapter}{\numberline {5}Regressione}{19}{}%
-\contentsline {chapter}{\numberline {6}Il Linguaggio R}{21}{}%
-\contentsline {section}{\numberline {6.1}Introduzione}{21}{}%
-\contentsline {section}{\numberline {6.2}Funzioni di base}{22}{}%
-\contentsline {subsection}{\numberline {6.2.1}Variabili e funzioni di uso generale}{22}{}%
-\contentsline {subsection}{\numberline {6.2.2}Vettori e matrici}{23}{}%
+\contentsline {section}{\numberline {3.4}Variabili aleatorie}{20}{}%
+\contentsline {section}{\numberline {3.5}Distribuzioni congiunte}{20}{}%
+\contentsline {section}{\numberline {3.6}Classi notevoli di variabili aleatorie}{20}{}%
+\contentsline {section}{\numberline {3.7}Statistiche campionarie}{20}{}%
+\contentsline {chapter}{\numberline {4}Statistica Inferenziale}{21}{}%
+\contentsline {chapter}{\numberline {5}Regressione}{23}{}%
+\contentsline {chapter}{\numberline {6}Il Linguaggio R}{25}{}%
+\contentsline {section}{\numberline {6.1}Introduzione}{25}{}%
+\contentsline {section}{\numberline {6.2}Funzioni di base}{26}{}%
+\contentsline {subsection}{\numberline {6.2.1}Variabili e funzioni di uso generale}{26}{}%
+\contentsline {subsection}{\numberline {6.2.2}Vettori e matrici}{27}{}%

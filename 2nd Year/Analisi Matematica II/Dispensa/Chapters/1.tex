@@ -128,17 +128,6 @@ Inoltre, se la funzione $B(y)$ è una primitiva di $\frac{1}{b(y)}$ e $A(t)$ una
 
 \begin{eg}
 	\textbf{Risolvere il problema di Cauchy}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	\begin{center}
 		$\begin{cases}
 			y' = ty^3\\
@@ -177,56 +166,95 @@ Inoltre, se la funzione $B(y)$ è una primitiva di $\frac{1}{b(y)}$ e $A(t)$ una
 % TODO ----- Rielabora da qua
 
 \subsection{Equazioni lineari del primo ordine}
+
+
+
+
+
+
+
+
+
+
+
 Tipo di equazioni differenziali ordinarie, dove $F$ è lineare in $y$ e $y'$, le cui soluzioni sono espresse mediante uno spazio vettoriale di dimensione 1. Si presentano nella forma:
 \begin{center}
 	$a_1(t)y'(t) + a_2(t)y(t) = g(t)$
 \end{center}
-Con $a_1$, $a_2$ funzioni continue su un intervallo. Anch'esse detengono una forma normale, ottenibile se il coefficiente $a_1(t)$ non si annulla.
-\begin{center}
-	$y'(t) +a(t)y(t) = f(t)$
-\end{center}
-Anche qui $a$ ed $f$ sono continue sull'intervallo $I \subset R$.\newline
-
-Diciamo inoltre:
+Con $a_1$, $a_2$ funzioni continue su un intervallo. L'equazione può presentarsi in due forme diverse, date $a$ ed $f$ funzioni continue sull'intervallo $I \subset R$:
 \begin{itemize}
-	\item \textbf{Equazione completa} se $f$ non è identicamente nulla; la soluzione si ottiene aggiungendo al suo integrale generale una sua soluzione particolare.
-	\item \textbf{Equazione omogenea} se $f \equiv 0$; la soluzione è generalmente indicata con le z, quindi: $z'(t) + a(t)z(t) = 0$.
+	\item \textbf{Equazione completa o forma normale}; scrivibile se il coefficiente $a_1(t)$ non si annulla.
+	\begin{center}
+		$y'(t) + a(t)y(t) = f(t)$
+	\end{center}
+	Otteniamo la sua soluzione aggiungendone una particolare alla sua curva integrale, definita da un valore conosciuto della costante arbitraria $c$.
+	\item \textbf{Equazione omogenea}; ottenibile ponendo $f(t) = 0$, presenta la seguente forma:
+	\begin{center}
+		$z'(t) + a(t)z(t) = 0$
+	\end{center}
+	Notiamo che le $y$ sono sostituite dalle $z$ per chiarire il tipo di equazione presa in esame.
 \end{itemize}
-Capiamo quindi che il procedimento da attuare si compone di due passi: prima la ricerca di un integrale generale dell'equazione omogenea, poi trovare la soluzione particolare da aggiungere a quella completa.\newline
+Capiamo quindi che il procedimento da attuare si compone di due passi principali: prima la ricerca di un integrale generale dell'equazione omogenea, poi trovare la soluzione particolare da aggiungere a quella completa. Vediamo un esempio:
+\begin{eg}
+	\textbf{Risoluzione equazione differenziale lineare del primo ordine}\par
+	\noindent Consideriamo la seguente semplice equazione:
+	\begin{center}
+		$y'(t) + 3y(t) = 2t$, dove $a(t) = 3$, $f(t) = 2t$ e la primitiva $A(t) = 3t$
+	\end{center}
+	\begin{enumerate}
+		\item \textbf{Ricerca della soluzione generale dell'equazione omogenea}\par
+		\noindent L'equazione omogenea ha forma $y'(t)+a(t)y(t) = 0$, di conseguenza prenderemo quella iniziale ponendo $f(t) = 0$, per poi moltiplicare tutto per l'esponenziale alla primitiva $A(t)$ ed infine ricavare $z'(t)$
+		\begin{center}
+			$z'(t) + 3z(t) = 0 \implies z'(t)e^{3t} + 3z(t)e^{3t} = 0 \implies z'(t)e^{3t} = 0$
+		\end{center}
+		Avendo ottenuto una funzione differenziale, necessitiamo di integrarla per ottenere quello che ci serve.
+		\begin{center}
+			\[\int z'(t)e^{3t} dt = z(t)e^{3t}+c \implies z(t) = ce^{-3t}\]
+		\end{center}
+		Come dici? Hai sbagliato il segno? Forse devo ricordarti il significato di costante \textbf{arbitraria}. Può essere quello che voglio, quando lo voglio.
+		\item \textbf{Metodo di variazione delle costanti per trovare il valore di c}\par 
+		\noindent Il metodo consiste nel trasformare la costante in una funzione. Abbiamo che la soluzione appena trovata è di forma $\overline{y} = ce^{-3t}$, la quale dovrà prendere il posto delle $y$ nell'equazione iniziale, dando la forma:
+		\begin{center}
+			$e^{-3t}(c'(t) -3c(t)) + 3c(t)e^{-3t} = 2t \implies e^{-3t}c'(t) = 2t$
+		\end{center}
+		Ora dobbiamo trovare la funzione $c(t)$, quindi spostiamo gli elementi ed integriamo le due parti.
+		\begin{center}
+			\[c'(t) = 2te^{3t} \implies c(t) = \int 2te^{3t} dt \implies c(t) = \dfrac{2}{3}te^{3t} - \dfrac{2}{9}e^{3t}\]
+		\end{center}
+		Ora, sperando che quello che sto per fare non sia un abusivismo notazionistico, rimuovo l'esponenziale dall'equazione, siccome la funzione della costante è arbitraria e può essere quello che voglio, ottenendo:
+		\begin{center}
+			$c(t) = \dfrac{2}{3}t - \dfrac{2}{9}$
+		\end{center}
+		\item \textbf{Composizione dell'integrale generale dell'equazione completa}\par 
+		\noindent Adesso abbiamo tutte le equazioni necessarie per scrivere la soluzione:
+		\begin{itemize}
+			\item $z(t) = ce^{-3t}$
+			\item $c(t) = \dfrac{2}{3}t - \dfrac{2}{9}$
+		\end{itemize}
+		\begin{center}
+			Soluzione: $y(t) = ce^{-3t} + \dfrac{2}{3}t - \dfrac{2}{9}$
+		\end{center}
+	\end{enumerate}
+\end{eg}
 
-La \textbf{ricerca della soluzione dell'equazione omogenea} inizia moltiplicando ambo i membri dell'equazione per $e^{A(t)}$, dove $A(t)$ è una primitiva di $a(t)$, quindi vale $A'(t) = a(t)$.
-\begin{center}
-	$z'(t)+a(t)z(t) = 0 \implies z'(t)e^{A(t)}+a(t)z(t)e^{A(t)} = 0 \equiv [z(t)e^{A(t)}]'$
-\end{center}
-Ne ricaviamo che: $z(t) = ce^{A(t)} \implies z(t) = ce^{\int a(t)dt}$ e avremo che la forma della soluzione, dove $z_0$ è una soluzione particolare, sarà:
-\begin{center}
-	$z = cz_0$
-\end{center}
-La \textbf{ricerca della soluzione particolare dell'equazione completa} si effettua attraverso il metodo generale di \textbf{variazione delle costanti}. L'idea è trovare una soluzione simile all'equazione legando la costante alla variabile $t$, facendola diventare la funzione $c(t)$. Cercheremo quindi la soluzione di forma:
-\begin{center}
-	$\overline{y}(t) = C(t)e^{-A(t)}$
-\end{center}
-Il nostro compito è determinare la $c(t)$ tale che la funzione $\overline{y}$ risulti la soluzione dell'equazione completa. Andiamo per passi:
-\begin{itemize}
-	\item Otteniamo:
-	\begin{center}
-		$\overline{y}'(t) = c'(t)e^{-A(t)} - c(t)a(t)e^{-A(t)}$
-	\end{center}
-	\item Inserendo le corrispondenti informazioni nell'equazione completa otteniamo:
-	\begin{center}
-		$e^{-A(t)} [c'(t) - c(t)a(t)] + a(t)C(t) e^{-A(t)} = f(t) \implies e^{-A(t)} C'(t) = f(t)$
-	\end{center}
-	\item Da cui $C'(t) = f(t)e^{A(t)}$ e quindi:
-	\begin{center}
-		\[c(t) = \int f(s)e^{A(s)} ds\]
-	\end{center}
-\end{itemize} 
-
-% TODO ----- Continua da qua -----
 %
 
 \section{Equazioni differenziali lineari del secondo ordine}
-Comprende "Generalità", "Struttura dell'integrale generale"
+Un'equazione differenziale è tale se si presenta nella forma:
+\begin{center}
+	$a_2(t)y'' + a_1(t)y' + a_0(t)y = f(t)$
+\end{center}
+\noindent Dove i coefficienti $a_i$ ed il termine noto $f$ sono funzioni definite in un intervallo $I$ dove sono continue. Come in quelle del primo ordine, se il termine noto è $0$, l'equazione si dice \textbf{omogenea}, altrimenti è \textbf{completa}. Inoltre, se le funzioni $a_i$ sono costanti, la chiameremo \textbf{a coefficienti costanti}, in caso contrario sarà a \textbf{coefficienti variabili}. Infine, se $a_2(t) \equiv 1$ si dirà in \textbf{forma normale}.\par
+La chiamiamo lineare perché introducendo un operatore apposito $L$ al primo membro abbiamo che risulta essere un operatore lineare tra gli spazi di funzioni\footnote{Si tratta del concetto di \textbf{classi di funzioni}. La classe C di una funzione indica l'appartenenza della stessa all'insieme delle funzioni derivabili con continuità per n numero di volte.}. Notiamo infatti che:
+\begin{center}
+	$L:C^2(I) \to C^0(I)$\par 
+	$L:y \to Ly$
+\end{center}
+
+% TODO ----- Ricomincia da qua. Da rivedere anche il testo sovrastante della sezione.
+
+
+
 \subsection{Equazioni lineari omogenee a coeffcienti costanti}
 \subsection{Equazioni lineari non omogenee a coefficienti costanti}
 Comprende "Metodo di somiglianza"

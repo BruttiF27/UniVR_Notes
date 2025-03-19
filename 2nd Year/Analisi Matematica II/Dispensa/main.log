@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  14 MAR 2025 17:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  19 MAR 2025 19:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -234,13 +234,13 @@ e
 \c@corollary=\count289
 )
 \c@note=\count290
-LaTeX Font Info:    Trying to load font information for U+msa on input line 14.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 13.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 14.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -271,32 +271,23 @@ stante nella soluzione
  []
 
 [7] [8] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 188--189
-
+Overfull \hbox (12.63986pt too wide) in paragraph at lines 191--192
+[]\OT1/cmr/bx/n/12 Equazione omo-ge-nea\OT1/cmr/m/n/12 ; ot-teni-bile po-nendo 
+$\OML/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 t\OT1/cmr/m/n/12 ) = 0$, p
+re-senta la seguente
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 195--196
-
- []
-
-[10]
-Overfull \hbox (28.08946pt too wide) in paragraph at lines 231--231
+[10] [11]
+Overfull \hbox (28.08946pt too wide) in paragraph at lines 259--259
 []\OT1/cmr/bx/n/14.4 Equazioni lin-eari non omo-ge-nee a co-ef-fi-ci-enti costa
 nti 
  []
 
-)
-Overfull \hbox (3.88496pt too wide) has occurred while \output is active
-\OT1/cmr/m/sl/12 1.3.  EQUAZIONI DIFFERENZIALI LINEARI DEL SECONDO ORDINE \OT1/
-cmr/m/n/12 11
- []
-
-[11] [12
-
-]
+) [12]
 Chapter 2.
-(./Chapters/2.tex) [13] [14
+(./Chapters/2.tex) [13
+
+] [14
 
 ]
 Chapter 3.
@@ -312,7 +303,11 @@ Chapter 5.
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [21] (./main.aux (./Configs/formats.aux)
+(./Chapters/6.tex) [21] [22
+
+]
+Chapter 7.
+(./Chapters/7.tex) [23] (./main.aux (./Configs/formats.aux)
 (./Configs/boxes.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -320,33 +315,33 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3459 strings out of 476182
- 52614 string characters out of 5795596
- 1935975 words of memory out of 5000000
- 25402 multiletter control sequences out of 15000+600000
- 569478 words of font info for 79 fonts, out of 8000000 for 9000
+ 3469 strings out of 476182
+ 52778 string characters out of 5795596
+ 1934975 words of memory out of 5000000
+ 25408 multiletter control sequences out of 15000+600000
+ 569786 words of font info for 80 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 64i,8n,70p,485b,301s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,8n,70p,534b,364s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex8.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl1
-2.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (21 pages, 204953 bytes).
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (23 pages, 217750 bytes).
 PDF statistics:
- 157 PDF objects out of 1000 (max. 8388607)
- 100 compressed objects within 1 object stream
+ 164 PDF objects out of 1000 (max. 8388607)
+ 104 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

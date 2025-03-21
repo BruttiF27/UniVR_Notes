@@ -136,7 +136,7 @@ Inoltre, se la funzione $B(y)$ è una primitiva di $\frac{1}{b(y)}$ e $A(t)$ una
 	\end{center}
 	\begin{enumerate}
 		\item \textbf{Calcola l'integrale generale dell'equazione differenziale}\newline
-		Anzitutto, poniamo $y \neg 0$, poiché a noi serve trovare l'integrale generale, non quello singolare. Procediamo con la separazione delle variabili:
+		Anzitutto, poniamo $y \neq 0$, poiché a noi serve trovare l'integrale generale, non quello singolare. Procediamo con la separazione delle variabili:
 		\begin{center}
 			$y' = ty^3 \implies \dfrac{dy}{dt} = ty^3 \implies \dfrac{dy}{y^3} = t dt$
 		\end{center}
@@ -163,20 +163,9 @@ Inoltre, se la funzione $B(y)$ è una primitiva di $\frac{1}{b(y)}$ e $A(t)$ una
 	\end{enumerate}
 \end{eg}
 
-% TODO ----- Rielabora da qua
+%
 
 \subsection{Equazioni lineari del primo ordine}
-
-
-
-
-
-
-
-
-
-
-
 Tipo di equazioni differenziali ordinarie, dove $F$ è lineare in $y$ e $y'$, le cui soluzioni sono espresse mediante uno spazio vettoriale di dimensione 1. Si presentano nella forma:
 \begin{center}
 	$a_1(t)y'(t) + a_2(t)y(t) = g(t)$
@@ -245,16 +234,134 @@ Un'equazione differenziale è tale se si presenta nella forma:
 	$a_2(t)y'' + a_1(t)y' + a_0(t)y = f(t)$
 \end{center}
 \noindent Dove i coefficienti $a_i$ ed il termine noto $f$ sono funzioni definite in un intervallo $I$ dove sono continue. Come in quelle del primo ordine, se il termine noto è $0$, l'equazione si dice \textbf{omogenea}, altrimenti è \textbf{completa}. Inoltre, se le funzioni $a_i$ sono costanti, la chiameremo \textbf{a coefficienti costanti}, in caso contrario sarà a \textbf{coefficienti variabili}. Infine, se $a_2(t) \equiv 1$ si dirà in \textbf{forma normale}.\par
-La chiamiamo lineare perché introducendo un operatore apposito $L$ al primo membro abbiamo che risulta essere un operatore lineare tra gli spazi di funzioni\footnote{Si tratta del concetto di \textbf{classi di funzioni}. La classe C di una funzione indica l'appartenenza della stessa all'insieme delle funzioni derivabili con continuità per n numero di volte.}. Notiamo infatti che:
+La chiamiamo lineare perché introducendo tra gli spazi di funzioni\footnote{Si tratta del concetto di \textbf{classi di funzioni}. La classe C di una funzione indica l'appartenenza della stessa all'insieme delle funzioni derivabili con continuità per n numero di volte.} un operatore apposito $L$ al primo membro, possiamo notare che ha una dinamica uguale alle applicazioni lineari viste in algebra. Quindi:
 \begin{center}
 	$L:C^2(I) \to C^0(I)$\par 
 	$L:y \to Ly$
 \end{center}
+Noterai sicuramente che $y \in C^2(I)$ e $Ly \in C^0(I)$. Si mantiene lo stesso ragionamento anche per i coefficienti reali $\lambda_i$:
+\begin{center}
+	$L(\lambda_1y_1 + \lambda_2y_2) = \lambda_1Ly_1 + \lambda_2Ly_2$
+\end{center}
+Capiamo che parlando di problemi di Cauchy, l'integrale generale di qualsiasi equazione del secondo ordine avrà necessariamente due parametri arbitrari e due restrizioni. La scrittura completa risulta essere:
+\begin{center}
+	$\begin{cases}
+		y'' + a(t)y' + b(t)y = f(t)\\
+		y(t_0) = y_0\\
+		y'(t_0) = y_1
+	\end{cases}$
+\end{center}
+Dove $a, b, f$ sono funzioni continue nell'intervallo $I$ tale che $t_0 \in I \forall y_0, y_1 \in \mathbb{R}$. Il problema avrà una sola soluzione $y \in C^2(I)$, individuata imponendo le restrizioni.\par 
+La nostra fortuna di poter lavorare con un operatore lineare rende semplice trovare la struttura dell'integrale generale; c'è pure il teorema:
+\begin{theorem}
+	\textbf{Struttura dell'integrale generale dell'equazione lineare completa}\par 
+	\begin{enumerate}
+		\item L'insieme delle soluzioni dell'equazione omogenea $Lz = 0$ in un intervallo $I$ è uno spazio vettoriale e sottospazio di $C^2(I)$.
+		\item L'integrale generale dell'equazione completa si ottiene sommando l'integrale di quella omogenea con una soluzione particolare della prima.
+	\end{enumerate}
+\end{theorem}
+\noindent In particolare, dal primo punto del teorema evinciamo che ci saranno due soluzioni dell'equazione omogenea $z_1(t), z_2(t)$ linearmente indipendenti ed ogni altra soluzione dell'omogenea è combinazione lineare delle $z_i(t)$. Quindi l'integrale generale sarà dato dalla formula:
+\begin{center}
+	$c_1z_1(t) + c_2z_2(t)$, con $c_i$ costanti arbitrarie.
+\end{center}
+Talvolta risulterà dubbio se le soluzioni sono linearmente dipendenti o meno, ed esattamente per questo ci viene in soccorso l'algebra lineare con la nozione di determinante:
+\begin{theorem}
+	\textbf{Matrice Wronksiana per controllo indipendenza lineare}\par 
+	Il controllo è molto semplice; creiamo una matrice 2x2 dove la prima riga è costituita dalle soluzioni, mentre la seconda dalle loro derivate prime. Se il calcolo del determinante $det(Mat) = ad-cb \neq 0$, allora le soluzioni saranno linearmente indipendenti. In caso contrario se ne dovranno cercare delle altre.
+	\begin{center}
+		$Mat = \begin{pmatrix}
+			z_1(t) & z_2(t)\\
+			z_1'(t) & z_2'(t)
+		\end{pmatrix}$
+	\end{center}
+\end{theorem}
+\begin{eg}
+	\textbf{Determinazione soluzioni dell'equazione omogenea di second'ordine}\par
+	\noindent Consideriamo la seguente equazione differenziale omogenea di secondo ordine:
+	\begin{center}
+		$t^2z'' - 3tz' + 3z = 0$, per Ansatz: $z_1 = t$ e $z_2 = t^3$
+	\end{center}
+	Grazie al nostro approccio avremo di conseguenza:
+	\begin{itemize}
+		\item $z_1 = t \implies z_1' = 1 \implies z_1'' = 0$
+		\item $z_2 = t^3 \implies z_2' = 3t^2 \implies z_2'' = 6t$
+	\end{itemize}
+	Verifichiamo se sostituendo gli elementi trovati l'equazione si annulla:
+	\begin{itemize}
+		\item $t^2z_1'' - 3tz_1' + 3z_1 = 0 \implies t^2\times 0 - 3t\times 1 + 3\times t = 0 \implies -3t+3t = 0$
+		\item $t^2z_2'' - 3tz_2' + 3z_2 = 0 \implies t^2\times 6t -3t\times 3t^2 + 3\times t^3 \implies 6t^3 - 9t^3 + 3t^3 = 0$
+	\end{itemize}
+	Abbiamo confermato che quelle trovate sono soluzioni valide per l'equazione omogenea. Sono tuttavia linearmente dipendenti? Effettuiamo il check con la matrice Wronskiana:
+	\begin{center}
+		$Mat = \begin{pmatrix}
+			z_1(t) & z_2(t)\\
+			z_1'(t) & z_2'(t)
+		\end{pmatrix} = \begin{pmatrix}
+			t & t^3\\
+			1 & 3t^2
+		\end{pmatrix}$\newline
+		
+		$det(Mat) = ad - cb = (t\times 3t^2) - (1\times t^3) = 2t^2 \neq 0$
+	\end{center}
+	Soluzioni valide e linearmente indipendenti. Meglio di così? Resta solo scrivere la soluzione generale dell'omogenea:
+	\begin{center}
+		$z(t) = c_1z_1 + c_2z_2 = c_1t + c_2t^3$
+	\end{center}
+\end{eg}
+\noindent Premetto che non sarà sempre possibile risolvere un'equazione differenziale di secondo ordine, ma è normale che sia così; non ci vogliamo ancora così male. Per questa ragione ci soffermeremo solamente sui due casi particolari trattati nelle successive sezioni; tuttavia il seguente procedimento generale per gli esercizi trattati è universale. Facciamone il punto:
+\begin{enumerate}
+	\item Determinare la curva integrale generale dell'equazione omogenea, trovando due sub-soluzioni $z_1,z_2$ linearmente indipendenti.
+	\item Determinare la soluzione particolare dell'equazione completa.
+	\item Scrivere la curva integrale generale dell'equazione completa in forma: $y(t) = \overline{y}(t) + c_1z_1(t) + c_2z_2(t)$
+\end{enumerate}
 
-% TODO ----- Ricomincia da qua. Da rivedere anche il testo sovrastante della sezione.
-
-
+% 
 
 \subsection{Equazioni lineari omogenee a coeffcienti costanti}
+Nominata all'inizio della sezione, riprendiamo l'equazione differenziale lineare del secondo ordine \textbf{a coefficienti costanti}:
+\begin{center}
+	$z''(t) + az'(t) + bz(t) = 0$, dove $a, b$ sono valori costanti.
+\end{center}
+Come in quelle di primo ordine, risulta comodo ricercare soluzioni di tipo esponenziale $t \to e^{rt}$, con $r \in \mathbb{C}$. La prima furbata sta qui; la derivata dell'esponenziale non varia, quindi se sostituiamo $e^{rt}$ ad ogni $z$, potremo raccogliere il primo, per poi rimuoverlo completamente dall'equazione in quanto valore sicuramente positivo.
+\begin{center}
+	$e^{rt}(r^2 + ar + b) = 0 \implies r^2+ar+b = 0$
+\end{center}
+Questa equazione ottenuta si dice \textbf{equazione caratteristica} ed è risolvibile come una normalissima equazione di secondo grado, con la formula del discriminante $\Delta = a^2 - 4b$. In tal merito, ci è possibile distinguere tre casi:
+\begin{itemize}
+	\item $\Delta > 0$; L'equazione caratteristica avrà due radici reali e distinte $r_1,r_2$, quindi le funzioni $z_1(t) = e^{r_1t}$ e $z_2(t) = e^{r_2t}$ saranno due soluzioni distinte e indipendenti dell'equazione omogenea. St tratta del caso più semplice e l'integrale si scrive come:
+	\begin{center}
+		$z(t) = c_1e^{r_1t} + c_2e^{r_2t}$
+	\end{center}
+	\item $\Delta = 0$; L'equazione caratteristica avrà una sola radice con doppia molteplicità, quindi $r = -\frac{a}{2}$. Abbiamo quantomeno la sicurezza che una soluzione è data da:
+	\begin{center}
+		$z(t) = ce^{-\frac{a}{2}t}$
+	\end{center}
+	Mentre per l'altra sarà necessario utilizzare il metodo di variazioni delle costanti, ponendo il valore $c(t)$. Otteniamo:
+	\begin{center}
+		$z(t) = c(t)e^{rt}$, dove $r = -\dfrac{a}{2}$
+	\end{center}
+	Da cui derivata prima e seconda sono:
+	\begin{itemize}
+		\item $z'(t) = e^{rt}(rc(t) + c'(t))$
+		\item $z''(t) = e^{rt}(r^2c(t) + 2rc'(t) + c''(t)$
+	\end{itemize}
+	E sostituendo tutto all'equazione iniziale otteniamo:
+	\begin{center}
+		$e^{rt}[(r^2+ar+b)c(t) + (2r+a)c'(t) + c''(t)] = 0$
+	\end{center}
+	Notiamo in primis che $r$ è soluzione dell'equazione caratteristica, quindi il coefficiente $c(t)$ si annulla, come d'altronde lo fa anche $c'(t)$, perché risulta $a-a = 0$. Quindi la nostra equazione omogenea "variata" deve risultare necessariamente $c''(t) = 0$, da cui $c(t) = c_2t + c_1$. Scriveremo quindi come segue la soluzione generale dell'omogenea:
+	\begin{center}
+		$z(t) = e^{-\frac{a}{2}t}(c_2t + c_1)$
+	\end{center}
+	
+	% TODO ----- CONCLUDI IL TERZO CASO
+	
+	\item $\Delta < 0$
+\end{itemize}
+
+% TODO ----- INSERIRE ESEMPIO
+
+%
+
 \subsection{Equazioni lineari non omogenee a coefficienti costanti}
-Comprende "Metodo di somiglianza"
+metodo di sovrapposizione e metodo di somiglianza

@@ -233,6 +233,77 @@ Ovviamente, per casi richiedenti più di tre eventi, si dovranno verificare le i
 %
 
 \section{Variabili aleatorie}
+Le variabili aleatorie sono quantità numeriche il cui valore dipende dall'esito di un esperimento aleatorio; si indicano con $X, Y, Z$. La loro primaria utilità sta nel consentirci di poter considerare un risultato specifico al posto di ogni singolo evento.\par 
+Per esempio, diciamo di lanciare due dadi e voler sapere la somma dei valori dei numeri che escono. Allora la variabile $X$ potrà assumere un valore dell'evento $x$ tale che:
+\begin{center}
+	$[(x\in S) \land (2 \leq x \leq 12)]$, dove $S$ è lo spazio campionario.
+\end{center}
+\noindent Possiamo inoltre ragionarci con la probabilità. Diciamo di voler effettuare un numero $n$ di lanci e che ci interessi vedere le chances che esca un dato numero. In questo caso $X$ sarà il valore totale dei successi ottenuti e la probabilità sarà data da $P(X = x)$.\newline
+
+\noindent Di variabili aleatorie ne esistono due tipi:
+\begin{itemize}
+	\item \textbf{Discrete}; Se i valori che può assumere sono finiti o al più numerabili; quindi in un insieme $S = \{x_1, x_2, ..., x_n, ...\}$. Da questo spazio sappiamo che il calcolo della sua probabilità si effettua con la \textbf{funzione di massa}:
+	\begin{center}
+		$p(x) = P(X = x)$, dove grazie all'algebra vale $p(x_1), p(x_2), ..., p(x_n)$
+	\end{center}
+	Siccome stiamo considerando valori reali, è possibile che $X$ non possa assumere ogni numero. In questo caso il valore della probabilità dell'esito non possibile sarà, ovviamente, zero. Agli antipodi sta la probabilità massima, data dalla somma di tutte le chances di ogni esito. Sarà uguale ad uno, quindi $\sum_{x \in R} p(x) = 1$.
+	\item \textbf{Continue}; Se esiste una funzione $f(x)$ detta \textbf{densità} della variabile aleatoria tale che per ogni insieme $A \subseteqq R$ si ha:
+	\begin{center}
+		\[P(X \in A) = \int_A f(x) dx\]
+	\end{center}
+	La ragione per cui è richiesto un integrale è che questo tipo di variabile aleatoria può assumere un range di valori reali. Essendo loro pressoché infiniti, rendendo anche la probabilità di esperirne uno solo infima, è necessario considerarli come una collettività. Altri casi sono:
+	\begin{center}
+		\[\int^b_a f(x)dx = P(a \leqq X \leqq b), \int^{+\infty}_0 f(x)dx = P(X \geqq 0), \int^{+\infty}_{-\infty} f(x) dx = 1\]
+	\end{center}
+\end{itemize}
+\noindent Ora possiamo introdurre un nuovo concetto importante:
+\begin{definition}
+	\textbf{Valore atteso}\par
+	\noindent Si tratta della media pesata dei possibili valori che $X$ può assumere e si scrive:
+	\begin{itemize}
+		\item Per variabili discrete: \[E(X) = \sum_{x \in R} xp(x) = x_1p(x_1) + x_2p(x_2) + ... + x_np(x_n)\]
+		\item Per variabili continue: \[E(X) = \int^{+\infty}_{-\infty} xf(x) dx\]
+	\end{itemize}
+\end{definition}
+\noindent Per eventuali diverse forme di X basta sostituire la forma alle $x_i$ piccole. Per esempio, sostituiremo $X^2$ come $x^2$ dove stanno tutte le $x$ nella formula.
+\begin{eg}
+	\textbf{Calcolo del valore atteso della variabile aleatoria discreta $X^2$}
+	\[E(X^2) = \sum_{x \in R} x^2p(x) = x^2_1p(x_1) + x^2_2p(x_2) + ... + x^2_np(x_n)\]
+\end{eg}
+
+% TODO ----- INSERISCI ESEMPIO PRATICO DI CALCOLO
+
+\noindent Questa formula viene con delle proprietà, le quali sono differenti per i due tipi di variabili in gioco:
+\begin{itemize}
+	\item $E(aX + b) = aE(X) + b$, dove $a,b \in \mathbb{R}$.
+	\item Con $X,Y$ variabili aleatorie dipendenti da uno stesso esperimento: $E(X + Y) = E(X) + E(Y)$.
+	\item Valore atteso di una funzione di variabile aleatoria: $E(g(X)) = \sum_{x \in R} g(x)p(x)$.
+\end{itemize}
+\noindent Per le variabili continue:
+\begin{itemize}
+	\item \[E(X) = \int_{-\infty}^{+\infty} xf(x) dx\]
+	\item \[E(g(X)) = \int_{-\infty}^{+\infty} g(x)f(x) dx\]
+\end{itemize}
+\noindent In tal merito, sia una variabile aleatoria $X$ con il rispettivo valore atteso $\mu$, quindi $E(X) = \mu$. Da qui possiamo ottenere il concetto di \textbf{varianza}, ovvero il valore atteso degli scarti.
+\begin{center}
+	$Var(X) = E[(X-\mu)^2] = E(X^2) - \mu^2$ (grazie all'algebra)
+\end{center}
+\noindent Per calcolare questo valore abbiamo bisogno di due elementi: il valore atteso $E(X)$ e al quadrato $E(X^2)$. I calcoli sono diversi in base al tipo di variabile preso in esame:
+\begin{enumerate}
+	\item Valore atteso grado 1:\par 
+	\[\mu = E(X) = \begin{cases}
+		\sum_{x \in R} xp(x)\\
+		\int^{+\infty}_{-\infty} xf(x)dx
+	\end{cases}\]
+	\item Valore atteso al quadrato:
+	\[E(X^2) = \begin{cases}
+		\sum_{x^2 \in R} x^2p(x)\\
+		\int^{+\infty}_{-\infty} x^2f(x)dx
+	\end{cases}\]
+\end{enumerate}
+\noindent Notare infine come ultima cosa che la varianza è un valore compreso fra $0$ e $1$.
+
+% TODO ----- AGGIUNGI ESEMPIO CON ESERCIZIO
 
 %
 

@@ -308,6 +308,41 @@ Per esempio, diciamo di lanciare due dadi e voler sapere la somma dei valori dei
 %
 
 \section{Distribuzioni congiunte}
+Può capitare di lavorare con variabili dipendenti da uno stesso esperimento. In tal caso avremo una funzione di massa \textbf{congiunta} scritta come:
+\begin{center}
+	$p_{X,Y}(x,y) = P(X = x, Y = y)$, con $X,Y$ variabili aleatorie discrete.
+\end{center}
+\noindent Per esempio, lanciamo un dado e definiamo le due variabili aleatorie discrete:
+\begin{itemize}
+	\item X = punteggio più basso.
+	\item Y = punteggio più alto.
+\end{itemize}
+\noindent Ne deriva necessariamente che, volendo sapere la probabilità che esca un certo numero:
+\begin{itemize}
+	\item $P_{X,Y}(1,1) = P(X = 1, Y = 1) = \frac{1}{36}$, perché in ambo i lanci è uscito 1.
+	\item $P_{X,Y}(1,2) = P(X = 1, Y = 2) = \frac{1}{18}$, perché stai sommando le probabilità che escano i numeri nell'ordine $(1,2), (2,1)$. Ciò risulta ovviamente più probabile piuttosto che due numeri singoli.
+\end{itemize}
+\noindent Un'altra cosa importante è che ci è possibile ottenere la funzione di massa di una singola variabile a partire da quella congiunta\footnote{Non è possibile il contrario, tuttavia. Soffri.}, infatti:
+\begin{itemize}
+	\item $P(X = x) = p(x) = \sum_{y \in \mathbb{R}} p_{X,Y}(x,y)$
+	\item $P(Y = y) = p(y) = \sum_{x \in \mathbb{R}} p_{X,Y}(x,y)$
+\end{itemize}
+\noindent In questo contesto, le funzioni di massa $p_X, p_Y$ sono dette \textbf{marginali}. Come ben penserai, è possibile calcolare il valore atteso di una funzione di due variabili aleatorie nel seguente modo:
+\begin{center}
+	\[E[g(X,Y)] = \sum_{x,y \in R} g(x,y)p_{X,Y}(x,y)\]
+\end{center}
+\begin{definition}
+	\textbf{Variabili aleatorie indipendenti}\par
+	\noindent Due variabili aleatorie si dicono tali se valgono le seguenti relazioni:
+	\begin{enumerate}
+		\item $P(X \in A, Y \in B) = P(X \in A)P(Y \in B)$.
+		\item $P(X \in A | Y \in B) = P(X \in A)$, equivalente alla prima.
+		\item $P(X \in B | Y \in A) = P(X \in B)$, equivalente alla prima.
+		\item $P_{X,Y}(x,y) = p_X(x)p_Y(y)$.
+	\end{enumerate}
+\end{definition}
+
+% TODO ----- IL PROF DEVE SPIEGARE COVARIANZA
 
 %
 

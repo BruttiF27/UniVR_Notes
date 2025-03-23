@@ -1,65 +1,143 @@
 \section{Introduzione}
 R è linguaggio di programmazione. Viene utilizzato per l'analisi statistica dei dati e la loro visualizzazione, statistica descrittiva, machine learning, manipolazione dei dati, datamining e anche nella ricerca scientifica.\par
-Si tratta di un codice open-source, la cui sintassi è estremamente flessibile e a tratti simile a C. R è poi diviso in pacchetti, ovvero insiemi di funzioni create da altri utenti. In particolare vedremo:
+Basato su un codice open-source, la sua sintassi è estremamente flessibile e a tratti simile a C. È inoltre un linguaggio diviso in pacchetti, ovvero insiemi di funzioni create da altri utenti. In particolare vedremo:
 \begin{itemize}
 	\item \textbf{ggplot2}; usato per la creazione dei grafici.
 	\item \textbf{dplyr}; usato per la manipolazione dei dati.
 \end{itemize}
-I files con dominio ".r" sono detti \textbf{R-Scripts}; infatti ciò che andremo a scrivere e far elaborare dal software sono fondamentalmente dei testbench per ritornare determinati risultati o comportamenti. Per lavorare su di essi è necessario l'uso del terminale, e dove è possibile utilizzare l'interfaccia di R innata, è consigliato, e così faremo nel corso, l'ambiente di sviluppo \textbf{R Studio}. Spiegare un IDE esula dallo scopo della dispensa, arrangiati e leggi le relative documentazioni.\par
+I files con dominio ".R" sono detti \textbf{R-Scripts}; infatti ciò che andremo a scrivere e far elaborare dal software sono fondamentalmente dei testbench per ritornare determinati risultati o comportamenti. Per lavorare su di essi è necessario l'uso del terminale, e dove è possibile utilizzare l'interfaccia di R innata, è consigliato, e così faremo nel corso, utilizzare l'ambiente di sviluppo \textbf{R Studio}. Spiegare un IDE esula dallo scopo della dispensa, arrangiati e leggi le relative documentazioni.\par
 Installato R Studio avremo davanti il terminale, l'ambiente dei dati e una terza interfaccia variabile per i grafici, manuale e tant'altro. Abbiamo nominato dei pacchetti con i quali andremo a lavorare; questi devono essere installati con il seguente comando:
 \begin{verbatim}
 	> install.package("nomePacchetto")
 \end{verbatim}
-Abbiamo tutto e adesso possiamo iniziare a lavorare col linguaggio.
+Prima di iniziare, tengo a ricordare che un codice scritto bene è nella maggior parte del tempo autoesplicativo e l'utilizzo dei commenti è richiesto solamente in casi dove sarebbe impossibile arrivare al senso da soli. Detto ciò:
+\begin{verbatim}
+	# Questo è un commento
+\end{verbatim}
+\noindent Ho utilizzato due scritture diverse. Nel corso della sezione sarà considerata scrittura al terminale qualunque cosa vada dopo il carattere ">", altrimenti è uno script su file .R. Ora che abbiamo tutto pronto possiamo iniziare a lavorare col linguaggio.
 
 %
 
-\section{Funzioni di base}
-Come ben saprai, ogni linguaggio di programmazione ha le sue caratteristiche base, ma una cosa che li accomuna è la necessità di renderlo chiaro, leggibile e funzionale. In tal merito, possiamo scrivere dei commenti con "\#", tenendo sempre a mente che è sempre meglio scrivere codice autoesplicativo. Inoltre, se mai dovessi avere problemi a ricordare la logica delle funzioni puoi utilizzare la sezione help di R Studio.
-
-%
-\subsection{Variabili e funzioni di uso generale}
-La dichiarazione di una variabile è molto semplice; bisogna solamente tenere a mente tre restrizioni del linguaggio:
+\section{Variabili, operatori e costrutti}
+Partiamo da dei semplici outputs. R ci consente di stampare a video direttamente stringhe, numeri ed operazioni senza che esse vengano contenute in una variabile:
+\begin{verbatim}
+	> "Hello World!" # Stampa la stringa Hello World!
+	> 27 # Stampa il numero 27
+	> 5 + 5 # Stampa il numero 10
+\end{verbatim}
+\noindent La dichiarazione di variabili è molto semplice; bisogna solamente tenere a mente tre restrizioni del linguaggio:
 \begin{itemize}
 	\item R è case-sensitive. Quindi "Palle" $\neq$ "palle".
 	\item Le variabili dichiarate non possono iniziare con un numero.
 	\item Le variabili dichiarate non possono essere dichiarate con un nome uguale ad una parola chiave.
 \end{itemize}
-Chiarito ciò, è possibile dichiarare variabili con le stesse dinamiche di C, infatti:
+\noindent Chiarito ciò, è possibile dichiararle come segue:
 \begin{verbatim}
 	> A <- 1+1		# Dichiaro A col valore 2
 	> A				# Stampo la variabile A	a video
 	> A <- NULL		# Rendo la variabile vuota
+	> remove(A)		# Rimuove la variabile dall'ambiente
 \end{verbatim}
-Non c'è bisogno di utilizzare un tipo, in quanto l'allocazione della memoria è gestita dal linguaggio stesso. La variabile viene salvata nell'\textbf{ambiente} di lavoro, ed è utilizzabile fin quando non la si rimuove; cosa che può essere fatta manualmente o col comando "remove(nomeVariabile)".\par 
-Ovviamente, se le variabili contengono valori è possibile effettuare operazioni aritmetiche. Inoltre, esistono due semplici funzioni per familiarizzare con la loro logica:
+\noindent R supporta i seguenti tipi di dato, assegnati automaticamente all'inizializzazione della variabile:
 \begin{itemize}
-	\item Per il calcolo della media: mean(x, ...)
-	\item Per il calcolo della mediana: median(x, na.rm = FALSE, ...)
+	\item Numerico, come $[2, 10, 3.75]$. Considera quindi anche i razionali.
+	\item Intero, come $[10L, 32L, 99L]$. La lettera L è necessaria per dichiarare il numero come intero.
+	\item Complesso, come $[2i, 4i, 28i]$. La i indica l'unità immaginaria.
+	\item Carattere, come $["a", "Pallw", "30", "TRUE"]$. Notare che qualunque cosa all'interno di apici verrà visto come stringa.
+	\item Booleano, come $[TRUE, FALSE]$. Autoesplicativo, dai.
 \end{itemize}
-Nella funzione della mediana notiamo la parola "na.rm"; si tratta di un valore logico con il quale decidere se contare o meno i valori "NA", ovvero \textbf{Not Available}. Inoltre, finora abbiamo stampato le singole variabili, ma se volessimo aggiungere delle semplici stringhe? Guarda, un gattino!
+\noindent L'allocazione della memoria è gestita dal linguaggio stesso e la variabile viene salvata nell'\textbf{ambiente} di lavoro. Questa rimane utilizzabile fin quando non la si rimuove.\par 
+È possibile controllare il tipo di una variabile con la funzione "class(nomeVariabile)". Vediamo ora un esempio di stampa di stringhe insieme a variabili utilizzeremo la funzione di concatenazione:
 \begin{verbatim}
-	> A <- 27
-	> cat("Guarda, il gattino numero", A)
+	> c1 <- c2 <- c3 <- "A" # Associa il carattere "A" a multiple variabili.
+	> class(c1)
+	> cat("Questo gioco è un:", c1, c2, c3)
 \end{verbatim}
-Il comando dato stamperà a video la stringa e il valore della variabile A. La sintassi è semplice da ricordare pensando a Java, oppure al significato del comando: \textbf{concatenazione}. Segue ora esempio di codice con quanto esposto finora:
+\noindent Passiamo alla matematica del linguaggio. Come già menzionato è possibile effettuare le quattro operazioni elementari, esponente, modulo e divisione intera con rispettivamente $[+, -, *, /, ^, \%\%, \%/\%]$, ma esistono anche funzioni diverse per facilitarci la vita:
 \begin{verbatim}
-	# Assegno i valori 24, 25, 28 alle rispettive variabili A, B, C
-	> A <- 24
-	> B <- 25
-	> C <- 28
-	
-	# Calcolo la media e la mediana e le salvo in due variabili
-	> mn <- mean(A, B, C)
-	> md <- median(c(24, 25, 28))
-	
-	# Stampo a video i risultati
-	> cat("Media:", mn, "Mediana:", md)
+	...
+	abs(-4.2)			# Torna il valore assoluta del dato inserito
+	sqrt(9)				# Torna la radice quadrata del dato inserito
+	min(10, 5, 15)		# Torna il valore minimo dei dati inseriti
+	max(10, 5, 15)		# Torna il massimo dei dati inseriti
+	ceiling(1.4)		# Torna il numero approssimato per eccesso (2)
+	floor(1.4)			# Torna il numero approssimato per difetto (1)
+	...
 \end{verbatim}
-La riga della mediana fa da apripista per il prossimo argomento.
+\noindent Abbiamo poi i comparatori la cui sintassi è uguale spiccicata a C:
+\begin{verbatim}
+	x == y 	# x uguale a y
+	x != y	# x diverso da y
+	x < y	# x minore di y
+	x <= y	# x minore o uguale a y
+	x > y	# x maggiore di y
+	x >= y	# x maggiore o uguale a y
+\end{verbatim}
+\noindent Come anche gli operatori logici:
+\begin{verbatim}
+	&&	# AND logico, torna vero se lo sono ambo gli elementi
+	||	# OR logico, torna vero se lo è almeno un elemento
+	!	# NOT logico, inverte il valore dell'elemento
+\end{verbatim}
+\noindent Passiamo a qualcosa di più serio, ma ugualmente semplice; R mantiene i costrutti condizionali e i cicli, quindi abbiamo le costruzioni "if else", "while" e "for".
+\begin{verbatim}
+	a <- 200
+	b <- 33
+	
+	# Funzionamento del costrutto if else
+	if (b > a) {
+		print("b is greater than a")
+	} else if (a == b) {
+		print("a and b are equal")
+	} else {
+		print("a is greater than b")
+	}
+	
+	c <- 40
+	
+	# Funzionamento del costrutto while
+	while(b < c) {
+		# Esegui il codice
+		b <- b+1
+	}
+	
+	dice <- c(1, 2, 3, 4, 5, 6)
+	
+	# Funzionamento del costrutto for
+	for (x in dice) {
+		print(x)
+	} 
+\end{verbatim}
+\noindent Per la strutturazione corretta di uno script più complesso sarà necessario dividere il tutto in funzioni:
+\begin{verbatim}
+	my_function <- function(x) {
+		return (5 * x)
+	}
+	
+	print(my_function(3))
+	print(my_function(5))
+	print(my_function(9))
+\end{verbatim}
 
 %
-\subsection{Vettori e matrici}
+
+\section{Strutture dati di R}
+R consente la scrittura di semplici programmi con i costrutti appena visti, ma detiene anche sei strutture dati di tipo più astratto:
+\begin{itemize}
+	\item Vettori; Una lista di oggetti dello stesso tipo.
+	\item Liste; Collezioni di dati ordinate e modificabili.
+	\item Matrici; Dataset a due dimensioni composto da righe e colonne.
+	\item Array; Collezione di elementi che può avere più di due dimensioni.
+	\item Dataframes; Collezione di dati di vario tipo salvata in un format matriciale.
+	\item Fattori; Utilizzati per la categorizzazione dei dati.
+\end{itemize}
+
+
+
+% TODO ----- CORREGGI
+
+
+
 I vettori e matrici sono tali e quali a quelli che hai potuto apprezzare in programmazione C. Ciò significa che condividono le loro caratteristiche, anzi in alcune funzioni risulta più accessibile R, ma andiamo con ordine.\newline
 
 \noindent Abbiamo più modi per dichiarare un vettore, ognuno con la propria ragion d'essere:
@@ -107,3 +185,36 @@ Le operazioni utilizzabili dalle matrici seguono quelle viste in algebra lineare
 	\item rowMeans(), colMeans(): Calcola la media dei valori di ogni riga o colonna. 
 	\item dim(): Calcola la dimensione di una matrice.
 \end{itemize}
+
+%
+
+\section{Funzioni di R per i grafici}
+
+%
+
+\section{Funzioni di R per la statistica}
+
+% TODO ----- CORREGGERE
+
+Ovviamente, se le variabili contengono valori è possibile effettuare operazioni aritmetiche. Inoltre, esistono due semplici funzioni per familiarizzare con la loro logica:
+\begin{itemize}
+	\item Per il calcolo della media: mean(x, ...)
+	\item Per il calcolo della mediana: median(x, na.rm = FALSE, ...)
+\end{itemize}
+Nella funzione della mediana notiamo la parola "na.rm"; si tratta di un valore logico con il quale decidere se contare o meno i valori "NA", ovvero \textbf{Not Available}. 
+
+Segue ora esempio di codice con quanto esposto finora:
+\begin{verbatim}
+	# Assegno i valori 24, 25, 28 alle rispettive variabili A, B, C
+	> A <- 24
+	> B <- 25
+	> C <- 28
+	
+	# Calcolo la media e la mediana e le salvo in due variabili
+	> mn <- mean(A, B, C)
+	> md <- median(c(24, 25, 28))
+	
+	# Stampo a video i risultati
+	> cat("Media:", mn, "Mediana:", md)
+\end{verbatim}
+La riga della mediana fa da apripista per il prossimo argomento.

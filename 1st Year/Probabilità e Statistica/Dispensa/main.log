@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  23 MAR 2025 18:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  24 MAR 2025 11:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -281,7 +281,7 @@ Overfull \hbox (13.7781pt too wide) in paragraph at lines 31--32
 i nu-meri nell'insieme. 
  []
 
-[8] [9] [10] [11]) [12]
+[8] [9] [10]) [11] [12]
 Chapter 3.
 (./Chapters/3.tex
 Overfull \hbox (17.91243pt too wide) in paragraph at lines 15--16
@@ -382,30 +382,37 @@ Overfull \hbox (60.77522pt too wide) in paragraph at lines 55--55
 le variabili.[] 
  []
 
-[31] [32]
-Underfull \hbox (badness 10000) in paragraph at lines 141--142
-
- []
-
-[33]
-Overfull \hbox (11.3752pt too wide) in paragraph at lines 177--177
+[31] [32] [33]
+Overfull \hbox (11.3752pt too wide) in paragraph at lines 192--192
 [] \OT1/cmtt/m/n/12 # Dichiarazione di una matrice, lega i due vettori come col
 onne.[] 
  []
 
-
-Overfull \hbox (2.28065pt too wide) in paragraph at lines 184--185
+[34]
+Overfull \hbox (2.28065pt too wide) in paragraph at lines 199--200
 []\OT1/cmr/m/n/12 rowSums(), col-Sums(): Fanno la somma dei val-ori di ogni rig
 a o colonna. 
  []
 
-[34]
-Overfull \hbox (5.2002pt too wide) in paragraph at lines 219--219
+[35]
+Overfull \hbox (36.07521pt too wide) in paragraph at lines 244--244
+[] \OT1/cmtt/m/n/12 # Dichiaro il fattore f1 col set marital_status di relativi
+ elementi[] 
+ []
+
+
+Overfull \hbox (5.2002pt too wide) in paragraph at lines 244--244
+[] \OT1/cmtt/m/n/12 f1 <- marital_status <- factor(c("married", "single", "sing
+le",[] 
+ []
+
+[36]
+Overfull \hbox (5.2002pt too wide) in paragraph at lines 302--302
 [] \OT1/cmtt/m/n/12 # Assegno i valori 24, 25, 28 alle rispettive variabili A, 
 B, C[] 
  []
 
-) [35] (./main.aux (./Configs/formats.aux))
+[37]) [38] (./main.aux (./Configs/formats.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -440,10 +447,10 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (35 pages, 289185 bytes).
+Output written on main.pdf (38 pages, 294228 bytes).
 PDF statistics:
- 227 PDF objects out of 1000 (max. 8388607)
- 147 compressed objects within 2 object streams
+ 239 PDF objects out of 1000 (max. 8388607)
+ 156 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

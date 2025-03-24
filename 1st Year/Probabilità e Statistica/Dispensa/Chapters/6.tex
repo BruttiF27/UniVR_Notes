@@ -127,20 +127,11 @@ R consente la scrittura di semplici programmi con i costrutti appena visti, ma d
 	\item Vettori; Una lista di oggetti dello stesso tipo.
 	\item Liste; Collezioni di dati ordinate e modificabili.
 	\item Matrici; Dataset a due dimensioni composto da righe e colonne.
-	\item Array; Collezione di elementi che può avere più di due dimensioni.
+	\item Array; Collezione di elementi dello stesso tipo che può avere più di due dimensioni.
 	\item Dataframes; Collezione di dati di vario tipo salvata in un format matriciale.
 	\item Fattori; Utilizzati per la categorizzazione dei dati.
 \end{itemize}
-
-
-
-% TODO ----- CORREGGI
-
-
-
-I vettori e matrici sono tali e quali a quelli che hai potuto apprezzare in programmazione C. Ciò significa che condividono le loro caratteristiche, anzi in alcune funzioni risulta più accessibile R, ma andiamo con ordine.\newline
-
-\noindent Abbiamo più modi per dichiarare un vettore, ognuno con la propria ragion d'essere:
+\noindent Andiamo con ordine; i \textbf{vettori} sono tali e quali a quelli visti nel linguaggio C; ciò significa che rispetteranno le stesse dinamiche, ma in R detengono anche modalità di accesso e modifica più ampie. Anzitutto, abbiamo più modi per dichiarare un vettore:
 \begin{verbatim}
 	# Vettore di elementi 5, 10, 15, 20, 25
 	> v1 <- c(5, 10, 15, 20, 25)
@@ -153,29 +144,53 @@ I vettori e matrici sono tali e quali a quelli che hai potuto apprezzare in prog
 	# Accesso al valore del vettore v1 in posizione 1
 	> v1[1]
 \end{verbatim}
-Come puoi vedere, è possibile utilizzare il vettore come una semplice variabile senza che il compilatore si lagni. Ciò significa che anche per le funzioni di base precedenti, come media e mediana, è possibile usare i vettori. Seguono ulteriori funzioni utili:
+\noindent Come puoi vedere, è possibile utilizzare il vettore come una semplice variabile senza che il compilatore si lagni. Ciò significa che è possibile dare in pasto alle funzioni la variabile e se la gestirà da sola. In tal merito, abbiamo alcune funzioni utili per lavorare coi vettori:
 \begin{itemize}
 	\item length(): Calcola la lunghezza del vettore.
 	\item max(), min(): Calcolano valore massimo e minimo del vettore.
 	\item sum(): Calcola la somma di tutti gli elementi del vettore.
 	\item cumsum(): Calcola la somma cumulativa di ogni elemento.
+	\item sort(): Ordina il vettore.
 \end{itemize}
-Passiamo ora invece alle matrici; dove anche qui abbiamo vari modi per la dichiarazione e l'accesso:
+\noindent Le \textbf{liste} hanno un comportamento uguale ai vettori ed è possibile aggiungerne elementi come anche concatenare più liste:
+\begin{verbatim}
+	# Dichiarazione delle liste l1, l2
+	l1 <- list("Dio", "Gesù", "Maria")
+	l2 <- list("Pietro", "Paolo", "Giovanni")
+	
+	# Accesso all'elemento in posizione 3 di l1
+	l1[3]
+	
+	# Aggiungo l'elemento "Cane" alla lista l1
+	append(l1, "Cane")
+	
+	# Aggiungo l'elemento "Mascio" in posizione 2 alla lista
+	append(l1, "Mascio", after = 2)
+	
+	# Concatenazione di l1 e l2 in l3
+	l3 <- c(l1, l2)
+\end{verbatim}
+\noindent Passiamo ora alle \textbf{matrici}, le quali, come i vettori, detengono le funzioni e accessi presenti in C e molto altro. Abbiamo anche qui vari modi per dichiarare e accedere:
 \begin{verbatim}
 	# Dichiarazione di una matrice, lega i due vettori come colonne.
-	> mat1 <- cbind(c(1, 2, 3), c(1, 2, 3))
+	mat1 <- cbind(c(1, 2, 3), c(1, 2, 3))
+	
 	# Dichiarazione di una matrice, lega i due vettori come righe.
-	> mat2 <- rbind(c(1, 2, 3), c(1, 2, 3))
-	# Accesso a elementi specifici
-	> mat1[2:3,1:2]
+	mat2 <- rbind(c(1, 2, 3), c(1, 2, 3))
+	
+	# Accesso a elementi in colonne da 1 a 2 e righe da 2 a 3.
+	mat1[2:3,1:2]
+	
 	# Rimuove la prima riga, nessun comando per le colonne.
-	> mat1[-1,]
+	mat1[-1,]
+	
 	# Riempie una matrice di i righe e j colonne del valore n
-	> mat3 <- matrix(n, i, j)
+	mat3 <- matrix(n, i, j)
+	
 	# Crea una matrice identità di dimensione k
-	> matIdt <- diag(k)
+	matIdt <- diag(k)
 \end{verbatim}
-Le operazioni utilizzabili dalle matrici seguono quelle viste in algebra lineare, vale a dire somma, sottrazione fra vettori o matrici e divisione, moltiplicazione per scalari, vettori o matrici. Il risultato deve essere salvato in una variabile diversa e l'operazione si scrive semplicemente come fossero due numeri. Seguono altre funzioni utili:
+\noindent Le operazioni utilizzabili dalle matrici seguono quelle viste in algebra lineare, vale a dire somma, sottrazione fra vettori o matrici e divisione, moltiplicazione per scalari, vettori o matrici. Il risultato deve essere salvato in una variabile diversa e l'operazione si scrive semplicemente come fossero due numeri. Seguono altre funzioni utili:
 \begin{itemize}
 	\item det(): calcola il determinante di una matrice.
 	\item qr(): Calcola la decomposizione QR.
@@ -185,10 +200,78 @@ Le operazioni utilizzabili dalle matrici seguono quelle viste in algebra lineare
 	\item rowMeans(), colMeans(): Calcola la media dei valori di ogni riga o colonna. 
 	\item dim(): Calcola la dimensione di una matrice.
 \end{itemize}
+\noindent Gli \textbf{array} hanno la possibilità di andare da una a più dimensioni, senza un vero limite. Capirai ovviamente che per una e due dimensioni è preferibile usare le strutture apposite viste prima, quindi mostrerò solo come lavorare in dimensioni superiori.
+\begin{verbatim}
+	# Dichiarazione di un array a più dimensioni
+	a2 <- array(c(1:12), dim = c(2, 3, 2))
+	
+	# Stampo l'array in toto
+	a2
+	
+	# Accedo alle posizioni i-1st dim, j-2nd dim, k-3rd dim.
+	a2[2, 3, 2]
+\end{verbatim}
+\noindent I \textbf{dataframes} sono strutture bidimensionali che possono salvare dati in un formato matriciale. Si compongono quindi di righe e colonne, le quali possono essere viste come singoli vettori che contengono un tipo di dato; ciò comporta che la struttura può contenere diversi tipi allo stesso tempo:
+\begin{verbatim}
+	# Dichiaro un dataframe
+	df1 <- data.frame(
+		mount = c("Everest", "K2", "Fuji"),
+		height = c(8848, 8611, 3776),
+		todo = c(TRUE, TRUE, FALSE)
+	)
+	
+	# Stampo il dataframe
+	df1
+	
+	# Accedo alla singola colonna mount
+	df1$mount
+\end{verbatim}
+\noindent Essendo inoltre strutturata come una matrice, sarà possibile utilizzare le sue stesse funzioni. Basta immaginarla come una matrice multitipo.\par
+Utilizziamo poi i \textbf{fattori} per lavorare con dati categorizzati. Nel creare una struttura dati tale, potrà contenere solamente un insieme di valori fissati detti \textit{livelli}, dati nella dichiarazione.
+\begin{verbatim}
+	# Dichiaro il fattore f1 col set marital_status di relativi elementi
+	f1 <- marital_status <- factor(c("married", "single", "single",
+	"divorced", "married"))
+	
+	# Stampo il fattore
+	f1
+	
+	# Stampo i singoli livelli (ignora ripetizioni)
+	levels(f1)
+	
+	# Provo ad inserire "hey" come livello, fallendo.
+	f1[1] <- "Hey"	# In questo caso genererà NA
+\end{verbatim}
 
 %
 
 \section{Funzioni di R per i grafici}
+R detiene varie funzioni per la rappresentazione dei dati su grafici; oltre a quelle built-in del linguaggio, ne abbiamo aggiunte altre col pacchetto ggplot che ti ho fatto installare ad inizio lettura. Possiamo creare grafici dei seguenti tipi:
+\begin{itemize}
+	\item \textbf{Barplots}; barplot()
+	\item \textbf{Lineplots}; plot(..., type = l)
+	\item \textbf{Istogrammi}; hist()
+	\item \textbf{Boxplots}; boxplot()
+	\item \textbf{Scatterplots}; plot()
+	\item \textbf{Heatmaps}; heatmap()
+	\item \textbf{Density plots}; plot(density(...))
+\end{itemize}
+\noindent Tutte queste funzioni condividono le stesse particolarità, ovvero prendono tutte gli stessi valori e li elaborano allo stesso modo. L'unica differenza reale sta nella rappresentazione dei dati. Quindi una scrittura usata per plot() varrà anche per hist(), per esempio.
+\begin{verbatim}
+	# Dichiaro i dati
+	x <- c(1, 2, 3, 4, 5)
+	y <- c(6, 7, 8, 9, 10)
+	
+	# Creo il grafico, in questo caso uno scatterplot
+	plot(x,y)
+\end{verbatim}
+\noindent Le caratteristiche del grafico sono modificabili a proprio piacimento; in particolare puoi modificare nomi degli assi, del grafico intero e i punti che rappresentano i singoli dati.
+\begin{verbatim}
+	...
+	# Creo un grafico customizzato
+\end{verbatim}
+
+% TODO ----- RICOMINCIA DA QUA
 
 %
 

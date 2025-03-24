@@ -4,7 +4,6 @@
 \contentsline {section}{\numberline {2.2}Grandezze per la sintesi dei dati}{8}{}%
 \contentsline {section}{\numberline {2.3}Campioni normali e correlazione}{11}{}%
 \contentsline {section}{\numberline {2.4}Riepilogo grafici e tabelle}{12}{}%
-\contentsline {section}{\numberline {2.5}Appunti}{12}{}%
 \contentsline {chapter}{\numberline {3}Probabilità}{13}{}%
 \contentsline {section}{\numberline {3.1}Elementi di probabilità}{13}{}%
 \contentsline {section}{\numberline {3.2}Calcolo della probabilità}{14}{}%
@@ -19,5 +18,5 @@
 \contentsline {section}{\numberline {6.1}Introduzione}{29}{}%
 \contentsline {section}{\numberline {6.2}Variabili, operatori e costrutti}{30}{}%
 \contentsline {section}{\numberline {6.3}Strutture dati di R}{33}{}%
-\contentsline {section}{\numberline {6.4}Funzioni di R per i grafici}{35}{}%
-\contentsline {section}{\numberline {6.5}Funzioni di R per la statistica}{35}{}%
+\contentsline {section}{\numberline {6.4}Funzioni di R per i grafici}{36}{}%
+\contentsline {section}{\numberline {6.5}Funzioni di R per la statistica}{37}{}%

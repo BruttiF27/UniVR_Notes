@@ -121,10 +121,8 @@ Inoltre, se la funzione $B(y)$ è una primitiva di $\frac{1}{b(y)}$ e $A(t)$ una
 		\item Funzione continua $y$ definita su $I'$.
 		\item Funzione derivata $y'$ continua su $I'$, soluzione del problema.
 	\end{itemize}
-	Inoltre, se anche $b'$ è una funzione continua su $J$ oppure $b$ ha un rapporto incrementale\footnote{Inserire spiegazione} limitato in J (anche se non è derivabile), allora la soluzione è \textbf{unica}.
+	Inoltre, se anche $b'$ è una funzione continua su $J$ oppure $b$ ha un rapporto incrementale\footnote{Concetto che misura la velocità con la quale una funzione cresce o decresce in base alla variabile indipendente.} limitato in J (anche se non è derivabile), allora la soluzione è \textbf{unica}.
 \end{theorem}
-
-% TODO ----- Inserire nota su cos'è un rapporto incrementale
 
 \begin{eg}
 	\textbf{Risolvere il problema di Cauchy}
@@ -326,9 +324,9 @@ Come in quelle di primo ordine, risulta comodo ricercare soluzioni di tipo espon
 \begin{center}
 	$e^{rt}(r^2 + ar + b) = 0 \implies r^2+ar+b = 0$
 \end{center}
-Questa equazione ottenuta si dice \textbf{equazione caratteristica} ed è risolvibile come una normalissima equazione di secondo grado, con la formula del discriminante $\Delta = a^2 - 4b$. In tal merito, ci è possibile distinguere tre casi:
+Questa equazione ottenuta si dice \textbf{equazione caratteristica} ed è risolvibile come una normalissima equazione di secondo grado, con la formula quadratica. In tal merito, ci è possibile distinguere tre casi in base al valore del discriminante:
 \begin{itemize}
-	\item $\Delta > 0$; L'equazione caratteristica avrà due radici reali e distinte $r_1,r_2$, quindi le funzioni $z_1(t) = e^{r_1t}$ e $z_2(t) = e^{r_2t}$ saranno due soluzioni distinte e indipendenti dell'equazione omogenea. St tratta del caso più semplice e l'integrale si scrive come:
+	\item $\Delta > 0$; L'equazione caratteristica avrà due radici reali e distinte $r_1,r_2$, quindi le funzioni $z_1(t) = e^{r_1t}$ e $z_2(t) = e^{r_2t}$ saranno due soluzioni distinte e indipendenti dell'equazione omogenea. Si tratta del caso più semplice e l'integrale si scrive come:
 	\begin{center}
 		$z(t) = c_1e^{r_1t} + c_2e^{r_2t}$
 	\end{center}
@@ -353,15 +351,239 @@ Questa equazione ottenuta si dice \textbf{equazione caratteristica} ed è risolv
 	\begin{center}
 		$z(t) = e^{-\frac{a}{2}t}(c_2t + c_1)$
 	\end{center}
-	
-	% TODO ----- CONCLUDI IL TERZO CASO
-	
-	\item $\Delta < 0$
+	\item $\Delta < 0$; L'equazione caratteristica avrà due radici complesse e coniugate $r_1 = a + bi$ e $r_2 = a - bi$, date dalle relative funzioni:
+	\begin{itemize}
+		\item $z_1(t) = e^{(a+bi)t} = e^{at}(cos(bt) + isin(bt))$
+		\item $z_2(t) = e^{(a-bi)t} = e^{at}(cos(bt) - isin(bt))$
+	\end{itemize}
+	\noindent Volendo noi preferibilmente soluzioni reali piuttosto che complesse e ricordando che ogni combinazione lineare è una soluzione, possiamo prendere rispettivamente, grazie ad un magheggio algebrico: $\frac{1}{2}(z_1+z_2)$ e $\frac{1}{2i}(z_1-z_2)$, ovvero la forma che userai al posto delle altre:
+	\begin{center}
+		$z_1(t) = e^{at}cos(bt)$, $z_2(t) = e^{at}sin(bt)$
+	\end{center}
+	\noindent Le quali formano l'integrale generale $z(t)$:
+	\begin{center}
+		$z(t) = e^{at}(c_1cos(bt) + c_2sin(bt))$
+	\end{center}
 \end{itemize}
 
-% TODO ----- INSERIRE ESEMPIO
+\begin{eg}
+	\textbf{Risoluzione equazioni omogenee per ogni caso}
+	\begin{itemize}
+		\item $\Delta > 0$:\par 
+		\noindent Consideriamo l'equazione $z'' - 2z' - 3z = 0$. Facendoci furbi potremmo usare l'algebra, ma mostrerò il procedimento generale con la formula quadratica. Anzitutto, passiamo all'equazione caratteristica:
+		\begin{center}
+			$z'' - 2z' - 3z = 0 \implies r^2 - 2r - 3 = 0$
+		\end{center}
+		\noindent Definiamo ora le parti della formula quadratica come $a = 1$, $b = -2$, $c = -3$ e svolgiamo i calcoli:
+		\begin{center}
+			$z_{1,2} = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} \implies \dfrac{2\pm \sqrt{16}}{2}$
+		\end{center}
+		\noindent Che ci darà rispettivamente:
+		\begin{itemize}
+			\item $r_1 = 3$
+			\item $r_2 = -1$
+		\end{itemize}
+		\noindent Ora abbiamo tutti gli elementi per la formula dell'integrale generale:
+		\begin{center}
+			$z(t) = c_1e^{r_1t}+c_2e^{r_2t} \implies c_1e^{3t}+c_2e^{-t}$
+		\end{center}
+		\item $\Delta = 0$:\par 
+		\noindent Consideriamo l'equazione $z'' + 6z' + 9z = 0 \implies r^2 + 6r + 9 = 0$. Facendoci furbi e notando che questo è un trinomio particolare, otteniamo che ha due soluzioni perfettamente uguali:
+		\begin{itemize}
+			\item $r_1 = -3$
+			\item $r_2 = -3$
+		\end{itemize}
+		\noindent Quindi che fare? Teniamo $r_1$ e facciamo dipendere $r_2$ dall'incognita $t$. Molto semplicemente otteniamo che:
+		\begin{center}
+			$z(t) = c_1e^{r_1} + c_2te^{r_1} \implies c_1e^{-3t} + c_2te^{-3t} \equiv e^{-3t}(c_1+c_2t)$
+		\end{center}
+		\item $\Delta < 0$:\par 
+		Comsideriamo l'equazione $z'' + 2z' + 5z = 0 \implies r^2 + 2r + 5 = 0$. Notiamo che usando la formula quadratica, risulta un discriminante che ha senso solo nel campo dei complessi. Ne agiamo di conseguenza:
+		\begin{center}
+			$z_{1,2} = \dfrac{-2\pm \sqrt{-16}}{2} = \dfrac{-2 \pm 4i}{2}$
+		\end{center}
+		\noindent Avremo di conseguenza le due soluzioni:
+		\begin{itemize}
+			\item $r_1 = a + bi \implies r_1 = -1 + 2i$
+			\item $r_2 = a - bi \implies r_2 = -1 - 2i$
+		\end{itemize}
+		\noindent Siccome a noi interessa avere soluzioni reali, considereremo solamente tali valori delle soluzioni, ottenendo $\alpha = -1$, $\beta = 2$. Ora possiamo scrivere la formula generale:
+		\begin{center}
+			$z(t) = c_1e^{\alpha t}cos(\beta t) + c_2e^{\alpha t}sin(\beta t) \implies e^{-t}(c_1cos(2t) + c_2sin(2t))$
+		\end{center}
+	\end{itemize}
+\end{eg}
 
 %
 
 \subsection{Equazioni lineari non omogenee a coefficienti costanti}
-metodo di sovrapposizione e metodo di somiglianza
+Il nostro scopo qui è trovare l'integrale particolare dell'equazione completa. Non differisce molto dal metodo per le equazioni del primo ordine, questo è come il secondo passaggio. La forma da trovare è:
+\begin{center}
+	$y''(t) + ay'(t) + by(t) = f(t)$, con $a,b$ valori costanti.
+\end{center}
+\noindent Ci troviamo di fronte a due strade in base all'esercizio proposto; nel caso in cui $f$ avesse una forma semplice, ovvero un polinomio oppure un polinomio moltiplicato per un esponenziale, è consigliato ricercare una soluzione che gli somigli, mediante il \textbf{metodo di somiglianza}. In alternativa, è sempre possibile usare il metodo di variazione delle costanti visto per il precedente ordine, anche se risulta più oberoso a livello di calcoli.
+
+\begin{definition}
+	\textbf{Metodo di somiglianza - caso polinomiale}\par 
+	\noindent Sia $f(t) = p_r(t)$, dove quest'ultimo è un polinomio di grado $r$. Cercheremo una soluzione di tipo polinomiale come segue:
+	\begin{itemize}
+		\item Se $(b \neq 0) \implies y(t) = q_r(t)$.
+		\item Se $(b = 0 \land a \neq 0) \implies y(t) = tq_r(t)$.
+		\item Se $(b = 0 \land a = 0) \implies y(t) = t^2q_r(t)$.
+	\end{itemize}
+	\noindent Dove $q_r(t)$ è un polinomio di grado $r$ di cui occorre determinare i coefficienti.
+\end{definition}
+
+\begin{eg}
+	Si consideri l'equazione differenziale $y'' - 3y' +2y = 1+t^2$. La forma della soluzione è:
+	\begin{center}
+		$y(t) = c_1e^{r_1t} + c_2e^{r_2t} + \phi(t)$
+	\end{center}
+	\noindent Dove $r_i$ sono le radici dell'equazione omogenea e $\phi(t)$ indica una forma simile al membro dell'equazione differenziale di destra. Affrontiamo i due passaggi:
+	\begin{enumerate}
+		\item \textbf{Ricerca delle radici dell'equazione omogenea}\par 
+		\noindent Come visto prima, ricerchiamo l'equazione caratteristica:
+		\begin{center}
+			$z''(t) -3z'(t) + 2z(t) = 0 \implies r^2 -3r + 2 = 0$
+		\end{center}
+		\noindent Risolviamola come una semplice equazione di secondo grado, con l'algebra:
+		\begin{center}
+			$r^2 -3r + 2 = 0 \implies (r-2)(r-1) = 0 \implies r_1 = 2$, $r_2 = 1$
+		\end{center}
+		\noindent La soluzione generale dell'equazione omogenea sarà quindi:
+		\begin{center}
+			$z(t) = c_1e^{2t} + c_2e^{t}$
+		\end{center}
+		\item \textbf{Ricerca della soluzione completa}\par 
+		\noindent Ora cerchiamo l'altra parte necessaria per la curva integrale particolare; il metodo della somiglianza dice di prendere un polinomio simile a quello dato, dello stesso grado. In tal caso prenderemo la forma generale del polinomio di secondo grado, ottenendo:
+		\begin{center}
+			$\overline{y}(t) = at^2 + bt + c$, $\overline{y'}(t) = 2at + bt$, $\overline{y''}(t) = 2a$
+		\end{center}
+		\noindent Queste tre funzioni vanno ora sostituite alle loro corrispondenti nell'equazione differenziale iniziale, quindi:
+		\begin{center}
+			$y'' - 3y' +2y = 1+t^2 \implies 2a -3(2at+b) + 2(at^2+bt+c) = 1+t^2$
+		\end{center}
+		\noindent La quale, effettuando qualche calcolo, diventa:
+		\begin{center}
+			$(2a)t^2 - (6a-2b)t + (2a-3b+2c) = 1+t^2$
+		\end{center}
+		\noindent Ora utilizzeremo l'algebra per renderci le cose più semplici. La ragione per cui ho voluto confinare i valori noti delle parti dell'equazione è per rendere quali coefficienti debbano essere presi e messi a sistema, eguagliati al loro corrispettivo valore con lo stesso grado.\par 
+		Se non risulta chiaro è normale. Bisogna immaginare che al membro di destra siano presenti sempre tutti i coefficienti per ogni grado, quindi nel nostro caso: $1t^2, 0t^1, 1t^0 \implies 1, 0, 1$. Questi tre numeri vanno eguagliati ai polinomi con lo stesso grado; quindi:
+		\begin{center}
+			$\begin{cases}
+				2a = 1\\
+				-6a + 2b = 0\\
+				2a -3b +2c = 1
+			\end{cases} = \begin{cases}
+			a = \frac{1}{2}\\
+			b = \frac{3}{2}\\
+			c = \frac{9}{4}
+			\end{cases}$
+		\end{center}
+		\noindent Questi tre valori vengono ora sostituiti alle corrispondenti lettere nell'equazione $\overline{y}$, la quale ci darà la soluzione particolare che ci serve.
+		\begin{center}
+			$\overline{y} = at^2 + bt +c \implies \overline{y} = \frac{1}{2}t^2 + \frac{3}{2}t + \frac{9}{4}$
+		\end{center}
+		\noindent La soluzione completa è infatti data da:
+		\begin{center}
+			$y(t) = c_1e^{2t}+c_2e^{t} + (\frac{1}{2}t^2 + \frac{3}{2}t + \frac{9}{4})$
+		\end{center}
+	\end{enumerate}
+\end{eg}
+
+\begin{definition}
+	\textbf{Metodo di somiglianza - caso polinomiale ed esponente}\par 
+	\noindent Sia $f(t) = Ae^{\lambda t}$, con $\lambda \in \mathbb{C}$. Cercheremo una soluzione in forma $y(t) = e^{\lambda t}\gamma(t)$. Troviamo che:
+	\begin{center}
+		$\gamma'' + \gamma'(2\lambda+a) + \gamma(\lambda^2 + a\lambda + b) = A$
+	\end{center}
+	\noindent Ci basta trovare una qualsiasi $\gamma(t)$ che soddisfi la forma appena vista; ma anche qui abbiamo alcuni casi su cui ragionare.
+	\begin{itemize}
+		\item Se $\lambda^2+a\lambda+b \neq 0$, quindi $\lambda$ non è radice dell'equazione caratteristica avremo:
+		\begin{center}
+			Costante $\gamma(t) = \dfrac{A}{\lambda^2+a\lambda+b} \implies y(t) = \dfrac{Ae^{\lambda t}}{\lambda^2+a\lambda+b}$.
+		\end{center}
+		\item Se $(\lambda^2+a\lambda+b = 0) \land (2\lambda + a \neq 0)$, prenderemo:
+		\begin{center}
+			Costante $\gamma'(t) = \dfrac{A}{2\lambda + a} \implies \left(\gamma(t) = \dfrac{At}{2\lambda+a}\right) \land \left(y(t) = \dfrac{Ate^{\lambda t}}{2\lambda + a}\right)$.
+		\end{center}
+		\item Se $(\lambda^2+a\lambda+b = 0) \land (2\lambda+a = 0)$ diremo che l'equazione iniziale è $\gamma'' = A$, da cui otteniamo:
+		\begin{center}
+			$\left(\gamma(t) = \dfrac{A}{2}t^2\right) \land \left(y(t) = \dfrac{A}{2}t^2e^{\lambda t}\right)$
+		\end{center}
+	\end{itemize}
+\end{definition}
+
+\begin{eg}
+	Consideriamo l'equazione differenziale $y'' + y' -2y = 3e^{-t}$ ed effettuiamo i classici passaggi:
+	\begin{enumerate}
+		\item \textbf{Ricerca della soluzione generale omogenea}\par 
+		\noindent Mi sbrigo un attimo con i passaggi, dai, ora hai capito come gira.
+		\begin{itemize}
+			\item Equazione caratteristica: $r^2+r-2 = 0$, con soluzioni $r_1 = -2$, $r_2 = 1$.
+			\item Soluzione generale: $z(t) = c_1e^{-2t}+c_2e^{t}$
+		\end{itemize}
+		\item \textbf{Applichiamo il metodo di somiglianza}\par 
+		\noindent Qui abbiamo un polinomio di grado zero moltiplicato per un esponenziale; la sua forma generale è data da:
+		\begin{itemize}
+			\item $\overline{y}(t) = ae^{-t}$, l'esponenziale preso è lo stesso della ED. 
+			\item $\overline{y'}(t) = -ae^{-t}$
+			\item $\overline{y''}(t) = ae^{-t}$
+		\end{itemize}
+		\noindent Sostituendo opportunamente, otteniamo:
+		\begin{center}
+			$ae^{-t}-ae^{-t}-2ae^{-t} = 3e^{-t} \implies e^{-t}(-2a-3) = 0 \implies a = -\frac{3}{2}$
+		\end{center}
+		\noindent Sostituendo a $\overline{y}$ quanto trovato, otteniamo $-\frac{3}{2}e^{-t}$, ottenendo la soluzione completa che segue:
+		\begin{center}
+			$y(t) = c_1e^{-2t} + c_2e^{t} - \frac{3}{2}e^{-t}$
+		\end{center}
+	\end{enumerate}
+\end{eg}
+
+\begin{eg}
+	Consideriamo l'equazione differenziale $y'' + y' -2y = 3e^{t}$. Questo risulta essere un caso particolare, perché almeno una delle radici dell'omogenea ha lo stesso identico valore dell'esponente nella ED. L'equazione è quasi uguale a quella del precedente esempio, se hai lamentele, guarda il procedimento su.
+	\begin{enumerate}
+		\item \textbf{Per l'omogenea}\par 
+		\begin{itemize}
+			\item Equazione caratteristica: $r^2+r-2 = 0$
+			\item Radici del polinomio: $r_1 = -2$, $r_2 = 1$
+			\item Soluzione generale: $z(t) = c_1e^{-2t}+c_2e^{t}$
+		\end{itemize}
+		\item \textbf{Per la curva completa}\par 
+		Noterai che almeno una delle radici è uguale all'esponente del membro di destra della ED; non apportare modifiche è un errore, quindi che fare?\par 
+		Risulta necessario far dipendere l'esponenziale da una $t$ di grado uguale alla molteplicità algebrica\footnote{Si tratta del numero di volte in cui compare il valore nel polinomio} dell'esponenziale, quindi:
+		\begin{center}
+			$\overline{y}(t) = ate^t$, $\overline{y'}(t) = ae^t + ate^t$, $\overline{y''}(t) = ae^t + ae^t + ate^t$
+		\end{center}
+		\noindent Sostituendo e svolgendo i calcoli otteniamo:
+		\begin{center}
+			$ae^t + ae^t + ate^t + ae^t + ate^t -2(ate^t) = 3e^t \implies a = 1 \implies \overline{y}(t) = te^t$
+		\end{center}
+		\noindent Otteniamo finalmente la curva integrale particolare data da:
+		\begin{center}
+			$y(t) = c_1e^{-2t}+c_2e^t + te^t$
+		\end{center}
+	\end{enumerate}
+\end{eg}
+
+\noindent Notare che nella classe di termini noti $Ae^{\lambda t}$, con $\lambda \in \mathbb{C}$, appartengono anche le seguenti categorie:
+\begin{center}
+	$cos\omega t$, $sin\omega t$, $e^{\lambda t}cos\omega t$, $e^{\lambda t}sin\omega t$, con $\lambda \in \mathbb{R}$
+\end{center}
+
+\begin{definition}
+	\textbf{Metodo di sovrapposizione}\par 
+	\noindent Nel caso in cui $f(t)$ sia una combinazione lineare di termini appartenenti a due tipi di funzione diversi\footnote{Un esempio è la somma di un polinomio con un esponenziale, oppure un esponenziale sommato con una funzione trigonometrica.}, per linearità allora:
+	\begin{enumerate}
+		\item Troviamo una soluzione dell'equazione che ha come termine noto il primo elemento di quello originario.
+		\item Troviamo una soluzione dell'equazione che ha come termine noto il secondo elemento di quello originario.
+		\item Troviamo una soluzione dell'equazione di partenza, che sarà la somma delle due soluzioni prima trovate.
+	\end{enumerate}
+\end{definition}
+
+% TODO ----- Inserire esempio
+
+\begin{eg}
+	Inserisci esempio
+\end{eg}

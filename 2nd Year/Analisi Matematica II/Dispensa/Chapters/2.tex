@@ -1,3 +1,101 @@
 \section{Calcolo infinitesimale per le curve}
-Assurdo fra finalmente un editor offline
+Prima di iniziare l'argomento è necessario rimettere in chiaro alcuni importanti concetti visti in precedenza con algebra lineare, come il \textbf{calcolo vettoriale}. Quanto verrà espresso ora si trova nello spazio $\mathbb{R}^n$, i cui elementi si dicono \textbf{vettori} e si indicano con $v = (x_1, x_2, ..., x_n)$, mentre le $x_i$ sono le \textbf{componenti del vettore}.\par
+Diremo poi \textbf{modulo} o norma di un vettore la radice del prodotto scalare fra ogni sua componente alla seconda. Si scrive:
+\begin{center}
+	\[|v| = \sqrt{\sum_{i=1}^{n}x_i^2} \equiv \sqrt{x_1^2 + x_2^2 + ... + x_n^2}\]
+\end{center}
+\noindent Diciamo poi \textbf{versore} il vettore unitario indicato con:
+\begin{center}
+	\[vers(v) = \dfrac{v}{|v|} = 1\]
+\end{center}
+\noindent Lo spazio $R^n$ è poi dotato della \textbf{base canonica}, dove ogni vettore $e_i$ presenta un solo valore $1$ in una posizione $i$, con tutte le altre uguali a $0$
+\begin{center}
+	$e_1 = (1, 0, ..., 0, 0)$, $e_2 = (0, 1, ..., 0, 0)$, $e_n = (0, 0, ..., 0, 1)$
+\end{center}
+\noindent Ed ogni vettore può essere espresso come combinazione lineare degli elementi della base canonica:
+\begin{center}
+	\[v = \sum_{i=1}^{n}x_ie_i\]
+\end{center}
+\noindent Le operazioni classiche somma algebrica e prodotto per uno scalare portano al \textbf{prodotto scalare}, già menzionato prima e definito come:
+\begin{center}
+	\[\left<v_1, v_2\right> = (u_1,u_2,...,u_n)(w_1,w_2,...,w_n) = \sum_{i=1}^{n}u_iw_i\]
+\end{center}
+\noindent In particolare, se lo spazio $\mathbb{R}^n$ ha dimensione $2$ o $3$, abbiamo che funziona il \textbf{teorema del coseno}:
+\begin{center}
+	$\left<v_1, v_2\right> = |v_1||v_2|\cos(\theta) \implies \cos(\theta) = \dfrac{\left<v_1, v_2\right>}{|v_1||v_2|}$
+\end{center}
+\noindent dove theta è un angolo compreso fra i due vettori. Diremo inoltre che due vettori si dicono \textbf{ortogonali} quando il loro prodotto scalare è uguale a zero.\par 
+Infine, richiamiamo il \textbf{prodotto vettoriale}, un procedimento simile a quello per il calcolo dell'inversa di una matrice. Sfortunatamente, solo la parte più tediosa:
+\begin{center}
+	$u \times v = \begin{pmatrix}
+		i & j & k\\
+		u_1 & u_2 & u_3\\
+		v_1 & v_2 & v_3
+	\end{pmatrix} = i(u_2v_3 - u_3v_2) - j(u_1v_3 - u_3v_1) + k(u_1v_2 - u_2v_1)$
+\end{center}
+\noindent In tal merito, se il prodotto vettoriale di due vettori è $0$, questi si dicono \textbf{paralleli}. Per quanto riguarda i prerequisiti di algebra, queste nozioni sono sufficienti, quindi soffermiamoci sullo scopo che vogliamo darci.\par 
+Finora abbiamo lavorato con la nozione di funzione ad una singola variabile reale; dobbiamo estendere il concetto per far sì che comprenda anche i casi in cui si ricevano o ritornino più variabili. Lavoreremo infatti con funzioni del tipo $f:\mathbb{R} \to \mathbb{R}^n$ oppure $g:\mathbb{R}^n \to \mathbb{R}$. Nello specifico:
+\begin{itemize}
+	\item \textbf{Funzione di più variabili}; Funzione definita sullo spazio $A \subset \mathbb{R}^n$, con $n = 1$.
+	\item \textbf{Funzione a valori reali}; Funzione che ha immagine $f(A) \subseteq \mathbb{R}$.
+	\item \textbf{Funzione a valori vettoriali}; Funzione con immagine $f(A) \subset \mathbb{R}^n$, dove $n > 1$. 
+\end{itemize}
+\noindent Generalmente ci interesseremo massimo allo spazio $\mathbb{R}^3$, perché altrimenti la cosa diventerebbe estremamente dolorosa. Ricorda: se è a una dimensione, ha una sola variabile reale, se ne ha due, stai lavorando con vettori, mentre se ne ha tre con una matrice $3\times 3$ e così via.
+
+\subsection{Calcolo differenziale e integrale per funzioni a valori vettoriali}
+Anzitutto osserveremo casi di calcolo infinitesimale per funzioni a più variabili, che risulta essere il caso più semplice su cui lavorare; più nello specifico, vedremo che in dimensione $2$ e $3$, le funzioni assumeranno il significato geometrico di curva nel piano o nello spazio rispettivamente.
+\begin{definition}
+	\textbf{Limite per funzioni a più variabili}\par 
+	\noindent Sia $r:I \to \mathbb{R}^m$, con $I$ intervallo dello spazio $\mathbb{R}$. Siano ora $t_0 \in I \land l \in \mathbb{R}^m$, con $l$ il valore del limite. Allora:
+	\begin{center}
+		\[\lim_{t \to t_0}|r(t) -l| = 0 \implies \lim_{t \to t_0}r(t) = l\]
+	\end{center}
+\end{definition}
+\noindent Questa definizione viene utilizzata per le funzioni ad una variabile, tuttavia è estendibile anche a funzioni vettoriali immaginando che $r(t)$ comprenda ogni singola componente del vettore, quindi come $r(t) = [r_1(t), r_2(t), ..., r_n(t)]$, che produrrà altrettanti valori $l_i$. Infatti, se prendiamo una funzione vettoriale dello spazio $\mathbb{R}^2$ possiamo dire che:
+\begin{center}
+	\[\lim_{t \to t_0}|r(t)-l| = 0 \implies \lim_{t \to t_0} \left|\begin{pmatrix}
+		r_1(t) - l_1\\
+		r_2(t) - l_2
+	\end{pmatrix}\right|\]
+\end{center}
+\noindent Che ci fa ottenere, finalmente, la forma generale del limite che ci serve per gli esercizi. Nonostante questa sia quella per lo spazio di dimensione $2$, è facilmente estendibile a dimensioni superiori:
+\begin{center}
+	\[\lim_{t \to t_0}\sqrt{(r_1(t) - l_1)^2 + (r_2(t) - l_2)^2} = 0 \implies \lim_{t \to t_0}(r_1(t) - l_1) + (r_2(t) - l_2) = 0\]
+\end{center}
+
+% TODO Inserisci esempio calcolo di limite
+
+\begin{eg}
+	Inserisci esempio.
+\end{eg}
+
+% TODO Inserisci definizione ed esempio di derivata
+% TODO Inserisci definizione ed esempio di integrale
+
+
+Inoltre, se funzionano i limiti, funzioneranno anche le derivate. Con la derivazione viene la continuità e quindi esistono anche le classi di funzione.
+Gli integrali seguono la stessa logica.
+
+
+
+\subsection{Curve regolari e lunghezza di un arco di curva}
+
+
+
+
+
+% Avendo il limite in mano possiamo studiare la continuità. Diciamo arco di curva continua in R^m una funzione r:I \to R^m continua.
+
+Rivedere definizione 2.4.1 e osservazione 2.4.2 delle dispense.
+
+Fai differenza fra il grafico della curva ed il suo sostegno. Scopo ultimo.
+
+\subsection{Cambiamenti di parametrizzazione e parametro arco}
+\subsection{Integrali di prima specie}
+
+%
+
 \section{Calcolo infinitesimale per funzioni reali di più variabili}
+\subsection{Grafico, linee di livello e domini}
+\subsection{Limiti e continuità}
+\subsection{Analisi delle forme di indeterminazione}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  28 MAR 2025 19:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  29 MAR 2025 17:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -254,17 +254,17 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./main.toc)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./main.toc [3
+
+])
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
- [3
-
-] [4
-
-]
+ [4]
 Chapter 1.
-(./Chapters/1.tex [5] [6]
+(./Chapters/1.tex [5
+
+] [6]
 Overfull \hbox (3.37581pt too wide) in paragraph at lines 66--67
 \OT1/cmr/m/it/12 Abbiamo trovato il val-ore richiesto. Sos-ti-tu-iamolo alla co
 stante nella soluzione
@@ -338,13 +338,13 @@ cmr/m/n/12 19
  []
 
 [19]
-Overfull \hbox (2.97717pt too wide) in paragraph at lines 539--540
+Overfull \hbox (2.97717pt too wide) in paragraph at lines 537--538
 \OT1/cmr/m/it/12 Sostituendo a $[]$ quanto trovato, ot-te-ni-amo $\OMS/cmsy/m/n
 /12 ^^@[]\OML/cmm/m/it/12 e[]$\OT1/cmr/m/it/12 , ot-te-nendo la soluzione
  []
 
 
-Overfull \hbox (4.53696pt too wide) in paragraph at lines 547--548
+Overfull \hbox (4.53696pt too wide) in paragraph at lines 545--546
 \OT1/cmr/m/it/12 dell'omogenea ha lo stesso iden-tico val-ore dell'esponente ne
 lla ED. L'equazione
  []
@@ -359,27 +359,27 @@ cmr/m/n/12 21
 
 ]
 Chapter 2.
-(./Chapters/2.tex) [23] [24
-
-]
+(./Chapters/2.tex [23] [24]) [25] [26]
 Chapter 3.
-(./Chapters/3.tex) [25] [26
+(./Chapters/3.tex) [27
+
+] [28
 
 ]
 Chapter 4.
-(./Chapters/4.tex) [27] [28
+(./Chapters/4.tex) [29] [30
 
 ]
 Chapter 5.
-(./Chapters/5.tex) [29] [30
+(./Chapters/5.tex) [31] [32
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [31] [32
+(./Chapters/6.tex) [33] [34
 
 ]
 Chapter 7.
-(./Chapters/7.tex) [33] (./main.aux (./Configs/formats.aux)
+(./Chapters/7.tex) [35] (./main.aux (./Configs/formats.aux)
 (./Configs/boxes.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -412,10 +412,10 @@ exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (33 pages, 269786 bytes).
+Output written on main.pdf (35 pages, 281971 bytes).
 PDF statistics:
- 206 PDF objects out of 1000 (max. 8388607)
- 132 compressed objects within 2 object streams
+ 212 PDF objects out of 1000 (max. 8388607)
+ 136 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

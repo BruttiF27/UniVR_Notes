@@ -62,33 +62,143 @@ Anzitutto osserveremo casi di calcolo infinitesimale per funzioni a più variabi
 \begin{center}
 	\[\lim_{t \to t_0}\sqrt{(r_1(t) - l_1)^2 + (r_2(t) - l_2)^2} = 0 \implies \lim_{t \to t_0}(r_1(t) - l_1) + (r_2(t) - l_2) = 0\]
 \end{center}
-
-% TODO Inserisci esempio calcolo di limite
-
 \begin{eg}
-	Inserisci esempio.
+	\textbf{Calcolo di limite di funzione} $r:I\to\mathbb{R}^3$\par 
+	\noindent Consideriamo la funzione: $r(t) = (\cos(t)+\pi, e^t-1, \sin(t^2))$. Per calcolarne il limite per $t \to t_0$, bisogna applicarlo per ogni singola componente del vettore. Avremo quindi che:
+	\begin{center}
+		\[lim_{t\to t_0} r(t) = \begin{cases}
+			lim_{t\to t_0}(\cos(t)+\pi) = 1+\pi\\
+			lim_{t\to t_0}(e^t-1) = 0\\
+			lim_{t\to t_0}(\sin(t^2)) = 0
+		\end{cases}\]
+	\end{center}
+	\noindent Se hai dubbi sui risultati ottenuti dai limiti, ripassati la teoria di analisi 1 perché sarà fondamentale. Il vettore di risultati ottenuti sarà:
+	\begin{center}
+		$lim_{t\to t_0}r(t) = (1+\pi, 0, 0)$
+	\end{center}
 \end{eg}
-
-% TODO Inserisci definizione ed esempio di derivata
-% TODO Inserisci definizione ed esempio di integrale
-
-
-Inoltre, se funzionano i limiti, funzioneranno anche le derivate. Con la derivazione viene la continuità e quindi esistono anche le classi di funzione.
-Gli integrali seguono la stessa logica.
-
-
+\noindent Fortunatamente, abbiamo che definizioni e proprietà dei limiti di funzioni vettoriali sono analoghe alle loro controparti unidimensionali; infatti:
+\begin{itemize}
+	\item Vale il teorema di unicità del limite.
+	\item Vale il teorema sul limite della somma o del prodotto per una costante.
+	\item La definizione di funzione continua in un punto o insieme è la medesima. Diciamo infatti che $r:I \subseteq \mathbb{R} \to \mathbb{R}^n$ è continua in $t_0$ se vale che:
+	\begin{center}
+		\[\lim_{t\to t_0}r(t) = r(t_0)\]
+	\end{center}
+	\noindent Generalmente, una funzione a valori vettoriali è continua se e solo se lo sono tutte le sue componenti.
+\end{itemize}
+\noindent Se vale il limite, sarà possibile utilizzarlo per dare la definizione di \textbf{derivata per le funzioni a valori vettoriali}, non molto dissimile da quella vista in termini unidimensionali.
+\begin{definition}
+	\textbf{Derivata di funzioni a valori vettoriali}\par 
+	\noindent Sia $r$ una funzione tale che $r:I\to \mathbb{R}^m$, con $t_0 \in I$. Diciamo che $r$ è derivabile se esiste finito il limite di quanto segue:
+	\begin{equation}
+	\begin{split}
+		r'(t) & = \lim_{t\to t_0}\dfrac{r(t_0+h - r(t_0))}{h}\\
+		& = \left(\lim_{h \to 0}\dfrac{r_1(t_0+h-r_1(t))}{h}, \lim_{h\to 0}\dfrac{r_2(t_0+h-r_2(t))}{h}, ..., \lim_{h\to 0}\dfrac{r_m(t_0+h-r_m(t))}{h}\right)\\
+		& = r'_1(t_0), r'_2(t_0), ..., r'_m(t_0)
+	\end{split}
+	\end{equation}
+	\noindent Noterai che ogni scrittura è conseguenza diretta della precedente. Inoltre, se $r$ è derivabile in tutto lo spazio $I$ e la sua derivata è ivi continua, diremo che la funzione è di classe $C^1(I)$ e lo annotiamo come $r \in C^1(I)$. Tale concetto è estendibile a ordini successivi se la derivata continua ad essere continua.
+\end{definition}
+\noindent Ne esce naturalmente che gli integrali seguano una stessa dinamica.
+\begin{definition}
+	\textbf{Integrale di funzioni a valori vettoriali}\par 
+	\noindent Sia $r$ una funzione tale che $r:[a,b]\to \mathbb{R}^m$, come prima. L'integrazione segue la relazione:
+	\begin{center}
+		\[\int_{a}^{b}r(t) dt = \left(\int_{a}^{b}r_1(t) dt, \int_{a}^{b}r_2(t) dt, ..., \int_{a}^{b}r_m(t) dt\right)\]
+	\end{center}
+	\noindent E diciamo che $r$ è integrabile nell'intervallo $[a,b]$ se e solo se tutte le sue componenti sono integrabili. Valgono inoltre il \textbf{teorema fondamentale del calcolo integrale}, con la funzione di classe $C^1([a,b])$:
+	\begin{center}
+		\[\int_{a}^{b}r'(t) dt = r(b)-r(a)\]
+	\end{center}
+	\noindent E se $r$ è integrabile abbiamo che vale:
+	\begin{center}
+		\[\int_{a}^{b} r(t) dt \leq \int_{a}^{b}|r(t)| dt\]
+	\end{center}
+\end{definition}
 
 \subsection{Curve regolari e lunghezza di un arco di curva}
+Possiamo iniziare il discorso facendo appello alla fisica. Se immaginiamo un punto materiale che si muove su uno spazio tridimensionale, la sua dinamica sarà espressa da una funzione di forma: $r:[t_1, t_2] \to \mathbb{R}^3$ e le coordinate dal vettore $r = (x,y,z)$.\par 
+Dunque, dato il punto $t \in [t_1, t_2]$ dato in pasto alla funzione $r$, avremo che la funzione prenderà la forma generale di:
+\begin{center}
+	$r(t) = x(t)i + y(t)j + z(t)k \equiv r(t) = (x(t) + y(t) + z(t))$
+\end{center}
+\noindent Ovviamente il concetto vale anche per spazi bidimensionali, come n-dimensionali. Nel primo caso avremo una funzione $r:[t_1,t_2] \to \mathbb{R}^2$ con le coordinate date da $r = (x,y)$ e la funzione generale:
+\begin{center}
+	$r(t) = x(t)i + y(t)j \equiv r(t) = (x(t) + y(t))$
+\end{center}
+\noindent Possiamo ora introdurre il concetto di \textbf{arco di curva continua} $\gamma$. Rigorosamente, è la coppia costituita da due parti:
+\begin{enumerate}
+	\item Una funzione continua del tipo $r:I \to \mathbb{R}^m$, detta \textbf{parametrizzazione della curva}.
+	\item Un insieme di punti di $\mathbb{R}^m$ costituente l'immagine della funzione $r$, chiamato \textbf{sostegno della curva}.
+\end{enumerate}
+\noindent Proprio grazie a questa divisione in componenti possiamo avere funzioni diverse con uno stesso sostegno. Inoltre, se esiste la derivata seconda, possiamo definire la \textbf{velocità scalare} con la formula:
+\begin{center}
+	$v(t) = |r'(t)|$
+\end{center}
+\noindent Un arco di curva continua può assumere le seguenti caratteristiche:
+\begin{itemize}
+	\item L'arco è \textbf{chiuso} se nell'intervallo di definizione $I = [a,b]$ il punto iniziale della curva coincide con quello finale, quindi $r(a) = r(b)$.
+	\item L'arco è \textbf{semplice} se la curva non ripassa mai dallo stesso punto, quindi $t_1 \neq t_2 \implies r(t_1) \neq r(t_2)$.
+	\item L'arco è \textbf{piano} se ha un piano che contiene il suo sostegno.
+\end{itemize}
+\noindent Altri tipi di archi di curve sono:
+\begin{itemize}
+	\item \textbf{Arco di curva regolare}\par 
+	\noindent Sia la funzione $r:I\to \mathbb{R}^m$ tale che $\forall t \in I.(r \in C^1(I) \land r'(t) \neq 0)$. Abbiamo quindi che il vettore derivato esiste in ogni punto, varia con la continuità e non si annulla mai. Non a caso per queste curve è definito bene il \textbf{versore tangente} $T = \frac{r'(t)}{|r'(t)|}$, il quale dipende con continuità dalla variabile $t$.
+	\item \textbf{Arco di curva regolare a tratti}\par 
+	\noindent Sia $I \subset \mathbb{R}$; definiamo tale un arco di curva $r:I\to \mathbb{R}^m$ tale che sia continuo in $\mathbb{R}$ e l'intervallo possa essere diviso in un numero finito di sub-intervalli, su tutti i quali la $r$ sarà un arco di curva regolare.
+\end{itemize}
+\noindent L'espressione delle curve può infine avvenire nei seguenti tre modi:
+\begin{itemize}
+	\item Forma parametrica.
+	\item Forma di grafico: $y = g(x)$.
+	\item Forma implicita: $f(x,y) = 0$.
+\end{itemize}
+\noindent Adesso buttiamo dentro un concetto che ha bisogno di qualche premessa; la \textbf{lunghezza di un arco di curva}. Consideriamo la parametrizzazione di un arco di curva continua $\gamma$ ed una partizione $P = \{a = t_0, t_1, ..., t_{n-1}, t_n = b\}$ dell'intervallo $I = [a,b]$, con $(t_0 < t_1 < ... < t_n)$.\par 
+Alla partizione $P$ è associata la poligonale\footnote{Una curva non tonda. Un angolo sotto questa visione potrebbe essere una poligonale.} inscritta in $\gamma$ creata dagli n-segmenti di estremi $r(t_{j-1})$ e $r(t_j)$, con $j = 1,...,n$.\par 
+Sia ora $l(P)$ la lunghezza della poligonale data dalla formula:
+\begin{center}
+	\[l(P) = \sum_{j=1}^{n}|r(t_j) - r(t_{j-1})|\]
+\end{center}
+\noindent L'idea di fondo è che questa lunghezza approssimi per difetto quella di $\gamma$, consentendoci di ottenerla variando in ogni istanza possibile $P$ e prendendo l'estremo superiore di $l(P)$. In tal merito, abbiamo le definizioni:
+\begin{definition}
+	\textbf{Arco di curva rettificabile}\par 
+	\noindent Diciamo che un arco di curva $\gamma$ è \textbf{rettificabile} se vale:
+	\begin{center}
+		$supl(P) = l(\gamma) < +\infty$
+	\end{center}
+	\noindent L'estremo superiore $sup$ è calcolato al variare di ogni partizione possibile dell'intervallo e $l(\gamma)$ è la lunghezza dell'arco di curva.
+\end{definition}
+\noindent Grazie al concetto di velocità scalare introdotto prima, è possibile semplificarci ulteriormente la vita per quanto riguarda rettificazioni con il seguente teorema:
+\begin{theorem}
+	\textbf{Rettificazione di arco di curva regolare}\par 
+	\noindent Sia $r:[a,b] \to \mathbb{R}^m$ parametrizzazione di un arco di curva $\gamma$ regolare. Allora questo è rettificabile e si scrive generalmente:
+	\begin{center}
+		\[l(\gamma) = \int_{a}^{b}|r'(t)| dt\]
+	\end{center}
+	\noindent Mentre per rispettivamente uno spazio bidimensionale e tridimensionale valgono le seguenti scritture:
+	\begin{center}
+		\[l(\gamma) = \int_{a}^{b} \sqrt{x'(t)^2 + y'(t)^2} dt \land l(\gamma) = \int_{a}^{b} \sqrt{x'(t)^2 + y'(t)^2 + z'(t)^2} dt\]
+	\end{center}
+\end{theorem}
+\noindent È inoltre possibile unire le curve; infatti, dati due archi $\gamma_1, \gamma_2$, con rispettive equazioni:
+\begin{itemize}
+	\item $r_1 = r_1(t)$ per $t \in [a,b]$
+	\item $r_2 = r_2(t)$ per $t \in [b,c]$
+\end{itemize}
+\noindent E con condizione di raccordo $r_1(b) = r_2(b)$, abbiamo che la relazione $\gamma = \gamma_1 \cup \gamma_2$ è data da:
+\begin{center}
+	$r(t) = \begin{cases}
+		r_1 = r_1(t), t \in [a,b]\\
+		r_2 = r_2(t), t \in [b,c]
+	\end{cases}$
+\end{center}
+\noindent In questi casi, abbiamo che se una proprietà vale per entrambi gli archi, si estenderà anche alla loro unione.
 
 
 
-
-
-% Avendo il limite in mano possiamo studiare la continuità. Diciamo arco di curva continua in R^m una funzione r:I \to R^m continua.
-
-Rivedere definizione 2.4.1 e osservazione 2.4.2 delle dispense.
-
-Fai differenza fra il grafico della curva ed il suo sostegno. Scopo ultimo.
+% TODO Riprendi da pag. 39 lunghezza di un grafico
 
 \subsection{Cambiamenti di parametrizzazione e parametro arco}
 \subsection{Integrali di prima specie}

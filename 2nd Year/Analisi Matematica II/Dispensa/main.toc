@@ -10,20 +10,19 @@
 \contentsline {section}{\numberline {2.1}Calcolo infinitesimale per le curve}{23}{}%
 \contentsline {subsection}{\numberline {2.1.1}Calcolo differenziale e integrale per funzioni a valori vettoriali}{25}{}%
 \contentsline {subsection}{\numberline {2.1.2}Curve regolari e lunghezza di un arco di curva}{27}{}%
-\contentsline {subsection}{\numberline {2.1.3}Cambiamenti di parametrizzazione e parametro arco}{30}{}%
-\contentsline {subsection}{\numberline {2.1.4}Integrali di prima specie}{30}{}%
-\contentsline {section}{\numberline {2.2}Calcolo infinitesimale per funzioni reali di più variabili}{30}{}%
-\contentsline {subsection}{\numberline {2.2.1}Grafico, linee di livello e domini}{30}{}%
-\contentsline {subsection}{\numberline {2.2.2}Limiti e continuità}{30}{}%
-\contentsline {subsection}{\numberline {2.2.3}Analisi delle forme di indeterminazione}{30}{}%
-\contentsline {chapter}{\numberline {3}Calcolo Differenziale}{31}{}%
-\contentsline {section}{\numberline {3.1}Calcolo differenziale per funzioni reali di più variabili}{31}{}%
-\contentsline {section}{\numberline {3.2}Calcolo differenziale per funzioni di più variabili a valori vettoriali}{31}{}%
-\contentsline {chapter}{\numberline {4}Ottimizzazione - Estremi Liberi}{33}{}%
-\contentsline {section}{\numberline {4.1}Generalità}{33}{}%
-\contentsline {chapter}{\numberline {5}Calcolo integrale}{35}{}%
-\contentsline {section}{\numberline {5.1}Pisellp4}{35}{}%
-\contentsline {chapter}{\numberline {6}Campi Vettoriali}{37}{}%
-\contentsline {section}{\numberline {6.1}Pisellp5}{37}{}%
-\contentsline {chapter}{\numberline {7}Serie di Fourier}{39}{}%
-\contentsline {section}{\numberline {7.1}PisellpFinale}{39}{}%
+\contentsline {subsection}{\numberline {2.1.3}Cambiamenti di parametrizzazione, parametro arco, integrali di prima specie}{31}{}%
+\contentsline {section}{\numberline {2.2}Calcolo infinitesimale per funzioni reali di più variabili}{32}{}%
+\contentsline {subsection}{\numberline {2.2.1}Grafico, linee di livello e domini}{32}{}%
+\contentsline {subsection}{\numberline {2.2.2}Limiti e continuità}{32}{}%
+\contentsline {subsection}{\numberline {2.2.3}Analisi delle forme di indeterminazione}{32}{}%
+\contentsline {chapter}{\numberline {3}Calcolo Differenziale}{33}{}%
+\contentsline {section}{\numberline {3.1}Calcolo differenziale per funzioni reali di più variabili}{33}{}%
+\contentsline {section}{\numberline {3.2}Calcolo differenziale per funzioni di più variabili a valori vettoriali}{33}{}%
+\contentsline {chapter}{\numberline {4}Ottimizzazione - Estremi Liberi}{35}{}%
+\contentsline {section}{\numberline {4.1}Generalità}{35}{}%
+\contentsline {chapter}{\numberline {5}Calcolo integrale}{37}{}%
+\contentsline {section}{\numberline {5.1}Pisellp4}{37}{}%
+\contentsline {chapter}{\numberline {6}Campi Vettoriali}{39}{}%
+\contentsline {section}{\numberline {6.1}Pisellp5}{39}{}%
+\contentsline {chapter}{\numberline {7}Serie di Fourier}{41}{}%
+\contentsline {section}{\numberline {7.1}PisellpFinale}{41}{}%

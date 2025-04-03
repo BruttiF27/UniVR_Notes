@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  2 APR 2025 19:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  3 APR 2025 19:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -370,27 +370,33 @@ Overfull \hbox (17.13327pt too wide) in paragraph at lines 126--127
 , come n-dimensionali.
  []
 
-[27] [28] [29]) [30]
-Chapter 3.
-(./Chapters/3.tex) [31
+[27] [28] [29]
+Overfull \hbox (7.1341pt too wide) in paragraph at lines 207--208
+[]\OT1/cmr/m/n/12 La curva ^^Re re-go-lare se e solo se $\OML/cmm/m/it/12 f$ \O
+T1/cmr/m/n/12 ^^Re deriv-abile e ha con-ti-nuit^^Ra nell'intervallo
+ []
 
-] [32
+[30] [31]) [32]
+Chapter 3.
+(./Chapters/3.tex) [33
+
+] [34
 
 ]
 Chapter 4.
-(./Chapters/4.tex) [33] [34
+(./Chapters/4.tex) [35] [36
 
 ]
 Chapter 5.
-(./Chapters/5.tex) [35] [36
+(./Chapters/5.tex) [37] [38
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [37] [38
+(./Chapters/6.tex) [39] [40
 
 ]
 Chapter 7.
-(./Chapters/7.tex) [39] (./main.aux (./Configs/formats.aux)
+(./Chapters/7.tex) [41] (./main.aux (./Configs/formats.aux)
 (./Configs/boxes.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -424,10 +430,10 @@ exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive
 dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (39 pages, 304099 bytes).
+Output written on main.pdf (41 pages, 310325 bytes).
 PDF statistics:
- 232 PDF objects out of 1000 (max. 8388607)
- 150 compressed objects within 2 object streams
+ 238 PDF objects out of 1000 (max. 8388607)
+ 154 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

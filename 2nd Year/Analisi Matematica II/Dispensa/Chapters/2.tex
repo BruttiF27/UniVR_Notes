@@ -194,14 +194,75 @@ Sia ora $l(P)$ la lunghezza della poligonale data dalla formula:
 		r_2 = r_2(t), t \in [b,c]
 	\end{cases}$
 \end{center}
-\noindent In questi casi, abbiamo che se una proprietà vale per entrambi gli archi, si estenderà anche alla loro unione.
+\noindent In questi casi, abbiamo che se una proprietà vale per entrambi gli archi, si estenderà anche alla loro unione. Parlando di somma, una classe particolare di curve piane è data da altre curve che si ottengono come grafici di funzioni di una variabile, ovvero nella forma $y = f(x)$, per $x \in [a,b]$. Possiamo quindi scriverle nella seguente forma parametrica:
+\begin{center}
+	$\begin{cases}
+		x = t\\
+		y = f(t)
+	\end{cases}$, per $t \in [a,b]$
+\end{center}
+\noindent E diremo che la curva è espressa come grafico della funzione $f$. Detiene le seguenti proprietà:
+\begin{itemize}
+	\item La curva è continua se e solo se $f$ è continua nell'intervallo $[a,b]$.
+	\item La curva è regolare se e solo se $f$ è derivabile e ha continuità nell'intervallo $[a,b]$.
+	\item La curva è regolare a tratti se e solo se $f$ è continua nell'intervallo $[a,b]$ e a tratti derivabile con continuità nello stesso intervallo.
+	\item La curva non è mai chiusa ed è sempre semplice.
+\end{itemize}
+\noindent Otteniamo \textbf{lunghezza del grafico} con il seguente integrale:
+\begin{center}
+	\[l(\gamma) = \int_{a}^{b} \sqrt{1+f'(t)^2} dt\]
+\end{center}
+\noindent Un altro magheggio molto utile che possiamo recuperare dall'algebra lineare è il \textbf{passaggio alla forma polare}. Abbiamo quindi:
+\begin{center}
+	$\rho = f(\theta)$, per $\theta \in [\theta_1, \theta_2] \implies \begin{cases}
+		x = f(\theta)cos(\theta)\\
+		y = f(\theta)sin(\theta)
+	\end{cases}$
+\end{center}
+\noindent Otteniamo la derivata da una semplice chain rule e da essa la norma:
+\begin{center}
+	$r'(\theta) = f'(\theta)cos(\theta) - f(\theta)sin(\theta)$, $f'(\theta)sin(\theta) + f(\theta)cos(\theta) \implies |r'(\theta)| = \sqrt{f'(\theta)^2 + f(\theta)^2}$ 
+\end{center}
+\noindent Le curve cambiate in coordinate polari detengono le seguenti proprietà:
+\begin{itemize}
+	\item La curva è continua se e solo se $f$ è continua in $[\theta_1, \theta_2]$.
+	\item La curva è regolare se e solo se $f$ è derivabile con continuità in $[\theta_1, \theta_2]$ e le funzioni $f, f'$ non si annullano contemporaneamente.
+	\item La curva è chiusa se e solo se, come visto nella definizione, $f(\theta_1) = f(\theta_2)$ e $\theta_2 - \theta_1 = 2k\pi$.
+\end{itemize}
+\noindent Ed il calcolo della lunghezza avviene con il seguente integrale:
+\begin{center}
+	\[l(\gamma) = \int_{\theta_1}^{\theta_2} \sqrt{f(\theta_2)^2 + f'(\theta_1)^2} d\theta\]
+\end{center}
+\noindent Infine, siccome è possibile trovare un estremo superiore infinito, esisteranno di conseguenza anche curve dalla lunghezza infinita, le quali risulterà impossibile rettificare.
 
+\subsection{Cambiamenti di parametrizzazione, parametro arco, integrali di prima specie}
+La lunghezza dell'arco di curva pecorsa da un punto mobile dipende solamente dal sostegno della curva. In questa sezione ci occuperemo di formalizzare quanto appena detto.\par 
+Sia infatti un arco di curva regolare $r = r(t)$, con $t \in [a,b]$. \textbf{cambiare parametrizzazione} significa introdurre una funzione derivabile ed invertibile $\phi(u) = t$, con $\phi:[c,d] \to [a,b]$, tale che la nuova curva $r = r(\phi)$, con $u \in [c,d]$ abbia lo stesso sostegno. Ci possiamo trovare davanti due casi distinti:
+\begin{itemize}
+	\item Se la curva è \textbf{crescente}, le due parametrizzazioni $r(t), r(\phi)$ si dicono \textbf{equivalenti}.
+	\item Se la curva è \textbf{decrescente}, le due si diranno \textbf{cambio di orientazione}.
+\end{itemize}
+\noindent Il senso di questo procedimento è la semplificazione della funzione in una con termini più semplici, non dissimile dal cambio di base visto in algebra lineare. Un primo vantaggio che si può notare è come la lunghezza di un arco di curva regolare è \textbf{invariante} per le parametrizzazioni equivalenti e cambi di orientazione.\par 
+Calcolando e poi invertendo la funzione della lunghezza dell'arco di curva, è possibile riparametrizzare la curva in funzione del \textbf{parametro arco}, ottenendo due vantaggi:
+\begin{itemize}
+	\item Il parametro arco $s$ è esattamente lo spazio percorso dal punto quando si passa da $0$ ad esso.
+	\item Se $r = r(s)$ è curva parametrizzata con $s$, il vettore derivato $r'(s)$ coincide con il versore tangente.
+\end{itemize}
 
+% TODO ----- INSERISCI ESEMPIO
 
-% TODO Riprendi da pag. 39 lunghezza di un grafico
+Introduciamo un ultimo argomento la cui vera utilità si vedrà nel corso di fisica:
+\begin{definition}
+	\textbf{Integrali di prima specie}\par 
+	\noindent Sia $r:[a,b] \to \mathbb{R}^m$ un arco di curva regolare di sostegno $\gamma$ e sia $f$ una funzione a valori reali definita nell'intervallo $A \subset \mathbb{R}^m$ contenente il sostegno. Chiamiamo \textbf{integrale di prima specie} di $f$ lungo $\gamma$ la seguente scrittura:
+	\begin{center}
+		\[\int_{\gamma}f dx \equiv \int_{a}^{b}f(r(t))|r'(t)| dt\]
+	\end{center}
+\end{definition}
+\noindent Valgono anche qui i risultati di invarianza rispetto a parametrizzazioni equivalenti e cambi di orientazione.
 
-\subsection{Cambiamenti di parametrizzazione e parametro arco}
-\subsection{Integrali di prima specie}
+% TODO ----- INSERISCI ESEMPIO
+
 
 %
 

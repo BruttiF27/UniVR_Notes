@@ -1,3 +1,67 @@
 \section{Calcolo differenziale per funzioni reali di più variabili}
-Incredibile, eccezionale
+Nella precedente sezione è stato introdotto il concetto di intorno sferico di centro e raggio; ebbene, c'è un tipo per tutti i gusti.
+\par Di base, sia l'intervallo $E \subseteq \mathbb{R}^n$. Un punto $x_0 \in \mathbb{R}^n$ si può dire:
+\begin{itemize}
+	\item \textbf{Interno ad $E$}, se $\exists U_r(x_0)\subseteq E$
+	\item \textbf{Esterno ad $E$}, se $\exists U_r(x_0)\subseteq \mathbb{R}^n/E$
+	\item \textbf{Di frontiera per $E$}, se $\forall U_r(x_0)\implies(U_r(x_0) \cap E \neq \emptyset) \land (U_r(x_0)\cap \mathbb{R}^n/E \neq \emptyset)$
+\end{itemize}
+\noindent Diremo poi che l'insieme dei punti interni all'intervallo è la \textbf{parte interna di $E$}, per quelli esterni è il \textbf{bordo di $E$}, mentre l'unione dell'intervallo con il suo bordo è la \textbf{chiusura di $E$}.\par 
+Inoltre un insieme si dice \textbf{aperto} quando ogni suo punto è ad esso interno, mentre chiamiamo \textbf{chiuso} un insieme il cui complementare è aperto. Le operazioni fra insiemi effettuate con insiemi dello stesso tipo, non lo modificheranno. Infine, data una funzione $f:\mathbb{R}^n\to \mathbb{R}$ continua nel suo insieme di definizione (in questo caso $\mathbb{R}^n$) abbiamo che questi sono gli insiemi aperti:
+\begin{center}
+	$\{x \in \mathbb{R}^n:f(x) > 0\}$, $\{x \in \mathbb{R}^n:f(x) < 0\}$, $\{x \in \mathbb{R}^n:f(x) \neq 0\}$
+\end{center}
+\noindent E questi i chiusi:
+\begin{center}
+	$\{x \in \mathbb{R}^n:f(x) \geq 0\}$, $\{x \in \mathbb{R}^n:f(x) \leq 0\}$, $\{x \in \mathbb{R}^n:f(x) = 0\}$
+\end{center}
+\noindent Infine, se la funzione presa in esame è continua, avremo che gli insiemi di livello di una funzione a più variabili $f(x,y)$ saranno del tipo $f(x,y) = c$ e saranno, secondo le forme appena viste, chiusi.
+
+\subsection{Derivate parziali, derivabilità, piano tangente}
+In analisi 1 è stato definito il concetto di derivata come il limite del rapporto incrementale, il quale risulta essere allo stesso tempo anche il coefficiente angolare della retta tangente alla funzione che si sta esaminando.\par 
+Lavorare in più dimensioni comporta la necessità di espandere questo concetto; anzitutto è necessario introdurre alcuni concetti:
+\begin{definition}
+	\textbf{Derivate parziali}\par 
+	\noindent Sia una funzione $f:\mathbb{R}^n \to \mathbb{R}$, è possibile calcolare le derivate in funzione delle rispettive variabili in un punto $(x_0,y_0)$. Chiamiamo infatti:
+	\begin{itemize}
+		\item \textbf{Derivata parziale rispetto ad $x$}: \[\dfrac{\partial f}{\partial x}(x_0,y_0) = \lim_{h \to 0}\dfrac{f(x_0+h, y_0) - f(x_0,y_0)}{h}\]
+		\item \textbf{Derivata parziale rispetto ad $y$}: \[\dfrac{\partial f}{\partial y}(x_0,y_0) = \lim_{k \to 0}\dfrac{f(x_0, y_0+k) - f(x_0,y_0)}{k}\]
+	\end{itemize}
+\end{definition}
+\begin{definition}
+	\textbf{Gradiente}\par 
+	\noindent Chiamiamo gradiente di $f$ nel punto $(x_0,y_0)$ il vettore che ha come elementi le derivate parziali della funzione presa in esame e si denota come: \[\nabla f(x_0,y_0)\]
+\end{definition}
+\noindent Tengo a portare all'attenzione il fatto che per calcolare le derivate parziali, le variabili $x_0+h$ e $y_0+k$ devono necessariamente essere all'interno del dominio di funzione; ciò risulta vero se il dominio è aperto.\par 
+Possiamo quindi dire che una funzione è derivabile in un punto del suo dominio e là esistono tutte le derivate parziali.
+
+% TODO ----- Inserisci esempio di calcolo derivate parziali
+\begin{eg}
+	\textbf{Calcolo delle derivate parziali di una funzione}\par 
+	\noindent
+\end{eg}
+\noindent Lo scopo di calcolare la derivata di funzione è l'approssimazione della stessa localmente; abbiamo visto che in una dimensione, lavorando con curve piane, la derivata sarà il coefficiente angolare della retta ad esse tangente. Per pattern recognition, è chiaro che se si lavora in più variabili avremo una superficie la cui derivata sarà un \textbf{piano tangente}.\par 
+Nello specifico, immaginiamoci di avere una funzione che dia una \textbf{superficie} $z = f(x,y)$ e di sezionarla con un \textbf{piano verticale} $y = y_0$. Otterremo una curva data da $z = f(x,y_0)$, dalla quale troveremo la retta tangente $r_1$. Ripetiamo lo stesso processo con un \textbf{piano orizzontale} $x = x_0$ per ottenere la tangente $r_2$. Avremo quindi che le due equazioni delle tangenti sono date da:
+\begin{center}
+	$r_1 = \begin{cases}
+		z = f(x_0,y_0) + \dfrac{\partial f}{\partial x}(x_0, y_0)(x-x_0)\\
+		y = y_0
+	\end{cases}$ $r_2 = \begin{cases}
+		z = f(x_0,y_0) + \dfrac{\partial f}{\partial y}(x_0, y_0)(y-y_0)\\
+		x = x_0
+	\end{cases}$
+\end{center}
+\noindent E quindi, in definitiva, il \textbf{piano tangente} sarà della seguente forma:
+\begin{center}
+	$z = f(x_0, y_0) + \dfrac{\partial f}{\partial x}(x_0, y_0)(x-x_0) + \dfrac{\partial f}{\partial y}(x_0, y_0)(y-y_0)$
+\end{center}
+\noindent Tutto molto bello, tuttavia la derivabilità non ha lo stesso rigore che aveva in analisi 1; infatti non implica né continuità, né l'esistenza del piano tangente. Non è quindi in grado di approssimare sempre la funzione in esame localmente; quindi necessitiamo di un concetto molto più forte: la \textbf{differenziabilità}.
+
+\subsection{Differenziabilità, derivate direzionali}
+\subsection{Calcolo delle derivate e derivate di ordine superiore}
+\subsection{Equazioni alle derivate parziali}
+\subsection{Differenziale secondo, matrice hessiana, formula di Taylor del secondo ordine}
+
+%
+
 \section{Calcolo differenziale per funzioni di più variabili a valori vettoriali}

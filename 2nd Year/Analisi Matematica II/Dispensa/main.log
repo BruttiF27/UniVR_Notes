@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  3 APR 2025 19:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  9 APR 2025 19:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -254,7 +254,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./main.toc [3
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./main.toc
+Overfull \hbox (1.49734pt too wide) in paragraph at lines 23--23
+ [][] []\OT1/cmr/m/n/12 Differenziale sec-ondo, ma-trice hes-siana, for-mula di
+ Tay- 
+ []
+
+[3
 
 ])
 \tf@toc=\write3
@@ -371,32 +377,58 @@ Overfull \hbox (17.13327pt too wide) in paragraph at lines 126--127
  []
 
 [27] [28] [29]
-Overfull \hbox (7.1341pt too wide) in paragraph at lines 207--208
+Overfull \hbox (7.1341pt too wide) in paragraph at lines 210--211
 []\OT1/cmr/m/n/12 La curva ^^Re re-go-lare se e solo se $\OML/cmm/m/it/12 f$ \O
 T1/cmr/m/n/12 ^^Re deriv-abile e ha con-ti-nuit^^Ra nell'intervallo
  []
 
-[30] [31]) [32]
-Chapter 3.
-(./Chapters/3.tex) [33
+[30] [31] [32]
+Overfull \hbox (15.97467pt too wide) in paragraph at lines 287--288
+[]\OT1/cmr/bx/n/12 Forma tridi-men-sion-ale \OT1/cmr/m/n/12 (su-per-fi-cie di l
+iv-ello): $\OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; y; x\OT1/cmr/
+m/n/12 ) \OMS/cmsy/m/n/12 2 \U/msb/m/n/12 R[] \OT1/cmr/m/n/12 : (\OML/cmm/m/it/
+12 x; y; z\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 2
+ []
 
-] [34
+
+Overfull \hbox (41.54865pt too wide) has occurred while \output is active
+\OT1/cmr/m/sl/12 2.2.  CALCOLO INFINITESIMALE PER FUNZIONI REALI DI PI[]U VARIA
+BILI \OT1/cmr/m/n/12 33
+ []
+
+[33] [34])
+Overfull \hbox (41.54865pt too wide) has occurred while \output is active
+\OT1/cmr/m/sl/12 2.2.  CALCOLO INFINITESIMALE PER FUNZIONI REALI DI PI[]U VARIA
+BILI \OT1/cmr/m/n/12 35
+ []
+
+[35] [36
+
+]
+Chapter 3.
+(./Chapters/3.tex [37] [38])
+Overfull \hbox (137.80899pt too wide) has occurred while \output is active
+\OT1/cmr/m/sl/12 3.2.  CALCOLO DIFFERENZIALE PER FUNZIONI DI PI[]U VARIABILI A 
+VALORI VETTORIALI \OT1/cmr/m/n/12 39
+ []
+
+[39] [40
 
 ]
 Chapter 4.
-(./Chapters/4.tex) [35] [36
+(./Chapters/4.tex) [41] [42
 
 ]
 Chapter 5.
-(./Chapters/5.tex) [37] [38
+(./Chapters/5.tex) [43] [44
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [39] [40
+(./Chapters/6.tex) [45] [46
 
 ]
 Chapter 7.
-(./Chapters/7.tex) [41] (./main.aux (./Configs/formats.aux)
+(./Chapters/7.tex) [47] (./main.aux (./Configs/formats.aux)
 (./Configs/boxes.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -404,10 +436,10 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3475 strings out of 476182
- 52950 string characters out of 5795596
+ 3476 strings out of 476182
+ 52958 string characters out of 5795596
  1936975 words of memory out of 5000000
- 25414 multiletter control sequences out of 15000+600000
+ 25415 multiletter control sequences out of 15000+600000
  569786 words of font info for 80 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  64i,17n,70p,534b,364s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -430,10 +462,10 @@ exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive
 dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (41 pages, 310325 bytes).
+Output written on main.pdf (47 pages, 325849 bytes).
 PDF statistics:
- 238 PDF objects out of 1000 (max. 8388607)
- 154 compressed objects within 2 object streams
+ 257 PDF objects out of 1000 (max. 8388607)
+ 167 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

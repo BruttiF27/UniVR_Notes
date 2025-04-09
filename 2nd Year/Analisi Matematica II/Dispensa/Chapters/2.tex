@@ -182,6 +182,9 @@ Sia ora $l(P)$ la lunghezza della poligonale data dalla formula:
 		\[l(\gamma) = \int_{a}^{b} \sqrt{x'(t)^2 + y'(t)^2} dt \land l(\gamma) = \int_{a}^{b} \sqrt{x'(t)^2 + y'(t)^2 + z'(t)^2} dt\]
 	\end{center}
 \end{theorem}
+
+% TODO ----- Inserisci esempio di calcolo lunghezza curva e rettificazione.
+
 \noindent È inoltre possibile unire le curve; infatti, dati due archi $\gamma_1, \gamma_2$, con rispettive equazioni:
 \begin{itemize}
 	\item $r_1 = r_1(t)$ per $t \in [a,b]$
@@ -233,6 +236,9 @@ Sia ora $l(P)$ la lunghezza della poligonale data dalla formula:
 \begin{center}
 	\[l(\gamma) = \int_{\theta_1}^{\theta_2} \sqrt{f(\theta_2)^2 + f'(\theta_1)^2} d\theta\]
 \end{center}
+
+% TODO ----- Inserisci esempio di cambio valori in forma polare
+
 \noindent Infine, siccome è possibile trovare un estremo superiore infinito, esisteranno di conseguenza anche curve dalla lunghezza infinita, le quali risulterà impossibile rettificare.
 
 \subsection{Cambiamenti di parametrizzazione, parametro arco, integrali di prima specie}
@@ -249,7 +255,7 @@ Calcolando e poi invertendo la funzione della lunghezza dell'arco di curva, è p
 	\item Se $r = r(s)$ è curva parametrizzata con $s$, il vettore derivato $r'(s)$ coincide con il versore tangente.
 \end{itemize}
 
-% TODO ----- INSERISCI ESEMPIO
+% TODO ----- Inserisci esempio parametro arco
 
 Introduciamo un ultimo argomento la cui vera utilità si vedrà nel corso di fisica:
 \begin{definition}
@@ -261,12 +267,81 @@ Introduciamo un ultimo argomento la cui vera utilità si vedrà nel corso di fis
 \end{definition}
 \noindent Valgono anche qui i risultati di invarianza rispetto a parametrizzazioni equivalenti e cambi di orientazione.
 
-% TODO ----- INSERISCI ESEMPIO
-
+% TODO ----- Inserisci esempio integrale di prima specie
 
 %
 
 \section{Calcolo infinitesimale per funzioni reali di più variabili}
-\subsection{Grafico, linee di livello e domini}
+La sezione ha come scopo lo studio delle \textbf{funzioni reali a più variabili}, che si presentano nella forma:
+\begin{center}
+	$f:A \subseteq \mathbb{R}^n \to \mathbb{R}$
+\end{center}
+\noindent In questo caso è di nostro interesse poter disegnare un grafico, con tutto ciò che ne consegue. Ciò è espresso nella forma dell'insieme:
+\begin{center}
+	$\{(c,f(x)):x \in A\} \subseteq \mathbb{R}^{n+1}$
+\end{center}
+\noindent Anche se nella maggior parte dei casi, per la rappresentazione dei grafici useremo gli \textbf{insiemi di livello}, definiti al variare di $c \in \mathbb{R}$:
+\begin{itemize}
+	\item \textbf{Forma generale}: $\{x \in \mathbb{R}^n:f(x) = c\}$
+	\item \textbf{Forma bidimensionale} (linea di livello): $\{(x,y)\in \mathbb{R}^2:(x,y)\in A\}$
+	\item \textbf{Forma tridimensionale} (superficie di livello): $\{(x,y,x)\in \mathbb{R}^3:(x,y,z)\in A\}$
+\end{itemize}
+\noindent Il primo argomento di nostro interesse è il \textbf{dominio} delle funzioni; si tratta del sottoinsieme più grande di $\mathbb{R}^n$ nel quale ha senso scrivere la funzione. Per definirlo si possono seguire le regole viste in analisi 1.
+
+% TODO ----- Inserisci esempio determinazione di dominio
+
+\begin{eg}
+	\textbf{Determinazione del dominio}\par 
+	\noindent INSERISCI ESEMPIO, è scritto sul quaderno, es 3.1.5
+\end{eg}
+
 \subsection{Limiti e continuità}
+Lavorando con più variabili, è inevitabile trovare incongruenze con i limiti unidimensionali; ragion per cui è necessario porre una nuova definizione di limite e continuità.\par 
+Anzitutto, prendiamo una successione $\{x_k\}^\infty_k=1$ di punti $\mathbb{R}^n$ ed un punto $x_0 \in \mathbb{R}^n$. Vale la seguente relazione:
+\begin{center}
+	$x_k \to x_0$ per $k \to \infty$ se vale $||x_k\to x_0|| \to 0$ per $k \to \infty$
+\end{center}
+\noindent Per renderla più comprensibile, la norma per un grafico piano sarebbe data dalla formula:
+\begin{center}
+	$||x_k-x_0|| \equiv \sqrt{(x_k-x_0)^2 + (y_k-y_0)^2} = 0$
+\end{center} 
+\noindent In analisi 1 abbiamo utilizzato punti fermi per ottenere informazioni dai grafici; adesso useremo il concetto di \textbf{intorno sferico}:
+\begin{definition}
+	\textbf{Intorno sferico}\par 
+	\noindent Chiamiamo intorno sferico di centro $x_0 \in \mathbb{R}^n$ e raggio $r > 0$ l'insieme dato da:
+	\begin{center}
+		$U_r(x_0) = \{x\in \mathbb{R}^n: ||x-x_0||<r\}$
+	\end{center}
+\end{definition}
+\noindent Concetto che ci consente di introdurre la nozione di limite adattata per il nostro caso di studi:
+\begin{definition}
+	\textbf{Definizione successionale di limite}\par
+	\noindent Siano $f:\mathbb{R}^n \to \mathbb{R}$ definita almeno in un intorno sferico $x_0 \in \mathbb{R}^n$ e il valore $L \in \mathbb{R}^*$, dove $\mathbb{R}^* = \mathbb{R} \cup \{+\infty\}$. Allora esiste: \[\lim_{x\to x_0}f(x) = L\]
+	\noindent Se e solo se per ogni successione $x_k$ di punti tutti diversi tali che ognuno tenda a $x_0$ per $k$ tendente a infinito. In tal caso avremo anche che: \[\lim_{k\to \infty}f(x) = L\]
+\end{definition}
+\noindent In particolare, definiamo ora la continuità:
+\begin{definition}
+	\textbf{Continuità di una funzione}\par 
+	\noindent Sia una funzione $f:\mathbb{R}^n\to \mathbb{R}$. La diciamo continua nell'intorno sferico $x_0$ se vale: \[\lim_{x\to x_0}f(x) = f(x_0)\]
+\end{definition}
+\noindent Di conseguenza, quando una funzione è continua in un intorno sferico, è possibile calcolarne il limite per $x$ che tende a $x_0$ semplicemente valutando $f(x_0)$, ed il ricorso alla definizione per lo svolgimento degli esercizi avviene solamente per le \textbf{forme di indeterminazione}.
+
 \subsection{Analisi delle forme di indeterminazione}
+Consideriamo la scrittura del limite di funzione $f$ appena vista. Se la distanza fra $x, x_0$ tende al valore $0$, indipendentemente dalla direzione, avremo che la funzione si avvicinerà al valore $L$ \textbf{indefinitamente}. Da qui possiamo distinguere due casi di studio, ognuno dei quali parte da un approccio a sensazioni:
+\begin{enumerate}
+	\item \textbf{Il limite esiste}; Per valutare l'esistenza di un limite si utilizza il metodo della \textbf{maggiorazione}. Lo scopo finale è "schiacciare" la funzione in tal modo che il valore a cui tenda sia $0$.
+	\item \textbf{Il limite non esiste}; Esistono vari approcci per assicurarsi che un limite non esista ed è consigliato usarne vari per avere una conferma più rigorosa. Nei casi più semplici, tuttavia, è sufficiente determinare due curve passanti per $x_0$ lungo le quali la funzione tende a due termini diversi.\par 
+	In parole povere, bisogna calcolare due limiti della funzione che tendono a $(x,0), (0,y)$. Se i due limiti ritornano valori discordi, il limite di funzione non esiste.
+\end{enumerate}
+
+% TODO ----- INSERISCI ESEMPIO PER OGNI CASO DI LIMITE
+
+\begin{eg}
+	\textbf{Dimostrazione di esistenza del limite}\par 
+	\noindent
+\end{eg}
+
+\begin{eg}
+	\textbf{Dimostrazione di non esistenza del limite}\par 
+	\noindent
+\end{eg}

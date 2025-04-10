@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  9 APR 2025 19:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  10 APR 2025 17:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -406,29 +406,45 @@ BILI \OT1/cmr/m/n/12 35
 
 ]
 Chapter 3.
-(./Chapters/3.tex [37] [38])
-Overfull \hbox (137.80899pt too wide) has occurred while \output is active
-\OT1/cmr/m/sl/12 3.2.  CALCOLO DIFFERENZIALE PER FUNZIONI DI PI[]U VARIABILI A 
-VALORI VETTORIALI \OT1/cmr/m/n/12 39
+(./Chapters/3.tex [37] [38]
+Overfull \hbox (38.94592pt too wide) has occurred while \output is active
+\OT1/cmr/m/sl/12 3.1.  CALCOLO DIFFERENZIALE PER FUNZIONI REALI DI PI[]U VARIAB
+ILI \OT1/cmr/m/n/12 39
  []
 
-[39] [40
+[39]
+Underfull \hbox (badness 10000) in paragraph at lines 75--76
 
-]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 90--91
+
+ []
+
+[40])
+Overfull \hbox (38.94592pt too wide) has occurred while \output is active
+\OT1/cmr/m/sl/12 3.1.  CALCOLO DIFFERENZIALE PER FUNZIONI REALI DI PI[]U VARIAB
+ILI \OT1/cmr/m/n/12 41
+ []
+
+[41] [42]
 Chapter 4.
-(./Chapters/4.tex) [41] [42
+(./Chapters/4.tex) [43
+
+] [44
 
 ]
 Chapter 5.
-(./Chapters/5.tex) [43] [44
+(./Chapters/5.tex) [45] [46
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [45] [46
+(./Chapters/6.tex) [47] [48
 
 ]
 Chapter 7.
-(./Chapters/7.tex) [47] (./main.aux (./Configs/formats.aux)
+(./Chapters/7.tex) [49] (./main.aux (./Configs/formats.aux)
 (./Configs/boxes.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -462,10 +478,10 @@ exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive
 dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (47 pages, 325849 bytes).
+Output written on main.pdf (49 pages, 334146 bytes).
 PDF statistics:
- 257 PDF objects out of 1000 (max. 8388607)
- 167 compressed objects within 2 object streams
+ 264 PDF objects out of 1000 (max. 8388607)
+ 172 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

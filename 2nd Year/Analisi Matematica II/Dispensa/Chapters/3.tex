@@ -30,7 +30,7 @@ Lavorare in più dimensioni comporta la necessità di espandere questo concetto;
 \end{definition}
 \begin{definition}
 	\textbf{Gradiente}\par 
-	\noindent Chiamiamo gradiente di $f$ nel punto $(x_0,y_0)$ il vettore che ha come elementi le derivate parziali della funzione presa in esame e si denota come: \[\nabla f(x_0,y_0)\]
+	\noindent Chiamiamo gradiente di $f$ nel punto $(x_0,y_0)$ il vettore che ha come elementi le derivate parziali della funzione presa in esame e si denota come: \[\nabla f(x_0,y_0) = \left(\dfrac{\partial f}{\partial x}(x_0,y_0), \dfrac{\partial f}{\partial y}(x_0,y_0)\right)\]
 \end{definition}
 \noindent Tengo a portare all'attenzione il fatto che per calcolare le derivate parziali, le variabili $x_0+h$ e $y_0+k$ devono necessariamente essere all'interno del dominio di funzione; ciò risulta vero se il dominio è aperto.\par 
 Possiamo quindi dire che una funzione è derivabile in un punto del suo dominio e là esistono tutte le derivate parziali.
@@ -58,7 +58,60 @@ Nello specifico, immaginiamoci di avere una funzione che dia una \textbf{superfi
 \noindent Tutto molto bello, tuttavia la derivabilità non ha lo stesso rigore che aveva in analisi 1; infatti non implica né continuità, né l'esistenza del piano tangente. Non è quindi in grado di approssimare sempre la funzione in esame localmente; quindi necessitiamo di un concetto molto più forte: la \textbf{differenziabilità}.
 
 \subsection{Differenziabilità, derivate direzionali}
+Riportiamo alla memoria il concetto di \textbf{o piccolo}; si tratta di un'identità che vede l'incremento di una funzione uguale al differenziale della stessa, sommato da un infinitesimo di ordine superiore. Si traduce nella formula, per $h \to 0$: \[g(t+h)-g(t) = g'(t)h + o(h)\]
+\noindent Per il calcolo a più variabili è la stessa identica cosa, solamente in modo più esteso.
+\begin{definition}
+	\textbf{Differenziabilità}\par 
+	\noindent La differenziabilità di una funzione $f$ in un punto $(x_0,y_0)$ è un concetto rigoroso che ne implica derivabilità, continuità ed esistenza del piano tangente nello stesso punto. Vale se per $(h,k)\to(0,0)$ è vera la seguente formula: \[f(x_0+h, y_0+k)-f(x_0,y_0) = \dfrac{\partial f}{\partial x}(x_0, y_0)+h + \dfrac{\partial f}{\partial y}(x_0,y_0)+k + o(\sqrt{h^2+k^2})\]
+	\noindent Più precisamente, le componenti della formula sono:
+	\begin{itemize}
+		\item Incremento della funzione: $f(x_0+h, y_0+k)-f(x_0,y_0)$
+		\item Incremento sul piano tangente: $\dfrac{\partial f}{\partial x}(x_0, y_0)+h + \dfrac{\partial f}{\partial y}(x_0,y_0)+k$
+		\item Infinitesimo d'ordine superiore: $o(\sqrt{h^2+k^2})$
+	\end{itemize}
+\end{definition}
+\noindent Da questa definizione ne seguono alcune altrettanto utili; per esempio, se la funzione è differenziabile in $(x_0,y_0)$, chiamiamo \textbf{differenziale} di $f$ nello stesso punto l'applicazione lineare $df(x_0,y_0):\mathbb{R}^2\to \mathbb{R}$, definita da $df(x_0,y_0):(h,k)\to \nabla f(x_0,y_0)(h,k)$.\par
+Più precisamente $\nabla f(x_0,y_0)(h,k)$ è l'incremento della funzione nel passare dal punto $(x_0,y_0)$ al punto $(x_0+h, y_0+k)$ sul piano tangente alla funzione.\par
+Il differenziale è necessario per l'approssimazione dell'incremento della funzione; il processo ha anche un nome: \textbf{linearizzazione}.\newline
+
+\noindent In che modo è possibile verificare se una funzione è o meno differenziabile? Il metodo più semplice risulta essere la \textbf{condizione sufficiente}. Diciamo infatti che se esistono e sono continue le derivate parziali in un intorno $(x_0,y_0)$, allora la funzione sarà ivi differenziabile. Ciò vale anche per intervalli, ed in tal caso $f$ sarà differenziabile in tutti i suoi punti.
+% TODO ----- INSERISCI ESEMPIO DI CONTROLLO DIFFERENZIABILITÀ
+\begin{eg}
+	\textbf{Verifica differenziabilità di funzione}\par 
+	\noindent
+\end{eg}
+\noindent Finora abbiamo calcolato la velocità di crescita delle curve in base alle direzioni degli assi, tuttavia per fare un lavoro completo, è necessario conoscere anche come le funzioni crescono in direzioni diverse. Per farlo basta prendere il rapporto incrementale e valutarlo con uno scalare $t \in \mathbb{R}$. Risulta la seguente scrittura: \[D_vf(x_0) = \lim_{t\to 0}\dfrac{f(x_0+tv)-f(x_0)}{t}\]
+\noindent Questa si dice \textbf{derivata direzionale} della funzione rispetto al versore $v$ nel punto $x_0$ e vale a patto che il limite esista e sia finito.\par
+In questi termini, le derivate parziali possono essere viste come derivate direzionali corrispondenti ai versori canonici $e_i$; quindi quelli che danno la direzione per ogni dimensione. Nel caso specifico di $\mathbb{R}^2$ diciamo che il versore $v = (cos(\theta), sin(\theta))$, ottenendo una scrittura diversa della definizione: \[D_vf(x_0, y_0) = \lim_{t\to 0}\dfrac{f(x_0+tcos(\theta), y_0+tsin(\theta)) - f(x_0, y_0)}{t}\] \noindent Dove abbiamo inoltre che:
+\begin{itemize}
+	\item $\dfrac{\partial f}{\partial x}(x_0,y_0) = D_vf(x_0, y_0)$, con $v=i$ e $\theta=0$
+	\item $\dfrac{\partial f}{\partial y}(x_0,y_0) = D_vf(x_0, y_0)$, con $v=j$ e $\theta=\dfrac{\pi}{2}$
+\end{itemize}
+\noindent Un'altra cosa da notare è che tutte le derivate direzionali sono combinazioni lineari delle derivate parziali; non a caso le prime risultano essere un caso più generale delle seconde. Paradossalmente sarebbe possibile usare solo la formula delle direzionali, perché funzionerebbe anche con le direzioni degli assi.\newline
+
+\noindent Introduciamo un nuovo strumento; una formula per il calcolo della derivata direzionale attraverso il gradiente:
+\begin{definition}
+	\textbf{Formula del gradiente}\par 
+	\noindent Sia $f:A\subseteq\mathbb{R}^n\to \mathbb{R}$ una funzione differenziabile nel punto $x_0 \in A$. Allora per ogni versore $v$ esiste la derivata direzionale $D_vf(x_0)$ e vale la seguente identità: \[D_vf(x_0) = \nabla f(x_0)v = \sum_{n}^{i=1}\dfrac{\partial f}{\partial x_i}(x_0)v_i\]
+\end{definition}
+\noindent Per il caso specifico di due dimensioni abbiamo che per ogni versore vale: \[D_vf(x_0,y_0) = \nabla f(x_0,y_0)v = ||\nabla f(x_0,y_0)||cos(\phi)\]
+\noindent Dove $\phi$ è l'angolo compreso fra i vettori $v$ e $\nabla f(x_0,y_0)$, può assumere quindi un valore compreso fra $[-1,1]$. In particolare avremo che:
+\begin{itemize}
+	\item Se $\phi = \frac{\pi}{2} \lor \phi = \frac{3}{2}\pi$, allora il gradiente sarà uguale a $0$.
+	\item Se $\phi = 0$, allora risulterà il modulo (o norma) del gradiente e indica la curva di massima salita.
+	\item Se $\phi = -1$, allora risulterà il modulo negativo del gradiente e indica la curva di massima discesa.
+\end{itemize}
+
 \subsection{Calcolo delle derivate e derivate di ordine superiore}
+Abbiamo finalmente uno sputo di fortuna per quanto riguarda il calcolo di derivate. Valgono infatti le stesse regole viste in analisi 1, solamente adattate dalle dimensioni maggiori; infatti, dati $\alpha, \beta \in \mathbb{R}$:
+\begin{itemize}
+	\item Regola per la somma: $\nabla(\alpha f + \beta g) = \alpha\nabla f + \beta\nabla g$
+	\item Regola per la moltiplicazione: $\nabla(fg) = g\nabla f + f\nabla g$
+	\item Regola per la divisione: $\nabla\left(\dfrac{f}{g}\right) = \dfrac{g\nabla f - f\nabla g}{g^2}$
+\end{itemize}
+
+
+% TODO CONTINUA QUI DA DERIVATE COMPOSTE
 \subsection{Equazioni alle derivate parziali}
 \subsection{Differenziale secondo, matrice hessiana, formula di Taylor del secondo ordine}
 

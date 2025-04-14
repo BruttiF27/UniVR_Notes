@@ -19,14 +19,13 @@
 \contentsline {subsection}{\numberline {3.1.1}Derivate parziali, derivabilità, piano tangente}{38}{}%
 \contentsline {subsection}{\numberline {3.1.2}Differenziabilità, derivate direzionali}{39}{}%
 \contentsline {subsection}{\numberline {3.1.3}Calcolo delle derivate e derivate di ordine superiore}{41}{}%
-\contentsline {subsection}{\numberline {3.1.4}Equazioni alle derivate parziali}{42}{}%
-\contentsline {subsection}{\numberline {3.1.5}Differenziale secondo, matrice hessiana, formula di Taylor del secondo ordine}{42}{}%
-\contentsline {section}{\numberline {3.2}Calcolo differenziale per funzioni di più variabili a valori vettoriali}{42}{}%
-\contentsline {chapter}{\numberline {4}Ottimizzazione - Estremi Liberi}{43}{}%
-\contentsline {section}{\numberline {4.1}Generalità}{43}{}%
-\contentsline {chapter}{\numberline {5}Calcolo integrale}{45}{}%
-\contentsline {section}{\numberline {5.1}Pisellp4}{45}{}%
-\contentsline {chapter}{\numberline {6}Campi Vettoriali}{47}{}%
-\contentsline {section}{\numberline {6.1}Pisellp5}{47}{}%
-\contentsline {chapter}{\numberline {7}Serie di Fourier}{49}{}%
-\contentsline {section}{\numberline {7.1}PisellpFinale}{49}{}%
+\contentsline {subsection}{\numberline {3.1.4}Differenziale secondo, matrice hessiana, formula di Taylor del secondo ordine}{43}{}%
+\contentsline {section}{\numberline {3.2}Calcolo differenziale per funzioni di più variabili a valori vettoriali}{43}{}%
+\contentsline {chapter}{\numberline {4}Ottimizzazione - Estremi Liberi}{45}{}%
+\contentsline {section}{\numberline {4.1}Generalità}{45}{}%
+\contentsline {chapter}{\numberline {5}Calcolo integrale}{47}{}%
+\contentsline {section}{\numberline {5.1}Pisellp4}{47}{}%
+\contentsline {chapter}{\numberline {6}Campi Vettoriali}{49}{}%
+\contentsline {section}{\numberline {6.1}Pisellp5}{49}{}%
+\contentsline {chapter}{\numberline {7}Serie di Fourier}{51}{}%
+\contentsline {section}{\numberline {7.1}PisellpFinale}{51}{}%

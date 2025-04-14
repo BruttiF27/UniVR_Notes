@@ -109,11 +109,48 @@ Abbiamo finalmente uno sputo di fortuna per quanto riguarda il calcolo di deriva
 	\item Regola per la moltiplicazione: $\nabla(fg) = g\nabla f + f\nabla g$
 	\item Regola per la divisione: $\nabla\left(\dfrac{f}{g}\right) = \dfrac{g\nabla f - f\nabla g}{g^2}$
 \end{itemize}
+\noindent Queste stesse relazioni funzionano anche per i differenziali; mentre per le \textbf{funzioni composte} distinguiamo due casi di studio:
+\begin{itemize}
+	\item \textbf{Primo caso}; Siano $f:A \subseteq R^n \to R$ e $g:I \subseteq R \to R$. Supponiamo che $h(x) = g(f(x))$ sia una funzione definita in un intorno $U di x_0 \in A$.
+	Se la funzione f è differenziabile in $x_0$ e la $g$ è derivabile in $f(x_0)$, allora la seguente funzione composita è differenziabile in $x_0$:
+	\[h = g \circ f : U \subseteq R^n \to R\]
+	\noindent Si ha inoltre che: $\nabla h(x_0) = g'(f(x_0)) \times \nabla f(x_0)$.
+	\item \textbf{Secondo caso}; Siano $r:I \subseteq R \to R^n$ e $f:A \subseteq R^n\to R$. Supponiamo che $g(t) = f(r(t))$ sia definita in un intorno $J$ di $t_0 \in I$.
+	Se la funzione r è derivabile in $t_0$ e $f$ è differenziabile in $r(t_0)$, allora la seguente funzione composta è derivabile in $t_0$:
+	\[g = f\circ r : J \subseteq R \to R\]
+	\noindent Si ha inoltre che: $g'(t_0) = \nabla f(r(t_0)) \times r'(t_0) = \sum_{i = 1}^{n}\frac{\partial f}{\partial x_i} (r(t_0))r(t_i)$.
+\end{itemize}
 
+% TODO ----- INSERISCI ESEMPIO PRIMO CASO
+% TODO ----- INSERISCI ESEMPIO SECONDO CASO
 
-% TODO CONTINUA QUI DA DERIVATE COMPOSTE
-\subsection{Equazioni alle derivate parziali}
+\noindent Una volta determinate le derivate parziali di una funzione f è possibile che quanto ottenuto sia a sua volta derivabile. Ci è richiesto quindi di calcolare le \textbf{derivate parziali seconde}, se esistono. Queste hanno le seguenti forme:
+\[\dfrac{\partial^2f}{\partial x^2} = \dfrac{\partial}{\partial x} \left(\dfrac{\partial f}{\partial x}\right), \dfrac{\partial^2f}{\partial y\partial x} = \dfrac{\partial}{\partial y} \left(\dfrac{\partial f}{\partial x}\right), \dfrac{\partial^2f}{\partial x\partial y} = \dfrac{\partial}{\partial x} \left(\dfrac{\partial f}{\partial y}\right), \dfrac{\partial^2f}{\partial y^2} = \dfrac{\partial}{\partial y} \left(\dfrac{\partial f}{\partial y}\right)\]
+\noindent Queste si indicano rispettivamente con $f_{xx}, f_{yx}, f_{xy}, f_{yy}$, ed il concetto è facilmente estendibile al caso n: \[\dfrac{\partial^2 f}{\partial x_j \partial x_i} = \dfrac{\partial}{\partial x_j} \left(\dfrac{\partial f}{\partial x_i}\right)\]
+
+\begin{theorem}
+	\textbf{Teorema di Schwarz}\par 
+	\noindent Sia una funzione $f:A \subseteq \mathbb{R}^2\to \mathbb{R}$, con $A$ suo insieme di definizione aperto. Supponiamo che le derivate parziali seconde miste esistano in un intorno di un punto $(x,y)$ e siano entrambe ivi continue. Allora queste coincideranno in quel punto. Se le derivate parziali sono continue in tutto $A$, allora coincideranno in tutto l'insieme. Quindi:
+	\[f \in C^2(A) \implies f_{xy} = f_{yx}\]
+	\noindent Abbiamo di conseguenza se la funzione è di classe due nell'insieme definito:
+	\begin{itemize}
+		\item Le derivate parziali prime sono differenziabili in $A$.
+		\item Le derivate parziali seconde sono continue in $A$.
+		\item Le derivate parziali miste sono uguali.
+	\end{itemize}
+	\noindent Notare che se una funzione presenta derivate miste diverse, necessariamente non sarà di classe due in quell'intervallo.
+\end{theorem}
+
 \subsection{Differenziale secondo, matrice hessiana, formula di Taylor del secondo ordine}
+Siano una funzione $f:A \subseteq \mathbb{R}^2\to \mathbb{R}$, di classe due su $A$ e un intorno di punto $(x_0,y_0) \in A$. Chiamiamo \textbf{differenziale secondo} di $f$ in $(x_0,y_0)$ la seguente funzione:
+\[d^2f(x_0,y_0):(h,k) \to \dfrac{\partial^2 f}{\partial x^2}(x_0,y_0)h^2 + \dfrac{\partial^2 f}{\partial y^2}(x_0,y_0)k^2 + 2\dfrac{\partial^2 f}{\partial x\partial y}(x_0,y_0)hk\]
+\noindent La quale somiglia per un motivo a me ignoto al risultato di un quadrato di binomio. In ogni caso, i suoi coefficienti possono essere inseriti in una \textbf{matrice hessiana}, la quale risulterà simmetrica in ogni punto di $A$ se la funzione è in esso di classe due.
+\[Hf(x_0,y_0) = \begin{pmatrix}
+	f_{xx}(x_0,y_0) & f_{xy}(x_0,y_0)\\
+	f_{yx}(x_0,y_0) & f_{yy}(x_0,y_0)
+\end{pmatrix}\]
+
+% TODO ----- INSERISCI ESEMPIO USO MATRICE HESSIANA
 
 %
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  10 APR 2025 17:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  14 APR 2025 20:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -255,7 +255,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./main.toc
-Overfull \hbox (1.49734pt too wide) in paragraph at lines 23--23
+Overfull \hbox (1.49734pt too wide) in paragraph at lines 22--22
  [][] []\OT1/cmr/m/n/12 Differenziale sec-ondo, ma-trice hes-siana, for-mula di
  Tay- 
  []
@@ -422,29 +422,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 90--91
 
  []
 
-[40])
+[40]
 Overfull \hbox (38.94592pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 3.1.  CALCOLO DIFFERENZIALE PER FUNZIONI REALI DI PI[]U VARIAB
 ILI \OT1/cmr/m/n/12 41
  []
 
-[41] [42]
-Chapter 4.
-(./Chapters/4.tex) [43
+[41]
+Overfull \hbox (1.7402pt too wide) detected at line 128
+[] \OT1/cmr/m/n/12 = [] [] \OML/cmm/m/it/12 ; [] \OT1/cmr/m/n/12 = [] [] \OML/c
+mm/m/it/12 ; [] \OT1/cmr/m/n/12 = [] [] \OML/cmm/m/it/12 ; [] \OT1/cmr/m/n/12 =
+ [] []
+ []
 
-] [44
+[42])
+Overfull \hbox (137.80899pt too wide) has occurred while \output is active
+\OT1/cmr/m/sl/12 3.2.  CALCOLO DIFFERENZIALE PER FUNZIONI DI PI[]U VARIABILI A 
+VALORI VETTORIALI \OT1/cmr/m/n/12 43
+ []
+
+[43] [44
+
+]
+Chapter 4.
+(./Chapters/4.tex) [45] [46
 
 ]
 Chapter 5.
-(./Chapters/5.tex) [45] [46
+(./Chapters/5.tex) [47] [48
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [47] [48
+(./Chapters/6.tex) [49] [50
 
 ]
 Chapter 7.
-(./Chapters/7.tex) [49] (./main.aux (./Configs/formats.aux)
+(./Chapters/7.tex) [51] (./main.aux (./Configs/formats.aux)
 (./Configs/boxes.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -478,10 +491,10 @@ exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive
 dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (49 pages, 334146 bytes).
+Output written on main.pdf (51 pages, 341077 bytes).
 PDF statistics:
- 264 PDF objects out of 1000 (max. 8388607)
- 172 compressed objects within 2 object streams
+ 270 PDF objects out of 1000 (max. 8388607)
+ 176 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

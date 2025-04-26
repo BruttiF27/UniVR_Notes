@@ -1,0 +1,102 @@
+----- Statistica 24/03/25 -----
+
+--- Set esercizi 4
+
+- ex 1.1 res: C
+Una variabile casuale è sinonimo di variabile aleatoria. Una quantità numerica il cui valore dipende dall'esito di un esperimento aleatorio.
+
+- ex 1.2 res: C
+Sia X una VA continua con densità di probabilità f(x). Lei è vista come collettività di valori e in un intervallo può anche assumerne di diversi.
+Ciò significa che anche se un intervallo è [0,1], la densità f(x) può assumere valori più alti. Quindi f(x) \geq 0 necessariamente.
+
+- ex 1.3 res: C
+Sia X una variabile aleatoria discreta tc P(X = 0) = 1/3 e P(X=2) = 2/3. Quanto vale Var(X)?
+
+Var(X) = E(x^2) - E^2(X)
+E(X) = 1/3 * 0 + 2/3 * 2 = 4/3		E(X^2) = 1/3 * 0^2 + 2/3 * 2^2 = 8/3
+
+Var(X) = (/3 - 16/9 = 8/9
+
+- ex 1.4 res: B
+
+Sia X una variabile aleatoria continua con densità:
+\begin{cases}
+	1/2 se x \in [0,2]\\
+	0 altrimenti
+\end{cases}
+
+Quanto vae P(=,2 \leq X \leq 0,7)?
+
+\int_0,2^0,7 1/2 dx = 1/2 * (0,7-0,2) = 1/4
+
+- wx 1.5 res: A
+Sia X variabile aleatoria discreta tc P(X=0) = p, P(X=-1) = P(X=1) = (1-p)/2
+Per quale valore di p \in [0,1] la varianza assume il valore massimo?
+
+Valutiamo per p=0
+
+E(X) = p*0 + \frac{1-p}{2}*-1 + \frac{1-p}{2}*1 = 0
+E(X^2) = p*0 + \frac{1-p}{2}*-1^2 + \frac{1-p}{2}*1^2 = 1-p
+
+Var(X) = (1-p) - 0^2 = 1-p
+
+- Ex 1.6 res: A
+Sia X una VA discreta tc P(X = -1) = 1/3 e P(X = 2) = 2/3. Quanto vale E(X)?
+
+E(X) = 1/3 * 1 + 2/3 * 2 = 1
+
+- Ex. 1.7 res: C
+Per calcolare la media di una VA discreta si fa una media dei valori attesi. Per una continua?
+
+- Ex 1.8 res: B
+Sia X VA discreta. QUanto vale P(X \in {x_1, x_2})?
+P(X = x_1) + P(X = x_2)
+
+- Ex 1.9 res: A
+Sia X VA continua con densità f e siano x<y. Quanto vale P(X \in {x,y})?
+
+E' uguale a 0 perché stiamo ragionando su una variabile continua. La densità può essere qualunque cosa.
+
+--- Parte B
+- Ex.2.1
+In un'azienda la qualità dell'uva nel 02 sarà ottima con prob. 0,25 e buona con prob 0,55.
+Se è ottima, il vino sarà venduto a 5 euro a bossa, se buona a 3 euro a bossa.
+Se la qualità è sub buona si vende a 1 euro a bossa.
+Sia X il prezzo di una bossa de vin prodotto da quell'uva. Determinare media e varianza di X.
+
+P(ottima) = 25/100
+P(buona) = 55/100
+P(scarsa) = 1-p(ottima) - P(buona) = 20/100
+
+E(X) = 25/100 * 5 + 55/100 * 3 + 20/100 * 1 = 310/100 = 3,1.
+E(X^2) = 25/100 * 5^2 + 55/100 * 3^2 + 20/100 * 1^2 = 625/100 + 495/100 + 20/100 = 1140/100
+
+Var(X) = 1140/100 - 3,1^2 = 11,40 - 9,61 = 1,79
+
+- Ex 2.2
+Si sceglie a caso un campione di 5 oggetti da un lotto di 100 di cui 10 son tarocchi per effettuare un controllo qualità.
+Sia X il numero di oggetti tarocchi nel campione. Determinare la distribuzione di X.
+
+Associo una variabile aleatoria agli oggetti che prendo. Quindi: P(X = k) = p(k), con k \in {0, 1, 2, 3, 4, 5}
+P(Difettoso) = 1/10
+
+Usiamo il coefficiente binomiale. Ha senso.
+p(k) = \frac{(10 \\ k) (90 \\ 5-k)}{(100 \\ 5)} = 
+
+--- INTERMISSION ---
+La funzione di densità deve essere tale che l'integrale da -\infty a +\infty deve essere = 1.
+Non può essere maggiore di 1, quindi NON PUò ESSERE PER NESSUN MOTIVO MINORE DI 0.
+
+Le derivate parlano di località
+Gli integrali di totalità
+
+--- Inizio spiegazione ---
+Covarianza fra X,Y è definita come:
+
+Cov(X,Y) = E[(X-E(X))(Y-E(Y))] = E(XY) - E(X)E(Y)
+
+Si ha inoltre Cov(X,X) = Var(X)
+Se X,Y sono indipendenti, Cov(X,Y) = 0 e se è tale, diciamo che queste variabili sono scorrelate.
+Quindi se indipendenti \implies scorrelate, mentre l'inverso è generalmente falso.
+
+Vedasi esempio. Non ha spiegato molto oggi, che culo.

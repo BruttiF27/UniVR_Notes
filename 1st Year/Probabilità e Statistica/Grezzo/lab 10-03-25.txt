@@ -1,0 +1,71 @@
+Statistica laboratorio 10-03-2025
+
+- Introduzione a R
+Esame informatizzato su moodle - tutto in un'unica prova da 1h30min
+
+R linguaggio di programmazione. Si usa per analisi statistica dei dati, visualizzazione, statistica descrittiva, machine learning, manipolazione dei dati, datamining, ricerca scientifica.
+open-source; estremamente flessibile nella scrittura.
+
+R è diviso in pacchetti, funzioni create da altri utenti con relativi usi e consumi. Vedremo:
+	- ggplot2 per creazione di grafici
+	- dplyr per la manipolazione dei dati
+
+Per instllare pacchetti usare install packages nella console di R
+
+swirl - pacchetto di R apposta per impararlo.
+
+install.packages(nomePacchetto) # per l'installazione dei pacchetti. Scegli quello che esce da Padova, sempre.
+
+# dichiarazione ed assegnazione di valori ad una variabile
+$ A <- 2+2		# Assegna 4 in A.
+
+Il lavoro con R corrisponde ad un ambiente di lavoro chiamato laboratorio; il quale sarà salvato fisicamente in una cartella apposita.
+mean(x, ...) (calcola la media)
+trim (calcola la media con i valori estremi rimossi)
+
+?comando 			# per avere il manuale
+
+altezze <- c(180, 185, 160)		# c(1, 2, 3, ...) costruisce un vettore di n elementi
+mean(altezze)
+
+# Puoi fare anche matrici e hai funzioni specifiche per righe e colonne.
+
+na.rm = TRUE è un'opzione che ignorerà i valori NA, assicurandoti di non ottenere un risultato NA a causa dei valori NA. Non rimuove nulla dal tuo df stesso
+
+I files con estensione .r si dicono "r scripts" e contengono il tuo codice che vuoi salvare.
+
+Puoi runnare anche una singola riga evidenziandola.
+
+> ricerca R-Markdown files; non sono chiesti all'esame ma potrebbe essere utile.
+
+Abbiamo le variabili in R che devono iniziare sempre con una lettera e mai un numero. In questo linguaggio non serve fare dichiarazioni, ci pensa da solo.
+Esiste il comando remove() per rimuovere una variabile dall'environment.
+Per accedere all'elemento i-esimo del vettore nomeVet[i], dove i è il numero che ti serve.
+
+Sequenze usare n:k, dove n è ill numero di inizio e k quello di fine.
+Altrimenti puoi specificarlo con seq(), ovvero sequenza.
+Usare la funzione rep() per le ripetizioni di vettori.
+Esistono funzioni per i vettori:
+	- length, lax, min, sum, cumsum.
+
+Per creare matrici puoi usare cbind() #Column bind
+rbind #rowbind
+
+Oppure il comando matrix(). Per accedere all'ellemento fare mat[i,j]
+Se ti serve un'intera riga o colonna, rimuovi il numero dalle quadre richieste.
+
+Se vogliamo rimuovere una riga o colonna su può fare con l'operatore -, come mat[-1,] rimuove la prima riga.
+
+Le matrici seguono la loro logica come in algebra.
+
+Poi c'hanno anche loro delle funzioni apposite:
+	- det(); calcola il determinante di una matrice
+	- qr(); Calcola la decomposizione QR (The hell does this even mean, lad?)
+	- solve(); inversa di una matrice (Da testare)
+	- nrow(); Ritorna il numero di righe di una matrice 
+	- ncol(); Ritorna ill numero di colonne di una matrice 
+	- rowSums(); Fa la somma di ogni riga 
+	- colSums(); Fa la somma di ogni colonna
+	- rowMeans(); calcola la media delle righe 
+	- colMeans(); calcola la media delle colonne 
+	- dim(); calcola la dimensione di una matrice

@@ -1,0 +1,98 @@
+Statistica 10-03./25
+
+Probabilità 2
+Se l'intersezione di due eventi è vuota, i due si dicono incompatibili. Corrisponde a A \to \neg B.
+
+prop 5. assiomi kolmogorov probabilità
+P(A \cup B) = P(A) + P(B) - P(A \cap B).
+
+- Ex.3
+Considera una mazzo di 52 carte, calcola prob che si peschino due assi.
+1. Ci sono in totale quattro assi. In quanti modi posso estrarre due carte? Dividiamo per le loro permutazioni. In questo caso 2.
+
+Diciamo di avere una grara di 10 atleti. In quanti modi possiamo assegnare i vari posti del podio?
+10 per il primo
+9 per il secondo perché il primo ha già preso posto
+8 per il terzo per la medesima ragione.
+
+Diciamo che ammazziamo tutti quelli che perdono. Quali saranno i possibili esiti dei soli tre posti del podio?
+AFH, AHF, HAF, HFA, FAH, FHA. Quindi abbiamo sei esiti. 3*2*1 = 6
+
+Esiti totali possibili: (10*9*8)/(3*2*1) = (10!)/(7!*3!)
+Perché il 7!? Perché bisogna rimuovere tutti quegli altri numeri che non consideriamo, siccome ci interessano solamente i posti del podio.
+
+Abbiamo quindi la formula generale "n choose k": \dfrac{n!}{(n-k)!k!}, si scrive anche come coefficiente binomiale e si usa quando l'ordine non conta. Altrimenti rimuovi la k! fuori dalla parentesi del denominatore.
+\begin{pmatrix}
+	n\\
+	k
+\end{pmatrix}
+
+In quanti modi posso ordinare un insieme? N! - Ciò si chiama permutazione di n oggetti.
+In generale noi facciamo il numero di permutazioni / il numero di permutazioni uguali.
+
+Ex. Sassofonista, quante altre scritture ha?
+12!\(4! 2! 2!)
+Questo perché devi rimuovere tutte le sxcritture ripetute nel calcolo delle permutazioni.
+
+Allora in quanti modi posso tirare fuori gli assi?
+(4\\2) / 
+
+Ed estraendo a caso 5 carte quant'è la poss. che due di queste siano due assi?
+[(4\\2)(48\\3)] / [(52\\5)]		Nel secondo coefficiente noti che 48 è il tot di carte meno gli assi ed il 3 sono le altre tre carte da pescare.
+
+- Esercizi set 2
+1.3 
+	res: B
+
+1.4 
+	res: D
+
+1.5 
+	res: B
+
+1.6
+	(13\\1) / (52\\1) * (13\\1) / (52\\1) = [(13!/(12!1!) / 52!/(51!1!)] = (13\\52)^2 = 1/16
+	res: B
+
+1.7
+	L'ordine non conta, quindi res: C
+	Inoltre (5\\3) = (5\\2) \to \frac{5!}{3!2!} = \frac{5!}{2!3!}
+
+1.8
+	res: C perché prendi sempre un calzino, quindi devi valutare le probabilità di prenderne uno diverso rispetto ai 5 restanti.
+	
+1.9
+	res: D
+
+1.10
+	res: 
+	
+1.11
+	res: C
+
+1.12
+	Simile a quella dei calzini
+	
+1.13
+	res: A
+	
+1.14
+	res: C - Puoi considerare le due permutazioni e sommarne le rispettive probabilità oppure fai la tabella. Your choice.
+	
+1.15
+	1/6 * 1/2 * 1/2 = 1/24 - res: A
+	
+1.16
+	5/6 = 2/3 + 1/3*1/2- res: D
+
+1.17
+	7/8 - res: A
+	
+	(n + q)^tot		In questo caso n sono istanze testa, q le croce, mentre tot sono i lanci da fare.
+	Avremo quindi (t + c)^3 = t^3 + 3t^2c + 3tc^2 + c^3 \implies 1/8 + 3(1/4 * 1/2) + 3(1/2 * 1/4) = 7/8
+	Sì, è un cubo di binomio.
+	
+1.18
+	res: D - Alla peggio la loro unione non supera 1. In ogni caso prova con la quinta proprietà degli assiomi di kolmogorov
+
+- Probabilità condizionata

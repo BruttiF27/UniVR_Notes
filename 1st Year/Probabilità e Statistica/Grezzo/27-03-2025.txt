@@ -1,0 +1,91 @@
+Parziale 24 aprile in tessari
+
+----- Statistica 27-03-2025 -----
+
+Frammento di covarianza scritto su telegram.
+
+--- Funzione di ripartizione F_X(x) = P(X \leq x)
+Calcola la prob. che la VA sia minore di un dato evento.
+Non è mai decrescente. In base a come crescono le funzioni di ripartizione posso capire come crescevano le altre.
+Se X è VA con funzione di massa p_X allora ha come funzione di ripartizione:
+F_X(x) = \sum_{t \leq x} p_X(t)
+
+- Per le discrete
+p_X(x) = \Delta F_X(x) = F_X(x) - lim_{t \to x^+} F_X(t)
+- Per le continue
+F_X(x) = \int^x_{-\infty} f_X(t) dt \implies F'_X(x) = f_X(x)
+
+Diciamo di avere VA X, Y definita come funzione lineare di x, quindi ax+b.
+Qual è la densità di Y conoscendo quella di X?
+
+SI fa: F_Y(y) = P(Y \leq y) = P(aX + b \leq y) = P(X \leq \frac{y-b}{a}) = F_X(... manca il resto)
+Poi derivi ottenendo F'_Y(y)
+
+Altre prop. della varianza:
+- Var(aX+b) = a^2Var(X)
+- Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)
+
+Se X,Y sono scorrelate, vale: Var(X+Y) = Var(X) + Var(Y)
+
+--- Classi notevoli di VA, elenco completo delle VA presenti all'esami
+
+- Bernoulli
+Si dice tale di parametro p \in [0,1] se assume solo i valori 0 e 1 e:
+P(X = 1) = p = 1-P(X = 0), cioè p_X(1) = p \land p_X(0) = 1-p
+
+E(X) = 0*(1-p) + 1p = p
+E(X^2) = E(X) = p
+
+Var(X) = E(X^2) - E^2(X) = p-p^2 = p(1-p)
+
+- Binomiali
+Considera n prove ripetute indipendenti con probabilità di successo p e sia X la VA del numero di successi.
+
+Abbiamo X che può assumere i valori 0,1,...,n.
+
+Funzione di massa: p_X(k) = P(X = k) = (n\\k)p^k(1-p)^{n-k}
+
+Una variabile aleatoria con tale funzione di massa è detta binomiale di parametri n e p.
+Denotiamo X_i la variabile aleatoria:
+X_i = \begin{cases}
+	1 se l'i-esima prova è un successo\\
+	0 altrimenti
+\end{cases}
+
+Queste sono fondamentalmente la somma di variabili di Bernoulli.
+
+Ne segue che:
+E(X) = \sum^n_{i = 1}E(X_i) = np
+Var(X) = \sum^n_{i = 1}Var(X_i) = np(1-p)
+
+- Di Poisson
+VA X è tale di parametro \lambda > 0 può assumere i valori 0,1,...,n,... e la funzione di massa è:
+p_X(n) = P(X = n) = e^{-\lambda} \frac{\lambda^n}{n!}
+
+Questa variabile è illimitata. Racconta qual è la prob. che un evento raro si verifichi n-volte.
+
+Diciamo che si fanno un botto di lanci e l'eveto ha una probabilità di avvenire infima.
+Per esempio ogni 1000 ore di volo becco un uccello. Quanto me lo dovrei aspettare?
+
+X sarà una VA di poisson di parametro np.
+Questa si può approssimare con un'altra VA Y binomiale di parametri n e \lambda/n, con n >> 1. Infatti:
+
+E(X) \approx E(Y) = n* \lambda/n = \lambda
+Var(X) \approx Var(Y) = n* \lambda/n(1-\lambda/n) \approx \lambda.
+
+Anche se sarebbe dimostrabile che E(X) = \lambda = Var(X)
+
+- Uniformi
+Siano \alpha < \beta due reali. X è una variabile aleatoria uniforme in (\alpha,\beta) se:
+
+f_X(x) = \begin{cases}
+	\frac{1}{\beta - \alpha} se \alpha \leq x \leq \beta\\
+	0 altrimenti
+\end{cases}
+
+il valore atteso è \int^+\infty_-\infty xf(x) dx = \frac{\alplha + \beta}{2}
+Il punto medio del mio intervallo, in pratica.
+
+E(X^2) = \int^+\infty_-\infty x^2f_X(x) dx = \frac{\alpha^2 + \alpha\beta + \beta^2}{3}
+
+Var(X) = E(X^2) - E^2(X) = \frac{(\beta - \alpha)^2}{12}

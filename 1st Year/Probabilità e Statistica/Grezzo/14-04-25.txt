@@ -1,0 +1,53 @@
+----- Statistica 14/04/25 -----
+
+--- Statistica inferenziale ---
+La distribuzione della popolazione p nota, ma abbiamo che i valori dei parametri sono incogniti. Diamoci un metodo.
+- Scegliere un valore plausibile per i valori di parametri
+- Testare ipotesi sui valori dei parametri.
+Entrambe le procedure a partire dai dati osservati.
+
+Il nostro interesse è fare inferenza statistica per popolazioni normali e di bernoulli.
+
+1. Stima parametrica
+	Supponiamo che i dati siano realizzazinoi di una VA X cpn densità discreta o continua f(x,\theta), dove \theta è un parametro incognito. Dobbiamo stimarlo coi dati conosciuti. Si usa:
+	- Stima puntutale; si pttiene un singolo valore come stima per il valore di \theta
+	- Stima intervallare; Si ottiene un intervallo di valori possibili per \theta, associando ad ognuno di questi intervali un livello di fiducia che \theta vi appartenga.
+	
+	\textbf{Stima puntuale}\par
+	\noindent Servono due definizioni prima:
+	\begin{itemize}
+		\item Campione di ampiezza n, è collezione di n VA X_n indipendenti e tutte con la stessa distribuzione f(x;\theta), con \theta incognito.
+		\item Statistica T è una VA ottwnuta come funzione del campione, ovveto T = T(X_1, ..., X_n)
+		\item Stimatore è qualunque statistica T indipendente da \theta, ma è usata per stimarlo. Tendenzialmente si usa la media campionaria come stimatore della varianza campionaria.
+		\item Stima è il valore numerico assunnto dallo stimatore sui dati osservati x_1, ..., x_n, ovvero: \theta = T(x_1, ..., x_n)
+	\end{itemize}
+	
+	1.1.2 Stimatori di massima verosimiglianza
+	Sia X_1, X_n un campione casuale preso da una pop di densità f(x,\theta).
+	Se interpretiamo f(x_1, ..., x_n; \theta) come la verosimiglianza che si realizzi la n-upla di dati quando theta è il vero valore del parametromì, possiamo adottarer come stima di theta
+	il valore che rende massima la verosimiglianza per i dati osservati. Nello specifico vedere il procedimento di log-likelihood.
+	
+	In particolare, lo stimatore di MV (Massima verosimiglianza) per il parametro q di una distribuzione di bernoulli è Q_{MV} = 
+	
+	1.1.3 Bontà di uno stimatore
+	Sia un campione casuale preso da una popolazione tranne che per il suo theta.
+	Come scegliamo uno stimatore per theta? Ci serve minimizzare la deviazione dal vallore reale del parametro e per farlo ci basiamo sul valore atteso e la varianza.
+	Uno stimatore buono controlla sia varianza che bias in modo contenuto.
+	
+	\textbf{bias}. Sia T=T(X_1, ..., X_n) uno stimatore di theta. Allora b(T) = E(T)-\theta è detto bias di T come stimatore di theta.
+	Se è nullo, T è detto stimatore corretto di theta.
+	
+	Errore quadratico medio - il valore atteso del quadrato della differenza fra ,o stimatore ed il theta. MSE(T) = E[(T-\theta^2)^2] = quadrato di binomio, anche stavolta = Var(T) + b(T)^2
+	
+2. Stima intervallare
+	Sia un campione estratto da una popolazione. Ci si aspetta che la stima ottenuta valutando lo stimatore sui dati osservati NON sia l'effettivo valore di \theta, quindi è preferibile produrre
+	un intervallo per il quale abbiamo una certa fiducia che il parametro ci appartenga.
+	
+	- Stimatore intervallare; lo stimatore di prima ma espanso agli intervalli.
+	- Intervallo di confidenza
+	
+	- Distribuzioni delle statistiche campionarie
+		Le VA sono indipendenti
+		Densitò è una gaussiana.
+		
+	- Intervalli di confidenza

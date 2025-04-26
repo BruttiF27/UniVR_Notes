@@ -1,0 +1,180 @@
+----- Statistica 17-03-25  -----
+
+Esercizi set 3
+1. res: A
+	P(A) = 1/3
+	B indipendente da A
+	P(A^c \cap B^c) = 1/2 \equiv P(A \cup B)^c
+	
+	Quanto è P(B)?
+	
+	N:B: Due insiemi possono essere incompatibili anche se dipendenti, come due compatibili possono essere indipendenti.
+	Incompatibile significa che l'intersezione è nulla; non possono accadere allo stesso tempo.
+	
+	1/2 = P(A^c \cap B^c) = P(A^c)P(B^c) = (1-P(A))(1-P(B)) \implies 1/2 = (1-1/3)(1-P(B)) = 3/2 * 1/2 = 1-P(B) \implies P(B) = 1-3/4 = 1/4
+	
+2. Res: D
+	Calcolare P(A) coi dati P(B) = 2/3 e P(A|B) = 1/2
+	
+	Formula prob. totali: P(A) = P(A|B)P(B) + P(A|B^c)P(B^c), inf. non sufficienti.
+	
+3. Res: D
+	Mazzo da poker, definisci
+	Evento A: la carta estratta è 7
+	Evento B: Le due carte estratte dal secondo mazzo sono di cuori
+	
+	Questi sono due eventi indipendenti e compatibili. Possono accadere allo stesso tempo.
+	P(A \cap B) = P(A)P(B) è corretto.
+	
+3.1
+	Abbiamo 3 dadi. Prob. che il primo sia pari, secondo sia pari, terzo sia pari.
+	Sono tre indipendenti, ma la loro unione non è la somma delle probabilità, sarebbe assurdo. Quindi occhio che la formula ha falle in casi come questo.
+	
+4. Res: C
+	
+5. Res: C
+	Considera due eventi A, B t.c P(A) > 0, P(B) > 0 e A \cup B = \omega
+	Quindi due eventi possono succedere e la loro unione è lo spazio campionario.
+	
+	E' possibile che la somma di due prob. superi il valore 1, se questi sono indipendenti.
+	
+6. Res: D
+	Siano A,B due eventi con A \cap B = \emptyset. Essendo disgiunti, vedi la formula, P(\emptyset)/P(B) = 0.
+	
+8: Res: 3/4
+	Due eventi A, B t.c P(A|B) = P(B) = 1/2. Allora P(A^c \cup B^c) è uguale a 3/4
+	Questo perché (A^c \cup B^c) = (A \cap B)^c.
+	Innoltre, P(A^c \cup B^c) = P((A\capB)^c) = 1-P(A\capB) = 3/4. (Soluzione)
+	P(A|B) = P(A \cap B)/P(B) = 1/4, ottenuto sostituendo i valori nella formula.
+	
+11. Res: B
+	Abbiamo un campione di 47+63 = 110 Maschi, 62+51 = 113 Femmine, totale 223.
+	Scegli uno studente a caso con gli eventi
+	A: Lo studente è maschio
+	B: Lo studente è liceale
+	
+	Quanto vale P(A|B)?
+	
+	P(A) = Femmine/popolazione = 110/223 
+	P(B) = Maschi totali/popolazione = 47+62/223 = 109/223
+	
+	P(A|B) = P(A \cap B)/P(B) = (47/223)/(109/223) = 47/109
+	
+2.1. Res:
+	Cinque biglietti lotteria invenduti, fra questi unno è vincente. Due amici A, B ne comprano uno a testa e A lo sceglie per primo.
+	a. Qual è la prob. che B acquisti quello vincente se non lo prende A?
+	b. Qual è la prob. che B acquisti il biglietto vincente?
+	
+	a. Siano gli eventi E = B acquista il vincente, F = A prende il vincente.
+		Abbiamo che P(A|F^c) = 1/4
+		
+	b. Essendo P(F) = 1/5 e P(E|F) = 0, per la formula di disintegrazione:
+		P(E) = P(E|F)P(F) + P(E|F^c)P(F^c) = \/4 * 4/5 = 1/5
+		
+2.2.
+	Una scatola ha due dadi, uno è usuale, l'altro il numero 1 compare su due facce e non ha il numero 6. Scegli a caso un dado
+	a. Si lanci lo scelto. Probabilità di ottenere 1?
+	b. Si lanci due volte. Probabilità di ottenere 3 come punteggio totale?
+	
+	D_1 = {1, 2, 3, 4, 5, 6}
+	D_2 = {1, 2, 3, 4, 5, 1}
+	
+	Siano gli eventi A = il dado è normale, B = Il punteggio ottenuto è 1
+	
+	Sappiamo che P(B|A) = 1/6, P(B|A^c) = 1/3, P(A) = P(A^c) = 1/2
+	
+	a.
+		P(B) = P(B|A)P(A) + P(B|A^c)P(A^c) = 1/4
+		
+	b. Sia l'evento C = Il punteggio totale è 3
+		Usa la tabella, è comoda.
+		
+		P(3|D_1) = 1/18
+		P(3|D_2) = 2/18
+		
+		dove D = dado, quindi devi vedere dove esce il risultato 3 in base ad ogni dado usato.
+		
+		P(C) = P(C|A)P(A) + P(C|A^c)P(A^c) = 1/4
+		
+Se hai un dado truccato, devi considerarlo come se avesse più facce.
+Diciamo che un dado truccato ha il doppio di possibilità di far uscire numeri dispari. Allora lo spazio campionario sarà: {1, 1, 2, 3, 3, 4, 5, 5, 6}.
+
+2.3
+	Siano A, B due eventi. Sapendo che P(A|B) = 0,7, P(A|B^c) = 0,3 e P(B|A) = 0,6, calcolare P(A)
+	
+	Dalla formula, P(A) = P(A|B)P(B) + P(A|B^c)P(B^c)
+	
+	0,6 = P(B|A) = [P(A|B)P(B)] / P(A) \implies P(B)/P(A) = 0,6/0,7 = 6/7
+	
+	P(B) = (6/7) * P(A), P(B^c) = 1 - (6/7) * P(A)/x
+	x = 7/10 * (6/7)x + (3/10)(1- (6/7)x)
+	
+2.4
+	In un labirinto T un animale si dà la possibilità di andare a sinistra e prendere cibo o destra una scossa.
+	Se va a sinistra, le chance di questo evento diventano 0,6 e la destra 0,4.
+	Se va a destra, le chance diventano 0,2 per la destra e 0,8 a sinistra.
+	
+	a. Probabilità che vada a sinistra al try n.2?
+		P(s_2) = P(S_2|D_1)P(D_1) + P(S_2|S_1^c)P(S_1^c) \implies 8/10 * 1/2 + 6/10 * 1/2  = 4/10 + 3/10 = 7/10
+	b. Al try n.3?
+		P(S_3) = P(S_3|D_2)P(D_2) + P(S_3|S_2)P(S_2) \implies 8/10 * 3/10 + 6/10 * 7/10 = 66/100
+		
+		P(D_2) = 1-P(S_2) = 3/10
+	c. Se dopo il secondo try si vede che l'animale è a sinistra, qual è la prob. che abbia ricevuto cibo al try precedente?
+		Stiamo considerando l'eventualità in cui il cibo è stato preso prima. Dunque:
+			P(S_1|S_2) = \dfrac{P(S_2|S_1}P(S_1){P(S_2} = \dfrac{\frac{6}{10} \frac{1}{2}}{7/10} = 3/7
+			
+			
+	S = sinistra, D = destra.
+2.8
+	Un impiegato deve esaminare 100 domande di permesso di soggiorno i cui richiedenti possono essere divisi in UE e NONUE
+	Uomini 21-NONUE, 46-UE
+	Donne 6_NONUE 27-UE
+	
+	Tot = 100
+	
+	a. Prob. che la prima domanda esaminata sia di una donna?
+		\frac{27+6}{100}
+		
+	b. Sapendo che la prima domanda è di una donna, qual è la prob. che sia anche extraeuropea?
+		P(X|D) = \dfrac{P(D|X)P(X)}{P(D)} = \dfrac{\dfrac{27}{46+27} * \dfrac{46+27}{100}}{\dfrac{33}{100}} = \dfrac{27}{33} = \dfrac{9}{11}
+		
+2.9
+	Un telecomando va conìn una batteria. Ne ho due, A e B. La prob che A si esaurisca prima di un anno è 2/3, per B vale 1/5.
+	Per inserire una batteria nel telecomando si lancia due volte una moneta equilibrata. Se due teste, inserisce A, altrimenti inserisce B.
+	
+	a. Prob che la batteria inserita duri più di un anno?
+		P(Y^c|A) = 2/3
+		P(Y^C|B) = 1/5
+		P(Y^c) = P(Y|A)P(A) + P(Y|B)P(B) \implies 2/3 * 1/4 + 1/5 * 3/4 = 1/6 + 3/20 = 19/60
+	
+		Y = year, anno.
+		TT = testatesta
+		
+		P(TT) = 1/2 * 1/2 = 1/4
+		P(Y) = 1-P(Y^c) = 41/60
+		
+	b. Se dopo un anno il telecomando funziona ancora, qual è la prob. che la batteria inserita sia A?
+		Vogliamo sapere P(A|Y) = \dfrac{P(Y|A)P(A)}{P(Y)} = \dfrac{1-2/3 * 1/4}{41/60} = \dfrac{5}{41}
+
+2.14
+	In un'azienda... ok non ce la fo, fanculo.
+
+
+
+2.15
+	Supponiamo che un figlio sia maschio o femmina con egual probabilità.
+	P(M) = P(F)
+	
+	a. Prob. che in una famiglia con due figli ci sia almeno un maschio?
+	1/4 perché 2/8
+	
+	--- Considetiamo 100 famiglie, 40 delle quali hanno due figli, mentre le altre 60 ne hanno uno solo
+	Definiamo quindi P(F_1) = 6/10, P(F_2) = 4/10
+	
+	b. Scegliendo una famiglia a caso fra 100, prob. che essa abbia almeno un figlio maschio?
+		P(M_1) = P(M_1|F_1)P(F_1) + P(M_!|F_2)P(F_2) \implies 1/2 * 6/10 + 3/4 * 4/10 = 6/10
+		
+	c. Prob. che la famiglia scelta (se ha un figlio maschio) abbia due figli?
+		P(F_2|M_1) = \dfrac{P(M_1|F_2)P(F_2)}{P(M_1)} = \dfrac{3/4 * 4/10}{6/10} = QUello che fa, usa la calcolatrice.
+		

@@ -1,0 +1,74 @@
+Statistica 3/3/2025
+Statistica descrittiva, popolazione vera, che presenta una media vera ed una vera varianza.
+Possiamo campionarne solo una parte, non tutta.
+Vedremo stimatori corretti e non.
+Modi di presentare i dati, variabili numeriche e tìcategoriche
+
+Calcolo della probabilità
+Probabilità condizionata
+Variabili aleatorie, vederle come una x che portebbe avere tante realizzazioni.
+Realizzazione delle variabili aleatorie
+Probabilità che la varibile aleatoria sia uguale ad un certo valore
+
+2. parte
+Statistica inferenziale
+Verosimiglianza
+Stime
+
+Test informatizzato con R, zero accesso ad internet.
+
+----- Inizio lezione -----
+
+Statistica descrittiva
+Ho un fenomeno esprimibile in maniera numerica o categorica. La s.desc. si occupa della descrizione dei fenomeni attraverso grafici, tabelle e altre forme di sintesi.
+I dati ottenuti da una ricerca si dividono in:
+	- Variabili Numerici, quelle numeriche.
+	- Variabili Categorici, quelle descrittive
+	
+Per i fenomeni abbiamo i seguenti concetti:
+Frequenza assoluta = occorrenze di un valore
+frequenza relativa = freq.assoluta/numero di osservazioni
+frequenza percentuale = freq.relativa \times 100%
+
+I dati vengono descritti mediante tabelle, grafici e grafici a torta, eventuali variabili categoriche relaticve ad una medesima popolazione possono essere usate per studi di correlazione.
+
+Le variabili numeriche possono essere discrete (valore fisso, come il numero di un dado) o continue (che possono assumere più valori, come la temperatura)
+Esistono interpretazioni simmetriche, unimodali simmetriche e bimodali
+
+Statistiche campionarie
+Abbiamo una popolazione dalla quale si possono prendere dei campioni da analizzare.
+Dato un campione di dati x_1, x_2,..., x_n definiamo:
+	- Media campionaria, usata per calcolare la media del campione in esame.
+		\overline(x) = 1/n \sum^n_i=1 x_i
+		Questa non è la media vera (indicata con \mu)
+	- Mediana campionaria, per calcolare la mediana (il valore di mezzo) del campione in esame x_1 \leq= x_2 \leq= ... \leq= x_n
+		x_M = x_{(n+1)/2}		x_M = \frac(x_{n/2}}+x_{n+1/2}}/2
+	- Moda campionaria, il dato che viene fuori più frequentemente
+	
+Per trovare il valore di mezzo riordina in ordine crescente i valori numerici e prendi il valore di mezzo. (SPIEGAZIONE: Trovi il valore di mezzo, fai media dei valori di mezzo)
+
+Media e mediana sono in genere diverse, sono pensate per minimizzare due quantità diverse.
+
+	- Varianza campionaria
+		s^2 = \frac(1)(n-1) \sum^n_{i=1}(x_i - \overline(x))^2
+		
+	- Deviazione standard campionaria
+		s = \sqrt(s^2))
+		Questa mantiene le unità di misura, cosa che la varianza campionaria non fa, in quanto aggiunge il quadrato.
+		
+Percentili campionari
+	Sia p un valore fra 0,1 e il campione x_1 \leq= x_2 \leq= ... \leq= x_n
+	Il 100p-esimo percentile campionario si ottiene moltiplicando 100 al p.
+	
+	Se n*p non è intero, il 100p-esimo percentile è x_k
+	
+	Alcuni percentili hanno nomi ad hoc
+	primo quartile Q1 è il 25-esimo
+	secondo quartile Q2 il 50-esimo
+	terzo quartile Q3 il 75-esimo
+	
+Differenza interquartile
+Correlazioni
+Covarianza campionaria
+	Ottieni coefficiente di correlazione. Se è uguale a 1 i punti del plot sono perfettamente allineati, altrimenti non c'è correlazione e risulteranno sparsi.
+	Nota solamente le correlazioni lineari.

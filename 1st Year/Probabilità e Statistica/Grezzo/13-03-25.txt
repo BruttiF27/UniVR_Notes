@@ -1,0 +1,78 @@
+Statistica 13-03-2025
+
+Dalla prima settimana di aprile, ci vedremo solamente il lunedì. Giovedì alle 14.30-16.30 lezioni di analisi 2 di recupero
+
+- Table of contents
+Formula di bayes
+formula di prob. totale
+formula di eventi indipendenti
+
+----- Inizio lezione -----
+- Probabilità condizionata
+Dati due eventi A, B definiamo la probabilità che si verifichi A sapendo che si è verificato B come
+P(A|B) = \dfrac{P(A\cap B)}{P(B)}
+
+Diciamo di voler sapere la prob. che accada l'evento A. Supponiamo che sia tipo 1/3. Se invece questo evento può essere condizionato positivamente da B, allora A avrà una prob. maggiore di avvenire.
+Se accade B che influenza A, il mio spazio campionario allora sarà B, perché siamo in tale istanza.
+
+Diciamo ora A, B due eventi generici; possiamo spaccare A in due casi:
+- Succede A, ma non B
+- Succede A e B
+In questo caso P(A) = P(A \cap B) + P(A \cap B^c), ovvero la somma tra l'intersezione delle prob. di A, B con l'intersezione delle prob. di A e !B.
+
+> Formula delle prob. totali
+P(A) = =(A|B)*P(B) + P(A|B^c)*P(B^c); fondamentalmente stiamo considerando ogni istanza di quando abbiamo spaccato A.
+
+\begin{eg}
+	Siano due urne tali che A: 2 rosse e 4 verdi; B: 3 rosse e 2 verdi.
+	Si lancia un dado; se esce 6 si estrae da A, altrimenti da B.
+	
+	Calcola la prob. di estrarre una pallina verde.
+	
+	Potremmo elencare ogni singola permutazione dati i pochi casi, tuttavia usiamo la formula della prob. totale.
+	
+	P(Verde) = P(A|B)P(B) + P(A|B^c)P(B^c) = P(Verde|6)P(6) + P(Verde|\neg 6)P(\neg 6)
+		1. P(A|B) = 4/6 perché è pari, estrai da A che ha 6 palline di cui 4 verdi.
+		2. P(A|B^c) = 2/5
+		3. P(B) = 1/6
+		4. P(B^c) = 5/6
+		
+		Quindi il risultato è = 1/9 + 1/3 = 4/9
+\end{eg}
+
+Abbiamo ilcaso dimmerda:
+\begin{eg}
+	Abbiamo un esame a risposte multiple con 4 risposte. Gli studenti si dividono in preparato (80% del totale, risponde bene al 90%) e impreparato (Risponde a cazzo, 25% di rispondere bene).
+	Qual è la prob. che lo studente è preparato prendendo un esame a caso?
+	
+	Conosciamo:
+	1. P(A) = 0.8
+	4. P(A^c) = 0.2
+	2. P(B|A) = 0.9
+	3. P(B|A^c) = 0.25
+	
+	Ci serve trovare P(A|B)
+	
+	Considera che P(A|B)P(B) = P(A\cap B) = P(B\cap a) = P(B|A)P(A)
+	Da cui, la FORMULA Bayes: P(A|B) = \dfrac{P(B|A)P(A)}{P(B)}
+	
+	Prima ci serve trovare P(B), al probabilità di azzeccare la risposta in generale.
+	P(B) = P(B|A)*P(A) + P(B|A^c)P(A^c) = 0.9*0.8 + 0.25*0.2 = 0.72 + 1/4 * 2/10
+	
+	Quindi P(A|B) = \dfrac{0.9*0.8}{} = \dfrac{0.72}{0.72 + 1/20} = 0.935 ca.
+\end{eg}
+
+Di Bayes abbiamo pure il teorema:
+\begin{theorem}
+	Sia {B_1, B_2, ..., B_n} una partizione di S. Allora:
+	P(B_i|A) = \dfrac{P(A|B_i)P(B_i)}{\sum^n_{j=1} P(A|B_j)P(B_j)}
+\end{theorem}
+
+- Probabilità di eventi indipendenti
+
+Due eventi A, B si dicono indipendenti se P(A \cap B) = P(A)P(B)
+Per esempio, lancio di due dadi, probabilità che esca 6 e 5 separatamente è 1/36, perché mi va bene una sola combinazione.
+Infatti: P(A) = 1/6, P(B) = 1/6. Due dadi non si influenzano fra di loro.
+
+In questo contesto, abbiamo che:
+P(A|B) = \dfrac{P(A)P(B)}{P(B)} = P(A), stessa roba per P(B|A), che = P(B).

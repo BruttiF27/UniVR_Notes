@@ -1,0 +1,35 @@
+----- Statistica 31-03-25 -----
+
+- Variabili aleatorie normali
+Fissiamo \mu \in R e \sigma^2 > 0. Diciamo che X è una tale VA di parametri \mu e \sigma^2 e scriviamo:
+X \approx N(\mu, \sigma^2) se f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+Questa è la densità che caratterizza la curva gaussiana, di media \mu e varianza \sigma^2.
+
+Noi centriamo la X in \mu e ciò sposta la variabile sull'asse delle ascisse. Diciamo quindi di stendere la funzione di un certo importo.
+Generalmente la funzione f(x) = e^{-x^2} forma una curva gaussiana, ed è possibile spostare il centro facendo qualche tweak.
+
+Se Z \approx N(0,1), diremo che Z è una normale standard. Risulta: f_Z(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}
+
+Inoltre:
+	- E(Z) = 0
+	- Var(Z) = 1
+	
+Per \mu \in R e \sigma^2 > 0, allora:
+	- X = \sigma Z + \mu \approx N(\mu,\sigma^2)
+	- E(X) = \sigmaE(Z) + \mu = \mu
+	- Var(X) = \sigma^2Var(Z) = \sigma^2
+	
+Ogni variabile aleatoria è facilmente trafroamabile in VA normale standard - questo processo si chiama standardizzazione: \frac{X-\mu}{\sigma} \approx N(0,1)
+
+Per calcolare P(a \leq X \leq b) si usa la standardizzazione, altrimenti sarebbe un integrale mortale; infatti:
+P(\frac{a - \mu}{\sigma} \leq \frac{X-\mu}{\sigma} \leq \frac{b-\mu}{\sigma}) = P(\frac{a-\mu}{\sigma} \leq Z \leq \frac{b-\mu}{\sigma}) = \phi(\frac{b-\mu}{\sigma}) - \phi(\frac}{a-\mu}{\sigma})
+Dove \phi(x) = F_Z(x) è la funzione di ripartizione Z \approx N(0,1).
+
+Noi prendiamo una curva gaussiana, per la valutazione dell'integrale è possibile fare 1-\int oppure, siccome è sicuramente una funzione pari, si può specchiare il punto richiesto e calcolare in sua funzione.
+
+Tabella di probabilità:
+Prendere la colonna di sinistra e sommare il valore della riga coi valori
+Per esempio, probabilità di Z = 1.52
+Vai al valore della prima colonna 1.5 e poi al valore della prima riga 0.02. La loro intersezione nella tabella è il valore cercato.
+
+Vedere esercizio 6 e 7. Accanto all'es. 6 sta un altro esempio più utile per capire come ottenere la probabilità della Z. Nello scarabocch è presente anche la tabella necessaria.

@@ -1,0 +1,84 @@
+----- Statistica 20-03-25 -----
+
+--- Variabili aleatorie
+Quantità necessariamente numerica il cui valore dipende dall'esito di un esperimento aleatorio. Indicata con X,Y,Z.
+
+Per esempio
+Lancio un dado e diciamo che il numero che esce è la mia var. aleatoria
+Se esce un numero pari paghi un euro, se esce dispari, ottieni 1.
+Possiamo definire una variabile aleatoria X ed il bilancio sarà -1, +1. Il bilancio è una variabile aleatoria, perché dipende da eventi non certi.
+
+Ci sono due tipi di variabili aleatorie:
+\begin{itemize}
+	\item discreta; Si dice discreta se può assumere un numero finito o al più numerabile. (quindi n totali). Se X è VA definiamo p(x) = P(X = x) e la p minuscola si dice funzione du massa di X.
+	Se {x_1, x_2, ..., x_n, ...} sono i valori possibili di X basterà sapere cosa fa sui valori delle realizzazinoi di X. Quindi sapere p(x_1), p(x_2), ..., p(x_n), ...
+	E siccome per ogni altro valore di x si ha che p(x) = 0.
+	Se A \subseteqq R, allora P(X \in A) = \sum_{x \in A}p(x), dove A è un insieme generico.
+	In particolare, \sum_{x \in R} p(x) = 1 (perché è il 100%)
+	\item continua; Si dice tle se esiste una funzione f(x) detta densità della VA X, t.c. per ogni A \subseteqq R si ha \int_A f(x) dx
+	Giustamente potendo assumere un range di valori, è necessario usare un integrale per calcolarne l'area in un intervallo. La possibilità che ne esca uno solo è pressoché nulla, per questo li dobbiamo
+	considerare come ujna collettività, hence l'integrale.
+
+	Per una variabile aleatoria continua X:
+	\int^b_a f(x)dx = P(a \leqq X \leqq b)
+	\int^\infty_0 f(x)dx = P(X \geqq 0)
+	\int^\infty_\infty f(x) dx = 1
+\end{itemize}
+
+Posso misurare la prob. che una variabikle aleatoria possa assumere un certo valore?
+Sì, perché posso calcolare la prob. che esca un certo valore dal lancio di due dadi.
+
+Se X è una VA allora {X = x}, con c \in R è un evento, la cui prob. è data da P(X = x).
+Altri eventi sono del tipo {X \leqq x} con prob. P(X \leqq x) oppure {a \leqq X \leqq b} con relativa prob.
+
+esempio 11:
+Sia X il numero di successi in n tiri a canestro con prob. di successo p:
+X = 0,1,...,n
+Allora p(k) = P(X = k) = (n \\ k) p^k(1-p)^{n-k} per ogni k = 0,1,...,n
+
+- Valor medio
+Sia X una VA discreta. Diciamo valore atteso o (valor medio) di X la quantità:
+E(X) = \sum_{x \in R} xp(x) = x_1p(x_1) + x_2p(x_2) + ...
+Sia X invece continua, la definizione cambia in:
+E(X) = \int^\infty_\infty xf(x) dx
+
+Per eventuali diverse forme di X basta sostituire la forma alle x_i piccole. Per esempio sostituiremmo X^2 come x^2 dove stanno tutte le x nella formula.
+
+- Proprietà del valore atteso
+1. E(aX + b) = aE(X) + b, dove b \in R, è semplicemente un valore, non è una variabile aleatoria b.
+2. E(X + Y) = E(X) + E(Y).
+3. Valore atteso di una funzione di variabile aleatoria: E(g(X)) = \sum_{x \in R} g(x)p(x).
+
+--- Varianza
+Valore atteso degli scarti
+
+Var(X) = E[(X-\mu)^2] = E(X^2) - \mu^2 (grazie all'algebra)
+
+Per calcolare Var(X), calcolo:
+\mu = E(X) = \begin{cases}
+	\sum_{x \in R} xp(x) se X è variabile discreta\\
+	\int^\infty_\infty xf(x)dx se X è variabile continua
+\end{cases}
+
+Poi calcola il valore atteso della variabile al quadrato, sostituendo la x^2 dove sta la x, come prima.
+La varianza è un valore necessariamente maggiore o uguale a 0.
+
+--- Distribuzioni congiunte
+Siano X,Y due VA discrete dipendenti da uno stesso esperimento. La funzione di massa congiunta è:
+p_{X,Y}(x,y) = P(X = x, Y = y)
+
+Per esempio, lanciamo un dado e definiamo le due VA:
+X = punteggio più basso
+Y = punteggio più alto
+
+Qual è la prob. che X abbia un determinato numero?
+
+"La gratitudine è una variabile aleatoria che si paga col denaro"
+
+- Calcolo del valoreatteso di una dunzione di due variabili aleatoeie
+E[g(X,Y)] = \sum_{x,y \in R} g(x,y)p_{X,Y}(x,y)
+
+E(XY) = \sum_{x,y \in R} xyp_{X,Y}(x,y)
+
+Due variabili aleatorie si dicono indipendenti se per ogni A,B \in R si ha:
+P(X \in A, Y \in B) = P(X \in A)P(Y \in B) oppure le altre due scritture seguenti.

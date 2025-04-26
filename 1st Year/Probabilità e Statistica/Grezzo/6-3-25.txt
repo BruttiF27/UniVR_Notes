@@ -1,0 +1,47 @@
+Statistica 6/3/25
+
+- Esercizi
+Se richiesto di calcolare una mediana con un'incognita, porre un valore alla x e testare quali combaciano con la richiesta.
+Ex. Per quale dei valori di x la relativa mediana è 2? I dati: 2, 0, 3, 2, 4, x.
+0 <-
+3
+4
+3.5
+
+Assegna x=0, quindi ordiniamo i dati: 0, 0, 2, 2, 3, 4. Calcolando la mediana abbiamo che (2+2)/2 = 2. La risposta è quindi 0.
+
+ex. 1.11 res = C.
+Perché se aggiungi un dato uguale al valore della media ad un insieme, la media campionaria rimane uguale, mentre avrai una varianza minore perché starai dividendo per n e non più n-1.
+
+Probabilità
+Matematica che descrive esperimenti aleatori, il cui esito non è del tutto prevedibile
+L'insieme degli esiti S è detto spazio campionario, i suoi sottoinsiemi si dicono eventi; ai quali sono associati affermazioni sull'esito.
+
+Esempio: S = {1,2,3,4,5,5,6} spazio campionario degli esiti se lanci un dado.
+
+Approccio frequentista: evento favorevole/eventi possibili.
+
+Possiamo effettuare operazioni logiche sugli eventi, come intersezione, unione, sottrazione, ins. complementare.
+Inoltre, se gli insiemi A,B sono tali che l'intersezione sia vuota, si dicono incompatibili.
+
+- Calcolo della probabilità
+Assioni di kolmogorov, sono 3.
+Una prob. è una funzione che associa ad ogni evento a un numero. Tanto puù alto è, tanto più probabile è che si avveri.
+
+- Assiomi di kolmogorov, indimostrabili
+P(A) è compreso fra 0 e 1
+P(S) = 1
+Se A,B sono incompatibili, allora P(A \cup B) = P(A) + P(B)
+
+Da questi assiomi otteniamo le loro proprietà:
+1. Siano A,B due eventi con A \subseteqq B
+	P(B/A) = P(B) - P(A), inoltre se B = S, allora S/A = A^c, quindi P(A^c) = 1-P(A)
+2. Se A_1, A_2, ..., A_k sono eventi a due a due incompatibili allora FOTO1
+3. FOTO1
+
+- Probabilità ad esiti equiprobabili
+S ins. finito ed |S| indica il suo numero di elementi. La probabilità ad esiti equiprobabili è data da
+P(A) = |A|/|S|.
+
+- Probabilità condizionata
+(Prossima volta)

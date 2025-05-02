@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  14 APR 2025 20:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  2 MAY 2025 15:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -255,7 +255,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] (./main.toc
-Overfull \hbox (1.49734pt too wide) in paragraph at lines 22--22
+Overfull \hbox (1.49734pt too wide) in paragraph at lines 23--23
  [][] []\OT1/cmr/m/n/12 Differenziale sec-ondo, ma-trice hes-siana, for-mula di
  Tay- 
  []
@@ -366,53 +366,47 @@ cmr/m/n/12 21
 ]
 Chapter 2.
 (./Chapters/2.tex [23] [24] [25]
-Overfull \hbox (26.06552pt too wide) detected at line 100
+Overfull \hbox (26.06552pt too wide) detected at line 84
 []
  []
 
 [26]
-Overfull \hbox (17.13327pt too wide) in paragraph at lines 126--127
+Overfull \hbox (17.13327pt too wide) in paragraph at lines 104--105
 \OT1/cmr/m/n/12 Ovviamente il con-cetto vale an-che per spazi bidi-men-sion-ali
 , come n-dimensionali.
  []
 
 [27] [28] [29]
-Overfull \hbox (7.1341pt too wide) in paragraph at lines 210--211
+Overfull \hbox (7.1341pt too wide) in paragraph at lines 186--187
 []\OT1/cmr/m/n/12 La curva ^^Re re-go-lare se e solo se $\OML/cmm/m/it/12 f$ \O
 T1/cmr/m/n/12 ^^Re deriv-abile e ha con-ti-nuit^^Ra nell'intervallo
  []
 
-[30] [31] [32]
-Overfull \hbox (15.97467pt too wide) in paragraph at lines 287--288
+[30] [31]
+Overfull \hbox (15.97467pt too wide) in paragraph at lines 263--264
 []\OT1/cmr/bx/n/12 Forma tridi-men-sion-ale \OT1/cmr/m/n/12 (su-per-fi-cie di l
 iv-ello): $\OMS/cmsy/m/n/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; y; x\OT1/cmr/
 m/n/12 ) \OMS/cmsy/m/n/12 2 \U/msb/m/n/12 R[] \OT1/cmr/m/n/12 : (\OML/cmm/m/it/
 12 x; y; z\OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 2
  []
 
-
+[32]
 Overfull \hbox (41.54865pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 2.2.  CALCOLO INFINITESIMALE PER FUNZIONI REALI DI PI[]U VARIA
 BILI \OT1/cmr/m/n/12 33
  []
 
-[33] [34])
-Overfull \hbox (41.54865pt too wide) has occurred while \output is active
-\OT1/cmr/m/sl/12 2.2.  CALCOLO INFINITESIMALE PER FUNZIONI REALI DI PI[]U VARIA
-BILI \OT1/cmr/m/n/12 35
- []
-
-[35] [36
-
-]
+[33]) [34]
 Chapter 3.
-(./Chapters/3.tex [37] [38]
+(./Chapters/3.tex [35
+
+] [36]
 Overfull \hbox (38.94592pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 3.1.  CALCOLO DIFFERENZIALE PER FUNZIONI REALI DI PI[]U VARIAB
-ILI \OT1/cmr/m/n/12 39
+ILI \OT1/cmr/m/n/12 37
  []
 
-[39]
+[37]
 Underfull \hbox (badness 10000) in paragraph at lines 75--76
 
  []
@@ -422,34 +416,45 @@ Underfull \hbox (badness 10000) in paragraph at lines 90--91
 
  []
 
-[40]
+[38]
 Overfull \hbox (38.94592pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 3.1.  CALCOLO DIFFERENZIALE PER FUNZIONI REALI DI PI[]U VARIAB
-ILI \OT1/cmr/m/n/12 41
+ILI \OT1/cmr/m/n/12 39
  []
 
-[41]
+[39]
 Overfull \hbox (1.7402pt too wide) detected at line 128
 [] \OT1/cmr/m/n/12 = [] [] \OML/cmm/m/it/12 ; [] \OT1/cmr/m/n/12 = [] [] \OML/c
 mm/m/it/12 ; [] \OT1/cmr/m/n/12 = [] [] \OML/cmm/m/it/12 ; [] \OT1/cmr/m/n/12 =
  [] []
  []
 
-[42])
+[40])
 Overfull \hbox (137.80899pt too wide) has occurred while \output is active
 \OT1/cmr/m/sl/12 3.2.  CALCOLO DIFFERENZIALE PER FUNZIONI DI PI[]U VARIABILI A 
-VALORI VETTORIALI \OT1/cmr/m/n/12 43
+VALORI VETTORIALI \OT1/cmr/m/n/12 41
  []
 
-[43] [44
+[41] [42
 
 ]
 Chapter 4.
-(./Chapters/4.tex) [45] [46
+(./Chapters/4.tex [43] [44]
+Overfull \hbox (5.91066pt too wide) detected at line 51
+[]
+ []
 
-]
+)
+Overfull \hbox (234.5886pt too wide) has occurred while \output is active
+\OT1/cmr/m/sl/12 4.2.  ESTREMI LIBERI, RELAZIONE FRA SEGNO DI MATRICE ED INCREM
+ENTO, TEST DEGLI AUTOVALORI \OT1/cmr/m/n/12 45
+ []
+
+[45] [46]
 Chapter 5.
-(./Chapters/5.tex) [47] [48
+(./Chapters/5.tex) [47
+
+] [48
 
 ]
 Chapter 6.
@@ -477,24 +482,25 @@ Here is how much of TeX's memory you used:
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (51 pages, 341077 bytes).
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.p
+fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/symbols/msbm10.pfb>
+Output written on main.pdf (51 pages, 356639 bytes).
 PDF statistics:
- 270 PDF objects out of 1000 (max. 8388607)
- 176 compressed objects within 2 object streams
+ 275 PDF objects out of 1000 (max. 8388607)
+ 179 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

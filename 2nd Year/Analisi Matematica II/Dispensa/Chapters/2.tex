@@ -1,25 +1,17 @@
 \section{Calcolo infinitesimale per le curve}
 Prima di iniziare l'argomento è necessario rimettere in chiaro alcuni importanti concetti visti in precedenza con algebra lineare, come il \textbf{calcolo vettoriale}. Quanto verrà espresso ora si trova nello spazio $\mathbb{R}^n$, i cui elementi si dicono \textbf{vettori} e si indicano con $v = (x_1, x_2, ..., x_n)$, mentre le $x_i$ sono le \textbf{componenti del vettore}.\par
 Diremo poi \textbf{modulo} o norma di un vettore la radice del prodotto scalare fra ogni sua componente alla seconda. Si scrive:
-\begin{center}
-	\[|v| = \sqrt{\sum_{i=1}^{n}x_i^2} \equiv \sqrt{x_1^2 + x_2^2 + ... + x_n^2}\]
-\end{center}
+\[|v| = \sqrt{\sum_{i=1}^{n}x_i^2} \equiv \sqrt{x_1^2 + x_2^2 + ... + x_n^2}\]
 \noindent Diciamo poi \textbf{versore} il vettore unitario indicato con:
-\begin{center}
-	\[vers(v) = \dfrac{v}{|v|} = 1\]
-\end{center}
+\[vers(v) = \dfrac{v}{|v|} = 1\]
 \noindent Lo spazio $R^n$ è poi dotato della \textbf{base canonica}, dove ogni vettore $e_i$ presenta un solo valore $1$ in una posizione $i$, con tutte le altre uguali a $0$
 \begin{center}
 	$e_1 = (1, 0, ..., 0, 0)$, $e_2 = (0, 1, ..., 0, 0)$, $e_n = (0, 0, ..., 0, 1)$
 \end{center}
 \noindent Ed ogni vettore può essere espresso come combinazione lineare degli elementi della base canonica:
-\begin{center}
-	\[v = \sum_{i=1}^{n}x_ie_i\]
-\end{center}
+\[v = \sum_{i=1}^{n}x_ie_i\]
 \noindent Le operazioni classiche somma algebrica e prodotto per uno scalare portano al \textbf{prodotto scalare}, già menzionato prima e definito come:
-\begin{center}
-	\[\left<v_1, v_2\right> = (u_1,u_2,...,u_n)(w_1,w_2,...,w_n) = \sum_{i=1}^{n}u_iw_i\]
-\end{center}
+\[\left<v_1, v_2\right> = (u_1,u_2,...,u_n)(w_1,w_2,...,w_n) = \sum_{i=1}^{n}u_iw_i\]
 \noindent In particolare, se lo spazio $\mathbb{R}^n$ ha dimensione $2$ o $3$, abbiamo che funziona il \textbf{teorema del coseno}:
 \begin{center}
 	$\left<v_1, v_2\right> = |v_1||v_2|\cos(\theta) \implies \cos(\theta) = \dfrac{\left<v_1, v_2\right>}{|v_1||v_2|}$
@@ -47,21 +39,15 @@ Anzitutto osserveremo casi di calcolo infinitesimale per funzioni a più variabi
 \begin{definition}
 	\textbf{Limite per funzioni a più variabili}\par 
 	\noindent Sia $r:I \to \mathbb{R}^m$, con $I$ intervallo dello spazio $\mathbb{R}$. Siano ora $t_0 \in I \land l \in \mathbb{R}^m$, con $l$ il valore del limite. Allora:
-	\begin{center}
 		\[\lim_{t \to t_0}|r(t) -l| = 0 \implies \lim_{t \to t_0}r(t) = l\]
-	\end{center}
 \end{definition}
 \noindent Questa definizione viene utilizzata per le funzioni ad una variabile, tuttavia è estendibile anche a funzioni vettoriali immaginando che $r(t)$ comprenda ogni singola componente del vettore, quindi come $r(t) = [r_1(t), r_2(t), ..., r_n(t)]$, che produrrà altrettanti valori $l_i$. Infatti, se prendiamo una funzione vettoriale dello spazio $\mathbb{R}^2$ possiamo dire che:
-\begin{center}
-	\[\lim_{t \to t_0}|r(t)-l| = 0 \implies \lim_{t \to t_0} \left|\begin{pmatrix}
-		r_1(t) - l_1\\
-		r_2(t) - l_2
-	\end{pmatrix}\right|\]
-\end{center}
+\[\lim_{t \to t_0}|r(t)-l| = 0 \implies \lim_{t \to t_0} \left|\begin{pmatrix}
+	r_1(t) - l_1\\
+	r_2(t) - l_2
+\end{pmatrix}\right|\]
 \noindent Che ci fa ottenere, finalmente, la forma generale del limite che ci serve per gli esercizi. Nonostante questa sia quella per lo spazio di dimensione $2$, è facilmente estendibile a dimensioni superiori:
-\begin{center}
 	\[\lim_{t \to t_0}\sqrt{(r_1(t) - l_1)^2 + (r_2(t) - l_2)^2} = 0 \implies \lim_{t \to t_0}(r_1(t) - l_1) + (r_2(t) - l_2) = 0\]
-\end{center}
 \begin{eg}
 	\textbf{Calcolo di limite di funzione} $r:I\to\mathbb{R}^3$\par 
 	\noindent Consideriamo la funzione: $r(t) = (\cos(t)+\pi, e^t-1, \sin(t^2))$. Per calcolarne il limite per $t \to t_0$, bisogna applicarlo per ogni singola componente del vettore. Avremo quindi che:
@@ -82,9 +68,7 @@ Anzitutto osserveremo casi di calcolo infinitesimale per funzioni a più variabi
 	\item Vale il teorema di unicità del limite.
 	\item Vale il teorema sul limite della somma o del prodotto per una costante.
 	\item La definizione di funzione continua in un punto o insieme è la medesima. Diciamo infatti che $r:I \subseteq \mathbb{R} \to \mathbb{R}^n$ è continua in $t_0$ se vale che:
-	\begin{center}
-		\[\lim_{t\to t_0}r(t) = r(t_0)\]
-	\end{center}
+	\[\lim_{t\to t_0}r(t) = r(t_0)\]
 	\noindent Generalmente, una funzione a valori vettoriali è continua se e solo se lo sono tutte le sue componenti.
 \end{itemize}
 \noindent Se vale il limite, sarà possibile utilizzarlo per dare la definizione di \textbf{derivata per le funzioni a valori vettoriali}, non molto dissimile da quella vista in termini unidimensionali.
@@ -104,17 +88,11 @@ Anzitutto osserveremo casi di calcolo infinitesimale per funzioni a più variabi
 \begin{definition}
 	\textbf{Integrale di funzioni a valori vettoriali}\par 
 	\noindent Sia $r$ una funzione tale che $r:[a,b]\to \mathbb{R}^m$, come prima. L'integrazione segue la relazione:
-	\begin{center}
-		\[\int_{a}^{b}r(t) dt = \left(\int_{a}^{b}r_1(t) dt, \int_{a}^{b}r_2(t) dt, ..., \int_{a}^{b}r_m(t) dt\right)\]
-	\end{center}
+	\[\int_{a}^{b}r(t) dt = \left(\int_{a}^{b}r_1(t) dt, \int_{a}^{b}r_2(t) dt, ..., \int_{a}^{b}r_m(t) dt\right)\]
 	\noindent E diciamo che $r$ è integrabile nell'intervallo $[a,b]$ se e solo se tutte le sue componenti sono integrabili. Valgono inoltre il \textbf{teorema fondamentale del calcolo integrale}, con la funzione di classe $C^1([a,b])$:
-	\begin{center}
-		\[\int_{a}^{b}r'(t) dt = r(b)-r(a)\]
-	\end{center}
+	\[\int_{a}^{b}r'(t) dt = r(b)-r(a)\]
 	\noindent E se $r$ è integrabile abbiamo che vale:
-	\begin{center}
-		\[\int_{a}^{b} r(t) dt \leq \int_{a}^{b}|r(t)| dt\]
-	\end{center}
+	\[\int_{a}^{b} r(t) dt \leq \int_{a}^{b}|r(t)| dt\]
 \end{definition}
 
 \subsection{Curve regolari e lunghezza di un arco di curva}
@@ -158,9 +136,7 @@ Dunque, dato il punto $t \in [t_1, t_2]$ dato in pasto alla funzione $r$, avremo
 \noindent Adesso buttiamo dentro un concetto che ha bisogno di qualche premessa; la \textbf{lunghezza di un arco di curva}. Consideriamo la parametrizzazione di un arco di curva continua $\gamma$ ed una partizione $P = \{a = t_0, t_1, ..., t_{n-1}, t_n = b\}$ dell'intervallo $I = [a,b]$, con $(t_0 < t_1 < ... < t_n)$.\par 
 Alla partizione $P$ è associata la poligonale\footnote{Una curva non tonda. Un angolo sotto questa visione potrebbe essere una poligonale.} inscritta in $\gamma$ creata dagli n-segmenti di estremi $r(t_{j-1})$ e $r(t_j)$, con $j = 1,...,n$.\par 
 Sia ora $l(P)$ la lunghezza della poligonale data dalla formula:
-\begin{center}
-	\[l(P) = \sum_{j=1}^{n}|r(t_j) - r(t_{j-1})|\]
-\end{center}
+\[l(P) = \sum_{j=1}^{n}|r(t_j) - r(t_{j-1})|\]
 \noindent L'idea di fondo è che questa lunghezza approssimi per difetto quella di $\gamma$, consentendoci di ottenerla variando in ogni istanza possibile $P$ e prendendo l'estremo superiore di $l(P)$. In tal merito, abbiamo le definizioni:
 \begin{definition}
 	\textbf{Arco di curva rettificabile}\par 
@@ -345,3 +321,12 @@ Consideriamo la scrittura del limite di funzione $f$ appena vista. Se la distanz
 	\textbf{Dimostrazione di non esistenza del limite}\par 
 	\noindent
 \end{eg}
+
+%
+
+\section{Esercizi}
+% TODO Calcola lunghezza di arco di curva o calcolala tale che sia uguale ad un valore dato.
+% TODO Trova le equazioni della retta/piano tangente e della retta/piano normale.
+% TODO Trova la distanza della funzione da un punto (di norma l'origine) per un valore reale.
+% TODO Trova un valore tale per cui la funzione dista n da qualcosa (di norma l'origine). 
+% TODO Calcola l'integrale di funzione su una parte di curva

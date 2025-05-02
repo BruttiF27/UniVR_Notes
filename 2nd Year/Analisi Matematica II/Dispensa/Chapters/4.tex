@@ -1,1 +1,68 @@
-\section{Generalità}
+\section{Generalità e proprietà topologiche delle funzioni continue}
+Per \textbf{ottimizzazione} intendiamo il processo di massimizzazione o minimizzazione di una quantità sotto determinate condizioni; i nostri scopi concernono le funzioni reali di n variabili reali, i cui casi saranno:
+\begin{itemize}
+	\item Ricerca degli \textbf{estremi liberi}; estremi assunti in punti interni al dominio aperto $A$ della funzione $f$.
+	\item Ricerca degli \textbf{estremi vincolati}; estremi di $f$ assunti su un sottoinsieme $B$ non necessariamente aperto o sulla frontiera di $B$.
+\end{itemize}
+\begin{definition}
+	\textbf{Tipi di punto}\par 
+	\noindent Sia $f:A \subseteq \mathbb{R}^n \to \mathbb{R}$ e $x_0 \in A$ diciamo:
+	\begin{itemize}
+		\item Punto di massimo globale $x_0$ per $f \in A$ se $\forall x$ vale $f(x) \leq f(x_0)$.
+		\item Punto di minimo globale $x_0$ per $f \in A$ se $\forall x$ vale $f(x) \geq f(x_0)$.
+		\item Punto di massimo locale $x_0$ per $f$ se esiste un intorno $U$ di $x_0$ tale che $\forall x \in U$ vale $f(x) \leq f(x_0)$.
+		\item Punto di minimo locale $x_0$ per $f$ se esiste un intorno $U$ di $x_0$ tale che $\forall x \in U$ vale $f(x) \geq f(x_0)$.
+		\item Punto di sella se non è nessuno dei precedenti.
+	\end{itemize}
+\end{definition}
+\noindent Diamo adesso il bentornato ad alcuni teoremi visti in analisi 1, ora nella forma in cui sono stati concepiti.
+\begin{theorem}
+	\textbf{Teorema di Weierstrass}\par 
+	\noindent Sia $E$ un insieme chiuso e limitato ed $f:E \to \mathbb{R}$ una funzione continua. Allora questa avrà un punto massimo $x_M$ ed un punto minimo $X_m$ entrambi appartenenti ad $E$. \[\forall x \in E.[f(x_m) \leq f(x) \leq f(x_M)]\]
+	\noindent Questo è un teorema sufficiente per la dimmostrazione dell'esistenza di massimo e minimo.
+\end{theorem}
+\begin{theorem}
+	\textbf{Teorema degli zeri}\par 
+	\noindent Sia $E \subseteq \mathbb{R}$ un insieme connesso\footnote{Un insieme tale che presi due punti qualunqur dell'insieme, esiste un arco continuo che li congiunge tutto contenuto in $E$} di $\mathbb{R}^n$ ed $f:E\to\mathbb{R}$ una funzione continua. Se $x,y in E$ sono tali che $f(x) > 0 \land f(y) < 0$, allora esisterà un terzo punto $z\in E.[f(z) = 0]$.
+\end{theorem}
+\noindent Quest'ultimo teorema sarà molto utile nello studio del segno delle funzioni; perché spezza il dominio in varie parti dove $f$ risulta avere un segno costante. Tornerà nei problemi di ottimizzazione libera.
+
+%
+
+\section{Estremi liberi, relazione fra segno di matrice ed incremento, test degli autovalori}
+Sia una funzione $f:A \subseteq \mathbb{R}^n \to \mathbb{R}$ sufficientemente regolare. È nostro compito cercare di definirne gli estremi; saluta un altro tuo conoscente.
+\begin{theorem}
+	\textbf{Teorema di Fermat}\par 
+	\noindent Sia una funzione $f:A \subseteq \mathbb{R}^n \to \mathbb{R}$ con $A$ insieme aperto ed $x_0 \in A$ un punto di massimo o minimo locale per la funzione. Se questa è derivabile in $x_0$, allora $\nabla f(x_0) = 0$.
+\end{theorem}
+\noindent Quindi se $f$ è derivabile in $A$, i punti di massimo locale si trovano necessariamente tra quelli che annullano il gradiente. Ora, sapendo tutto ciò, è possibile iniziare a studiare la natura dei punti critici. Ciò si fa attraverso l'\textbf{incremento} della funzione ed il suo segno, ovvero: \[\Delta f(x_0,y_0) = f(x,y) - f(x_0,y_0)\]
+\noindent Come abbiamo visto dalla definizione, valgono le seguenti relazioni:
+\begin{itemize}
+	\item Se $\Delta f(x_0,y_0) \geq 0$, almeno in un intorno di $(x_0,y_0)$, allora quest'ultimo è massimo locale.
+	\item Se $\Delta f(x_0,y_0) \leq 0$, almeno in un intorno di $(x_0,y_0)$, allora quest'ultimo è minimo locale.
+	\item Se $\Delta f(x_0,y_0)$ non ha segno definito, sarà un punto di sella.
+\end{itemize}
+Dove tendenzialmente si potrebbe passare a coordinate polari per ottenere quanto ci serve, questo metodo fa cagare. Utilizzeremo quindi gli sviluppi di Taylor per semplificarci la vita, nonostante possano risultare una scrittura più verbosa.
+\begin{equation}
+	\begin{split}
+		\Delta f(x_0,y_0) &= f(x_0+h, y_0+k) - f(x_0,y_0)\\
+		& = \left<\nabla f(x_0,y_0), (h,k)\right> + \frac{1}{2}(h,k)\times H(x_0,y_0)\times (h,k) + \circ(\sqrt{h^2+k^2})
+	\end{split}
+\end{equation}
+\noindent Dove $(h,k)$ è un vettore con quegli elementi e $H$ indica la matrice Hessiana vista nelle sezioni precedenti. Importante sapere che le matrici possono avere un segno, il quale è dato in base ai suoi autovalori. Generalmente:
+\begin{itemize}
+	\item Matrice positiva se tutti gli autovalori $\lambda_i > 0$
+	\item Matrice negativa se tutti gli autovalori $\lambda_i < 0$
+	\item Matrice semidefinita positiva se tutti gli autovalori non sono negativi e almeno uno di essi è nullo.
+	\item Matrice semidefinita negativa se tutti gli autovalori non sono positivi e almeno uno di essi è nullo.
+	\item Matrice indefinita se la matrice ha almeno un autovalore positivo ed uno negativo.
+\end{itemize}
+\noindent Ricorderai bene che la ricerca degli autovalori\footnote{Le radici del polinomio caratteristico.} avviene tramite la risoluzione del polinomio caratteristico di una matrice, a partire dalla formula \[det(M - \lambda I_n) = 0\]
+\noindent Ritornerà utile in futuro ricordare il \textbf{teorema spettrale}, ovvero che se una matrice è simmetrica, allora gli autovalori saranno reali, ortogonali e ortonormali.
+
+%
+
+\section{Studio dei punti critici}
+Il focus principale è lo studio degli autovalori per determinare il segno della matrice, ed in definitiva, il tipo di punto critico preso in esame. Ricorda innanzitutto che logicamente, se ottieni un determinante maggiore di zero, gli autovalori saranno positivi, mentre se risulta essere minore di zero, allora ce ne sarà almeno uno negativo ed uno positivo.
+
+% TODO ----- CONTINUA DA QUA

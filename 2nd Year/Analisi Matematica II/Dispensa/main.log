@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  2 MAY 2025 15:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  8 MAY 2025 16:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -444,25 +444,48 @@ Overfull \hbox (5.91066pt too wide) detected at line 51
 []
  []
 
-)
-Overfull \hbox (234.5886pt too wide) has occurred while \output is active
-\OT1/cmr/m/sl/12 4.2.  ESTREMI LIBERI, RELAZIONE FRA SEGNO DI MATRICE ED INCREM
-ENTO, TEST DEGLI AUTOVALORI \OT1/cmr/m/n/12 45
+
+Overfull \hbox (7.85976pt too wide) in paragraph at lines 63--64
+\OT1/cmr/m/n/12 Mentre per ma-trici di rango mag-giore ^^Re sem-pre nec-es-sari
+o af-fi-darsi alla seguente
  []
 
-[45] [46]
-Chapter 5.
-(./Chapters/5.tex) [47
 
-] [48
+Overfull \hbox (8.38237pt too wide) has occurred while \output is active
+\OT1/cmr/m/sl/12 4.3.  STUDIO DEI PUNTI CRITICI CON IL TEST DEGLI AUTOVALORI \O
+T1/cmr/m/n/12 45
+ []
+
+[45] [46] [47]
+Underfull \hbox (badness 10000) in paragraph at lines 120--121
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--124
+
+ []
+
+[48]
+Overfull \hbox (7.79501pt too wide) in paragraph at lines 126--128
+\OT1/cmr/m/n/12 E di-remo in-fine che $(\OML/cmm/m/it/12 x[]; y[]\OT1/cmr/m/n/1
+2 )$ ^^Re un \OT1/cmr/bx/n/12 punto critico vin-co-lato\OT1/cmr/m/n/12 . Segue 
+la definizione
+ []
+
+) [49] [50
+
+]
+Chapter 5.
+(./Chapters/5.tex) [51] [52
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [49] [50
+(./Chapters/6.tex) [53] [54
 
 ]
 Chapter 7.
-(./Chapters/7.tex) [51] (./main.aux (./Configs/formats.aux)
+(./Chapters/7.tex) [55] (./main.aux (./Configs/formats.aux)
 (./Configs/boxes.aux))
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -470,13 +493,13 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3476 strings out of 476182
- 52958 string characters out of 5795596
+ 3477 strings out of 476182
+ 52966 string characters out of 5795596
  1936975 words of memory out of 5000000
- 25415 multiletter control sequences out of 15000+600000
+ 25416 multiletter control sequences out of 15000+600000
  569786 words of font info for 80 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 64i,17n,70p,534b,364s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,17n,70p,581b,364s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share
@@ -497,10 +520,10 @@ exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive
 onts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/amsfonts/symbols/msbm10.pfb>
-Output written on main.pdf (51 pages, 356639 bytes).
+Output written on main.pdf (55 pages, 368147 bytes).
 PDF statistics:
- 275 PDF objects out of 1000 (max. 8388607)
- 179 compressed objects within 2 object streams
+ 288 PDF objects out of 1000 (max. 8388607)
+ 188 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

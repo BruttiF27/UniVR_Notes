@@ -29,13 +29,13 @@ Per \textbf{ottimizzazione} intendiamo il processo di massimizzazione o minimizz
 
 %
 
-\section{Estremi liberi, relazione fra segno di matrice ed incremento, test degli autovalori}
+\section{Estremi liberi, relazione fra segno di matrice ed incremento}
 Sia una funzione $f:A \subseteq \mathbb{R}^n \to \mathbb{R}$ sufficientemente regolare. È nostro compito cercare di definirne gli estremi; saluta un altro tuo conoscente.
 \begin{theorem}
 	\textbf{Teorema di Fermat}\par 
 	\noindent Sia una funzione $f:A \subseteq \mathbb{R}^n \to \mathbb{R}$ con $A$ insieme aperto ed $x_0 \in A$ un punto di massimo o minimo locale per la funzione. Se questa è derivabile in $x_0$, allora $\nabla f(x_0) = 0$.
 \end{theorem}
-\noindent Quindi se $f$ è derivabile in $A$, i punti di massimo locale si trovano necessariamente tra quelli che annullano il gradiente. Ora, sapendo tutto ciò, è possibile iniziare a studiare la natura dei punti critici. Ciò si fa attraverso l'\textbf{incremento} della funzione ed il suo segno, ovvero: \[\Delta f(x_0,y_0) = f(x,y) - f(x_0,y_0)\]
+\noindent Quindi se $f$ è derivabile in $A$, i punti di massimo locale si trovano necessariamente tra quelli che annullano il gradiente, in questo caso il punto di massima e minima ascesa. Ora, sapendo tutto ciò, è possibile iniziare a studiare la natura dei punti critici. Ciò si fa attraverso l'\textbf{incremento} della funzione ed il suo segno, ovvero: \[\Delta f(x_0,y_0) = f(x,y) - f(x_0,y_0)\]
 \noindent Come abbiamo visto dalla definizione, valgono le seguenti relazioni:
 \begin{itemize}
 	\item Se $\Delta f(x_0,y_0) \geq 0$, almeno in un intorno di $(x_0,y_0)$, allora quest'ultimo è massimo locale.
@@ -49,20 +49,101 @@ Dove tendenzialmente si potrebbe passare a coordinate polari per ottenere quanto
 		& = \left<\nabla f(x_0,y_0), (h,k)\right> + \frac{1}{2}(h,k)\times H(x_0,y_0)\times (h,k) + \circ(\sqrt{h^2+k^2})
 	\end{split}
 \end{equation}
-\noindent Dove $(h,k)$ è un vettore con quegli elementi e $H$ indica la matrice Hessiana vista nelle sezioni precedenti. Importante sapere che le matrici possono avere un segno, il quale è dato in base ai suoi autovalori. Generalmente:
+\noindent Dove $(h,k)$ è un vettore con quegli elementi e $H$ indica la matrice Hessiana vista nelle sezioni precedenti. Notare che viste in questo modo, le matrici possono \textbf{avere un segno}, il quale verrà determinato con l'algoritmo della prossima sezione: il \textbf{test degli autovalori}.
+
+%
+
+\section{Studio dei punti critici con il test degli autovalori}
+Il focus principale è lo studio degli autovalori per determinare il segno della matrice, ed in definitiva, il tipo di punto critico preso in esame. Logicamente, per matrici simmetriche di rango uguale a $2$ abbiamo i seguenti risultati:
 \begin{itemize}
-	\item Matrice positiva se tutti gli autovalori $\lambda_i > 0$
-	\item Matrice negativa se tutti gli autovalori $\lambda_i < 0$
+	\item Se $det(M) > 0$, avremo due autovalori positivi.
+	\item Se $det(M) < 0$, avremo un autovalore positivo e l'altro negativo.
+	\item Se $det(M) = 0$, almeno un autovalore è uguale a zero.
+\end{itemize}
+\noindent Mentre per matrici di rango maggiore è sempre necessario affidarsi alla seguente regola generale:
+\begin{itemize}
+	\item Matrice positiva se tutti gli autovalori $\lambda_i$ sono maggiori di zero.
+	\item Matrice negativa se tutti gli autovalori $\lambda_i$ sono minori di zero.
 	\item Matrice semidefinita positiva se tutti gli autovalori non sono negativi e almeno uno di essi è nullo.
 	\item Matrice semidefinita negativa se tutti gli autovalori non sono positivi e almeno uno di essi è nullo.
 	\item Matrice indefinita se la matrice ha almeno un autovalore positivo ed uno negativo.
 \end{itemize}
 \noindent Ricorderai bene che la ricerca degli autovalori\footnote{Le radici del polinomio caratteristico.} avviene tramite la risoluzione del polinomio caratteristico di una matrice, a partire dalla formula \[det(M - \lambda I_n) = 0\]
-\noindent Ritornerà utile in futuro ricordare il \textbf{teorema spettrale}, ovvero che se una matrice è simmetrica, allora gli autovalori saranno reali, ortogonali e ortonormali.
+\noindent Ritornerà utile in futuro ricordare il \textbf{teorema spettrale}, ovvero; se una matrice è simmetrica, allora gli autovalori saranno reali e gli autovettori ortogonali e ortonormali.
+
+% TODO ----- INSERISCI ESEMPIO DI STUDIO PUNTI CRITICI LIBERI
+
+\section{Ottimizzazione vincolata, vincoli esplicitabili}
+Facciamo un piccolo riassunto di quanto appena detto:
+\begin{itemize}
+	\item Il teorema di Fermat dice che se una funzione è relativamente semplice, avremo che il suo massimo e minimo si troveranno in corrispondenza dei punti critici, rispettivamente dati da $\nabla f$ che indica massima ascesa e $-\nabla f$ che indica la minima ascesa.
+	\item Per non dannarci, possiamo scrivere una funzione in forma di Taylor, ottenendo la sua forma quadratica e, studiando il segno della matrice Hessiana, possiamo dire che tipo di incremento abbiamo e trarre conclusioni riguardo la natura dei punti critici.
+\end{itemize}
+\noindent Tuttavia, è probabile che i punti critici possano trovarsi anche al di fuori del dominio della funzione e che quindi non corrispondano a massimi o minimi. Non potendo usare il teorema di Fermat, dovremo ragionare su come trovare una soluzione alternativa, poiché la funzione è \textbf{vincolata} al proprio dominio.\par 
+Molti problemi di ottimizzazione riguardano l'utilizzo di vincoli; un esempio è quando un determinato minimo deve stare al di sopra di una data funzione. Il concetto non è molto dissimile dai problemi di Cauchy, se ci pensi. Abbiamo alcuni casi da esaminare:
+\begin{itemize}
+	\item \textbf{Vincolo esplicitabile}\par 
+	\noindent Questo è il caso più semplice di tutti; quando è possibile esplicitare una variabile del vincolo in funzione di un'altra. Ci troveremo davanti alle seguenti forme: \[h(x) = f(x,y(x)) \lor h(y) = f(x(y),y) \lor h(t) = f(x(t), y(t))\]
+	\noindent Si riesce quindi a ritornare all'ottimizzazione in una singola variabile.
+	\begin{eg}
+		\textbf{Ottimizzazione con vincolo esplicitabile}\par
+		\noindent Sia la funzione $f(x,y) = x^2+3y^3-y$ tale che $y = x^2$ dal massimo o minimo. Molto semplicemente qui si sostituisce alla $y$ il suo valore e possiamo ottenere la funzione ottimizzata richiesta. \[f(x,x^2) = x^2+3(x^2)^3-x^2 \implies f(x,x^2) = 3x^6\]
+	\end{eg}
+	\item \textbf{Vincolo da parametrizzare}\par 
+	\noindent Questo caso è uguale a quello precedente, solo che prima di poter esprimere la funzione in una singola variabile, è necessario parametrizzarne la curva; poi si procede come di consueto.
+	\begin{eg}
+		\textbf{Ottimizzazione con vincolo da parametrizzare}\par
+		\noindent Sia la funzione $f(x,y) = 3x^2y-y^3+x^2$ tale che il dominio sia: $\{(x,y)\in \mathbb{R}^2: 0\leq x\leq 1, 0\leq y \leq 2\}$. Per ottimizzare la curva è necessario ragionare sul dominio e sostituire i vari valori all'equazione. Avendo quindi i due punti: \[x \in [0,1] \land y \in [0,2]\]
+		\noindent Ricaviamo che:
+		\begin{itemize}
+			\item $f(x,2) = 3x^2(2) - (2)^3 + x^2 = 6x^2 - 8 + x^2$
+			\item $f(x,0) = 3x^2(0) - (0)^3 + x^2 = x^2$
+			\item $f(1,y) = 3y(1)^2 - y^3 + (1)^2 = 3y^2 - y^3 + 1$
+			\item $f(0,y) = 3y(0)^2 - y^3 + (0)^2 = -y^3$
+		\end{itemize}
+		\noindent Fortunatamente il dominio sul quale lavorare dovrebbe dartelo il prof, quindi non penarti tanto sulla sua ricerca.
+	\end{eg}
+	\item \textbf{Vincolo semi-esplicitabile}\par 
+	\noindent Parliamo di tutti quei casi in cui è posto un vincolo la cui esplicitazione crea una forma complicata da gestire, come una radice, un esponenziale o un logaritmo. Lavorarci è fastidioso.
+	\begin{eg}
+		\textbf{Ottimizzazione con vincolo semi-esplicitabile}\par 
+		\noindent Sia la funzione $f(x,y) = x^3-2xy^2+y^2$ tale che $x^2+y^2 = 4$. Diciamo che vogliamo esplicitare il vincolo in funzione di $x$, ci toccherà isolare la $y$, ottenendo: \[y = \sqrt{4-x^2}\]
+		\noindent Ovviamente è possibile esplicitare tutto nella funzione, ma pensa a quanto soffrirai per casi meno semplici di questo. \[f(x, \sqrt{4-x^2}) = x^3-2x(4-x^2)^2 + (4-x^2)\]
+	\end{eg}
+\end{itemize}
 
 %
 
-\section{Studio dei punti critici}
-Il focus principale è lo studio degli autovalori per determinare il segno della matrice, ed in definitiva, il tipo di punto critico preso in esame. Ricorda innanzitutto che logicamente, se ottieni un determinante maggiore di zero, gli autovalori saranno positivi, mentre se risulta essere minore di zero, allora ce ne sarà almeno uno negativo ed uno positivo.
+\section{Moltiplicatori di Lagrange}
+Sfortunatamente, ni' mondo non esiste un pò di bene ed infatti non sarà sempre possibile esplicitare i vincoli in una sola variabile. In che modo è possibile risolvere questi problemi?\par 
+Come nel calcolo dei limiti si usava De L'Hôpital per ogni male\footnote{Non era possibile, ma lo si faceva ugualmente, ed in ogni caso non ci si può affidare ad esso per analisi 2.}, per l'ottimizzazione di funzioni vincolate non esplicitabili il carro armato è rappresentato dai \textbf{moltiplicatori di Lagrange}.\par 
+Si tratta di un metodo che funziona con vincoli rappresentati da una curva regolare, sia in forma esplicita che non; cerchiamo di arrivarci con un pò di sano ragionamento.\newline
 
-% TODO ----- CONTINUA DA QUA
+\noindent Se abbiamo un vincolo, allora ci saranno alcune direzioni inammissibili per la funzione e di conseguenza avremo che in ognuna di queste \textit{la derivata direzionale si annullerà}.\par 
+Per capire quali siano queste direzioni, supponiamo che un vincolo descriva un \textit{arco di curva regolare} con una retta tangente che va nella direzione del versore $v$. Qui la derivata direzionale $D_v$ si annullerà.\newline
+
+\noindent In altre parole, se $(x^*, y^*)$ è il punto di estremo vincolato si ha che: \[D_vf(x^*, y^*) = 0\] \noindent Per la formula del gradiente otteniamo inoltre il seguente risultato: \[\nabla f(x^*, y^*)v = 0\]\noindent Noi sappiamo che il gradiente di una funzione è ortogonale\footnote{Non so perché si ostinino a dire ortogonale al porto di perpendicolare. Fatto sta che è un sinonimo e io preferisco adattarmi alle scritture in uso.} alla direzione della retta tangente alle sue curve di livello.\par 
+Quindi se anche il vincolo è regolare abbastanza, anche dalla sua formula del gradiente risulterà zero. Dati questi risultati, traiamo che i due gradienti nel punto vincolato devono essere paralleli, ovvero deve esistere un numero $\lambda \in \mathbb{R}$ per cui uno dei due è multiplo dell'altro, ovvero:\[\nabla f(x^*, y^*) = \lambda\nabla g(x^*, y^*)\]
+\noindent E diremo infine che $(x^*, y^*)$ è un \textbf{punto critico vincolato}. Segue la definizione formale.
+\begin{theorem}
+	\textbf{Moltiplicatori di Lagrange}\par 
+	\noindent Siano due funzioni $f,g \in C^1(\mathbb{R^2})$ ed $(x^*, y^*)$ un punto di estremo vincolato per $f$ sotto il vincolo $g(x,y) = b$.\par 
+	Se il punto è regolare per il vincolo, ovvero $\nabla g(x^*, y^*) \neq (0,0)$, allora esiste un valore $\lambda^* \in \mathbb{R}$ chiamato \textbf{moltiplicatore di Lagrange}, tale che valga: \[\nabla f(x^*, y^*) = \lambda\nabla g(x^*, y^*)\]
+\end{theorem}
+\noindent Un'altra cosa interessante che si può fare con questa formula è spostare tutto a sinistra e chiamarla come una funzione $Q(x, y)$, ottenendo la seguente scrittura: \[\nabla Q(x,y) = \nabla f(x,y) -\lambda\nabla g(x,y) = 0 \equiv L(x,y,\lambda) = f(x,y)-\lambda(g(x,y)-b)\]
+\noindent Che si chiama \textbf{funzione Lagrangiana}, mentre per il gradiente vale: \[\nabla L(x,y,\lambda) = \begin{pmatrix}
+	f_x - \lambda g_x\\
+	f_y - \lambda g_y\\
+	g(x,y) - b
+\end{pmatrix} = \begin{pmatrix}
+	\nabla f -\lambda \nabla g\\
+	\\
+	g(x,y) - b
+\end{pmatrix} = \begin{pmatrix}
+	0\\
+	0\\
+	0
+\end{pmatrix}\]
+La particolarità di questa funzione è che si vede il $\lambda$ come una variabile. La cosa è estendibile anche a più vincoli, ed in tal caso avremo un numero maggiore di $\lambda$. Ci consente, in definitiva, di trasformare un'ottimizzazione vincolata in una libera.
+
+% TODO ----- AGGIUNGI ESEMPIO DI CALCOLO CON MOLT. DI LAGRANGE

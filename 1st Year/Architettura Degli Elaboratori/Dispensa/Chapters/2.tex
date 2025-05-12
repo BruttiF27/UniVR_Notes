@@ -1,0 +1,44 @@
+La domanda principale di questo capitolo è "Come realizzare un sistema digitale?" Ebbene, è necessario un modello apposito che consentirà di rappresentare appropriatamente la sua struttura. Per far ciò useremo l'\textbf{algebra di Boole}; uno spazio ad $n$ dimensioni misurate in base all'alfabeto che voglio dare allo spazio. Qui sono presenti solo due valori come in base binaria: $0$ e $1$.\par 
+Secondo Boole, se si definisce una funzione che genera valori in un altro spazio, generalmente scritta $f(B^n) -> B^m$, questa potrà essere rappresentata tramite gli operatori elementari; in pratica ci puoi fare qualunque cosa.\par
+Utilizzando questo spazio è possibile passare da una scrittura ambigua ad una formale, chiara per quelli che saranno i nostri scopi; la rappresentazione dei sistemi avviene infatti tramite le tabelle di verità, che mostrano le funzioni booleane.\newline
+
+% TODO INSERISCI IMMAGINE TABELLE DI VERITÀ
+
+\noindent Nella tabella di verità vengono definiti:
+\begin{itemize}
+	\item \textbf{Onset}: L'insieme dei punti dello spazio di ingresso dove la funzione vale 1. Gli elementi si dicono \textbf{mintermini}.
+	\item \textbf{Offset}: L'insieme dei punti dello spazio di ingresso dove la funzione vale 0. Gli elementi si dicono \textbf{maxtermini}.
+\end{itemize}
+\noindent L'unione di questi due insiemi è complementare, poiché rappresentano tutto lo spazio usato dalla funzione. Inoltre, per mettere in relazione i bit con gli operatori si utilizzano le seguenti espressioni: \[m_3 = a \times b, m_0 = !a \times !b\]
+\noindent In tal merito, definiamo \textbf{letterale} una qualunque coppia \{variabile, Valore\} ed è l'unità di misura usata per definire la complessità di un circuito. Infine, la funzione in output si scrive attraverso una somma di prodotti o somma di min/maxtermini, per esempio: $O = abc + !ac + b!c$ e avremo una complessità di 7 letterali.
+
+\section{Realizzazione di porte logiche}
+
+%
+
+\section{Minimizzazione a due livelli}
+
+%
+
+\subsection{Mappa di Karnaugh}
+
+%
+
+\subsection{Algoritmo di Quine Mc-Cluskey}
+
+%
+
+\section{Funzioni parzialmente specificate}
+
+%
+
+\section{Sintesi combinatoria multilivello}
+
+%
+
+\section{Mapping tecnologico}
+
+%
+
+\section{Dispositivi programmabili}
+Programmable Logic Array, Field programmable gate array, system on chip

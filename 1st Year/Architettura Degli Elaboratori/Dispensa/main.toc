@@ -1,0 +1,61 @@
+\contentsline {chapter}{\numberline {1}Codifica dell'Informazione}{5}{}%
+\contentsline {section}{\numberline {1.1}Sistemi ed elaborazione dati}{5}{}%
+\contentsline {section}{\numberline {1.2}Codice Binario e operazioni in base 2}{7}{}%
+\contentsline {section}{\numberline {1.3}Codifica dei numeri}{8}{}%
+\contentsline {subsection}{\numberline {1.3.1}Codifica in modulo e segno}{9}{}%
+\contentsline {subsection}{\numberline {1.3.2}Codifica in virgola fissa}{9}{}%
+\contentsline {subsection}{\numberline {1.3.3}Codifica in virgola mobile}{10}{}%
+\contentsline {subsection}{\numberline {1.3.4}Codifica in complemento a 1 e a 2}{12}{}%
+\contentsline {subsection}{\numberline {1.3.5}Codifica in esadecimale}{13}{}%
+\contentsline {chapter}{\numberline {2}Circuiti e Ottimizzazione}{15}{}%
+\contentsline {section}{\numberline {2.1}Realizzazione di porte logiche}{16}{}%
+\contentsline {section}{\numberline {2.2}Minimizzazione a due livelli}{16}{}%
+\contentsline {subsection}{\numberline {2.2.1}Mappa di Karnaugh}{16}{}%
+\contentsline {subsection}{\numberline {2.2.2}Algoritmo di Quine Mc-Cluskey}{16}{}%
+\contentsline {section}{\numberline {2.3}Funzioni parzialmente specificate}{16}{}%
+\contentsline {section}{\numberline {2.4}Sintesi combinatoria multilivello}{16}{}%
+\contentsline {section}{\numberline {2.5}Mapping tecnologico}{16}{}%
+\contentsline {section}{\numberline {2.6}Dispositivi programmabili}{16}{}%
+\contentsline {chapter}{\numberline {3}Progettazione Digitale}{17}{}%
+\contentsline {section}{\numberline {3.1}Circuiti sequenziali}{17}{}%
+\contentsline {subsection}{\numberline {3.1.1}FSM - Finite State Machines}{17}{}%
+\contentsline {section}{\numberline {3.2}Sintesi delle funzioni $\lambda $ e $\delta $, assegnazione stati}{17}{}%
+\contentsline {section}{\numberline {3.3}Minimizzazione degli stati}{17}{}%
+\contentsline {section}{\numberline {3.4}Datapath e componenti}{17}{}%
+\contentsline {section}{\numberline {3.5}Modello FSMD - Finite State Machine with Datapath}{17}{}%
+\contentsline {section}{\numberline {3.6}Derivazione FSMD da algoritmo}{17}{}%
+\contentsline {section}{\numberline {3.7}Modello dispositivi programmabili}{17}{}%
+\contentsline {chapter}{\numberline {4}Architetture dei Calcolatori}{19}{}%
+\contentsline {section}{\numberline {4.1}Modello di Von Neumann e Unità funzionali del calcolatore}{19}{}%
+\contentsline {section}{\numberline {4.2}CPU - Central Processing Unit}{19}{}%
+\contentsline {subsection}{\numberline {4.2.1}CPU Cablata}{19}{}%
+\contentsline {subsection}{\numberline {4.2.2}CPU Microprogrammata}{19}{}%
+\contentsline {subsection}{\numberline {4.2.3}Microistruzioni della CPU}{19}{}%
+\contentsline {section}{\numberline {4.3}Metodi di I/O, Segnale Interrupt}{19}{}%
+\contentsline {section}{\numberline {4.4}Direct Memory Access, BUS e Arbitraggio}{19}{}%
+\contentsline {section}{\numberline {4.5}Stati di un processo}{19}{}%
+\contentsline {section}{\numberline {4.6}Pila e gestione Interrupt}{19}{}%
+\contentsline {section}{\numberline {4.7}Tipi di Memoria RAM}{19}{}%
+\contentsline {section}{\numberline {4.8}Caratteristiche delle memorie con relativa gerarchia}{20}{}%
+\contentsline {section}{\numberline {4.9}Memoria Cache e Virtuale}{20}{}%
+\contentsline {section}{\numberline {4.10}Pipelining}{20}{}%
+\contentsline {section}{\numberline {4.11}Architettura LC-3}{20}{}%
+\contentsline {section}{\numberline {4.12}Modello CISC e RISC}{20}{}%
+\contentsline {section}{\numberline {4.13}Architetture parallele}{20}{}%
+\contentsline {chapter}{\numberline {5}SIS e Verilog}{21}{}%
+\contentsline {section}{\numberline {5.1}Introduzione a SIS}{21}{}%
+\contentsline {section}{\numberline {5.2}Sintesi combinatoria esatta}{21}{}%
+\contentsline {section}{\numberline {5.3}Sintesi combinatoria approssimata multilivello}{21}{}%
+\contentsline {section}{\numberline {5.4}Modellazione di FSM}{21}{}%
+\contentsline {section}{\numberline {5.5}Modellazione di FSMD}{21}{}%
+\contentsline {section}{\numberline {5.6}Introduzione a Verilog}{21}{}%
+\contentsline {section}{\numberline {5.7}Modellazione in Verilog}{21}{}%
+\contentsline {section}{\numberline {5.8}Modellazione di FSM}{21}{}%
+\contentsline {section}{\numberline {5.9}Modellazione di FSMD}{21}{}%
+\contentsline {chapter}{\numberline {6}Il linguaggio Assembly}{23}{}%
+\contentsline {section}{\numberline {6.1}Introduzione ad Assembly}{23}{}%
+\contentsline {section}{\numberline {6.2}Istruzioni e Sintassi}{23}{}%
+\contentsline {section}{\numberline {6.3}Debugging e Makefile}{23}{}%
+\contentsline {section}{\numberline {6.4}Relazione ISA-FSMD su LC-3}{23}{}%
+\contentsline {section}{\numberline {6.5}Funzioni e passaggio di parametri}{23}{}%
+\contentsline {section}{\numberline {6.6}Confronto con il C}{23}{}%

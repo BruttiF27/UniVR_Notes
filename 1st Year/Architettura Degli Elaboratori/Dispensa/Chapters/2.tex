@@ -1,9 +1,12 @@
 La domanda principale di questo capitolo è "Come realizzare un sistema digitale?" Ebbene, è necessario un modello apposito che consentirà di rappresentare appropriatamente la sua struttura. Per far ciò useremo l'\textbf{algebra di Boole}; uno spazio ad $n$ dimensioni misurate in base all'alfabeto che voglio dare allo spazio. Qui sono presenti solo due valori come in base binaria: $0$ e $1$.\par 
 Secondo Boole, se si definisce una funzione che genera valori in un altro spazio, generalmente scritta $f(B^n) -> B^m$, questa potrà essere rappresentata tramite gli operatori elementari; in pratica ci puoi fare qualunque cosa.\par
 Utilizzando questo spazio è possibile passare da una scrittura ambigua ad una formale, chiara per quelli che saranno i nostri scopi; la rappresentazione dei sistemi avviene infatti tramite le tabelle di verità, che mostrano le funzioni booleane.\newline
-
-% TODO INSERISCI IMMAGINE TABELLE DI VERITÀ
-
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm]{Images/booleanFunction.png}
+	\caption{Funzione booleana XNOR}
+	\label{fig:booleanFunction}
+\end{figure}
 \noindent Nella tabella di verità vengono definiti:
 \begin{itemize}
 	\item \textbf{Onset}: L'insieme dei punti dello spazio di ingresso dove la funzione vale 1. Gli elementi si dicono \textbf{mintermini}.
@@ -13,18 +16,83 @@ Utilizzando questo spazio è possibile passare da una scrittura ambigua ad una f
 \noindent In tal merito, definiamo \textbf{letterale} una qualunque coppia \{variabile, Valore\} ed è l'unità di misura usata per definire la complessità di un circuito. Infine, la funzione in output si scrive attraverso una somma di prodotti o somma di min/maxtermini, per esempio: $O = abc + !ac + b!c$ e avremo una complessità di 7 letterali.
 
 \section{Realizzazione di porte logiche}
+Le porte logiche e di conseguenza qualunque circuito elettronico sono governati dal flusso di elettricità gestito dai \textbf{transistors}; interruttori comandati. Nella tecnologia \textbf{CMOS} (Complementary Metal Oxide Semiconductor) sono implementati solo due tipi:
+\begin{itemize}
+	\item \textbf{Interruttore N}: Se riceve corrente, conduce l'elettricità.
+	\item \textbf{Interruttore P}: Se riceve corrente, ferma il flusso.
+\end{itemize}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=12cm]{Images/transistorTypes.png}
+	\caption{Tipi di transistors}
+	\label{fig:transistorTypes}
+\end{figure}
+\noindent Per usare termini corretti, quando un transistor è chiuso e scorre la corrente si dice che è in \textbf{conduzione}, mentre se è aperto e la corrente è bloccata diciamo che c'è un segnale di \textbf{interdizione}.\par 
+Di base i circuiti vanno letti da sinistra a destra, e grazie ai due interruttori appena visti è possibile creare le porte logiche elementari \textbf{AND, OR, NOT, NAND, NOR, XOR, XNOR}. Adesso abbiamo tutti gli strumenti per la creazione di un circuito elettronico. Ciò non significa tuttavia che possiamo buttarci senza cognizione di causa; ragion per cui bisognerà ragionare sui costi e le parti effettivamente necessarie al processo di realizzazione. Il nostro scopo da adesso diventa l'\textbf{ottimizzazione} dei nostri progetti.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=12cm]{Images/logicGates.png}
+	\caption{Porte logiche elementari}
+	\label{fig:logicGates}
+\end{figure}
 
 %
 
 \section{Minimizzazione a due livelli}
+Non esiste un solo modo per ottimizzare un circuito, bensì più tecniche, tutte con la loro ragion d'essere in base ai nostri scopi. Una prima semplice regola, per esempio è l'\textbf{assorbimento}, da utilizzare assieme all'algebra di Boole. Bisogna innanzitutto tenere a mente queste proprietà:
+\begin{itemize}
+	\item Identità: $1\times x = x$, $0+x = x$
+	\item Elemento nullo: $0\times x = 0$, $1+x = 1$
+	\item Idempotenza: $x\times x = x$, $x+x=x$
+	\item Inverso: $x\times \overline{x} = 0$, $x+\overline{x} = 1$
+\end{itemize}
+\noindent Valgono anche le proprietà associative, commutative e distributive. Procediamo col dare la definizione della regola:
+\begin{definition}
+	\textbf{Regola dell'assorbimento}\par 
+	\noindent Sia una funzione booleana scritta in somma di prodotti; se due di questi sono a distanza di Hamming 1, è possibile sommare le parti inverse ed ottenere il valore 1, riducendoi letterali e quindi la complessità della funzione.
+	\[x(x+y) = x, x+(xy) = x\]
+\end{definition}
+\begin{eg}
+	Si ottimizzi la seguente funzione in somma di prodotti: \[O = \overline{xyz}+ \overline{xy}z + x\overline{yz} + x\overline{y}z + xyz\]
+	\noindent Utilizziamo l'assorbimento; per prima cosa bisogna vedere se sono presenti termini a distanza di Hamming 1 per semplificarli; ripetere il processo fin quando non è più possibile.
+	\begin{equation}
+		\begin{split}
+			O &= \overline{xyz}+ \overline{xy}z + x\overline{yz} + x\overline{y}z + xyz\\
+			  &= \overline{xy}(\overline{z}+z) + \overline{yz}(x+\overline{x}) + \overline{y}z(x+\overline{x}) + x\overline{y}(\overline{z}+z) + xz(\overline{y}+y)\\
+			  &= \overline{xy} + \overline{yz} + \overline{y}z + x\overline{y} + xz\\
+			  &= \overline{y} + \overline{y} + xz\\
+			  &= \overline{y} + xz
+		\end{split}
+	\end{equation}
+\end{eg}
+\noindent In parole molto povere, bisogna vedere uno per uno tutti i termini che presentano un solo bit di differenza fra di loro, ovvero a \textbf{distanza di Hamming} 1, e rimuovere le due parti inverse, poiché equivarranno ad 1.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{Images/hammingDistance.png}
+	\caption{Cubo delle distanze fra codifiche}
+	\label{fig:hammingDistance}
+\end{figure}
+\noindent Nello svolgimento dell'ottimizzazione, chiameremo i termini che non è più possibile ridurre come \textbf{implicanti primi}; dove è vero che li vogliamo, è possibile che più implicanti primi coprano lo stesso mintermine, creando una ripetizione inutile. Ci è quindi necessario cercare gli \textbf{implicanti primi essenziali}, ovvero un implicante che tocca un mintermine non raggiunto dagli altri.\par 
+Subentra di conseguenza la questione della \textbf{copertura minima}, ovvero il problema di trovare il numero minimo di implicanti necessari per coprire ogni mintermine; per lavorare useremo i due metodi nelle prossime sezioni.
 
 %
 
 \subsection{Mappa di Karnaugh}
+Da me soprannominato "Il Sarrus dell'ottimizzazione", è un algoritmo utilizzabile con funzioni $f(B^3)$ o massimo per $f(B^4)$. Servirà prendere il cubo delle distanze visto prima ed immaginare di piallarlo. Usciranno le celle corrispondenti agli spigoli del solido.\par 
+Una particolarità è che il cubo deve essere visto come se fosse impossibile andare out of bounds; quindi una volta superato un lato estremo, ci si trova subito dopo in quello opposto, esattamente come in Pacman.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{Images/karnaugh_2b.png}
+	\caption{Mappa di Karnaugh}
+	\label{fig:karnaugh_2b}
+\end{figure}
+\noindent Le celle adiacenti sono quelle a distanza di Hamming 1 e la funzione ottimizzata è quella di prima, con risultato $O = \overline{y}+xz$.
 
 %
 
 \subsection{Algoritmo di Quine Mc-Cluskey}
+
+%TODO RIPRENDI DA QUA
 
 %
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  12 MAY 2025 18:54
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  16 MAY 2025 16:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -174,7 +174,7 @@ Package: amsthm 2020/05/29 v2.20.6
 )
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-))
+)
 (/usr/share/texlive/texmf-dist/tex/latex/base/newlfont.sty
 Package: newlfont 1998/08/17 v2.2m Standard LaTeX package
 LaTeX Info: Redefining \em on input line 57.
@@ -184,19 +184,27 @@ Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
-))
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count278
+\float@exts=\toks29
+\float@box=\box54
+\@float@everytoks=\toks30
+\@floatcapt=\box55
+)
 
 LaTeX Warning: \include should only be used after \begin{document} on input lin
 e 4.
 
 (./Configs/boxes.tex
-\c@theorem=\count278
-\c@definition=\count279
-\c@eg=\count280
-\c@lemma=\count281
-\c@corollary=\count282
+\c@theorem=\count279
+\c@definition=\count280
+\c@eg=\count281
+\c@lemma=\count282
+\c@corollary=\count283
 )
-\c@note=\count283
+\c@note=\count284
 
 
 LaTeX Warning: \include should only be used after \begin{document} on input lin
@@ -205,8 +213,8 @@ e 5.
 (./Configs/formats.tex)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count284
-\l__pdf_internal_box=\box54
+\l__color_backend_stack_int=\count285
+\l__pdf_internal_box=\box56
 )
 (./main.aux)
 \openout1 = `main.aux'.
@@ -227,17 +235,17 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count285
+\scratchcounter=\count286
 \scratchdimen=\dimen162
-\scratchbox=\box55
-\nofMPsegments=\count286
-\nofMParguments=\count287
-\everyMPshowfont=\toks29
-\MPscratchCnt=\count288
+\scratchbox=\box57
+\nofMPsegments=\count287
+\nofMParguments=\count288
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count289
 \MPscratchDim=\dimen163
-\MPnumerator=\count289
-\makeMPintoPDFobject=\count290
-\everyMPtoPDFconversion=\toks30
+\MPnumerator=\count290
+\makeMPintoPDFobject=\count291
+\everyMPtoPDFconversion=\toks32
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -332,51 +340,84 @@ File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 ]
 Chapter 2.
 (./Chapters/2.tex
-Underfull \hbox (badness 10000) in paragraph at lines 3--4
+<Images/booleanFunction.png, id=71, 653.44125pt x 242.9075pt>
+File: Images/booleanFunction.png Graphic file (type png)
+<use Images/booleanFunction.png>
+Package pdftex.def Info: Images/booleanFunction.png  used on input line 6.
+(pdftex.def)             Requested size: 341.43306pt x 126.92047pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 3--9
 
  []
 
+[15 <./Images/booleanFunction.png>]
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1
-3.
+6.
+
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 13.
-) [15] [16]
-Chapter 3.
-(./Chapters/3.tex) [17
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 16.
+<Images/transistorTypes.png, id=76, 564.1075pt x 281.05pt>
+File: Images/transistorTypes.png Graphic file (type png)
+<use Images/transistorTypes.png>
+Package pdftex.def Info: Images/transistorTypes.png  used on input line 26.
+(pdftex.def)             Requested size: 341.43306pt x 170.11081pt.
+<Images/logicGates.png, id=77, 456.70625pt x 333.245pt>
+File: Images/logicGates.png Graphic file (type png)
+<use Images/logicGates.png>
+Package pdftex.def Info: Images/logicGates.png  used on input line 34.
+(pdftex.def)             Requested size: 341.43306pt x 249.13988pt.
+ [16 <./Images/transistorTypes.png>] [17 <./Images/logicGates.png>]
+<Images/hammingDistance.png, id=86, 431.6125pt x 301.125pt>
+File: Images/hammingDistance.png Graphic file (type png)
+<use Images/hammingDistance.png>
+Package pdftex.def Info: Images/hammingDistance.png  used on input line 71.
+(pdftex.def)             Requested size: 227.62204pt x 158.80518pt.
+ [18 <./Images/hammingDistance.png>]
+<Images/karnaugh_2b.png, id=91, 443.6575pt x 249.93375pt>
+File: Images/karnaugh_2b.png Graphic file (type png)
+<use Images/karnaugh_2b.png>
+Package pdftex.def Info: Images/karnaugh_2b.png  used on input line 85.
+(pdftex.def)             Requested size: 227.62204pt x 128.22725pt.
+)
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-] [18
+ [19 <./Images/karnaugh_2b.png>] [20]
+Chapter 3.
+(./Chapters/3.tex) [21
+
+] [22
 
 ]
 Chapter 4.
 (./Chapters/4.tex)
 Underfull \vbox (badness 1616) has occurred while \output is active []
 
- [19]
-[20]
+ [23]
+[24]
 Chapter 5.
-(./Chapters/5.tex) [21
+(./Chapters/5.tex) [25
 
-] [22
+] [26
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [23] (./main.aux)
+(./Chapters/6.tex) [27] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3565 strings out of 476182
- 54765 string characters out of 5795596
+ 3683 strings out of 476182
+ 57209 string characters out of 5795596
  1935975 words of memory out of 5000000
- 25492 multiletter control sequences out of 15000+600000
+ 25606 multiletter control sequences out of 15000+600000
  572072 words of font info for 93 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 64i,8n,70p,594b,367s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,15n,70p,597b,367s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk
 > </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
@@ -393,10 +434,10 @@ sl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (23 pages, 245851 bytes).
+Output written on main.pdf (27 pages, 300548 bytes).
 PDF statistics:
- 171 PDF objects out of 1000 (max. 8388607)
- 106 compressed objects within 2 object streams
+ 194 PDF objects out of 1000 (max. 8388607)
+ 115 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

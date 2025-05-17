@@ -499,71 +499,64 @@ Dentro ai due tipi di variabili aleatorie ne possiamo riconoscere alcune con del
 %
 
 \section{Statistiche campionarie}
+Siano $X_1, ..., X_n$ variabili aleatorie indipendenti ed identicamente distribuite. Queste sono un modello per un dataset o un campione $n$ di dati. Ogni combinazione di tali variabili si dice \textbf{statistica campionaria}. In particolare, abbiamo le due seguenti:
+\begin{itemize}
+	\item \textbf{Media campionaria}: \[\overline{X_n} = \frac{1}{m}(X_1 + ... + X_m)\]
+	\item \textbf{Varianza campionaria}: \[S^2_m = \frac{1}{m-1}\sum^m_{i=1}(X_i - \overline{X_n})^2\]
+\end{itemize}
+\noindent Tenderemo a considerare solo la media campionaria, in quanto la statistica più semplice con la quale lavorare. Più nello specifico, ricaviamo i suoi valori di:
+\begin{itemize}
+	\item \textbf{Valore atteso}: \[E(\overline{X}_n = \frac{1}{m}(E(X_1, ..., E(X_m))) = \mu\]
+	\item \textbf{Varianza}: \[Var(\overline{X}_n) = \frac{1}{n^2}\sum_{i=1}^{n}Var(X_i) = \frac{n\sigma^2}{n^2} = \frac{\sigma^2}{n}\]
+\end{itemize}
+\noindent Inoltre, per avere ulteriori informazioni sulla distribuzione di $\overline{X_n}$, consideriamo il \textbf{teorema del limite centrale}:
+\begin{theorem}
+	\textbf{Teorema del limite centrale}\par 
+	\noindent Qualunque sia la distribuzione delle $X_i$, la distribuxione di $Z_n$ per $n$ grande è ben approssimata da una $N(0,1)$.
+	\[Z_n = (\overline{X_n}-\mu) \frac{\sqrt{m}}{\sigma}\sim N(0,1) \equiv \overline{X_n}\sim N\left(\mu, \frac{\sigma^2}{n}\right)\]
+	\noindent Più precisamente, $\forall z \in \mathbb{R} \land n \to +\infty$:
+	\[F_{Z_n}(z) = P(Z_n \leq z) \to \phi(z)\]
+\end{theorem}
+\noindent Prestiamo particolare attenzione all'applicazione del teorema al caso $X_i$ di Bernoulli di parametro $p$, ovvero \[X_1+ ...+ X_n = X\] con $X$ binomiale di parametri $n,p$. Il teorema del limite centrale afferma che:
+\[X \sim N(np, np(1-p))\]
+\noindent Questa approssimazione si dice \textbf{normale per una binomiale} ed è considerata buona se rispetta la seguente restrizione:
+\[np \geq 5, n(1-p) \geq 5\]
+\noindent Usando questa stima, essendo che si sta calcolando un valore di probabilità approssimando una distribuzione discreta con una continua, si deve applicare la \textbf{correzione di continuità}; una modifica dell'intervallo di integrazione ai suoi estremi di $\frac{1}{2}$.\par 
+Per esempio, data una variabile aleatoria $X$ con distribuzione binomiale di parametri $n,p$, per $n$ sufficientemente grande, si può assumere che:
+\[P(X \leq x) \approx P\left(Y \leq x+\frac{1}{2}\right)\]
+\noindent Dove $Y$ è una variabile aleatoria che segue una distribuzione normale con parametri $\mu = np$ e $\sigma^2 = np(1 - p)$. Ne risulta che la correzione dell'approssimazione è molto maggiore, rispetto a non utilizzarla.
 
-% TODO ----- CONTINUA DA QUA ----- Statistica 07-04-25 -----
+% TODO Inserisci esercizio di esempio
 
 
 
+%--- Ex.8 - Rivedi a casa
+%Lanciamo 100volte una moneta equilibrata. Qual è prob che il numero d teste sia >= 40 e <= 70?
+%Usiamo il teorema del limite centrale insieme alla correzinoe di continuità:
 
+%Abbiamo la VA e dico che si distribuisce con una N(50,25).
+%P(40 \leq X \leq 70) \approx P(39.5 \leq X \leq 70.5)
 
+%--- Esercizio 9
+%Quante volte almeno devo lanciare una moneta normale in modo da otwenere più di 50 con probabilità maggiore al 95%?
+%Stabiliamo che X = X_1 + X_2 + ... + X_n è una VA binomiale di parametri n e 1/2. Sere trovare un n tale per cui: P(X > 50) \geq 0,95
 
+%Con corr. di continuità diventa P(X > 50,5)
+%Con X VA di media n/2 = \mu e varianza n/4 = \sigma^2.
 
+%Il valore cercato standardizzato è:
+%P(\frac{X-\mu}{\sqrt{\sigma^2}} > \frac{50,5 - \mu}{\sqrt{\sigma^2}}) controlla poi la fine, è un casino assurdo.
 
+%--- Esercizio 1 scritto in comic sans (porcodio)
+%P(X \leq 4,9)				Qua normalizzo: P(\frac{X-5,7}{1} = \frac{4,9-5,7}{1}) = Z
+%P(4,9 \leq X \leq 6,2)
+%P(X \geq x) = 0,40
 
-Probabilità che una distribuzione sia minore di un dato numero: Funzione di ripartizione.
+%P(Z \leq -0,8)
+%Qui vediamo la tabellina e cerchiamo 0,8, che è uguale a 0,7881, perché non abbiamo quello di -0,8.
+%Possiamo calcolare 1-P(Z \leq 0,8) = 0,2119
 
---- Statistiche campionarie
-Siano X_1, X_2, ..., X_n VA indipendenti ed identicamente distribuite. Queste sono un modello per un dataset o un campione n di dati. Ogni combinazione di tali variabili si dice STATISTICA CAMPIONARIA
+%Quindi avremo P(-0,8 \leq Z \leq 0,5) \implies P(Z \leq 0,5) - P(Z \leq -0,8) = 0,48
 
-- Media campionaria: \overline{X_n} = 1/m(X_1 + X_2 + ... + X_m)
-- Varianza campionaria: S^2_m = \frac{1}{m-1}\sum^m_{i=1}(X_i - \overline{X_n})^2
-- Valore atteso: E(\overline{X}_n = \mu
-- Varianza media campionaria: Var(\overline{X}_n) = \sigma^2/n
-
-Diciamo che E(X_i) = \mu e Var(X_i) = \sigma^2
-
-In particolare, il limite per n tendente a infinito della varianza media campionaria = 0 e si può dimostrare che il lim_{n\to\infty}P(|\overline{X_n}-\mu| < \epsilon) = 1.
-Chiamiamo questa relazione LEGGE DEI GRANDI NUMERI.
-
---- Teorema del limite centrale
-Qualunque sia la distribuzione delle X_i, la distribuxione di Z_n per n grande è ben approssimata da una N(0,1).
-Z_n = (\overline{X_n}-\mu)\sqrt{m}/\sigma \approx N(0,1)
-
---- Ex.8 - Rivedi a casa
-Lanciamo 100volte una moneta equilibrata. Qual è prob che il numero d teste sia >= 40 e <= 70?
-Usiamo il teorema del limite centrale insieme alla correzinoe di continuità:
-
-Abbiamo la VA e dico che si distribuisce con una N(50,25).
-P(40 \leq X \leq 70) \approx P(39.5 \leq X \leq 70.5)
-
-TODO - Rivedi correzione di continuità. è importante la parte in rosso delle dispense; spiega tutto là e devi prendere la maggior parte delle cose come assioma.
-Non verrà tuttavia usata molto, è molto tecnica come cosa.
-
---- Esercizio 9
-Quante volte almeno devo lanciare una moneta normale in modo da otwenere più di 50 con probabilità maggiore al 95%?
-Stabiliamo che X = X_1 + X_2 + ... + X_n è una VA binomiale di parametri n e 1/2. Sere trovare un n tale per cui: P(X > 50) \geq 0,95
-
-Con corr. di continuità diventa P(X > 50,5)
-Con X VA di media n/2 = \mu e varianza n/4 = \sigma^2.
-
-Il valore cercato standardizzato è:
-P(\frac{X-\mu}{\sqrt{\sigma^2}} > \frac{50,5 - \mu}{\sqrt{\sigma^2}}) controlla poi la fine, è un casino assurdo.
-
---- Esercizio 1 scritto in comic sans (porcodio)
-P(X \leq 4,9)				Qua normalizzo: P(\frac{X-5,7}{1} = \frac{4,9-5,7}{1}) = Z
-P(4,9 \leq X \leq 6,2)
-P(X \geq x) = 0,40
-
-P(Z \leq -0,8)
-Qui vediamo la tabellina e cerchiamo 0,8, che è uguale a 0,7881, perché non abbiamo quello di -0,8.
-Possiamo calcolare 1-P(Z \leq 0,8) = 0,2119
-
-Quindi avremo P(-0,8 \leq Z \leq 0,5) \implies P(Z \leq 0,5) - P(Z \leq -0,8) = 0,48
-
-Invece per P(X \geq x) = 0,4 = \phi(Y \leq L)
-Bisogna trovare la L per cui vale la relazione.
-%
-%
-%
-%
-%
+%Invece per P(X \geq x) = 0,4 = \phi(Y \leq L)
+%Bisogna trovare la L per cui vale la relazione.

@@ -1,1 +1,103 @@
-Pallw
+Lo scopo delle statistica inferenziale è, data una popolazione, di capire la sua vera distribuzione a partire dai dati che si possono osservare e studiare in un campione da essa estratto.\par
+Sarà quindi necessario formulare un \textbf{modello statistico} di cui è nota la distribuzione ed i dati osservati, ma con i valori dei parametri incogniti. Ciò ridurrà il problema intero a questi due passaggi:
+\begin{enumerate}
+	\item Scegliere un valore plausibile per i valori dei parametri reali, quindi fare delle inferenze.
+	\item Testare ipotesi sui valori per verificarne l'attendibilità.
+\end{enumerate}
+\noindent Le uniche inferenze statistiche di nostro interesse saranno quelle sulle \textbf{popolazioni normali} e di \textbf{Bernoulli}.
+
+\section{Stima dei parametri}
+Supponiamo che i dati siano realizzazioni di una variabile aleatoria $X$ con una  densità discreta o continua $f(x,\theta)$, dove $\theta$ è un parametro incognito. Dobbiamo stimarlo coi dati ottenuti dalle osservazioni su $X$; per farlo si usano due tipi di stima:
+\begin{itemize}
+	\item \textbf{Stima puntuale}; Dove si ottiene un singolo valore come stima per il valore di $\theta$.
+	\item \textbf{Stima intervallare}; Si ottiene un intervallo di valori possibili per $\theta$, associando ad ogni intervallo un livello di fiducia che $\theta$ vi appartenga.
+\end{itemize}
+\noindent Partiamo dal primo tipo e dalle sue basi; per prima cosa sarà richiesto introdurre qualche concetto fondamentale. Anzitutto, chiamiamo \textbf{campione} di ampiezza $n$ una collezione di variabili aleatorie $X_n$ indipendenti e tutte con la stessa distribuzione $f(x;\theta)$, con $\theta$ parametro incognito.\par 
+Una \textbf{Statistica} $T$ è invece una variabile aleatoria ottenuta come funzione del campione, ovvero $T = T(X_1, ..., X_n)$, ed uno \textbf{stimatore} è qualunque $T$ indipendente da $\theta$, è usata per stimarlo. Tendenzialmente, il ruolo è coperto dalla media campionaria per la varianza campionaria.\par 
+Infine, chiamiamo \textbf{stima} il valore numerico assunto dallo stimatore sui dati osservati $x_1, ..., x_n$, ovvero, $\theta = T(x_1, ..., x_n)$.\newline
+
+Sia ora $X_1, ..., X_n$ un campione casuale preso da una popolazione di densità $f(x,\theta)$, che dipende dal parametro $\theta$. Se interpretiamo \[f(x_1, ..., x_n; \theta)\]
+\noindent come la verosimiglianza che si realizzi la n-upla $x_1, ..., x_n$ di dati quando $\theta$ è il vero valore del parametro, possiamo prendere come sua stima il \textit{valore che rende massima la funzione}, chiamato \textbf{stimatore di massima verosimiglianza}. Consigliato inoltre vederlo come logaritmo, in quanto ha uno stesso massimo e facilita i calcoli.
+\begin{eg}
+	% TODO
+	INSERISCI ESEMPIO PER STIMATORE MAX VEROSIMIGLIANZA PER BERNOULLI E POPOLAZIONE NORMALE.
+\end{eg}
+\noindent Ma in che modo è possibile scegliere uno stimatore $T = T(X_1, ..., X_n)$? O meglio, come ne si valuta la \textbf{bontà}?\par 
+Bisogna cercare di minimizzare la deviazione dal valore reale del parametro attraverso valore atteso e varianza. Non potendo tuttavia essere onniscenti, è inevitabile incappare in errori e per questo si introduce il concetto di \textbf{distorsione} o bias.
+\begin{definition}
+	\textbf{Bias}\par 
+	\noindent Sia $T=T(X_1, ..., X_n)$ uno stimatore di $\theta$. Allora $b(T) = E(T)-\theta$ è detto bias di $T$ come stimatore di $\theta$. Se è nullo, T è detto stimatore corretto di $\theta$.
+\end{definition}
+\noindent Uno stimatore buono e utile controlla sia varianza che bias in modo contenuto, con lo scopo di fornire un risultato quanto più vicino alla realtà possibile senza essere troppo permissivo.
+\begin{eg}
+	% TODO
+	INSERISCI ESEMPIO PER STIMATORE BUONO
+\end{eg}
+\noindent Inoltre, sia lo stesso stimatore $T=T(X_1, ..., X_n)$ del parametro $\theta$. Chiamiamo \textbf{errore quadratico medio} il valore atteso del quadrato della differenza fra lo stimatore ed il $\theta$. Si indica con:
+\[MSE(T) = E[(T-\theta^2)^2] = Var(T) + b(T)^2\]
+\noindent Se $T$ è corretto, allora questo errore quadratico medio sarà uguale alla varianza dello stimatore.\newline
+
+\noindent Passiamo ora alla \textbf{stima intervallare}. Sia un campione estratto da una popolazione. Ci si aspetta che la stima ottenuta valutando lo stimatore sui dati osservati non sia l'effettivo valore di $\theta$, quindi è preferibile produrre un intervallo per il quale abbiamo una certa fiducia che il parametro vi appartenga. In tal merito, diamo le seguenti definizioni:
+\begin{definition}
+	\textbf{Stimatore intervallare}\par
+	\noindent Sia $X_1, ..., X_n$ un campione casuale di una popolazione dove ci interessa stimare un parametro $\theta$. Siano poi $L_1 = L_1(X_1, ..., X_n)$, $L_2 = L_2(X_1, ..., X_n)$ due statistiche non dipendenti da $\theta$, tali che:
+	\begin{center}
+		$P(L_1 < \theta < L_2) = 1-\alpha$, con $\alpha \in (0,1)$
+	\end{center}
+	\noindent L'intervallo $(L_1, L_2)$ si dice \textbf{stimatore intervallare} del parametro $\theta$ e per costruirlo è necessario conoscere la distribuzione delle sue statistiche $L_1, L_2$.
+\end{definition}
+\begin{definition}
+	\textbf{Intervallo di confidenza}\par
+	\noindent Siano adesso $\hat{l}_1 = L_1(x_1,...,x_n)$ e $\hat{l}_2 = L_2(x_1, ..., x_n)$ i valori assunti dalle statistiche $L_1, L_2$ sui dati osservati $x_1, ..., x_n$.\par 
+	Diremo quindi che $(\hat{l}_1, \hat{l}_2)$ è l'\textbf{intervallo di confidenza} di livello $1-\alpha$ per il parametro $\theta$.
+\end{definition}
+\noindent Notare che $(L_1, L_2)$ è un intervallo aleatorio che contiene il valore di $\theta$, mentre $(\hat{l}_1, \hat{l}_2)$ è una realizzazione del primo; data la sua natura non si presta ad alcuna valutazione probabilistica.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Elenco di dati di fatto:
+Osserviamo una popolazione normale X_1, ..., X_n e diciamo che ha una media \mu \in R e varianza \sigma^2 > 0. Siamo interessati a studiarne la distribuzione delle statistiche campionarie, ovvero media camp. $\overline{X}$ e varianza camp. $S^2$.
+
+Vogliamo stimare \mu con \overline{X} e stimare \sigma^2 con S^2.
+
+Le due VA sono indipendenti e per il teorema di limite centrale abbiamo che la media campionaria si distribuisce con una normale di media \mu incognita e varianza \sigma^2/n
+\[\overline{X} \sim N(\mu, \frac{\sigma^2}{n})\]
+Quindi se io aumento il campione, la varianza diventerà nulla. Inoltre abbiamo che
+\[\frac{(n-1)S^2}{\sigma^2} \sim \Chi^2_{n-1}\]
+Al cambiare di n cambia la distribuzioni chi-quadro (ci interessa solo la tabellina).
+Diciamo densità \Chi^2 a n-1 gradi di libertà la curva gaussiana asimmetrica che è non nulla solo sui numeri reali positivi. Il fatto che sia skewed è a causa della sua dipendenza dalla varianza.
+
+Notare inoltre che: \[\frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}}\sim N(0,1)\]
+
+Farà comodo vederle le due formule di media e varianza camp. come una classica equazione incognita.
+
+\[\frac{\overline{X}-\mu}{\sqrt{\frac{S^2}{n}}}\sim t_{n-1}\]
+La differenza fra questa formula e la precedente è che la prima indicava il valore effettivo della varianza con sigma, mentre qui si usa la variabile aleatoria. Questa dipende dall'indice n e tendenzialmente ha una forma gaussiana simmetrica rispetto a x=0.
+
+%
+
+\section{Intervalli di confidenza}
+
+%
+
+\section{Verifica di ipotesi}
+
+%
+
+\section{Testing su due popolazioni}

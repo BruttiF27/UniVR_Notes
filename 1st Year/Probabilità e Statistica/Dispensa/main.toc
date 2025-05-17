@@ -12,11 +12,16 @@
 \contentsline {section}{\numberline {3.5}Distribuzioni congiunte}{22}{}%
 \contentsline {section}{\numberline {3.6}Classi notevoli di variabili aleatorie}{25}{}%
 \contentsline {section}{\numberline {3.7}Statistiche campionarie}{28}{}%
-\contentsline {chapter}{\numberline {4}Statistica Inferenziale}{29}{}%
-\contentsline {chapter}{\numberline {5}Regressione}{31}{}%
-\contentsline {chapter}{\numberline {6}Il Linguaggio R}{33}{}%
-\contentsline {section}{\numberline {6.1}Introduzione}{33}{}%
-\contentsline {section}{\numberline {6.2}Variabili, operatori e costrutti}{34}{}%
-\contentsline {section}{\numberline {6.3}Strutture dati di R}{37}{}%
-\contentsline {section}{\numberline {6.4}Funzioni di R per i grafici}{40}{}%
-\contentsline {section}{\numberline {6.5}Funzioni di R per la statistica}{41}{}%
+\contentsline {chapter}{\numberline {4}Statistica Inferenziale}{31}{}%
+\contentsline {section}{\numberline {4.1}Stima dei parametri}{31}{}%
+\contentsline {section}{\numberline {4.2}Intervalli di confidenza}{33}{}%
+\contentsline {section}{\numberline {4.3}Verifica di ipotesi}{33}{}%
+\contentsline {section}{\numberline {4.4}Testing su due popolazioni}{33}{}%
+\contentsline {chapter}{\numberline {5}Regressione}{35}{}%
+\contentsline {section}{\numberline {5.1}Regressione lineare semplice}{35}{}%
+\contentsline {chapter}{\numberline {6}Il Linguaggio R}{37}{}%
+\contentsline {section}{\numberline {6.1}Introduzione}{37}{}%
+\contentsline {section}{\numberline {6.2}Variabili, operatori e costrutti}{38}{}%
+\contentsline {section}{\numberline {6.3}Strutture dati di R}{41}{}%
+\contentsline {section}{\numberline {6.4}Funzioni di R per i grafici}{44}{}%
+\contentsline {section}{\numberline {6.5}Funzioni di R per la statistica}{45}{}%

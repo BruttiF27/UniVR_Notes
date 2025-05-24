@@ -51,48 +51,75 @@ Bisogna cercare di minimizzare la deviazione dal valore reale del parametro attr
 	\noindent Siano adesso $\hat{l}_1 = L_1(x_1,...,x_n)$ e $\hat{l}_2 = L_2(x_1, ..., x_n)$ i valori assunti dalle statistiche $L_1, L_2$ sui dati osservati $x_1, ..., x_n$.\par 
 	Diremo quindi che $(\hat{l}_1, \hat{l}_2)$ è l'\textbf{intervallo di confidenza} di livello $1-\alpha$ per il parametro $\theta$.
 \end{definition}
-\noindent Notare che $(L_1, L_2)$ è un intervallo aleatorio che contiene il valore di $\theta$, mentre $(\hat{l}_1, \hat{l}_2)$ è una realizzazione del primo; data la sua natura non si presta ad alcuna valutazione probabilistica.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Elenco di dati di fatto:
-Osserviamo una popolazione normale X_1, ..., X_n e diciamo che ha una media \mu \in R e varianza \sigma^2 > 0. Siamo interessati a studiarne la distribuzione delle statistiche campionarie, ovvero media camp. $\overline{X}$ e varianza camp. $S^2$.
-
-Vogliamo stimare \mu con \overline{X} e stimare \sigma^2 con S^2.
-
-Le due VA sono indipendenti e per il teorema di limite centrale abbiamo che la media campionaria si distribuisce con una normale di media \mu incognita e varianza \sigma^2/n
-\[\overline{X} \sim N(\mu, \frac{\sigma^2}{n})\]
-Quindi se io aumento il campione, la varianza diventerà nulla. Inoltre abbiamo che
-\[\frac{(n-1)S^2}{\sigma^2} \sim \Chi^2_{n-1}\]
-Al cambiare di n cambia la distribuzioni chi-quadro (ci interessa solo la tabellina).
-Diciamo densità \Chi^2 a n-1 gradi di libertà la curva gaussiana asimmetrica che è non nulla solo sui numeri reali positivi. Il fatto che sia skewed è a causa della sua dipendenza dalla varianza.
-
-Notare inoltre che: \[\frac{\overline{X}-\mu}{\frac{\sigma}{\sqrt{n}}}\sim N(0,1)\]
-
-Farà comodo vederle le due formule di media e varianza camp. come una classica equazione incognita.
-
-\[\frac{\overline{X}-\mu}{\sqrt{\frac{S^2}{n}}}\sim t_{n-1}\]
-La differenza fra questa formula e la precedente è che la prima indicava il valore effettivo della varianza con sigma, mentre qui si usa la variabile aleatoria. Questa dipende dall'indice n e tendenzialmente ha una forma gaussiana simmetrica rispetto a x=0.
+\noindent Notare che $(L_1, L_2)$ è un intervallo aleatorio che contiene il valore di $\theta$, mentre $(\hat{l}_1, \hat{l}_2)$ è una realizzazione del primo; data la sua natura non si presta ad alcuna valutazione probabilistica. Quindi, in sintesi:
+\begin{enumerate}
+	\item Otteniamo un \textit{campione casuale} $X_1, ..., X_n$ da una popolazione, il quale ci può far ottenere lo \textit{stimatore intervallare} $(L_1, L_2)$, composto da due variabili aleatorie, fra le quali è probabile accada il parametro $\theta$ di nostro interesse, quindi $P(L_1 < \theta < L_2) = 1-\alpha$, che risulta dare il \textit{coefficiente di fiducia}.
+	\item Dal campione casuale effettuiamo delle inferenze, ottenendo il \textit{campione osservato} $x_1, ..., x_n$ che può avere solo valori numerici. Da questo possiamo ottenere l'\textit{intervallo di confidenza} $(\hat{l}_1, \hat{l}_2)$.
+\end{enumerate}
+\noindent Ultima cosa prima di passare ai vari casi di studio; per costruire lo stimatore intervallare è necessario conoscere la \textbf{distribuzione} delle statistiche $L_1, L_2$; quindi vediamo in che modo possono essere distribuite.\par 
+Sia un campione estratto da una popolazione normale $X_1, ..., X_n$ e diciamo che ha una media $\mu \in \mathbb{R}$ e varianza $\sigma^2 > 0$. Siamo interessati a studiarne la distribuzione delle statistiche campionarie, ovvero la \textbf{media campionaria} $\overline{X}$ e la \textbf{varianza campionaria} $S^2$, per ottenere rispettivamente $\mu$ ed $\sigma^2$. Abbiamo che:
+\begin{itemize}
+	\item \textbf{Densità $\chi^2$ a $n-1$ gradi di libertà}\par 
+	\noindent Le variabili aleatorie $\overline{X}$, $S^2$ sono indipendenti e per il teorema di limite centrale abbiamo che la media campionaria si distribuisce con una normale di media $\mu$ incognita e varianza $\frac{\sigma^2}{n}$, quindi: $\overline{X} \sim N(\mu, \frac{\sigma^2}{n})$. Inoltre:
+	\[\frac{(n-1)S^2}{\sigma^2} \sim \chi^2_{n-1}\]
+	\noindent La cui densità è asimmetrica e non nulla solo sui numeri reali positivi.
+	\item \textbf{Densità $t$ di student a $n-1$ gradi di libertà}\par
+	\noindent Si tratta di una densità con la forma a campana simmetrica rispetto ad $x=0$ e si stima con:
+	\[\frac{\overline{X}-\mu}{\sqrt{\frac{S^2}{n}}}\sim t_{n-1}\]
+\end{itemize}
 
 %
 
 \section{Intervalli di confidenza}
+Passiamo adesso ai vari casi di studio che possiamo trovare nello svolgimento degli esercizi. Premetto che si somigliano tutti abbastanza e sarà utile capire come agire per poter capire anche la sezione seguente e prendere una decisione ponderata riguardo alle richieste.
+\begin{itemize}
+	\item \textbf{Intervalli di confidenza per la media di una popolazione normale, varianza nota}\par 
+	\noindent Sia il campione $X_1, ..., X_n$, la media incognita $\mu \in \mathbb{R}$ e la varianza nota $\sigma^2 > 0$. Con $\alpha \in (0,1)$ dobbiamo ricavare intervalli di confidenza ad un livello $1-\alpha$ per la media $\mu$.\newline
+	
+	\noindent Diciamo che $\frac{\overline{X}-\mu}{\sqrt{\frac{\sigma^2}{n}}} = Z \sim N(0,1)$ e indichiamo con $z_{\alpha}$ il valore per cui $P(Z < z_{\alpha}) = \alpha$. Usando un pò di algebra noterai facilmente che:
+	\[P(Z < z_{\alpha}) = \alpha \implies 1-P(Z>z_{\alpha}) = \alpha \implies 1-\alpha = P(Z < z_{\alpha})\]
+	\noindent E che quindi ci servirà capire quell'area della funzione dove $Z < z_{\alpha}$. È probabile che venga richiesto l'intervallo totale (bilaterale) oppure una sola parte (unilaterale), quindi bisogna prendere la metà richiesta o tutto l'intervallo. Più in particolare, le due metà si ottengono con:
+	\[1-\alpha = P(-z_{\alpha/2} < Z < z_{\alpha/2}) \implies 1-\alpha = \left(\overline{X}-z_{\alpha/2} \times \frac{\sigma}{\sqrt{n}} < \mu < \overline{X} + z_{\alpha/2}\times \frac{\sigma}{\sqrt{n}}\right)\]
+	\noindent Dove il primo elemento della disequazione è $L_1$, il secondo è il parametro della media da stimare e l'ultimo è $L_2$. Sapendo ora di aver osservato dei dati $x_1, ..., x_n$ tali che $\overline{X}(x_1, ..., x_n) = \overline{x}$, abbiamo che ad un livello di confidenza $1-\alpha$, per la media $\mu$, gli intervalli ottenibili sono:
+	\begin{itemize}
+		\item \textbf{Bilaterale}: $(\overline{x} - z_{\alpha/2}\times \frac{\sigma}{\sqrt{n}}, \overline{x} + z_{\alpha/2}\times \frac{\sigma}{\sqrt{n}})$
+		\item \textbf{Unilaterali}: $(\overline{x} - z_{\alpha}\times \frac{\sigma}{\sqrt{n}}, +\infty)$, $(-\infty, \overline{x}+z_{\alpha}\times \frac{\sigma}{\sqrt{n}})$
+	\end{itemize}
+	\noindent Per gli esercizi effettuare il seguente procedimento:
+	\begin{enumerate}
+		\item Calcola la media dei dati raccolti $\overline{x}$ e il livello di confidenza $\alpha$.
+		\item Calcola il valore di $z_{\alpha}$ oppure $z_{\alpha/2}$.
+		\item Prendi il risultato di $1-\alpha$ oppure $1-\frac{\alpha}{2}$ e trova il corrispondente valore nella tavola degli $\phi(x)$
+		\item Hai tutto. Scrivi l'intervallo.
+	\end{enumerate}
+	\item \textbf{Intervalli di confidenza per la media di una popolazione normale, varianza incognita}\par 
+	\noindent Sia il campione $X_1, ..., X_n$, la media $\mu \in \mathbb{R}$ e la varianza nota $\sigma^2 > 0$, ambo ignote. Con $\alpha \in (0,1)$ dobbiamo ricavare intervalli di confidenza ad un livello $1-\alpha$ per la media $\mu$.\newline
+	
+	\noindent Teniamo anzitutto a mente due cose:
+	\begin{itemize}
+		\item $\frac{\overline{X}-\mu}{{\frac{S}{\sqrt{n}}}} \sim t_{n-1}$, con $S$ deviazione standard campionaria.
+		\item La densità $t$ di student ha una forma a campana simmetrica rispetto a $x=0$.
+	\end{itemize}
+	\noindent Se $X \sim t_n$, allora $t_{\alpha,n} \in \mathbb{R}$ è il valore per cui $P(X > t_{\alpha,n}) = \alpha$. Supponiamo nuovamente di avere dei dati $x_1, ..., x_n$ tali che $\overline{X}(x_1, ..., x_n) = \overline{x}$ ed $S(x_1, ..., x_n) = \hat{s}$.\par
+	Allora a livello di confidenza $1-\alpha$ avremo i seguenti intervalli:
+	\begin{itemize}
+		\item \textbf{Bilaterale}: $(\overline{x}-t_{\alpha/2, n-1}\times \frac{\hat{s}}{\sqrt{n}}, \overline{x}+t_{\alpha/2, n-1}\times \frac{\hat{s}}{\sqrt{n}})$
+		\item \textbf{Unilaterali}: $(\overline{x}-t_{\alpha, n-1}\times \frac{\hat{s}}{\sqrt{n}}, +\infty)$, $(-\infty, \overline{x}+t_{\alpha/2, n-1}\times \frac{\hat{s}}{\sqrt{n}})$
+	\end{itemize}
+	\noindent Per gli esercizi effettuare il seguente procedimento:
+	\begin{enumerate}
+		\item Calcola media $\overline{x}$ e deviazione standard $\hat{s}$.
+		\item Calcola $\alpha$ e $t_{\alpha, n-1}$, con $n$ numero totale di elementi nel campione.
+		\item Ottieni il valore di $t_{\alpha, n-1}$ dalla tavola dei valori di $t_n$.
+		\item Scrivi l'intervallo.
+	\end{enumerate}
+	\item \textbf{Intervalli di confidenza per la varianza di una popolazione normale}
+	\noindent
+	
+	% TODO ----- CONTINUA DA QUA
+	
+	\item \textbf{Intervalli di confidenza per la media di una popolazione di Bernoulli}
+\end{itemize}
 
 %
 

@@ -1,72 +1,50 @@
-% TODO ----- Riformulare l'intero capitolo
-
-\section{Introduzione}
-R è linguaggio di programmazione. Viene utilizzato per l'analisi statistica dei dati e la loro visualizzazione, statistica descrittiva, machine learning, manipolazione dei dati, datamining e anche nella ricerca scientifica.\par
-Basato su un codice open-source, la sua sintassi è estremamente flessibile e a tratti simile a C. È inoltre un linguaggio diviso in pacchetti, ovvero insiemi di funzioni create da altri utenti. In particolare vedremo:
-\begin{itemize}
-	\item \textbf{ggplot2}; usato per la creazione dei grafici.
-	\item \textbf{dplyr}; usato per la manipolazione dei dati.
-\end{itemize}
-I files con dominio ".R" sono detti \textbf{R-Scripts}; infatti ciò che andremo a scrivere e far elaborare dal software sono fondamentalmente dei testbench per ritornare determinati risultati o comportamenti. Per lavorare su di essi è necessario l'uso del terminale, e dove è possibile utilizzare l'interfaccia di R innata, è consigliato, e così faremo nel corso, utilizzare l'ambiente di sviluppo \textbf{R Studio}. Spiegare un IDE esula dallo scopo della dispensa, arrangiati e leggi le relative documentazioni.\par
-Installato R Studio avremo davanti il terminale, l'ambiente dei dati e una terza interfaccia variabile per i grafici, manuale e tant'altro. Abbiamo nominato dei pacchetti con i quali andremo a lavorare; questi devono essere installati con il seguente comando:
-\begin{verbatim}
-	> install.package("nomePacchetto")
-\end{verbatim}
-Prima di iniziare, tengo a ricordare che un codice scritto bene è nella maggior parte del tempo autoesplicativo e l'utilizzo dei commenti è richiesto solamente in casi dove sarebbe impossibile arrivare al senso da soli. Detto ciò:
+R è linguaggio di programmazione case-sensitive. Viene utilizzato per l'analisi statistica dei dati e la loro visualizzazione, statistica descrittiva, machine learning, manipolazione dei dati, datamining e anche nella ricerca scientifica.\par
+Basato su un codice open-source, la sua sintassi è estremamente flessibile e a tratti simile a C. È inoltre un linguaggio diviso in pacchetti, ovvero insiemi di funzioni create da altri utenti. I files con i quali lavoreremo hanno l'estensione ".R" e sono detti \textbf{R-Scripts}; infatti ciò che andremo a scrivere e far elaborare dal software sono fondamentalmente dei testbench per ritornare determinati risultati o comportamenti. Per lavorare su di essi è necessario l'uso del terminale, e dove è possibile utilizzare l'interfaccia di R innata, è consigliato, e così faremo nel corso, utilizzare l'ambiente di sviluppo \textbf{R Studio}.\par 
+Prima di iniziare è bene installare ogni pacchetto necessario per lo studio di probabilità e statistica; il comando da terminale è:
 \begin{verbatim}
 	# Questo è un commento
+	> install.package("nomePacchetto")
 \end{verbatim}
 \noindent Ho utilizzato due scritture diverse. Nel corso della sezione sarà considerata scrittura al terminale qualunque cosa vada dopo il carattere ">", altrimenti è uno script su file .R. Ora che abbiamo tutto pronto possiamo iniziare a lavorare col linguaggio.
 
 %
 
-\section{Variabili, operatori e costrutti}
-Partiamo da dei semplici outputs. R ci consente di stampare a video direttamente stringhe, numeri ed operazioni senza che esse vengano contenute in una variabile:
+\section{Componenti base del linguaggio}
+\subsection{Variabili, operatori e strutture dati}
+Il linguaggio R consente di stampare a video stringhe, numeri ed operazioni sia che essi siano contenuti in una variabile dichiarata o meno:
 \begin{verbatim}
-	> "Hello World!" # Stampa la stringa Hello World!
-	> 27 # Stampa il numero 27
-	> 5 + 5 # Stampa il numero 10
+	A <- "Hello World!"
+	A	# Stampa il contenuto della variabile A
+	B <- 27
+	B	# Stessa roba, ma per B
+	C <- 5 + 5
+	C	# Avrai capito ora, no?
+	A <- NULL	# Rendo A vuota
+	remove(A)	# Rimuovo A dall'ambiente
 \end{verbatim}
-\noindent La dichiarazione di variabili è molto semplice; bisogna solamente tenere a mente tre restrizioni del linguaggio:
+\noindent Bisogna solo tenere a mente che non è possibile dichiarare variabili il cui nome inizia con un numero o hanno lo stesso nome di una parola chiave. R supporta i seguenti tipi di dato, assegnati automaticamente all'inizializzazione della variabile:
 \begin{itemize}
-	\item R è case-sensitive. Quindi "Palle" $\neq$ "palle".
-	\item Le variabili dichiarate non possono iniziare con un numero.
-	\item Le variabili dichiarate non possono essere dichiarate con un nome uguale ad una parola chiave.
+	\item \textbf{Numerico}, come $[2, 10, 3.75]$. Considera quindi anche i razionali.
+	\item \textbf{Intero}, come $[10L, 32L, 99L]$. La lettera L è necessaria per dichiarare il numero come intero.
+	\item \textbf{Complesso}, come $[2i, 4i, 28i]$. La i indica l'unità immaginaria.
+	\item \textbf{Carattere}, come $["a", "Pallw", "30", "TRUE"]$. Notare che qualunque cosa all'interno di apici verrà visto come stringa.
+	\item \textbf{Booleano}, come $[TRUE, FALSE]$. Autoesplicativo, dai.
 \end{itemize}
-\noindent Chiarito ciò, è possibile dichiararle come segue:
+\noindent L'allocazione della memoria è gestita dal linguaggio stesso e la variabile viene salvata nell'\textbf{ambiente} di lavoro. Rimane utilizzabile fin quando non la si rimuove. Una cosa di cui tener conto è che i caratteri si possono concatenare per creare delle stringhe, in questo modo:
 \begin{verbatim}
-	> A <- 1+1		# Dichiaro A col valore 2
-	> A				# Stampo la variabile A	a video
-	> A <- NULL		# Rendo la variabile vuota
-	> remove(A)		# Rimuove la variabile dall'ambiente
+	c1 <- c2 <- c3 <- "A" # Associa il carattere "A" a multiple variabili.
+	cat("Questo gioco è un:", c1, c2, c3)
 \end{verbatim}
-\noindent R supporta i seguenti tipi di dato, assegnati automaticamente all'inizializzazione della variabile:
-\begin{itemize}
-	\item Numerico, come $[2, 10, 3.75]$. Considera quindi anche i razionali.
-	\item Intero, come $[10L, 32L, 99L]$. La lettera L è necessaria per dichiarare il numero come intero.
-	\item Complesso, come $[2i, 4i, 28i]$. La i indica l'unità immaginaria.
-	\item Carattere, come $["a", "Pallw", "30", "TRUE"]$. Notare che qualunque cosa all'interno di apici verrà visto come stringa.
-	\item Booleano, come $[TRUE, FALSE]$. Autoesplicativo, dai.
-\end{itemize}
-\noindent L'allocazione della memoria è gestita dal linguaggio stesso e la variabile viene salvata nell'\textbf{ambiente} di lavoro. Questa rimane utilizzabile fin quando non la si rimuove.\par 
-È possibile controllare il tipo di una variabile con la funzione "class(nomeVariabile)". Vediamo ora un esempio di stampa di stringhe insieme a variabili utilizzeremo la funzione di concatenazione:
+\noindent Per quanto riguarda gli \textbf{operatori}, abbiamo la possibilità di effettuare le operazioni elementari, potenze, modulo e divisione intera con rispettivamente $[+, -, *, /, ^, \%\%, \%/\%]$, ma esistono anche funzioni diverse per facilitarci la vita:
 \begin{verbatim}
-	> c1 <- c2 <- c3 <- "A" # Associa il carattere "A" a multiple variabili.
-	> class(c1)
-	> cat("Questo gioco è un:", c1, c2, c3)
-\end{verbatim}
-\noindent Passiamo alla matematica del linguaggio. Come già menzionato è possibile effettuare le quattro operazioni elementari, esponente, modulo e divisione intera con rispettivamente $[+, -, *, /, ^, \%\%, \%/\%]$, ma esistono anche funzioni diverse per facilitarci la vita:
-\begin{verbatim}
-	...
 	abs(-4.2)			# Torna il valore assoluta del dato inserito
 	sqrt(9)				# Torna la radice quadrata del dato inserito
 	min(10, 5, 15)		# Torna il valore minimo dei dati inseriti
 	max(10, 5, 15)		# Torna il massimo dei dati inseriti
 	ceiling(1.4)		# Torna il numero approssimato per eccesso (2)
 	floor(1.4)			# Torna il numero approssimato per difetto (1)
-	...
 \end{verbatim}
-\noindent Abbiamo poi i comparatori la cui sintassi è uguale spiccicata a C:
+\noindent Abbiamo poi i comparatori, la cui sintassi è uguale spiccicata a C:
 \begin{verbatim}
 	x == y 	# x uguale a y
 	x != y	# x diverso da y
@@ -81,7 +59,125 @@ Partiamo da dei semplici outputs. R ci consente di stampare a video direttamente
 	||	# OR logico, torna vero se lo è almeno un elemento
 	!	# NOT logico, inverte il valore dell'elemento
 \end{verbatim}
-\noindent Passiamo a qualcosa di più serio, ma ugualmente semplice; R mantiene i costrutti condizionali e i cicli, quindi abbiamo le costruzioni "if else", "while" e "for".
+\noindent Non fermiamoci qui, il vero potenziale di R sta anche nelle sue sei strutture dati innate, le quali sono:
+\begin{itemize}
+	\item \textbf{Vettori}; Una lista di oggetti dello stesso tipo. Presentano le stesse dinamiche viste in C con migliori modalità di accesso.
+	\begin{verbatim}
+		# Vettore di elementi 5, 10, 15, 20, 25
+		v1 <- c(5, 10, 15, 20, 25)
+		# Vettore di elementi in sequenza da 1 a 5	
+		v2 <- 1:5
+		# Vettore di elementi da 5 a 25 a passi di 5
+		v3 <- seq(from = 5, to = 25, by = 5)
+		# Vettore degli elementi di v3 ripetuti tre volte
+		v4 <- rep(v3, times = 3)
+		# Accesso al valore del vettore v1 in posizione 1
+		v1[1]
+	\end{verbatim}
+	\noindent È evidente che è possibile utilizzare il vettore come una semplice variabile, rendendo possibile darlo in pasto alle funzioni senza problemi di memoria. Abbiamo inoltre alcune funzioni innate utili per lavorare con questa struttura di dati, dove "v" indica il vettore:
+	\begin{itemize}
+		\item length(v): Calcola la lunghezza del vettore.
+		\item max(v), min(v): Calcolano valore massimo e minimo del vettore.
+		\item mean(v): Calcola la media dei valori nel vettore.
+		\item sum(v): Calcola la somma di tutti gli elementi del vettore.
+		\item cumsum(v): Calcola la somma cumulativa di ogni elemento.
+		\item sort(v): Ordina il vettore.
+	\end{itemize}
+	\item \textbf{Liste}; Collezioni di dati ordinate e modificabili. Hanno un comportamento uguale ai vettori ed è possibile aggiungervi elementi come anche concatenare più liste:
+	\begin{verbatim}
+		# Dichiarazione delle liste l1, l2
+		l1 <- list("Dio", "Gesù", "Maria")
+		l2 <- list("Pietro", "Paolo", "Giovanni")
+		
+		# Accesso all'elemento in posizione 3 di l1
+		l1[3]
+		
+		# Aggiungo l'elemento "Cane" alla lista l1
+		append(l1, "Cane")
+		
+		# Aggiungo l'elemento "Mascio" in posizione 2 alla lista
+		append(l1, "Mascio", after = 2)
+		
+		# Concatenazione di l1 e l2 in l3
+		l3 <- c(l1, l2)
+	\end{verbatim}
+	\item \textbf{Matrici}; Dataset a due dimensioni composto da righe e colonne.
+	\begin{verbatim}
+		# Dichiarazione di una matrice, lega i due vettori come colonne.
+		mat1 <- cbind(c(1, 2, 3), c(1, 2, 3))
+		# Dichiarazione di una matrice, lega i due vettori come righe.
+		mat2 <- rbind(c(1, 2, 3), c(1, 2, 3))
+		
+		# Accesso a elementi in colonne da 1 a 2 e righe da 2 a 3.
+		mat1[2:3,1:2]
+		
+		# Rimuove la prima riga, nessun comando per le colonne.
+		mat1[-1,]
+		
+		# Riempie una matrice di i righe e j colonne del valore n
+		mat3 <- matrix(n, i, j)
+		
+		# Crea una matrice identità di dimensione k
+		matIdt <- diag(k)
+	\end{verbatim}
+	\noindent Le operazioni utilizzabili dalle matrici seguono quelle viste in algebra lineare, vale a dire somma, sottrazione fra vettori o matrici e divisione, moltiplicazione per scalari, vettori o matrici. Il risultato deve essere salvato in una variabile diversa e l'operazione si scrive semplicemente come fossero due numeri. Seguono altre funzioni utili, con "A" matrice:
+	\begin{itemize}
+		\item det(A): calcola il determinante di una matrice.
+		\item qr(A): Calcola la decomposizione QR.
+		\item solve(A): Fa l'inversa di una matrice.
+		\item nrow(A), ncol(A): Ritornano il numero di righe o colonne di una matrice.
+		\item rowSums(A), colSums(A): Fanno la somma dei valori di ogni riga o colonna. 
+		\item rowMeans(A), colMeans(A): Calcola la media dei valori di ogni riga o colonna. 
+		\item dim(A): Calcola la dimensione di una matrice.
+	\end{itemize}
+	\item \textbf{Array}; Collezione di elementi dello stesso tipo che può avere più di due dimensioni. Usarli solo se è necessario avere più di due dimensioni.
+	\begin{verbatim}
+		# Dichiarazione di un array a più dimensioni
+		a2 <- array(c(1:12), dim = c(2, 3, 2))
+		
+		# Stampo l'intero array
+		a2
+		
+		# Accedo alle posizioni i-1st dim, j-2nd dim, k-3rd dim.
+		a2[2, 3, 2]
+	\end{verbatim}
+	\item \textbf{Dataframes}; Collezione di dati di vario tipo salvata in un formato matriciale. Ne consegue che siano composti da righe e colonne, le quali possono essere viste come singoli vettori che contengono un tipo di dato; ciò comporta che \textit{la struttura può contenere diversi tipi allo stesso tempo}:
+	\begin{verbatim}
+		# Dichiaro un dataframe
+		df1 <- data.frame(
+			mount = c("Everest", "K2", "Fuji"),
+			height = c(8848, 8611, 3776),
+			todo = c(TRUE, TRUE, FALSE)
+		)
+		
+		# Stampo il dataframe
+		df1
+		
+		# Accedo alla singola colonna mount
+		df1$mount
+	\end{verbatim}
+	Essendo inoltre strutturata come una matrice, sarà possibile utilizzare le sue stesse funzioni.
+	\item \textbf{Fattori}; Utilizzati per lavorare con dati categorizzati. Questa struttura può contenere solo un insieme di valori fissati detti \textbf{livelli}, i quali vengono dati nella dichiarazione.
+	\begin{verbatim}
+		# Dichiaro il fattore f1 col set marital_status di relativi elementi
+		f1 <- marital_status <- factor(c("married", "single", "single",
+		"divorced", "married"))
+		
+		# Stampo il fattore
+		f1
+		
+		# Stampo i singoli livelli (ignora ripetizioni)
+		levels(f1)
+		
+		# Provo ad inserire "hey" come livello, fallendo.
+		f1[1] <- "Hey"	# In questo caso genererà NA
+	\end{verbatim}
+\end{itemize}
+
+%
+
+\subsection{Costrutti condizionali, cicli e funzioni}
+R mantiene i costrutti condizionali e i cicli, quindi abbiamo le costruzioni "if-else", "while" e "for".
 \begin{verbatim}
 	a <- 200
 	b <- 33
@@ -99,7 +195,6 @@ Partiamo da dei semplici outputs. R ci consente di stampare a video direttamente
 	
 	# Funzionamento del costrutto while
 	while(b < c) {
-		# Esegui il codice
 		b <- b+1
 	}
 	
@@ -110,8 +205,9 @@ Partiamo da dei semplici outputs. R ci consente di stampare a video direttamente
 		print(x)
 	} 
 \end{verbatim}
-\noindent Per la strutturazione corretta di uno script più complesso sarà necessario dividere il tutto in funzioni:
+\noindent Per la strutturazione corretta di uno script più complesso sarà necessario dividere il tutto in \textbf{funzioni}:
 \begin{verbatim}
+	# Dichiarazione della funzione my_function
 	my_function <- function(x) {
 		return (5 * x)
 	}
@@ -123,185 +219,120 @@ Partiamo da dei semplici outputs. R ci consente di stampare a video direttamente
 
 %
 
-\section{Strutture dati di R}
-R consente la scrittura di semplici programmi con i costrutti appena visti, ma detiene anche sei strutture dati di tipo più astratto:
+\subsection{Grafici e salvataggio immagini}
+R ha varie funzioni di base per la rappresentazione dei dati su grafici; possiamo creare i seguenti tipi:
 \begin{itemize}
-	\item Vettori; Una lista di oggetti dello stesso tipo.
-	\item Liste; Collezioni di dati ordinate e modificabili.
-	\item Matrici; Dataset a due dimensioni composto da righe e colonne.
-	\item Array; Collezione di elementi dello stesso tipo che può avere più di due dimensioni.
-	\item Dataframes; Collezione di dati di vario tipo salvata in un format matriciale.
-	\item Fattori; Utilizzati per la categorizzazione dei dati.
-\end{itemize}
-\noindent Andiamo con ordine; i \textbf{vettori} sono tali e quali a quelli visti nel linguaggio C; ciò significa che rispetteranno le stesse dinamiche, ma in R detengono anche modalità di accesso e modifica più ampie. Anzitutto, abbiamo più modi per dichiarare un vettore:
-\begin{verbatim}
-	# Vettore di elementi 5, 10, 15, 20, 25
-	> v1 <- c(5, 10, 15, 20, 25)
-	# Vettore di elementi in sequenza da 1 a 5	
-	> v2 <- 1:5
-	# Vettore di elementi da 5 a 25 a passi di 5
-	> v3 <- seq(from = 5, to = 25, by = 5)
-	# Vettore degli elementi di v3 ripetuti tre volte
-	> v4 <- rep(v3, times = 3)
-	# Accesso al valore del vettore v1 in posizione 1
-	> v1[1]
-\end{verbatim}
-\noindent Come puoi vedere, è possibile utilizzare il vettore come una semplice variabile senza che il compilatore si lagni. Ciò significa che è possibile dare in pasto alle funzioni la variabile e se la gestirà da sola. In tal merito, abbiamo alcune funzioni utili per lavorare coi vettori:
-\begin{itemize}
-	\item length(): Calcola la lunghezza del vettore.
-	\item max(), min(): Calcolano valore massimo e minimo del vettore.
-	\item sum(): Calcola la somma di tutti gli elementi del vettore.
-	\item cumsum(): Calcola la somma cumulativa di ogni elemento.
-	\item sort(): Ordina il vettore.
-\end{itemize}
-\noindent Le \textbf{liste} hanno un comportamento uguale ai vettori ed è possibile aggiungerne elementi come anche concatenare più liste:
-\begin{verbatim}
-	# Dichiarazione delle liste l1, l2
-	l1 <- list("Dio", "Gesù", "Maria")
-	l2 <- list("Pietro", "Paolo", "Giovanni")
-	
-	# Accesso all'elemento in posizione 3 di l1
-	l1[3]
-	
-	# Aggiungo l'elemento "Cane" alla lista l1
-	append(l1, "Cane")
-	
-	# Aggiungo l'elemento "Mascio" in posizione 2 alla lista
-	append(l1, "Mascio", after = 2)
-	
-	# Concatenazione di l1 e l2 in l3
-	l3 <- c(l1, l2)
-\end{verbatim}
-\noindent Passiamo ora alle \textbf{matrici}, le quali, come i vettori, detengono le funzioni e accessi presenti in C e molto altro. Abbiamo anche qui vari modi per dichiarare e accedere:
-\begin{verbatim}
-	# Dichiarazione di una matrice, lega i due vettori come colonne.
-	mat1 <- cbind(c(1, 2, 3), c(1, 2, 3))
-	
-	# Dichiarazione di una matrice, lega i due vettori come righe.
-	mat2 <- rbind(c(1, 2, 3), c(1, 2, 3))
-	
-	# Accesso a elementi in colonne da 1 a 2 e righe da 2 a 3.
-	mat1[2:3,1:2]
-	
-	# Rimuove la prima riga, nessun comando per le colonne.
-	mat1[-1,]
-	
-	# Riempie una matrice di i righe e j colonne del valore n
-	mat3 <- matrix(n, i, j)
-	
-	# Crea una matrice identità di dimensione k
-	matIdt <- diag(k)
-\end{verbatim}
-\noindent Le operazioni utilizzabili dalle matrici seguono quelle viste in algebra lineare, vale a dire somma, sottrazione fra vettori o matrici e divisione, moltiplicazione per scalari, vettori o matrici. Il risultato deve essere salvato in una variabile diversa e l'operazione si scrive semplicemente come fossero due numeri. Seguono altre funzioni utili:
-\begin{itemize}
-	\item det(): calcola il determinante di una matrice.
-	\item qr(): Calcola la decomposizione QR.
-	\item solve(): Fa l'inversa di una matrice.
-	\item nrow(), ncol(): Ritornano il numero di righe o colonne di una matrice.
-	\item rowSums(), colSums(): Fanno la somma dei valori di ogni riga o colonna. 
-	\item rowMeans(), colMeans(): Calcola la media dei valori di ogni riga o colonna. 
-	\item dim(): Calcola la dimensione di una matrice.
-\end{itemize}
-\noindent Gli \textbf{array} hanno la possibilità di andare da una a più dimensioni, senza un vero limite. Capirai ovviamente che per una e due dimensioni è preferibile usare le strutture apposite viste prima, quindi mostrerò solo come lavorare in dimensioni superiori.
-\begin{verbatim}
-	# Dichiarazione di un array a più dimensioni
-	a2 <- array(c(1:12), dim = c(2, 3, 2))
-	
-	# Stampo l'array in toto
-	a2
-	
-	# Accedo alle posizioni i-1st dim, j-2nd dim, k-3rd dim.
-	a2[2, 3, 2]
-\end{verbatim}
-\noindent I \textbf{dataframes} sono strutture bidimensionali che possono salvare dati in un formato matriciale. Si compongono quindi di righe e colonne, le quali possono essere viste come singoli vettori che contengono un tipo di dato; ciò comporta che la struttura può contenere diversi tipi allo stesso tempo:
-\begin{verbatim}
-	# Dichiaro un dataframe
-	df1 <- data.frame(
-		mount = c("Everest", "K2", "Fuji"),
-		height = c(8848, 8611, 3776),
-		todo = c(TRUE, TRUE, FALSE)
-	)
-	
-	# Stampo il dataframe
-	df1
-	
-	# Accedo alla singola colonna mount
-	df1$mount
-\end{verbatim}
-\noindent Essendo inoltre strutturata come una matrice, sarà possibile utilizzare le sue stesse funzioni. Basta immaginarla come una matrice multitipo.\par
-Utilizziamo poi i \textbf{fattori} per lavorare con dati categorizzati. Nel creare una struttura dati tale, potrà contenere solamente un insieme di valori fissati detti \textit{livelli}, dati nella dichiarazione.
-\begin{verbatim}
-	# Dichiaro il fattore f1 col set marital_status di relativi elementi
-	f1 <- marital_status <- factor(c("married", "single", "single",
-	"divorced", "married"))
-	
-	# Stampo il fattore
-	f1
-	
-	# Stampo i singoli livelli (ignora ripetizioni)
-	levels(f1)
-	
-	# Provo ad inserire "hey" come livello, fallendo.
-	f1[1] <- "Hey"	# In questo caso genererà NA
-\end{verbatim}
-
-%
-
-\section{Funzioni di R per i grafici}
-R detiene varie funzioni per la rappresentazione dei dati su grafici; oltre a quelle built-in del linguaggio, ne abbiamo aggiunte altre col pacchetto ggplot che ti ho fatto installare ad inizio lettura. Possiamo creare grafici dei seguenti tipi:
-\begin{itemize}
-	\item \textbf{Barplots}; barplot()
-	\item \textbf{Lineplots}; plot(..., type = l)
+	\item \textbf{Grafici a barre}
+	\begin{verbatim}
+		ages = 20:29
+		students = c(2,1,5,3,4,2,0,2,1,0)
+		
+		barplot(students,
+			xlab = "Age of students",		# Nome asse x
+			ylab = "Number of students",	# Nome asse y
+			names.arg = ages				# Dati posti sull'asse x
+		)
+	\end{verbatim}
+	\item \textbf{Grafici a linea}
+	\begin{verbatim}
+		x <- c(1, 2, 3, 4, 5)
+		y <- c(2, 4, 6, 8, 10)
+		
+		# Creo un grafico di tipo lineplot, con dati x,y
+		plot(type = "l", x, y,
+		xlab = "X values",		# Nome dei valori sulle x
+		ylab = "Y values",		# Nome dei valori sulle y
+		main = "X and Y values",# Nome del grafico
+		col = "red"				# Colore dei dati
+		)
+	\end{verbatim}
 	\item \textbf{Istogrammi}; hist()
 	\item \textbf{Boxplots}; boxplot()
-	\item \textbf{Scatterplots}; plot()
-	\item \textbf{Heatmaps}; heatmap()
-	\item \textbf{Density plots}; plot(density(...))
+	\item \textbf{Grafici di dispersione}; plot()
+	\item \textbf{Mappe di calore}; heatmap()
+	\item \textbf{Grafici di densità}; plot(density(...))
 \end{itemize}
-\noindent Tutte queste funzioni condividono le stesse particolarità, ovvero prendono tutte gli stessi valori e li elaborano allo stesso modo. L'unica differenza reale sta nella rappresentazione dei dati. Quindi una scrittura usata per plot() varrà anche per hist(), per esempio.
+\noindent È possibile aggiungere più grafici in un singolo foglio, a discapito dello spazio. Per farlo è necessario usare il seguente comando:
 \begin{verbatim}
-	# Dichiaro i dati
-	x <- c(1, 2, 3, 4, 5)
-	y <- c(6, 7, 8, 9, 10)
+	x = 1:6
+	y = c(33, 11, 5, 9, 22, 30)
 	
-	# Creo il grafico, in questo caso uno scatterplot
-	plot(x,y)
+	# Gestione del layout. Ho scritto una matrice 2x2.
+	par(mfrow = c(2,2))
+	
+	# Le posizioni si ordinano da sole.
+	barplot(y, main = "Barplot", names.arg = x)
+	barplot(y, main = "Horizontal Barplot",
+	names.arg = x, horiz = TRUE)
+	plot(x, y, type = "l", main = "Line plot")
+	plot(x, y, main = "Scatter plot", col = "red")
 \end{verbatim}
-\noindent Le caratteristiche del grafico sono modificabili a proprio piacimento; in particolare puoi modificare nomi degli assi, del grafico intero e i punti che rappresentano i singoli dati.
-\begin{verbatim}
-	...
-	# Creo un grafico customizzato
-\end{verbatim}
-
-% TODO ----- RICOMINCIA DA QUA
+\noindent Per quanto riguarda l'export, basta cliccare il pulsante corretto nell'interfaccia di R-Studio. Nessun bisogno di stressarsi con vari comandi. Inoltre per fare grafici migliori è preferibile usare il pacchetto \textbf{ggplot2}, del quale parleremo nelle prossime sezioni.
 
 %
 
-\section{Funzioni di R per la statistica}
-
-% TODO ----- CORREGGERE
-
-Ovviamente, se le variabili contengono valori è possibile effettuare operazioni aritmetiche. Inoltre, esistono due semplici funzioni per familiarizzare con la loro logica:
+\section{Gestione scripts e pacchetti aggiuntivi}
+\subsection{Salvataggio, caricamento e fonti}
+La voglia di ridichiarare le variabili ogni volta che si vuole lavorare con R è pari a zero; infatti è possibile salvarle in due formati:
 \begin{itemize}
-	\item Per il calcolo della media: mean(x, ...)
-	\item Per il calcolo della mediana: median(x, na.rm = FALSE, ...)
+	\item \textbf{.RData}; Formato di file binario usato per salvare uno o più oggetti R in un singolo file.
+	\begin{verbatim}
+		# Per salvare l'environment
+		save(nomeOggetto)
+		# Per caricarlo in un file diverso
+		load(nomeOggetto)
+	\end{verbatim}
+	\item \textbf{.RDS}; Formato di file binario usato per salvare un singolo oggetto R in un file.
+	\begin{verbatim}
+		# Per salvare l'oggetto in RDS
+		saveRDS(nomeOggetto)
+		# Per caricarlo in un file diverso
+		readRDS(nomeOggetto)
+	\end{verbatim}
 \end{itemize}
-Nella funzione della mediana notiamo la parola "na.rm"; si tratta di un valore logico con il quale decidere se contare o meno i valori "NA", ovvero \textbf{Not Available}. 
+\noindent È possibile dividere un progetto in più files, per poi chiamare lo script nel momento necessario tramite la funzione \textbf{source()}. Un grande insieme di files .R si dice \textbf{pacchetto}.
 
-Segue ora esempio di codice con quanto esposto finora:
-\begin{verbatim}
-	# Assegno i valori 24, 25, 28 alle rispettive variabili A, B, C
-	> A <- 24
-	> B <- 25
-	> C <- 28
-	
-	# Calcolo la media e la mediana e le salvo in due variabili
-	> mn <- mean(A, B, C)
-	> md <- median(c(24, 25, 28))
-	
-	# Stampo a video i risultati
-	> cat("Media:", mn, "Mediana:", md)
-\end{verbatim}
-La riga della mediana fa da apripista per il prossimo argomento.
+\subsection{Dplyr}
+Il pacchetto \textbf{Dplyr} è creato per la manipolazione dei dati, consentendo di trasformare e riassumere tabelle di dati usando delle funzioni apposite. Nel nostro caso, lo utilizzeremo per l'organizzazione degli elementi nei dataframes. Le principali funzioni di dplyr sono:
+\begin{itemize}
+	\item \textbf{Operatore pipe} \%>\%; Invia il risultato della funzione precedente alla successiva.
+	\item \textbf{filter()}; Filtra i dati in base ad una condizione specificata.
+	\item \textbf{select()}; Seleziona la colonna indicata in base al nome.
+	\item \textbf{mutate()}; Modifica colonne esistenti o ne crea nuove.
+	\item \textbf{arrange()}; Ordina le righe.
+	\item \textbf{group\_by()}; Raggruppa i dati per effettuare operazioni in ogni gruppo.
+	\item \textbf{summarize()}; Fa un sommario delle statistiche date.
+\end{itemize}
 
-% TODO RIPRENDI DA LEZIONE 2 - GUARDA I PDF E NON LE LEZIONI
+% TODO INSERISCI ESEMPIO CON L'ESERCIZIO 5 DI CALGARO (SCHEDA 1)
+
+\subsection{Statistica descrittiva e Ggplot2}
+
+%
+
+\section{Elementi di probabilità}
+\subsection{Costrutti per il calcolo della probabilità}
+\subsection{Coefficiente binomiale}
+\subsection{Formula di Bayes}
+
+%
+
+\section{Variabili aleatorie}
+\subsection{Binomiali}
+\subsection{Di Poisson}
+\subsection{Uniformi}
+\subsection{Normali}
+\subsection{Esponenziali}
+
+%
+
+\section{Statistica inferenziale}
+e stima di parametri
+\subsection{Approssimazione delle distribuzioni binomiali e normali}
+\subsection{Teorema del limite centrale}
+\subsection{Stimatori di massima verosimiglianza}
+\subsection{Intervalli di confidenza e testing delle ipotesi}
+
+%
+
+\section{Regressione lineare semplice}

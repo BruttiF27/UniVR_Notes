@@ -113,17 +113,129 @@ Passiamo adesso ai vari casi di studio che possiamo trovare nello svolgimento de
 		\item Ottieni il valore di $t_{\alpha, n-1}$ dalla tavola dei valori di $t_n$.
 		\item Scrivi l'intervallo.
 	\end{enumerate}
-	\item \textbf{Intervalli di confidenza per la varianza di una popolazione normale}
-	\noindent
+	\item \textbf{Intervalli di confidenza per la varianza di una popolazione normale}\par
+	\noindent Siano $X_1, ..., X_n$, $\mu$, $\sigma^2 > 0$, con media e varianza ignote. Possiamo creare degli intervalli di confidenza basandoci sul seguente fatto:
+	\[\frac{(n-1)S^2}{\sigma^2}\sim \chi^2_{n-1}\]
+	\noindent Sia adesso $\alpha \in (0,1)$. Con $X \sim \chi^2_n$, allora $\chi^2_{\alpha,n} \in [0, +\infty)$ sarà il valore per cui $P(X > \chi^2_{\alpha,n}) = \alpha$.\par
+	Con una semplice sostituzione abbiamo che l'intervallo di confidenza $1-\alpha$ è dato da: \[P\left(\chi^2_{1-\alpha/2, n-1} < \frac{(n-1)S^2}{\sigma^2} < \chi^2_{\alpha/2, n-1}\right) = P\left(\frac{(n-1)S^2}{\chi^2_{\alpha/2, n-1}} < \sigma^2 < \frac{(n-1)S^2}{\chi^2_{1-\alpha/2, n-1}} \right)\]
+	\noindent Dunque avendo i dati $x_1, ..., x_n$ tali che $S^2(x_1, ..., x_n) = \hat{s}^2$, abbiamo che ad un livello di confidenza $1-\alpha$, per la varianza $\sigma^2$, gli intervalli ottenibili sono:
+	\begin{itemize}
+		\item \textbf{Bilaterale}: $\left(\frac{(n-1)\hat{s}^2}{\chi^2_{\alpha/2, n-1}}, \frac{(n-1)\hat{s}^2}{\chi^2_{1-\alpha/2, n-1}} \right)$
+		\item \textbf{Unilaterali}: $\left(\frac{(n-1)\hat{s}^2}{\chi^2_{\alpha, n-1}} , +\infty\right)$, $\left(-\infty, \frac{(n-1)\hat{s}^2}{\chi^2_{1-\alpha, n-1}}\right)$
+	\end{itemize}
+	\noindent Per gli esercizi effetturare il seguente procedimento:
+	\begin{enumerate}
+		\item Calcolare $\hat{s}^2$ se non dato e poi $\alpha$ oppure $\frac{\alpha}{2}$.
+		\item Calcolare $n-1$, poi ricercare il valore di $\chi^2_{\alpha, n-1}$ nella tabella.
+		\item Scrivere l'intervallo ottenuto.
+	\end{enumerate}
+	\item \textbf{Intervalli di confidenza per la media di una popolazione di Bernoulli}\par 
+	\noindent Qui abbiamo una popolazione di oggetti, ognuno dei quali, indipendentemente dagli altri, ha certi \textbf{requisiti} con una probabilità $q \in (0,1)$.\par 
+	Se testiamo $n$ di questi oggetti, rilevando quanti di loro hanno tali requisiti, possiamo usare tale grandezza per ottenere un intervallo di confidenza per $q$.\par 
+	Consideriamo $X$ come una variabile aleatoria binomiale di parametri $n,q$. Noi lavoreremo con casi semplici, altrimenti se $nq \geq 5$ e $nq(1-q) \geq 5$ si dice che il campione preso in considerazione è \textbf{numeroso}.\newline
 	
-	% TODO ----- CONTINUA DA QUA
+	\noindent Poniamo lo stimatore di massima verosimiglianza di $q$: $Q = \frac{X}{n}$ e, sapendo di avere dati tali per cui $X = x \land Q(x) = \hat{q}$, usando il teorema del limite centrale si può ottenere un intervallo di confidenza bilaterale approssimato di livello $1-\alpha$ per $q$ come segue: \[\left(\hat{q} - z_{\alpha/2}\sqrt{\frac{\hat{q}(1-\hat{q})}{n}}, \hat{q} + z_{\alpha/2}\sqrt{\frac{\hat{q}(1-\hat{q})}{n}} \right)\]
+	\noindent Questa scrittura è resa valida dal fatto che lo stimatore si approssima ad una distribuzione normale $N(q, \frac{q(1-q)}{n})$ e $z_{\alpha/2}$ è il quantile di ordine $\frac{\alpha}{2}$ di $Z \sim N(0,1)$.\newline
 	
-	\item \textbf{Intervalli di confidenza per la media di una popolazione di Bernoulli}
+	\noindent Per gli esercizi effettuare il seguente procedimento:
+	\begin{enumerate}
+		\item Calcolare la percentuale di elementi coi requisiti adatti sul campione $\hat{q}$.
+		\item Calcolare $z_{\alpha/2}$ ed $n$.
+		\item Sostituisci i valori ottenuti alla formula dell'intervallo.
+	\end{enumerate}
 \end{itemize}
+
+% TODO INSERISCI ESERCIZI PER OGNI CASO
 
 %
 
 \section{Verifica di ipotesi}
+In questa sezione useremo quanto appena visto per decidere se i risultati ottenuti sono sufficientemente affidabili da rappresentare verità. Noi faremo quindi delle \textbf{ipotesi statistiche}, ovvero delle affermazioni su un parametro $\theta$ da cui dipende un campione $X_1, ..., X_n$. Matematicamente si tratta di un'asserzione di tipo: 
+\begin{center}
+	$\theta = \theta_0$, $\theta \leq \theta_0$, $\theta \leq \theta_0$
+\end{center}
+\noindent Con $\theta_0$ un certo valore del parametro. E possibile fare due tipi di ipotesi:
+\begin{itemize}
+	\item \textbf{Semplice}: Specifica un solo valore di $\theta$.
+	\item \textbf{Composta}: Specifica un insieme di valori di $\theta$.
+\end{itemize}
+\noindent Il processo di verifica di un'ipotesi statistica è detto \textbf{test statistico}, dal quale avremo due alternative da cui scegliere, in base al nostro grado di confidenza; la \textbf{convinzione di partenza} $H_0$ e l'\textbf{affermazione contrapposta} $H_1$.\par 
+È chiaro che ha senso fare testing solamente se si nutre qualche dubbio sulla veridicità di $H_0$ e vi è la possibilità che venga contraddetta. Tuttavia il test statistico non è la risposta assoluta all'affidabilità, bensì consente solo di vedere se i dati ottenuti sono compatibili o meno con $H_0$; la decisione finale sta al singolo, ed è ponderata da un certo grado di tolleranza di errore.\newline
+
+\noindent Creiamo anzitutto uno stimatore di $\theta$, indicato con $ST = ST(X_1, ..., X_n)$. Per avere un test quantitativo è necessario creare la \textbf{regione critica} $C$, una soglia da non varcare per confermare la veridicità della convinzione iniziale. Segue le due regole:
+\begin{itemize}
+	\item Confermiamo $H_0$ se $st = ST(x_1, ..., x_n) \notin C$.
+	\item Rifiutiamo $H_0$ se $st = ST(x_1, ..., x_n) \in C$.
+\end{itemize}
+\noindent Ma in che modo si costruisce la regione critica? Non è un valore fisso; bisogna prendere una decisione in base alla presenza di valori, troppo alti o troppo bassi, che fanno dubitare della veridicità di $H_0$. In tal merito, è possibile commettere due tipi di errore: rifiutare $H_0$ quando è vera si dice errore di \textbf{prima specie}, mentre accettarla quando è falsa si dice di \textbf{seconda specie}.\par
+Per evitare di sbagliare si prendono in considerazione i due seguenti valori:
+\begin{itemize}
+	\item \textbf{Livello di significatività} $\alpha$: Un livello tale per cui la probabilità che $H_0$ sia nella regione critica è ad esso minore o uguale. In parole povere, dice la probabilità che si stia sbagliando a stimare. \[P_{H_0}(ST \in C) \leq \alpha\]
+	\item \textbf{Valore-p dei dati}: Si tratta di un valore che indica il livello di significatività \textbf{critico}, ovvero il numero estremo superiore o estremo inferiore che non deve essere superato per far sì che valga $H_0$.
+	\[ValP = sup\{\alpha:ST\notin C\} = inf\{\alpha:ST\in C\}\]
+\end{itemize}
+\noindent Fare attenzione ad usare queste restrizioni con cautela; è necessario prima osservare i dati del campione, per poi scegliere i relativi livelli di significatività.
+
+\section{Testing su una popolazione}
+\begin{itemize}
+	\item \textbf{Test per la media di una popolazione normale con varianza nota}\par 
+	\noindent Sia $X_1, ..., X_n$ campione estratto da una popolazione normale, con media $\mu \in \mathbb{R}$ ignota e varianza $\sigma^2 > 0$ nota. La dinamica decisionale è la seguente:
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+		\hline
+		$H_0$ & $H_1$ & Statistica test ST & Rifiuto $H_0$ a livello $1-\alpha$ se\\
+		\hline
+		$\mu = \mu_0$ & $\mu \neq \mu_0$ & & $|st| > z_{\alpha/2}$\\
+		$\mu \leq \mu_0$ & $\mu > \mu_0$ & $\dfrac{\overline{X}-\mu_0}{\sigma/\sqrt{n}}\sim N(0,1)$ & $st > z_{\alpha}$\\
+		$\mu \geq \mu_0$ & $\mu < \mu_0$ & & $st < -z_{\alpha}$\\
+		\hline
+		\end{tabular}
+	\end{table}
+	\item \textbf{Test per la media di una popolazione normale con varianza ignota}\par 
+	\noindent Sia $X_1, ..., X_n$ campione estratto da una popolazione normale, con media $\mu \in \mathbb{R}$ e varianza $\sigma^2 > 0$, ambo ignote. La dinamica decisionale è la seguente:
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			$H_0$ & $H_1$ & Statistica test ST & Rifiuto $H_0$ a livello $1-\alpha$ se\\
+			\hline
+			$\mu = \mu_0$ & $\mu \neq \mu_0$ & & $|st| > t_{\alpha/2,n-1}$\\
+			$\mu \leq \mu_0$ & $\mu > \mu_0$ & $\dfrac{\overline{X}-\mu_0}{S/\sqrt{n}}\sim t_{n-1}$ & $st > t_{\alpha,n-1}$\\
+			$\mu \geq \mu_0$ & $\mu < \mu_0$ & & $st < -t_{\alpha,n-1}$\\
+			\hline
+		\end{tabular}
+	\end{table}
+	\item \textbf{Test per la varianza di una popolazione normale}\par
+	\noindent Sia $X_1, ..., X_n$ campione estratto da una popolazione normale, con media $\mu \in \mathbb{R}$ e varianza $\sigma^2 > 0$, ambo ignote. La dinamica decisionale è la seguente:
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			$H_0$ & $H_1$ & Statistica test ST & Rifiuto $H_0$ a livello $1-\alpha$ se\\
+			\hline
+			$\sigma^2 = \sigma^2_0$ & $\sigma^2 \neq \sigma^2_0$ & & $st < \chi^2_{1-\alpha/2, n-1} \lor st > \chi^2_{\alpha/2, n-1}$\\
+			$\sigma^2 \leq \sigma^2_0$ & $\sigma^2 > \sigma^2_0$ & $\dfrac{(n-1)S^2}{\sigma^2_0} \sim \chi^2_{n-1}$ & $st > \chi^2_{\alpha, n-1}$\\
+			$\sigma^2 \geq \sigma^2_0$ & $\sigma^2 < \sigma^2_0$ & & $st < \chi^2_{1-\alpha, n-1}$\\
+			\hline
+		\end{tabular}
+	\end{table}
+	\item \textbf{Test asintotici per la media di una popolazione di Bernoulli}\par 
+	\noindent Qui useremo il teorema del limite centrale per costruire dei test asintotici per il parametro $q \in (0,1)$ di una popolazione di Bernoulli.\par
+	Sia $X_1, ..., X_n$ un campione casuale estratto dalla suddetta popolazione con parametro incognito $q$. La dinamica decisionale è la seguente:
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			$H_0$ & $H_1$ & Statistica test ST & Rifiuto $H_0$ a livello $1-\alpha$ se\\
+			\hline
+			$q = q_0$ & $q \neq q_0$ &  & $|st| > z_{\alpha/2}$\\
+			$q \leq q_0$ & $q > q_0$ & $\dfrac{Q-q_0}{\sqrt{\frac{q_0(1-q_0)}{n}}}\sim N(0,1)$ & $st > z_{\alpha}$\\
+			$q \geq q_0$ & $q < q_0$ &  & $st < -z_{\alpha}$\\
+			\hline
+		\end{tabular}
+	\end{table}
+\end{itemize}
 
 %
 

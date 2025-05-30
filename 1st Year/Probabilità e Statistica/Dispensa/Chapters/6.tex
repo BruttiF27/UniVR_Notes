@@ -200,7 +200,7 @@ R mantiene i costrutti condizionali e i cicli, quindi abbiamo le costruzioni "if
 	
 	dice <- c(1, 2, 3, 4, 5, 6)
 	
-	# Funzionamento del costrutto for
+	# Funzionamento del costrutto for (variable in sequence)
 	for (x in dice) {
 		print(x)
 	} 
@@ -307,13 +307,73 @@ Il pacchetto \textbf{Dplyr} è creato per la manipolazione dei dati, consentendo
 % TODO INSERISCI ESEMPIO CON L'ESERCIZIO 5 DI CALGARO (SCHEDA 1)
 
 \subsection{Statistica descrittiva e Ggplot2}
+Abbiamo discusso dello scopo della statistica descrittiva nella parte di teoria; con R possiamo usare le seguenti funzioni e studiare i dati in nostro possesso:
+\begin{itemize}
+	\item \textbf{Media}: mean().
+	\item \textbf{Mediana}: median().
+	\item \textbf{Differenza fra valore minimo e massimo}: range().
+	\item \textbf{Scarto interquartile}: IQR().
+	\item \textbf{Varianza}: var().
+	\item \textbf{Deviazione standard}: sd().
+	\item \textbf{Skewness}: skewness().
+	\item \textbf{Curtosi}: kurtosis().
+	\item \textbf{Covarianza}: cov().
+	\item \textbf{Coefficiente di correlazione}: cor().
+\end{itemize}
+\noindent Altre funzioni di R base:
+\begin{itemize}
+	\item \textbf{summary()}: Fa un sommario di un dataset, comprende minimo, massimo, quartili, media e mediana di ogni variabile.
+	\item \textbf{table()}: Crea una tavola di contingenza per le variabili categoriche, mostrando la frequenza di ogni combinazione di categoria.
+	\item \textbf{prop.table()}: Crea una tavola di contingenza per le variabili categoriche, mostrando la proporzione di ogni combinazione di categoria.
+	\item \textbf{quantile()}: Calcola il valore di un quantile specifico.
+\end{itemize}
+\noindent Per quanto riguarda le operazioni matematiche, bisogna prendere la funzione che svolge quel compito ed eventualmente stampare i risultati a video in forma leggibile utilizzando le verbs di dplyr come \textbf{summarize()}. Per la rappresentazione grafica seria, invece, useremo il pacchetto \textbf{ggplot2}, il quale consente, tramite una scrittura chiara e stratificata, di creare grafici altamente personalizzabili, di ogni tipo.\par 
+La struttura a strati necessita che le parti siano scritte nel seguente ordine:
+\begin{enumerate}
+	\item \textbf{ggplot(data = ...)}: Inizializza il grafico.
+	\item \textbf{aes()}: Dà nome agli assi e setta i colori.
+	\item \textbf{geom\_*()}: Determina il tipo di grafico.
+	\item \textbf{scale\_color\_manual(values = ...)}: Setta manualmente i colori dei dati nel grafico.
+	\item \textbf{labs()}: Dà i nomi alle varie parti del grafico.
+\end{enumerate}
+\noindent Vediamo un esempio:
+\begin{verbatim}
+	# Usa le librerie utili
+	library("palmerpenguins")
+	library("ggplot2")
+	
+	# Dichiarazione della variabile per il grafico
+	mass_flipper <- ggplot(data = penguins) + 
+		aes(x = flipper_length_mm, y = body_mass_g) +
+		geom_point(aes(color = species, shape = species), size = 3, alpha = 0.8) +
+		scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
+		labs(title = "Flipper length and body mass",
+		subtitle = "Colored by Adelie, Chinstrap and Gentoo Penguins",
+		x = "Flipper length (mm)",
+		y = "Body mass (g)",
+		color = "Penguin species",
+		shape = "Penguin species") +
+		theme(legend.position = "bottom")
+	
+	mass_flipper
+\end{verbatim}
+\noindent Con questa formula è possibile costruire ogni tipo di grafico per ogni evenienza. Questo comprende anche tabelle di frequenza, boxplots, mappe di calore, istogrammi etc. Familiarizzarci è più che consigliato.
 
 %
 
 \section{Elementi di probabilità}
-\subsection{Costrutti per il calcolo della probabilità}
+Come ci si può aspettare, per calcolare la probabilità di un evento è necessario ripetere dei test. Il modo migliore per farlo è utilizzare cicli for, mentre per ottenere valori casuali in un campione si usa la funzione \textbf{sample()}. Se è necessario pescare sempre gli stessi valori, si può settare il seed di pesca con \textbf{set.seed()}.
+
+% TODO INSERISCI ESEMPIO
+
 \subsection{Coefficiente binomiale}
+Per calcolare un coefficiente binomiale si utilizza la funzione \textbf{choose(n,k)} ed è usata per il calcolo combinatorio.
+
+% TODO INSERISCI ESEMPIO (ESERCIZIO 5 LAB3)
+
 \subsection{Formula di Bayes}
+
+% TODO INSERISCI ESEMPIO (ESERCIZIO 6 LAB3)
 
 %
 

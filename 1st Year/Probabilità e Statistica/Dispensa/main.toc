@@ -31,20 +31,20 @@
 \contentsline {section}{\numberline {6.2}Gestione scripts e pacchetti aggiuntivi}{51}{}%
 \contentsline {subsection}{\numberline {6.2.1}Salvataggio, caricamento e fonti}{51}{}%
 \contentsline {subsection}{\numberline {6.2.2}Dplyr}{52}{}%
-\contentsline {subsection}{\numberline {6.2.3}Statistica descrittiva e Ggplot2}{53}{}%
-\contentsline {section}{\numberline {6.3}Elementi di probabilità}{53}{}%
-\contentsline {subsection}{\numberline {6.3.1}Costrutti per il calcolo della probabilità}{53}{}%
-\contentsline {subsection}{\numberline {6.3.2}Coefficiente binomiale}{53}{}%
-\contentsline {subsection}{\numberline {6.3.3}Formula di Bayes}{53}{}%
-\contentsline {section}{\numberline {6.4}Variabili aleatorie}{53}{}%
-\contentsline {subsection}{\numberline {6.4.1}Binomiali}{53}{}%
-\contentsline {subsection}{\numberline {6.4.2}Di Poisson}{53}{}%
-\contentsline {subsection}{\numberline {6.4.3}Uniformi}{53}{}%
-\contentsline {subsection}{\numberline {6.4.4}Normali}{53}{}%
-\contentsline {subsection}{\numberline {6.4.5}Esponenziali}{53}{}%
-\contentsline {section}{\numberline {6.5}Statistica inferenziale}{53}{}%
-\contentsline {subsection}{\numberline {6.5.1}Approssimazione delle distribuzioni binomiali e normali}{53}{}%
-\contentsline {subsection}{\numberline {6.5.2}Teorema del limite centrale}{53}{}%
-\contentsline {subsection}{\numberline {6.5.3}Stimatori di massima verosimiglianza}{53}{}%
-\contentsline {subsection}{\numberline {6.5.4}Intervalli di confidenza e testing delle ipotesi}{53}{}%
-\contentsline {section}{\numberline {6.6}Regressione lineare semplice}{53}{}%
+\contentsline {subsection}{\numberline {6.2.3}Statistica descrittiva e Ggplot2}{52}{}%
+\contentsline {section}{\numberline {6.3}Elementi di probabilità}{54}{}%
+\contentsline {subsection}{\numberline {6.3.1}Costrutti per il calcolo della probabilità}{54}{}%
+\contentsline {subsection}{\numberline {6.3.2}Coefficiente binomiale}{54}{}%
+\contentsline {subsection}{\numberline {6.3.3}Formula di Bayes}{54}{}%
+\contentsline {section}{\numberline {6.4}Variabili aleatorie}{54}{}%
+\contentsline {subsection}{\numberline {6.4.1}Binomiali}{54}{}%
+\contentsline {subsection}{\numberline {6.4.2}Di Poisson}{54}{}%
+\contentsline {subsection}{\numberline {6.4.3}Uniformi}{54}{}%
+\contentsline {subsection}{\numberline {6.4.4}Normali}{54}{}%
+\contentsline {subsection}{\numberline {6.4.5}Esponenziali}{54}{}%
+\contentsline {section}{\numberline {6.5}Statistica inferenziale}{54}{}%
+\contentsline {subsection}{\numberline {6.5.1}Approssimazione delle distribuzioni binomiali e normali}{55}{}%
+\contentsline {subsection}{\numberline {6.5.2}Teorema del limite centrale}{55}{}%
+\contentsline {subsection}{\numberline {6.5.3}Stimatori di massima verosimiglianza}{55}{}%
+\contentsline {subsection}{\numberline {6.5.4}Intervalli di confidenza e testing delle ipotesi}{55}{}%
+\contentsline {section}{\numberline {6.6}Regressione lineare semplice}{55}{}%

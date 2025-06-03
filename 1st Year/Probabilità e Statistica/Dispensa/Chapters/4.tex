@@ -240,3 +240,87 @@ Per evitare di sbagliare si prendono in considerazione i due seguenti valori:
 %
 
 \section{Testing su due popolazioni}
+Molto semplicemente, si tratta del concetto di testing appena visto, ma applicato a due popolazioni diverse. Dove è possibile ricercare ogni statistica campionaria, è di nostro interesse calcolare la sola media. Quindi le domande che dobbiamo porci sono: "Due approcci ad uno stesso problema hanno portato allo stesso risultato?", "A due popolazioni risulta la stessa media?".\par 
+Seguono i vari casi di studio poco dissimili da quelli visti nelle sezioni precedenti:
+\begin{itemize}
+	\item \textbf{Confronto delle medie di due popolazioni normali, varianze note}\par 
+	\noindent Siano $X_1, ..., X_n$ e $Y_1, ..., Y_m$ due campioni casuali indipendenti, provenienti da due popolazioni normali con medie $\mu_x, \mu_y \in \mathbb{R}$, ambo incognite, e varianze $\sigma_x^2 > 0$, $\sigma_y^2 > 0$, entrambe note. Seguono dinamiche decisionali:
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			$H_0$ & $H_1$ & Statistica test ST & Rifiuto $H_0$ a livello $1-\alpha$ se\\
+			\hline
+			$\mu_x = \mu_y$ & $\mu_x \neq \mu_y$ &  & $|st| > z_{\alpha/2}$\\
+			$\mu_x \leq \mu_y$ & $\mu_x > \mu_y$ & $\dfrac{\overline{X}-\overline{Y}}{\sqrt{\frac{\sigma_x^2}{n}+\frac{\sigma_y^2}{n}}} \sim N(0,1)$ & $st > z_{\alpha}$\\
+			$\mu_x \geq \mu_y$ & $\mu_x < \mu_y$ &  & $st -z_{\alpha}$\\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	% TODO INSERISCI ESERCIZIO
+	
+	\item \textbf{Confronto delle medie di due popolazioni normali, varianze ignote uguali}\par 
+	\noindent Siano $X_1, ..., X_n$, $Y_1, ..., Y_m$ due campioni casuali indipendenti provenienti da due popolazioni normali con medie $\mu_x, \mu_y \in \mathbb{R}$ e varianze $\sigma_x^2 > 0$, $\sigma_y^2 > 0$, tutte incognite.\par 
+	Se il risultato della divisione fra le rispettive deviazioni campionarie applicate alle popolazioni, ovvero $\hat{s}_x^2/\hat{s}_y^2$, è compreso fra $\frac{1}{2}$ e $2$, possiamo assumere che le due varianze sono uguali. In tal caso, è possibile studiare la \textbf{varianza comune}, tramite la seguente formula: \[S_p^2 = \frac{(n-1)S_x^2 + (m-1)S_y^2}{n+m-2}\]
+	\noindent Le dinamiche per l'ipotesi saranno poi le seguenti:
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			$H_0$ & $H_1$ & Statistica test ST & Rifiuto $H_0$ a livello $1-\alpha$ se\\
+			\hline
+			$\mu_x = \mu_y$ & $\mu_x \neq \mu_y$ & & $|st| > t_{\alpha/2, n+m-2}$\\
+			$\mu_x \leq \mu_y$ & $\mu_x > \mu_y$ & $\dfrac{\overline{X}-\overline{Y}}{\sqrt{S_p^2(\frac{1}{n} + \frac{1}{m})}} \sim t_{n+m-2}$ & $st > t_{\alpha, n+m-2}$\\
+			$\mu_x \geq \mu_y$ & $\mu_x < \mu_y$ & & $st < -t_{\alpha,n+m-2}$\\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	% TODO AGGIUNGI ESERCIZIO
+	
+	\item \textbf{Confronto delle medie di due popolazioni normali, varianze incognite e diverse}\par 
+	\noindent Siano $X_1, ..., X_n$, $Y_1, ..., Y_m$ due campioni casuali indipendenti provenienti da due popolazioni normali con medie $\mu_x, \mu_y \in \mathbb{R}$ e varianze $\sigma_x^2, \sigma_y^2 > 0$, tutte incognite.\par 
+	Per lavorare su questo caso supponiamo di avere dei campioni numerosi $(n,m \geq 30)$; allora effettueremo dei test asintotici. Notare che nella formula per la statistica test, le $S_x^2, S_y^2$ sono le varianze campionarie del rispettivo campione. Le dinamiche per le ipotesi sono:
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			$H_0$ & $H_1$ & Statistica test ST & Rifiuto $H_0$ a livello $1-\alpha$ se\\
+			\hline
+			$\mu_x = \mu_y$ & $\mu_x \neq \mu_y$ & & $|st| > z_{\alpha/2}$\\
+			$\mu_x \leq \mu_y$ & $\mu_x > \mu_y$ & $\dfrac{\overline{X}-\overline{Y}}{\sqrt{\frac{S_x^2}{n}\frac{S_y^2}{m}}} \sim N(0,1)$ & $st > z_{\alpha}$\\
+			$\mu_x \geq \mu_y$ & $\mu_x < \mu_y$ & & $st < -z_{\alpha}$\\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	% TODO AGGIUNGI ESERCIZIO
+	
+	\item \textbf{Confronto delle medie di due popolazioni normali, campioni accoppiati}\par 
+	\noindent Adesso il campione preso in eaame consta di coppie di osservazioni, ciascuna relativa ad uno stesso individuo della popolazione, ovvero, ci saranno due osservazioni per ogni individuo del campione, rendendoli in pratica delle variabili aleatorie. Il dato di nostro interesse sarà la media fra i due dati.\par 
+	Abbiamo quindi un campione casuale $(X_1, Y_1), ..., (X_n, Y_m)$, dove $X,Y$ sono normali, e bisogna costruire la differenza $W_i = X_i - Y_i$.\par 
+	Otterremo quindi che $W_1, ..., W_i$ sarà il nostro campione di media $\mu_w = \mu_x - \mu_y \in \mathbb{R}$ e varianza $\sigma_w^2 > 0$, ambo incognite.\par 
+	Bisognerà confrontare le due medie; per farlo eseguiremo un test-t sulla media $\mu_w$ con $\mu_0 = 0$.
+	
+	% TODO AGGIUNGI ESERCIZIO
+	
+	\item \textbf{Confronto asintotico delle medie di due popolazioni di Bernoulli}\par 
+	\noindent Siano $X_1, ..., X_n$, $Y_1, ..., Y_m$ due campioni casuali indipendenti, provenienti da due popolazioni di Bernoulli con parametri $q_x, q_y \in (0,1)$, ambo incogniti. Per lavorare su questo caso sarà necessario uno \textbf{stimatore combinato}, dato dalla seguente formula: \[Q_p = \frac{nQ_x + mQ_y}{n+m}\]
+	\noindent Dove $Q_x = \overline{X}$ è la proporzione di 1 nel primo campione e $Q_y = \overline{Y}$ nel secondo. Le dinamiche per le ipotesi sono:
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			$H_0$ & $H_1$ & Statistica test ST & Rifiuto $H_0$ a livello $1-\alpha$ se\\
+			\hline
+			$q_x = q_y$ & $q_x \neq q_y$ & & $|st| > z_{\alpha/2}$\\
+			$q_x \leq q_y$ & $q_x > q_y$ & $\dfrac{Q_x - Q_y}{\sqrt{Q_p(1-Q_p)(\frac{1}{n}+\frac{1}{m})}} \sim N(0,1)$ & $st > z_{\alpha}$\\
+			$q_x \geq q_y$ & $q_x < q_y$ & & $st < -z_{\alpha}$\\
+			\hline
+		\end{tabular}
+	\end{table}
+	
+	% TODO AGGIUNGI ESERCIZIO
+	
+\end{itemize}

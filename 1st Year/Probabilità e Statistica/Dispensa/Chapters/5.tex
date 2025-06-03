@@ -1,12 +1,37 @@
 \section{Regressione lineare semplice}
+Scopo di questa sezione sarà la determinazione della relazione fra due variabili. Ciò si valuta tramite funzioni; avremo infatti $y = f(x)$, dove la funzione descrive la relazione fra $x$ e $y$.\par 
+È possibile valutare la relazione con qualunque tipo di funzione, ma il caso più utile torna sempre ad essere quello della funzione lineare: la retta. \[y = \beta_0 + \beta_1x\]
+\noindent Dove le costanti $\beta_i$ si chiamano \textbf{coefficienti di regressione}. Il modello lineare risulta utile nella maggior parte dei casi; essendo tuttavia impossibile ottenere valori esatti, è necessario introdurre un altro valore all'equazione, chiamato \textbf{errore casuale}, facendoci ottenere la formula della retta di regressione lineare semplice: \[Y = \beta_0 + \beta_1x + \xi\]
+\noindent Le componenti dell'equazione sono:
+\begin{itemize}
+	\item \textbf{Risposta} $Y$; La variabile dipendente.
+	\item \textbf{Ingresso} $x$; La variabile indipendente.
+	\item \textbf{Errore casuale} $\xi$; Una variabile aleatoria con media uguale a zero\footnote{Notare che con la media uguale a zero, anche il valore atteso sarà nullo. Di conseguenza, avremo che $E(\xi) = 0 \implies E(Y) = \beta_0 + \beta_1x$}.
+\end{itemize}
+\noindent Un campione casuale estratto da un modello di regressione lineare si presenta nella forma $(x_1, Y_1), ..., (x_n, Y_n)$, dove le variabili aleatorie $Y_i$ sono tutte nella forma di equazione lineare vista prima. Inoltre, gli errori casuali sono viste come altrettante variabili aleatorie indipendenti ed identicamente distribuite con media uguale a zero.
 
 %
 
 \section{Stima dei coefficienti di regressione}
+I coefficienti di regressione $\beta_0, \beta_1$ sono ignoti e di conseguenza vanno stimati basandosi sui dati a disposizione. Useremo il \textbf{metodo dei minimi quadrati}.\par 
+Supponiamo di osservare le $y_i$ risposte relative a certi valori $x_i$ in input, e di volerle usare per stimare $\beta_0, \beta_1$. Mettiamo anzitutto i valori in un diagramma di dispersione; bisognerà ora trovare la retta che più si avvicina ai punti della nuvola di dati.\par 
+Cerchiamo quindi $\hat{\beta_0}, \hat{\beta_1}$, che sono le stime dei coefficienti di dispersione, le quali permettono di minimizzare l'errore quadratico. La formula è: \[\sum_{i = 1}^{n}(y_i - (\hat{\beta_0}, \hat{\beta_1}x_i))^2\]
+\noindent Mentre gli stimatori dei minimi quadrati dei coefficienti di regressione $\beta_0, \beta_1$ sono dati da:
+\begin{center}
+	$B_1 = \dfrac{\sum_{i=1}^{n}x_iY_i - \overline{x}\sum_{i=1}^{n}Y_i}{\sum_{i=1}^{n}x_i^2 - n\overline{x}^2}$, $B_0 = \overline{Y}-B_1\overline{x}$
+\end{center}
+\noindent Ed infine, le stime dei coefficienti di regressione, utilizzate nell'equazione della stima della retta di regressione $y = \hat{\beta}_0 + \hat{\beta}_1x$ sono:
+\begin{itemize}
+	\item $\hat{\beta_0} = B_0(x_1, ..., x_n; y_1, ..., y_n)$.
+	\item $\hat{\beta_1} = B_1(x_1, ..., x_n; y_1, ..., y_n)$.
+\end{itemize}
+
+% TODO AGGIUNGI ESERCIZIO
 
 %
 
 \section{Inferenza statistica sul coefficiente angolare}
+
 
 %
 

@@ -31,8 +31,40 @@ Cerchiamo quindi $\hat{\beta_0}, \hat{\beta_1}$, che sono le stime dei coefficie
 %
 
 \section{Inferenza statistica sul coefficiente angolare}
+Trovati gli stimatori, è necessario assicurarsi che abbiano senso di essere tali, ovvero bisogna verificare che siano effettivamente affidabili. Faremo una semplice inferenza statistica, vedendo l'errore casuale simile ad una distribuzione normale di media nulla e varianza $\sigma^2 > 0$. Se troviamo che il coefficiente $\beta_1$ è nullo, non ci sarà alcuna correlazione lineare.
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		$H_0$ & $H_1$ & Statistica test ST & Rifiuto $H_0$ a livello $\alpha$ se\\
+		\hline
+		$\beta_1 = 0$ & $\beta_1 \neq 0$ & $\sqrt{\dfrac{(n-2)S_{xx}}{SS_R}}\times B_1 \sim t_{n-2}$ & $|st| > t_{\alpha/2, n-2}$\\
+		\hline
+	\end{tabular}
+\end{table}
+\noindent Dove le componenti complesse della formula sono date da:
+\begin{itemize}
+	\item $S_{xx} = \sum_{i=1}^{n} x_i^2 - n\overline{x}^2$.
+	\item $SS_R = \sum_{i=1}^{n} (Y_i - B_0 - B_1x_i)^2$.
+\end{itemize}
 
+% TODO INSERISCI ESERCIZIO
 
 %
 
 \section{Coefficiente di determinazione e analisi dei residui}
+Se invece vogliamo esprimere la variabilità dell'insieme delle risposte $Y_1, ..., Y_n$ ottenute dalle entrate $x_1, ..., x_n$, ovvero esprimere la funzione $Y_i = \beta_0 + \beta_1x_i$, con $\xi \sim N(0,\sigma^2)$, si usa la seguente formula per ottenere la varianza campionaria di $Y_1, ..., Y_n$: \[S_{yy} = \sum_{i=1}^{n}(Y_i - \overline{Y})^2 \equiv S_{yy} = SS_R + (S_{yy}-SS_R)\]
+\noindent Ne consegue che se tutte le funzioni $Y_i$ sono uguali, la varianza campionaria sarà nulla. Inoltre, possono variare per i seguenti due motivi:
+\begin{itemize}
+	\item Diversità dei valori delle $x_i$. Causano dispersione dei valori medi di $Y_1, ..., Y_n$.
+	\item Dispersione provocata dall'errore casuale $\xi$, chiamato anche \textbf{rumore}.
+\end{itemize}
+\noindent Grazie alla varianza campionaria è possibile ottenere la nostra misura di affidabilità: il \textbf{coefficiente di determinazione} $R \in [0,1]$, ottenuto con: \[R^2 = \frac{S_{yy} - SS_R}{S_{yy}}\]
+\noindent Essendo un valore compreso fra zero e uno, diciamo che c'è una buona \textbf{aderenza} quando il valore si avvicina ad uno; mentre non va bene tanto più si avvicina a zero.\par 
+Diciamo quindi che un modello di regressione lineare interpreta bene i dati se riesce a spiegare bene la maggior parte della variabilità delle risposte.\newline
+
+% TODO INSERISCI ESERCIZIO
+
+\noindent Se tuttavia hai problemi di ansia e paranoia, è possibile studiare i residui standardizzati. Considera il solito modello lineare $Y = \beta_0 + \beta_1x_i$, con $\xi \sim N(0,\sigma^2)$ e usa la seguente formula: \[\frac{Y_i - B_0 - B_1x_i}{\sqrt{\frac{SS_R}{n-2}}}\]
+\noindent Quando il modello è corretto, i residui saranno approssimativamente variabili aleatorie normali standard indipendenti. I valori sono distribuiti attorno allo zero, con circa il $95\%$ dei valori compresi fra $-2, 2$.\par
+Non ritengo si debba andare fino a questo punto in un corso di informatica, ma puoi farlo. Inoltre il grafico non deve presentare una regolarità geometrica, perché in caso contrario, la regressione non sarebbe lineare.

@@ -16,11 +16,12 @@ Supponiamo che i dati siano realizzazioni di una variabile aleatoria $X$ con una
 Una \textbf{Statistica} $T$ è invece una variabile aleatoria ottenuta come funzione del campione, ovvero $T = T(X_1, ..., X_n)$, ed uno \textbf{stimatore} è qualunque $T$ indipendente da $\theta$, è usata per stimarlo. Tendenzialmente, il ruolo è coperto dalla media campionaria per la varianza campionaria.\par 
 Infine, chiamiamo \textbf{stima} il valore numerico assunto dallo stimatore sui dati osservati $x_1, ..., x_n$, ovvero, $\theta = T(x_1, ..., x_n)$.\newline
 
-Sia ora $X_1, ..., X_n$ un campione casuale preso da una popolazione di densità $f(x,\theta)$, che dipende dal parametro $\theta$. Se interpretiamo \[f(x_1, ..., x_n; \theta)\]
-\noindent come la verosimiglianza che si realizzi la n-upla $x_1, ..., x_n$ di dati quando $\theta$ è il vero valore del parametro, possiamo prendere come sua stima il \textit{valore che rende massima la funzione}, chiamato \textbf{stimatore di massima verosimiglianza}. Consigliato inoltre vederlo come logaritmo, in quanto ha uno stesso massimo e facilita i calcoli.
+\noindent Sia ora $X_1, ..., X_n$ un campione casuale preso da una popolazione di densità $f(x,\theta)$, che dipende dal parametro $\theta$. Se interpretiamo \[f(x_1, ..., x_n; \theta)\]
+\noindent come la verosimiglianza che si realizzi la n-upla $x_1, ..., x_n$ di dati quando $\theta$ è il vero valore del parametro, possiamo prendere come sua stima il \textit{valore che rende massima la funzione}, chiamato \textbf{stimatore di massima verosimiglianza}, il quale è consigliato vedere come logaritmo, in quanto ha uno stesso massimo e facilita i calcoli.
 \begin{eg}
+	\textbf{Calcolo dello stimatore di massima verosimiglianza}\par
 	% TODO
-	INSERISCI ESEMPIO PER STIMATORE MAX VEROSIMIGLIANZA PER BERNOULLI E POPOLAZIONE NORMALE.
+	\noindent INSERISCI ESEMPIO PER STIMATORE MAX VEROSIMIGLIANZA PER BERNOULLI E POPOLAZIONE NORMALE.
 \end{eg}
 \noindent Ma in che modo è possibile scegliere uno stimatore $T = T(X_1, ..., X_n)$? O meglio, come ne si valuta la \textbf{bontà}?\par 
 Bisogna cercare di minimizzare la deviazione dal valore reale del parametro attraverso valore atteso e varianza. Non potendo tuttavia essere onniscenti, è inevitabile incappare in errori e per questo si introduce il concetto di \textbf{distorsione} o bias.

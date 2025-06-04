@@ -1,16 +1,37 @@
-\documentclass[12pt,a4paper]{book} 
+\documentclass[12pt,a4paper]{book}
 
 \include{Configs/packages}
 \include{Configs/boxes}
+\include{Configs/formats}
 
-\title{- Probabilità e Statistica -}
-\author{\large{Federico Brutti}}
+\textwidth=450pt\oddsidemargin=0pt
 
 \begin{document}
 	
-	\include{Configs/formats}
+	\begin{titlepage}
+		\begin{center}
+			{{\LARGE{\textsc{Università degli Studi di Verona}}}} \rule[0.1cm]{15.8cm}{0.1mm}
+			\rule[0.5cm]{15.8cm}{0.6mm}
+			{\small{\bf CORSO DI LAUREA IN INFORMATICA}}
+		\end{center}
+		\vspace{12.5mm}
+		
+		\begin{center}
+			{\Huge{\bf Probabilità e Statistica}}
+		\end{center}
+		\vspace{130mm}
+		
+		\begin{minipage}[l]{1.8mm}
+			\rule[0.1cm]{0.1mm}{2cm}
+			\rule[0.1cm]{0.6mm}{2cm}
+		\end{minipage}
+		\hspace{2mm}
+		\begin{minipage}{10cm}	
+			{\large{Federico Brutti\\
+					\texttt{federico.brutti@studenti.univr.it}}}
+		\end{minipage}
+	\end{titlepage}
 	
-	\maketitle
 	\blankpage
 	\tableofcontents
 	

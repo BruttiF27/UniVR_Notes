@@ -21,13 +21,13 @@ Le porte logiche e di conseguenza qualunque circuito elettronico sono governati 
 	\item \textbf{Interruttore N}: Se riceve corrente, conduce l'elettricità.
 	\item \textbf{Interruttore P}: Se riceve corrente, ferma il flusso.
 \end{itemize}
-\begin{figure}[H]
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=12cm]{Images/transistorTypes.png}
 	\caption{Tipi di transistors}
 	\label{fig:transistorTypes}
 \end{figure}
-\noindent Per usare termini corretti, quando un transistor è chiuso e scorre la corrente si dice che è in \textbf{conduzione}, mentre se è aperto e la corrente è bloccata diciamo che c'è un segnale di \textbf{interdizione}.\par 
+Per usare termini corretti, quando un transistor è chiuso e scorre la corrente si dice che è in \textbf{conduzione}, mentre se è aperto e la corrente è bloccata diciamo che c'è un segnale di \textbf{interdizione}.\par 
 Di base i circuiti vanno letti da sinistra a destra, e grazie ai due interruttori appena visti è possibile creare le porte logiche elementari \textbf{AND, OR, NOT, NAND, NOR, XOR, XNOR}. Adesso abbiamo tutti gli strumenti per la creazione di un circuito elettronico. Ciò non significa tuttavia che possiamo buttarci senza cognizione di causa; ragion per cui bisognerà ragionare sui costi e le parti effettivamente necessarie al processo di realizzazione. Il nostro scopo da adesso diventa l'\textbf{ottimizzazione} dei nostri progetti.
 \begin{figure}[h]
 	\centering
@@ -91,22 +91,73 @@ Una particolarità è che il cubo deve essere visto come se fosse impossibile an
 %
 
 \subsection{Algoritmo di Quine Mc-Cluskey}
-
-%TODO RIPRENDI DA QUA
+Trattasi del Laplace di questa materia, sarà l'algoritmo che useremo per l'ottimizzazione dei circuiti combinatori. Può essere utilizzato con ogni tipo di funzione, ma aumenta di complessità in base a quante entrate presenta. Generalmente, segue i passaggi:
+\begin{enumerate}
+	\item Partendo dalla tabella di verità completa, prendere i suoi mintermini e ordinarli in base al numero di $1$ contenuti nella combinazione di ingresso.
+	\item Confrontare ogni configurazione con tutte quelle del gruppo successivo. Se presenta distanza di Hamming a valore 1 (più semplicemente, se le due combinazioni di entrate sono uguali tranne per un input), inserire un \textbf{don't care} dove gli inputs differiscono.
+	\item Ottenuta la tabella ridotta, ripetere il punto 2 fin quando non è più possibile ridurre i mintermini. Fatto ciò, abbiamo ottenuto gli implicanti primi.
+	\item Creare una seconda tabella indicando sulle $y$ i mintermini e sulle $x$ le entrate. Lo scopo è trovare quei mintermini sufficienti per coprire tutti gli inputs, saranno gli implicanti primi essenziali.
+	\item Scrivere la soluzione in somma di prodotti. Finito.
+\end{enumerate}
+\noindent Metodo decisamente macchinoso, che tuttavia permette di ottenere tramite semplici passaggi la funzione ottima. Segue immagine per evidenziare il caso base.
+%TODO INSERISCI ESERCIZIO SU QUINE MCCLUSKEY COMPLETAMENTE SPECIFICATO
 
 %
 
-\section{Funzioni parzialmente specificate}
-
-%
-
-\section{Sintesi combinatoria multilivello}
-
-%
-
-\section{Mapping tecnologico}
+\subsection{Funzioni parzialmente specificate}
+Quine Mc-Cluskey è versatile. È possibile utilizzarlo anche con funzioni, le quali hanno combinazioni risultanti come don't cares. L'algoritmo non cambia molto, bisognerà solamente considerare il DC-set come altri mintermini per poi ignorarlo nella tabella finale.
+%TODO INSERISCI ESERCIZIO SU QUINE MCCLUSKEY PARZIALMENTE SPECIFICATO
 
 %
 
 \section{Dispositivi programmabili}
-Programmable Logic Array, Field programmable gate array, system on chip
+I dispositivi programmabili sono componenti hardware dotati di porte \textbf{PROM}, programmable read only memory. La loro implementazione comporta alcune conseguenze:
+\begin{itemize}
+	\item Essendo il circuito programmabile, è modificabile anche dopo la sua produzione, quindi, in caso di necessità, si risparmierà sui materiali.
+	\item Eventuali bug presenti nel circuito potranno essere facilmente risolti grazie a questa flessibilità.
+	\item La logica di programmazione copre necessariamente spazio nell'area; verrà sempre utilizzata, richiedendo energia.
+	\item Risulta tendenzialmente più lento rispetto ad un dispositivo dedicato.
+\end{itemize}
+\noindent Una prima evoluzione dei circuiti PROM sono i \textbf{PLA}, i programmable logic array, con due livelli di porte logiche.
+%TODO Inserisci esempio di rappresentazione in PLA
+\noindent Col tempo si evolsero in \textbf{CPLD}, complex programmable logic devices, un'interconnessione di più circuiti PLA su una scheda di silicio.
+%TODO Inserisci esempio di rappresentazione in CPLD
+\noindent Dopodiché nacquero gli \textbf{FPGA}, field programmable gate array, che sono i dispositivi programmabili odierni. Sono composti da vari CPLD.
+%TODO Inserisci esempio di rappresentazione in FPGA
+\noindent Infine abbiamo gli \textbf{SoC}, system on chip, l'evoluzione più recente utilizzata su vasta scala. Si tratta di una FPGA controllata da una CPU.
+%TODO Inserisci esempio di rappresentazione in SoC
+
+%
+
+\section{Sintesi combinatoria multilivello}
+Finora è stato visto come sintetizzare circuiti combinatori ad un massimo di due livelli; è tuttavia possibile espandere il concetto ad $n$ livelli, accettando un compromesso di otterere soluzioni approssimate, tramite tecniche euristiche. In tal merito, introduciamo il concetto di \textbf{ritardo}, il valore tempo impiegato per ottenere gli outputs da un circuito, il quale è dato dal \textbf{cammino critico}, il percorso più lungo che la corrente attraversa dall'entrata all'uscita.
+%TODO Inserisci immagine esempio di ritardo con unità di tempo t
+\noindent Le tecniche sovramenzionate procedono su due passi principali:
+\begin{enumerate}
+	\item Ottimizzazione eseguita ignorando i vincoli implementativi, come quelli imposti dalla libreria tecnologica o al fanin/fanout.
+	\item Raffinamento del precedente risultato in base ai vincoli implementativi.
+\end{enumerate}
+\noindent Non sarà un risultato ottimo come lo darebbe la fattorizzazione, tuttavia riduce il carico computazionale. Per lavorarci, introduciamo i relativi \textbf{modelli di rappresentazione} e le \textbf{trasformazioni} con le quali si andrà ad operare.\par 
+La struttura di un circuito può essere rappresentata tramite una \textbf{rete logica}, una interconnessione di nodi associati a funzioni booleane ad una sola uscita, l'ultime chiamate \textbf{funzioni scalari}. Questa collega i comportamenti delle funzioni dei nodi e viene rappresentata tramite \textbf{grafi orientati aciclici}, "DAG" $G(V,E)$, dove;
+\begin{itemize}
+	\item $V$ è l'insieme dei nodi, diviso in $V^I$ (nodi d'ingresso), $V^O$, (nodi d'uscita) $V^G$, (nodi interni a cui è associata una funzione scalare)
+	\item $E$ è l'insieme dei lati.
+	\item Ad ogni nodo si associa una variabile temporanea.
+\end{itemize}
+% TODO INSERISCI ESEMPIO DAG
+\noindent Bisognerà quindi capire su quale parte operare per ottimizzare; il ritardo, riducendo i tempi di esecuzione, o l'area, riducendo il carico computazionale? Tendenzialmente si cerca di trovare un equilibrio fra i due e gli algoritmi o \textbf{scripts} usati si dividono in algoritmi di \textbf{ottimizzazione}, che riducono il livello di complessità, e di \textbf{ristrutturazione}, i quali restaurano il circuito ad uno stato più complesso ma meno carico. Si useranno esclusivamente strumenti automatici.
+
+%
+
+\section{Mapping tecnologico}
+Il \textbf{mapping tecnologico} è il problema di implementazione dei circuiti sequenziali mediante le porte logiche di una data libreria tecnologica.\par 
+Una volta completato il processo di minimizzazione tramite gli scripts, si otterrà un risultato in somma di prodotti, rappresentativo della minima realizzazione teorica. Ci occuperemo ora di mapparlo su una libreria tecnologica con lo scopo di renderlo realizzabile per la specifica architettura.\par 
+L'algoritmo alla base del processo è detto \textbf{tree-mapping}, una dispiegazione dei nodi come se fosse un grafico ad albero. L'unico limite risulta, qunidi, la necessità di non avere nodi predecessori. Il circuito con la rispettiva libreria, ambo convertiti in grafici albero, potranno poi essere scritti sulle seguenti architetture:
+\begin{itemize}
+	\item \textbf{ASIC}: Il cui processo è diviso in due parti:
+	\begin{enumerate}
+		\item \textbf{Placing}: Posizionamento delle celle nella scheda.
+		\item \textbf{Routing}: Collegamento delle celle fra loro.
+	\end{enumerate}
+	\item \textbf{FPGA}: Il cui processo di placing corrisponde alla programmazione delle celle, le quali hanno egual dimensione e capacità.
+\end{itemize}

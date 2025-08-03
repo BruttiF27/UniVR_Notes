@@ -1,8 +1,54 @@
 \section{Circuiti sequenziali}
+Nella progettazione dei sistemi digitali ci sono due principali classi di sistemi:
+\begin{itemize}
+	\item \textbf{Circuiti combinatori}: Il valore delle uscite dipende interamente dalla combinazione di inputs.
+	\item \textbf{Circuiti sequenziali}: Il valore delle uscite dipende dalla combinazione di input attuale e dalle precedenti ricevute.
+\end{itemize}
+\noindent Semplicemente, quando si parla di sistema sequenziale, abbiamo la possibilità di salvare in memoria uno \textbf{stato}, la compressione di tutto ciò che il sistema ha eseguito fino a quel momento. La loro necessità è presto detta, vedendo solo come un ciclo distrugge i circuiti combinatori.\par 
+Esistono anche due sottoinsiemi dei circuiti sequenziali, ovvero gli \textbf{asincroni}, indipendenti dalla variabile del tempo \textbf{clock}, e i \textbf{sincroni}, dalla quale sono dipendenti per un corretto funzionamento.
+% TODO INSERISCI GRAFICO DI CLOCK
+% TODO INSERISCI ESEMPIO CIRCUITO ASINCRONO (LATCH)
+% TODO INSERISCI ESEMPIO CIRCUITO SINCRONO (FLIP-FLOP)
 
 %
 
 \subsection{FSM - Finite State Machines}
+Le \textbf{macchine a stati finiti} stanno alla base dell'informatica tutta; hanno lo scopo di salvare e mostrare l'evoluzione del programma fra gli stati in base ad una combinazione di ingresso e generandone una di uscita. La sua funzione è data da: \[M = \left<S,I,O,\delta,\lambda,s\right>\]
+\noindent Dove le parti sono:
+\begin{itemize}
+	\item $S$: Insieme degli stati, necessariamente finito e non vuoto.
+	\item $I$: Alfabeto di ingresso, $|I|=2^nb$.
+	\item $O$: Alfabeto di uscita, $|O|=2^mb$.
+	\item $\delta$: Funzione allo stato prossimo. Riceve stato e ingresso correnti per ritornare il successivo. $\delta=S\times I \to S$.
+	\item $\lambda$: Funzione di uscita; la sua definizione dipende dal tipo di FSM usata:
+	\begin{itemize}
+		\item \textbf{Macchina di Mealy}: Genera l'uscita in base a stato ed input correnti. $\lambda= S\times I \to O$.
+		\item \textbf{Macchina di Moore}: Genera l'uscita in base allo stato corrente. $\lambda=S\to O$.
+	\end{itemize}
+	\item $s$: Stato iniziale, probabile che non venga specificato.
+\end{itemize}
+\noindent Le FSM si possono rappresentare mediante i seguenti due costrutti:\par
+\vspace{0.025\textwidth}
+\begin{minipage}{0.475\textwidth}
+	\begin{center}
+		\textbf{State Transition Table}
+	\end{center}
+	\noindent Per ogni coppia [STATO/INPUT] si indica lo stato prossimo e l'uscita. Nelle colonne saranno inseriti i simboli di ingresso, mentre nelle righe lo stato corrente. Le intersezioni dipendono dal tipo di macchina scelta. \[M = \left<\{A,B,C\}, \{0,1\}, \delta, \lambda \right>\]
+	
+	% TODO INSERISCI TABELLA PER MEALY E MOORE STT
+	
+\end{minipage}
+\hspace{0.02\textwidth}
+\vline
+\hspace{0.02\textwidth}
+\begin{minipage}{0.475\textwidth}
+	\begin{center}
+		\textbf{State Transition Graph}
+	\end{center}
+	\noindent Costrutto matematico costituito da archi e nodi collegati. I nodi rappresentano gli stati, mentre gli archi lo spostamento da uno stato all'altro. Sono basati sulle state transition tables e vanno interpretati come dei percorsi.
+	
+	% TODO INSERISCI STG PER AMBO LE MACCHINE
+\end{minipage}
 
 %
 
@@ -15,6 +61,7 @@
 %
 
 \section{Datapath e componenti}
+Inserire qui anche registro e mux segnati nella prima sezione di questo capitolo
 
 %
 

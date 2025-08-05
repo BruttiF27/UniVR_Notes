@@ -1,21 +1,212 @@
 \section{Introduzione ad Assembly}
+Assembly è un linguaggio a basso livello di astrazione che permette di lavorare a stretto contatto con le componenti hardware. Consente l'accesso ai registri della CPU e, di conseguenza, scrivere codice estremamente ottimizzato. È comune a tutti gli elaboratori, seppur presentando alcune differenze dialettali.\par 
+Nel nostro caso, lavoreremo con \textbf{Assembly Intel x86} con sintassi \textbf{AT\&T}. Tale linguaggio lavora con i seguenti tipi di registro:
+\begin{enumerate}
+	\item \textbf{Registri generici}
+	\begin{itemize}
+		\item \textbf{AX}: Accumulation register, accumulatore per operazioni aritmetiche, contenente il risultato dell’operazione.
+		\item \textbf{BX}: Base register, usato per operazioni di indirizzamento della memoria.
+		\item \textbf{CX}: Counter register, usato per contare, di norma nei costrutti ciclici.
+		\item \textbf{DX}: Data register, usato nelle operazioni di input/output, nelle divisioni e nelle moltiplicazioni.
+	\end{itemize}
+	\item \textbf{Registri di segmento}
+	\begin{itemize}
+		\item \textbf{CS}: Code segment, punta alla zona di memoria che contiene il codice.
+		\item \textbf{DS}: Data segment, punta alla zona di memoria che contiene i dati.
+		\item \textbf{ES}: Extra segment, utilizzabile come registro di segmento ausiliario.
+		\item \textbf{SS}: Stack segment, punta alla zona di memoria in cui risiede la stack.
+	\end{itemize}
+	\item \textbf{Registri puntatore}
+	\begin{itemize}
+		\item \textbf{SP}: Stack pointer, punta in cima alla stack ed è modificato dalle operazioni push/pop.
+		\item \textbf{BP}: Base pointer, punta alla base della porzione di stack attualmente gestita.
+		\item \textbf{IP}: Instruction pointer, punta alla prossima istruzione.
+	\end{itemize}
+	\item \textbf{Registri indice}
+	\begin{itemize}
+		\item \textbf{SI}: Source index, punta alla stringa/vettore sorgente.
+		\item \textbf{DI}: Destination index, punta alla stringa/vettore destinazione.
+		\item \textbf{FLAGS}: Utilizzato per memorizzare lo stato corrente del processore, ogni bit fornisce una particolare informazione.
+	\end{itemize}
+\end{enumerate}
+\noindent L'ISA a 32b consente di estendere tutti i registri sovramenzionati aggiungendo una E al loro nome. Quindi $AX=16b$, mentre $EAX=32b$. In tal merito, segue la divisione dello spazio dei vari registri:
+% TODO INSERISCI IMMAGINE
+\newline\noindent Parliamo ora delle \textbf{modalità di indirizzamento}, ovvero il modo in cui sono specificate le istruzioni da eseguire. Ci sono sette modi diversi:
+\begin{itemize}
+	\item \textbf{A registro} [\%eax]: Operando contenuto in un registro e il suo nome è specificato nell'istruzione.
+	\item \textbf{Diretto} [(IND)]: Operando contenuto in una locazione di
+	memoria e l’indirizzo della locazione viene specificato nell’istruzione.
+	\item \textbf{Immediato} [\$VAL]: Operando è valore costante ed è
+	definito esplicitamente nell’istruzione.
+	\item \textbf{Indiretto} [(\%eax) oppure (\$VAL)]: L’indirizzo di un operando è contenuto in un registro o in una locazione di memoria. L’indirizzo della locazione o il registro viene specificato nell’istruzione.
+	\item \textbf{Indicizzato} [SPI(\%eax)]: L’indirizzo effettivo
+	dell’operando è calcolato sommando un valore costante al contenuto di un registro.
+	\item \textbf{Con autoincremento}: L’indirizzo effettivo dell’operando è il
+	contenuto di un registro specificato nell’istruzione. Dopo l’accesso, il contenuto del registro viene incrementato per puntare all’elemento successivo.
+	\item \textbf{Con autodecremento}: Il contenuto di un registro specificato
+	nell’istruzione viene decrementato. Il nuovo contenuto viene usato come indirizzo effettivo dell’operando.
+\end{itemize}
 
 %
 
 \section{Istruzioni e Sintassi}
-Stringhe e numeri
+In Assembly, le istruzioni seguono la sintassi generale [istruzione OP1, OP2, ...] e costituiscono il nostro spazio di manovra con il quale potremo scrivere i programmi. Per cominciare, un file Assembly ha estensione .s o .asm ed è suddiviso in varie sezioni. Segue esempio di hello world:
+\begin{lstlisting}
+	.section .data		# Sezione di variabili globali e costanti.
+	# Definizione della stringa "hello" e relativa lunghezza "helloLen"
+	hello: .ascii "Hello World!"
+	helloLen: .long .- hello
+	
+	.section .bss		# Sezione per variabili non inizializzate.
+	
+	.section .text		# Sezione esecutiva
+		.global _start	# Fornisce la zona di memoria dove inizia il programma
+		
+	_start:
+		movl $4, %eax		# Direttiva SYS_WRITE
+		movl $1, %ebx		# File descriptor 1; STDOUT
+		leal hello, %ecx	# Indirizzo di hello
+		movl helloLen, %edx	# Lunghezza di hello
+		int $0x80			# Interruzione del kernel
+		
+		movl $1, %eax		# Direttiva SYS_EXIT
+		xorl %ebx, %ebx		# Azzera il registro %ebx (richiesto da direttiva)
+		int $0x80
+\end{lstlisting}
+\noindent Noterai che è un linguaggio particolarmente verboso e tedioso, tuttavia questi sono i processi che il pc esegue a livello dei registri per lo svolgimento delle funzioni più astratte.\par 
+Scritto il programma, bisogna assemblarlo, linkarlo e poi eseguirlo; ciò si fa attraverso i seguenti comandi a terminale:
+\begin{lstlisting}
+	as --32 nomeFile.s -o nomeFile.o
+	ld -m elf_i386 nomeFile.o -o nomeEseg
+	./nomeEseg
+\end{lstlisting} 
+\noindent Una caratteristica utile da ricordare del linguaggio è che si possono stampare a video solamente caratteri ascii, quindi stringhe. Il passaggio da singolo intero ad ascii \textbf{ITOA} si ha con $[n+48]$, dove 48 è la codifica ascii del numero 0. Di conseguenza per passare da ascii a intero \textbf{ATOI} si fa l'operazione inversa: $[n-48]$.\par 
+Se invece dobbiamo lavorare con stringhe, sarà necessario concatenare i caratteri mediante moltiplicazioni per 10.\newline
+
+\noindent Assembly non ha propriamente istruzioni come while e for, quindi bisognerà costruire costrutti ciclici da zero. Ciò si fa con le istruzioni di comparazione e salto.
+\begin{lstlisting}
+	.section .data
+	.section .text
+		.global _start
+		
+	_start:
+		cmpl %eax, %ebx	# Compara i valori di eax ed ebx
+		
+		jg _jumped		# Salta a _jumped se eax > ebx
+		jl _jumped		# Salta se eax < ebx
+		jge _jumped		# Salta se eax >= ebx
+		jle _jumped		# Salta se eax <= ebx
+		je _jumped		# Salta se eax == ebx
+		jne _jumped		# Salta se eax != ebx
+		jcxz _jumped	# Salta se cx == 0
+		jmp _jumped		# Salto senza condizioni
+		loop _jumped	# Salta e ecx--
+		
+		test %ebx, %ebx	# Esegue AND bit a bit fra gli operandi
+	
+	_jumped:
+		movl $1, %eax
+		xorl %ebx, %ebx
+		int $0x80
+\end{lstlisting}
+\noindent Si lascia come esercizio la scrittura di costrutti condizionali e ciclici base come if-else, while e for.
+
 %
 
 \section{Debugging e Makefile}
-
-%
-
-\section{Relazione ISA-FSMD su LC-3}
+Il debugging è una parte fondamentale per il controllo di eventuali problemi nel codice che è stato scritto. Quello che sarà utilizzato è \textbf{GDB}, il debugger di GNU.\par
+È necessario assemblare il programma aggiungendo il flag di debug: \textbf{-gstabs}, dopodiché si potrà eseguire il programma sotto debugger.
+\begin{lstlisting}
+	# Run del debugger
+	> gdb nomeEseguibile
+	
+	# Cambio visualizzazione. Utile per osservare il workflow e lo stato dei 
+	registri. Dopo aver dato il comando, premere invio per cambiare visuale.
+	> lay next
+	
+	# Setta un breakpoint al punto indicato
+	> break nomeFunzione
+	> break numeroRiga
+	
+	# Passa alla prossima istruzione
+	> next
+	> nexti
+	
+	# Va avanti fino al prossimo breakpoint
+	> continue
+	
+	# Refresha la visuale. L'interfaccia si bugga spesso.
+	> ref
+\end{lstlisting}
+\noindent Seguono ulteriori comandi specifici per i programmi Assembly:
+\begin{lstlisting}
+	# Stampa a video i valori contenuti nei vari registri.
+	> info registers
+	
+	# Stampa il valore nel registro in binario, decimale, hex.
+	> p/t $eax
+	> p/d $eax
+	> p/x $eax
+	
+	# Trova l'indirizzo della variabile e stampa 4B
+	> x/4b &variabile
+	
+	# Stampa il valore di una variabile.
+	> print nomeVariabile
+	
+	# Stampa il valore di un registro come stringa.
+	> x/s $eax
+\end{lstlisting}
+Tuttavia, attenzione. Assemblare un progamma con i flag di debug peggiora le prestazioni totali; inoltre comporta problemi di sicurezza perché consentirebbe di leggere il codice sorgente tramite debugger.
 
 %
 
 \section{Funzioni e passaggio di parametri}
+Prima di parlare di funzioni è necessario chiarire il funzionamento dei due tipi di strutture di dato:
+\begin{itemize}
+	\item \textbf{LIFO}; Last In, First Out, si tratta della dinamica governante la stack. Solo l'ultimo elemento inserito potrà essere rimosso.
+	\item \textbf{FIFO}; First In, First Out, solo il primo elemento inserito potrà essere rimosso.
+\end{itemize}
+Nei programmi Assembly è possibile utilizzare la stack mediante due comandi:
+\begin{lstlisting}
+	pushl %eax	# Mette il valore contenuto in eax nella stack.
+	popl %eax	# Preleva l'ultimo valore inserito in stack e lo inserisce in eax.
+\end{lstlisting}
+Ogni volta in cui si pusha qualche valore sulla stack, il registro \%esp si decrementa, perché il valore più alto è alla base, mentre in cima sta 0.\par
+Conoscere questa dinamica è importante, perché consente un maggiore spazio di manovra nel salvataggio dei dati. Inoltre, possiamo capire come dare parametri da terminale quando si attiva un programma.\par 
+La linea di comando, infatti, conta come una stringa ed è il path dell'eseguibile. Tutti gli indirizzi dei parametri (stringhe) dati vengono impilati sulla stack, insieme al loro numero totale, che starà sempre in cima ad essi. Per poterli utilizzare bisogna usare il comando popl tante volte quante necessarie per rimuovere prima il totale dei parametri, e poi prelevare il primo valore e salvarlo su qualche registro. Il comando dal terminale è infatti letto dall'assembler da destra a sinistra.\par
+Una cosa utile è inoltre la possibilità di ottenere un valore dalla stack in qualunque posizione senza che esso venga prelevato, utilizzando la modalità di \textit{Indirizzamento più spiazzamento}.
+\begin{lstlisting}
+	# Salva in ecx il valore in stack alla posizione +8 rispetto ad esp
+	(vista come posizione 0).    
+	movl 8(%esp), %ecx
+\end{lstlisting}
+\noindent Passiamo ora alle \textbf{funzioni}; è realisticamente impensabile voler scrivere tutto un programma in un singolo file, sia per motivi di lettura, che di debugging e controllo. Divideremo quindi il progetto in vari sottoprogrammi. Ciò è possibile tramite la seguente scrittura:
+\begin{lstlisting}
+	# Nel file main, si invoca la funzione.
+	call nomeFile
+	
+	# Nel file nomeFile
+	.type nomeFunzione, @function	# Dichiarazione della funzione
+	
+	# ...
+	# Blocco di istruzioni
+	# ...
+	
+	# Ritorno al file chiamante la funzione
+	ret
+\end{lstlisting}
+\noindent La direttiva \textbf{ret} farà ritorno alla funzione chiamante. È possibile manipolare la zona in cui rientra attraverso il registro esi. Sconsiglio questa azione, tuttavia.
 
 %
 
-\section{Confronto con il C}
+\section{Assembly e C}
+
+\begin{lstlisting}[language=C]
+	#include<stdio.h>
+	
+	int main() {
+		return 0;
+	}
+\end{lstlisting}
+

@@ -54,8 +54,7 @@
 \contentsline {section}{\numberline {5.9}Modellazione di FSMD}{26}{}%
 \contentsline {chapter}{\numberline {6}Il linguaggio Assembly}{27}{}%
 \contentsline {section}{\numberline {6.1}Introduzione ad Assembly}{27}{}%
-\contentsline {section}{\numberline {6.2}Istruzioni e Sintassi}{27}{}%
-\contentsline {section}{\numberline {6.3}Debugging e Makefile}{27}{}%
-\contentsline {section}{\numberline {6.4}Relazione ISA-FSMD su LC-3}{27}{}%
-\contentsline {section}{\numberline {6.5}Funzioni e passaggio di parametri}{27}{}%
-\contentsline {section}{\numberline {6.6}Confronto con il C}{27}{}%
+\contentsline {section}{\numberline {6.2}Istruzioni e Sintassi}{29}{}%
+\contentsline {section}{\numberline {6.3}Debugging e Makefile}{30}{}%
+\contentsline {section}{\numberline {6.4}Funzioni e passaggio di parametri}{32}{}%
+\contentsline {section}{\numberline {6.5}Assembly e C}{33}{}%

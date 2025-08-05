@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  3 AUG 2025 12:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  5 AUG 2025 11:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -184,7 +184,7 @@ Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
-)))
+))
 (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count278
@@ -193,18 +193,52 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \@float@everytoks=\toks30
 \@floatcapt=\box55
 )
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count279
+\lst@gtempboxa=\box56
+\lst@token=\toks31
+\lst@length=\count280
+\lst@currlwidth=\dimen162
+\lst@column=\count281
+\lst@pos=\count282
+\lst@lostspace=\dimen163
+\lst@width=\dimen164
+\lst@newlines=\count283
+\lst@lineno=\count284
+\lst@maxwidth=\dimen165
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count285
+\lst@skipnumbers=\count286
+\lst@framebox=\box57
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/mathcolor.ltx)))
 
 LaTeX Warning: \include should only be used after \begin{document} on input lin
 e 4.
 
 (./Configs/boxes.tex
-\c@theorem=\count279
-\c@definition=\count280
-\c@eg=\count281
-\c@lemma=\count282
-\c@corollary=\count283
+\c@theorem=\count287
+\c@definition=\count288
+\c@eg=\count289
+\c@lemma=\count290
+\c@corollary=\count291
 )
-\c@note=\count284
+\c@note=\count292
 
 
 LaTeX Warning: \include should only be used after \begin{document} on input lin
@@ -213,8 +247,8 @@ e 5.
 (./Configs/formats.tex)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count285
-\l__pdf_internal_box=\box56
+\l__color_backend_stack_int=\count293
+\l__pdf_internal_box=\box58
 )
 (./main.aux)
 \openout1 = `main.aux'.
@@ -235,17 +269,17 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count286
-\scratchdimen=\dimen162
-\scratchbox=\box57
-\nofMPsegments=\count287
-\nofMParguments=\count288
-\everyMPshowfont=\toks31
-\MPscratchCnt=\count289
-\MPscratchDim=\dimen163
-\MPnumerator=\count290
-\makeMPintoPDFobject=\count291
-\everyMPtoPDFconversion=\toks32
+\scratchcounter=\count294
+\scratchdimen=\dimen166
+\scratchbox=\box59
+\nofMPsegments=\count295
+\nofMParguments=\count296
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count297
+\MPscratchDim=\dimen167
+\MPnumerator=\count298
+\makeMPintoPDFobject=\count299
+\everyMPtoPDFconversion=\toks33
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -255,6 +289,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+\c@lstlisting=\count300
 LaTeX Font Info:    Trying to load font information for U+msa on input line 27.
 
 
@@ -400,42 +435,74 @@ Chapter 5.
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [27
+(./Chapters/6.tex [27
 
-] (./main.aux)
+]
+Overfull \hbox (39.45393pt too wide) in paragraph at lines 39--41
+[]\OT1/cmr/bx/n/12 Immediato \OT1/cmr/m/n/12 [\TS1/cmr/m/n/12 $\OT1/cmr/m/n/12 
+VAL]: Operando ^^Re val-ore costante ed ^^Re definito es-plici-ta-mente nell'is
+truzione. 
+ []
+
+
+Overfull \hbox (2.32262pt too wide) in paragraph at lines 46--48
+\OT1/cmr/m/n/12 decre-men-tato. Il nuovo con-tenuto viene us-ato come in-d-i-ri
+zzo ef-fet-tivo dell'operando. 
+ []
+
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+
+ []
+
+[29]
+Overfull \hbox (7.05692pt too wide) in paragraph at lines 118--119
+[][]\OT1/cmr/m/n/12 E nec-es-sario as-sem-blare il pro-gramma ag-giun-gendo il 
+flag di de-bug: \OT1/cmr/bx/n/12 -gstabs\OT1/cmr/m/n/12 , dopodich^^Se
+ []
+
+[30] [31] [32] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+)) [33]
+(./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3683 strings out of 476182
- 57209 string characters out of 5795596
- 1935975 words of memory out of 5000000
- 25606 multiletter control sequences out of 15000+600000
- 572072 words of font info for 93 fonts, out of 8000000 for 9000
+ 5490 strings out of 476182
+ 81838 string characters out of 5795596
+ 2000975 words of memory out of 5000000
+ 27390 multiletter control sequences out of 15000+600000
+ 572538 words of font info for 95 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 64i,15n,70p,597b,363s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk
-> </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-sl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.p
-fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (28 pages, 312126 bytes).
+ 64i,15n,70p,597b,1644s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1095.600pk
+> </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk>
+ </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+l12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (34 pages, 347025 bytes).
 PDF statistics:
- 197 PDF objects out of 1000 (max. 8388607)
- 117 compressed objects within 2 object streams
+ 227 PDF objects out of 1000 (max. 8388607)
+ 137 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

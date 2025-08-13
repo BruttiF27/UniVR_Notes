@@ -49,23 +49,101 @@ Le \textbf{macchine a stati finiti} stanno alla base dell'informatica tutta; han
 	
 	% TODO INSERISCI STG PER AMBO LE MACCHINE
 \end{minipage}
+\vspace{0.025\textwidth}
+\newline Lo scopo di questi costrutti è la formalizzazione di concetti a partire dal linguaggio naturale, rendendoli eseguibili in modo non ambiguo dalle macchine che si andranno a progettare. Partendo quindi dalle specifiche si può definire il corretto modus operandi.
+\begin{eg}
+	\textbf{FSM}\par
+	\noindent La seguente macchina ha 1b di entrata e 1b di uscita; se nelle entrate si legge una sequenza pari di 0 seguita da una sequenza dispari di 1, l'output ritornerà 1. L'output sarà 0 quando il numero diventa pari o si riceve uno 0.
+	
+	% TODO Inserisci STT e STG della macchina
+\end{eg}
 
 %
 
-\section{Sintesi delle funzioni $\lambda$ e $\delta$, assegnazione stati}
+\section{Sintesi delle funzioni $\lambda$ e $\delta$, codifica degli stati}
+L'argomento di maggiore importanza per il momento sono i circuiti sequenziali sincroni, nello specifico, qunidi, macchine a stati finiti dipendenti da un clock. L'immagine a sinistra rappresenta il \textbf{Modello di Huffmann} e mostra come gli outputs dipendano sia da logica combinatoria che da clock.\par
+Per far sì che la macchina funzioni è necessario distinguere gli stati ad essa appartenenti; ciò si fa attraverso una loro codifica, la cui stringa risultante è salvata nei \textbf{registri}.\par 
+Per attuare questo processo bisogna assegnare un valore binario ad ogni stato. La formula generale è:
+\begin{center}
+	$log_2n$, con $n$ il valore totale degli stati.
+\end{center}
+\noindent Un altro metodo di codifica consiste nell'utilizzo della \textbf{1-hot}, dove la posizione dell'1 e non il valore binario indica il valore dello stato. La codifica degli stati risulta utile per una maggiore leggibilità dei grafici utilizzati prima.
+% TODO AGGIUNGI TRADUZIONE GRAFICO DA LOGICA COMBINATORIA A TRADUZIONE CON CODIFICA STATI
+% TODO AGGIUNGI UNA MINIPAGE CON DUE IMMAGINI CHE FANNO VEDERE UN ESEMPIO DI FUNZIONE DELTA (nextState) E LAMBDA (outputs)
 
 %
 
 \section{Minimizzazione degli stati}
+L'utilità della minimizzazione è sempre la stessa; la riduzione delle risorse necessarie atte al funzionamento della macchina. Sebbene i casi di studio rimangano gli stessi, ovvero macchine completamente e non completamente specificate, qui è necessario che nella FSM esista almeno una relazione di \textbf{equivalenza fra stati}. Deve quindi avere:
+\begin{itemize}
+	\item \textbf{Riflessività}: $S_i\sim S_i$, ogni stato è equivalente a sé stesso.
+	\item \textbf{Simmetricità}: $S_i\sim S_j \implies S_j\sim S_i$, ovvero proprietà commutativa.
+	\item \textbf{Transitività}: $S_i\sim S_j \land S_j \sim S_k \implies S_i \sim S_k$.
+\end{itemize}
+\noindent Parlando in termini più concreti, due macchine a stati dovranno avere entrate e uscite siano equivalenti per essere chiamate tali. Avremo quindi la seguente logica per due funzioni di output: \[\lambda(S_i, I_\alpha) = \lambda(S_j, I_\alpha)\]
+\noindent Con questa premessa possiamo definire una macchina \textbf{minima} quando non esistono più coppie di stati equivalenti. Come conseguenza diretta, la macchina risulta essere anche unica.\par 
+L'algoritmo di ottimizzazione è quello di \textbf{Paull-Unger} e si dà come scopo la ricerca di stati equivalenti con conseguente assorbimento. Presenta alcuni casi di studio:
+\begin{eg}
+	\textbf{Algoritmo di Paull-Unger}\par
+	\noindent Osserva attentamente la STT; noterai che alcuni stati, in base all'entrata, si sposteranno su un medesimo luogo o torneranno una stessa uscita. Se entrambi combaciano, significa che gli stati sono equivalenti, mentre se solo gli outputs sono uguali, l'equivalenza dipenderà dagli stati prossimi in cui si muoveranno quelli correnti.\par 
+	Osserviamo che gli stati correnti A,B presentano lo stesso output, ma stati prossimi diversi. Solamente se B e C sono equivalenti si potrà considerare tale anche A. In questo caso non è così.\par
+	Gli stati equivalenti ora vengono rinominati con una \textbf{classe di equivalenza}, ha lo scopo di essere il "portavoce" di tutti loro. Poi si contniua a vedere se esistono ulteriori equivalenze. Se sì, ripetere il processo, altrimenti si è ottenuta la macchina minima.
+\end{eg}
+% TODO INSERISCI IMMAGINE PAULL-UNGER SEMPLICE
+% TODO INSERISCI IMMAGINE CLASSI DI EQUIVALENZA
+\begin{eg}
+	\textbf{Algoritmo di Paull-Unger, alta complessità}\par
+	\noindent Data la seguente macchina, è chiaro che procedere con il precedente algoritmo sia tedioso e possa portare a errori. Per semplificare il tutto, si raggrupperanno gli stati da esaminare in \textbf{cricche} in base alle loro dipendenze. Per esempio, l'equivalenza $B\sim E$ dipende da quella $D\sim F$. Nel grafico sottostante si collegheranno tutte le dipendenze.\par
+	Ottenute tutte le cricche, sarà possibile raggruppare gli stati collegati in classi di equivalenza, per poi procedere con l'algoritmo avendo dati meno complessi.
+\end{eg}
+% TODO INSERISCI IMMAGINI DI CRITICA SU GRAFO E CRICCHE
+\begin{eg}
+	\textbf{Funzioni parzialmente specificate}\par
+	\noindent Il raggruppamento in cricche qui è necessario; bisogna trovare quella massima (che raggruppa più stati possibile con meno condizioni) e darla per vera, per poi confrontarla con gli stati restanti mediante Paull-Unger.
+\end{eg}
+% TODO INSERISCI IMMAGINE DI FUNZIONE PARZIALMENTE SPECIFICATA
 
 %
 
 \section{Datapath e componenti}
-Inserire qui anche registro e mux segnati nella prima sezione di questo capitolo
+Il \textbf{Datapath} è l'unità di elaborazione composta da un'aggregazione di componenti elementari. Principalmente esistono due tipi di componenti:
+\begin{itemize}
+	\item \textbf{Unità di memoria}, usati per la memorizzazione dei dati.
+	\item \textbf{Unità funzionali}, usate per l'elaborazione dei dati.
+\end{itemize}
+\noindent Per la scrittura di un datapath è fortemente consigliato di definire le sue funzioni prima di iniziare i lavori, per poi procedere con la creazione delle componenti elementari, ed infine il loro collegamento. Adesso andiamo a vedere le varie componenti di base:
+\begin{itemize}
+	\item \textbf{Registri}: Unità per il salvataggio di dati, si differenziano per le modalità di salvataggio in base al clock, ovvero definiamo \textbf{rising-edge} un registro che si modifica quando riceve un clock positivo, \textbf{falling-edge} se lo fa quando il clock è negativo e \textbf{asincrono} quando lo fa a prescindere da esso. Ne esistono di tre tipi:
+	\begin{itemize}
+		\item \textbf{Parallelo/parallelo}: Riceve bits in input e si aggiorna ricevendo il segnale di clock, per poi dare in output il dato salvato dal ciclo seguente.
+		\item \textbf{Seriale/seriale}: Riceve un bit alla volta e posiziona l'ultimo ricevuto nella posizione più significativa. Ritorna in output un bit alla volta la posizione meno significativa.
+		\item \textbf{Parallelo/seriale}: Svolge entrambe le funzioni appena viste, la scelta è in base ad un segnale aggiuntivo.
+		% TODO INSERISCI IMMAGINE REGISTRI
+	\end{itemize}
+	\item \textbf{Multiplexer}: Riceve più entrate da n bits, sceglie quale trasmettere in output in base ad un segnale di controllo.
+	% TODO INSERISCI IMMAGINE MUX
+	\item \textbf{Demultiplexer}: Riceve un'entrata da n bits e decide a quale ramo di output spedirla in base ad un segnale di controllo.
+	% TODO INSERISCI IMMAGINE DEMUX
+	\item \textbf{Decoder}: Modifica la dimensione in bits del segnale ricevuto in input.
+	% TODO INSERISCI IMMAGINE DECODER
+	\item \textbf{Shifter}: Riceve un valore in input ed effettua shiftL o shiftR in base ad un segnale di controllo.
+	% TODO INSERISCI IMMAGINE SHIFTER
+	\item \textbf{Unità logiche}: Tutte le porte logiche viste in precedenza, il cui funzionamento dipende dalla relativa tabella di verità.
+	% TODO INSERISCI IMMAGINE PORTE LOGICHE
+	\item \textbf{Unità aritmetiche}: Tutte le porte che eseguono le quattro operazioni elementari in base 2.
+	% TODO INSERISCI IMMAGINE PORTE ARITMETICHE
+	\item \textbf{Operatori di confronto}: Tutte le porte di confronto valori.
+	% TODO INSERISCI IMMAGINE PORTE COMPARE
+\end{itemize}
+\noindent Un esempio di datapath completo è la ALU, \textbf{Arithmetic logic Unit}, che consente di effettuare somma, sottrazione, comparazione e riportare il risultato.
+% TODO INSERISCI IMMAGINE ALU
 
 %
 
 \section{Modello FSMD - Finite State Machine with Datapath}
+Una FSMD è il connubio fra le due macrocomponenti viste prima e sta per \textbf{Macchina a stati finiti con unità di elaborazione}. Si compone di due parti; quella di controllo e quella di elaborazione, le quali comunicano mediante segnali di stato e controllo. Si tratta di una macchina sincrona.
+
+
 
 %
 

@@ -141,14 +141,23 @@ Il \textbf{Datapath} è l'unità di elaborazione composta da un'aggregazione di 
 %
 
 \section{Modello FSMD - Finite State Machine with Datapath}
-Una FSMD è il connubio fra le due macrocomponenti viste prima e sta per \textbf{Macchina a stati finiti con unità di elaborazione}. Si compone di due parti; quella di controllo e quella di elaborazione, le quali comunicano mediante segnali di stato e controllo. Si tratta di una macchina sincrona.
-
-
+Una FSMD è una macchina sincrona, il connubio fra le due macrocomponenti viste prima e sta per \textbf{Macchina a stati finiti con unità di elaborazione}. Si compone di due parti; quella di controllo e quella di elaborazione, le quali comunicano mediante segnali di stato e controllo.\newline
+%TODO INSERISCI IMMAGINE MODELLO FSMD
+\noindent Abbiamo già discusso della progettazione delle sue macrocomponenti, quindi ora bisogna capire quale creare prima e che tipo di segnali di controllo implementare. Non esiste propriamente una risposta corretta, ma bisogna adattarsi a ciò che viene più comodo fare.
+% TODO INSERISCI ESEMPIO FSMD SEMAFORO
 
 %
 
 \section{Derivazione FSMD da algoritmo}
+È possibile ottenere un modello FSMD attraverso specifici algoritmi per una \textbf{sintesi ad alto livello}, portando ad una soluzione buona. Questi svolgono i seguenti passaggi:
+\begin{enumerate}
+	\item \textbf{Scheduling}: Organizzazione dei cicli di clock nei quali avvengono le operazioni.
+	\item \textbf{Allocation}: Organizzazione delle risorse della macchina in base allo scheduling
+\end{enumerate}
+\noindent In alternativa, un altro modo per ottenere una FSMD, seppur più macchinoso e meno automatico, è scrivere un algoritmo in un linguaggio di programmazione diverso oppure in pseudocodice, con lo scopo di capire quali componenti siano necessarie all'adempimento del compito.
 
 %
 
-\section{Modello dispositivi programmabili}
+\section{Modello dispositivo programmabile}
+Ogni macchina vista finora è considerato un sistema embedded, il quale svolge, appunto, un solo compito. Tuttavia è possibile progettare anche dispositivi programmabili, che svolgono diversi algoritmi in base a determinate entrate. Un esempio è una piccola calcolatrice capace di eseguire le quattro operazioni.
+% TODO INSERISCI ESEMPIO CON MINI-CALCOLATRICE FSMD

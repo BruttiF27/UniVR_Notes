@@ -1,9 +1,67 @@
 \section{Modello di Von Neumann e Unità funzionali del calcolatore}
-Il \textbf{Modello di Von Neumann} è un'architettura composta da tre componenti principali interconnesse mediante un dispositivo detto \textbf{BUS}. Si tratta del modello sul quale si basano tutte le architetture dei calcolatori. Le sue parti sono:
+Il \textbf{Modello di Von Neumann} è un'architettura composta da tre componenti principali interconnesse mediante un dispositivo detto \textbf{BUS}\footnote{Flusso di bits che rende possibile la comunicazione fra le varie componenti}. Si tratta del modello sul quale si basano tutte le architetture dei calcolatori. Le sue parti sono:\newline
+
+\begin{minipage}{0.475\textwidth}
+	\includegraphics[width=1\linewidth]{Images/VonNeumannArch.png}
+	\label{fig:VonNeumannArch}
+\end{minipage}
+\vspace{0.02\textwidth}
+\begin{minipage}{0.475\textwidth}
+	\begin{itemize}
+		\item \textbf{Processore}: Atto all'elaborazione dei dati.
+		\item \textbf{Memoria}: Atta al salvataggio dei dati.
+		\item \textbf{Dispositivi I/O}: Periferiche varie come microfoni o tastiere.
+	\end{itemize}
+\end{minipage}
+\noindent Più nello specifico, un calcolatore elabora i dati grazie all'ausilio delle seguenti tre componenti, ognuna indipendente dall'altra:
 \begin{itemize}
-	\item \textbf{Processore}: Atto all'elaborazione dei dati.
-	\item \textbf{Memoria}: Atta al salvataggio dei dati.
-	\item \textbf{Dispositivi I/O}: Periferiche varie come microfoni o tastiere.
+	\item \textbf{I/O}: Unità di ingresso ed uscita.
+	\item \textbf{ALU}: Unità aritmetico-logica.
+	\item \textbf{CU}: Control Unit, che compone processore e memoria.
+\end{itemize}
+\noindent Le prime due lavorano sotto supervisione e controllo della \textbf{CU}. L'unità di input riceve informazioni in forma codificata da operatori o periferiche, le quali saranno elaborate dalla \textbf{ALU} per effettuare calcoli, eventualmente salvando in memoria i risultati. Quanto eseguito verrà inviato all'unità di output, la quale ritornerà il tutto.\par
+Le informazioni manipolate sono categorizzate in \textbf{istruzioni} e \textbf{dati}; le prime sono comandi dati alla macchina, direttamente interpretabili da essa, mentre i secondi sono le informazioni che vengono manipolate. Una lista di istruzioni compone il \textbf{programma}, il quale potrà svolgere algoritmi elaborando i dati. Se in esecuzione, si troverà sempre in memoria, a meno che non venga dato un comando di interruzione.\newline
+
+\noindent L'ambiente di lavoro del corso sarà la CPU Intel 80x86, con la particolarità di utilizzare lo stesso linguaggio del microprocessore: \textbf{Assembly}. L'insieme che compone le istruzioni scritte in tale lingua leggibili dal microprocessore si dice \textbf{ISA}, Instruction Set Architecture, ed è letto da un \textbf{assemblatore}, il quale provvederà a tradurlo in codice oggetto.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Images/CPUArch.png}
+	\caption{Architettura di una CPU}
+	\label{fig:CPUArch}
+\end{figure}
+\noindent Analizziamo ora le microcomponenti della CPU non ancora viste:
+\begin{itemize}
+	\item \textbf{Componenti generali}:
+	\begin{itemize}
+		\item \textbf{Bus Dati}: Consente di trasportare i dati fra le varie componenti.
+		\item \textbf{Bus Indirizzi}: Comunica gli indirizzi di memoria delle informazioni.
+		\item \textbf{Bus di Controllo}: Invia i segnali di controllo fra le varie componenti.
+		\item \textbf{Memory Address Register}: Tiene in memoria e fornisce gli indirizzi dei dati da manipolare.
+		\item \textbf{Memory Data Register}: Salva temporaneamente i dati da o per la CPU.
+	\end{itemize}
+	\item \textbf{Componenti della control unit}:
+	\begin{itemize}
+		\item \textbf{Instruction Register}: Contiene gli identificativi delle istruzioni.
+		\item \textbf{Program Counter}: Contiene gli indirizzi delle stesse.
+		\item \textbf{Program Status Word}; Insieme di flags che, in stretta collaborazione con la ALU, indicano lo stato dei diversi risultati di operazioni matematiche. Si modifica ad ogni singola operazione.
+	\end{itemize}
+\end{itemize}
+\noindent Ora che sappiamo da cosa è composta, è il momento di chiederci come funziona questa CPU. Ci è possibile descrivere tale processo mediante una FSM a tre stati, chiamati \textbf{Fetch}, \textbf{Decode} ed \textbf{Execution}.\par
+Il primo rappresenta la ricezione delle informazioni. Ottiene i dati dall'\textbf{MDR}, memory data register, per poi passare tutto all'\textbf{IR}, instruction register con il bus dati. Nel frattempo, il program counter aumenterà di 1 ad ogni istruzione ricevuta.\par
+Il secondo stato è la fase di decodifica delle istruzioni; tramite l'ISA della macchina, si indirizzano opportunamente i dati che verranno poi elaborati.\par
+Il terzo ed ultimo stato è infatti quello dell'esecuzione delle istruzioni decodificate.\newline
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/FetDecExe.png}
+	\caption{Macchina a stati della CPU}
+	\label{fig:FDE}
+\end{figure}
+
+\noindent L'ISA, come si può facilmente dedurre, non è uguale per ogni singolo calcolatore, tuttavia presenta sempre lo stesso scheletro, composto da:
+\begin{itemize}
+	\item \textbf{OPcode}: Il codice operazione. Comunica quante istruzioni possono essere registrate, ma soprattutto quale sta venendo effettuata.
+	\item \textbf{Source Address}: L'indirizzo dal quale ottenere le informazioni.
+	\item \textbf{Destination Address}: L'indirizzo nel quale verranno salvate le informazioni.
 \end{itemize}
 
 %

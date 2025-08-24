@@ -63,13 +63,110 @@ Il terzo ed ultimo stato è infatti quello dell'esecuzione delle istruzioni deco
 	\item \textbf{Source Address}: L'indirizzo dal quale ottenere le informazioni.
 	\item \textbf{Destination Address}: L'indirizzo nel quale verranno salvate le informazioni.
 \end{itemize}
+\noindent La modalità di scambio e trasmissione dati si chiama \textbf{indirizzamento}, i cui tipi sono discussi più nello specifico nella sezione relativa ad Assembly.
 
 %
 
-\section{CPU - Central Processing Unit}
-\subsection{CPU Cablata}
-\subsection{CPU Microprogrammata}
-\subsection{Microistruzioni della CPU}
+\section{Architettura CPU RISC-V}
+Come precedentemente menzionato, le CPU organizzano il lavoro del calcolatore, e più nello specifico ciò avviene grazie ad un ciclo di \textbf{fetch}, \textbf{decode} ed \textbf{execution}. Segue i passi:
+\begin{enumerate}
+	\item Il program counter si modifica per puntare all'istruzione successiva.
+	\item Viene determinato il tipo dell'istruzione letta.
+	\item Se l'istruzione usa una word in memoria, si determina dove essa si trovi.
+	\item Se necessario, si carica la word in un registro della CPU.
+	\item Esecuzione dell'istruzione.
+	\item Ripeti il passo 1.
+\end{enumerate}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/ControlUnit_simple.png}
+	\caption{Architettura semplificata della control unit}
+	\label{fig:CU_simple}
+\end{figure}
+\noindent A partire da questo disegno, è necessario andare più nel dettaglio con alcune componenti. Per esempio, è importante notare i due adder in alto. Questi consentono di spostarsi fra le varie istruzioni; infatti il primo all'estrema sinistra è quello che aggiorna il program counter sommandogli $4B$, spostandolo all'istruzione successiva, mentre il secondo adder è utile per le istruzioni di salto. Ottenuto il nuovo indirizzo, il program counter verrà aggiornato.\par
+Bisogna inoltre tenere a mente che i dati da passare alla ALU sono contenuti nei \textbf{registri}; in base al segnale dato dalla control unit, si effettuerà un'operazione specifica. Detto ciò, possiamo elaborare sul ciclo di elaborazione informazioni:
+\begin{itemize}
+	\item \textbf{Fetch}, la selezione della parola corrispondente all'istruzione da eseguire. Qui il program counter fornisce l'indirizzo di memoria in cui si trova la prossima istruzione. Questo valore è ottenuto da una memoria read only chiamata \textbf{memoria delle istruzioni}.
+	\item \textbf{Decode}, la decodifica dell'istruzione in codice oggetto. In primo luogo la ALU decodifica le istruzioni ricevute in base al valore del program counter e, se necessario, verranno caricati gli operandi dalla \textbf{memoria dei dati}.
+	\item \textbf{Execution}, l'esecuzione dell'istruzione. Qui si possono effettuare processi diversi, come:
+	\begin{itemize}
+		\item Eseguire un calcolo con la ALU.
+		\item Elaborare il contenuto degli operandi e determinare un indirizzo di memoria.
+		\item Eseguire un confronto per effettuare dei salti.
+	\end{itemize}
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/ControlUnit1.png}
+	\caption{Architettura della control unit}
+	\label{fig:CU1}
+\end{figure}
+\noindent Notare adesso nella nuova figura con aggiunta la \textbf{control unit} che i segnali dei due adder vanno in un mux, per capire quale utilizzare in base al segnale branch, ovvero di salto, usato come controllo. Quest'ultimo è dato da una porta AND che prende:
+\begin{itemize}
+	\item Il risultato della condizione per il jump (zero).
+	\item Il segnale di richiesta di jump (uscito dalla CU).
+\end{itemize}
+\noindent Se e solo se entrambi i bits sono veri, si va a saltare all'indirizzo richiesto, ed in tal caso il primo parametro è dato dal PC, mentre il secondo è un pezzo corrispondente al path saltato.\par
+Un altro compito della control unit è l'invio di segnali \textbf{memoryRead},  \textbf{memoryWrite} e \textbf{registerWrite}, i quali consentono di leggere e scrivere valori in memoria.\par
+Notare inoltre il multiplexer posto fra la ALU ed il blocco centrale; è necessario per scegliere il luogo da dove prendere l'operando. È possibile ottenerlo dalla memoria oppure direttamente dall'input.\newline
+
+\noindent Adesso invece andiamo a vedere nello specifico il comportamento del datapath in base all'istruzione data. Ne abbiamo di quattro tipi:
+\begin{itemize}
+	\item \textbf{Type-R}: Istruzioni aritmetico-logiche.\par
+	I registri \textbf{rs1} e \textbf{rs2} presentano il numero dei registri sorgenti ed \textbf{rd} contiene il numero del registro di destinazione. L'operazione da eseguire sta nei campi \textbf{func3} e \textbf{func7} ed è letto dalla control unit per comunicare i segnali adatti alla ALU.
+	\item \textbf{Type-L}: Istruzioni di caricamento. Necessita di memoria dati e componente per estensione del segno.\par 
+	Si attiva con il segnale \textbf{memRead} a valore vero. Qui \textbf{rs1} è il registro base il cui contenuto è sommato al campo immediato di 12b per ottenere l'indirizzo del dato in memoria. Il campo \textbf{rd} è il registro destinazione per il valore letto.
+	\item \textbf{Type-S}: Istruzioni di salvataggio. Necessita di memoria dati e componente per estensione del segno.\par 
+	Si attiva con il segnale \textbf{memWrite} a valore vero. Qui \textbf{rs1} è il registro base il cui contenuto è sommato al campo immediato di 12b per ottenere l'indirizzo del dato in memoria. Il campo \textbf{rs2} è il registro sorgente il cui valore è poi copiato in memoria.
+	\item \textbf{Type-SB}: Istruzioni di salto.\par
+	\textbf{rs1} e \textbf{rs2} sono confrontati. Il campo immediato di 12b è preso, il suo bit di segno viene esteso, shiftato a sinistra di una posizione e sommato al program counter per calcolare l'indirizzo di destinazione del salto.
+\end{itemize}
+% TODO INSERISCI ControlUnit_riscV.png, è l'immagine del datapath completo.
+\begin{eg}
+	\textbf{Istruzione [sub x4, x5, x6]}
+	\begin{enumerate}
+		\item Il PC dà l'indirizzo dell'istruzione e viene incrementato di $4B$.
+		\item L'istruzione è decodificata, viene riconosciuto il tipo-R. Ciò è indicato dal Codop, che è inviato alla CU.
+		\item In base al Codop, la CU imposta i segnali: \textbf{regWrite = 1}, perché scriverà in x4, \textbf{ALUSrc = 0}, perché gli operandi vengono dai registri, \textbf{memWrite = 0}, \textbf{memRead = 0}, \textbf{memToReg = 0}, perché non c'è accesso alla memoria.
+		\item La CU legge \textbf{func3=0b000} e \textbf{func7=0b0100000}, determinando che l'operazione è una sottrazione.
+		\item La ALU calcola $x4 = x5-x6$.
+		\item Se il risultato è $0$, il segnale \textbf{Zero} sarà vero, ed il primo è scritto nel register file.
+		\item Adesso $x4$ contiene il valore $x5-x6$.
+	\end{enumerate}
+\end{eg}
+\begin{eg}
+	\textbf{Istruzione [and x7, x8, x9]}
+	\begin{enumerate}
+		\item PC dà l'indirizzo dell'istruzione e si incrementa di $4B$.
+		\item Il decoder la riconosce come Type-R.
+		\item La CU imposta: regWrite = 1, ALUSrc = 0, memWrite = 0, memRead = 0, memToReg = 0.
+		\item La ALU ottiene \textbf{func3=0b111} e \textbf{func7=0b0000000}, selezionando l'operazione logicalAND. Esegue quindi $x7 = x8 \land x9$.
+		\item Scrive il risultato nel register file.
+		\item $x7$ contiene il risultato di $x8 \land x9$.
+	\end{enumerate}
+\end{eg}
+\begin{eg}
+	\textbf{Istruzione [lw x4, 16(x5)]}
+	\begin{enumerate}
+		\item PC dà l'indirizzo dell'istruzione e avanza di $4B$.
+		\item L'istruzione decodificata è type-L, LOAD.
+		\item $x5$ viene letto dal register file per ottenere l'indirizzo base.
+		\item L'offset $16$ viene estratto e inviato alla ALU, che calcola l'indirizzo effettivo eseguendo $x5+16$.
+		\item L'indirizzo risultante è inviato alla memoria dati, che restituisce il valore ivi memorizzato.
+		\item Il valore letto va nel mux che riceve anche memToReg=1 e regWrite=1.
+		\item Il valore è ora scritto in $x4$, che conterrà infatti il valore memorizzato all'indirizzo $x5+16$.
+	\end{enumerate}
+\end{eg}
+\begin{eg}
+	Inserisci esempio istruzione di salto.
+\end{eg}
+\noindent Un'ultima particolarità di cui tener conto è il quantitativo di bits usati per un'operazione. Usiamo load come esempio; avremo:
+\begin{itemize}
+	\item \textbf{lw}: Load word.
+	\item \textbf{lh}: Load half-word.
+	\item \textbf{lb}: Load byte.
+	\item \textbf{l*u}: Load unsigned, con $* \in \{w, h, b\}$
+\end{itemize}
 
 %
 
@@ -78,6 +175,13 @@ Il terzo ed ultimo stato è infatti quello dell'esecuzione delle istruzioni deco
 %
 
 \section{Direct Memory Access, BUS e Arbitraggio}
+
+
+
+
+Senso della memoria cache:
+- Il bus riceve segnali elettromagnetici e per far sì che continui a funzionare senza essere danneggiato deve necessariamente essere esteso con una certa dimensione. Tuttavia, ciò rallenta il processo di scambio dati.
+Se invece i dati sono già in CPU, del bus non ce n'è bisogno ed il fetch è pressoché istantaneo. Meglio, no? È veloce. Se applichiamo questo concetto alle istruzioni noterai che avrai due tipi di memorie; una per i dati, ed una per le istruzioni. Quando la roba è in cache, ci accede in 1 clock tick.
 
 %
 
@@ -103,10 +207,6 @@ Static RAM, Dynamic RAM, Banchi di memoria ed esercizi.
 %
 
 \section{Pipelining}
-
-%
-
-\section{Architettura LC-3}
 
 %
 

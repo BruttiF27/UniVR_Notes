@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  19 AUG 2025 18:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  24 AUG 2025 14:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -455,13 +455,30 @@ File: Images/FetDecExe.png Graphic file (type png)
 <use Images/FetDecExe.png>
 Package pdftex.def Info: Images/FetDecExe.png  used on input line 55.
 (pdftex.def)             Requested size: 360.00137pt x 57.09377pt.
- [29 <./Images/FetDecExe.png>]) [30]
+ [29 <./Images/FetDecExe.png>]
+<Images/ControlUnit_simple.png, id=137, 842.14626pt x 497.86pt>
+File: Images/ControlUnit_simple.png Graphic file (type png)
+<use Images/ControlUnit_simple.png>
+Package pdftex.def Info: Images/ControlUnit_simple.png  used on input line 82.
+(pdftex.def)             Requested size: 360.00137pt x 212.82976pt.
+ [30 <./Images/ControlUnit_simple.png>]
+<Images/ControlUnit1.png, id=143, 979.66pt x 723.70375pt>
+File: Images/ControlUnit1.png Graphic file (type png)
+<use Images/ControlUnit1.png>
+Package pdftex.def Info: Images/ControlUnit1.png  used on input line 100.
+(pdftex.def)             Requested size: 360.00137pt x 265.93309pt.
+ [31 <./Images/ControlUnit1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 111--112
+
+ []
+
+[32] [33]) [34] [35]
 Chapter 5.
-(./Chapters/5.tex) [31
+(./Chapters/5.tex) [36
 
 ]
 Chapter 6.
-(./Chapters/6.tex [32
+(./Chapters/6.tex [37
 
 ]
 Overfull \hbox (39.45393pt too wide) in paragraph at lines 39--41
@@ -476,23 +493,23 @@ Overfull \hbox (2.32262pt too wide) in paragraph at lines 46--48
 zzo ef-fet-tivo dell'operando. 
  []
 
-[33]
+[38]
 Underfull \hbox (badness 10000) in paragraph at lines 84--85
 
  []
 
-[34]
+[39]
 Overfull \hbox (7.05692pt too wide) in paragraph at lines 118--119
 [][]\OT1/cmr/m/n/12 E nec-es-sario as-sem-blare il pro-gramma ag-giun-gendo il 
 flag di de-bug: \OT1/cmr/bx/n/12 -gstabs\OT1/cmr/m/n/12 , dopodich^^Se
  []
 
-[35] [36] [37] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[40] [41] [42] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-)) [38]
+)) [43]
 (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -500,10 +517,10 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5514 strings out of 476182
- 82465 string characters out of 5795596
+ 5530 strings out of 476182
+ 82949 string characters out of 5795596
  2000975 words of memory out of 5000000
- 27414 multiletter control sequences out of 15000+600000
+ 27430 multiletter control sequences out of 15000+600000
  572538 words of font info for 95 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  64i,15n,70p,597b,1644s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -525,10 +542,10 @@ b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (39 pages, 395106 bytes).
+Output written on main.pdf (44 pages, 456627 bytes).
 PDF statistics:
- 251 PDF objects out of 1000 (max. 8388607)
- 150 compressed objects within 2 object streams
+ 271 PDF objects out of 1000 (max. 8388607)
+ 161 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

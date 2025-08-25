@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  24 AUG 2025 14:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  25 AUG 2025 15:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -472,13 +472,136 @@ Underfull \hbox (badness 10000) in paragraph at lines 111--112
 
  []
 
-[32] [33]) [34] [35]
+<Images/RISC-V_CU.png, id=148, 1200.485pt x 708.6475pt>
+File: Images/RISC-V_CU.png Graphic file (type png)
+<use Images/RISC-V_CU.png>
+Package pdftex.def Info: Images/RISC-V_CU.png  used on input line 126.
+(pdftex.def)             Requested size: 450.0pt x 265.63403pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[32] [33 <./Images/RISC-V_CU.png>]
+<Images/Device_IO.png, id=156, 221.82875pt x 161.60374pt>
+File: Images/Device_IO.png Graphic file (type png)
+<use Images/Device_IO.png>
+Package pdftex.def Info: Images/Device_IO.png  used on input line 181.
+(pdftex.def)             Requested size: 85.49979pt x 62.28543pt.
+
+Underfull \hbox (badness 1014) in paragraph at lines 189--190
+[]\OT1/cmr/bx/n/12 Registro Dati\OT1/cmr/m/n/12 : Dove sono sal-
+ []
+
+
+Underfull \hbox (badness 1629) in paragraph at lines 191--192
+[]\OT1/cmr/bx/n/12 Interfaccia Analogico-Digitale\OT1/cmr/m/n/12 :
+ []
+
+
+Overfull \hbox (38.39667pt too wide) in paragraph at lines 179--194
+\OT1/cmr/m/n/12 sis-tema me-di-ante l'utilizzo di due reg-istri da $1\OML/cmm/m
+/it/12 B$ \OT1/cmr/m/n/12 l'uno. $[]$
+ []
+
+[34]
+Underfull \hbox (badness 10000) in paragraph at lines 195--196
+
+ []
+
+[35 <./Images/Device_IO.png>]
+<Images/interrupt.png, id=164, 472.76625pt x 311.1625pt>
+File: Images/interrupt.png Graphic file (type png)
+<use Images/interrupt.png>
+Package pdftex.def Info: Images/interrupt.png  used on input line 200.
+(pdftex.def)             Requested size: 314.99863pt x 207.32878pt.
+ [36 <./Images/interrupt.png>]
+<Images/ArbitraggioBUS.png, id=170, 412.54124pt x 202.7575pt>
+File: Images/ArbitraggioBUS.png Graphic file (type png)
+<use Images/ArbitraggioBUS.png>
+Package pdftex.def Info: Images/ArbitraggioBUS.png  used on input line 222.
+(pdftex.def)             Requested size: 314.99863pt x 154.81816pt.
+ [37 <./Images/ArbitraggioBUS.png>]
+<Images/BUS_Sincrono.png, id=175, 734.745pt x 231.86626pt>
+File: Images/BUS_Sincrono.png Graphic file (type png)
+<use Images/BUS_Sincrono.png>
+Package pdftex.def Info: Images/BUS_Sincrono.png  used on input line 241.
+(pdftex.def)             Requested size: 360.00137pt x 113.60837pt.
+<Images/Funz_Multiciclo.png, id=176, 530.98375pt x 287.0725pt>
+File: Images/Funz_Multiciclo.png Graphic file (type png)
+<use Images/Funz_Multiciclo.png>
+Package pdftex.def Info: Images/Funz_Multiciclo.png  used on input line 251.
+(pdftex.def)             Requested size: 270.00275pt x 145.97575pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (2.79973pt too wide) in paragraph at lines 258--259
+\OT1/cmr/m/it/12 l'abbassamento di Mas-ter-Ready, si potr^^Ra chi-ud-ere l'oper
+azione, lib-er-are il BUS e prepararsi
+ []
+
+[38 <./Images/BUS_Sincrono.png>]
+<Images/BUS_Asincrono.png, id=181, 340.27126pt x 236.885pt>
+File: Images/BUS_Asincrono.png Graphic file (type png)
+<use Images/BUS_Asincrono.png>
+Package pdftex.def Info: Images/BUS_Asincrono.png  used on input line 262.
+(pdftex.def)             Requested size: 225.0pt x 156.63736pt.
+<Images/TimeSharing.png, id=182, 395.4775pt x 299.1175pt>
+File: Images/TimeSharing.png Graphic file (type png)
+<use Images/TimeSharing.png>
+Package pdftex.def Info: Images/TimeSharing.png  used on input line 273.
+(pdftex.def)             Requested size: 270.00275pt x 204.21875pt.
+ [39 <./Images/Funz_Multiciclo.png> <./Images/BUS_Asincrono.png>]
+<Images/ProcFSM.png, id=188, 353.32pt x 323.2075pt>
+File: Images/ProcFSM.png Graphic file (type png)
+<use Images/ProcFSM.png>
+Package pdftex.def Info: Images/ProcFSM.png  used on input line 280.
+(pdftex.def)             Requested size: 213.75275pt x 195.53867pt.
+
+Underfull \hbox (badness 4156) in paragraph at lines 286--287
+[]\OT1/cmr/bx/n/12 ExecutionSystem\OT1/cmr/m/n/12 : Dato dalla
+ []
+
+[40 <./Images/TimeSharing.png>] [41 <./Images/procFSM.png>]
+<Images/Stack.png, id=199, 191.71625pt x 241.90375pt>
+File: Images/Stack.png Graphic file (type png)
+<use Images/Stack.png>
+Package pdftex.def Info: Images/Stack.png  used on input line 311.
+(pdftex.def)             Requested size: 106.87637pt x 134.85612pt.
+
+Underfull \hbox (badness 1147) in paragraph at lines 320--321
+\OT1/cmr/m/n/12 non uti-liz-zato per il nos-tro pro-
+ []
+
+[42 <./Images/Stack.png>]
+<Images/OrganizzazioneMemoria.png, id=205, 770.88pt x 510.90875pt>
+File: Images/OrganizzazioneMemoria.png Graphic file (type png)
+<use Images/OrganizzazioneMemoria.png>
+Package pdftex.def Info: Images/OrganizzazioneMemoria.png  used on input line 3
+43.
+(pdftex.def)             Requested size: 360.00137pt x 238.59137pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Images/SRAM.png, id=206, 452.69125pt x 209.78375pt>
+File: Images/SRAM.png Graphic file (type png)
+<use Images/SRAM.png>
+Package pdftex.def Info: Images/SRAM.png  used on input line 358.
+(pdftex.def)             Requested size: 270.00275pt x 125.12216pt.
+[43] [44 <./Images/OrganizzazioneMemoria.png> <./Images/SRAM.png>]
+<Images/funzSRAM.png, id=216, 653.44125pt x 344.28625pt>
+File: Images/funzSRAM.png Graphic file (type png)
+<use Images/funzSRAM.png>
+Package pdftex.def Info: Images/funzSRAM.png  used on input line 373.
+(pdftex.def)             Requested size: 360.00137pt x 189.67847pt.
+ [45 <./Images/funzSRAM.png>]) [46]
 Chapter 5.
-(./Chapters/5.tex) [36
+(./Chapters/5.tex) [47
 
 ]
 Chapter 6.
-(./Chapters/6.tex [37
+(./Chapters/6.tex [48
 
 ]
 Overfull \hbox (39.45393pt too wide) in paragraph at lines 39--41
@@ -493,23 +616,23 @@ Overfull \hbox (2.32262pt too wide) in paragraph at lines 46--48
 zzo ef-fet-tivo dell'operando. 
  []
 
-[38]
+[49]
 Underfull \hbox (badness 10000) in paragraph at lines 84--85
 
  []
 
-[39]
+[50]
 Overfull \hbox (7.05692pt too wide) in paragraph at lines 118--119
 [][]\OT1/cmr/m/n/12 E nec-es-sario as-sem-blare il pro-gramma ag-giun-gendo il 
 flag di de-bug: \OT1/cmr/bx/n/12 -gstabs\OT1/cmr/m/n/12 , dopodich^^Se
  []
 
-[40] [41] [42] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[51] [52] [53] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-)) [43]
+)) [54]
 (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -517,13 +640,13 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5530 strings out of 476182
- 82949 string characters out of 5795596
+ 5638 strings out of 476182
+ 85732 string characters out of 5795596
  2000975 words of memory out of 5000000
- 27430 multiletter control sequences out of 15000+600000
- 572538 words of font info for 95 fonts, out of 8000000 for 9000
+ 27536 multiletter control sequences out of 15000+600000
+ 573239 words of font info for 97 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 64i,15n,70p,597b,1644s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,15n,70p,719b,1644s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1095.600pk
 > </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk>
  </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk><
@@ -531,21 +654,24 @@ Here is how much of TeX's memory you used:
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-l12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (44 pages, 456627 bytes).
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (55 pages, 638654 bytes).
 PDF statistics:
- 271 PDF objects out of 1000 (max. 8388607)
- 161 compressed objects within 2 object streams
+ 347 PDF objects out of 1000 (max. 8388607)
+ 194 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 131 words of extra memory for PDF output out of 10000 (max. 10000000)
 

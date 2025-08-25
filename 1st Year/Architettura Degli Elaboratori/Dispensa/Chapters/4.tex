@@ -121,7 +121,12 @@ Notare inoltre il multiplexer posto fra la ALU ed il blocco centrale; è necessa
 	\item \textbf{Type-SB}: Istruzioni di salto.\par
 	\textbf{rs1} e \textbf{rs2} sono confrontati. Il campo immediato di 12b è preso, il suo bit di segno viene esteso, shiftato a sinistra di una posizione e sommato al program counter per calcolare l'indirizzo di destinazione del salto.
 \end{itemize}
-% TODO INSERISCI ControlUnit_riscV.png, è l'immagine del datapath completo.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/RISC-V_CU.png}
+	\caption{Architettura della control unit RISC-V}
+	\label{fig:R5-CU}
+\end{figure}
 \begin{eg}
 	\textbf{Istruzione [sub x4, x5, x6]}
 	\begin{enumerate}
@@ -171,29 +176,223 @@ Notare inoltre il multiplexer posto fra la ALU ed il blocco centrale; è necessa
 %
 
 \section{Metodi di I/O, Segnale Interrupt}
+Lo scopo dei dispositivi Input/Output, detti anche \textbf{periferiche}, è quello di effettuare uno scambio di dati più naturale fra persona e macchina. Alcuni esempi di queste architetture sono tastiera, mouse o altoparlanti. Sono capaci di codificare l'informazione e mandarla al sistema mediante l'utilizzo di due registri da $1B$ l'uno.
+\begin{minipage}{0.475\linewidth}
+	\includegraphics[width=0.4\linewidth]{Images/Device_IO.png}
+	\label{fig:IODEV}
+\end{minipage}
+\vspace{0.02\linewidth}
+\begin{minipage}{0.475\linewidth}
+	Osserviamo le loro componenti:
+	\begin{itemize}
+		\item \textbf{Micro-Controllore}: Piccola CPU dedicata al dispositivo. Supervisiona e controlla qualunque cosa si faccia.
+		\item \textbf{Registro Dati}: Dove sono salvate tutte le codifiche della periferica. L'input è ricevuto attivamente e viene tradotto dall'interfaccia.
+		\item \textbf{Registro Stato}: Effettua una funzione analoga al PSW ed esattamente come lui, ogni bit ha significato.
+		\item \textbf{Interfaccia Analogico-Digitale}: Componente che traduce da segnale analogico a segnale digitale.
+	\end{itemize}
+\end{minipage}
+I dispositivi I/O sono \textbf{Memory Mapped}; ciò significa che nella macchina intera esiste un intervallo di indirizzi riservato a loro a cui rispondono i registri Dati e Stato. Nel caso in cui si provasse a far accedere la memoria in quei registri, la CPU si rifiuterebbe. L'unico modo per entrarvi è utilizzare gli accessi da SuperUser o Admin, dipendentemente dal sistema operativo che si usa.\par
+Ottenendo questi accessi, è possibile effettuare una \textbf{Supervisor Call}\footnote{SVC, Chiamata per passare il controllo delle operazioni al sistema operativo}. Ciò apre varie possibilità di personalizzazione, come la modifica degli output dei tasti in una tastiera. Se si vuole invece solo gestire le periferiche, si utilizza la tecnica del \textbf{Polling}\footnote{Verifica ciclica dei dispositivi I/O mediante testing dei bits di bus di ogni periferica, seguita da un'interazione Read/Write.}, implicando che la periferica abbia una potenza simile se non uguale a quella della CPU. In caso contrario, verrebbero persi dati in corso d'opera.\newline
+
+\noindent Parliamo ora invece di \textbf{Interrupt}; un segnale asincrono che interrompe il lavoro della CPU. Quando il suo flag è disattivato, è richiesto l'intervento dell'unità di controllo per riattivarlo.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/interrupt.png}
+	\caption{Funzionamento dell'Interrupt}
+	\label{fig:Intpt}
+\end{figure}
+Nello specifico, l'algoritmo si realizza tramite due elementi; \textbf{interrupt request}, dato dal dispositivo, aggiorna il valore di interrupt a $0$, ed \textbf{interrupt acknowledgement}, un segnale proveniente dalla CPU per confermare quale dispositivo ha richiesto l'interruzione. È grazie a quest'ultimo segnale che l'unità di controllo è capace di controllare sequenzialmente le richieste di ogni dispositivo. Una volta trovato il chiamante, chiamerà la \textbf{interrupt service routine} ad esso associato.\par
+Il compito della ISV è salvare le modifiche fatte a PC e PSW per poi interrompere il programma; infine interverrà il microprocessore per scaricare quanto appena salvato e tornare allo stato precedente. Notare inoltre che le richieste di interrupt non si sovrappongono e sono state create per gestire tempi umani, quindi non si otterranno ulteriori richieste finché la prima non sarà risolta.\par
+La ISV è poi parte integrante del \textbf{Device driver}, un programma con lo scopo di ottimizzare e ridurre gli sforzi della CPU legati al funzionamento di una periferica. Sarà discusso più nel dettaglio nella sezione apposita.
 
 %
 
 \section{Direct Memory Access, BUS e Arbitraggio}
-
-
-
-
-Senso della memoria cache:
-- Il bus riceve segnali elettromagnetici e per far sì che continui a funzionare senza essere danneggiato deve necessariamente essere esteso con una certa dimensione. Tuttavia, ciò rallenta il processo di scambio dati.
-Se invece i dati sono già in CPU, del bus non ce n'è bisogno ed il fetch è pressoché istantaneo. Meglio, no? È veloce. Se applichiamo questo concetto alle istruzioni noterai che avrai due tipi di memorie; una per i dati, ed una per le istruzioni. Quando la roba è in cache, ci accede in 1 clock tick.
+Iniziamo dando una visione più vasta del problema; è nostro volere trasportare una grande quantità di dati utilizzando il sistema appena visto con l'interrupt signal. Nel modello di Von Neumann avremo di conseguenza il seguente processo:
+\begin{enumerate}
+	\item I dispositivi I/O ricevono l'input e lo inviano alla CPU.
+	\item Ricevuti i dati, l'interrupt signal sarà posto a $0$ e si inizierà a lavorare con quanto ottenuto.
+	\item I dati elaborati sono salvati in memoria.
+\end{enumerate}
+\noindent Capiamo subito il fatto che se l'interrupt signal è gestito in questo modo avremo uno spreco di risorse non indifferente; una soluzione al problema è ottenuta tramite il \textbf{Direct Memory Access}.\par
+La CPU programmerà un dispositivo I/O per far sì che questo possa accedere direttamente alla memoria senza passare da essa. Sarà inoltre in grado di eseguire operazioni di lettura e scrittura, grazie al suo micro-controllore e relativi registri.\par
+Il vantaggio sta nella divisione del lavoro fra CPU e periferiche, risparmiando energia della CPU; infatti, una volta finito il lavoro della periferica con DMA, il microprocessore della macchina dovrà ricevere un singolo interrupt. Tuttavia, ciò fa sorgere un ulteriore problema: più CPU potrebbero voler accedere allo stesso BUS e se questo avesse luogo, si potrebbero perdere dati. La soluzione sta in una gestione del BUS tramite un \textbf{arbitro}, il cui ruolo è tipicamente vestito dalla CPU principale. Sarà lei a scegliere chi e quando potrà accedere ed usare il BUS. Lo schema non è dissimile dal lavoro che esegue il singolo interrupt signal.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/ArbitraggioBUS.png}
+	\caption{Arbitraggio dei BUS}
+	\label{fig:arbBUS}
+\end{figure}
+Nell'immagine è possibile notare la presenza di segnali nuovi:
+\begin{itemize}
+	\item \textbf{BUS Busy}: Segnale che indica se il BUS è attualmente utilizzato da una componente.
+	\item \textbf{BUS Request}: Segnale che indica una richiesta fatta alla CPU per poter utilizzare il BUS.
+	\item \textbf{BUS Grant}: Segnale di concessione di utilizzo BUS una volta terminato il precedente lavoro\footnote{La CPU trasmette questo segnale in ordine fissato, da sinistra a destra. Per ottimizzare i tempi, è intelligente porre per prime le componenti più utilizzate dal sistema}.
+\end{itemize}
+\noindent Prima di andare nel dettaglio è necessario familiarizzare con due termini: \textbf{Master} e \textbf{Slave}, le entità sulle quali si basa il funzionamento del BUS. Il primo è colui che inizia l'operazione, mentre il secondo ne risponde. Esistono due protocolli di operazione che renderanno rispettivamente un BUS sincrono o asincrono.\par
+Negli schemi seguenti verranno usati esagoni per rendere la scrittura più compatta. Se le linee si incrociano avremo un cambio di valore, mentre se sulla stessa riga v'è una linea sola è sinonimo di \textbf{alta impedenza}\footnote{La parte non può agire poiché non riceve segnale}.
+\begin{eg}
+	\textbf{BUS Sincrono}\par
+	\noindent Le operazioni effettuabili sono le classiche lettura e scrittura. La prima vede il Master nel fronte di salita ricevere il dato per poi farlo leggere, produrre ed inviare al BUS Dati dallo Slave nel fronte di discesa.\par
+	La seconda invece ha le medesime condizioni iniziali, ma lo Slave agirà prima per scrivere il dato.
+\end{eg}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/BUS_Sincrono.png}
+	\caption{Operazioni in un BUS Sincrono}
+	\label{fig:SynBUS}
+\end{figure}
+\begin{eg}
+	\textbf{BUS funzionamento multiciclo}\par
+	\noindent Questo utilizzo del BUS sincrono è quello che viene generalmente più utilizzato. Crea un ambiente relativamente solido per effettuare operazioni con la sicurezza di poter gestire ritardi o fallimenti grazie ad un segnale aggiuntivo detto \textbf{Pronto}, il quale si attiva quando l'operazione è stata ultimata. Sceglieremo i cicli minimi che diranno quale coppia Master/Slave è la migliore.
+\end{eg}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/Funz_Multiciclo.png}
+	\caption{Funzionamento BUS Multiciclo}
+	\label{fig:SynMulBUS}
+\end{figure}
+\begin{eg}
+	\textbf{BUS Asincrono}\par
+	\noindent Qui abbiamo un doppio riscontro detto \textbf{Hand-Shaking} e due segnali \textbf{MasterReady} e \textbf{SlaveReady}. Di per sé non è complesso, ma aiuta molto guardare la figura durante la lettura.\par
+	Diciamo di voler effettuare una lettura a tempo generico $i$; per prima cosa il Master dovrà ricevere il segnale del comando, il quale attiverà MasterReady. Ottenuti i dati, li invierà allo Slave che rimanderà tutto al primo come precedentemente visto. Finito di leggere ed una volta confermato che le operazioni sono state completate tramite l'abbassamento di MasterReady, si potrà chiudere l'operazione, liberare il BUS e prepararsi per una prossima istruzione.
+\end{eg}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{Images/BUS_Asincrono.png}
+	\caption{Lettura in un BUS Asincrono}
+	\label{fig:AsyBUS}
+\end{figure}
 
 %
 
 \section{Stati di un processo}
+I concetti di direct memory acces e arbitraggio BUS sono fondamentali in quanto alla base degli elaboratori contemporanei sta il multitasking, che è reso possibile grazie a quanto visto finora. Più nello specifico, andremo a parlare ora di \textbf{Time Sharing}, un meccanismo di condivisione del runtime fra le varie operazioni. Fondamentalmente si divide l'intervallo di tempo reale in vari sottointervalli di egual misura, la cui dimensione è un \textbf{Quanto}, che corrisponde ad $1ms$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/TimeSharing.png}
+	\caption{Grafico temporale del Time Sharing}
+	\label{fig:TimeSharing}
+\end{figure}
+Fondamentalmente, comincia il primo processo che ha a disposizione $1Q$ di tempo per lavorare e quando finisce questo arco di tempo, si passa al processo successivo e così via fino al loro termine. Tuttavia, nell'eventualità di una SVC, il processo viene interrotto fino alla comunicazione dell'interrupt.\par
+In sostanza, la macchina non sta elaborando più processi allo stesso tempo, bensì uno alla volta ma ad una tale velocità che ciò risulta impercettibile. L'algoritmo è gestito dal \textbf{Kernel} del sistema operativo, il quale vede i progressi di un processo in base allo stato in cui si trovano, ovvero i seguenti:\newline
+\begin{minipage}{0.475\linewidth}
+	\includegraphics[width=1\linewidth]{Images/ProcFSM.png}
+	\label{fig:ProcFSM}
+\end{minipage}
+\vspace{0.02\linewidth}
+\begin{minipage}{0.475\linewidth}
+	\begin{itemize}
+		\item \textbf{ExecutionSystem}: Dato dalla CPU, è lo stato dove il sistema operativo ha libero accesso.
+		\item \textbf{ExecutionUser}: Dato dalla CPU, qui il sistema operativo ha accesso limitato per consentire all'utente di agire in caso di una SVC\footnote{Nell'ISA Intel 80x86 le SVC svolgono anche la funzione di interrupt signals e si indicano con "int".}.
+		\item \textbf{Waiting}: Stato dove si spostano i processi non terminati mentre la macchina ne esegue altri.
+		\item \textbf{Ready}: Stato dove si trovano i processi interrotti ora pronti per essere eseguiti. Si basa sulla regola LIFO.
+	\end{itemize}
+\end{minipage}
+\newline\noindent Mentre la CPU conta i cicli di clock dedicati agli interrupt signals, il sistema operativo può intervenire sui processi grazie allo \textbf{Scheduler}, il cui compito è decidere se dare ulteriore tempo ad un processo per interromperlo o terminarlo in base al tempo utilizzato in un quanto prima della SVC. Se è meno della metà, il sistema operativo aspetterà il prossimo ciclo di clock, altrimenti lo sposta in E-System. Questo meccanismo è detto \textbf{Preemption}.\par
+Se uno scheduler lavora in tempo reale, i processi da lui gestiti si diranno \textbf{corretti} e produrranno un risultato giusto nell'intervallo di tempo giusto. In merito diremo inoltre:
+\begin{itemize}
+	\item \textbf{Soft RealTime}: Se il processo è stato ultimato sforando di poco l'intervallo di tempo a disposizione.
+	\item \textbf{Hard RealTime}: Se il processo è stato ultimato entro l'intervallo di tempo a disposizione.
+\end{itemize}
+\noindent Ogni singolo processo ha poi un suo descrittore che fa parte di una struttura dati del sistema operativo le cui parti sono: ProcessID, Proprietà, Stato della CPU\footnote{Il salvataggio dello state nella memoria.}, Cache e FileID. Questo tipo di strutture è salvato dallo scheduler e si dice \textbf{Context Switch}. Tuttavia, essendo che necessita del tempo, tutte le istanze in cui esso avviene sono tempi persi. Quanto visto finora crea l'illusione per la macchina di avere una CPU per ogni singolo processo, idem per i dispositivi di I/O.
 
 %
 
 \section{Pila e gestione Interrupt}
+Avrai con ogni probabilità sentito parlare del termine \textbf{Stack}. Conoscere il suo funzionamento è \textit{fondamentale} per comprendere appieno come i programmi vengono trattati dalla macchina. Si tratta di una zona di memoria con due caratteristiche:
+\begin{itemize}
+	\item \textbf{Ristretta}: Vengono selezionati rispettivamente un indirizzo di fine ed uno di inizio per delimitare lo spazio apposito per il programma. I loro valori sono salvati in due registri posti all'inizio e la fine di questa zona di memoria.
+	\item \textbf{Riservata}: Ciò è necessario perché se altri processi dovessero accedere ad una zona di memoria già usata, si sfalserebbero o sovrascriverebbero i dati. 
+\end{itemize}
+\noindent La Pila è divisa propriamente in quattro parti quando questa è ristretta per un programma:\newline
+\begin{minipage}{0.475\linewidth}
+	\centering
+	\includegraphics[width=0.5\linewidth]{Images/Stack.png}
+	\label{fig:Stack}
+\end{minipage}
+\vspace{0.02\linewidth}
+\begin{minipage}{0.475\linewidth}
+	\begin{itemize}
+		\item \textbf{Codice}: Registri per il salvataggio del codice scritto.
+		\item \textbf{Dati Statici}: Registri per il salvataggio di costanti simboliche.
+		\item \textbf{Dati Dinamici o Heap}: Registri per la memoria temporanea.
+		\item \textbf{Ulteriore stack}: Il resto della pila non utilizzato per il nostro programma.
+	\end{itemize}
+\end{minipage}
+\newline\noindent La stack è capace di allocare le variabili locali e passare parametri a funzioni. Proprio grazie a queste ultime è possibile ottimizzare l'utilizzo della memoria, in quanto lo spazio eventualmente creato per queste "vive" fino al loro termine, rendendolo riutilizzabile. Detto ciò, esistono tre azioni \textit{illegali} che portano direttamente ad errori fatali:
+\begin{itemize}
+	\item Tentativo di accesso a zone di memoria al di fuori dello spazio creato per il dato processo; Se ciò accade, interviene il sistema operativo mediante una routine simil-interrupt per fermare il programma.
+	\item Esecuzione di istruzioni che il processore non è abilitato ad effettuare; risulterà in un errore di Interrupt Service Routine.
+	\item Lettura di sequenze di bits non integrate nell'ISA, di conseguenza irriconoscibili per la macchina; Avrà luogo una \textbf{TRAP}. Il microprocessore effettuerà una SVC per attivare l'ISR e fermare il processo. L'eventuale report sarà condiviso mediante registri.
+\end{itemize}
+\noindent Mettiamo di avere un semplice programma in C, abilitato all'utilizzo di una funzione; in tal caso avremo che gli eventuali parametri da essa ricevuti saranno posti in cima alla pila, su registri antecedenti quelli della funzione main. Questo perché la stack è gestita con la regola \textbf{LIFO}, ovvero last-in, first-out.\par
+Questo meccanismo è ottenuto posizionando il Program Counter in cima alle celle di memoria allocate per il main, insieme ad una necessaria zona del main dove ritornare il valore elaborato, per evitare che si perda. Infine, terminata la funzione, lo spazio che è stato utilizzato deve essere liberato dall'utente.\par
+Anche il sistema operativo ha una propria stack, dove sono presenti PSW e PC per effettuare le routines quando richiesto. Nel momento in cui termina, i registri nominati vengono scaricati.
+
+%
+
+\section{Device driver}
 
 %
 
 \section{Tipi di Memoria RAM}
+Parliamo di \textbf{Random Access Memory}. Si dice tale perché il tempo di accesso ai registri è indipendente dalla distanza percorsa dai segnali. Si compone di varie celle di bits organizzate e distanziate opportunamente entro un certo numero di bit, rendendole \textbf{indirizzabili}\footnote{Per accedere alla memoria è necessario sapere dove essa si trova, quindi conoscere il suo indirizzo.}; queste sono collegate orizzontalmente dalle \textbf{Word Lines} e verticalmente dalle \textbf{Bit Lines}, le quali sono collegate ad un circuito apposito per effettuare operazioni di lettura e scrittura.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/OrganizzazioneMemoria.png}
+	\caption{Organizzazione della memoria}
+	\label{fig:memOrg}
+\end{figure}
+Supponiamo di avere $2^4$ indirizzi, quindi quattro entrate nel decoder e sedici uscite, ovvero le Word Lines. Noi vogliamo poter attivare una singola cella fra tutte quelle presenti in memoria.\par
+La Linea di Parola andrà a scegliere la cella corretta, la quale invierà un segnale ai circuiti Read/Write che produrranno in output il bit di interesse\footnote{Questo segnale è di forma booleana, dove 0 significa scrittura, 1 lettura}.\par
+Una caratteristica aggiuntiva del modello in figura è la presenza di un'ulteriore Bit Line apposita per la \textbf{S-RAM}, che vedremo meglio fra poco. Ha lo scopo di amplificare la differenza nel segnale output di R/W\footnote{Si effettua una sottrazione. Se il circuito legge $1 - 0 < 0$, out = $1$; altrimenti se $1 - 0 > 0$, out = $0$}. Questo circuito è connesso direttamente alla scheda madre tramite pins dorati, il cui numero dipende dai seguenti tre tipi di segnale:
+\begin{itemize}
+	\item \textbf{Di indirizzo}: Dipendono da quanta memoria è possibile indirizzare.
+	\item \textbf{Di dato}: Dipendono dall'indirizzabilità.
+	\item \textbf{Di controllo}: Fanno parte dei circuiti R/W e si chiamano \textbf{controlSignal} e \textbf{chipSelect}
+\end{itemize}
+\noindent Per esempio, se avessimo $4$ indirizzi, $8$ segnali di dato, $1$ segnale di R/W ed $1$ segnale di chipSelect avremmo un totale di $14$ segnali e di conseguenza $14$ pins. Ora analizzeremo nel dettaglio il funzionamento di ogni memoria RAM.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/SRAM.png}
+	\caption{Modello di Static RAM}
+	\label{fig:SRAM}
+\end{figure}
+La memoria ad accesso casuale statica, \textbf{S-RAM}, è di tipo \textit{volatile}, quindi capace di mantenere il dato solamente se alimentata dall'elettricità. Si compone di due semiconduttori di tecnologia CMOS. Sono presenti nel circuito i segnali \textbf{bit vero} e \textbf{bit falso}, che per brevità chiamerò $b$ e $!b$. Loro vengono inviati tramite le apposite linee.\par
+L'operazione da compiere è selezionata tramite due transistor. Nel caso in cui la Word Line abbia il valore $0$, $b$ e $!b$ saranno isolati; se invece ha il valore $1$, $x$ otterrà il segnale $b$ e $y$ $!b$.\par
+Per quanto veloce questa operazione possa essere, richiede un costo energetico importante, per questo che sono usate in quantità ridotte e posizionate puramente nella CPU.
+\begin{eg}
+	\textbf{Static RAM}\par
+	\noindent Ci è assegnata una matrice $32\times32$ in bits, per un totale di $1024b$. Noi vogliamo avere $10b$ di indirizzo ed $1b$ di dato.\par
+	Una prima cosa che possiamo dedurre sono le entrate del decoder; siccome la matrice riceve $32$ segnali, equivalenti a $2^5b$, avremo $5$ entrate. Questo gruppo consente di puntare ad una riga, ma è necessario trovare un metodo per selezionare la cella precisa.\par
+	Per far ciò si utilizza un blocco di logica di multiplexing, il quale riceve il segnale di R/W e, date le altre $32$ entrate, avrà un segnale di controllo a $5b$, ovvero quelli rimanenti di indirizzo. Il blocco darà in output il bit preciso che è stato selezionato.
+\end{eg}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/funzSRAM.png}
+	\caption{Funzionamento della S-RAM}
+	\label{fig:funzSRAM}
+\end{figure}
+
+% TODO CONTINUA DA DYNAMIC RAM
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Static RAM, Dynamic RAM, Banchi di memoria ed esercizi.
 
 %
@@ -202,7 +401,15 @@ Static RAM, Dynamic RAM, Banchi di memoria ed esercizi.
 
 %
 
-\section{Memoria Cache e Virtuale}
+\section{Memoria Cache, Paginata e Virtuale}
+
+
+
+
+
+Senso della memoria cache:
+- Il bus riceve segnali elettromagnetici e per far sì che continui a funzionare senza essere danneggiato deve necessariamente essere esteso con una certa dimensione. Tuttavia, ciò rallenta il processo di scambio dati.
+Se invece i dati sono già in CPU, del bus non ce n'è bisogno ed il fetch è pressoché istantaneo. Meglio, no? È veloce. Se applichiamo questo concetto alle istruzioni noterai che avrai due tipi di memorie; una per i dati, ed una per le istruzioni. Quando la roba è in cache, ci accede in 1 clock tick.
 
 %
 

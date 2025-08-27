@@ -333,67 +333,114 @@ Anche il sistema operativo ha una propria stack, dove sono presenti PSW e PC per
 %
 
 \section{Device driver}
+Gli elaboratori odierni hanno una caratteristica comune: necessitano di componenti software che compongono il sistema operativo, e che quindi gestiscano il flusso di input/output. In tal merito, nei dispositivi I/O andiamo a distinguere due livelli:
+\begin{itemize}
+	\item \textbf{Unità di controllo}, hardware.
+	\item \textbf{Device driver}, software.
+\end{itemize}
+\noindent È grazie al connubio fra queste due parti che possiamo avere un'astrazione tale da consentirci di programmare senza tener conto delle routine a basso livello del sistema operativo. Abbiamo già parlato di come ogni dispositivo I/O utilizzi il meccanismo dell'interrupt; tuttavia questo è legato alla frequenza con la quale avvengono le varie chiamate. Si presenta quindi il problema di gestire più device dalle diverse frequenze.\par
+La soluzione ha nome UNIX: rimandare ogni dispositivo I/O al concetto di file, indipendentemente dall'hardware della macchina. Ciò consente di poterci leggere, scrivere, oppure di fare operazioni di controllo input-output. In parole povere, il \textbf{device driver} è un file con un algoritmo.\newline
+
+\noindent Andando ora a parlare più nello specifico dei sistemi operativi, di norma sono costruiti secondo il modello \textbf{onion skin}, dove ogni strato più all'esterno arricchisce quello interno. Si compone di:
+\begin{itemize}
+	\item \textbf{Hardware}, autoesplicativo.
+	\item \textbf{Gestore dei processi}: Consente di gestire più processi grazie al meccanismo di time sharing.
+	\item \textbf{Gestore della memoria}: Divide la memoria in tanti sottoinsiemi, ognuno dei quali è dedicato ad un singolo processo. Queste zone di memoria sono inviolabili.
+	\item \textbf{Device driver}: Astrae la CPU del dispositivo I/O nel quale è inserita, facendolo vedere come un file. Dà inoltre l'impressione ad ogni processo di avere un dispositivo dedicato.
+	\item \textbf{File system}: Gestisce i dispositivi visti sotto forma di files.
+	\item \textbf{Gestore rete}: Comunica e gestisce la connessione con la rete internet.
+	\item \textbf{Interfaccia utente}, autoesplicativo.
+	\item \textbf{Software applicativo}: I programmi.
+\end{itemize}
+\noindent Dove questo schema rende bene un'idea della struttura dei sistemi operativi, è leggermente datato, perché oggi, per migliori prestazioni, è tutto scritto nel kernel e gestito da appositi moduli:
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.95\linewidth]{Images/Kernel.png}
+	\caption{Kernel moderno}
+	\label{fig:Kernel}
+\end{figure}
+\newline\noindent Come puoi vedere abbiamo i seguenti moduli del kernel:
+\begin{itemize}
+	\item \textbf{Hardware Dependent Software}: Algoritmi che lavorano a stretto contatto con l'hardware e che ne sono dipendenti.
+	\item \textbf{Gestore della memoria}: Permette che solo lo spazio di memoria scrivibile sia segnato da un processo. Gestisce anche la memoria virtuale.
+	\item \textbf{Device Driver}, il quale è diviso in ulteriori blocchi:
+	\begin{itemize}
+		\item \textbf{DD-Caratteri}: Trasferisce caratteri.
+		\item \textbf{DD-Blocchi}: Trasferisce minimo blocchi.
+		\item \textbf{DD-File System}: Gestisce il file system.
+		\item \textbf{DD-Network}: Trasferisce dati in forma di messaggio, ovvero da un intestatario ad una destinazione.
+		\item \textbf{DD-Other}: Usato per ulteriori tipi di dispositivi I/O, come le chiavi USB.
+	\end{itemize}
+\end{itemize}
+\noindent E i relativi servizi del sistema operativo, costruiti in base ai moduli precedenti ed utilizzati con il software applicativo:
+\begin{itemize}
+	\item \textbf{Device Software}: Gli algoritmi del sistema operativo a livello più alto.
+	\item \textbf{Networking}: Gestione della rete.
+	\item \textbf{File System}: Gestione dei files.
+	\item \textbf{Memory Management}: Gestione della memoria, per esempio come con malloc.
+	\item \textbf{Process Management}: Gestisce e consente di creare più processi allo stesso tempo, per esempio come con fork.
+\end{itemize}
 
 %
 
 \section{Tipi di Memoria RAM}
-Parliamo di \textbf{Random Access Memory}. Si dice tale perché il tempo di accesso ai registri è indipendente dalla distanza percorsa dai segnali. Si compone di varie celle di bits organizzate e distanziate opportunamente entro un certo numero di bit, rendendole \textbf{indirizzabili}\footnote{Per accedere alla memoria è necessario sapere dove essa si trova, quindi conoscere il suo indirizzo.}; queste sono collegate orizzontalmente dalle \textbf{Word Lines} e verticalmente dalle \textbf{Bit Lines}, le quali sono collegate ad un circuito apposito per effettuare operazioni di lettura e scrittura.
+Parliamo di \textbf{Random Access Memory}. Si dice tale perché il tempo di accesso ai registri è indipendente dalla distanza percorsa dai segnali. Si compone di varie celle di bits organizzate e distanziate opportunamente entro un certo numero di bit, rendendole \textbf{indirizzabili}\footnote{Per accedere alla memoria è necessario sapere dove essa si trova, quindi conoscere il suo indirizzo.}. Di fondamentale importanza sono le \textbf{WordLines} e le \textbf{BitLines}, le quali consentono di individuare un singolo bit di una singola parola. Le linee sono comuni ad ogni tipo di RAM, ma ne vedremo solo i primi due principali: \textbf{static RAM} e \textbf{dynamic RAM}.\newline
+
+\noindent Cominciamo dal primo tipo; la memoria ad accesso casuale statica è generalmente più prestante, nonostante richieda più transistor rispetto alla seconda. Presenta una wordLine orizzontale e due bitLine verticali, queste ultime collegate ad un circuito chiamato \textbf{Level Sense}, che è capace di scegliere l'operazione read/write in base ad un segnale dato dal bus controllo\footnote{Se riceve valore $0$, scrive, se $1$, legge.}. Il risultato è poi spedito al bus dati.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{Images/OrganizzazioneMemoria.png}
-	\caption{Organizzazione della memoria}
-	\label{fig:memOrg}
+	\includegraphics[width=0.6\linewidth]{Images/SRAM_min.png}
+	\caption{Unità minima di S-RAM}
+	\label{fig:SRAM_min}
 \end{figure}
-Supponiamo di avere $2^4$ indirizzi, quindi quattro entrate nel decoder e sedici uscite, ovvero le Word Lines. Noi vogliamo poter attivare una singola cella fra tutte quelle presenti in memoria.\par
-La Linea di Parola andrà a scegliere la cella corretta, la quale invierà un segnale ai circuiti Read/Write che produrranno in output il bit di interesse\footnote{Questo segnale è di forma booleana, dove 0 significa scrittura, 1 lettura}.\par
-Una caratteristica aggiuntiva del modello in figura è la presenza di un'ulteriore Bit Line apposita per la \textbf{S-RAM}, che vedremo meglio fra poco. Ha lo scopo di amplificare la differenza nel segnale output di R/W\footnote{Si effettua una sottrazione. Se il circuito legge $1 - 0 < 0$, out = $1$; altrimenti se $1 - 0 > 0$, out = $0$}. Questo circuito è connesso direttamente alla scheda madre tramite pins dorati, il cui numero dipende dai seguenti tre tipi di segnale:
+\newline\noindent Se la singola parola è selezionata, la wordLine avrà valore $1$, in alternativa sarà falsa; inoltre, è possibile modificare la parola e non il singolo bit specifico. Per essere precisi, avviene:
 \begin{itemize}
-	\item \textbf{Di indirizzo}: Dipendono da quanta memoria è possibile indirizzare.
-	\item \textbf{Di dato}: Dipendono dall'indirizzabilità.
-	\item \textbf{Di controllo}: Fanno parte dei circuiti R/W e si chiamano \textbf{controlSignal} e \textbf{chipSelect}
+	\item Se si vuole memorizzare $1$, sarà presente nella bitLine di sinistra, con $0$ nella destra.
+	\item Se si vuole memorizzare $0$, sarà presente nella bitLine di sinistra, con $1$ nella destra.
 \end{itemize}
-\noindent Per esempio, se avessimo $4$ indirizzi, $8$ segnali di dato, $1$ segnale di R/W ed $1$ segnale di chipSelect avremmo un totale di $14$ segnali e di conseguenza $14$ pins. Ora analizzeremo nel dettaglio il funzionamento di ogni memoria RAM.
+\noindent Notare che le parole sono composte da $32b$, quindi, il circuito Level Sense è collegato ad uno specifico bit del bus dati; di conseguenza ci saranno tanti circuiti minimi di S-RAM quanti sono i bit del bus dati. In questo caso, $32$. Se poi level sense decide di leggere, guarda alla bitLine sinistra e capisce la parte destra in base al valore della prima. Metterà poi il valore sul bus dati. Se scrive, invece, prende il bit dal bus dati e lo riporta in output.\par
+Proviamo adesso ad estendere il concetto e gestirlo su più bit. Supponiamo di avere una matrice $1024b\times32b$, quindi $1024$ parole e righe totali con $32$ colonne di bits.\par
+Naturalmente, i level sense devono essere collegati a bus controllo e bus dati, ma abbiamo ora un'aggiunta direttamente dal bus indirizzi: \textbf{ChipSelect}. Se vale $1$, farà lavorare il level sense scelto, disattivando gli altri.\par
+Per trovare il totale dei bit del bus indirizzi è necessario usare le potenze del $2$ per trovare il numero che corrisponde alle righe. Nel nostro caso, $2^{10} = 1024$, quindi avremo $10b$ di indirizzi. Questi sono poi collegati tramite un decoder che andrà a generare le nostre $1024$ wordlines. Selezionando infine un singolo bit dei $1024$ si arriverà la singola riga e tutte le altre saranno a $0$.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.6\linewidth]{Images/SRAM.png}
-	\caption{Modello di Static RAM}
+	\includegraphics[width=0.8\linewidth]{Images/SRAM.png}
+	\caption{Esempio di S-RAM}
 	\label{fig:SRAM}
 \end{figure}
-La memoria ad accesso casuale statica, \textbf{S-RAM}, è di tipo \textit{volatile}, quindi capace di mantenere il dato solamente se alimentata dall'elettricità. Si compone di due semiconduttori di tecnologia CMOS. Sono presenti nel circuito i segnali \textbf{bit vero} e \textbf{bit falso}, che per brevità chiamerò $b$ e $!b$. Loro vengono inviati tramite le apposite linee.\par
-L'operazione da compiere è selezionata tramite due transistor. Nel caso in cui la Word Line abbia il valore $0$, $b$ e $!b$ saranno isolati; se invece ha il valore $1$, $x$ otterrà il segnale $b$ e $y$ $!b$.\par
-Per quanto veloce questa operazione possa essere, richiede un costo energetico importante, per questo che sono usate in quantità ridotte e posizionate puramente nella CPU.
-\begin{eg}
-	\textbf{Static RAM}\par
-	\noindent Ci è assegnata una matrice $32\times32$ in bits, per un totale di $1024b$. Noi vogliamo avere $10b$ di indirizzo ed $1b$ di dato.\par
-	Una prima cosa che possiamo dedurre sono le entrate del decoder; siccome la matrice riceve $32$ segnali, equivalenti a $2^5b$, avremo $5$ entrate. Questo gruppo consente di puntare ad una riga, ma è necessario trovare un metodo per selezionare la cella precisa.\par
-	Per far ciò si utilizza un blocco di logica di multiplexing, il quale riceve il segnale di R/W e, date le altre $32$ entrate, avrà un segnale di controllo a $5b$, ovvero quelli rimanenti di indirizzo. Il blocco darà in output il bit preciso che è stato selezionato.
-\end{eg}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\linewidth]{Images/funzSRAM.png}
-	\caption{Funzionamento della S-RAM}
-	\label{fig:funzSRAM}
-\end{figure}
 
-% TODO CONTINUA DA DYNAMIC RAM
+
+% DRAM
 
 
 
 
 
 
+Una memoria ram è qunidi un vettore di parole.
 
 
 
 
+// What if, 1Mb x 64b?
+1Kb = $2^10$ -> 1Mb = $2^20$ (20b bus indirizzi)
 
+Essendo che le parole son fatte da 32b massimo, per gestire 64b avremo bisogno di coppie di circuiti S-ram.
+Prendi il circuito di prima 1024x32 e sdoppialo. Il primo gestirà i bit più significativi e l'altro quelli meno sign.
 
+Siccome hai richiesto 1M, 1M = 1024K.
+Quindi serviranno 1024 righe con 2 colonne contenenti sti due chip.
 
+Per selezionare il bit corretto si userà chip select, dato da un decoder supplementare che prende in input i bits che vanno da 10 a 19.
+Dove vanno gli indirizzi meno significativi? Ma agli altri decoder per ogni riga, ovviamente.
 
+- D-RAM
+Abbiamo la wordline ed una sola bitline.
+La cella da 1b è fatta in maniera diversa:
+- Abbiamo un transistor collegato ad un condensatore. Quando è in conduzione il valore della cella è porteto
 
-
-
-Static RAM, Dynamic RAM, Banchi di memoria ed esercizi.
+Con una certa frequenza inferiore al tempo di scarica, vado a leggere tutti i bit. Se vedo che un bit è a 1, lo riscrivo, mentre se è a 0 lo lascio stare.
+Il refresh lo fa il circuito della memoria e scarica il valore nei registri.
 
 %
 

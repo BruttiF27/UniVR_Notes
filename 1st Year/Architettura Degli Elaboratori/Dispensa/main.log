@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  25 AUG 2025 15:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  27 AUG 2025 14:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -574,34 +574,39 @@ Underfull \hbox (badness 1147) in paragraph at lines 320--321
  []
 
 [42 <./Images/Stack.png>]
-<Images/OrganizzazioneMemoria.png, id=205, 770.88pt x 510.90875pt>
-File: Images/OrganizzazioneMemoria.png Graphic file (type png)
-<use Images/OrganizzazioneMemoria.png>
-Package pdftex.def Info: Images/OrganizzazioneMemoria.png  used on input line 3
-43.
-(pdftex.def)             Requested size: 360.00137pt x 238.59137pt.
+Underfull \hbox (badness 10000) in paragraph at lines 342--343
 
+ []
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+[43]
+<Images/Kernel.png, id=208, 678.535pt x 560.0925pt>
+File: Images/Kernel.png Graphic file (type png)
+<use Images/Kernel.png>
+Package pdftex.def Info: Images/Kernel.png  used on input line 358.
+(pdftex.def)             Requested size: 427.49863pt x 352.86868pt.
+ [44 <./Images/Kernel.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
 
-<Images/SRAM.png, id=206, 452.69125pt x 209.78375pt>
+ []
+
+<Images/SRAM_min.png, id=213, 347.2975pt x 288.07625pt>
+File: Images/SRAM_min.png Graphic file (type png)
+<use Images/SRAM_min.png>
+Package pdftex.def Info: Images/SRAM_min.png  used on input line 392.
+(pdftex.def)             Requested size: 270.00275pt x 223.96887pt.
+[45] [46 <./Images/SRAM_min.png>]
+<Images/SRAM.png, id=221, 650.43pt x 503.8825pt>
 File: Images/SRAM.png Graphic file (type png)
 <use Images/SRAM.png>
-Package pdftex.def Info: Images/SRAM.png  used on input line 358.
-(pdftex.def)             Requested size: 270.00275pt x 125.12216pt.
-[43] [44 <./Images/OrganizzazioneMemoria.png> <./Images/SRAM.png>]
-<Images/funzSRAM.png, id=216, 653.44125pt x 344.28625pt>
-File: Images/funzSRAM.png Graphic file (type png)
-<use Images/funzSRAM.png>
-Package pdftex.def Info: Images/funzSRAM.png  used on input line 373.
-(pdftex.def)             Requested size: 360.00137pt x 189.67847pt.
- [45 <./Images/funzSRAM.png>]) [46]
+Package pdftex.def Info: Images/SRAM.png  used on input line 407.
+(pdftex.def)             Requested size: 360.00137pt x 278.89693pt.
+ [47 <./Images/SRAM.png>]) [48]
 Chapter 5.
-(./Chapters/5.tex) [47
+(./Chapters/5.tex) [49
 
 ]
 Chapter 6.
-(./Chapters/6.tex [48
+(./Chapters/6.tex [50
 
 ]
 Overfull \hbox (39.45393pt too wide) in paragraph at lines 39--41
@@ -616,23 +621,23 @@ Overfull \hbox (2.32262pt too wide) in paragraph at lines 46--48
 zzo ef-fet-tivo dell'operando. 
  []
 
-[49]
+[51]
 Underfull \hbox (badness 10000) in paragraph at lines 84--85
 
  []
 
-[50]
+[52]
 Overfull \hbox (7.05692pt too wide) in paragraph at lines 118--119
 [][]\OT1/cmr/m/n/12 E nec-es-sario as-sem-blare il pro-gramma ag-giun-gendo il 
 flag di de-bug: \OT1/cmr/bx/n/12 -gstabs\OT1/cmr/m/n/12 , dopodich^^Se
  []
 
-[51] [52] [53] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[53] [54] [55] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-)) [54]
+)) [56]
 (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -641,12 +646,12 @@ L3 programming layer <2024-01-22>
  ) 
 Here is how much of TeX's memory you used:
  5638 strings out of 476182
- 85732 string characters out of 5795596
+ 85627 string characters out of 5795596
  2000975 words of memory out of 5000000
  27536 multiletter control sequences out of 15000+600000
  573239 words of font info for 97 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 64i,15n,70p,719b,1644s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,15n,70p,747b,1644s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1095.600pk
 > </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1200.600pk>
  </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk><
@@ -654,24 +659,23 @@ Here is how much of TeX's memory you used:
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (55 pages, 638654 bytes).
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+l12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (57 pages, 653646 bytes).
 PDF statistics:
- 347 PDF objects out of 1000 (max. 8388607)
- 194 compressed objects within 2 object streams
+ 348 PDF objects out of 1000 (max. 8388607)
+ 195 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  131 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  27 AUG 2025 14:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  31 AUG 2025 14:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -600,13 +600,98 @@ File: Images/SRAM.png Graphic file (type png)
 <use Images/SRAM.png>
 Package pdftex.def Info: Images/SRAM.png  used on input line 407.
 (pdftex.def)             Requested size: 360.00137pt x 278.89693pt.
- [47 <./Images/SRAM.png>]) [48]
+
+Underfull \hbox (badness 10000) in paragraph at lines 417--420
+
+ []
+
+[47 <./Images/SRAM.png>]
+<Images/DRAM.png, id=226, 416.55624pt x 256.96pt>
+File: Images/DRAM.png Graphic file (type png)
+<use Images/DRAM.png>
+Package pdftex.def Info: Images/DRAM.png  used on input line 424.
+(pdftex.def)             Requested size: 270.00275pt x 166.56326pt.
+ [48 <./Images/DRAM.png>] [49]
+<Images/addressingBits.png, id=236, 526.96875pt x 741.77126pt>
+File: Images/addressingBits.png Graphic file (type png)
+<use Images/addressingBits.png>
+Package pdftex.def Info: Images/addressingBits.png  used on input line 471.
+(pdftex.def)             Requested size: 236.24725pt x 332.54895pt.
+ [50 <./Images/addressingBits.png>] [51]
+Underfull \hbox (badness 10000) in paragraph at lines 492--493
+
+ []
+
+<Images/wordToPage.png, id=244, 778.91pt x 231.86626pt>
+File: Images/wordToPage.png Graphic file (type png)
+<use Images/wordToPage.png>
+Package pdftex.def Info: Images/wordToPage.png  used on input line 502.
+(pdftex.def)             Requested size: 450.0pt x 133.95535pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[52] [53 <./Images/wordToPage.png>]
+<Images/pipeline.png, id=252, 563.10374pt x 322.20375pt>
+File: Images/pipeline.png Graphic file (type png)
+<use Images/pipeline.png>
+Package pdftex.def Info: Images/pipeline.png  used on input line 550.
+(pdftex.def)             Requested size: 314.99863pt x 180.24112pt.
+ [54 <./Images/pipeline.png>]
+<Images/pipelineInstr.png, id=258, 512.91624pt x 241.90375pt>
+File: Images/pipelineInstr.png Graphic file (type png)
+<use Images/pipelineInstr.png>
+Package pdftex.def Info: Images/pipelineInstr.png  used on input line 560.
+(pdftex.def)             Requested size: 314.99863pt x 148.56137pt.
+ [55 <./Images/pipelineInstr.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 570--571
+
+ []
+
+<Images/HenPat.jpg, id=266, 766.865pt x 431.6125pt>
+File: Images/HenPat.jpg Graphic file (type jpg)
+<use Images/HenPat.jpg>
+Package pdftex.def Info: Images/HenPat.jpg  used on input line 577.
+(pdftex.def)             Requested size: 360.00137pt x 202.6208pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[56]
+<Images/PowerPC Pipelines.png, id=270, 884.30376pt x 442.65375pt>
+File: Images/PowerPC Pipelines.png Graphic file (type png)
+<use Images/PowerPC Pipelines.png>
+Package pdftex.def Info: Images/PowerPC Pipelines.png  used on input line 599.
+(pdftex.def)             Requested size: 404.99725pt x 202.73161pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[57 <./Images/HenPat.jpg>] [58 <./Images/PowerPC Pipelines.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 609--610
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 612--613
+
+ []
+
+<Images/ModernArchitecture.png, id=278, 382.42876pt x 221.82875pt>
+File: Images/ModernArchitecture.png Graphic file (type png)
+<use Images/ModernArchitecture.png>
+Package pdftex.def Info: Images/ModernArchitecture.png  used on input line 619.
+
+(pdftex.def)             Requested size: 202.49863pt x 117.46034pt.
+)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[59] [60 <./Images/ModernArchitecture.png>]
 Chapter 5.
-(./Chapters/5.tex) [49
+(./Chapters/5.tex) [61
 
 ]
 Chapter 6.
-(./Chapters/6.tex [50
+(./Chapters/6.tex [62
 
 ]
 Overfull \hbox (39.45393pt too wide) in paragraph at lines 39--41
@@ -621,23 +706,23 @@ Overfull \hbox (2.32262pt too wide) in paragraph at lines 46--48
 zzo ef-fet-tivo dell'operando. 
  []
 
-[51]
+[63]
 Underfull \hbox (badness 10000) in paragraph at lines 84--85
 
  []
 
-[52]
+[64]
 Overfull \hbox (7.05692pt too wide) in paragraph at lines 118--119
 [][]\OT1/cmr/m/n/12 E nec-es-sario as-sem-blare il pro-gramma ag-giun-gendo il 
 flag di de-bug: \OT1/cmr/bx/n/12 -gstabs\OT1/cmr/m/n/12 , dopodich^^Se
  []
 
-[53] [54] [55] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[65] [66] [67] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-)) [56]
+)) [68]
 (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -645,10 +730,10 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5638 strings out of 476182
- 85627 string characters out of 5795596
+ 5708 strings out of 476182
+ 87512 string characters out of 5795596
  2000975 words of memory out of 5000000
- 27536 multiletter control sequences out of 15000+600000
+ 27606 multiletter control sequences out of 15000+600000
  573239 words of font info for 97 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  64i,15n,70p,747b,1644s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -659,23 +744,26 @@ Here is how much of TeX's memory you used:
 hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-l12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (57 pages, 653646 bytes).
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmtt12.pfb>
+Output written on main.pdf (69 pages, 985811 bytes).
 PDF statistics:
- 348 PDF objects out of 1000 (max. 8388607)
- 195 compressed objects within 2 object streams
+ 417 PDF objects out of 1000 (max. 8388607)
+ 230 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 131 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 171 words of extra memory for PDF output out of 10000 (max. 10000000)
 

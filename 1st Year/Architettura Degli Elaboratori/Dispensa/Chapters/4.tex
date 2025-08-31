@@ -390,7 +390,7 @@ Parliamo di \textbf{Random Access Memory}. Si dice tale perché il tempo di acce
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.6\linewidth]{Images/SRAM_min.png}
-	\caption{Unità minima di S-RAM}
+	\caption{Singola cella di S-RAM}
 	\label{fig:SRAM_min}
 \end{figure}
 \newline\noindent Se la singola parola è selezionata, la wordLine avrà valore $1$, in alternativa sarà falsa; inoltre, è possibile modificare la parola e non il singolo bit specifico. Per essere precisi, avviene:
@@ -399,7 +399,7 @@ Parliamo di \textbf{Random Access Memory}. Si dice tale perché il tempo di acce
 	\item Se si vuole memorizzare $0$, sarà presente nella bitLine di sinistra, con $1$ nella destra.
 \end{itemize}
 \noindent Notare che le parole sono composte da $32b$, quindi, il circuito Level Sense è collegato ad uno specifico bit del bus dati; di conseguenza ci saranno tanti circuiti minimi di S-RAM quanti sono i bit del bus dati. In questo caso, $32$. Se poi level sense decide di leggere, guarda alla bitLine sinistra e capisce la parte destra in base al valore della prima. Metterà poi il valore sul bus dati. Se scrive, invece, prende il bit dal bus dati e lo riporta in output.\par
-Proviamo adesso ad estendere il concetto e gestirlo su più bit. Supponiamo di avere una matrice $1024b\times32b$, quindi $1024$ parole e righe totali con $32$ colonne di bits.\par
+Proviamo adesso ad estendere il concetto e gestirlo su più bit. Consegue capire che la RAM è un vettore di parole. Supponiamo ora di avere una matrice $1024b\times32b$, quindi $1024$ parole e righe totali con $32$ colonne di bits.\par
 Naturalmente, i level sense devono essere collegati a bus controllo e bus dati, ma abbiamo ora un'aggiunta direttamente dal bus indirizzi: \textbf{ChipSelect}. Se vale $1$, farà lavorare il level sense scelto, disattivando gli altri.\par
 Per trovare il totale dei bit del bus indirizzi è necessario usare le potenze del $2$ per trovare il numero che corrisponde alle righe. Nel nostro caso, $2^{10} = 1024$, quindi avremo $10b$ di indirizzi. Questi sono poi collegati tramite un decoder che andrà a generare le nostre $1024$ wordlines. Selezionando infine un singolo bit dei $1024$ si arriverà la singola riga e tutte le altre saranno a $0$.
 \begin{figure}[h]
@@ -408,64 +408,215 @@ Per trovare il totale dei bit del bus indirizzi è necessario usare le potenze d
 	\caption{Esempio di S-RAM}
 	\label{fig:SRAM}
 \end{figure}
-
-
+Espandiamo le dimensioni e diamoci il compito di creare una matrice di dimensione $1Mb\times 64b$. Avremo:
+\begin{itemize}
+	\item Totale bits bus indirizzi: $1Mb = 2^20 \implies 20b$
+	\item Totale wordLines: $1Mb = 1024Kb$.
+\end{itemize}
+\noindent Iniziamo dicendo che le parole sono fatte da massimo $32b$, quindi per gestirne $64$ avremo bisogno di più coppie di circuiti S-RAM. Saranno necessarie coppie di circuiti che abbiamo creato prima; il primo elemento gestirà i bit più significativi, mentre il secondo si occuperà degli altri.\par
+Quindi per selezionare il bit corretto si attiveranno le wordLines dei decoder se è necessario un bit meno significativo [0-9], in alternativa verrà usato chipSelect, uscente da un altro decoder supplementare, per prendere i bit più significativi [10-19].\newline
+% TODO INSERISCI IMMAGINE S-RAM COMPLESSA
 % DRAM
 
-
-
-
-
-
-Una memoria ram è qunidi un vettore di parole.
-
-
-
-
-// What if, 1Mb x 64b?
-1Kb = $2^10$ -> 1Mb = $2^20$ (20b bus indirizzi)
-
-Essendo che le parole son fatte da 32b massimo, per gestire 64b avremo bisogno di coppie di circuiti S-ram.
-Prendi il circuito di prima 1024x32 e sdoppialo. Il primo gestirà i bit più significativi e l'altro quelli meno sign.
-
-Siccome hai richiesto 1M, 1M = 1024K.
-Quindi serviranno 1024 righe con 2 colonne contenenti sti due chip.
-
-Per selezionare il bit corretto si userà chip select, dato da un decoder supplementare che prende in input i bits che vanno da 10 a 19.
-Dove vanno gli indirizzi meno significativi? Ma agli altri decoder per ogni riga, ovviamente.
-
-- D-RAM
-Abbiamo la wordline ed una sola bitline.
-La cella da 1b è fatta in maniera diversa:
-- Abbiamo un transistor collegato ad un condensatore. Quando è in conduzione il valore della cella è porteto
-
-Con una certa frequenza inferiore al tempo di scarica, vado a leggere tutti i bit. Se vedo che un bit è a 1, lo riscrivo, mentre se è a 0 lo lascio stare.
-Il refresh lo fa il circuito della memoria e scarica il valore nei registri.
+\noindent Nella \textbf{D-RAM} non è possibile memorizzare indefinitamente il contenuto di una cella poiché la memoria effettua un \textbf{refresh} periodico che libera lo spazio, indipendentemente dal fatto che una cella sia piena o meno. Questa memoria si compone da una sola wordLine e una bitLine. La cella da $1b$ presenta un transistor collegato ad un condensatore, un accumulatore di carica elettrica costante rispetto alla propria capacità; al suo interno si trova dell'isolante elettrico, il quale rilascia il segnale ad ogni refresh.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/DRAM.png}
+	\caption{Singola cella di Dynamic RAM}
+	\label{fig:D-RAM}
+\end{figure}
+\newline\noindent La D-RAM risulta più lenta della S-RAM perché si scarica anche se isolata e di conseguenza, in caso di necessità, deve essere nuovamente riempita. Anche la sola operazione di lettura è distruttiva, perché se si vuole accedere al contenuto è necessario liberarlo. Essendo poi una memoria più compatta e capiente, è molto probabile interfacciarsi con dimensioni di bit molto grandi con di conseguenza molti più segnali.
 
 %
 
-\section{Caratteristiche delle memorie con relativa gerarchia}
+\section{Caratteristiche e gerarchia delle memorie}
+
+% TODO QUI VA BENE LO SPEZZONE DELLO SCORSO ANNO
 
 %
 
 \section{Memoria Cache, Paginata e Virtuale}
+La \textbf{memoria cache} è una componente installata direttamente nel microprocessore, non visibile al software e completamente gestita dall'hardware. Il suo scopo è la memorizzazione dei dati più recentemente usati dalla memoria principale ed è capace di velocizzarne gli accessi, aumentando le prestazioni del sistema. Nello specifico, quando un dato si trova all'interno di questa memoria, è preso in un solo ciclo di clock.\par
+La memoria cache è relativamente più piccola della ram; ne consegue che non è possibile accedere ad ogni dato a velocità istantanea. Definiamo infatti:
+\begin{itemize}
+	\item \textbf{Cache hit}: Quando il dato richiesto è attualmente salvato nella memoria cache.
+	\item \textbf{Cache miss}: Quando il dato richiesto non si trova nella cache e deve essere pescato.
+\end{itemize}
+\noindent Prima di parlare dell'algoritmo di spostamento dati da ram a cache, è necessario chiarire alcune dinamiche e compiere delle operazioni preliminari per assicurarsi delle dimensioni delle componenti prese in esame. Inoltre, le memorie cache e ram non trasferiscono una singola parola, bensì copieranno un'intera pagina, che è un insieme di queste ultime. Ciò avviene poiché per il principio di località, gli accessi successivi si trovano nelle parole successive presenti nella stessa pagina, velocizzando le operazioni. Supponiamo ora di avere $4GB$ di ram e $4MB$ di cache, con pagine grandi $1KB$, allora:
+\begin{itemize}
+	\item Dimensione indirizzi ram: $4GB = 2^2\times 2^{30} = 2^{32} \to 32b$.
+	\item Dimensione indirizzi cache: $4MB = 2^2\times 2^{20} = 2^{22} \to 22b$.
+	\item Dimensione pagine: $1KB = 1024b = 2^{10} \to 10b$.
+	\item Divisione in pagine della ram: $\frac{4GB}{1KB} = 4M = 2^2\times 2^{20} \to 22b$.
+	\item Divisione in pagine della cache: $\frac{4MB}{1KB} = 4K = 2^2\times 2^{10} \to 12b$.
+\end{itemize}
+\noindent Quindi abbiamo già capito la struttura degli indirizzi sia per ram che per cache. Nella prima si necessitano $22b$ per differenziare ogni pagina, mentre per la seconda, $12b$. I bit restanti saranno usati per definire la parola.\par
+Questo era un procedimento generale, tuttavia, l'algoritmo di indirizzamento presenta tre tipi diversi:
+\begin{itemize}
+	\item \textbf{Diretto}: Necessita di uno spazio apposito dedito al vettore delle etichette, grande quanto il numero di pagine della cache.\par
+	Si pone il compito di dare ad ogni singola pagina della ram una sola posizione in cui andare nelle pagine cache. Si rende quindi necessario dividere i bit della ram in modo diverso:
+	\begin{center}
+		$10b$ per la parola, $12b$ per la pagina e $10b$ per l'etichetta della pagina.
+	\end{center}
+	% TODO RIVEDERE QUESTA PARTE (DIRETTO)
+	\item \textbf{Associativo}: Con questo algoritmo non siamo certi di dove vada una specifica pagina, perché verranno controllate tutte fin quando non si troverà quella corrispondente, come un ciclo for che fa break solo quando l'indice è arrivato ad un certo valore.\par
+	Qui vengono tenuti i $10b$ per la parola, mentre i restanti $22b$ della ram sono usati per l'etichetta. Una volta trovata, si darà l'indirizzo in cache.
+	\item \textbf{Set-Associativo}: Sinergia fra i due metodi precedenti. Ci è possibile raggruppare delle pagine in insiemi per poter effettuare il controllo delle etichette direttamente in tal gruppo.\par
+	Nella divisione dei bits dell'indirizzo in ram, oltre ai $10b$ per la parola, al posto della pagina avremo, dipendentemente da quanti insiemi sono presenti in memoria, un numero $n$ di bits per i set, mentre per l'etichetta saranno usati i rimanenti.
+\end{itemize}
+\noindent Questo è il funzionamento in condizioni ideali, ma ora bisogna considerare l'eventualità di avere una memoria cache piena e di aver effettuato un cache miss. Con che modalità si sceglie quali dati tenere e quali rimuovere per fare spazio agli altri? Questo dipende dallo scopo della macchina, ma esistono due \textbf{algoritmi di sostituzione} principali e riguardano rispettivamente lo scarico della pagina più vecchia, \textbf{LRU}, Least Recently Used, o la più recente, \textbf{MRU}, Most Recently Used.\par
+Questi algoritmi funzionano grazie alla presenza di un contatore in ogni pagina, incrementato ad ogni ciclo di clock.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.525\linewidth]{Images/addressingBits.png}
+	\caption{Divisione in bit per i metodi di indirizzamento}
+	\label{fig:addrBits}
+\end{figure}
+\newline\noindent Negli elaboratori odierni, la memoria centrale fisica non è grande quanto lo spazio di indirizzamento gestibile da parte del processore, ragion per cui, come fatto nelle sezioni precedenti, è necessario dare alla macchina l'impressione di avere a disposizione tutta la memoria per ogni singolo programma; parliamo quindi di \textbf{memoria virtuale}. Per questo scopo, introduciamo gli algoritmi di:
+\begin{itemize}
+	\item \textbf{Rilocazione}: Strategia che permette di usare la stessa RAM senza sovrascrivere i registri.
+	\item \textbf{Paginazione}: Strategia che permette a più processi di utilizzare efficientemente la stessa RAM.
+\end{itemize}
+\noindent Partiamo da un semplice presupposto; il processore, per poter lavorare con dei dati o prelevare un'istruzione, genera un indirizzo binario chiamato \textbf{indirizzo virtuale}, il quale sarà tradotto in \textbf{indirizzo fisico} tramite un algoritmo svolto da sistema operativo ed unità funzionali.\par
+Se l'indirizzo logico fa riferimento ad una parte di spazio di codice in memoria primaria, si otterrà accesso immediato, in alternativa dovrà essere ripescato dal disco fisso e posizionato in cache tramite apposito algoritmo di sostituzione. Il processo di traduzione degli indirizzi è effettuato mediante la \textbf{rilocazione}, per poi inviare il risultato al bus indirizzi. Ci sono due modalità:
+\begin{itemize}
+	\item \textbf{Rilocazione statica}, usata per i sistemi embedded.\par
+	\noindent Supponiamo che un programma abbia inizio all'indirizzo $1438$; a questo numero saranno sommati tutti gli indirizzi logici dei dati del codice, così da non sovrascrivere i registri precedenti. Eventualmente, se sono presenti cicli o costrutti condizionali, il codice si biforcherà dipendentemente dalla loro quantità. Ripetere fino a completa scrittura del programma.
+	\item \textbf{Rilocazione dinamica}, apposita per i dispositivi programmabili.\par
+	\noindent Utilizza due registri, \textbf{base} e \textbf{limit}, i quali contengono rispettivamente la prima e l'ultima zona di memoria creata per il programma. Questi lavorano insieme ad un circuito che controlla se la somma fra indirizzo logico e base è compresa nella zona di memoria apposita. Se lo è, crea l'indirizzo fisico e lo invia al MAR, altrimenti si ha un errore di Segmentation Fault.
+\end{itemize}
+\noindent C'è tuttavia un problema in questi metodi. Supponiamo di voler caricare tre diversi programmi: $P_1$, $P_2$, $P_3$, i quali verranno posizionati in ordine nelle rispettive zone di memoria.\par
+$P_1$ richiede una malloc, ma non è possibile donare altro spazio poiché la zona ad esso successiva è usata da $P_2$ e non è possibile spostare i processi, oppure mettiamo caso che $P_2$ finisca il suo lavoro e devi inserire $P_4$ ma non è presente spazio sufficiente per contenerlo tutto. Ne consegue che è necessario ideare un algoritmo per la gestione dello spazio: la \textbf{paginazione}. Si tratta dell'assegnazione ad ogni processo di un numero $n$ pagine indipendentemente dalla loro posizione fisica. Ciò risolve il problema alla radice perché consente di usare zone di memoria non necessariamente adiacenti.\par
+Ma come funziona? Abbiamo la solita divisione dei $32b$ nella memoria RAM, dove $10b$ rappresentano la parola e i restanti $22b$ l'indirizzo logico che poi verrà tradotto in indirizzo fisico. Noi potremmo assegnare a questi bit di indirizzo una pagina logica e una fisica, mantenendo lo stesso procedimento visto nella scorsa sezione. Ciò avviene grazie alla presenza della \textbf{Tabella delle pagine}; una matrice tanto grande quanto le pagine del processo, dove sono scritte in ordine crescente tutte le pagine logiche insieme alla loro rispettiva pagina fisica.\par
+Questa matrice è contenuta in un circuito chiamato \textbf{MMU}; Memory Management Unit, presente nella CPU e guidato dal sistema operativo. Riceve i dati dalla tabella con la possibilità di ampliarla quando richiesto. Può inoltre riconoscere se le informazioni ricevute sono utili o meno, ed eventualmente scartarle. Questa unità gestionale è necessaria per due motivi: non appesantire il sistema operativo e sfruttare il principio di località a proprio vantaggio, migliorando le prestazioni. Tuttavia, quanto è grande la tabella delle pagine? Comprenderà certamente l'insieme delle pagine necessarie per il funzionamento del programma, detto \textbf{Working Set}.\par
+Ogni processo avrà il proprio working set, ma una cosa meno ovvia è come si tratta del giusto equilibrio fra tempo di esecuzione ed il numero di pagine minimo utilizzabile, allo scopo di garantire le prestazioni migliori.\newline
 
+\noindent Arriviamo al dunque; come viene creata ed utilizzata la memoria virtuale? Partiamo dal working set. Come precedentemente menzionato, ogni processo ha il proprio che lavora in solitaria e bisogna convincere il sistema operativo che ha a disposizione tutta la RAM per ogni processo.\par
+Si prende quindi una sezione di memoria su disco, detto \textbf{Swap} e donarlo al sistema operativo. Se una pagina del set viene usata poco\footnote{Questo è un controllo eseguito mediante contatori nella tabella delle pagine. Sono incrementati ad ogni ciclo di clock.}, verrà spostata in questo swap per liberare spazio in RAM. Notare che l'algoritmo non butta via le pagine perché sempre nella tabella è presente un'area apposita che dice se una pagina si trova o meno nello swap.\par
+Nel caso in cui serva una pagina in esso presente, sovrascriverà sempre la pagina più vecchia in ram. È necessario trovare anche qui un compromesso, poiché se allo swap è dato troppo spazio, potrebbero risultare svariati problemi nell'esecuzione dei programmi.
 
+% TODO RIFAI IMMAGINE RELOCATION E WSETGRAPH
 
-
-
-Senso della memoria cache:
-- Il bus riceve segnali elettromagnetici e per far sì che continui a funzionare senza essere danneggiato deve necessariamente essere esteso con una certa dimensione. Tuttavia, ciò rallenta il processo di scambio dati.
-Se invece i dati sono già in CPU, del bus non ce n'è bisogno ed il fetch è pressoché istantaneo. Meglio, no? È veloce. Se applichiamo questo concetto alle istruzioni noterai che avrai due tipi di memorie; una per i dati, ed una per le istruzioni. Quando la roba è in cache, ci accede in 1 clock tick.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/wordToPage.png}
+	\caption{Percorso di paginazione}
+	\label{fig:wrdToPage}
+\end{figure}
 
 %
 
 \section{Pipelining}
+Finora abbiamo considerato la processione dei dati come una FSM a quattro stati, ma è possibile dividere l'ultimo stato di execution fra \textbf{esecuzione istruzione} e \textbf{salvataggio risultato}, chiamando quest'ultimo \textbf{WriteBack}.\par
+Immaginiamo ora di avere un circuito semplice di somma, dal leggero costo in runtime e con un'architettura ottimizzata con un circuito esterno e registri flip-flop. Avremo:
+\begin{enumerate}
+	\item \textbf{Fetch}: Ricezione istruzioni in $1CPI$.
+	\item \textbf{Decode}: Decodifica istruzioni con eventuali accessi in memoria, dipendentemente dalla loro necessità si useranno $0CPI$ se non acceduto, $1CPI$ altrimenti.
+	\item \textbf{Execution}: Esecuzione istruzioni in $1CPI$.
+	\item \textbf{WriteBack}: Salvataggio risultato quando richiesto. Usa $1CPI$.
+\end{enumerate}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		& Ciclo di Memoria & Ciclo di clock\\
+		\hline
+		Fetch & 1 & 1\\
+		\hline
+		Decode & da 0 a 1 & 1\\
+		\hline
+		Execution & 0 & 1\\
+		\hline
+		WriteBack & da 0 a 1 & 1\\
+		\hline
+		Totale & da 1 a 2 & 4\\
+		\hline
+	\end{tabular}
+	\caption{Costo in accessi a memoria/cicli di clock dei quattro stati}
+	\label{Tabella}
+\end{table}
+\noindent Puoi osservare nella tabella che il numero minimo di cicli ottenibile è $1 + 4 = 5$, $6$ nel peggiore dei casi. Questo è ottenibile solamente con un ISA richiedente un solo accesso a memoria, ma possiamo ottimizzare ulteriormente.\par
+È possibile minimizzare la memoria scegliendo quale operazione fra decode e writeBack avrà il diritto di accedervi. Conviene inoltre dividere i bits della memoria cache in due parti: una per i dati e l'altra per le istruzioni, rendendo possibile farle lavorare in contemporanea a due mansioni diverse.\par
+Possiamo andare oltre. Introduciamo quindi la strategia di \textbf{pipelining}; la quale vede i quattro stati messi in fila come una catena di montaggio. Questi sono separati da dei banchi di registri che salveranno quanto svolto per darlo allo stato seguente.\par
+Questo sistema consente alle quattro istruzioni di lavorare indipendentemente l'una dall'altra\footnote{Nella maggior parte dei casi è così. L'eccezione è quando si hanno cicli e condizioni.}, riducendo drasticamente i cicli di clock necessari per elaborare un programma. Generalmente, segue questi passi:
+\begin{enumerate}
+	\item \textbf{Fetch} prende dai registri il valore del PC e dalla cache istruzioni il compito che dovrà eseguire. Incrementerà di uno il PC e passerà nel banco il valore di quest'ultimo insieme a quello dell'IR.
+	\item \textbf{Decode} riceve le informazioni dal banco precedente e, dipendentemente dalla modalità di indirizzamento, prenderà il codice dalla cache o dai registri. Metterà infine nel suo banco gli operandi ed il valore del PSW.
+	\item \textbf{Execution} riceverà gli operandi e ne calcolerà il risultato. Aggiornerà infine i registri e metterà il tutto nel suo banco insieme al PSW aggiornato.
+	\item \textbf{WriteBack} infine salverà questi risultati nella cache dati o nei registri, dipendentemente da dove è richiesto.
+\end{enumerate}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/pipeline.png}
+	\caption{Circuito di pipeline}
+	\label{fig:Pipeline}
+\end{figure}
+Nella teoria si svolge in questo modo, tuttavia passando al lato pratico si presentano un paio di problemi. Il primo è dato da un'eventuale complessità degli stati ed un conseguente sfalsarsi delle operazioni col clock. Un secondo problema è dato dalle \textbf{bolle}, ovvero istruzioni che non possono essere eseguite nello stesso ciclo di clock a causa di una dipendenza condizionale o ciclica.\par
+Osserva bene la tabella seguente considerando la singola funzione di ogni istruzione. Al quarto ciclo di clock si vuole sottrarre il valore 1 al contenuto del registro \%EBX, ma questo non è stato ancora preparato da WriteBack, quindi sarà necessario aspettare un ciclo di clock per effettuare poi il decoding. Da questo puoi notare come un registro ritorni pronto solo dopo l'esecuzione della WriteBack.\par
+Esistono inoltre delle strategie per la riduzione delle bolle; per le condizioni si allontanano le istruzioni che dipendono le une dalle altre, mentre per i cicli ci si affida ad un riconoscimento di pattern tramite le \textbf{jump predictions}\footnote{La CPU osserva il primo risultato della condizione e implica che questo avvenga anche alla prossima richiesta. Si prepara di conseguenza per l'output che si aspetta.}.\par
+In tal caso, se il risultato del salto è predetto correttamente, si potrà effettuare il fetch della prima istruzione al nono ciclo di clock, ottenendo un CPI medio di $\frac{12-4}{6} = 1,35CPI$, che si avvicina molto al nostro obiettivo.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/pipelineInstr.png}
+	\caption{Istruzioni pipeline}
+	\label{fig:pipelineInstr}
+\end{figure}
 
 %
 
 \section{Modello CISC e RISC}
+Parliamo adesso di com'è nato il modello di architettura sul quale stai leggendo questo PDF: il \textbf{RISC}, Reduced Instruction Set Computer; figlio del connubio di tutto ciò che abbiamo studiato finora. Si tratta dell'architettura con l'attuale migliore ottimizzazione del tempo impiegato dalla CPU\footnote{Più precisamente, vale l'equazione: $T_{CPU} = Tot_{Istruzioni} \times CPI_{Medio} \times \frac{1}{Freq_{Clock}}$.} per elaborare le informazioni.\par
+Giusto neanche cinquant'anni fa, il mondo ha visto una grandissima opportunità di mercato nei microprocessori e, di conseguenza, molte aziende come Intel hanno provato a prendere parte alla corsa per fare i grossi soldi. L'intenzione è creare il microprocessore più efficiente possibile per sbaragliare la concorrenza. Come fare? La prima idea diffusa su vasta scala fu quella di aumentare la frequenza dei cicli di clock. Essendo che la frequenza del clock è data dal Datapath, il quale ha un cammino critico, si pensò di utilizzare delle pipelines per ottimizzare le istruzioni dell'ISA.\par
+Fatto sta che il funzionamento della pipeline dipende dalla quantità ed il tipo di istruzioni presenti nell'insieme e siamo inoltre limitati dalla potenza delle componenti fisiche. Agiremo, dunque, sul valore totale delle istruzioni nell'ISA, modificandole e rendendole molto più complesse e compatte. Abbiamo ottenuto un valore molto minore di direttive, ma avremo come conseguenza un datapath che rispecchia la complessità di quanto rielaborato e quindi un cammino critico molto più impegnativo, per non parlare della pipeline che deve costantemente aspettare il lavoro finito dello stato precedente.\newline
+
+\noindent Qui entrarono in gioco due professori dell'Università di Stanford; creando l'architettura sulla quale si basano gli elaboratori contemporanei: \textbf{John Hennessy} ed il suo collaboratore \textbf{David Patterson}.\par
+"E se fossero le istruzioni a dover essere ridotte per ottenere prestazioni migliori?" Fu la fatidica domanda che smosse il tutto. Chiesero ad altri ricercatori di creare dei programmi in diversi linguaggi e notarono una particolarità fra tutti i codici: erano scritti in modo semplice,  indipendentemente dalla complessità del linguaggio. Come diretta conseguenza, lo erano anche le istruzioni in codice Assembly.\par
+Con questa filosofia i due riuscirono a creare il DLX, il primo vero dispositivo RISC e con i dati alla mano, nonostante i soliti dubbi dal mercato, riuscirono a dimostrare di aver creato un microprocessore nettamente migliore a quelli delle altre aziende, che decisero di chiamare \textbf{CISC}, Complex Instruction Set Computer. I dispositivi RISC, oltre ad avere poche istruzioni, hanno il vantaggio di avere pochi metodi di indirizzamento. Questa semplicità aiuta il funzionamento della pipeline, la quale sarà nettamente più veloce, ottenendo non solo un numero molto minore di CPI medio, ma anche una frequenza di clock maggiore rispetto alle altre architetture.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/HenPat.jpg}
+	\caption{John Hennessy e David Patterson}
+	\label{fig:twoGOATS}
+\end{figure}
+Annusata l'opportunità per fare soldi, le aziende iniziarono a cimentarsi nella filosofia RISC, ottenendo risultati sulla potenza in pochissimo tempo:
+\begin{itemize}
+	\item \textbf{Intel} fu come al solito la prima e creò il MIPS, con una frequenza di 100MHz.
+	\item \textbf{Motorola} seguì subito con la creazione di PowerPC, da $200MHz$.
+	\item \textbf{DEC} poi creò Alpha dai sorprendenti $600MHz$.
+	\item Il \textbf{Stanford University Network} infine creò la SPARC su FPGA, da $300MHz$.
+\end{itemize}
+\noindent Nella foga per l'ottimizzazione, gli ingegneri a Intel crearono il microprocessore P6, che per quanto ottimale potesse risultare al tempo, aveva un ISA completamente diverso da quello utilizzato da loro finora (e tuttora); Intel 80x86.\par
+Si dovette creare un chip più grande con lo scopo di, mediante una fase di \textbf{Pre-Fetch}, tradurre l'ISA diverso nell'80x86. Chiamarono questa architettura \textbf{Pentium}. Attualmente nessuno di questi microprocessori è più in uso, ma immagino tu già lo sappia, dato che abbiamo ben superato il GigaHz di frequenza.
 
 %
 
 \section{Architetture parallele}
+È nostro volere ottimizzare quanto possibile, quindi bisogna capire cosa vuol dire veramente migliorare le prestazioni di un calcolatore.\par
+Da un punto di vista dell'utente medio si può pensare a ridurre il tempo totale di esecuzione della CPU, che non è necessariamente sbagliato, ma è un ragionamento superficiale. Si ritiene invece più importante aumentare il numero di processi eseguibili in un determinato arco di tempo ed è questo ragionamento che ha portato allo sviluppo delle \textbf{Architetture Superscalari}, modelli con la capacità di elaborare istruzioni con un CPI medio minore di 1, ma come raggiungere questo risultato?\par
+Il primo microprocessore vincente fu il \textbf{PowerPC} di Motorola, il quale utilizza una componente di pre-fetch che invia poi i dati da elaborare a due pipelines da quattro stati l'una. La prima avrebbe svolto operazioni solamente con interi, l'altra con numeri in virgola mobile.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{Images/PowerPC Pipelines.png}
+	\caption{Funzionamento dual-pipeline di PowerPC}
+	\label{fig:PowerPCPIPE}
+\end{figure}
+Queste due pipelines funzionano in parallelo, quindi dove normalmente avremmo un $CPI = 2$, data la "doppia velocità", abbiamo il $CPI = 0,5$. Inoltre abbiamo la possibilità di donare loro un clock proprio per gestire al meglio le operazioni ed aumentare conseguentemente ancora di più la frequenza di clock. Se far ciò migliora così tanto le prestazioni, perché non inserire sempre più pipelines che lavorano parallelamente, allora?\par
+Ebbene, questo è a causa della dipendenza delle istruzioni. Ulteriori pipelines equivalgono a molte condizioni e più ce ne sono, più (se necessario, ma di norma lo è) bisognerà attendere la fine della fase precedente, rallentando l'intero processo e peggiorando le prestazioni. Come risolvere?\par
+Un primo tentativo di risoluzione si ebbe con le architetture di microprocessori \textbf{VLIW}, Very Long Instruction Word, il cui scopo è ottenere un livello di astrazione maggiore per le istruzioni, le quali saranno quindi composte di più operazioni, aumentando la dimensione dei banchi di memoria presenti fra la pipeline.\par
+Di una diversa linea di pensiero furono i creatori dei \textbf{Calcolatori Vettoriali}; i quali pensarono di utilizzare, insieme alla componente di pre-Fetch e ad un banco di memoria, molte più CPU che lavorano in parallelo. Per esempio, se bisogna eseguire $1000$ somme, si utilizzerebbero $1000$ cicli di clock, ma inserendo $500$ circuiti di somma, ne verranno usati solamente due; un miglioramento spaventoso. Tuttavia, per collegare le mini-CPU è necessario utilizzare una \textbf{matrice di interconnessione}, che causa una sovrabbondanza di collegamenti.\par
+Un altro problema è presentato dalla \textbf{Legge di Amdahl}, la quale afferma che "\textit{Il miglioramento delle prestazioni di un sistema che si può ottenere ottimizzando una certa parte del sistema è limitato dalla frazione di tempo in cui tale parte è effettivamente utilizzata}".\par
+In merito introduciamo il concetto di \textbf{Speed-up}, che ha origine proprio grazie a questa legge. Si tratta in genere di un valore che misura le prestazioni di un elaboratore in funzione di un determinato programma; in particolare ci interessa la \textit{Latenza}\footnote{$L = \frac{T}{W}$, dove $T$ è il tempo e $W$ il totale del lavoro eseguito per la task.} per poter eventualmente paragonare i tempi di due architetture effettuando un rapporto fra di loro.\par
+Visto questo, immagina un calcolatore vettoriale che cerca di svolgere qualsiasi compito diverso da operazioni aritmetiche. Non sembra molto efficiente.\newline
+
+Ipotizziamo ora di non volere un parallelismo per ogni singolo programma, bensì di lavorare su un parallelismo fra i processi e quindi avere più CPU in una singola architettura. Il problema fondamentale di questa idea è che ognuna di loro necessita la propria cache e nell'elaborazione dei dati avremo delle copie esatte di quanto elaborato in ogni CPU, quindi un problema di \textbf{Coerenza di cache}.\par
+Per la gestione di questo problema vennero ideati gli \textbf{Algoritmi di Snooping}, che vedono la presenza in ogni microprocessore di una tabella contenente le posizioni di $n$ dati, dopo che questi sono passati per il BUS. Non sono tuttavia soluzioni perfette, poiché il troppo snooping peggiora le prestazioni, senza contare che abbiamo un singolo BUS dove passano le informazioni\footnote{Se non ti sembra aver senso invito la revisione della sezione dedicata all'arbitraggio del BUS.}.\newline
+
+Poi venne il nuovo millennio e cambiò tutto con la tecnologia \textbf{Network On Chip}; la realizzazione di una matrice di interconnessione sul silicio stesso, che consentì di inserire più CPU in una singola architettura. Questi processori vengono chiamati \textbf{Cores} e questo miracolo diede vita ai processori \textbf{Multicore}, inseriti nei dispositivi come quello che stai utilizzando ora. Il grande vantaggio è avere una cache consistente poiché le connessioni della matrice annichiliscono le attese per accedervi.\par
+Ma non è finita qui; venne data nuova vita ai calcolatori vettoriali per la necessità della rapida elaborazione delle grafiche a video. Si tratta di un compito particolarmente complesso basato su calcoli computazionali; il punto di forza di tali architetture. Oggi sono conosciuti sotto il nome di GPU, Graphic Processing Unit, ed il capo supremo del loro mercato è NVidia.\par
+Col passare del tempo questi modelli si svilupparono e videro la luce le \textbf{GPGPU}, General Purpose GPU, utilizzate per richieste grafiche particolarmente esigenti, come un qualunque gioco PS5 realistico. Si presta inoltre molto bene per la creazione di reti neurali, quindi per la creazione e lo sviluppo di intelligenze artificiali.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\linewidth]{Images/ModernArchitecture.png}
+	\caption{Architettura di Von Neumann contemporanea}
+	\label{fig:modernArch}
+\end{figure}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  31 AUG 2025 14:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  1 SEP 2025 11:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -611,87 +611,81 @@ File: Images/DRAM.png Graphic file (type png)
 <use Images/DRAM.png>
 Package pdftex.def Info: Images/DRAM.png  used on input line 424.
 (pdftex.def)             Requested size: 270.00275pt x 166.56326pt.
- [48 <./Images/DRAM.png>] [49]
-<Images/addressingBits.png, id=236, 526.96875pt x 741.77126pt>
+ [48 <./Images/DRAM.png>] [49] [50] [51] [52]
+<Images/addressingBits.png, id=245, 526.96875pt x 741.77126pt>
 File: Images/addressingBits.png Graphic file (type png)
 <use Images/addressingBits.png>
-Package pdftex.def Info: Images/addressingBits.png  used on input line 471.
+Package pdftex.def Info: Images/addressingBits.png  used on input line 523.
 (pdftex.def)             Requested size: 236.24725pt x 332.54895pt.
- [50 <./Images/addressingBits.png>] [51]
-Underfull \hbox (badness 10000) in paragraph at lines 492--493
+ [53 <./Images/addressingBits.png>] [54]
+Underfull \hbox (badness 10000) in paragraph at lines 544--545
 
  []
 
-<Images/wordToPage.png, id=244, 778.91pt x 231.86626pt>
+<Images/wordToPage.png, id=254, 778.91pt x 231.86626pt>
 File: Images/wordToPage.png Graphic file (type png)
 <use Images/wordToPage.png>
-Package pdftex.def Info: Images/wordToPage.png  used on input line 502.
+Package pdftex.def Info: Images/wordToPage.png  used on input line 554.
 (pdftex.def)             Requested size: 450.0pt x 133.95535pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[52] [53 <./Images/wordToPage.png>]
-<Images/pipeline.png, id=252, 563.10374pt x 322.20375pt>
+[55] [56 <./Images/wordToPage.png>]
+<Images/pipeline.png, id=262, 563.10374pt x 322.20375pt>
 File: Images/pipeline.png Graphic file (type png)
 <use Images/pipeline.png>
-Package pdftex.def Info: Images/pipeline.png  used on input line 550.
+Package pdftex.def Info: Images/pipeline.png  used on input line 602.
 (pdftex.def)             Requested size: 314.99863pt x 180.24112pt.
- [54 <./Images/pipeline.png>]
-<Images/pipelineInstr.png, id=258, 512.91624pt x 241.90375pt>
+ [57 <./Images/pipeline.png>]
+<Images/pipelineInstr.png, id=267, 512.91624pt x 241.90375pt>
 File: Images/pipelineInstr.png Graphic file (type png)
 <use Images/pipelineInstr.png>
-Package pdftex.def Info: Images/pipelineInstr.png  used on input line 560.
+Package pdftex.def Info: Images/pipelineInstr.png  used on input line 612.
 (pdftex.def)             Requested size: 314.99863pt x 148.56137pt.
- [55 <./Images/pipelineInstr.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 570--571
+
+Underfull \hbox (badness 10000) in paragraph at lines 622--623
 
  []
 
-<Images/HenPat.jpg, id=266, 766.865pt x 431.6125pt>
+[58 <./Images/pipelineInstr.png>]
+<Images/HenPat.jpg, id=275, 766.865pt x 431.6125pt>
 File: Images/HenPat.jpg Graphic file (type jpg)
 <use Images/HenPat.jpg>
-Package pdftex.def Info: Images/HenPat.jpg  used on input line 577.
+Package pdftex.def Info: Images/HenPat.jpg  used on input line 629.
 (pdftex.def)             Requested size: 360.00137pt x 202.6208pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[56]
-<Images/PowerPC Pipelines.png, id=270, 884.30376pt x 442.65375pt>
+ [59 <./Images/HenPat.jpg>]
+<Images/PowerPC Pipelines.png, id=279, 884.30376pt x 442.65375pt>
 File: Images/PowerPC Pipelines.png Graphic file (type png)
 <use Images/PowerPC Pipelines.png>
-Package pdftex.def Info: Images/PowerPC Pipelines.png  used on input line 599.
+Package pdftex.def Info: Images/PowerPC Pipelines.png  used on input line 651.
 (pdftex.def)             Requested size: 404.99725pt x 202.73161pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[57 <./Images/HenPat.jpg>] [58 <./Images/PowerPC Pipelines.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 609--610
+[60]
+Underfull \hbox (badness 10000) in paragraph at lines 661--662
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 612--613
+[61 <./Images/PowerPC Pipelines.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 664--665
 
  []
 
-<Images/ModernArchitecture.png, id=278, 382.42876pt x 221.82875pt>
+<Images/ModernArchitecture.png, id=288, 382.42876pt x 221.82875pt>
 File: Images/ModernArchitecture.png Graphic file (type png)
 <use Images/ModernArchitecture.png>
-Package pdftex.def Info: Images/ModernArchitecture.png  used on input line 619.
+Package pdftex.def Info: Images/ModernArchitecture.png  used on input line 671.
 
 (pdftex.def)             Requested size: 202.49863pt x 117.46034pt.
-)
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[59] [60 <./Images/ModernArchitecture.png>]
+) [62 <./Images/ModernArchitecture.png>]
 Chapter 5.
-(./Chapters/5.tex) [61
+(./Chapters/5.tex) [63
 
 ]
 Chapter 6.
-(./Chapters/6.tex [62
+(./Chapters/6.tex [64
 
 ]
 Overfull \hbox (39.45393pt too wide) in paragraph at lines 39--41
@@ -706,23 +700,23 @@ Overfull \hbox (2.32262pt too wide) in paragraph at lines 46--48
 zzo ef-fet-tivo dell'operando. 
  []
 
-[63]
+[65]
 Underfull \hbox (badness 10000) in paragraph at lines 84--85
 
  []
 
-[64]
+[66]
 Overfull \hbox (7.05692pt too wide) in paragraph at lines 118--119
 [][]\OT1/cmr/m/n/12 E nec-es-sario as-sem-blare il pro-gramma ag-giun-gendo il 
 flag di de-bug: \OT1/cmr/bx/n/12 -gstabs\OT1/cmr/m/n/12 , dopodich^^Se
  []
 
-[65] [66] [67] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+[67] [68] [69] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-)) [68]
+)) [70]
 (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -730,10 +724,10 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5708 strings out of 476182
- 87512 string characters out of 5795596
+ 5709 strings out of 476182
+ 87529 string characters out of 5795596
  2000975 words of memory out of 5000000
- 27606 multiletter control sequences out of 15000+600000
+ 27607 multiletter control sequences out of 15000+600000
  573239 words of font info for 97 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  64i,15n,70p,747b,1644s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -760,10 +754,10 @@ fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmtt12.pfb>
-Output written on main.pdf (69 pages, 985811 bytes).
+Output written on main.pdf (71 pages, 996104 bytes).
 PDF statistics:
- 417 PDF objects out of 1000 (max. 8388607)
- 230 compressed objects within 3 object streams
+ 423 PDF objects out of 1000 (max. 8388607)
+ 234 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  171 words of extra memory for PDF output out of 10000 (max. 10000000)
 

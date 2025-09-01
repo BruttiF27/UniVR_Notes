@@ -430,8 +430,60 @@ Quindi per selezionare il bit corretto si attiveranno le wordLines dei decoder s
 %
 
 \section{Caratteristiche e gerarchia delle memorie}
-
-% TODO QUI VA BENE LO SPEZZONE DELLO SCORSO ANNO
+I registri, la RAM e la cache non sono gli unici tipi di memoria. Questi compongono la memoria primaria di un elaboratore, ma ad essa possono essere aggiunte ulteriori estensioni. Andiamo nel dettaglio:
+\begin{itemize}
+	\item \textbf{SSD - Solid State Disk}:\par
+	\noindent Ad oggi, il tipo di memoria usato in ogni computer o console per garantire la massima velocità in relazione alla propria struttura. Fa parte dell'insieme delle memorie flash, usate anche per la creazione di SIM e USB, le quali agiscono come estensione del bus\footnote{Non a caso, USB è un acronimo che sta per Universal Serial BUS}.\par
+	Queste memorie sono divise in blocchi, ovvero insiemi di parole, e vedono le loro informazioni scritte in modo circolare. Queste vengono trasferite in blocchi; quello corrente sarà quindi interamente copiato in un buffer, il quale scriverà i dati sulla RAM, che invierà tutto ai blocchi della memoria flash. Quando il blocco della flash memory termina lo spazio, si passa al successivo. In tal merito, ne consegue il \textbf{Principio di località}, ramificato nei seguenti due concetti:
+	\begin{itemize}
+		\item \textbf{Località spaziale}: Quando una cella di memoria è utilizzata, risulta altamente probabile che vengano usate anche quelle ad essa vicine.
+		\item \textbf{Località temporale}: Quando una cella di memoria è utilizzata, risulta altamente probabile che venga riutilizzata da lì a poco.
+	\end{itemize}
+	% TODO inserisci immagine FlashMemory.png
+	Il processo di interscambio e salvataggio dati è reso possibile grazie agli agenti \textbf{droganti}; elementi che muovendosi nella memoria sono capaci di modificare la struttura interna del silicio. Dove questo consente la scrittura, tuttavia, comporta un nuovo problema: l'\textbf{isteresi}\par
+	Per effettuare modifiche al materiale, infatti, è necessario rimuoverne dei pezzi; ciò significa che più questa cosa avviene, più la memoria risulterà inaffidabile, fino ad arrivare ad un punto nel quale sarà inutilizzabile. E' dal primo utilizzo, se non è difettoso, che il dispositivo vedrà la sua probabilità di rottura diminuire fino ad arrivare al punto \textbf{MTBF}, Mean Time Between Failure, dove da là in poi aumenta esponenzialmente.
+	\item \textbf{Hard Disk}:\par
+	\noindent Prima delle SSD, deteneva il monopolio delle memorie fisse. Sta tuttavia venendo dismesso a causa di alcune caratteristiche negative come la fragilità.\par L'architettura degli hard disk presenta un albero che ruota ad una certa velocità costante spostando un piatto dalla superficie magnetica cosparso di minuscoli magnetini separati in diverse aree. Questi ultimi presentano diverse cariche magnetiche e sono posizionati in tal modo da consentire la manipolazione dei dati. Gli hard disk in toto sono divisi in tracce che comunicano i loro rispettivi punti di inizio e fine; queste sono a loro volta separate in blocchi equamente distanziati.\par
+	Le operazioni di lettura e scrittura avvengono tramite forze magnetiche. Sopra il piatto è presente un braccio con una spira, la quale, se elettrificata, ha la capacità di emettere un campo magnetico. Se si parla di lettura, la spira passerà solamente sopra ai magnetini contenenti i dati desiderati, mentre per la scrittura è necessario attivare la spira per modificare l'orientamento dei magnetini da toccare. Prima di effettuare un'operazione, agisce un buffer il cui tempo di lavoro totale è dato dalla seguente equazione:
+	\begin{center}
+		$T_{tot} = T_{ricercaMagnete} + T_{Rotazione} + T_{readBlocco}$
+	\end{center}
+	\noindent Una volta terminato il suo lavoro sarà possibile effettuare l'operazione richiesta.
+	% TODO INSERISCI IMMAGINE HardDisk.png
+	La spira non deve per nessuna ragione toccare il disco perché è stata creata per stare ad una determinata distanza. Se questa dovesse modificarsi, non sarebbe più possibile effettuare read/write, rendendo il disco inutilizzabile. Infine, parliamo dell'organizzazione dei files. Partiamo dal presupposto che questi ultimi sono composti da una catena di blocchi, la \textbf{FAT}, File Allocation Table, propria di ogni sistema operativo.\par
+	Riceve in input il nome del file ed userà un puntatore per spostarsi sulla catena che costituisce il primo con lo scopo di leggerla tutta. Finita questa operaizione verrà tutto scritto sul disco nella catena dei blocchi liberi. Nel caso in cui si cancellassero dei files, i loro blocchi verranno inseriti nella suddetta catena per poter essere eventualmente sovrascritti. Una particolarità fisica di questo algoritmo è che nonostante la sovrascrittura dei blocchi i dati possono ugualmente essere recuperati, quindi è bene prestare attenzione a ciò che si salva sul proprio disco fisso.
+	\item \textbf{CD e DVD - Compact Disk e Digital Versatile Disk}:\par
+	\noindent Con queste memorie trattiamo del supporto ottico. I CD sono unità di memoria nate per il salvataggio di brani musicali i cui dati sono salvati sotto forma di codice binario in una singola traccia a spirale.\par
+	Le informazioni vengono lette da un laser che viene riflettuto in un apposito lettore. Per direzionare il raggio viene utilizzato uno specchietto che rende possibile coprire ogni zona del disco ottico. Allo scopo di effettuare l'operazione di scrittura, invece, si utilizza un laser più potente in grado di creare buchi nel disco, i quali verranno eventualmente letti tramite il laser normale.\par
+	Sorse poi la domanda: "Come migliorare ulteriormente questa tecnologia per salvare ancora più dati?"; la soluzione si rivelò in gel e luci per il laser di colori diversi. I dischi sono cosparsi del suddetto materiale e si scrive su di essi con luce blu, con frequenza maggiore, e rossa, con frequenza minore. Lasciando il colore nello strato in modalità diverse, il laser a luce bianca potrà leggere quanto scritto e distinguere fra i due colori. Con questa idea nacquero i \textbf{DVD-ROM}, DVD Read Only Memory, ed i \textbf{DVD-RW}, DVD Rewritable.
+	\item \textbf{Digital Audio Tape}:\par
+	\noindent Tecnologia di vita breve partorita da Sony. Raramente sono ancora utilizzati per effettuare dei backup nonostante il loro funzionamento fastidiosamente sequenziale per le operazioni di lettura e scrittura. Facciamo direttamente un esempio; mettiamo caso di avere un nastro scritto al $95\%$ e riteniamo necessario leggere o scrivere in una posizione precedente. Qui sarà necessario riavvolgere tutta la memoria fino al punto desiderato. Non molto efficiente.
+\end{itemize}
+\noindent Queste erano tutte le memorie attualmente in uso nel mercato mondiale. La tabella riassuntiva seguente va più nel dettaglio su dimensioni, in Byte, velocità, in secondi, e costi, euro su Byte.
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		\textbf{Memoria} & \textbf{Tecnologia} & \textbf{Accesso} & \textbf{Velocità} & \textbf{Dimensioni} & \textbf{Costo}\\
+		\hline
+		Registri & CMOS, elett, volatile & Datapath & $10^{-9}$ & $10^4$ & $10^{-3}$\\
+		\hline
+		Cache & Statica, elett, volatile & Associativo & $10^{-8}$ & $10^7$ & $10^{-6}$\\
+		\hline
+		RAM & Dinam, elett, volatile & Casuale & $10^{-7}$ & $10^{10}$ & $10^{-8}$\\
+		\hline
+		SSD & Elett, flash, non vol & A blocchi & $10^{-5}$ & $10^{12}$ & $10^{-10}$\\
+		\hline
+		HD & Magn, mecc, non vol & Diretto & $10^{-3}$ & $10^{13}$ & $10^{-11}$\\
+		\hline
+		CD/DVD & Ottica & Diretto & $10^{-3}$ & $10^{10}$ o $10^{13}$ & $10^{-9}$\\
+		\hline
+		DAT & Magnetica & Sequenziale & $10^0$ & $10^9$ o $10^{11}$ & $10^{-9}$\\
+		\hline
+	\end{tabular}
+	\caption{Memorie a confronto ordinate in base alla velocità}
+	\label{tab:memGerarchy}
+\end{table}
 
 %
 

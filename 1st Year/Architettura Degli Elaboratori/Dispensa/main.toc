@@ -35,23 +35,23 @@
 \contentsline {section}{\numberline {4.7}Device driver}{43}{}%
 \contentsline {section}{\numberline {4.8}Tipi di Memoria RAM}{45}{}%
 \contentsline {section}{\numberline {4.9}Caratteristiche e gerarchia delle memorie}{48}{}%
-\contentsline {section}{\numberline {4.10}Memoria Cache, Paginata e Virtuale}{48}{}%
-\contentsline {section}{\numberline {4.11}Pipelining}{53}{}%
-\contentsline {section}{\numberline {4.12}Modello CISC e RISC}{55}{}%
-\contentsline {section}{\numberline {4.13}Architetture parallele}{57}{}%
-\contentsline {chapter}{\numberline {5}SIS e Verilog}{61}{}%
-\contentsline {section}{\numberline {5.1}Introduzione a SIS}{61}{}%
-\contentsline {section}{\numberline {5.2}Sintesi combinatoria esatta}{61}{}%
-\contentsline {section}{\numberline {5.3}Sintesi combinatoria approssimata multilivello}{61}{}%
-\contentsline {section}{\numberline {5.4}Modellazione di FSM}{61}{}%
-\contentsline {section}{\numberline {5.5}Modellazione di FSMD}{61}{}%
-\contentsline {section}{\numberline {5.6}Introduzione a Verilog}{61}{}%
-\contentsline {section}{\numberline {5.7}Modellazione in Verilog}{61}{}%
-\contentsline {section}{\numberline {5.8}Modellazione di FSM}{61}{}%
-\contentsline {section}{\numberline {5.9}Modellazione di FSMD}{61}{}%
-\contentsline {chapter}{\numberline {6}Il linguaggio Assembly}{62}{}%
-\contentsline {section}{\numberline {6.1}Introduzione ad Assembly}{62}{}%
-\contentsline {section}{\numberline {6.2}Istruzioni e Sintassi}{64}{}%
-\contentsline {section}{\numberline {6.3}Debugging e Makefile}{65}{}%
-\contentsline {section}{\numberline {6.4}Funzioni e passaggio di parametri}{67}{}%
-\contentsline {section}{\numberline {6.5}Assembly e C}{68}{}%
+\contentsline {section}{\numberline {4.10}Memoria Cache, Paginata e Virtuale}{51}{}%
+\contentsline {section}{\numberline {4.11}Pipelining}{55}{}%
+\contentsline {section}{\numberline {4.12}Modello CISC e RISC}{58}{}%
+\contentsline {section}{\numberline {4.13}Architetture parallele}{60}{}%
+\contentsline {chapter}{\numberline {5}SIS e Verilog}{63}{}%
+\contentsline {section}{\numberline {5.1}Introduzione a SIS}{63}{}%
+\contentsline {section}{\numberline {5.2}Sintesi combinatoria esatta}{63}{}%
+\contentsline {section}{\numberline {5.3}Sintesi combinatoria approssimata multilivello}{63}{}%
+\contentsline {section}{\numberline {5.4}Modellazione di FSM}{63}{}%
+\contentsline {section}{\numberline {5.5}Modellazione di FSMD}{63}{}%
+\contentsline {section}{\numberline {5.6}Introduzione a Verilog}{63}{}%
+\contentsline {section}{\numberline {5.7}Modellazione in Verilog}{63}{}%
+\contentsline {section}{\numberline {5.8}Modellazione di FSM}{63}{}%
+\contentsline {section}{\numberline {5.9}Modellazione di FSMD}{63}{}%
+\contentsline {chapter}{\numberline {6}Il linguaggio Assembly}{64}{}%
+\contentsline {section}{\numberline {6.1}Introduzione ad Assembly}{64}{}%
+\contentsline {section}{\numberline {6.2}Istruzioni e Sintassi}{66}{}%
+\contentsline {section}{\numberline {6.3}Debugging e Makefile}{67}{}%
+\contentsline {section}{\numberline {6.4}Funzioni e passaggio di parametri}{69}{}%
+\contentsline {section}{\numberline {6.5}Assembly e C}{70}{}%

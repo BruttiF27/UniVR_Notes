@@ -1,0 +1,69 @@
+La fisica è una scienza naturale che si occupa dei principi primi che spiegano il funzionamento dell'universo; pone quindi le basi per lo studio di tutto ciò che ci circonda ed è vastamente utilizzata anche in ambito ingegneristico. Partiamo subito col dare alcuni concetti.
+
+\section{Grandezze fisiche e analisi dimensionale}
+Diciamo \textbf{grandezza fisica} una proprietà misurabile mediante un apposito dispositivo, per esempio, nel misurare il peso di un oggetto ci serviremo di una bilancia. Queste si esprimono con una moltiplicazione fra un valore numerico e la relativa unità di misura: $[1g]$. Distinguiamo le:
+\begin{itemize}
+	\item \textbf{Fondamentali}; Concetti indipendenti l'uno dall'altro indefinibili in termini di altre grandezze.
+	\item \textbf{Derivate}; Definibili mettendo in relazione le grandezze fondamentali.
+\end{itemize}
+\begin{table}[h]
+	\centering
+	\begin{tabular}{| c | c |}
+		\hline
+		\textbf{Grandezze fondamentali} & \textbf{Grandezze derivate}\\
+		\hline
+		Lunghezza $[L]$ & Superficie $[L^2]$ \\
+		Massa $[M]$ & Volume $[L^3]$\\
+		Tempo $[t]$ & Velocità $[L/t]$\\
+		Intensità di corrente $[i]$ & Accelerazione $[L/t^2]$\\
+		Temperatura assoluta $[T]$ & Forza $[M\times L/t^2]$\\
+		& Pressione $[(M\times L/t^2)/L^2]$\\
+		\hline
+	\end{tabular}
+\end{table}
+\noindent Quello utilizzato da noi per le misure è detto \textbf{sistema internazionale}, caratterizzato dalla semplicità per ottenere multipli e sottomultipli, attraverso moltiplicazioni e divisioni per $10$ rispettivamente. Gli eventuali risultati si scriveranno poi in base al numero di \textbf{cifre significative} richiesto, ovvero il totale delle cifre decimali entro le quali deve essere espresso il valore; tuttavia, in presenza di numeri molto grandi o piccoli, è possibile usare la \textbf{notazione scientifica}, una scrittura più compatta.\par
+Essendo poi che stiamo lavorando su valori espressi come una moltiplicazione, è necessario prestare attenzione alle unità di misura in gioco. Ciò si fa mediante l'\textbf{analisi dimensionale}, un semplice algoritmo che funge da accertamento.
+\begin{eg}
+	\textbf{Analisi dimensionale}\par
+	\noindent Prendiamo la seguente formula indicante una velocità: $v = at$. Per controllare se è dimensionalmente corretta, si sostituiscono ai valori nell'equazione le loro unità di misura. Se le misure sono concordanti, la formula sarà corretta. Abbiamo quindi:
+	\begin{center}
+		$v = \frac{L}{T}$, $a = \frac{L}{T^2}$, $t = T$
+	\end{center}
+	\begin{equation}
+		\begin{split}
+			v & = at \implies \frac{L}{T} = \frac{L}{T^2}\times T \implies \frac{L}{T} = \frac{L}{T}
+		\end{split}
+	\end{equation}
+	\noindent Notiamo che il risultato è un'identità, quindi la misura è corretta.
+\end{eg}
+
+%
+
+\section{Vettori}
+I \textbf{vettori}, indicati con $\overrightarrow{A}$, sono oggetti nel piano cartesiano definiti mediante due misure: la distanza da un punto detto \textbf{origine} e la direzione orientata relativamente ad un asse di riferimento. Utilizzano \textbf{grandezze vettoriali}, espresse con un valore e una direzione, e possono essere rappresentati in un sistema di coordinate cartesiane o polari. Useremo le seguenti formule per ottenere le coordinate:
+\begin{itemize}
+	\item Coordinate cartesiane in funzione delle polari; $x = rcos(\theta)$, $y = rsin(\theta)$.
+	\item Coordinate polari in funzione delle cartesiane; $tan(\theta) = \dfrac{y}{x}$, $r = \sqrt{x^2 + y^2}$.
+\end{itemize}
+\noindent La grandezza del vettore si dice \textbf{modulo} ed è un valore sempre positivo. La presenza di valori implica che è possibile operarci, quindi è possibile effettuare:
+\begin{itemize}
+	\item \textbf{Somma fra vettori}; $\overrightarrow{A} + \overrightarrow{B} = \overrightarrow{C}$
+	\begin{itemize}
+		\item \textbf{Metodo punta-coda}\par
+		\noindent Il vettore risultante è ottenuto attaccando la testa del primo vettore $A$ alla coda dell'altro $B$. Traccia una linea dalla coda di $A$ alla testa di $B$ e hai fatto.
+		\item \textbf{Somma delle parti}\par
+		\noindent I vettori possono essere visti come la somma delle proprie componenti, ovvero nella forma $\overrightarrow{A} = A_x\hat{i} + A_y\hat{j}$, dove le varie A sono i moduli delle proiezioni dati dalle formule $A_x = Acos(\theta), A_y = Asin(\theta)$, mentre le lettere con accento circonflesso i vettori unitari che determinano la direzione. Ciò rende possibile utilizzare le formule polari viste prima:
+		\begin{center}
+			$A = \sqrt{A_x^2 + A_y^2}$, $\theta = tan^{-1}\left(\frac{A_y}{A_x}\right)$
+		\end{center}
+	\end{itemize}
+	Questa operazione gode di proprietà commutativa e associativa.
+	\item \textbf{Sottrazione fra vettori}; $\overrightarrow{A} - \overrightarrow{B} = \overrightarrow{C}$\par
+	\noindent La sottrazione usa la definizione di \textbf{opposto}, definito come $\overrightarrow{A} + \overrightarrow{-A} = 0$. Si tratta di un vettore parallelo al primo, ma con verso opposto. Attacca le code dei due vettori e traccia una linea che collega le teste: questo è il tuo risultato.
+	\item \textbf{Moltiplicazione con scalare}; $n\overrightarrow{A}$\par
+	\noindent Abbastanza autoesplicativo, serve solo a modificare il modulo ed eventualmente direzione se è negativo.
+\end{itemize}
+
+%
+
+\section{Esercizi svolti}

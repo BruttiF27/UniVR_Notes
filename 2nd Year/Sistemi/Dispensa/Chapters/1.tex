@@ -1,0 +1,67 @@
+Il corso si propone di dare gli strumenti necessari alla comprensione della ricezione di segnali monodimensionali. Pone le basi per altre materie come elaborazione di segnali e immagini; richiede inoltre competenze di base ottenute da analisi 1 e 2, come anche nozioni di fisica 1. È consigliato iniziare questa materia solamente una volta dopo aver solidificato tali basi.
+
+%
+
+\section{Segnali e sistemi}
+Partiamo dai concetti di base: \textbf{segnali} e \textbf{sistemi} sono due entità in stretta correlazione, e non possono esistere da sole. La prima riguarda le informazioni trasmesse nello spazio-tempo, mentre la seconda rappresenta lo strumento con il quale si andrà a elaborare la precedente.\par
+Esistono due tipi di segnali di nostro interesse, quelli a \textbf{tempo continuo}, dati dai fenomeni fisici, e quelli a \textbf{tempo discreto}, in una forma approssimata per essere elaborati dalla macchina. Risulta finito nel tempo e nei valori.\newline
+
+\noindent Come già visto nel corso di Architetture degli Elaboratori, viene seguito il seguente algoritmo per la conversione dei dati e la loro conseguente elaborazione:
+\begin{enumerate}
+	\item \textbf{Campionamento}: Divide in intervalli uguali il segnale ricevuto, qunidi passa da continuo a discreto. Non è un processo distruttivo.
+	\item \textbf{Quantizzazione}: Approssima gli intervalli ottenuti ad un valore leggibile dalla macchina in base alla sua risoluzione. Da qui il segnale non è più revertibile.
+	\item \textbf{Encoding}: Trasforma il segnale quantizzato in dati. Non sarà approfondito.
+\end{enumerate}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/RicezioneSegnale.png}
+	\caption{Algoritmi di ricezione segnali}
+	\label{fig:RicSgl}
+\end{figure}
+In questa parte di corso ci concentreremo su segnali unidimensionali non negativi, ovvero rappresentabili tramite funzioni lineari. In successione verranno approfonditi anche i segnali bidimensionali, usati per la rappresentazione di immagini, e tridimensionali, ovvero le stesse con colori.\par
+Parliamo adesso dei \textbf{sistemi}. Questi detengono un'entrata ed un'uscita, anche se spesso viene usato un ulteriore \textbf{blocco di retroazione} per ricalibrare o modificare il segnale di output. In tal caso, l'uscita del blocco diventerà la nuova entrata del sistema principale. Un esempio di questo comportamento è il termostato. Di base segnala puramente la temperatura attuale, ma se attivato in automatico, cercherà di bilanciare la suddetta accendendo l'aria condizionata o i termoarredi.\newline
+
+\noindent Passiamo ora alle notazioni utilizzate nel corso. I segnali si indicano con la lettera minuscola $f$, mentre le maiuscole sono usate per le \textbf{Trasformate}, le quali hanno il compito di convertire i segnali. Vedremo più tardi in dettaglio la loro utilità.\par
+Le notazioni per variabili a tempo continuo sono $t, \tau, t_i$, mentre per quelle a tempo discreto si usa $k$. La scrittura $f(t)$ indica un segnale a tempo continuo. Per cogliere un istante specifico, si scrive $f(3)$, che ritornerà il valore di $f$ al tempo $3$.\par
+I sistemi sono invece rappresentati come una scatoletta nera, con un'entrata $u(t)$ ed un'uscita $v(t)$. Per loro si usano lettere greche o maiuscole, come $\Sigma$. Generalmente lavoreremo con sistemi LTI, ovvero \textbf{Lineari Tempo Invariante}, ciò significa che vale la sovrapposizione degli effetti (lineare), e che a prescindere dal punto di ingresso del segnale nel sistema, l'uscita sarà sempre la stessa (tempo invariante).\newline
+
+\noindent Il compito che ci poniamo è l'analisi dei sistemi tramite un approccio classico. Partiamo dal segnale, un qualunque evento fisico, e prendiamo per esempio una molla con una massa attaccata ad una sua estremità. Il movimento che questa effettua fino al ritornare stabile è il nostro segnale. Detto ciò, l'analisi è un processo diviso in quattro fasi:
+\begin{enumerate}
+	\item \textbf{Definizione del modello}: Per la rappresentazione del sistema verranno utilizzati grafici appositi, mentre per segnali a tempo continuo e discreto si useranno equazioni differenziali ed equazioni alle differenze rispettivamente.\par
+	Essendo le equazioni differenziali algoritmicamente complesse, più avanti nel corso saranno introdotte le trasformate, che consentono di trasformare equazioni differenziali in equazioni di secondo grado con numeri complessi. In particolare:
+	\begin{itemize}
+		\item \textbf{Trasformata di Laplace}: Più generale, per segnali a tempo continuo.
+		\item \textbf{Trasformata di Fourier}: Sottocategoria della precedente, usata sempre per segnali a tempo continuo.
+		\item \textbf{Trasformata Zeta}: Per segnali a tempo discreto.
+	\end{itemize}
+	\item \textbf{Analisi di proprietà e stabilità}: La definizione del modello introduce proprietà ad esso associate. Per esempio, supponiamo che un'auto sia il nostro sistema; il freno, che riduce la sua accelerazione per poi fermare del tutto il veicolo, è una proprietà. Se questa agisce come inteso, il sistema è detto \textbf{stabile}.
+	\item \textbf{Controllo delle proprietà}: Qui si parla di prestazioni, ovvero il costo utilizzato per produrre l'output richiesto. Chiaro che meno costa, meglio è.
+	\item \textbf{Sintesi del modello}: Non vista nel corso, è utile per la correzione del sistema affinché risulti stabile.
+\end{enumerate}
+\noindent Sebbene siano il nostro principale campo di prova, nella realtà non esistono sistemi lineari. infatti noi prenderemo una parte del segnale il cui comportamento risulta simile ad una funzione lineare, effettuando, in parole povere, un'astrazione del segnale preso in esame.\newline
+
+\noindent Approfondiamo ora la stabilità. Generalmente, quando la grandezza di un output non tende ad infinito, è detta stabile, ma ne abbiamo due tipi:
+\begin{itemize}
+	% TODO INSERISCI IMMAGINE
+	\item \textbf{Stabilità BIBO}: L'acronimo sta per bounded input, bounded output. Afferma che se ho un input limitato in ampiezza, mi aspetto che lo sarà anche l'uscita. Formalmente: 
+	\begin{center}
+		$\exists M > 0.|u(t)| <  M \forall t \in \mathbb{R} \implies \exists N > 0.|v(t)| < N \forall t \in \mathbb{R}$
+	\end{center}
+	% TODO INSERISCI IMMAGINE
+	\item \textbf{Stabilità asintotica}: Afferma che esiste un limite tale per cui il mio valore si annulla. Ciò vale sia in input che output. Quindi se cessa l'input, così farà l'output. Questa stabilità implica la precedente, ma non viceversa.
+	\begin{center}
+		$\forall t$ di $v(t).t\in \mathbb{R}$, $lim_{t_1 \to \infty} v(t) = 0$
+	\end{center}
+\end{itemize}
+\noindent Abbiamo detto prima che i segnali sono rappresentati mediante equazioni differenziali; infatti il modello generale è dato da una doppia sommatoria con due indici diversi di un coefficiente, moltiplicata per una parte esponenziale ed una parte polinomiale.
+\begin{definition}
+	\textbf{Formula generale per la rappresentazione dei segnali}
+	\begin{center}
+		$y(t) = \sum_{i}\sum_{j} c_{ij} e^{\alpha t} \frac{t^e}{e!}$
+	\end{center}
+	\noindent In questa formula, $t$ è la variabile del tempo ed $\alpha$ è un numero complesso. Quest'ultimo è rappresentabile anche come $\lambda + \omega t$ e quindi scomponibile in due esponenziali. È ovviamente consentito passare in coordinate polari:
+	\begin{itemize}
+		\item $e^{j\omega} = cos(\omega t) + jsin(\omega t)$.
+		\item $e^{\alpha t} = \rho(cos(\omega t) + jsin(\omega t))$.
+	\end{itemize}
+\end{definition}

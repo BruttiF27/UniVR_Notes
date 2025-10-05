@@ -1,3 +1,77 @@
+Lo studio della fisica avviene attraverso dei \textbf{modelli di analisi}, ovvero approssimazioni di fenomeni reali per renderne la comprensione più semplice. Nelle sezioni successive saranno prima forniti gli strumenti di base e poi il relativo modello usato per la risoluzione degli esercizi.
+
 \section{Moto in una dimensione}
+Iniziamo il percorso con la \textbf{cinematica}, la quale tratta il moto dei corpi, visti come un punto materiale, da un punto di vista descrittivo, ignorando le interazioni con l'ambiente circostante. I concetti di base sono:
+\begin{itemize}
+	\item \textbf{Posizione} $x$: Punto occupato, istante per istante, dal punto materiale rispetto ad un altro punto di riferimento, scelto come origine.
+	\item \textbf{Spostamento} $\Delta x = x_f - x_i$: Variazione della posizione di un punto materiale, da quella iniziale $x_i$, a quella finale $x_f$, in un certo intervallo di tempo.
+	\item \textbf{Velocità} $v = \frac{\Delta x}{\Delta t}$: Detta anche velocità media, è il rapporto fra lo spostamento del punto materiale e l'intervallo di tempo in cui ha compiuto tale movimento.
+	\item \textbf{Velocità istantanea} $v_x = \lim_{\Delta t\to 0}\frac{\Delta x}{\Delta t}$: Velocità di un corpo in un preciso istante $t$, è il limite della velocità quando l'istante tende a zero.
+\end{itemize}
+\noindent Il modello di analisi più semplice è quello del \textbf{moto rettilineo uniforme}, il quale pone un punto materiale che si muove ad una velocità costante. Come diretta conseguenza, la velocità istantanea sarà sempre uguale indipendentemente dall'istante colto. Inoltre, si prenderà l'istante finale del tempo, quindi, da un punto di vista di formule, avremo che:
+\begin{center}
+	Velocità: $v_x = \dfrac{\Delta x}{\Delta t}$, Posizione finale: $x_f = x_i+v_xt$
+\end{center}
+\noindent Altra caratteristica degna di nota è come la velocità può essere espressa anche in quantità scalare, se al posto dello spostamento è utilizzata la \textbf{distanza} $d$ percorsa dalla particella. Si tratta di un valore sempre positivo, indipendentemente dalla direzione in cui va il punto.\newline
+
+% TODO AGGIUNGI GRAFICO MOTO RETTILINEO UNIFORME
+
+\noindent Dove quello appena visto è un modello molto usato, non ci si può aspettare che in ogni fenomeno fisico i corpi si muovano a velocità costante; questa infatti può variare, e quando accade, si dice che il corpo \textbf{accelera}. In tal merito introduciamo i concetti di:
+\begin{itemize}
+	\item \textbf{Accelerazione} $a_x = \frac{\Delta v_x}{\Delta t}$: Variazione della velocità divisa per l'intervallo di tempo in cui avviene la variazione. Va a $0$ quando la velocità del corpo è massima ed è negativa quando la velocità in direzione positiva decresce.
+	\item \textbf{Accelerazione istantanea} $a_x = \lim_{\Delta t \to 0} \frac{\Delta v_x}{\Delta t}$: Il limite dell'accelerazione media per il tempo che tende a zero. Coglie il valore in un determinato istante di tempo.
+\end{itemize}
+\noindent Il modello di analisi aggiornato con questi dati si dice \textbf{punto materiale ad accelerazione costante}, ed è fondamentalmente un'estensione di quanto visto prima. Qui l'accelerazione media è numericamente uguale a quella istantanea in qualunque intervallo di tempo. Aggiungendo l'accelerazione alle formule, otteniamo quanto segue, rispettivamente per la velocità media, la posizione finale e la velocità in posizione finale:
+\begin{align*}
+	a_x &= \frac{v_{xf} - v_{xi}}{t-0} \implies v_{xf} = v_{xi} + a_xt\\
+	v_x &= \frac{v_{xi} + v_{xf}}{2}\\
+	x_f-x_i &= v_xt = \frac{1}{2}(v_{xi} + v_{xf})t \implies x_f = x_i+\frac{1}{2}(v_{xi}+v_{xf})t\\
+	x_f &= x_i + \frac{1}{2}[v_{xi}+(v_{xi}+a_xt)]t \implies x_f = x_i + v_{xi}t + \frac{1}{2}a_xt^2\\
+	x_f &= x_i +\frac{1}{2}(v_{xi}+v_{xf})\left(\frac{v_{xf}-v_{xi}}{a_x}\right) = x_i+\frac{v_{xf}^2-v_{xi}^2}{2a_x} \implies v_{xf}^2 = v_{xi}^2 + 2a_x(x_f - x_i)
+\end{align*}
+
+% TODO AGGIUNGI GRAFICO PUNTO MATERIALE AD ACCELERAZIONE COSTANTE
+
+\noindent Un caso più specifico di quanto appena visto è invece il \textbf{moto di caduta}. Tutti i corpi sotto effetto della gravità terrestre cadono con la stessa accelerazione costante: $g = 9,8m/s^2$. È possibile usare le equazioni cinematiche del precedente modello di analisi, semplicemente il moto è ora verticale, ed essendo che l'accelerazione va verso il basso, bisognerà indicare la costante gravitazionale con segno negativo.
+
+%
+
 \section{Moto in due dimensioni}
+
+%
+
 \section{Esercizi svolti}
+\textbf{Esercizio 1: Moto rettilineo uniforme}\par
+\noindent Una studiosa misura la velocità di un atleta che corre a ritmo costante su una strada rettilinea. Fa partire il cronometro quando arriva in un dato punto e lo ferma quando arriva $20m$ più avanti. Registra un tempo di $4,0s$.
+\begin{itemize}
+	\item \textbf{Qual è la velocità dell'atleta?}\par
+	\noindent Richiesta esplicita, possiamo prendere direttamente la formula apposita senza usare criteri di equivalenza. \[v_x = \frac{\Delta s}{\Delta t} = \frac{20m - 0m}{4,0s} = 5,0m/s\]
+	\item \textbf{Se l'atleta continua a correre per altri $10s$, quale sarà la sua posizione allora?}\par
+	\noindent Fondamentalmente ci sta chiedendo la posizione dell'atleta alla fine di questi $10s$. Possiamo prendere anche qui la formula senza cambiare nulla. \[x_f = x_i+v_xt = 0m + 5m/s \times 10s = 50m\]
+\end{itemize}
+
+\noindent\textbf{Esercizio 2: Punto materiale ad accelerazione costante}\par
+\noindent Un aereo atterra alla velocità di $140mi/h$.
+\begin{itemize}
+	\item \textbf{Qual è l'accelerazione dell'aereo, se il cavo di arresto lo ferma in $2s$?}\par
+	\noindent Essendo l'accelerazione supposta costante, possiamo utilizzare direttamente la formula. Bisogna solo convertire le miglie orarie a metri al secondo: $140mi/h = \frac{140}{2,237} \approx 63m/s$. \[a_x = \frac{\Delta v_x}{\Delta t} = \frac{0-63m/s}{2,0s-0} = -32m/s^2\]
+	\item  \textbf{Se l'aereo aggancia il cavo quando si trova in $x_i = 0$, quale sarà la sua posizione finale?}\par
+	\noindent Molto semplicemente si tratta di una sostituzione dei dati alla formula per la posizione finale: \[x_f = x_i + \frac{1}{2}(v_{xi}+v_{xf})t = 0 + \frac{1}{2}(63m/s^2+0)2,0s = 63m\]
+\end{itemize}
+
+\noindent\textbf{Esercizio 3: Corpo in caduta libera}\par
+\noindent Dal tetto di un palazzo una pietra è lanciata verso l'alto e la sua velocità iniziale è di $20m/s$. Il lancio avviene da un'altezza di $50m$ rispetto al suolo, per poi cadere a terra.
+\begin{itemize}
+	\item \textbf{Se $t_A$ è l'istante iniziale in cui la pietra lascia la mano del lanciatore, trovare l'istante in cui la pietra raggiunge la massima altezza.}\par
+	\noindent Ci aspettiamo che, essendo la pietra lanciata verso l'alto, la velocità sia inizialmente positiva. Una volta raggiunta la massima altezza questa sarà a zero, mentre nel cadere avrà valore negativo. L'accelerazione avrà la stessa dinamica.\par
+	Per trovare l'istante preciso in cui l'altezza è massima bisogna prima ricavare l'equazione per ottenere $t$: \[v_{yf} = v_{yi}+a_yt \implies t = \frac{v_{yf} - v_{yi}}{a_y} = \frac{0-20m/s}{-9,8m/s^2} = 2,04s\]
+	\item \textbf{Trovare l'altezza massima raggiunta dalla pietra}\par
+	\noindent Risulta comodo considerare due istanze, la seconda come finale. Sapendo questo possiamo usare la formula apposita: \[y_f = y_i + v_{xi}t + \frac{1}{2}a_yt^2 = 0+(20m/s)(2,04m) + \frac{1}{2}(-9,8m/s^2)(2,04s)^2 = 20,4m\]
+	\item \textbf{Calcolare la velocità della pietra quando ripassa per l'altezza da cui era stata lanciata}\par
+	\noindent Il punto iniziale è lo stesso, mentre il finale è la medesima altezza mentre la pietra cade verso il basso. Sarà necessario utilizzare l'equazione in base alla posizione: \[v_{yf}^2 = v_{yi}^2 + 2a_y(y_f - y_i) = (20m/s)^2 + 2(-8,8m/s^2)(0) = 400m^2/s^2\]
+	\noindent Vogliamo tuttavia la velocità a grado uno, quindi usiamo la radice quadrata: \[\sqrt{v_{yf}^2} = \sqrt{400m^2/s^2} \implies v_{yf} = -20m/s\]
+	\noindent Sebbene il risultato dalla radice quadrata sia positivo, bisogna tenere a mente che il movimento della pietra nella posizione finale è verso il basso, ragion per cui ha velocità negativa.
+	\item \textbf{Trovare velocità e posizione della pietra al tempo $t = 5s$.}\par
+	\noindent Il punto iniziale è sempre il solito, mentre adesso quello finale è la posizione a tempo $t=5s$. Prima calcoliamo la velocità in quest'ultima: \[v_{yf} = v_{yi} + a_yt = 20m/s +(-9,8m/s^2)5s = -29m/s\]
+	\noindent E adesso la posizione effettiva: \[y_f = y_i + v_{yi}t + \frac{1}{2}a_yt = 0+(20m/s)5s + \frac{1}{2}(-9,8m/s^2)5s = -22,5m\]
+\end{itemize}

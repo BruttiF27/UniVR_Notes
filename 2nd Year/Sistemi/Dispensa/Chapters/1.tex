@@ -1,4 +1,4 @@
-Il corso si propone di dare gli strumenti necessari alla comprensione della ricezione di segnali monodimensionali. Pone le basi per altre materie come elaborazione di segnali e immagini; richiede inoltre competenze di base ottenute da analisi 1 e 2, come anche nozioni di fisica 1. È consigliato iniziare questa materia solamente una volta dopo aver solidificato tali basi.
+Il corso si propone di dare gli strumenti necessari alla comprensione della ricezione di segnali monodimensionali. Pone le basi per altre materie come elaborazione di segnali e immagini; richiede inoltre competenze di base ottenute da analisi 1 e 2, come anche nozioni di fisica 1. È consigliato iniziare questa materia solamente una volta dopo aver solidificato tali basi, specie riguardo i numeri complessi.
 
 %
 
@@ -65,3 +65,36 @@ I sistemi sono invece rappresentati come una scatoletta nera, con un'entrata $u(
 		\item $e^{\alpha t} = \rho(cos(\omega t) + jsin(\omega t))$.
 	\end{itemize}
 \end{definition}
+
+%
+
+\section{Tipi di segnali}
+È stato precedentemente menzionato come i due tipi di segnali principali siano quelli a tempo continuo e discreto, è ora di associare il concetto ad effettive funzioni sulle quali andremo a lavorare.\newline
+
+\noindent\textbf{Segnali sinusoidali}: $x(t) = Acos(\omega_o t + \phi)$; $x[n] = Acos(\Omega_0n + \phi)$\par
+\noindent Le due formule sono usate per l'espressione dei segnali in forma sinusoidale, la prima a tempo continuo, la seconda a tempo discreto. Le componenti sono:
+\begin{itemize}
+	\item $A$: Ampiezza, indica l'altezza dell'onda in base all'asse delle y.
+	\item $\omega_0$; $\Omega_0$: Frequenza, determinata dalla dilatazione delle singole onde. Si ottiene con $f = \frac{1}{t}$, dove $t$ è il periodo.
+	\item $\phi$: Fase, punto di inizio del segnale.
+\end{itemize}
+\noindent Il punto d'intersezione con l'asse delle $y$ è dato da $Acos(\phi)$, detto \textbf{Shift temporale}, mentre il \textbf{Periodo} $t_0 = \frac{2\pi}{\omega_0}$ è la distanza fra le due ampiezze massime delle singole onde. Questo tipo di segnale detiene inoltre proprietà legate al tipo di funzione:
+\begin{itemize}
+	\item \textbf{Periodicità}: Esiste un certo periodo $t_0$ che se sommato a $t$ ritorna lo stesso risultato. $t_0$ è il numero più piccolo per il quale vale questa proprietà.
+	\item \textbf{Time shifting}: Una traslazione temporale, ovvero spostarsi avanti o indietro nel tempo rispetto al segnale, equivale ad un cambio di fase. Dove questa proprietà è sempre vera in segnali a tempo continuo, in quelli a tempo discreto potrebbe non valere.
+	\item \textbf{Parità}: Data una fase $\phi = 0$, otterremo una funzione coseno, quindi pari. Vale $x(t) = x(-t)$.
+	\item \textbf{Disparità}: Data una fase $\phi = -\frac{\pi}{2}$, otterremo una funzione seno, quindi dispari. Vale $x(t) = -x(-t)$.
+\end{itemize}
+
+% TODO INSERISCI IMMAGINE PER ENTRAMBI I TIPI DI SEGNALI
+
+\noindent \textbf{Segnali esponenziali}: $x(t) = Ce^{at}; x[n] = Ce^{bn}$
+% Inserisci il significato delle componenti della formula
+% Inserisci le proprietà del tipo di segnale
+% Inserisci il disegno del segnale
+
+% TODO CONTINUA DA LEZIONE 4
+% Gli appunti ci sono, devi solo riorganizzarli.
+
+
+

@@ -1,0 +1,106 @@
+Basi di dati 02-10-25
+
+Dati persistenti rappresentati su dispositivo fisico, i quali persistono a meno che non vengano cancellati apposta.
+
+Lo scopo è progettare una struttura dati, trovare motivi e criteri per presentare una base di dati.
+
+Progettare: immaginare una soluzione e definire formalmente quali sono le sue caratteristiche; servono strumenti formali (modelli).
+Usando questi strumenti si potrà confezinoare il progetto e definirlo sui dati. Questo algoritmo si chiama progettazione concettuale, che seguirà l'implementazione sui sistemi.
+
+Useremo formato json, vedremo come interrogare i dati. Vogliamo un'interfaccia capace di interrogare i dati salvati.
+Useremo SQL come linguaggio apposito e anche MongoDB e postgreSQL.
+
+Transazione: Strumento che consente che un certa operazione sui dati debba essere fatta in modo atomico. Intollerabile che si rimanga a metà. Quindi o la eseguo o non la eseguo. Esempio, transazione
+di denaro tramite bonifico.
+
+Esame, controllare le prime slides della lezione 1 per ulteriori informazioni: 
+	- Modulo di teoria, esame scritto:
+		1. Domande preliminari in modalità informatizzata.
+		2. Domande di teoria, progettazione concettuale e logiva di un DB, algebra relazionale e calcolo relazionale.
+	- Modulo tecnologie e laboratorio; esame scritto:
+		1. DMBS, JSON
+		2. SQL e postgreSQL
+		
+Progettazione concettuale:
+	- Progettazione guidata dai requisiti
+	- " Indipendente dalla tecnologia
+	- " Nel modello entità-relazione
+
+Progettazione logica:
+	- Traduzione di schemi di basi di dati da livello concettuale a logico
+	- Modello relazionale
+	- Vincoli di integrità
+	- Modello basato sui documenti
+	
+Interrogazione di un DB relazionale:
+	- Algebra relazionale
+	- Calcolo relazionale e SQL
+	- Ottimizzazinoe delle interrogazioni
+	
+SQL è un linguaggio dichiarativo, ovvero non è una sequenza di istruzioni, bensì una sola che dice qual è la caratteristica dei dati che voglio.
+Descrive quindi il risultato, facendolo basandosi sulla FOL
+
+Transazioni:
+	- Proprietà delle transazioni
+	- Esecuzione corrente
+	- ...
+	
+Tecnologie per i DB
+	- Sistemi relazionali per la gestione di DB
+	- Strutture fisiche ed indici
+	- Datri come documenti JSON
+	- Tecniche per interagire fra applicazioni e DBMS
+	- ...
+	
+Andremo a lavorare sulla memoria secondaria, il cui accesso è lento e sequenziale. Qui i dati persistono e non sono volatili come nella memoria ram.
+Errori che si fanno in questo ambito hanno conseguenze non leggere.
+
+Fino al 2005 tutti i server erano centralizzati e quindi stava tutto in un singolo server, assurdo.
+La soluzione è avere un cluster con più server, per gestire un'enormità di dati. L'architettura è quindi diventata distribuita.
+
+--- NASCITA DEI SISTEMI PER LA GESTIONE DI BASI DI DATI
+Nati negli anni 60 negli ambienti di ricerca scientifica e negli anni 70 nascono le applicazioni informatiche in ambito gestionale.
+I requisiti saranno il nostro punto di partenza; da questi si progetteranno gli algoritmi di elaborazione su una grande quantità di dati condivisi da più applicazioni.
+
+Le caratteristiche e i requisiti provengono dal sistema informativo. Se non so come funziona, è impossibile lavorarci, perché non potrebbe andare bene.
+
+
+--- Per la dispensa
+Dispensa divisa in 3 macrosezioni
+Modulo di teoria:
+	1. (Introduzione ai) Sistemi per la gestione di basi di dati
+	2. Progettazione concettuale di una base di dati
+	3. Progettazione logica di una base di dati
+	4. Interazione con una base di dati
+	
+Modulo di laboratorio:
+	5. RDBMS, SQL in postgreSQL
+	6. Query e transazioni
+	7. Accesso a DB da programmi python
+	8. DBMS NoSQL MongoDB
+
+Modulo di tecnologie per le basi di dati:
+	9. L'architettura interna di un sistema per la gestione di basi di dati (DBMS)
+	10. Esecuzione e ottimizzazione di interrogazioni in linguaggio SQL.
+	11. L'architettura di un sistema NoSQL document-based: il caso di MongoDB.
+	
+
+
+\chapter{Sistemi per la gestione di database}
+\input{Chapters/1}
+\chapter{Progettazione concettuale}
+\input{Chapters/2}
+\chapter{Progettazione logica}
+\input{Chapters/3}
+\chapter{Interazione con un database}
+\input{Chapters/4}
+\chapter{RDBMS e SQL in postgreSQL}
+\input{Chapters/5}
+\chapter{Query e transazioni}
+\input{Chapters/6}
+\chapter{Accesso a database da programmi Python}
+\input{Chapters/7}
+\chapter{DBMS, NoSQL e MongoDB}
+\input{Chapters/8}
+\chapter{}
+ 

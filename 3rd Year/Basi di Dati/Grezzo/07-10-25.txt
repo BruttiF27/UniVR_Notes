@@ -1,0 +1,51 @@
+07-10-2025 Basi di dati
+
+--- Progettazione concettuale
+Come si caratterizzano le applicazioni gestionali?
+	- Devono gestire molti dati non volatili
+	- I dati sono condivisi da più applicazioni
+	
+Sistema informativo: ambiente dove vogliamo introdurre una soluzione per migliorare la gestione dei dati. Formalmente { insieme delle attività umane e dei dipositivi di comunicazione/elaborazione
+che gestisce l'informazione di interesse per un organizzazione di dimensioni qualsiasi }. Non è necessariamente di tipo informatico.
+Per ottenere un buon risultato bisogna capire come funziona il sistema informativo al quale proporre la miglior soluzione.
+
+Dato: Elemento d conoscenza di base costituito da simboli da elaborare.
+Informazione: Interpretazione dei dati che permette di ottenere conoscenza più o meno esatta di fatti e situazioni.
+
+-- Workflow per lo studio del comportamento:
+	1. Definizione archivi dati e delle sorgenti di dati
+	2. Definizione degli utenti.
+	3. Definizione di procedure e processi
+	4. Definizione dei flussi di dati
+	
+Base di dati: Collezione di dati usati per rappresentare con tecnologia informatica le informazioni di interesse per un sistema informativo.
+
+Il DBMS (DataBase Management System) è una soluzione proposta negli anni 80 che si frappone fra le applicazioni e la memoria secondaria. Le applicazioni vedono la memoria ad un livello più astratto.
+Formalmente: un DMBS è un sistema che gestisce su memoria secondaria collezioni di date, dette basi di dati, le quali sono grandi, condivise e persistenti. Assicura affidabilità, privacy ed un accesso
+efficiente ai dati.
+Il DBMS ha un modello di dati al suo interno, il modo in cui i dati sono salvati. E' questo che consente l'astrazione della memoria e quindi un accesso ai dati più agevole grazie ad interrogazioni
+complesse. Cosa che nel file system non può avvenire, poiché i dati sono organizzati in sequenze e l'accesso è, indovina un pò, sequenziale per gruppi di byte.
+Il lavoro fatto sui dati deve essere svolto dal DBMS, lavorerà sempre meglio di noi.
+Il DBMS interagisce con più elementi, fra gli utenti, l'amministratore, applicazioni web e simili. Gli utenti comuni interagiscono col DB con le interfacce grafiche.
+
+I linguaggi di interazione col DBMS sono vari:
+	- Data Definition Language per la definizione
+	- Data Manipulation Lnaguage, consente di manipolare informazinoi (popolare la base di dati e modificare i dati) ed interrogare la base di dati.
+SQL fa entrambi i lavori. Simpatico.
+
+Modello dei dati: Insieme dei costritti forniti dal DBMS per descrivere struttuirea e proprietà dell'informazinoe contenuta in una base di dati.
+I costrutti perrmettono di definire le strutture dati cjhe conterranno le informazioni della base e anche di specificare le proprietà che dovranno soddisfare le istanze di informazione nel DB.
+
+I modelli dei dsti attuali sono quelli relazionali e basato sui documenti (JSON)
+
+Modello dei dati: Già detto prima
+Schema di una base dei dati: Descrizione di struttura e propeità di una specifica DB, fatta usando i costrutti del modello dei dati. Nel tempo, è invariante.
+Istanza di una base dei dati: Costituita dai valori effettivi che in un certo istante popolano le struttuire di una base di dati. Queste variano nel tempo.
+
+Architettura del DBMS - Abbiamo 3 livelli, nei quali andiamo a descrivere il dato gestito:
+	- Esterno
+	- Logico: Rappresentazione della struttura e propeirtà del DB coi costrutti del modello dei dati del dbms
+	- Interno: Rappresentazione della db per mezzo delle strutture fisiche di memorizzazione
+	
+Indipendenza logica e indipendenza fisica. Se si cambiano gli apparti fisici non si va ad impattare l'apparto logico e quindi le applicazioni rimangono invariate.
+Indipendenza logica è come gli schemi esterni della db sono indipendenti dallo schema logico.

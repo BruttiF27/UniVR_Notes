@@ -1,0 +1,44 @@
+07-10-25 Prog2
+
+--- Tipi e oggetti ---
+Linguaggi tipati; che hanno un tipo come int, char, etc. Lo definiamo un insieme di valori con relative operazioni effettuabili su di essi.
+
+Se le variabili a runtime non possono assumere tipi diversi, si dicono fortemente tipizzati
+
+Tipi primitivi di java:
+	- int, interi da -2^{31} a 2^{31}-1, operazioni: +-*/%
+	- double
+	- char, non hanno operazioni
+	- boolean, operazioni !&&||
+
+Type casting ha sintassi uguale a C, per passare per esempio da float a int di fa tipo int i = (int) 3.2;
+
+Esiste il tipo stringa ma sono degli oggetti per renderle un attimo meno problematiche. Puoi concatenarle con +.
+
+-- Oggetti
+Istanze di classi accessibili solamente tramite messaggi. Hanno dei campi, sottoinsiemi di locazioni di memoria, interagibili coi metodi.
+Java ha puntatori ma non ne esiste l'aritmetica.
+
+Referenza dell'oggetto contiene il nome di una classe ed un indirizzo di memoria. Non usa memoria, tiene solo l'indirizzo.
+
+class Vehicle {				// Rivedere la definizione di classe, potrei aver scritto na minchiata
+	string Manifacturer;
+	setFrameNumber(int);
+};
+Vehicle MyCar; 				// Contiene Vehicle@null
+MyCar = new Vehicle();		// MyCar ora è un oggetto di classe Vehicle. Istanziazione. Il compiler vedrà Vehicle@memAddress
+MyCar.setFrameNumber(2);	// Messaggio legale inviato alla zona di memoria memAddress.
+
+-- Ereditarietà; rivedere in autonomia
+(?) Puoi aggiungere altri dati e metodi dichiarando prima un oggetto di una classe, per poi assegnarli un new oggettoDiverso();
+Vehicle myCar
+myCar = new Car();		// Un oggetto Car eredita tutti i campi e metodi degli oggetti vehicle
+
+Puoi usare (objname == null) per controllare se qualche puntatore va a null per qualche ragione. Utile, dai.
+Come è anche possibile mettere un oggetto a null. Aiuta il garbage collector a capire quale memoria deallocare.
+
+--- Sintassi base ---
+Costrutti di base
+	- Le variabili si dichiarano come in C. Boom, risparmiato 30min di spiegazione.
+	- Gli oggetti vanno inizializzati per evitare NullPointerException... ma dai?
+	- Le costanti si dichiarano con "final static n = 1;"

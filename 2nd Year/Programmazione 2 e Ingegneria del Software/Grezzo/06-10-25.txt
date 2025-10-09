@@ -1,0 +1,26 @@
+06-10-2025 Prog2 (Michele Pasqua) michele.pasqua@univr.it
+La OOP ha tratti imperativi (gli oggetti contengono dati) e tratti dichiarativi (gli oggetti contengono metodi per operare sui dati).
+Gli oggetti scolpiscono lo scope e la programmazione in OOP è fatta con le interazioni fra di essi
+
+Gli oggetti incapsulano i dati e i metodi, rendendoli più sicuri. è una cosa che fa il compiler Javac.
+
+Vantaggi oop: permette di programmare con meno sforzi (sicurezza automatizzata), rende il codice riutilizzabile e ne semplifica mantenimento ed evoluzione
+Processo di programmazione orientata agli oggetti:
+	- identifica i componenti
+	- definisci i componenti dell'interfaccia
+	- definisci come i componenti interagiscono fra loro con le interfacce
+	- Minimizza le relazioni fra i componenti.
+
+Unified Modeling Language UML - Linguaggio di modellazione per definire graficamente e documentare un sistema orientato agli oggetti. Ci interessano i diagrammi di classe.
+
+La definizione di una classe non comporta l'uso di memoria. La creazione di un oggetto, sì, e si chiama instanziazione. L'oggetto creato è infatti un'istanza della classe.
+
+Un'interfaccia è il set dei messaggi che può ricevere l'oggetto ed è mappato ad un metodo nell'oggetto. Qualunque altro messaggio è illegale se non è ivi compreso.
+Incapsulamento e information hiding
+Ereditarietà
+
+Portati avanti:
+- Definizione di OOP, classi, oggetti e UML
+- Scopi della OOP
+- Java, JVM, struttura generale dei programmi, compilazione ed esecuzione.
+

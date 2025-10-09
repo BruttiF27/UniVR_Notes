@@ -1,0 +1,65 @@
+07-10-25 Algoritmi
+
+Tempo, risorse, quanti processori usa(quest'ultimo se si parla di alg. paralleli)
+
+Vediamo quindi la complessità degli algoritmi (in questo caso temporale)
+Tempo di esecuzione di un algoritmo non è un numero preciso, varia a seconda di quanto è grande il programma ed il relativo numero di dati da usare.
+Questa bella cosa si esprime con una funzione lineare. Cresce in base al numero di dati nel programma. Quindi la complessità è una funzione che dipende da quanto grande è il problema.
+
+La dimensione del problema si può misurare con n numeri diversi, poi il calcolo della complessità avviene tramite la funzione.
+Bisogna ponderare quanto essere precisi nella formula esprimente la complessità. Se poco, non dice nulla, se troppo, è incasinata.
+
+Per esempio, ricerca di un elemento in array. T(n) = c*n
+Il tempo di esecuzione è direttamente proporzionale alla dimensione dell'array. Se raddoppi la dimensione, raddoppia il tempo di esecuzione.
+c è costante.
+n è la dimensione. Le operazioni da eseguire.
+
+Ciò che conta veramente è l'ordine di grandezza della funzione. Ci interessa quante operazioni vengono eseguite perché son queste che veramente variano il tempo di esecuzione nella formula.
+Se tuttavia parliamo di valori di n piccoli, il valore della costante può maggiormente influire sul tempo di esecuzione.
+
+Con l'analisi asintotica si ottengono tutte le informazioni utili.
+
+Come costruire la funzione di complessità?
+	- Caso pessimo; provare che in assoluto, peggio di questo caso non può avvenire, a prescindere da quante operazioni si effettuano.
+	- Caso ottimo
+	
+Per una stima accurata bisogna presentare una funzione la più piccola possibile. La stima più corretta è quando il valore massimo combacia con quello massimo ottenibile.
+Fondamentalmente questo è il limite superiore. Se trovo quello inferiore poi ho ottenuto la stima più precisa possibile, ovvero caso ottimo e pessimo.
+Procedimento:
+	- troviamo il limite superiore
+	- Facciamo un esempio, se combacia col limite inferiore la stima è perfetta.
+	
+Esempio: ricerca elemento in un array
+- La ricerca della lunghezza dell'array è fatta a tempo costante perché sono sempre le stesse operazioni indipendentemente dalla liunghezza
+- Un'assegbazione di valore è 1operazione
+- Si effettua un test nel ciclo while. Essendo loro sempre le stesse, è tempo costante pure questo.
+	- Tuttavia questo tempo costante è effettuato finché non si è trovato l'elemento.
+	
+funzione finale: a+1+d+n(b+d)
+a = assegnazione del valore della lunghezza in n
+1 = assegnazione dell'indice
+d = ciclo while che effettua il testing
+b = incremento indice
+
+Essendo che ci interessa ciò che succede asintoticamente possiamo rimuovere tutti i termini di ordine inferiore e ottenere solo n(b+d)
+Le cose vanno bene da un certo punto in poi, fino al limite superiore.
+
+In alcuni casi ci interessa studiare il tempo di esecuzione medio, ha senso se c'è la casualità in gioco.
+
+- Complessità dell'algoritmo che moltiplica due matrici
+Abbniamo due matrici A,B. n*m, m*l
+
+mult(A,B)
+n <- rows[A]
+m <- cols[A]
+l <- cols[B]
+for(i<-1:n)										// c''*m*l*n, vedasi procedimento di prima. Questa è la formula finale.
+	for(j<-1:l)									// c'*m*l perché ci sono altre costanti raggruppate in c' e l'operazione è fatta fino ad l.
+		c_{ij} <- 0								// Assegnamento, un'operazione singola.
+		
+		for(k<-1:m)								// Assegnamento a k e test finale. Due operazioni.
+			c_{ij}<-c_{ij} + a_{ik}*b_{kj}		// Costa tre operazioni a tempo costante.	Il ciclo intero è (3+2)m+2, ma ignorando le costanti otteniamo: c*m.
+			
+Quando hai cicli nidificati è preferibile iniziare da quello più interno
+Se sei nel caso degenere, ovvero le matrici sono a 1dimensione e quindi vettori, la formula diventa c*m, perché i cicli da 1 a n o l si eseguono in un'operazione singola.
+Nel caso di matrici quadrate, m, l, ed n hanno tutte lo stesso valore, quindi cn^3

@@ -1,0 +1,21 @@
+Algoritmi 06-10-25
+
+Scelta più corretta di un algoritmo per risolvere un problema.
+O(n) indica l'ordine di grandezza, ovvero quanto veloce va.
+
+Algoritmo: descrizione di procedura di calcolo. Deve essere rigorosa abbastanza per non essere ambigua e deve essere riproducicbile
+Complessità: Per misurare il tempo di esecuzione. La useremo per confrontare algoritmi diversi e capire qual è il migliore. (Si studiano con equazioni di ricorrenza)
+
+Faremo anche strutture dati per consentire manipolazioni efficienti
+
+Indovinello:
+prodotto età: 36
+Somma età: civico x
+Maggiore: occhi azzurri
+
+Esame diviso in due parti:
+	1. A crocette, domande a risposta multipla. V/F. 1pt ok, 0.5pt NA, 0pt err
+	2. Se prendi d 24 in su, valutazione minima se arrivi qua è 23.
+	3. Se prendi da 27 in su fai pure un orale bonus.
+	
+Studio della complessità

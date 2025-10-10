@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  6 OCT 2025 21:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  10 OCT 2025 17:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -318,15 +318,34 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 ]
 Chapter 1.
 (./Chapters/1.tex
-Underfull \hbox (badness 10000) in paragraph at lines 6--7
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
  []
 
 [3
 
-]) [4]
+]
+Underfull \hbox (badness 10000) in paragraph at lines 29--30
+
+ []
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+) [4]
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
+57.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmtt.fd
+File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+) [5]
+Overfull \hbox (12.15771pt too wide) in paragraph at lines 96--100
+[]\OT1/cmr/m/n/12 -- Ered-i-ta-riet^^Ra; rivedere in au-tono-mia (?) Puoi ag-gi
+un-gere al-tri dati e metodi dichiarando
+ []
+
+) [6]
 Chapter 2.
-(./Chapters/2.tex) [5
+(./Chapters/2.tex) [7
 
 ] (./main.aux)
  ***********
@@ -335,24 +354,28 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5269 strings out of 476182
- 78365 string characters out of 5795596
- 1928975 words of memory out of 5000000
- 27203 multiletter control sequences out of 15000+600000
- 567244 words of font info for 71 fonts, out of 8000000 for 9000
+ 5650 strings out of 476182
+ 82209 string characters out of 5795596
+ 1995975 words of memory out of 5000000
+ 27575 multiletter control sequences out of 15000+600000
+ 568215 words of font info for 75 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 64i,6n,70p,530b,269s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
-xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (6 pages, 85224 bytes).
+ 64i,6n,70p,684b,1770s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tctt1000.600pk
+> </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (8 pages, 125927 bytes).
 PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
- 35 compressed objects within 1 object stream
+ 87 PDF objects out of 1000 (max. 8388607)
+ 55 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

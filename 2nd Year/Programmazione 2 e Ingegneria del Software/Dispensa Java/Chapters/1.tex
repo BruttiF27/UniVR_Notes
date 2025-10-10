@@ -1,8 +1,5 @@
 \section{Programmazione orientata agli oggetti}
 Il corso di programmazione II ha lo scopo di fornire un modus operandi differente; passeremo infatti dalla programmazione imperativa ad una \textbf{orientata agli oggetti}.\par
-
-% TODO COS'È LA OOP?
-
 Lo scopo e l'utilità della OOP è quello di gestire appropriatamente un programma con molte linee di codice. Rende il codice estremamente modulare, riutilizzabile e di conseguenza risulta più facile mantenerlo. Per il modo in cui sono trattati gli oggetti, inoltre, il codice è reso particolarmente sicuro.\newline
 
 \noindent Familiarizziamo ora con i due concetti base della OOP: \textbf{classi} e \textbf{oggetti}. Le prime definiscono una struttura dati, alla quale è possibile associare dati, detti \textbf{attributi}, e funzioni, chiamate \textbf{metodi}. Dalle classi, che in parole povere fungono da tipo di dato, è possibile ottenere gli oggetti, delle loro istanze, con stessi dati e metodi. Infatti, il processo di creazione di un oggetto è detto \textbf{istanziazione}.\par
@@ -13,10 +10,63 @@ Il workflow della OOP si basa sulle interazioni fra gli oggetti; queste avvengon
 	\item Definire le modalità con cui le interfacce consentono l'interazione fra oggetti.
 	\item Minimizzare le relazioni fra i componenti.
 \end{enumerate}
+\noindent Uno strumento utile per la documentazione delle classi è l'\textbf{Unified Modeling Language}, consente di definire graficamente e quindi documentare un sistema orientato agli oggetti.
 
-% TODO Definizione di OOP, classi, oggetti e UML.
+%
+
 \section{Il linguaggio Java}
-% TODO Java, JVM, struttura generale dei programmi, compilazione ed esecuzione.
+Il linguaggio utilizzato nel corso sarà Java, nato nel '95 e proprietà di Oracle, è diventato lo standard nel mercato del lavoro per il software development. La sua caratteristica principale è la portabilità, ovvero è possibile eseguire programmi su qualunque architettura grazie alla \textbf{Java Virtual Machine}, la quale funge da interprete al codice compilato.\par
+Più precisamente, dopo essere compilato, verrà creato in output un file con estensione ".class" contenente il \textbf{bytecode}. Questo codice è ciò che viene effettivamente interpretato in runtime da una parte della JVM, il compiler \textbf{Just In Time}, utile anche per ulteriori ottimizzazioni. In soldoni, a patto che la macchina abbia installata la JVM, sarà possibile eseguire i files compilati. Altre caratteristiche di Java sono:
+\begin{itemize}
+	\item Linguaggio fortemente tipizzato, ovvero è possibile dichiarare variabili di un determinato tipo di dato, le quali non lo possono cambiare una volta aggiunte al codice.
+	\item Non ha manipolazioni esplicite di puntatori grazie alla filosofia dell'incapsulamento, rendendo meno probabili errori riguardanti la memoria.
+	\item Controlla il runtime, rendendo impossibile avere array overflow.
+	\item Il \textbf{Garbage collector} controlla eventuali leaks di memoria per tapparle.
+	\item È possibile usare eccezioni per controllare gli errori.
+	\item Linguaggio fortemente dinamico, poiché fa loading e linking in runtime. Inoltre, usa dimensioni di array dinamiche.
+\end{itemize}
+\noindent Dove è possibile installare sulla macchina solo la JVM, tipico se vuoi giocare a Minecraft, per scrivere programmi in Java è necessario usare il \textbf{Java Development Kit}, compreso di debugger, compiler, disassembler, ed un applicativo per la documentazione.\par
+Per l'esecuzione dei programmi abbiamo poi il \textbf{Java Runtime Environment}, avente con sé librerie di classe, il compiler JIT precedentemente menzionato, la JVM e il Java application launcher.\newline
+
+\noindent Basta cazzate, la struttura generale di un programma Java è la seguente:
+\begin{lstlisting}[language=Java]
+	// Per compilare: javac HelloWorld.java
+	// Per eseguire: java HelloWorld
+	
+	// Il nome qui deve coincidere con quello del file.
+	public class HelloWorld {
+		// Entry point del programma, funge da metodo.
+		public static void main (string[] args) {
+			// Blocco di codice
+		}
+	}
+\end{lstlisting}
+\noindent Ho menzionato prima come il compiler restituisca in output un file di estensione .class, infatti ogni file è visto come classe con i relativi oggetti. Il caricamento di queste classi è basato sul \textbf{classpath}, la lista di locazioni dove queste possono essere prese. Se il compiler non trova la classe, lancerà un'eccezione ed il programma non verrà eseguito.\par
+Ci sono più modi per indicare un classpath al compilatore; indicarla singolarmente oppure contenere tutte le classi in un barattolo, un file con estensione ".jar". Questi sono fondamentalmente degli archivi compressi in cui è salvato il bytecode e altre meta-informazioni. Quindi:
+\begin{itemize}
+	\item Per eseguire da cartelle diverse: \$ java -cp ./nomeCartella nomeEseguibile
+	\item Per creare un file .jar: \$ jar cvf nomeJar.jar classOne.class classTwo.class ...
+	\item Per eseguire un programma con file .jar: \$ java -cp nomeJar.jar nomeEseguibile
+\end{itemize}
+\noindent Nella creazione di un file .jar è possibile aggiungere anche una direttiva su quali classi eseguire di preciso e quali ignorare. Ciò si fa con un file nominato \textbf{manifest.txt}.
+\begin{lstlisting}
+	// manifest.txt
+	Main-Class: nomeClasse
+	
+	// Compilazione
+	$ jar cvfm nomeJar.jar manifest.txt classOne.class
+\end{lstlisting}
+\noindent Notare i termini \textbf{cvf} e \textbf{cvfm}, significanti rispettivamente create verbose file e create verbose file manifest.
+
+%
+
+\section{Componenti del linguaggio}
+Si suppone che ti abbia frequentato il precedente corso di programmazione, tenuto con C. Conoscerlo faciliterà enormemente le cose, poiché i tipi di Java sono dichiarati nel medesimo modo. Manteniamo \textbf{int}, \textbf{double}, \textbf{char}, aggiungendo \textbf{boolean}, autoesplicativo. Non sarà primitivo, ma hanno aggiunto il tipo stringa, reso più sicuro con l'incapsulamento. Si possono eseguire concatenazioni con l'operatore "+". Non cambia nemmeno il type casting, se per qualche motivo dovesse servire, e va in ambo le direzioni. Le vere novità sono le classi e gli oggetti, comuni a tutti i linguaggi OOP:
+\begin{lstlisting}[language=Java]
+	// Dichiarazione di una classe
+	
+	// Dichiarazione di un oggetto
+\end{lstlisting}
 
 
 
@@ -29,15 +79,30 @@ Il workflow della OOP si basa sulle interazioni fra gli oggetti; queste avvengon
 
 
 
+-- Oggetti
+Istanze di classi accessibili solamente tramite messaggi. Hanno dei campi, sottoinsiemi di locazioni di memoria, interagibili coi metodi.
+Java ha puntatori ma non ne esiste l'aritmetica.
 
+Referenza dell'oggetto contiene il nome di una classe ed un indirizzo di memoria. Non usa memoria, tiene solo l'indirizzo.
 
+class Vehicle {				// Rivedere la definizione di classe, potrei aver scritto na minchiata
+	string Manifacturer;
+	setFrameNumber(int);
+};
+Vehicle MyCar; 				// Contiene Vehicle@null
+MyCar = new Vehicle();		// MyCar ora è un oggetto di classe Vehicle. Istanziazione. Il compiler vedrà Vehicle@memAddress
+MyCar.setFrameNumber(2);	// Messaggio legale inviato alla zona di memoria memAddress.
 
+-- Ereditarietà; rivedere in autonomia
+(?) Puoi aggiungere altri dati e metodi dichiarando prima un oggetto di una classe, per poi assegnarli un new oggettoDiverso();
+Vehicle myCar
+myCar = new Car();		// Un oggetto Car eredita tutti i campi e metodi degli oggetti vehicle
 
+Puoi usare (objname == null) per controllare se qualche puntatore va a null per qualche ragione. Utile, dai.
+Come è anche possibile mettere un oggetto a null. Aiuta il garbage collector a capire quale memoria deallocare.
 
-Unified Modeling Language UML - Linguaggio di modellazione per definire graficamente e documentare un sistema orientato agli oggetti. Ci interessano i diagrammi di classe.
-
-
-
-
-Incapsulamento e information hiding
-Ereditarietà
+--- Sintassi base ---
+Costrutti di base
+- Le variabili si dichiarano come in C. Boom, risparmiato 30min di spiegazione.
+- Gli oggetti vanno inizializzati per evitare NullPointerException... ma dai?
+- Le costanti si dichiarano con "final static n = 1;"

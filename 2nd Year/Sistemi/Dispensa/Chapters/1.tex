@@ -80,7 +80,7 @@ I sistemi sono invece rappresentati come una scatoletta nera, con un'entrata $u(
 \end{itemize}
 \noindent Il punto d'intersezione con l'asse delle $y$ è dato da $Acos(\phi)$, detto \textbf{Shift temporale}, mentre il \textbf{Periodo} $t_0 = \frac{2\pi}{\omega_0}$ è la distanza fra le due ampiezze massime delle singole onde. Questo tipo di segnale detiene inoltre proprietà legate al tipo di funzione:
 \begin{itemize}
-	\item \textbf{Periodicità}: Esiste un certo periodo $t_0$ che se sommato a $t$ ritorna lo stesso risultato. $t_0$ è il numero più piccolo per il quale vale questa proprietà.
+	\item \textbf{Periodicità}: Esiste un certo periodo $t_0$ che se sommato a $t$ ritorna lo stesso risultato. $t_0$ è il numero più piccolo per il quale vale questa proprietà. Per il tempo discreto, non è garantita periodicità in quanto con l'approssimazione si potrebbe arrivare ad una perdita di dati.
 	\item \textbf{Time shifting}: Una traslazione temporale, ovvero spostarsi avanti o indietro nel tempo rispetto al segnale, equivale ad un cambio di fase. Dove questa proprietà è sempre vera in segnali a tempo continuo, in quelli a tempo discreto potrebbe non valere.
 	\item \textbf{Parità}: Data una fase $\phi = 0$, otterremo una funzione coseno, quindi pari. Vale $x(t) = x(-t)$.
 	\item \textbf{Disparità}: Data una fase $\phi = -\frac{\pi}{2}$, otterremo una funzione seno, quindi dispari. Vale $x(t) = -x(-t)$.
@@ -88,13 +88,151 @@ I sistemi sono invece rappresentati come una scatoletta nera, con un'entrata $u(
 
 % TODO INSERISCI IMMAGINE PER ENTRAMBI I TIPI DI SEGNALI
 
-\noindent \textbf{Segnali esponenziali}: $x(t) = Ce^{at}; x[n] = Ce^{bn}$
-% Inserisci il significato delle componenti della formula
-% Inserisci le proprietà del tipo di segnale
-% Inserisci il disegno del segnale
+\noindent \textbf{Segnali esponenziali reali}: $x(t) = Ce^{at}; x[n] = Ce^{bn}$\par
+\noindent Segnali che seguono le regole delle funzioni esponenziali, quindi cresce o decresce in base al segno dell'esponente. Nelle rispettive formule, abbiamo poi: $C, a, b \in \mathbb{R}$.\par
+In caso di time shift, la variabile modificata è $t$ o $n$, per la rispettiva formula, e ne influenza la scala. Si scriverà infatti: $Ce^{a(t+t_0)}$.\newline
 
-% TODO CONTINUA DA LEZIONE 4
-% Gli appunti ci sono, devi solo riorganizzarli.
+% TODO Inserisci il disegno del segnale
+
+\noindent Per quanto riguarda i segnali discreti, si preferisce passare ad una formula contratta, dove $\alpha=e^b$: \[x[n] = Ce^{bn} \equiv C(e^b \times e^n) \equiv C\alpha^n\]
+\noindent Abbiamo quattro modi diversi per la loro rappresentazione in base al valore di $\alpha$ e al suo modulo:
+\begin{itemize}
+	\item $\alpha > 0$, $|\alpha| > 1$: cresce e tende ad infinito nel primo quadrante.
+	\item $\alpha > 0$, $|\alpha| < 1$: Decresce e tende a 0 nel primo quadrante.
+	\item $\alpha < 0$, $|\alpha| > 1$: Ha un comportamento oscillatorio, cresce e tende ad infinito nell'asse delle $x$.
+	\item $\alpha < 0$, $|\alpha| < 1$: Ha un comportamento oscillatorio, decresce e tende a $0$ nell'asse delle $x$.
+\end{itemize}
+
+% TODO Inserisci il disegno del segnale
+
+\noindent \textbf{Segnali esponenziali complessi}: $x(t) = ce^{at}; x[n] = c\alpha^n$\par
+\noindent I segnali esponenziali complessi hanno un comportamento oscillatorio, il quale cresce o decresce verso l'asse delle $x$ in base al segno delle variabili $r$ e $|\alpha|$ nelle rispettive formule. Si dice che ha una forma sinusoidale smorzata. Nello specifico, infatti, per il tempo continuo si ha:
+\begin{itemize}
+	\item $c = |c|e^{j\theta}$, con forma polare.
+	\item $a = r+j\omega_0$, con forma cartesiana.
+\end{itemize}
+\noindent Che ci fa ottenere, grazie alla formula di Eulero che consente di passare da esponenziale a forma polare del complesso: $e^{j(\omega_0t+\theta)} = cos(\omega_0t+\phi) + jsin(\omega_0t+\phi)$, quanto segue:
+\begin{equation}
+	\begin{split}
+		x(t) &= |c|e^{j\theta}e^{(r+j\omega_0)t}\\
+		&= |c|e^{rt}e^{j(\omega_0t+\theta)}\\
+		&= |c|e^{rt}cos(\omega_0t+\phi) + jsin(\omega_0t+\phi)
+	\end{split}
+\end{equation}
+\noindent Da questa equazione estesa è possibile differenziare i modi in cui si può scrivere graficamente il segnale; se $r > 0$, la sinusoide crescerà all'infinito, altrimenti decrescerà fino a $0$.
+
+% TODO Inserisci grafici exp complessi continui
+
+\noindent Per quanto riguarda invece il tempo discreto, le componenti sono:
+\begin{itemize}
+	\item $c = |c|e^{j\theta}$
+	\item $\alpha = |\alpha|e^{j\Omega_0}$
+\end{itemize}
+\noindent Sostituiamole alla formula contratta per ottenere quella estesa, come prima:
+\begin{equation}
+	\begin{split}
+		x[n] &= |c|e^{j\theta}(|\alpha|e^{j\Omega_0})^n\\
+		&= |c||\alpha|^ne^{j(\Omega_0n\theta)}\\
+		&= |c||\alpha|^ncos(\Omega_0n+\theta)+jsin(\Omega_0n+\theta)
+	\end{split}
+\end{equation}
+\noindent Il grafico qui dipende dal valore di $|\alpha|$. Se maggiore di $0$, la sinusoide crescerà all'infinito verso l'asse delle $x$, altrimenti qui tenderà a $0$.
+
+% TODO Inserisci grafici exp complessi discreti
+
+%
+
+\section{Distribuzioni}
+Talvolta ci sono delle grandezze non misurabili numericamente e quando ciò ha luogo, ci serviamo dei segnali generalizzati. La loro particolarità riguarda essere definiti all'interno di un'operazione di integrale, il cui risultato ritornerà il valore cercato. Formalmente scriviamo l'\textbf{impulso di Dirac}: \[\int_{-\infty}^{+\infty} \sigma(t)\phi(t)dt = N\]
+\noindent Dove $\sigma$ è la grandezza, $\phi$ lo strumento ed $N$ la misura.\par
+Lo strumento di lavoro base per questa misurazione è invece detto \textbf{impulso unitario}, ed è una funzione che comprende un \textbf{supporto}, quindi la larghezza della funzione, infinitesimo, \textbf{altezza} infinita, ed un'\textbf{area}, quindi l'integrale, uguale ad $1$. Inoltre, è definita in $[0^-, 0^+]$ e si denota con: \[\int_{-\infty}^{+\infty} \delta(t) dt = 1\]
+\noindent Chiariamo che la grandezza da misurare è $\delta t$, lo strumento è la costante $1$ moltiplicata per la grandezza, ed $1$ è il risultato. In natura questa funzione non esiste, ma è utile per effettuare approssimazioni e quindi anche il \textbf{campionamento}. I casi ricorsivi sono: \begin{center}
+	$\delta(t) = \begin{cases}
+		\infty\implies 0\\
+		0
+	\end{cases}$
+\end{center}
+\noindent 
 
 
 
+
+
+
+
+
+\begin{comment}
+
+
+Due funzioni non derivabili, ma fondamentali per l'analisi dei segnali
+- Finestra rettangolare unitaria
+Rettangolo di altezza 1. Definita fra -t/2 e t/2. Definita come:
+\pi(t) = \begin{cases}
+	1 in -t/2 \leq t \leq t/2\\
+	0 altrimenti
+\end{cases}
+Quest'onda se ripetuta nel tempo otteniamo un'onda quadra. Utile per il controllo dei motori, per esempio.
+
+- finestra triangolare unitaria/impulso triangolare unitario
+Triangolo di altezza 1. Definita come \Lambda(t) = \begin{cases}
+	1-|t| in -T \leq t \leq T\\
+	0 altrimenti
+\end{cases}
+Non viene usata per fare controlli particolari, ma funziona per fare filtraggi migliori. Se ripetuta nel tempo abbiamo un'onda triangolare. Ci aiuterà a generare le sinusoidi
+
+Abbiamo parlato di funzioni unitarie, quindi di ampiezza 1. Per considerare il caso generale, sostituire il valore dell'ampiezza all'1 nella definizione.
+
+Come ottenere l'impulso?
+Lo definiamo come una serie di funzioni fra cui cambiamo dei valori.
+Il risultato dell'area deve SEMPRE essere 1.
+Per il quadrato, base*altezza
+Per il triangolo, base*altezza*1/2
+
+Tuttavia, per entrambe vale: \delta(t) = lim_{n\to\infty} Area_n = 1.
+
+Il triangolo ci riesce a definire qual è la derivata dell'impulso (useremo un trucco per farlo, altrimenti è un casino). Si tratta di un impulso che cresce e che decresce, nell'infinitesimo molto vicino a 0.
+A noi più che questo interessa l'integrale di un impulso.
+
+Questo introduce una serie di funzioni dette polinomiali o segnali canonici.
+Questi segnali sono definiti come l'integrale dell'impulso o l'integrale dell'integrale dell'... dell'impulso.
+\delta_{-n}(t) = \begin{cases}
+	\frac{t^{n-1}}{(n-1)!} t\geq 0\\
+	0 altrimenti
+\end{cases}
+
+Integrando un impulso otteniamo la funzione gradino: \delta_{-1}(t) = \begin{cases}
+	\frac{t^{1-1}}{(1-1)!} t\geq 0\\
+	0 altrimenti
+\end{cases} = \begin{cases}
+	1 t\geq 0\\
+	0 altrimenti
+\end{cases}
+Questa funzione permette di garantire la causalità.
+f(t)*\delta_{-1}(t) = f_1(t), che è causale.
+
+What about integrale di integrale? (poco usata) Otteniamo la funzione rampa:
+\delta_{-2}(t) = \begin{cases}
+	\frac{t^{2-1}}{2-1} t\geq 0\\
+	0 altrimenti
+\end{cases} = \begin{cases}
+	t t\geq 0\\
+	0 altrimenti
+\end{cases}
+
+What about integrale di integrale di integrale? È una parabola, hai già capito. Basta.
+
+-- A che servono i segnali polinomiali?
+A caratterizzare il sistema. Per farlo si cerca di dargli un input (tendenzialmente una funzione gradino) e vediamo il tempo usato per ritornare il valore. Ciò è utile per avere una misura standard nel testing dei sistemi.
+
+- proprietà dell'impulso
+Segnale ideale, centrato in 0, definito fra 0^- e 0^+ con altezza 1.
+È una funzione pari.
+Ha sempre area unitaria.
+Proprietà del campionamento o riproducibilità del segnale (Importante): Se abbiamo una funzione continua in t_0 v:R\to R, allora v(t)\delta(t-t_o) = v(t_0)\delta(t-t_0), per t \in R.
+Fondamentalmente significa che se prendo un impulso traslato nel tempo t_0 e lo moltiplico per una funzione, ottengo il valore della funzione in quel punto t_0.
+Quindi per passare da continuo a discreto si moltiplica la funzione con l'impulso.
+
+La formula può essere anche riscritta come \[N(t_0) = \int_{-\infty}^{+\infty} v(\tau)\delta(\tau-t_0) d\tau\]
+Quindi il valore di una funzione in t_0 è l'integrale della funzione moltiplicata per un impulso traslato in t_0.
+
+\end{comment}

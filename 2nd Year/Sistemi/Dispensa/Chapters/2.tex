@@ -1,3 +1,59 @@
-\section{Sec1}
-\section{Sec2}
-\subsection{SubS1}
+\section{Sistemi Lineari Tempo invariante}
+Possiamo ora dare una definizione rigorosa di sistema: si tratta di un modello matematico o formulazione di un processo o fenomeno fisico che permette di trasformare un'entrata in un'uscita determinata. Ne esistono principalmente di due tipi:
+\begin{itemize}
+	\item \textbf{Single Input Single Output}
+	\item \textbf{Multiple Input Multiple Output}, non visti in questo programma.
+\end{itemize}
+\noindent In base a questi poi ci sono i sistemi dinamici, ovvero con memoria, i quali salvano i dati grazie agli stati. Rammento infine che, come i segnali, i sistemi possono essere a tempo continuo e discreto.\par
+Per quanto riguarda i sistemi LTI, approfondiamo le proprietà menzionate nel capitolo precedente:
+\begin{itemize}
+	\item \textbf{Linearità}: Partendo da un sistema con due entrate, otterrò in output un risultato equivalente alla combinazione lineare dei singoli input. Formalmente: \[da rivedere\]
+	\item \textbf{Tempo-invarianza}: Traslando l'input del sistema prima o dopo nel tempo avrò come output lo stesso risultato traslato prima o dopo nel tempo: \[u(t)\to v(t) \implies u(t+\tau)\to v(t+\tau), \forall \tau \in \mathbb{R}\]
+	\item \textbf{Causalità}: L'effetto non precede mai la causa. L'uscita $v(t)$ all'istante $\tau$ deve dipendere esclusivamente dall'ingresso $u(t)$ per $t \leq \tau$. Per comodità considereremo solo sistemi a riposo, ovvero con $\tau = 0$.
+\end{itemize}
+\noindent Richiamiamo all'attenzione il concetto di stabilità per formalizzarlo definitivamente. Definiamo:\newline
+
+\noindent \textbf{Sistema asintoticamente stabile}\par
+\noindent Un sistema si dice tale se dopo aver dato l'input, l'output va a morire fino ad arrivare a $0$. Formalmente:
+\begin{center}
+	$\exists\tau\in\mathbb{R}$ tale che $u(t) = 0$, $\forall t \geq \tau \implies lim_{t\to \infty}v(t) = 0$
+\end{center}
+
+\noindent\textbf{Sistema BIBO-stabile}\par
+\noindent
+
+\begin{comment}
+	--- Rivedere ---
+	
+	1. Se ho un sistema con a_1u_1(t)+b_1u_2(t) [la somma degli input u_n crea un altro input.] e li metto dentro al sistema, otterrò un risultato che è combinazione lineare dei singoli input, quindi: a_1u_1(t \to a_2u_2)
+	
+	
+	
+	--- Riprendi da qui ---
+	
+	- Proprietà di stabilità BIBO: Un sistema si dice tale se \exists\tau\in\mathbb{R} e M_u>0\in R tale che se |u(t)| < M_u, \forall t \geq \tau \to \exists M_v > 0: |v(t)| < M_v \forall t \geq \tau. WhatTheFuck
+	Diciamo di avere un input che oscilla, ad un certo \tau continua a farlo semprre entro una certa ampiezza. Se lo butto dentro al sistema otterrò un segnale in uscita che sarà dopo \tau all'interno di un certo intervallo di ampiezza.
+	Quindi, esiste un \tau istante di tempo ed un vincolo massimo e minimo, ambo in ampiezza, paralleli all'asse delle x. Dopo \tau, l'input rimane all'interno di questi vincoli.
+	Se la stessa cosa vale per l'output, si dice bibostabile.
+	
+	Ogni sistema asintoticamente stabile è necessariamente anche bibostabile, ma non viceversa.
+	
+	Come modelliamo i sistemi?
+	Descriveremo i sistemi tramite equazioni differenziali in input e in output.
+	Passaggi da fare:
+	- Scrivere tutte le equazioni che descrivono le leggi in atto
+	- Scrivere estesa l'equazione differenziale del sistema. Input a dx, Output a sx.
+	
+	Forma generale dei modelli?
+	a_n*\frac{\partial^nv(t)}{\partial t^n}+a_{n-1}*\frac{\partial^{n-1}v(t)}{\partial t}+ ... + \frac{\partial^1v(t)}{\partial t} + a_0v(t) = b_m*\frac{\partial^mu(t)}{\partial t}+b_{m-1}*\frac{\partial^{m-1}u(t)}{\partial t} + ... + b_1*\frac{\partial u(t)}{\partial t} + b_0u(t)
+	
+	u(t) è l'input, v(t) è l'output.
+	b_n, a_n \neq 0 sono due coefficienti normali.
+	
+	In forma più compatta, sono due sommatorie: \sum_{i=0}^na_i \frac{\partial^i v(t)}{\partial t} = \sum_{j=0}^mb_j\frac{\partial^ju(t)}{\partial t}
+	n ed m danno l'ordine delle equazioni differenziali e di solito n\geq m.
+	I sistemi si scrivono con questa equazione. La scatoletta, proprio.
+	
+	Se n>m, si dice strettamente proprio
+	Se n\geq m si dice proprio
+\end{comment}

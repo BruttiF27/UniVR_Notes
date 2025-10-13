@@ -1,0 +1,63 @@
+13-10-25 - Algoritmi
+
+Serve conoscere l'ordine di grandezza della funzione che indica la complessità. Riusciamo così facilmente a riscrivere la funzione in modo più chiaro e compatto e facilita la scelta dell'algoritmo.
+
+- Come si determina l'ordine di grandezza di una funzione?
+Non c'è un ordine di grandezza specifico, possiamo dire che uno è diverso dall'altro.
+f \in O(g), f appartiene ad un dominio di grandezza di g, dove g cresce non meno rapidamente di f. A meno di costanti, inteso.
+Formalmente, f\in O(g) \implies \exists c>0 \exists\overline{n}.\forall n > \overline{n}; f(n) \leq cg(n).		La c deve essere non negativa
+
+2x \in O(5x+7), trova una costante c per far valere la disequazione 2x \leq c(5x+7).
+Noterai che va bene qualunque c.
+
+5x+7 \in O(2x). Scegliamo la costante c=3, ora dovrai far vecere che 5x+7 \leq 6x. Se risolvi la disequazione ottieni \overline{n}, che è 7.
+Al netto della costante del primo membro della disequazione, la relazione risulta vera.
+
+f_1 \in O(g_1), f_2 \in O(g_2) \implies f_1+f_2 \in O(g_1+g_2). Questa cosa è vera perché qui non stiamo considerando le costanti. La definizione è al netto delle costanti.
+	
+	1. Partiamo da ciò che abbiamo e trasformiamolo nella rispettiva definizione:
+		f_1 \leq c_1g_1(n)
+		f_2 \leq c_2g_2(n)	
+
+	2. Ragiona su quello che serve:
+		c = c_1+c_2
+		\overline{n} = \overline{n_1}+\overline{n_2}
+
+	3. Testa la tesi:
+		f_1(n)+f_2(n) \leq c_1g_1(n) + c_2g_2(n)
+			&\leq c(g_1(n) + g_2(n))
+			&\leq c(g_1+g_2)(n)		In questo caso è vera. Ci sei arrivato con la logica.
+			
+f \in \Omega(g). Asintoticamente, f non sta sotto g. Formalmente: \exists c>0 \exists \overline{n} \forall n>\overline{n} f(n) \geq cg(n)
+Asintoticamente, al netto di costanti, f sta sopra g.
+
+f \in O(g) \iff g \in \Omega(f)
+	1. Dimostra che vale a\implies b e che b\implies a. Scrivi la definizione effettiva.
+		\exists c\exists\overline{n} \forall n>\overline{n} f(n) \leq cg(n)
+		
+	2. Ci serve g(n) \geq c'f(n)
+		cg(n) \geq f(n) \to g(n) \geq f(n)/c.
+		Quindi, per renderlo leggibile: c' = 1/c
+		E per rendere il tutto vero: \overline{n'} = \overline{n}
+		
+f_1 \in O(g), f_2 \in O(g) \implies f_1+f_2 \in O(g)
+La somma non cambia l'ordine di grandezza, per fortuna, quindi è instant.
+\exists c_1\exists\overline{n_1} \forall n>\overline{n_1} f_1(n) \leq c_1g(n)
+\exists c_2\exists\overline{n_2} \forall n>\overline{n} f_2(n) \leq c_2g(n)
+
+n = max(\overline{n_1}, \overline{n_2}), dove max è il limite massimo delle variabili.
+
+f_1(n) + f_2(n) \leq c_1g(n) + c_2g(n) \implies f_1(n) + f_2(n) \leq (c_1+c_2)g(n) \implies f_1(n) + f_2(n) \leq cg(n)
+
+Ex per casa: f_1 \in O(f_2), f_2 \in O(f_3) \implies f_1 \in O(f_3)
+
+Sia algoritmo A. A \in O(f). Significa che la complessità è dominata da f.
+Stiamo cercando un limite superiore al tempo di esecuzione di questo algoritmo.
+
+Diciamo A \in O(n^3). Questa cosa è vera per proprietà transitiva. Infatti A\in O(n) \in O(n^3). Questo dimostra il caso ottimo.
+Diciamo ora A \in \Omega(f). Qui bisogna trovare uno schema di input per far sì che valga la relazione. Questo dimostra il caso pessimo.
+
+Se dimostri O ed \Omega hai caratterizzato correttamente l'algoritmo.
+
+Problema P, P \in O(f). Un problema è la richiesta data. Va usato il miglior algoritmo risolutivo con la minore complessità.
+P \in \Omega(f), \forall A.A\in \Omega(f). Non esistono algoritmi in grado di risolvere il problema in un tempo più basso di f.

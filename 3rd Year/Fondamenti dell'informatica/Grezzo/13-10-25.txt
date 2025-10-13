@@ -1,0 +1,112 @@
+13-10-25 FondInfo
+
+Per una funzione calcolabile possiamo pensare un algoritmo per calcolarla.
+Possiamo scrivere la funzione come associazione di input output, f(0) = 1, f(1) = 1, f(2) = 2, f(3) = 3, f(4) = 5, f(5) = 8, f(6) = 8, f(7) = 13, f(8) = 21.
+Fibonacci definita ricorsivamente
+\begin{cases}
+	f(0) = 1 = f(1)\\
+	f(x+2) = f(x+1) = f(x)
+\end{cases}
+
+Ora ci focalizziamo su un sottoinsieme delle funzioni calcolabili, le funzioni totali, che sono definite per ogni input. Quindi terminano sempre. Il sovrainsieme si dice funzioni parziali.
+Queste non necessariamente rispondono a tutti gli input.
+
+Per semplificare i ragionamenti si utilizza il linguaggio. Traduciamo il calcolo di una funzione in relazioni di insieme.
+Diciamo di dare un input ad un linguaggio, torna sì se il carattere è contenuto in esso, altrimenti dice no.
+
+Quindi noi parliamo di insiemi al posto di funzioni dove gli elementi dell'insieme dipendono dal calcolo della funzione.
+
+f(x) = 2 è funzione costante. Il linguaggio L_f è finito. Non ci sono input non conosciuti da calcolare perché son tutte costanti. Non richiede memoria. Si dice linguaggio finito.
+f(x) = 2x. Funzione lineare non finita. Serve la memoria, ma di quantità finita, per calcolare f.														Si dice Linguaggio regolare.
+f(\sigma) = \sigma\sigma^{reverse}. Richiede una stack, non si sa quanta memoria deve essere utilizzata per calcolare f.								Si dice linguaggio context free
+	Per esempio, con \sigma = abc, \sigma^{reverse} = cba.
+f(x) = x^2. Qui non basta la stack, serve memoria seria.																								Si dice linguaggio decidibile
+
+--- Linguaggi regolari e automi a stati finiti
+La memoria finita è rappresentata dagli stati, ogni stato descrive un'informazione.
+Pensiamo al linguaggio L_f = {1^{2n}|n\in\mathbb{N}}. Graficamente si disegna come una FSM. Classico, tale. I singoli stati sono indicati con q_n.
+Diciamo di avere q_1 = informazinoe di essere di lunghezza pari, q_2 = di lunghezza dispari.
+
+La transizione avviene con input 1. da q_1 passa a q_2 e da q_2 passa a q_1.
+
+Formalmente: M = (Q, \Sigma, \delta, q_0, F)
+	- Q è insieme finito degli stati
+	- \Sigma è l'insieme finito dei simboli che l'automa può riconoscere. L'alfabeto. Il simbolo è un elemento atomico.
+	- \delta:Q x\Sigma è la funzione di transizione. Prende uno stato e un simbolo e ritorna uno stato. E' una macchina di moore. Descrive come evolve il calcolo a partire da stato corrente a prossimo.
+		Deve necessariamente avere una transizione per ogni stato. La STT deve essere completa.
+	- q_0 \in Q è uno stato ed identifica quello iniziale
+	- F \subseteq Q è l'insieme degli stati finali, ovvero di accettazione. Descrivono i risultati ottenibili dall'automa. E' lo stato prossimo.
+La macchina si descrive con STT, duh.
+
+\hat{\delta}:Qx\Sigma^* \to Q descrive lo stato raggiunto leggendo una sequenza di simboli. Il risultato del testbench.
+
+Ricorsivamente, con:
+	- \omega \in \Sigma^*	// è una sequenza di caratteri
+	- a \in \Sigma			// è un singolo carattere
+	- \epsilon \in \void	// è una stringa nulla
+\begin{cases}
+		\hat{\delta}(q,\epsilon) = q\\								// Qui la stringa non legge nulla, 
+		\hat{delta}()q, \omega a) = \delta(\hat{\delta}(q,w)a)		// Qui la stringa legge una sequenza di caratteri e poi un altro carattere a
+\end{cases}
+
+Questa si definisce chiusura transitiva di \delta.
+
+-- Come si dimostra che un linguaggio è regolare
+Bisogna poter fornire l'automa apposito e poter dimostrare che riconosce il linguaggio correttamente.
+
+L = {\sigma | \sigma contiene almeno due 1}
+\Sigma = {0,1}
+
+	i=0	i=1
+q_0	q_0 q_1
+q_1 q_1 q_2
+q_2 q_2 q_2
+
+Un linguaggio L è riconosciuto da M (FSM o DFA deterministico) se L = L(m), dove quest'ultimo è il linguaggio dell'automa definito come: L(m) = {\sigma \in \Sigma^* | \hat{\delta}(q_0, \sigma) \in F}
+Quindi tutte le stringhe che fanno raggiungere lo stato finale.
+
+Per dimostrare che L è regolare biogna costruire un automa m che riconosce il linguaggio e dimostrare che L = L(m)
+Si fa con un'uguaglianza insiemistica.
+	L = L(m) \equiv L \subseteq L(m) \land L(m) \subseteq L.
+		1. L \subseteq L(m) \equiv \sigma.\in L \implies \sigma \in L(m) \equiv \sigma\in L \implies \hat{\delta}(q_0, \sigma) \in F.
+		2. L(m) \in L \equiv \sigma.\in L(m) \implies \sigma\in L \equiv \hat{\delta}(q_0, \sigma)\in F \implies \sigma\in L
+		
+Dimostriamo per induzione sulla lunghezza delle stringhe \sigma \in \Sigma^* che se x\in L, allora \hat{\delta}(q_0, \sigma) \in F e se \sigma \notin L, allora \hat{\delta}(q_0, \sigma)\notin F:
+	L = {\sigma|\sigma contiene almeno due 1}
+	m: automa disegnato prima
+	
+	- caso base: |\sigma|=0 non è mai sufficiente per tutto, vale solo per una delle due dimostrazioni.
+		Prendiamo la stringa minima che permette di avere sia \sigma\in L che \sigma\notin L. |\sigma| = 2.
+		\forall \figma t.c. |\sigma| < 2, \sigma \notin L perché non può contenere due 1 e non è riconosciuta da m, dove il primo stato finale è raggiunto leggendo minimo due simboli.
+		
+		Questo è da scrivere in cases.
+		Prendiamo \sigma = 11 \in L e \hat{\delta}(q_0, 11) = q_2.
+		Se \sigma = 10 \lor = 01, \hat{\delta}(q_0, 10) = \hat{\delta}(q_0, 01) = q_1 \notin F
+		\sigma = 00 \notin L \land \hat{\delta}(q_0, 00) \notin F
+	
+	- passo induttivo (rivedere con le slides a casa):
+		Hp. induttiva è la tesi con un limite fissato che voglio dimostrare: \forall \sigma\in \Sigma^* . |\sigma|\leq n. 
+			\sigma \in L \implies \hat{\delta}(q_0, \sigma) \in F
+			\sigma \notin L \implies \hat{\delta}(q_0, \sigma) \notin F
+			
+		Cosa dobbiamo dimostrare? Che se |\sigma| = n+1, allora valgono: 
+		\begin{cases}
+			\sigma \in L \implies \hat{\delta}(q_0, \sigma) \in F
+			\sigma \notin L \implies \hat{\delta}(q_0, \sigma) \notin F
+		\end{cases}
+		
+		|\sigma| = n+1
+			\sigma = \sigma'1
+			\sigma = \sigma'0
+			
+				\sigma \in L \land \sigma= \sigma'1
+					se \sigma'\in L \implies \hat{\delta}(q_0, \sigma') = q_2 \equiv \hat{\delta}(q_0, \sigma) = \hat{\delta}
+					se \sigma'\notin L
+						\sigma' contiene esattamente un 1		\hat{\delta}(q_0, \sigma') = q_1		\hat{\delta}(q_0, \sigma) = \hat{\delta}(q_0, \sigma)
+						\sigma' non contiene 1					Impossibile
+						
+- \sigma \in L \land \sigma = \sigma'0 \implies \hat{\delta}(q_0, \sigma') = q_2
+	Allora \hat{\delta}(q_0, \sigma) = \hat{\delta}(q_0, \sigma'0) = \dellta(\hat{\delta}(q_0, \sigma'), 0) = \delta(q_2, 0) = q_2.
+	
+Il prossimo esempio da rivedere sulle slides.
+

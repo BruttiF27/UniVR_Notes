@@ -1,0 +1,82 @@
+01-10-25 Basi Di Dati
+
+--- Progettazione di una base di dati
+-- Progettazione concettuale
+Lo scopo è diventare capaci di progettare concettualmente una base di dati a prescindere dalla soluzione tecnologica.
+Prima infatti si parte dalla teoria, poi dalla formalizzazione ed infine l'implementazione della soluzione effettiva.
+
+La prima fasa che prevede l'ingegnerizzazione di un prodott e quindi la definizione per ottenerlo è lo studio della fattibilità.
+Bisogna valutare prima di iniziare i costi e le eventuali alternative.
+
+In base allo studio, si capisce se vale la pena fornire la soluzione al sistema informativo.
+
+Se ne vale la pena si fa una raccolta ed un'analisi dei requisiti. Si tratta di un processo complessivo, individua le proprietà e funzionalità del sistema da realizzare, producendo una descrizione completa, ma ancora informale.
+
+Dal documento si parte per l'effettiva progettazione. Qua si incomincia a lavorare e riceviamo i requisiti da coloro che hanno svolto le prime due fasi. La nostra competenza è la progettazione, non l'ideazione.
+
+La progettazione del sistema si divide in due parti;
+	- Progettazione dei dati; produce una desceizione formale dei dati, detto schema.
+	- Progettazinoe delle applicazioni; produce una descrizione dformale delle applicazioni.
+
+Ottenuto il prodotto della progettazione dei dati, si passerà alla fase di implementazione di un dbms per la gestione di questi dati.
+Terminato il dbms si passerà ad una fase di validazione e collaudo, tendenzialmente saltata perché fa sprecare tempo. Why.
+Tipicamente da quest'ultima fase saltano fuori eventuali problemi nel workflow, per andarli a correggere.
+
+Come è fatta una metodologia di progettazione?
+	- Decomposizione in passi dell'attività di progetto
+	- Uso di strategie da seguire e criteri di scelta
+	- Uso di modelli di riferimento
+Una buona metodologia deve essere generale, semplice da usare ed in grado di produrre un risultato di qualità, ovvero completo e corretto.
+
+Com'è fatta la nostra metodologia di progettazione?
+Dobbiamo generare un DB in grado di rappresentare tutto ciò che è richiesto dai requisiti. Si divide in tre fasi:
+	1. Progettazione concettuale, per produrre uno schema concettuale.
+	2. Progettazione logica, a partire dallo schema concettuale. Scelto ilo specifico sistema e dbms, produciamo lo schema logico, ovvero lo shcema specifico del sistema.
+	3. Progettazione fisica, aggiunte usate per ottimizzare, ottenendo lo schema fisico.
+Le ottimizzazioni interessano solo ed esclusivamente a livello fisico.
+
+L'obiettivo nostro è rappresentare il contenuto informativo del DB in modo indipendente dalla tecnologia e in modo formale, ovvero con un linguaggio che non ammette ambiguità.
+La progettazione logica ha l'obiettivo di tradurre lo schema concettuale in logico aderente al modello dei dati del dbms scelto.
+Nella progettazione fisica si pensa soprattutto all'ottimizzazione per garantire un accesso efficiente ai dati. Passa dallo schema logico ad un modello fisico.
+
+- Progettazione concettuale
+Produce lo schema concettuale, un documento formale rappresentante il contenuto del DB indipendentemente dall'implementazione e dal DBMS.
+Lo schema concettuale è parte anche del prodotto finale, perché dà le idee in generale del funzionamento del DB. È una descrizione astratta per farlo capire anche a chi non capisce un cazzo.
+
+--- Il modello entità-relazione
+Modello usato per la progettazione di basi di dati. Altri modelli sonol'UML.
+Contiene e fornisce un seti di strumenti formali per specificare struttura e proprietà dei dati da rappresentare in un DB, indipendentemente dalla tecnologia, è formale e ha una sintassi grafica.
+
+Cosa troviamo dentro il modello?
+- Strumnti formali detti costrutti
+Per descrivere i costrutti specificheremo la loro semantica, sintassi grafica e la rappresentazione delle loro istanze o occorrenze.
+
+Costrutti:
+	- Entità (o tipo di entità):
+		- Significato: classe di oggetti con le seguenti caratteristiche:
+			- Hanno proprietà comuni
+			- Hanno esistenza autonoma (NECESSARIO) rispetto ad altre classi di oggetti. (Quando nascono hanno tutte le proprietà che stiamo loro dando con la classe, devono poter nascere senza prerequisiti.)
+			- Hanno identificazione univoca, ovvero una chiara corrispondenza fra gli oggetti e i concetti istanziati nel sistema informativo. Cioè, devi poterli distinguere.
+		- Sintassi grafica:
+		Le entità si rappresentano con un rettangolo che contiene il suo nome. Easy. Generalmente c'è una documentazione che spiega la sintassi.
+		- Istanza (o occorrenza):
+		Un'istanza dell'entità è un oggetto appartenente alla classe. Come in Java, tale e quale. Se dobbiamo indicarlo si scrive I(E), indica l'insieme delle stanze della classe E. All'inizio, senza oggetti I(E) è un insieme vuoto.
+		
+	- Relazione (o tipo di relazione)
+		- Significato: Rappresenta un legame logico fra due o più entità. La si introduce quando devo rappresentare un legame che può esistere fra oggetti.
+		Non hai tanti limiti, puoi creare relazioni n-arie. Il caso più comune sono le binarie. Poi c'è anche un caso particolare che coinvolge una sola entità ma relaziona due sue istanze, si dice relazione ricorsiva.
+		- Sintassi grafica: La rappresentiamo come un rombo a cui si collegano linee spezzate. Queste le collegano le ientità, ed il nome della relazione è scritto affianco al rombo.
+Diciamo poi che un'istanza, data una relazione e delle entità E_n, un'istanza è una n-upla di istanze di entità.
+
+Notare che una relazione non può esistere senza un'entità ma non vale viceversa. Tuttavia avere una classe la quale non è legata niente è un attimo controproduttivo.
+Inoltre non è possibile rappresentare una stessa n-upla più volte. Se ho necessità di rappresentarne una più volte, questa cosa non va bene.
+Una soluzione a questo potrebbe essere renderla un'entità oppure aggiungere un'entità che distingue le coppie che voglio rappresentare più volte.
+
+Relazione ricorsiva: relazione binaria sulla stessa entità. Un'esempio è tipo la genitorialità, che prende padre madre e figlio tutti appartenenti alla classe persona. Easy.
+
+	- Attributo: Rappresenta una proprietà elementare di un'entità o di una relazione.
+	Associa ad ogni istanza uno ed uno solo valore appartenente ad un dominio, che è l'insieme dei valori ammissibili.
+	Si può vedere come una funzione che ha come dominio le istanze dell'entità o relazione e come codominio l'insieme dei valori ammissibili.
+		- Sintassi grafica: lo si precisa con un pallino vuoto collegato all'entità con una linetta.
+		
+Esercizio su progettazione concettuale

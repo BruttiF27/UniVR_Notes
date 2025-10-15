@@ -1,0 +1,138 @@
+07-10-25 FondInfo
+
+- lezione 2; il problema che l'informatica si pone di risolvere
+		- Calcolabilità
+		- Numerabilità
+		- Funzioni
+		- Ripasso di logica
+			- simboli relazionali, funzionali, logici, costanti
+			- Quantificatori
+			- Termine
+			- Formula atomica, formula
+			- Abbreviazioni
+			- Insiemistica
+			- Relazioni
+			- Funzioni
+			- Induzione matematica e strutturale
+			- Stringhe
+
+
+
+Linguaggio del primo ordine: Formato da certo insieme di simboli:
+	- Relazionali (p,q,r), sono metavariabili
+	- Di funzione (f,g,h)
+	- Costanti (c,d)
+	- Logici, un insieme di oggetti:
+		- Insieme numerabile di variabili (v,x,y)
+		- Connwttivi; and, or, not, implies, iff
+		- Simboli ausiliari (), ,
+		- Quantificatori: forall, exists
+		
+Questi elementi formano un linguaggio del primo ordine. Noi dobbiamo definire dei termini a partire dalla base per poi renderli più complessi.
+Le variabili e costanti son termini. Per costruire un termine induttivamente applicheremo i simboli di funzione ad un insieme di variabili o costanti, quindi f simbolo di funzione su t_1,...,t_n termini va a creare f(t_1, ..., t_n), che è a sua volta un termine.
+I termini sono a loro volta elementi basi per la costruzione delle formule logiche.
+I termini descrivono elementi, le formule descrivono proprietà.
+
+Una formula atomica si costruisce coi simboli dei predicati.
+Diciamo quindi p simbolo di relazione n-ario e t_1, ..., t_n simboli logici, allora p(t_1, ..., t_n) è formula atomica, ed è una proprietà specifica di tutte le t.
+
+Quindi la funzione serve per manipolare i termini e la relazione per descrivere proprietà dei termini.
+La formula invece si definisce in modo induttivo. Con formula atomica e quantificatori si crea una formula.
+Per esempio, se \phi è una formula atomica, \not\phi è una formula.
+
+Equivalenze sono utili per la manipolazione delle formule. Descrivono formule sintatticamente diverse dallo stesso valore semantico.
+	1. notnot = vero
+	2. Leggi di de morgan \neg(\phi \land \psi) \equiv (\not\phi) \lor (\not\psi), \neg(\phi \lor \psi)\equiv (\neg\phi) \land (\neg\psi)
+	3. (\phi \implies \psi) \equiv \neg\phi \lor \psi \equiv ((\neg\psi)\implies(\neg\phi)) [L'ultima formula è detta controvariante]
+	4. \neg(\exists x(\phi)) \equiv \forall x(\neg\phi), \neg(\forall x(\phi)) \equiv \exists x(\neg\phi)
+	
+Abbreviazioni
+	- (\exists x \in S.\phi) \equiv \exists x(x\in S \land \phi)
+	- (\forall x \in S.\phi) \equiv \forall x(x\in S \implies \phi)
+	
+- Presenta basi di insiemistica come le operazioni, le relazioni e le funzioni, nulla di fuori dall'ordinario.
+
+- induzione
+Tecnica di definizione e dimostrazione. Abbiamo:
+	- Induzione matematica, basata sull'insieme N
+	- Induzione strutturale, basata su linguaggi generati da grammatiche.
+	
+Relazione è ben fondata su A (< \subseteq AxA) se non esistono catene discendenti infinite tali che A è ben fondato.
+Catene discendenti: implica l'esistenza di un fondo dal quale l'insieme può partire a costruire gli oggetti. Il fatto che non esistano catene discendenti infinite implica che ci sia questo vincolo e sia invalicabile.
+Il fondo è il punto di partenza dell'induzione ed è detto base dell'induzione.
+NB: Una relazione riflessiva non può essere ben fondata, avrebbe più fondi.
+
+N è un insieme ben fondato grazie a 0, l'elemento minimale e neutro.
+Una relazione < \subseteq AxA è ben fondata sse \forall B.B\subseteq A, B ha un elemento minimale.
+
+Se un insieme ha un elemento minimale, sarà compreso anche in tutti i suoi sottoinsiemi.
+
+Principio di induzione:
+Usato per dimostrare una proprietà \pi definita su A con ordinamento <.
+\forall a.\pi(a) \iff \forall a \in A.[[\forall b<a.\pi(b) \implies \pi(a)]
+La parte implicante è detta ipotesi induttiva e la formula intera si dice passo induttivo.
+
+Per dimostrare bisogna:
+	- Scoporare la base, la dimostrazione di \pi sugli elementi minimali.
+	
+	Base_A = {a\in A | a minimale in A}
+	- Passo base: \forall a\in Base_A.\pi(a), dimostrando \pi su tutti gli elementi di base_A
+	- Passo induttivo: Supponiamo sia vera l'ipotesi induttiva \forall b<a.\pi(b)) e dimostriamo \pi su a.
+
+Quindi fondamentalmente devi dimostrare due formule:
+\begin{cases}
+	\forall a\in Base_A.\pi(a)\\
+	\forall a\in A\Base_A . [\forall b < a.\pi(b)\implies \pi(a)]
+\end{cases}
+Dove la prima formula è il passo base e la seconda è il passo induttivo, dove cerchiamo di provare che vale per ogni altro elemento di A.
+Se riesci a dimostrarle entrambe hai fatto e in questo caso detto che \forall a.\pi(a)
+
+Esempio: Dimostrare \sum_{i=1}^n i = \frac{n(n+1)}{2} \forall n \geq 1
+
+\begin{cases}
+	n = 1, \sum_{i=1}^1 i = 1 \implies \frac{n(n+1)}{2} = \frac{1(1+1)}{2} = 1.
+	m+1, \sum_{i=1}^m i+(m+1) = \frac{m(m+1)}{2}+m+1 = \frac{(m+1)(m+2)}{2}
+\end{cases}
+
+NB: Ciò che vogliamo dimostrare non può essere nella tesi.
+
+-- Linguaggi formali
+Simbolo è l'entità primitiva del linguaggio. Con questo si creano le stringhe, sue sequenze.
+Con una sequenza di simboli possiamo parlare di lunghezza, il numero di occorrenze di simboli. La lunghezza si denota con |x|, con x stringa.
+
+Supponiamo x = a_1...a_n stringa di a_n simboli.
+Una qualunque sottostringa che parta dal primo carattere fino ad un altro qualunque non ultimo è detta prefisso.
+Qualunque sottostringa da un sinbolo intermedio fino all'ultimo è detta suffisso.
+Ogni sottosequenza di simboli di x presi nello stesso ordine è detta sottostringa. Molto semplice.
+
+Le stringhe si possono concatenare. Diciamo x,y stringhe. Concatenandole stiamo creando una nuova stringa composta da tutti i simboli di x seguiti da tutti quelli di y.
+x = aaba
+y = bbab
+z = xy = aababbab. Semplice.
+
+I simboli sono descritti nell'alfabeto, l'insieme finito di simboli sui quali costruiamo un linguaggio.
+Linguaggio formale (su un alfabeto \Sigma): insieme di stringhe di simboli presi nell'alfabeto \Sigma.
+
+\void è un linguaggio senza stringhe.
+\epsilon è una stringa senza simboli, detta vuota.
+{\epsilon} è un linguaggio che contiene la sola stringa vuota
+\Sigma* è il linguaggio di tutte le possibili stringhe su \Sigma. Inoltre, se \Sigma \neq \void, allora \Sigma* è infinito numerabile, quindi esiste una funzione che enumera tutti gli elementi di \Sigma*, qunidi esiste una corrispondenza tra \Sigma* e \mathbb{N}.
+
+Un linguaggio formale L è quindi un sottoinsieme di \Sigma*
+
+-- Problema dell'informatica
+P(S), dove S insieme. P(S) indica le parti di S. Tutti i sottoinsiemi di S.
+
+Teorema di Cantor: La cardinalità di un dato insieme S sarà sempre strettamente minore della cardinalità dell'insieme delle sue parti P(S). Quindi |S| < |P(S)|.
+Questo concetto è estendibile all'insieme dei naturali ed è possibile vedere che l'insieme delle sue parti ha cardinalità maggiore.
+Altra cosa, un insieme è detto numerabile se la sua cardinalità è uguale a quella dell'insieme N.
+
+Noi possiamo vedere il problema come una funzione f_N\to N, poiché l'informatica riguarda una parte discreta della matematica.
+Una funzione generale è un insieme di coppie su N che è un sottoinsieme di N numerabile.
+Quindi se prendiamo una funzione possiamo vederla come sottoinsieme di N. Notiamo che se prendiamo la cardinalità di tute le funzioni questa sarà uguale a quella dell'insieme delle parti di N. Quindi |f| \subseteq N \implies |{f:N\to N}| = |P(N)|
+
+Scrivere un programma è scrivere una sequenza di simboli finita in un alfabeto finito, dette istruzioni.
+L'insieme dei programmi è quindi un sottoinsieme di \Sigma* e quindi l'insieme dei programmi Alg è numerabile. |Alg| = |N|.
+
+Quindi grazie al teorema di cantor, il numero di funzioni descrivibili come algoritmi è strettamente inferiore al numero di problemi di funzioni.
+Esistono infinite funzioni non descrivibili attraverso un algoritmo.

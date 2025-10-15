@@ -1,0 +1,90 @@
+14-10-25 Algoritmi
+
+O è limite superiore
+\Omega è quello inferiore
+
+// Livello di complessità qui può essere espresso dal valore di n, perché è in base ad esso che possiamo vedere quante operazioni fare.
+Fatt(n)
+	if (n == 0) 
+		return 1;
+	else 
+		return n*fatt(n-1);
+		
+T(n) = \begin{cases}
+	1			n=0\\
+	1+T(n-1)	n>0\\
+\end{cases}
+
+Ogni volta che si ha un programma ricorsivo, lo si esprime con un'equazione di ricorrenza. Ci sono tecniche risolutive apposite.
+	1. Metodo iterativo; parti dalla t(n) e continui ad applicare la funzione fin quando non arrivi al caso base.
+		T(n) &= 1+T(n-1)
+		 &= 1+1+T(n-2)
+		 &= 1+1+1+T(n-3)
+		 &= 1+...+1+T(N-i)		// i qui sono tutte le iterazioni fatte.
+		 
+		Dopo n passaggi arrivi al caso base, ovvero 1+...+1+T(n-n), con T(n-n) = 1.
+		
+		\theta(n) = O(n) \cap \Omega(n). Quando usi theta, indichi che abbiamo capito perfettamente l'ordine di grandezza.
+		
+		// Scrittura generale equazione ricorsiva
+		T(n) = \begin{cases}
+			c				n < \overline{n}
+			f(n-1, ..., 1)	n \geq \overline{n}
+		\end{cases}
+		
+		essendo che ci interessa l'ordine di grandezza, possiamo prendere solo il caso ricorsivo al posto di quello base.
+		Possiamo comunque scegliere \overline{n}, quindi possiamo rendere il caso base molto grande o molto piccolo.
+	
+	2. Metodo di sostituzione; Sostituisci la tesi da dimostrare all'argomento della funzione nell'equazione.
+		T(n) = 2T(n/2)+n, con T(n) \in O(nlogn). Base del log non rilevante in quanto costante moltiplicativa. Fanculo le costanti. Tranne quando devo fare i conti.
+		Cerchiamo di dimostrare la proprietà T(n) \leq c(nlogn) per induzione.
+		Supponiamo che la tesi valga per tutti i numeri più piccoli di n e proviamo a dimostrare che valga per n.
+
+		T(n) \leq 2c(n/2)log(n/2)+n		// Qui hai sostituito all'argomento [n/2] della funzione la tesi da dimostrare. L'ultimo n non era parte dell'argomento e rimane invariato.
+			&\leq c*n*log(n/2)+n
+			&\leq c*n(logn - log2)+n
+			&\leq c*n*logn - c*n + n 
+			&\leq c*n*logn - (c-1)*n	// Quando T(n) \leq c*n*logn? Bisogna vedere il valore di c sottratto. (c-1) \geq 0 \implies c \geq 1.
+			
+		Bello tutto, come si ricava l'ipotesi? Testing. Ne supponi una e vedi se riesci a dimostrarla.
+		Come risolvere l'equazione?
+		
+			Albero di ricorrenza:
+				n
+					- T(n/2)
+						- n/2
+							- T(n/4)
+							- T(n/4)
+					- T(n/2)
+						- n/2
+							- T(n/4)
+							- T(n/4)
+							
+			Andare avanti ad infinitum fino al caso base. La complessità  qui sono tutti i numeri singoli senza T. Noti che ad ogni livello la somma risulta n. Si ripete quindi n volte.
+			
+		Altro esempio di sostituzione:  T(n) = T(n/2) + T(n/2) + 1. Mi aspetto sia \in O(n). Quindi \leq c*n.
+		
+		T(n) \leq c*(n/2) + c*(n/2) + 1
+			&\leq c(n/2 + n/2) + 1
+			&\leq c*n+1
+			&\leq c*n.		// Applicazione scorretta della sostituzione, bisogna ottenere l'ipotesi. Bisogna eliminare 1. Supponiamo quindi una '-b' e vediamo cosa cambia
+			
+		T(n) \leq c*(n/2)-b + c*(n/2)-b + 1
+			&\leq c*n -b-b +1
+			&\leq c*n -b -(b-1)		// \leq c*n-b		vale se b-1 \geq 0 \implies b \geq 1.
+			
+---
+
+T(n) = T(n/3) + T(2/3*n) + n		T(n) \in O(qlcs)
+Termine noto: termine che non fa chiamate ricorsive, ovvero la n finale non legata a T.
+
+	1. n
+		- T(n/3)
+			2. n/3
+				- T(n/)
+					3. n/9
+					3. 2/9*n
+		- T(2/3*n)
+
+
+	l'ordine di grandezza qua pure è nlogn ma è da rivedere come arrivare ai vari casi con l'albero. Se sta cosa è complessa, è sconsigliato farlo.

@@ -1,0 +1,6 @@
+\contentsline {chapter}{\numberline {1}Automi e linguaggi formali}{3}{}%
+\contentsline {section}{\numberline {1.1}Linguaggi e grammatiche}{3}{}%
+\contentsline {section}{\numberline {1.2}Automi a stati finiti e linguaggi regolari}{3}{}%
+\contentsline {section}{\numberline {1.3}Linguaggi liberi da contesto, forme normali e automi a pila}{3}{}%
+\contentsline {section}{\numberline {1.4}Classificazione di Chomsky}{3}{}%
+\contentsline {chapter}{\numberline {2}Teoria della calcolabilità}{4}{}%

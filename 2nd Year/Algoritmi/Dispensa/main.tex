@@ -1,0 +1,49 @@
+\documentclass[12pt, a4paper, oneside]{book}
+
+\include{Configs/packages}
+\include{Configs/boxes}
+\include{Configs/formats}
+
+\textwidth=450pt\oddsidemargin=0pt
+
+\begin{document}
+	
+	\begin{titlepage}
+		\begin{center}
+			{{\LARGE{\textsc{Università degli Studi di Verona}}}} \rule[0.1cm]{15.8cm}{0.1mm}
+			\rule[0.5cm]{15.8cm}{0.6mm}
+			{\small{\bf CORSO DI LAUREA IN INFORMATICA}}
+		\end{center}
+		\vspace{12.5mm}
+		
+		\begin{center}
+			{\Huge{\bf Algoritmi}}
+		\end{center}
+		\vspace{130mm}
+		
+		\begin{minipage}[l]{1.8mm}
+			\rule[0.1cm]{0.1mm}{2cm}
+			\rule[0.1cm]{0.6mm}{2cm}
+		\end{minipage}
+		\hspace{2mm}
+		\begin{minipage}{10cm}	
+			{\large{Federico Brutti\\
+			\texttt{federico.brutti@studenti.univr.it}}}
+		\end{minipage}
+	\end{titlepage}
+	
+	\blankpage
+	\tableofcontents
+	
+	\chapter{Complessità degli algoritmi}
+	\input{Chapters/1}
+	\chapter{Ordinamenti e selezioni}
+	\input{Chapters/2}
+	\chapter{Strutture dati}
+	\input{Chapters/3}
+	\chapter{Progetto e analisi di algoritmi}
+	\input{Chapters/4}
+	\chapter{Algoritmi fondamentali}
+	\input{Chapters/5}
+
+\end{document}

@@ -1,0 +1,59 @@
+\documentclass[12pt, a4paper, oneside]{book}
+
+\include{Configs/packages}
+\include{Configs/boxes}
+\include{Configs/formats}
+
+\textwidth=450pt\oddsidemargin=0pt
+
+\begin{document}
+	
+	\begin{titlepage}
+		\begin{center}
+			{{\LARGE{\textsc{Università degli Studi di Verona}}}} \rule[0.1cm]{15.8cm}{0.1mm}
+			\rule[0.5cm]{15.8cm}{0.6mm}
+			{\small{\bf CORSO DI LAUREA IN INFORMATICA}}
+		\end{center}
+		\vspace{12.5mm}
+		
+		\begin{center}
+			{\Huge{\bf Basi di dati}}
+		\end{center}
+		\vspace{130mm}
+		
+		\begin{minipage}[l]{1.8mm}
+			\rule[0.1cm]{0.1mm}{2cm}
+			\rule[0.1cm]{0.6mm}{2cm}
+		\end{minipage}
+		\hspace{2mm}
+		\begin{minipage}{10cm}	
+			{\large{Federico Brutti\\
+			\texttt{federico.brutti@studenti.univr.it}}}
+		\end{minipage}
+	\end{titlepage}
+	
+	\blankpage
+	\tableofcontents
+	
+	\chapter{Sistemi per la gestione di database}
+	\input{Chapters/1}
+	\chapter{Progettazione di una base di dati}
+	\input{Chapters/2}
+	\chapter{Interazione con un database}
+	\input{Chapters/3}
+	\chapter{RDBMS e SQL in postgreSQL}
+	\input{Chapters/4}
+	\chapter{Query e transazioni}
+	\input{Chapters/5}
+	\chapter{Accesso a database da programmi Python}
+	\input{Chapters/6}
+	\chapter{DBMS, NoSQL e MongoDB}
+	\input{Chapters/7}
+	\chapter{Architettura interna, DBMS}
+	\input{Chapters/8}
+	\chapter{Interrogazioni in SQL}
+	\input{Chapters/9}
+	\chapter{MongoDB}
+	\input{Chapters/10}
+
+\end{document}

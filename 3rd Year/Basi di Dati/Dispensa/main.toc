@@ -1,0 +1,13 @@
+\contentsline {chapter}{\numberline {1}Sistemi per la gestione di database}{3}{}%
+\contentsline {section}{\numberline {1.1}Sec1}{3}{}%
+\contentsline {chapter}{\numberline {2}Progettazione di una base di dati}{4}{}%
+\contentsline {section}{\numberline {2.1}Progettazione concettuale}{4}{}%
+\contentsline {section}{\numberline {2.2}Progettazione logica}{4}{}%
+\contentsline {chapter}{\numberline {3}Interazione con un database}{5}{}%
+\contentsline {chapter}{\numberline {4}RDBMS e SQL in postgreSQL}{6}{}%
+\contentsline {chapter}{\numberline {5}Query e transazioni}{7}{}%
+\contentsline {chapter}{\numberline {6}Accesso a database da programmi Python}{8}{}%
+\contentsline {chapter}{\numberline {7}DBMS, NoSQL e MongoDB}{9}{}%
+\contentsline {chapter}{\numberline {8}Architettura interna, DBMS}{10}{}%
+\contentsline {chapter}{\numberline {9}Interrogazioni in SQL}{11}{}%
+\contentsline {chapter}{\numberline {10}MongoDB}{12}{}%

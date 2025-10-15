@@ -21,7 +21,7 @@ Java ha puntatori ma non ne esiste l'aritmetica.
 
 Referenza dell'oggetto contiene il nome di una classe ed un indirizzo di memoria. Non usa memoria, tiene solo l'indirizzo.
 
-class Vehicle {				// Rivedere la definizione di classe, potrei aver scritto na minchiata
+public class Vehicle {				// Rivedere la definizione di classe, potrei aver scritto na minchiata. Era una minchiata.
 	string Manifacturer;
 	setFrameNumber(int);
 };

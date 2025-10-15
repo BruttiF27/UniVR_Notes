@@ -1,0 +1,54 @@
+14-10-25 Prog2
+
+--- Librerie e stringhe di Java
+Le librerie son classi messe a disposizioni da terze parti. Classic. Devono essere comprese nel classpath.
+
+java.lang, *.io, *.math, *.awt, *.util
+Per importare le classi: import java.nomeLibr.*
+
+In java.util è presente lo scanner col quale ricevere stdin. è visto come oggetto, quindi si scrive:
+Scanner myScanner = new Scanner(System.in);
+String uName = myScanner.nextLine();		// Per leggere usare metodo nextLine. Per gli interi esiste scannerName.nextInt(); come anche nextFloat();
+myScanner.close();							// Lo scanner va chiuso come i files.
+
+I controlli per un corretto funzionamento del programmma possono esswere messi nel costruttore. Nell'esempio della data:
+void verify() {
+	if (year < 0 || month < 1 || month > 12) System.out.println("Illegal date!");
+	else if (day < 1 || day > daysPerMonth(month)) System.out.println("Illegal date!"); 
+}
+
+Nel corstruttore scriveremo:
+verify();
+
+La libreria standard java.lang.System comprende gli oggetti costanti:
+	- .err, per stderr
+	- .in, per stdin
+	- .out, per stdout
+	
+--- Stringhe in Java
+Le stringhe sono classi. Per usarle devi fare un oggetto di classe stringa con new. Poi la stringa sarà un oggetto costante.
+String str = new String("pallePisello");
+System.out.println(str.length());		// Stampa la lunghezza di una stringa.
+System.out.println(str.charAt(4));		// Stampa il singolo carattere alla posizione 4. Ricorda che anche qua si conta a partire da 0.
+
+Per confrontare due oggetti puoi sì usare gli operatori, sbagliando, perché si confrontano due puntatori. Meglio usare il metodo .equals.
+System.out.println(str.equals(same));
+
+Le stringhe qua non sono sequenze di caratteri. Damn. Non hanno nemmeno un terminatore.
+
+str.indexOf(a) 							// Ricerca di un carattere all'interno della stringa. In questo caso 'a'. Se il carattere non c'è torna -1, altrimenti torna l'indice.
+str.substring(start, end)				// Ottiene una sottostringa con gli indici dati in input. La stringa non è troncata, se ne crea una nuova.
+str.replace(target, replacement)		// Rimpiazza i caratteri di target con quelli di replacement.
+
+La classe String dà anche il metodo format(). Permette di formattare la stringa con una sintassi simil-C
+String str = "Result";
+int num = 2;
+String formatStr = String.format("%s = %d", str, num);		// Dona un formato alla stringa
+System.out.println(formatStr);								// La stampa.
+
+Java.lang comprende la classe StringBuilder. Si occupa di gestire dinamicamente una stringa.
+StringBuilder sb = new StringBuilder("abc");				// Crea una stringa mutevole abc
+sb.append("def");											// Concatena in coda i caratteri def.
+
+E' possibile cancellare ed inserire sottostringhe se usi un oggetto di classe StringBuilder rispettivamente con StringBuilder delete(int start, int end) e StringBuilder insert(int index, String str)
+Puoi reversarla con reverse().

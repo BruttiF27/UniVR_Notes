@@ -1,0 +1,55 @@
+14-10-25 Prog2Lab
+
+Tutto è un oggetto in Java tranne i tipi primitivi
+
+// Classe
+public class Car {
+	
+	// Campi della classe, le variabili che ogni oggetto conterrà
+	String color;
+	boolean turnedOn;
+	
+	// Metodi della classe
+	void paint(String newColor) {
+		color = newColor;
+	}
+	
+	boolean isTurnedOn() {
+		return turnedOn;
+	}
+}
+
+I messaggi hanno una segnatura: returnType methodName(par1, ..., parn)
+
+public class Car {
+	String mainColor, topColor;
+	
+	void paint(String newColor) {
+		mainColor = newColor;
+		topColor = newColor;
+	}
+	
+	void paint(String newMainColor, String newTopColor) {
+		mainColor = newMainColor;
+		topColor = newTopColor;
+	}
+}
+
+Il metodo static:
+	- può esser chiamato anche se nessun oggetto della classe è creatp
+	- Non può accedere contenuti non specifici degli oggetti
+	- Può essere chiamato solo tramite il nome della classe.
+	- è utile per fare azioni non relazinoate agli oggetti.
+	
+Per fare un oggetto si usa l'operatore new nomeClasse();		// nomeClasse sarebbe il costruttore, con le variabili che può prendere.
+Per interagire con un oggetto, il metodo da chiamare non deve essere static.
+
+Per inviare un messaggio ad un oggetto serve un puntatore che vada là
+
+Dentro un metodo di istanza ci possiamo riferire all'oggetto corrente con "this.". Ritornal la reference dell'oggetto dal quale il metodo è chiamato. Negli statici è inutile.
+
+Tutti i campi sono accessibili come gli structs su C. Con l'operatore dot '.'. Preferibile non farlo perché viola l'information hiding. Prendere dai campi solo coi messaggi se sei in un oggetto diverso, pls.
+
+Ogni classe ha un tipo di referenza parametrico su sé stessa.
+
+Ogni oggetto viene col suo metodo toString(), che permette di dare una rappresentazione di un oggetto in stringa. Ci sono altri metodi che vengono insieme alle classi, tipo preconfezionati.

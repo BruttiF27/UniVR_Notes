@@ -1,0 +1,24 @@
+14-10-25 Basi di dati
+
+Ex. 1:
+
+Problemi trovati:
+- Posso istanziare solamente entità esame. Non puoi farlo solo per la persona. E' problematico. Se l'attributo c'è non può essere vuoto.
+	Formalmente, è un'unione di concetti che dovrebbero essere autonomi in una sola entità.
+- Alcuni attributi non sembrano centrare con l'enntità
+- Presenza di ridondanze
+
+Entità:
+	- Studente
+		- matricola, cognome, nome, dob, data immatricolazione
+	- Insegnamento
+		- denominazione, a.a., anno, docente
+	- Data di laurea (o appello di laurea)
+		- Data
+	
+Relazioni:
+	- Esame: studente[X]Insegnamento					// Ogni volta che c'è un esame fatto inserirò un'istanza di relazione.
+		- Data, voto
+	- Frequenza: studente[X]Insegnamento				// Modularizzata come relazione per poterla istanziare quando mi pare.
+		- valore in percentuale di frequenza
+	- Conseguimento titolo: Studente[X]Data di laurea	// Usata solo nel caso di laurea, quindi una sola volta.

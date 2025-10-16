@@ -1,0 +1,24 @@
+09-10-25 Elab seg&sis
+
+- Introduzione ai segnali e sistemi (non complessa, è la stessa di sistemi)
+
+Come calcolare l'output del sistema in base all'input? Questa la chiamiamo risposta impulsiva.
+Nelle due dimensioni il segnale dipende da una variabile complessa.
+
+Le immagini sono segnali 2D la cui variabile dipendente è e la variabile indipendente è
+
+I segnali 3D sono un insieme di immagini 2D con un volume
+
+Esistono anche segnali 2D e 3D influenzati dal tempo, come una tac.
+
+I segnali sono classificati con diverse categorie:
+	
+E le categorie possono pure mischiarsi.
+
+Ok, fondamentalmente la lezione concerneva la tassonomia dei segnali, ovvero le modalità nelle quali sono suddivisi. Abbiamo:
+	- Segnali a tempo continuo/discreto
+	- Segnali Analogico/digitali
+	- Segnali Periodici/aperiodici
+	- Segnali di Energia/potenza
+	- Segnali deterministico/aleatori
+Appartenere ad una categoria non preclude le altre, quindi un segnale può per esempio essere discreto e digitale.

@@ -1,16 +1,16 @@
 \section{Programmazione orientata agli oggetti}
-Il corso di programmazione II ha lo scopo di fornire un modus operandi differente; passeremo infatti dalla programmazione imperativa ad una \textbf{orientata agli oggetti}.\par
+Il corso si propone di fornire le conoscenze necessarie alla comprensione, sviluppo e correzione di software realizzato in un linguaggio di programmazione orientato agli oggetti e di fornire le competenze relative alla strutturazione di progetti software di medie dimensioni.\par
 Lo scopo e l'utilità della OOP è quello di gestire appropriatamente un programma con molte linee di codice. Rende il codice estremamente modulare, riutilizzabile e di conseguenza risulta più facile mantenerlo. Per il modo in cui sono trattati gli oggetti, inoltre, il codice è reso particolarmente sicuro.\newline
 
 \noindent Familiarizziamo ora con i due concetti base della OOP: \textbf{classi} e \textbf{oggetti}. Le prime definiscono una struttura dati, alla quale è possibile associare dati, detti \textbf{attributi}, e funzioni, chiamate \textbf{metodi}. Dalle classi, che in parole povere fungono da tipo di dato, è possibile ottenere gli oggetti, delle loro istanze, con stessi dati e metodi. Infatti, il processo di creazione di un oggetto è detto \textbf{istanziazione}.\par
-Il workflow della OOP si basa sulle interazioni fra gli oggetti; queste avvengono grazie alle loro \textbf{interfacce}, set di messaggi che l'oggetto può ricevere, mappate ad un metodo nello stesso. Se si riceve un messaggio al di fuori dell'interfaccia, è detto illegale e viene bloccato. Sicuro, no? Ora, l'idea generale per una corretta programmazione a oggetti sono:
+Il workflow della OOP si basa sulle interazioni fra gli oggetti; queste avvengono grazie alle loro \textbf{interfacce}, set di messaggi che l'oggetto può ricevere, mappate ad un metodo nello stesso. Se si riceve un messaggio al di fuori dell'interfaccia, è detto illegale e viene bloccato. Un iter di lavoro generale per una corretta programmazione a oggetti è:
 \begin{enumerate}
 	\item Identificare i componenti.
 	\item Definire l'interfaccia dei componenti.
 	\item Definire le modalità con cui le interfacce consentono l'interazione fra oggetti.
 	\item Minimizzare le relazioni fra i componenti.
 \end{enumerate}
-\noindent Uno strumento utile per la documentazione delle classi è l'\textbf{Unified Modeling Language}, consente di definire graficamente e quindi documentare un sistema orientato agli oggetti.
+\noindent Generalmente, è buona pratica documentare il programma ad ogni sviluppo, ma con grandi quantità di dati, la cosa può risultare tediosa. Per questa ragione si usa uno strumento utile per la documentazione delle classi: l'\textbf{Unified Modeling Language}, il quale consente di definire graficamente e quindi documentare un sistema orientato agli oggetti. Verrà approfondito più avanti nel corso.
 
 %
 
@@ -28,81 +28,12 @@ Più precisamente, dopo essere compilato, verrà creato in output un file con es
 \noindent Dove è possibile installare sulla macchina solo la JVM, tipico se vuoi giocare a Minecraft, per scrivere programmi in Java è necessario usare il \textbf{Java Development Kit}, compreso di debugger, compiler, disassembler, ed un applicativo per la documentazione.\par
 Per l'esecuzione dei programmi abbiamo poi il \textbf{Java Runtime Environment}, avente con sé librerie di classe, il compiler JIT precedentemente menzionato, la JVM e il Java application launcher.\newline
 
-\noindent Basta cazzate, la struttura generale di un programma Java è la seguente:
-\begin{lstlisting}[language=Java]
-	// Per compilare: javac HelloWorld.java
-	// Per eseguire: java HelloWorld
-	
-	// Il nome qui deve coincidere con quello del file.
-	public class HelloWorld {
-		// Entry point del programma, funge da metodo.
-		public static void main (string[] args) {
-			// Blocco di codice
-		}
-	}
-\end{lstlisting}
-\noindent Ho menzionato prima come il compiler restituisca in output un file di estensione .class, infatti ogni file è visto come classe con i relativi oggetti. Il caricamento di queste classi è basato sul \textbf{classpath}, la lista di locazioni dove queste possono essere prese. Se il compiler non trova la classe, lancerà un'eccezione ed il programma non verrà eseguito.\par
-Ci sono più modi per indicare un classpath al compilatore; indicarla singolarmente oppure contenere tutte le classi in un barattolo, un file con estensione ".jar". Questi sono fondamentalmente degli archivi compressi in cui è salvato il bytecode e altre meta-informazioni. Quindi:
+\noindent Si suppone che tu abbia frequentato il precedente corso di programmazione, tenuto con C. Conoscerlo faciliterà enormemente le cose, poiché la sintassi per le funzionalità base del linguaggio ne è in gran parte simile. Infatti si mantengono i tipi primitivi: \textbf{int}, \textbf{double}, \textbf{char}, aggiungendo \textbf{boolean} e \textbf{String}, quest'ultimo non primitivo, ma successivamente approfondito. Si mantengono inoltre altre funzionalità come il type casting. Riassumendo, diciamo che la sintassi base di Java è composta da:
 \begin{itemize}
-	\item Per eseguire da cartelle diverse: \$ java -cp ./nomeCartella nomeEseguibile
-	\item Per creare un file .jar: \$ jar cvf nomeJar.jar classOne.class classTwo.class ...
-	\item Per eseguire un programma con file .jar: \$ java -cp nomeJar.jar nomeEseguibile
+	\item \textbf{Parole chiave del linguaggio}: Hanno un significato speciale e non possono essere usate per la dichiarazione di variabili o funzioni.
+	\item \textbf{Identificatori}: I nomi scelti per gli elementi di programmazione definiti nel linguaggio.
+	\item \textbf{Operatori}: Simboli per effettuare operazioni.
+	\item \textbf{Dati}: Valori delle variabili, le informazioni nel codice.
 \end{itemize}
-\noindent Nella creazione di un file .jar è possibile aggiungere anche una direttiva su quali classi eseguire di preciso e quali ignorare. Ciò si fa con un file nominato \textbf{manifest.txt}.
-\begin{lstlisting}
-	// manifest.txt
-	Main-Class: nomeClasse
-	
-	// Compilazione
-	$ jar cvfm nomeJar.jar manifest.txt classOne.class
-\end{lstlisting}
-\noindent Notare i termini \textbf{cvf} e \textbf{cvfm}, significanti rispettivamente create verbose file e create verbose file manifest.
-
-%
-
-\section{Componenti del linguaggio}
-Si suppone che ti abbia frequentato il precedente corso di programmazione, tenuto con C. Conoscerlo faciliterà enormemente le cose, poiché i tipi di Java sono dichiarati nel medesimo modo. Manteniamo \textbf{int}, \textbf{double}, \textbf{char}, aggiungendo \textbf{boolean}, autoesplicativo. Non sarà primitivo, ma hanno aggiunto il tipo stringa, reso più sicuro con l'incapsulamento. Si possono eseguire concatenazioni con l'operatore "+". Non cambia nemmeno il type casting, se per qualche motivo dovesse servire, e va in ambo le direzioni. Le vere novità sono le classi e gli oggetti, comuni a tutti i linguaggi OOP:
-\begin{lstlisting}[language=Java]
-	// Dichiarazione di una classe
-	
-	// Dichiarazione di un oggetto
-\end{lstlisting}
-
-
-
-
-
-
-
-
-
-
-
-
--- Oggetti
-Istanze di classi accessibili solamente tramite messaggi. Hanno dei campi, sottoinsiemi di locazioni di memoria, interagibili coi metodi.
-Java ha puntatori ma non ne esiste l'aritmetica.
-
-Referenza dell'oggetto contiene il nome di una classe ed un indirizzo di memoria. Non usa memoria, tiene solo l'indirizzo.
-
-class Vehicle {				// Rivedere la definizione di classe, potrei aver scritto na minchiata
-	string Manifacturer;
-	setFrameNumber(int);
-};
-Vehicle MyCar; 				// Contiene Vehicle@null
-MyCar = new Vehicle();		// MyCar ora è un oggetto di classe Vehicle. Istanziazione. Il compiler vedrà Vehicle@memAddress
-MyCar.setFrameNumber(2);	// Messaggio legale inviato alla zona di memoria memAddress.
-
--- Ereditarietà; rivedere in autonomia
-(?) Puoi aggiungere altri dati e metodi dichiarando prima un oggetto di una classe, per poi assegnarli un new oggettoDiverso();
-Vehicle myCar
-myCar = new Car();		// Un oggetto Car eredita tutti i campi e metodi degli oggetti vehicle
-
-Puoi usare (objname == null) per controllare se qualche puntatore va a null per qualche ragione. Utile, dai.
-Come è anche possibile mettere un oggetto a null. Aiuta il garbage collector a capire quale memoria deallocare.
-
---- Sintassi base ---
-Costrutti di base
-- Le variabili si dichiarano come in C. Boom, risparmiato 30min di spiegazione.
-- Gli oggetti vanno inizializzati per evitare NullPointerException... ma dai?
-- Le costanti si dichiarano con "final static n = 1;"
+\noindent La vera novità di nostro interesse sono invece le classi e gli oggetti; lo scopo di questi concetti è l'astrazione, un modo per rendere più vicino al nostro pensiero la programmazione.\par
+Supponiamo che una classe rappresenti gli animali, con delle caratteristiche generali come nome e verso, detti \textbf{campi}; a questo punto è possibile istanziare un oggetto con nome "cane" che esegue il verso "woof". La programmazione orientata agli oggetti si basa su questo workflow, espandibile con ulteriori concetti che andremo a vedere più avanti nella dispensa.

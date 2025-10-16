@@ -1,3 +1,146 @@
-\section{Sec1}
-\section{Sec2}
-\subsection{SubS1}
+\section{Struttura ed esecuzione dei programmi}
+Java è usato tendenzialmente per la gestione di programmi di medie dimensioni, quindi necessariamente suddivisi in più parti. Il compilatore vede ogni file con estensione ".java" come una singola classe, ed infatti è richiesto che il nome associato alla classe nel file debba essere uguale a quello del file effettivo. Al sui interno bisognerà poi dichiarare un metodo di nome "main", che fungerà da entry point per quel singolo file. Compilato il programma, sarà possibile eseguirlo grazie al launcher.
+\begin{lstlisting}[language=Java]
+	// Per compilare: javac HelloWorld.java
+	// Per eseguire: java HelloWorld
+	
+	// Dichiarazione di classe, il nome coincide con quello del file.
+	public class HelloWorld {
+		// Entry point del programma, metodo di nome main
+		public static void main (string[] args) {
+			// Blocco di codice
+		}
+	}
+\end{lstlisting}
+\noindent Il compiler restituisce in output un file di estensione ".class". Infatti, ogni file è visto come classe con i relativi oggetti. Il caricamento nella compilazione di queste classi è basato sul \textbf{classpath}, la lista di locazioni dove queste possono essere prese. Se il compiler non trova la classe, lancerà un'eccezione e non verrà creato l'eseguibile.\par
+Ci sono più modi per indicare un classpath al compilatore; indicarla singolarmente oppure contenere tutte le classi in un barattolo, un file con estensione ".jar". Questi sono fondamentalmente degli archivi compressi in cui è salvato il bytecode e altre meta-informazioni. Quindi:
+\begin{itemize}
+	\item Per eseguire da cartelle diverse: \$ java -cp ./nomeCartella nomeEseguibile
+	\item Per creare un file .jar: \$ jar cvf nomeJar.jar classOne.class classTwo.class ...
+	\item Per eseguire un programma con file .jar: \$ java -cp nomeJar.jar nomeEseguibile
+\end{itemize}
+\noindent Nella creazione di un file .jar è possibile aggiungere anche una direttiva su quali classi eseguire di preciso e quali ignorare. Ciò si fa con un file nominato \textbf{manifest.txt}.
+\begin{lstlisting}
+	// manifest.txt
+	Main-Class: nomeClasse
+	
+	// Compilazione
+	jar cvfm nomeJar.jar manifest.txt classOne.class
+\end{lstlisting}
+\noindent Notare i termini \textbf{cvf} e \textbf{cvfm}, significanti rispettivamente create verbose file e create verbose file manifest.
+
+%
+
+\section{Dichiarazione di classi e oggetti}
+Parliamo adesso di codice effettivo. Per prima cosa bisogna dichiarare una classe con i relativi campi. Quindi:
+\begin{lstlisting}[language=Java]
+	// Dichiarazione della classe Date
+	public class Date {
+		
+		// Scope dei campi della classe, questi sono attributi...
+		int day, month, year;
+		
+		// ...e questo un metodo.
+		String printDate() {
+			return day + "/" + month + "/" + year;
+		}
+	}
+\end{lstlisting}
+\noindent Si può estendere il discorso introducendo i concetti di \textbf{modificatore} e \textbf{funzione costruttore}. Il primo indica la modalità di accesso alla struttura e può essere usato sia per classi che oggetti, ed il secondo è un metodo dello stesso nome della classe che viene eseguito alla creazione di un nuovo oggetto. Per esempio, consideriamo il seguente codice all'interno della classe Date, dichiarata prima:
+\begin{lstlisting}[language=Java]
+	// Funzione costruttore. Qui popola le variabili dell'oggetto. Modificatore public.
+	public Date(int day, int month, int year) {
+		// "this." indica la locazione dell'oggetto corrente.
+		this.day = day;
+		this.month = month;
+		this.year = year;
+	}
+	
+	// Metodo isFirstDay con modificatore static. Non ha accesso a campi non statici.
+	static boolean isFirstDay(int day) {
+		if (day == 1) return true;
+		else return false;
+	}
+\end{lstlisting}
+\noindent Nello specifico, per quanto riguarda i modificatori, abbiamo \textbf{public}, rendendo accessibile la classe senza limitazioni. Vedremo successivamente \textbf{private}, utile per porre limitazioni e rendere il codice più sicuro. Questi specificano le modalità di accesso. Un altro modificatore presente nello snippet è \textbf{static}, che rende il metodo utilizzabile a prescindere dall'oggetto. Vediamo ora come istanziare un oggetto, a partire dagli snippet del file Date.java di prima:
+\begin{lstlisting}[language=Java]
+	public class MainDate {
+		public static void main(String[] args) {
+			
+			// Utilizzo di isFirstDay fuori oggetto. Possibile dato static.
+			System.out.println(Date.isFirstDay(1));
+			
+			// Creazione dell'oggetto today e stampa con il metodo printDate.
+			Date today = new Date(14, 10, 2024);
+			System.out.println(today.printDate());
+		}
+	}
+\end{lstlisting}
+\noindent Come hai potuto vedere, l'istanziazione avviene con la keyword \textbf{new}, la quale alloca spazio sufficiente per contenere i dati dell'oggetto, mentre per accedere ai singoli campi si utilizza l'operatore \textbf{dot}, ovvero '.'.\par
+Con queste nozioni si hanno strumenti a sufficienza per scrivere dei programmi base in Java. Con l'aggiunta della sezione successiva si potrà iniziare a strutturare dei progetti.
+
+%
+
+\section{Librerie utili}
+Le librerie digitali di Java sono un insieme di funzioni contenute in files appositi e sono fornite da terze parti. Come le hanno fatte gli altri utenti, pure te potresti scriverne. Alla fine, tutti i file da eseguire sono visti come classi, ed infatti dovranno essere comprese nel classpath, se non sono standard. Un pacchetto di librerie base che è comodo imparare è dato da:
+\begin{itemize}
+	\item \textbf{java.lang}: La libreria nativa del linguaggio. Comprende tutte le funzioni di base come oggetti e costrutti.
+	\item \textbf{java.io}: Fornisce funzioni relative alla gestione di datastream in input e output.
+	\item \textbf{java.math}: Usata per il calcolo matematico.
+	\item \textbf{java.awt}: Usata per la gestione di interfacce utente e grafiche.
+	\item \textbf{java.util}: Contiene varie funzioni di utility il cui vero valore sarà compreso andando avanti nel corso.
+\end{itemize}
+\noindent Per utilizzare una libreria è necessario importarla nel file desiderato con la keyword \textbf{import}. Per esempio, nella libreria java.util è presente la classe Scanner, che viene usata per ricevere input da tastiera. In codice:
+\begin{lstlisting}[language=Java]
+	// Aggiunge la classe Scanner da util. Segnatura generale: [java.nomeLibreria.nomeClasse]
+	import java.util.Scanner;
+	
+	public class Mult {
+		public static void main(String args[]) {
+			
+			// Dichiarazione dell'oggetto keyScan di classe Scanner
+			Scanner keyScan = new Scanner(System.in);
+			int n1, n2, res;
+			
+			// print al posto di println stampa senza andare a capo alla fine.
+			System.out.print("Inserisci il primo fattore: ");
+			// Assegna a n1 l'intero letto da tastiera, idem n2.
+			n1 = keyScan.nextInt();
+			System.out.print("Inserisci il secondo fattore: ");
+			n2 = keyScan.nextInt();
+			
+			// Chiudi lo scanner con il metodo close().
+			keyScan.close();
+			
+			// Stampa della variabile concatenata alla stringa "Risultato: "
+			System.out.println("Risultato: " + n1*n2);
+		}
+	}
+\end{lstlisting}
+\noindent Continuiamo ragionando sull'ultima istruzione dello snippet appena visto. Le stringhe, come già detto, sono viste come oggetti, e per usarle bisogna istanziare un oggetto. Dopodiché, non saranno più mutabili in quanto non sono viste come sequenze di caratteri. Tuttavia, abbiamo a disposizione alcuni metodi con cui lavorarci:
+\begin{lstlisting}[language=Java]
+	String str = new String("SHAW!");
+	String same = new String("SHAW!");
+	
+	System.out.println(str.length());		// Stampa la lunghezza di una stringa.
+	System.out.println(str.charAt(4));		// Stampa il singolo carattere alla posizione 4.
+	System.out.println(str.equals(same));	// Confronta str e same, torna vero se sono uguali.
+	str.indexOf(a) 							// Ricerca del carattere 'a' all'interno della stringa. Se assente torna -1, altrimenti torna l'indice.
+	str.substring(start, end)				// Ottiene una sottostringa con gli indici dati in input. Crea una nuova stringa.
+	str.replace(target, replacement)		// Rimpiazza i caratteri di target con quelli di replacement.
+\end{lstlisting}
+\noindent La classe String possiede anche il metodo \textbf{format}. Permette di formattare la stringa con una sintassi simil-C, ed è utile per mantenere un template.
+\begin{lstlisting}[language=Java]
+	String str = new String("Egale");
+	int num = 2;
+	
+	// Dona un formato alla stringa
+	String formatStr = String.format("%s = %d", str, num);
+	System.out.println(formatStr);
+\end{lstlisting}
+\noindent Sebbene gli oggetti da String diventino costanti post-inizializzazione, java.lang fornisce la classe \textbf{StringBuilder}, che consente di gestire dinamicamente una stringa.
+\begin{lstlisting}[language=Java]
+	StringBuilder sb = new StringBuilder("Droxie");				// Crea una stringa mutevole
+	sb.append("kaliemu");										// Concatena in coda i caratteri fra le virgolette.
+\end{lstlisting}
+\noindent È possibile anche cancellare ed inserire sottostringhe con i metodi \textbf{delete} ed \textbf{insert}. Insomma, le stringhe base sono costanti, mentre le stringhe mutevoli di StringBuilder sono sicuramente più flessibili.

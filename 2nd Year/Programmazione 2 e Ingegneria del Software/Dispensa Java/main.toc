@@ -1,8 +1,9 @@
 \contentsline {chapter}{\numberline {1}Introduzione}{3}{}%
 \contentsline {section}{\numberline {1.1}Programmazione orientata agli oggetti}{3}{}%
 \contentsline {section}{\numberline {1.2}Il linguaggio Java}{4}{}%
-\contentsline {section}{\numberline {1.3}Componenti del linguaggio}{5}{}%
-\contentsline {chapter}{\numberline {2}Example 2}{7}{}%
-\contentsline {section}{\numberline {2.1}Sec1}{7}{}%
-\contentsline {section}{\numberline {2.2}Sec2}{7}{}%
-\contentsline {subsection}{\numberline {2.2.1}SubS1}{7}{}%
+\contentsline {chapter}{\numberline {2}Funzioni OOP di Java}{6}{}%
+\contentsline {section}{\numberline {2.1}Struttura ed esecuzione dei programmi}{6}{}%
+\contentsline {section}{\numberline {2.2}Dichiarazione di classi e oggetti}{7}{}%
+\contentsline {section}{\numberline {2.3}Librerie utili}{8}{}%
+\contentsline {chapter}{\numberline {3}Pratiche corrette e gestione errori}{11}{}%
+\contentsline {chapter}{\numberline {4}Documentazione del codice}{12}{}%

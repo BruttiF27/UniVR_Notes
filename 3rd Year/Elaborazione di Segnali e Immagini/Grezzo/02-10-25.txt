@@ -1,0 +1,23 @@
+Elaborazione segnali e immagini 02-10-25
+
+Basi:
+	- Analisi 1, limiti, funzioni, derivate ed integrali
+	- MATLAB
+	
+Vogliamo interagire coi segnali. I segnali audio, immagine o elettronico.
+Guardiamo la frequenza ed eventuali disturbi
+
+Syllabus:
+	- Introduce a sistemi&segnali con enfasi sulle tipologie
+	- Sistemi lineari tempo invarianti
+	- Trasformata di Fourier
+	- Filtraggio analogico e digitale
+	- Conversione A/D (campionamento e quantizzazinnoe)ù
+	- Filtraggio applicato
+	- Analisi delle tessituree con filtri di gabor e cenni di analisi tempo/frequenza multiscala
+	- Estrazione di feature ed esempi di applicazione a problemi di pattern recognition
+	
+Prendi il pdf del signal processing and linear systems, B.P. Lathi ('98)
+
+Modalità d'esame:
+Esame scritto, comprende sia teoria che laboratorio. Quindi teoria e MATLAB.

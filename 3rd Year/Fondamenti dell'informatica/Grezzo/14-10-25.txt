@@ -1,0 +1,80 @@
+14-10-25 fondInfo
+
+--- Automi a stati finiti non deterministici [NFA]
+Sono analoghi ai deterministici, ma la funzione di transizione non è deterministica. La quintupla è: <Q, \sum, \delta, q_0, F>, dove:
+	- Q è l'insieme finito di stati
+	- \Sum è un alfabeto
+	- q_0 è lo stato iniziale
+	- F \subseteq Q sono gli stati finali
+	- \delta:Qx\sum \to P(Q). Qui prende stato e simbolo e restituisce un insieme di stati. Potenzialmente, tutti quelli raggiungibili.
+	
+\hat{\delta}:Q_1x\sum^* \to P(Q), quindi anche la delta cap restituisce un insieme di stati.
+
+\hat{\delta}(q, \epsilon) = {q}				// Raggiungo un singolo stato q
+\hat{\delta}(q, xa) = \Cup \delta(q', a) 	// con q' \in \hat{\delta}(q,x). La scrittura q' consente di dire come si vada in più stati e si collezioni ciò che è raggiunto.
+
+Per costruzione è permesso che la \delta(q, a) = \void, perché appartiene alle parti di Q.
+
+-- Accettazione di x\in\Sigma^* su NFA
+x\in\Sigma è accettata dall'NFA N se \hat{\delta}(q_0, x) \cap F \neq 0.		// Deve esistere almeno un elemento in comune agli insiemi, i quali non devono essere vuoti. Se fossero vuoti, non ci sarebbe intersezione e nulla sarebbe valido. Quindi esiste in N almeno un cammino che leggendo x porta ad uno stato finale.
+- F è l'insieme di tutte le stringhe che portano ad uno stato finale.
+
+- Esempio: Q = {q_0, q_1, q_2}, \Sigma = {0,1}, q_0 stato iniziale, F = {q_2}
+STT \delta:		0			1
+	q_0		{q_0}		{q_0, q_1}
+	q_1		{q_1}		{q_0, q_2}
+	q_2		{q_1, q_2}	{q_0, q_1, q_2}
+	
+L = {x\in \Sigma^* | x contiene almeno due 1}.
+	- 010 \notin L		Non riconosciuta
+	- 01010 \in L		Riconosciuta
+	
+Per la dimostrazione dei NFA bisogna passare per un DFA. Potrebbe esplodere e non aggiunge potere espressivo. Gli NFA risultano scritture più compatte e più facilmente comprensibili rispetto alle altre.
+
+Se M è DFA, allora è anche NFA, perché è un caso particolare del non determinismo: \delta(q,a) = q' \implies \delta(q,a) = {q'}
+
+Per dimostrare il cntrario si usa il teorema di Rabin-scott
+M è un NFA con tutte le definizioni di prima.
+Allora esiste M' DFA M' = <Q', \Sigma, \delta', q_0', F'> tale che L(M') = L(M). Quindi deve riconoscere esattamente lo stesso linguaggio del NFA.
+
+Costruiamo quindi M':
+	- Q' = P(Q) 																	// Stati del DFA, le parti di Q.
+	- q_0' = {q_0} \in P(Q) = Q'													// Stato iniziale di NFA = stato iniziale di DFA
+	- F' = {p \subseteq Q | P\cap F \noteq \void}								// Stato finale di NFA = stato finale di DFA
+	- \delta':Q'x\Sigma \to Q'.		\delta'(P,a) = \cup_{q\in P} \delta(q,a)		// Questi son tutti gli stati ottenibili
+
+Ora dimostriamo che gli automi riconoscono lo stesso linguaggio:
+	1. Passaggio: \hat{\delta}(q_0, x) = \hat{\delta'}(q_0', x)		// Quindi si raggiunge lo stesso stato in ambo gli automi.
+		Si dimostra per induzione sulla lunghezza di x: |x|-
+		\begin{cases}
+			|x| = 0, x=\epsilon		\hat{\delta}(q_0, \epsilon) = {q_0} = q_0' = \hat{\delta}(q_0', \epsilon). // Ciò vale per definizione.
+			|x| = n, \hat{\delta}(q_0, x) = \hat{\delta}'(q_0', x)
+				Prendiamo x' = xa, quindi |x'| = n+1.
+				\hat{\delta'}(q_0', x') = \hat{\delta'}(q_0', xa) = \delta'(\hat{\delta}'(q_0', x), a) = \delta'(\hat{\delta}(q_0, x), a)		// Fatta sostituzione per ipotesi induttiva.
+						= \Cup_{p\in \hat{\delta}(q_0, x)} \delta(p,a) = \hat{\delta}(q_0, xa) = \hat{\delta}(q_0, x')
+		\end{cases}
+		
+		Da dimostrare ora che x\in L(M) \iff x\in L(M').
+		x\in L(M) \iff \hat{\delta}(q_0, x) \cap F\neq \void.		// Per definizione di stringa accettata da NFA.
+				\iff \hat{\delta}'(q_0', x) \cap F\neq \void.		// Sostituzione valida per ciò che abbiamo dimostrato prima.
+				\iff \hat{\delta}'(q_0', x) \in F'					// Per definizione di F'
+				\iff x \in L(M')										// Per definizione di linguaggio riconosciuto da DFA M'.
+				
+-- Esempio:
+	STT NFA: 		0			1
+	q_0				{q_0}		{q_0, q_1}
+	q_1				{q_1}		{q_0, q_2}
+	q_2				{q_1, q_2}	{q_0, q_1, q_2}
+	
+	STT DFA:			P(Q)				0			1		// Sarebbe da riscrivere ogni stato con p_n per rendere la scrittura leggibile. Pace.
+p_0=	q_0				{q_0}			p_0			p_3
+p_1=	q_1				{q_1}			p_1			p_4
+p_2=	q_2				{q_2}			p_5			p_6
+p_3=	{q_0,q_1}		{q_0,q_1}		p_3			p_6		// Ottenuto lo stato prossimo unendo tutto ciò che si raggiunge da q_0 e q_1
+p_4=	{q_0,q_2}		{q_0,q_2}		p_6			p_6
+p_5=	{q_1,q_2}		{q_1,q_2}		p_5			p_6
+p_6=	{q_0,q_1,q_2}	{q_0,q_1,q_2}	p_6			p_6
+p_7=	\void			\void			\void		\void
+
+NB: tutti gli stati p_n che contengono q_2 sono finali.
+Nel disegnare l'STG cancellare ogni stato non raggiungibile dallo stato iniziale. In questo caso da p_0.

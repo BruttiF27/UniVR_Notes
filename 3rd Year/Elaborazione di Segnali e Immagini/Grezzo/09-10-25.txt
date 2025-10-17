@@ -22,3 +22,152 @@ Ok, fondamentalmente la lezione concerneva la tassonomia dei segnali, ovvero le 
 	- Segnali di Energia/potenza
 	- Segnali deterministico/aleatori
 Appartenere ad una categoria non preclude le altre, quindi un segnale può per esempio essere discreto e digitale.
+
+---------------- Da qua in poi inizia il riassunto dell'LM
+
+Un segnale è definito come un'informazione o un dato che rappresenta una variabile fisica soggetta a variazioni, mentre un sistema è un'entità che elabora segnali in ingresso per generare un'uscita, con scopi che vanno dall'estrazione di informazioni alla trasmissione sicura dei dati.
+
+Un principio cardine è che i "segnali vivono in uno spazio a n dimensioni", un concetto fondamentale per l'analisi di dati complessi come immagini (2D), video (2D+tempo) e dati volumetrici (3D). La comprensione di questa natura multidimensionale è cruciale in campi come il medical imaging e il signal processing.
+
+I segnali vengono categorizzati secondo una tassonomia dettagliata che include diverse classi non mutuamente esclusive:
+
+* Tempo: Continuo o Discreto.
+* Ampiezza: Analogico o Digitale (quantizzato).
+* Struttura: Periodico o Aperodico.
+* "Grandezza": Segnali di Energia (energia finita) o di Potenza (potenza finita e non nulla).
+* Prevedibilità: Deterministico (completamente noto) o Casuale (descritto probabilisticamente).
+
+Un'osservazione chiave è che "tutti i segnali misurati sono casuali" e, avendo durata e ampiezza finite, sono intrinsecamente segnali di energia. Le operazioni di base sui segnali, come la traslazione, la scalatura e l'inversione, forniscono gli strumenti per la loro manipolazione. Infine, vengono introdotte funzioni fondamentali come il gradino unitario, l'impulso di Dirac e l'esponenziale complesso, che costituiscono i mattoni per la rappresentazione e l'analisi di segnali e sistemi più complessi.
+
+
+--------------------------------------------------------------------------------
+
+
+1. Definizioni Fondamentali: Segnali e Sistemi
+
+1.1 Cos'è un Segnale?
+
+Un segnale è definito come un'informazione o un dato che rappresenta una variabile fisica soggetta a variazioni. È caratterizzato da una variabile indipendente (come il tempo t o le coordinate spaziali x) e una variabile dipendente (il valore fisico misurato). Entrambe le variabili possono essere scalari o vettoriali.
+
+* Esempi di Segnali:
+  * 1D: Elettrocardiogramma (ECG), voce, musica.
+  * 2D: Immagini, dove le variabili indipendenti sono le coordinate spaziali (x, y) e la variabile dipendente è il valore del pixel.
+  * 2D+tempo: Sequenze video.
+  * 3D: Dati volumetrici, come una Risonanza Magnetica Strutturale (MRI).
+  * 3D+tempo: Risonanza Magnetica Funzionale (fMRI), dove per ogni voxel (elemento di volume 3D) viene registrato un segnale nel tempo.
+  * Multidimensionali: Risonanza Magnetica a Diffusione (dMRI), che può avere n segnali per ogni voxel.
+
+Il messaggio fondamentale è che "i segnali vivono in uno spazio a n dimensioni". La comprensione dei segnali unidimensionali è la base per analizzare immagini, video e dati in spazi a dimensionalità superiore.
+
+1.2 Cos'è un Sistema?
+
+Un sistema è un'entità che elabora un segnale in ingresso per produrre un segnale in uscita. I sistemi, in particolare i sistemi Lineari Tempo-Invarianti (LTI), eseguono elaborazioni per vari scopi:
+
+* Estrarre informazioni: Come nel filtraggio di un segnale EEG.
+* Abilitare la trasmissione: Compressione dati per canali a capacità limitata (es. JPEG, MPEG).
+* Migliorare la sicurezza: Crittografia e watermarking.
+* Supportare la diagnosi medica: Elaborazione di immagini medicali.
+
+La funzione che lega l'uscita del sistema al segnale di ingresso è chiamata "risposta all'impulso h(t) nel dominio del tempo e funzione di trasferimento H(ω) nel dominio della frequenza".
+
+2. Classificazione e Tassonomia dei Segnali
+
+I segnali possono essere classificati secondo diverse proprietà. Queste classi non sono disgiunte; un segnale può appartenere a più categorie simultaneamente (ad esempio, un segnale digitale, periodico e di potenza).
+
+2.1 Tempo Continuo vs. Tempo Discreto
+
+Questa classificazione si basa sulla natura della variabile indipendente (es. il tempo).
+
+* Segnale a Tempo Continuo: È specificato per ogni valore reale della variabile indipendente (t ∈ ℝ). Il dominio della funzione che rappresenta il segnale ha la cardinalità dei numeri reali.
+* Segnale a Tempo Discreto: È specificato solo per un insieme discreto di valori della variabile indipendente (n ∈ ℤ). Solitamente è generato campionando un segnale a tempo continuo a intervalli regolari. Viene anche chiamato "sequenza".
+
+2.2 Analogico vs. Digitale
+
+Questa classificazione si basa sulla natura della variabile dipendente (l'ampiezza).
+
+* Segnale Analogico: L'ampiezza può assumere qualsiasi valore all'interno di un range continuo. Il codominio della funzione ha la cardinalità dei numeri reali.
+* Segnale Digitale: L'ampiezza può assumere solo un numero finito di valori. Il segnale è quindi quantizzato. Un segnale che può assumere M valori diversi è detto M-ario (un caso speciale è il segnale binario, con M=2).
+
+La tabella seguente riassume le possibili combinazioni:
+
+Ampiezza / Tempo  Reale (Continuo)  Intero (Discreto)
+Reale (Analogico)  Segnale analogico a tempo continuo  Segnale analogico a tempo discreto
+Intero (Digitale)  Segnale digitale a tempo continuo  Segnale digitale a tempo discreto
+
+2.3 Periodico vs. Aperodico
+
+* Segnale Periodico: Un segnale f(t) è periodico se esiste una costante positiva T0 (il periodo) tale che f(t + T0) = f(t) per ogni t. Per definizione, un segnale periodico si estende da -∞ a +∞.
+* Segnale Aperodico: Un segnale che non soddisfa la condizione di periodicità.
+
+2.4 Causale, Anticausale e Non-Causale
+
+* Segnale Causale: È nullo per tutti i tempi negativi (f(t) = 0 per t < 0).
+* Segnale Anticausale: È nullo per tutti i tempi positivi o nulli (f(t) = 0 per t ≥ 0).
+* Segnale Non-Causale: Ha valori non nulli sia per tempi positivi che negativi.
+
+2.5 Pari vs. Dispari
+
+* Segnale Pari (Even): È simmetrico rispetto all'asse verticale: f(t) = f(-t).
+* Segnale Dispari (Odd): È antisimmetrico rispetto all'origine: f(t) = -f(-t).
+
+Qualsiasi segnale f(t) può essere decomposto in una componente pari fe(t) e una dispari fo(t):
+
+* f(t) = fe(t) + fo(t)
+* Componente Pari: fe(t) = 1/2 [f(t) + f(-t)]
+* Componente Dispari: fo(t) = 1/2 [f(t) - f(-t)]
+
+2.6 Deterministico vs. Casuale
+
+* Segnale Deterministico: La sua descrizione fisica è nota completamente, in forma matematica o grafica. Non c'è incertezza sui suoi valori futuri. Un esempio è una sinusoide.
+* Segnale Casuale (o Probabilistico): È la realizzazione di un processo casuale. C'è incertezza in alcuni suoi parametri (ampiezza, frequenza, fase). I suoi valori futuri non possono essere predetti con esattezza, ma si possono derivare descrittori statistici come il valore medio. Una citazione chiave afferma che "tutti i segnali misurati sono casuali" (es. EEG, audio, immagini scannerizzate). Un segnale con valori casuali è anche detto "segnale rumoroso".
+
+2.7 Segnali di Energia vs. Segnali di Potenza
+
+La "grandezza" o "forza" di un segnale è quantificata tramite il concetto di norma, energia e potenza.
+
+* Energia del Segnale (Ef): Rappresenta l'area sottesa dal quadrato del segnale. Un segnale con energia finita è detto segnale di energia.
+  * Formula: Ef = ∫|f(t)|² dt (integrale da -∞ a +∞).
+  * Condizione necessaria: l'ampiezza del segnale deve tendere a zero quando la variabile indipendente tende all'infinito.
+* Potenza del Segnale (Pf): È la media temporale del quadrato del segnale (valore quadratico medio). Un segnale con potenza finita e diversa da zero è detto segnale di potenza.
+  * Formula: Pf = lim(T→∞) [1/T * ∫|f(t)|² dt] (integrale da -T/2 a +T/2).
+  * I segnali di potenza hanno energia infinita. I segnali di energia hanno potenza nulla.
+
+Un concetto derivato è il valore quadratico medio (RMS), che è la radice quadrata della potenza. L'RMS è fondamentale per la definizione del Rapporto Segnale-Rumore (SNR).
+
+In pratica, "tutti i segnali misurati hanno energia finita e sono quindi segnali di energia", poiché è impossibile generare un segnale reale con durata e energia infinite. Esistono segnali teorici, come la rampa, che non sono né di energia né di potenza.
+
+3. Operazioni Fondamentali sui Segnali
+
+Esistono tre operazioni di base per manipolare i segnali nel dominio della variabile indipendente.
+
+* Traslazione (Shifting):
+  * f(t-T): Il segnale è ritardato di T (traslato a destra per T>0).
+  * f(t+T): Il segnale è anticipato di T (traslato a sinistra per T>0).
+* Scalatura Temporale (Scaling):
+  * f(at): Comprime o espande il segnale nel tempo.
+  * Se |a| > 1, il segnale è compresso.
+  * Se 0 < |a| < 1, il segnale è espanso (o dilatato).
+* Inversione Temporale (Inversion):
+  * f(-t): Crea un'immagine speculare del segnale f(t) rispetto all'asse verticale.
+
+Queste operazioni possono essere combinate, come in f(at-b). L'operazione può essere eseguita in due modi equivalenti: (1) traslare f(t) di b e poi scalare di a; oppure (2) scalare f(t) di a e poi traslare di b/a.
+
+4. Segnali Notabili e Funzioni Utili
+
+Alcuni segnali elementari sono fondamentali per l'analisi e la costruzione di segnali più complessi.
+
+* Funzione Gradino Unitario (u(t)):
+  * Definizione: u(t) = 1 per t ≥ 0 e u(t) = 0 per t < 0.
+  * È utile per rappresentare segnali causali.
+  * Combinazioni di gradini possono generare altri segnali, come un segnale a scatola (box).
+* Funzione Impulso di Dirac (δ(t)):
+  * Definizione: δ(t) = 0 per t ≠ 0 e l'integrale di δ(t) su tutto l'asse reale è uguale a 1.
+  * Proprietà di Campionamento: ∫f(t)δ(t-T)dt = f(T). L'impulso "campiona" il valore della funzione f(t) nel punto in cui è centrato.
+  * Relazione con il Gradino: Il gradino unitario è l'integrale della funzione impulso, e l'impulso è la derivata del gradino.
+* Funzione Esponenziale Complessa e Generale:
+  * Esponenziale Complesso: f(t) = A * e^(jωt). Legato a seni e coseni tramite le relazioni di Eulero.
+  * Esponenziale Generale: e^(st), dove s = σ + jω è la frequenza complessa.
+    * σ = 0: Produce una funzione trigonometrica (sinusoide pura).
+    * ω = 0: Produce un'esponenziale monotona (crescente o decrescente).
+    * σ ≠ 0, ω ≠ 0: Produce una funzione trigonometrica con un inviluppo esponenziale.
+  * Il piano di frequenza complesso (piano s) mostra come il comportamento del segnale dipenda da σ e ω: i segnali nel semipiano sinistro (σ < 0) sono decrescenti esponenzialmente, mentre quelli nel semipiano destro (σ > 0) sono crescenti esponenzialmente.

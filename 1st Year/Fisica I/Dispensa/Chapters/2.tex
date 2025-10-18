@@ -37,6 +37,61 @@ Iniziamo il percorso con la \textbf{cinematica}, la quale tratta il moto dei cor
 %
 
 \section{Moto in due dimensioni}
+Prima di iniziare abbiamo la necessità di aggiungere un attributo alle grandezze. Precedentemente, essendo stato il moto in una singola dimensione, potevamo ignorare questa caratteristica e lavorare con quelle che sono chiamate \textbf{grandezze scalari}, le quali indicano un solo valore numerico.\par
+Lavorando ora in due dimensioni dobbiamo considerare anche la \textbf{direzione} del moto. Andremo quindi ad aggiungere questo attributo alle variabili e le chiameremo \textbf{grandezze vettoriali}. Sintatticamente non cambia molto, infatti le formule rimangono le stesse, eccezion fatta che ora le grandezze sono vettoriali, ma è possibile utilizzarle per nuovi modelli di analisi.\newline
+
+\noindent \textbf{- Moto in due dimensioni con accelerazione costante}\par
+\noindent Il punto materiale è specificato dal vettore posizione $\overline{r} = x\hat{i}+y\hat{j}$. Ciò significa che il moto può essere modellizzato in due moti indipendenti lungo rispettivamente l'asse $x$ e l'asse $y$. Ciò significa che per ottenere i vettori finali richiesti, sarà necessario effettuare la somma fra le parti.\newline
+
+% TODO Aggiungi grafico per il moto in due dimensioni con acc costante
+
+\noindent \textbf{- Moto dei proiettili}\par
+\noindent Per proiettile si intende un punto materiale che è lanciato in una certa direzione, ed è sempre influenzato dalla gravità per poi arrivare a terra. Ne consegue che il movimento crea una parabola. L'unica differenza rispetto al modello di analisi precedente è come il ruolo dell'accelerazione è assunto dalla costante gravitazionale, esattamente come nel moto di caduta, solo in due dimensioni. Ci sono tuttavia due punti che è interessante analizzare:
+\begin{itemize}
+	\item \textbf{Altezza massima} $h = \frac{v_i^2sin^2\theta_i}{2g}$: Il picco di coordinate cartesiane o massimo della funzione, se preferisci. Si ottiene ragionando sulla velocità del vettore verticale. Quando questa è uguale a zero, ne consegue che il proiettile è arrivato al massimo. Possiamo quindi scrivere: 
+	\begin{equation}
+		\begin{split}
+			y_f = y_i + v_{yi}t - \frac{1}{2}gt^2 &\implies h=(v_isin\theta_i)\frac{v_isin\theta_i}{g}-\frac{1}{2}g\left(\frac{v_isin\theta_i}{g}\right)^2\\
+			&\implies h = \frac{v_i^2sin^2\theta_i}{2g}
+		\end{split}
+	\end{equation}
+	\item \textbf{Gittata orizzontale} $R = \frac{v_i^2sin2\theta_i}{g}$: La distanza raggiunta dal proiettile una volta ritornato a terra dopo il lancio, in un tempo doppio di quello necessario per raggiungere l'altezza massima. Dalla formula iniziale, poniamo:
+	\begin{equation}
+		\begin{split}
+			x_f = x_i+v_{xi}t &\implies R=v_{xi}t = (v_icos\theta_i)2t \implies R=(v_icos\theta_i)\frac{2v_i\sin\theta_i}{g}\\
+			&\implies R=\frac{2v_i^2sin\theta_icos\theta_i}{g}\\
+			&\implies R=\frac{v_i^2sin2\theta_i}{g}
+		\end{split}
+	\end{equation}
+\end{itemize}
+
+% TODO Aggiungi grafico per il moto di proiettile
+
+\noindent \textbf{- Punto materiale in moto circolare uniforme}\par
+\noindent Questo modello di analisi vede un punto materiale muoversi con una velocità scalare costante in senso circolare. Qui il vettore velocità, sempre tangente alla traiettoria, cambia continuamente direzione; inoltre, l'accelerazione è perpendicolare alla traiettoria e punta verso il centro del cerchio. I concetti da ricordare qui sono:
+\begin{itemize}
+	\item \textbf{Accelerazione centripeta} $a_c = \frac{v^2}{r} = r\omega^2$: Accelerazione con direzione perpendicolare al vettore della velocità, verso il centro della circonferenza.
+	\item \textbf{Periodo del moto} $T=\frac{2\pi r}{v}$: Intervallo di tempo richiesto al moto per compiere un giro completo.
+	\item \textbf{Velicità angolare} $\omega = \frac{2\pi}{T}$: Prodotto fra la frequenza e la lunghezza della circonferenza, è misurata in radianti.
+\end{itemize}
+\noindent Esiste inoltre una relazione fra la velocità angolare e la velocità con cui il punto si muove lungo la traiettoria circolare: \[\omega = 2\pi\frac{v}{2\pi r} = \frac{v}{r} \implies v = r\omega\]
+\noindent Questo ci è particolarmente comodo, perché in questo modo possiamo esprimere l'accelerazione centripeta con una formula molto più semplice e compatta: \[a_c = \frac{v^2}{r} \implies a_c = \frac{(r\omega)^2}{r} = r\omega^2\]
+\noindent Presta attenzione; se i vettori possono essere rappresentati attraverso le loro componenti rispetto agli assi, allora è possibile anche ottenere quello dell'\textbf{accelerazione totale}, considerando quello dell'accelerazione centripeta e quello dell'accelerazione tangente alla circonferenza. Più precisamente abbiamo:
+\begin{itemize}
+	\item \textbf{Accelerazione radiale} $a_r = -a_c = -\frac{v^2}{r}$: L'inverso dell'accelerazione centripeta, sicché sia un valore positivo.
+	\item \textbf{Accelerazione tangenziale} $a_t = \left|\frac{dv}{dt}\right|$: Come detto dal nome, il vettore tangente al vettore della velocità istantanea, quindi una derivata.
+	\item \textbf{Accelerazione totale} $\overrightarrow{a} = \overrightarrow{a_r}+\overrightarrow{a_t}$: La somma totale delle due accelerazioni appena viste.
+\end{itemize}
+\noindent Come ultimo concetto del capitolo, supponiamo di avere due osservatori $A,B$ di uno stesso fenomeno posti in posizioni diverse. Ciò significa che osserveranno l'evento con due origini differenti. Questo è un tipo di problema spesso utilizzato e necessita dei concetti di velocità e accelerazione \textbf{relative}.\par
+Definiamo qui un tempo $t=0$ dove le origini coincidono; andando avanti nel tempo fino a $t$ si troveranno ad una distanza $v_{BA}t$ l'una dall'altra, sotto il punto di vista dell'osservatore $B$. Diciamo di volere la posizione del vettore della posizione relativa ad $A$. Avremo che: \[\overrightarrow{r}_A = \overrightarrow{r}_B + \overrightarrow{v}_{BA}t\]
+\noindent Essendo questa la formula che mostra la posizione finale e quindi uno spostamento, possiamo ragionare con il calcolo differenziale per poter ottenere anche la velocità e l'accelerazione, derivando rispettivamente una o due volte la formula.
+
+%
+
+\section{Calcolo differenziale per la cinematica}
+Questa sezione è necessaria perché non sempre possono bastare le formule pronte per la risoluzione dei problemi. Applicare il calcolo differenziale alla fisica consente di capire in toto cosa c'è dietro alle formule e cosa significano veramente da un punto di vista matematico.\par
+Considera lo schema di un moto che subisce un'accelerazione, avremo in gioco i valori per lo spostamento, velocità ed accelerazione. Da un punto di vista analitico, il primo è un'area, la seconda una tangente e la terza è la tangente della tangente. Ciò si traduce in derivate ed integrali, quindi le tre formule sono collegate dalle seguenti relazioni: \[\Delta x = \int_{t_i}^{t_f} v_x(t) dt; \Delta v_x = \int_{0}^{t} a_x dt\] \[a_x = \frac{dv_x}{dt}; v_x = \frac{dx}{dt}\]
+\noindent Il succo del concetto è che, in assenza di numeri discreti, è possibile ricavare i valori grazie all'analisi matematica.
 
 %
 
@@ -75,3 +130,8 @@ Iniziamo il percorso con la \textbf{cinematica}, la quale tratta il moto dei cor
 	\noindent Il punto iniziale è sempre il solito, mentre adesso quello finale è la posizione a tempo $t=5s$. Prima calcoliamo la velocità in quest'ultima: \[v_{yf} = v_{yi} + a_yt = 20m/s +(-9,8m/s^2)5s = -29m/s\]
 	\noindent E adesso la posizione effettiva: \[y_f = y_i + v_{yi}t + \frac{1}{2}a_yt = 0+(20m/s)5s + \frac{1}{2}(-9,8m/s^2)5s = -22,5m\]
 \end{itemize}
+
+% Esercizio su moto unif. accelerato
+% proiettile
+% circolare uniforme
+% velocità e accelerazione relative

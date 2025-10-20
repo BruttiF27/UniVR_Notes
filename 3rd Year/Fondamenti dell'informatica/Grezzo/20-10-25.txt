@@ -1,0 +1,97 @@
+20-10-25 fondInfo
+
+--- Automi non deterministici con \epsilon transizioni: \epsilon-NFA: <Q, \Sum, \delta, q_0, F>
+Permettono di spostarsi fra stati senza leggere simboli. L'\epsilon è usato al posto del simbolo e significa che lo stato è transato senza input.
+	- \delta:Qx(\Sum \cup {\epsilon}) \to P(Q)		// Valgono le dinamiche della fsm non deterministica, ma può prendere anche il vuoto.
+	- \hat{\delta}:Qx\Sum* \to P(Q), \hat{\delta}(q_0, \epsilon)
+	- \epsilon-closure:Q \to P(Q)
+	- \epsilon-closure: insieme di tutti gli stati raggiungibili da q seguendo archi etichettati con \epsilon
+	- \epsilon-closure: P(Q) \to P(Q), \epsilon-closure(P) = \cup \espilon-closure(p), p\subseteq Q, p\in P
+	
+\begin{cases}
+	\hat{\delta}(q,\epsilon) = \epsilon-closure(q)\\
+	\hat{\delta}(q, \omega a) = \cup \epsilon-closure(\delta(p,a)), p \in \hat{\delta}(q, \omega)
+\end{cases}
+
+Il linguaggio accettato si definisce come: L(N) = {\sigma\in\Sigma* | \hat{\delta}(q_0, \sigma) \cap F \neq \void}		// Uguale a quello delle NFA
+
+- Teorema: Le NFA sono sottoinsiemi di \epsilon-NFA. Possono leggere lo stesso linguaggio. Sì, anche per le DFA.
+Sia M = <Q, \Sigma, \delta, q_0, F> un \epsilon-NFA. Allora esiste NFS M' tale che L(M) = L(M')
+Possiamo dire poi che Q' = Q, \Sigma' = \Sigma, q_0' = q_0, \delta'(q,a) = \hat{\delta}(q,a)
+F' = \begin{cases}
+	F \cup {q_0}\\
+	F
+\end{cases}
+
+--- Esperssioni regolari
+
+-- Operazioni tra linguaggi: Sufficienti per definire qualunque linguaggio regolare
+	- Unione: L1,L2 son linguaggi. (L1,L2 \subseteq \Sigma^*).	L1 \cup L2 = {\sigma | \sigma \in L1 \lor \sigma \in L2}
+	- Concatenazione: L1*L2 = {\sigma_1\sigma_2 | \sigma_1\in L1 \land \sigma_2\in L2}. \equiv L1L2.
+	- Stella di Kleene: L \subseteq \Sigma*
+		L*:\cup_{m\in \mathbb{N}}L^m, altrimenti si scrive anche L^+
+		\begin{cases}
+			L^0 = {\epsilon}\\ù
+			L^{m+1} = L*L^m
+		\end{cases}
+		
+		Se L = {000, 111}, L^2 = L*L1 = {000000, 000111, 111000, 111111}. Concatenazione esponenziale lmaox zedong
+		
+Le espressioni regolari sono definite per induzione, con \Sigma alfabeto.
+Passo base: \begin{cases}
+	- \void \subseteq \Sigma* è espressione regolare e rappresenta un linguaggio vuoto.
+	- \epsilon è espressione regolare e rappresenta un linguaggio che contiene solo \epsilon.
+	- a\in  \Sigma è espressione regolare che rappresenta il linguaggio che contiene una sola stringa, la quale è esattamente a
+\end{cases}
+
+Passo induttivo: \begin{cases}
+	r,s spnp espressioni regolari che rappresentano il linguaggio R\subseteq \Sigma* e S \subseteq \Sigma*.\\
+	r+s rappresenta R\cup S.\\
+	r*s rappresenta R*S.\\
+	r* rappresenta R*.
+\end{cases}
+
+1* + 0* + (10)* \equiv {1^n|n\in N} \cup {0^n|n\in N} \cup {(10)^n|n\in N}}
+
+-- Equivalenza
+	- Th.1: Se esiste un automa DFA M, allora esiste r espressione regolare t.c. il linguaggioo riconosciuto dall'automa è esattamente L(M) = L(r)
+		L regolare \implies \exists M DFA \implies \exists r \in ER t.c. L(r) = L
+		
+	- Th.2: Data r espressione regolare (ER),allore esiste un \epsilon-NFA M t.c. L(r) = L(M)
+		\epsilon 	-> q_0					L(M) = {\epsilon}
+		\void    	-> q_0   q_1			L(M) = \void
+		a 			-> q_0\to q_1			L(M) = {a}
+		
+		r,s espressioni regolari. Per ipotesi induttiva supponiamo che abbiano uno stesso \epsilon-NFA, quindi:
+			1. \exists M_1 . L(M_1) = L(r)
+			2. \exists M_2 . L(M_2) = L(s)
+			
+			- r+s: 			L(M_1) \cup L(M_2) = L(r) \cup L(s) = L(r+s)
+			- r*s: 			L(M_1)*L(M_2) = L(r)*L(s) = L(rs)
+			- r*: 			L(r) = L(M_1)
+								\cup_{M=0} L(M_1) \cup {\epsilon}
+									&= \cup_{M\in N} L(M_1)\\
+									&= \cup_{M\in N} L(r) = L(r*)
+									
+Mettiamo di voler costruire un DFA con l'insieme L = {\sigma\in \Sigma* | \sigma contiene almeno due 1}. Devo dimostrare che è regolare e necessariamente lo si fa con l'automa relativo.
+Poi si dimostra che L = L(M).
+
+--- Proprietà dei linguaggi regolari LR
+Tre proprietà totali:
+	1. Prop. di chiusura: 
+	2. Prop. di decidibilità
+	3. Esistenza dell'automa minimo
+	4. Condizione necessAaria poiché un linguaggio sia regolare.
+	
+-- Proprietà di chiusura: Rispetto a quale operazioni i linguaggi sono chiusi?
+Operazioni: *, \cup, concatenazione, \cap, complementazione
+
+	Th1. I linguaggi regolari sono chiusi rispetto a stella di Kleene, unione finita e concatenazione.
+		L1, L2 regolari significa L1*, L1\cup L2, L1L2 sono tutti regolari. Segnalare che puoi farlo per le proprietà di chiusura.
+		
+	Th2. I linguaggi regolari sono chiusi rispetto alla complementazione
+		Valgono inoltre le leggi di De morgan, che rendono possibile dimostrare che i linguaggi regolari son chiusi anche per l'intersezione.
+		
+-- Proprietà di decidibilità: Insieme di stringhe accettate da un DFA (linguaggio regolare) con n stati.
+	1. L(M) \neq\void \iff accetta almeno una stringa di lunghezza \leq n
+	2. L(M) è infinito sse accetta almeno una stringa lunga l con n \leq l < 2n

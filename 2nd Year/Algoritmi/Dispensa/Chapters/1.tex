@@ -1,5 +1,141 @@
-\section{Concetto di complessità} 
+Il corso di algoritmi propone di fornire una comprensione su come descrivere correttamente una procedura in termini matematici. Daremo delucidazioni sulla complessità, il modus operandi per una scelta
+consapevole e studieremo anche alcuni algoritmi notevolu utili per l'organizzazione di strutture dati.\par
+Anzitutto, definiamo \textbf{algoritmo} una descrizione di una procedura di calcolo, la quale deve essere riproducibile e rigorosa abbastanza da non risultare ambigua. Degli algoritmi studieremo la
+loro \textbf{complessità}, la misura del loro tempo di esecuzione, per poi confrontare quale si adatta meglio allo scopo preso in esame. Le metodologie saranno affrontate più avanti.
+
+\section{Concetto di complessità}
+La complessità di un algoritmo indica il tempo, le risorse ed eventualmente anche quanti processori usa per essere eseguito. Non è un valore preciso, poiché varia a seconda di quanto è grande il
+programma e la relativa quantità di dati da elaborare; infatti si descrive tramite una funzione lineare. Quest'ultima è il prodotto che eventualmente si dovrà mostrare al richiedente ed è buona prassi
+cercare di renderla il più semplice e compatta possibile. Essendo che abbiamo spazio di manovra sulla descrizione, sta a noi scegliere quanto essere precisi nella formula.\par
+L'iter di lavoro generale per la descrizione della funzione di complessità segue due passaggi:
+\begin{itemize}
+	\item \textbf{Dimostrazione caso pessimo} $O(m)$: L'istanza dove peggio di così l'algoritmo non può fare. Bisogna trovare il limite superiore della funzione.
+	\item \textbf{Dimostrazione caso ottimo} $\Omega(n)$: Il miglior scenario dove l'algoritmo svolge le operazioni nel minor tempo possibile. Qui è necessario fare delle assunzioni sul caso peggiore
+		non sarà sempre possibile ottenere il caso perfetto, tuttavia se coincide con il limite inferiore della funzione, si dice che la stima è perfetta.
+\end{itemize}
+\begin{eg}
+	\textbf{Ricerca di un elemento in un array} $T(n) = c*n$\par
+	\noindent Il tempo di esecuzione di questo algoritmo è direttamente proporzionale alla dimensione dell'array, poiché ad ogni elemento aggiunto bisognerà controllare anche quelli.
+	$c$ è un valore costante, mentre $n$ è la dimensione, rappresenta le operazioni da eseguire.\par
+	Noi sappiamo che la ricerca della lunghezza dell'array è fatta a tempo costante, perché è un'operazione uguale indipendentemente dalla mole di dati. Ogni assegnazione è un'operazione.
+	Nel ciclo while si effettua un test, anch'esso equivalente ad un'operazione, ma ripetuta tante volte finché non si trova l'elemento. Otteniamo quindi i valori:
+	\begin{itemize}
+		\item a = assegnazione del valore della lunghezza in n
+		\item 1 = assegnazione dell'indice
+		\item d = ciclo while che effettua il testing
+		\item b = incremento indice
+	\end{itemize}
+	\noindent Scrivendo tutto, otteniamo la funzione: $a+1+d+n(b+d)$. Tuttavia questa è una scrittura non chiara, quello che dobbiamo fare noi infatti si chiama \textbf{analisi asintotica}, e ci
+	consente di considerare solamente gli ordini di grandezza, ignorando le costanti. Sapendo questo, rimuoviamo i termini di ordine inferiore per ottenere la soluzione effettiva: $n(b+d)$.
+\end{eg}
+
+%
+
 \section{Notazione asintotica}
+Abbiamo visto un caso semplice, ma è necessario chiarire come viene determinato l'ordine di grandezza di una funzione. Anzitutto consideriamo che non ne esiste uno specifico, possiamo
+tuttavia definirli come uno diverso dall'altro. Diciamo infatti che una funzione $f$ appartiene ad un dominio di grandezza di $g$, dove, a meno di costanti, quest'ultima cresce non meno rapidamente
+della prima. Formalmente: \[f\in O(g) \implies [(\exists c>0) \land (\exists\overline{n})].\forall n > \overline{n} \implies f(n) \leq cg(n).\]
+\noindent Quindi dichiamo che la funzione $f$ appartiene a \textbf{O grande} di $g$. Ciò implica l'esistenza di una costante $c > 0$ e di un valore $\overline{n}$ tali per cui ogni altro $n$ è maggiore
+stretto di $\overline{n}$. Ne consegue che la funzione $f(n)$ crescerà più lentamente o allo stesso modo di $cg(n)$.
+\begin{eg}
+	Sia la funzione $T(n) = 2x \in O(5x+7)$. Bisogna trovare una costante $c$ tale per cui valga la disequazione: $2x \leq c(5x+7)$. noterai che andrà bene ogni $c$.
+\end{eg}
+\begin{eg}
+	Sia la funzione $T(n) = 5x+7 \in O(2x)$. Trovare un $c$ tale per cui valga $5x+7 \leq c(2x)$.\par
+	\noindent Stiamo lavorando con un'analisi asintotica, quindi possiamo rimuovere ogni costante, otterremo quindi: $5x \leq c(2x)$. Numero per superare $5$? Scegliamo $c=3$. Risolvendola, noterai
+	che la relazione risulta corretta, poiché $\overline{n} = 7$.
+\end{eg}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{comment}
+f_1 \in O(g_1), f_2 \in O(g_2) \implies f_1+f_2 \in O(g_1+g_2). Questa cosa è vera perché qui non stiamo considerando le costanti. La definizione è al netto delle costanti.
+	
+	1. Partiamo da ciò che abbiamo e trasformiamolo nella rispettiva definizione:
+		f_1 \leq c_1g_1(n)
+		f_2 \leq c_2g_2(n)	
+
+	2. Ragiona su quello che serve:
+		c = c_1+c_2
+		\overline{n} = \overline{n_1}+\overline{n_2}
+
+	3. Testa la tesi:
+		f_1(n)+f_2(n) \leq c_1g_1(n) + c_2g_2(n)
+			&\leq c(g_1(n) + g_2(n))
+			&\leq c(g_1+g_2)(n)		In questo caso è vera. Ci sei arrivato con la logica.
+			
+f \in \Omega(g). Asintoticamente, f non sta sotto g. Formalmente: \exists c>0 \exists \overline{n} \forall n>\overline{n} f(n) \geq cg(n)
+Asintoticamente, al netto di costanti, f sta sopra g.
+
+f \in O(g) \iff g \in \Omega(f)
+	1. Dimostra che vale a\implies b e che b\implies a. Scrivi la definizione effettiva.
+		\exists c\exists\overline{n} \forall n>\overline{n} f(n) \leq cg(n)
+		
+	2. Ci serve g(n) \geq c'f(n)
+		cg(n) \geq f(n) \to g(n) \geq f(n)/c.
+		Quindi, per renderlo leggibile: c' = 1/c
+		E per rendere il tutto vero: \overline{n'} = \overline{n}
+		
+f_1 \in O(g), f_2 \in O(g) \implies f_1+f_2 \in O(g)
+La somma non cambia l'ordine di grandezza, per fortuna, quindi è instant.
+\exists c_1\exists\overline{n_1} \forall n>\overline{n_1} f_1(n) \leq c_1g(n)
+\exists c_2\exists\overline{n_2} \forall n>\overline{n} f_2(n) \leq c_2g(n)
+
+n = max(\overline{n_1}, \overline{n_2}), dove max è il limite massimo delle variabili.
+
+f_1(n) + f_2(n) \leq c_1g(n) + c_2g(n) \implies f_1(n) + f_2(n) \leq (c_1+c_2)g(n) \implies f_1(n) + f_2(n) \leq cg(n)
+
+Ex per casa: f_1 \in O(f_2), f_2 \in O(f_3) \implies f_1 \in O(f_3)
+
+Sia algoritmo A. A \in O(f). Significa che la complessità è dominata da f.
+Stiamo cercando un limite superiore al tempo di esecuzione di questo algoritmo.
+
+Diciamo A \in O(n^3). Questa cosa è vera per proprietà transitiva. Infatti A\in O(n) \in O(n^3). Questo dimostra il caso ottimo.
+Diciamo ora A \in \Omega(f). Qui bisogna trovare uno schema di input per far sì che valga la relazione. Questo dimostra il caso pessimo.
+
+Se dimostri O ed \Omega hai caratterizzato correttamente l'algoritmo.
+
+Problema P, P \in O(f). Un problema è la richiesta data. Va usato il miglior algoritmo risolutivo con la minore complessità.
+P \in \Omega(f), \forall A.A\in \Omega(f). Non esistono algoritmi in grado di risolvere il problema in un tempo più basso di f.
+\end{comment}
+
+
+
+
+
+
+
+
+\begin{comment}
+ESERCIZIO SVOLTO 1
+- Complessità dell'algoritmo che moltiplica due matrici TODO USARE COME ESERCIZIO SVOLTO
+Abbniamo due matrici A,B. n*m, m*l
+
+mult(A,B)
+n <- rows[A]
+m <- cols[A]
+l <- cols[B]
+for(i<-1:n)										// c''*m*l*n, vedasi procedimento di prima. Questa è la formula finale.
+	for(j<-1:l)									// c'*m*l perché ci sono altre costanti raggruppate in c' e l'operazione è fatta fino ad l.
+		c_{ij} <- 0								// Assegnamento, un'operazione singola.
+		
+		for(k<-1:m)								// Assegnamento a k e test finale. Due operazioni.
+			c_{ij}<-c_{ij} + a_{ik}*b_{kj}		// Costa tre operazioni a tempo costante.	Il ciclo intero è (3+2)m+2, ma ignorando le costanti otteniamo: c*m.
+			
+Quando hai cicli nidificati è preferibile iniziare da quello più interno
+Se sei nel caso degenere, ovvero le matrici sono a 1dimensione e quindi vettori, la formula diventa c*m, perché i cicli da 1 a n o l si eseguono in un'operazione singola.
+Nel caso di matrici quadrate, m, l, ed n hanno tutte lo stesso valore, quindi cn^3
+\end{comment}
 \section{Equazioni di ricorrenza}
 
 \begin{comment}

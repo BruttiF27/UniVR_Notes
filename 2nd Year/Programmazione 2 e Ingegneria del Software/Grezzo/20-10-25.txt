@@ -1,0 +1,45 @@
+20-10-25 - Prog2
+
+--- Funzione costruttore
+Già menzionata, eseguita all'istanziazione di un oggetto. Può prendere parametri in quanto funzione. Se non definita, lo fa il compiler.
+Se per qualche motivo gli dai un valore di return, il costrutture effettivo sarà quello di default, mentre quello definito sarà visto come metodo.
+Puoi usare in questi termini un costruttore che prende in input un oggetto per istanziare una copia dell'oggetto dato.
+
+Sintassi contratta per il metodo this: 
+	1. 	this.day = day;
+		this.month = month;
+		this.year = year;
+	2.	this.(day, month, year);		// Much better, indeed.
+	
+Preferibilmente non utilizzare operator overloading in quanto deprecato. Meglio usare i metodi appositi direttamente.
+Esiste inoltre la funzione distruttore, ma il garbage collector è capace di gestirsela da solo.
+
+--- Incapsulamento
+Raggruppamento di dati insieme a metodi che operano su di essi
+Vantaggi: Maggior controllo sulla manipolazione dei dati e le modifiche sono controllate.
+
+Questa è la base, poi abbiamo l'information hiding, la restrizione dell'accesso ai dati per le varie entità. Questa cosa si fa con i modificatori di accesso.
+Abbiamo visto public, no restrictions.
+Però c'è pure private, che rende il dato usabile solo all'interno dell'oggetto o leggibile tramite messaggio (ovvero l'eventuale metodo ad-hoc).
+
+public class Person {
+	String name ; // The default visibility is public
+	private int age = −1;
+
+	Person ( String name ) { this . name = name ; }
+
+	void changeAge ( int age ) {
+		if ( age > 0 && age <= 122) this . age = age ;
+		else System . out . println ( " Invalid age . " ) ;
+	}
+}
+
+Age diventa accessibile solo tramite il metodo changeAge, altrimenti non ci si può arrivare da fuori dell'oggetto.
+changeAge in questo contesto è chiamato metodo setter.
+Metodo getter è invece un metodo che riceve il dato per poterlo inserire nella variabile dell'oggetto.
+
+E' possibile fare del testing tramite la keyword "assert". E' usata fondamentalmente come controllo per vedere se il dato si comporta come inteso.
+La keyword funziona solo se nella compilazione è aggiunto -ea. è un error handling iniziale.
+
+L'information hiding è quasi autoesplicativo perché è utile.
+Permette di controllare meglio i dati tramite metodi appositi e mantenere un'integrità del codice. Questa strategia lo rende estremamente sicuro.

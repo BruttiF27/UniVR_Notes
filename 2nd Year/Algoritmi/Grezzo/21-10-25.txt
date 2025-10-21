@@ -1,0 +1,84 @@
+21-10-25 Algoritmi
+
+--- Ordinamento
+Cos'è un problema di ordinamento (per confronti)? 
+	Input: Sequenza a_1, ..., a_n di oggetti su cui è definita una relazione di ordinamento.
+		Quindi c'è una relazione e possiamo usarla per riorganizzare gli elementi in base ad essa.
+		
+	Output: Permutazione a_1', ..., A_n' di a_i, ..., a_n tale che \forall i,j, i<j \implies a_i' \leq a_j'.
+		i,j è una coppia di valori, dove i l'indice, j il valore di lunghezza della sequenza.
+	
+-- Insertion Sort(A).
+Prende in input un array A, mantengo una parte ordinata ed una parte non ordinata. Ad ogni iterazione prendo un elemento della parte non ordinata e lo metto a posto in quella ordinata correttamente.
+C'è un indice j che tiene conto della lunghezza della parte ordinata. Aumenterà fino alla lunghezza massima.
+
+O(n^2), \Omega(n^2), \Theta(n^2), algoritmo quadrtico.
+
+for (int j=1; j <= A_length; j++) {
+
+	// Inserisci elemento j in A[1, ..., j-1]
+	key = A[j];
+	i = j-1;
+	
+	// Se entri nel ciclo, hai che il valore corrente di A[j], quindi di key, è minore dell'elemento che sta alla sua sinitra. Lo sposta fin quando sta condizione è falsa o se i è all'estrema sinistra.
+	while (i >= 0 && A[i] > key) {			// L'elemento puntato da i viene prima o dopo di key? Trattasi del controllo per vedere se l'elemento va spostato.
+		A[i+1] = A[i];
+		i = i-1;
+	}
+	
+	A[i+1] = key;
+	
+}
+
+\begin{eg}
+	Array A = {5,2,4,6,1,3}; Spiegane il funzionamento (è più chiaro guardando il codice tbh, magari guarda un'animazione)
+	
+	Nella key va l'elemento in posizione 1, metre ad i va il valore della posizione j-1, nel primo caso, 0.
+	Nota che 2<5, quindi lo sposta a sinistra e poi incrementa j	
+\end{eg}
+
+InsSort - possiamo valutare la complessità del ciclo for. Ci sono tre istruzioni con una complessità costante, gli assegnamenti.
+Ciò che dà la vera complessità è il ciclo while interno. Potrebbe scorrere l'intero array, quindi ci potremmo restare n volte.
+Notare che il ciclo for viene eseguito sempre n volte. Il caso peggiore, quindi? O(n^2).
+
+L'algoritmo sarà una merda per tempo di lavoro, ma richiede solo tre variabili per la memoria. Non ha bisogno di usare memoria esterna per gestire l'array.
+E' un valore costante, si dice che opera in loco.
+
+Stabilità di un algoritmo: Non scambiare l'ordine relativo di elementi uguali
+	Nel nostro caso insertion sort è un algoritmo stabile perché sposta solo se A[i] è maggiore stretto di key.
+
+Quindi insertion sort è stabile, lavora in loco ed è stabile.
+
+--- MergeSort(A, p, r)
+Prende un array, per ordinarlo lo si divide in due parti uguali. Ordini quella di sinistra ricorsivamente, poi quella di destra. Poi vai ad unire queste due parti in un nuovo array prendendo
+la più piccola rispetto ad entrambi. Useremo due indici che indicano posizione iniziale e finale.
+
+mergeSort(A, p, r) {
+	if (p < r) {
+		q = (p+r)/2;
+		mergeSort(A, p, q);		// Ordina parte sinistra
+		mergeSort(A, q+1, r);	// Ordina parte destra
+		merge(A, p, q, r)		// Prendi i due sottoarray ordinati e uniscili in un singolo array ordinato
+	}
+}
+
+merge(A, p, q, r) {
+	i = 0;
+	j = p, k = q+1;		// Indicano le carte in cima ai due mazzi separati
+	
+	while (j <= q || k <= r) {		// Finché c'è una carta in uno dei due mazzi
+		if (j <= q && k > r || A[j] <= A[K]) {		// Se c'è una carta nel primo mazzo e il secondo è vuoto oppure se 
+			B[i] = A[j];
+			j++;
+		} else {
+			B[i] = A[k];
+			k++;
+		}
+		i++;
+	}
+	for (i = 0; i <= r-p+1; i++) {
+			A[P+i-1] = B[i];
+	}
+}
+
+Complessità di mergeSort: T(n) = 2T(n/2)+n \implies \Theta(nlog n), O(nlog n).

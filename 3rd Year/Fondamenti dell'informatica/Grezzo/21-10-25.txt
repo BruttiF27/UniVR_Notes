@@ -1,0 +1,109 @@
+21-10-25 fondInfo
+
+--- Terza proprietà dei linguaggi regolari: esistenza automa minimo.
+Trattasi di un DFA e useremo algoritmi per ottenerlo.
+
+Requisiti base matematica:
+	- Partizione di insieme S. È una collezione di insiemi S_1, ..., S_n tali che:
+		1. L'unione di tutte le S_n dà S completo: $S = S_1 \cup ... S_n$.
+		2. Le parti dell'insieme completo non devono avere nulla in comune: $\forall i,j \leq n, S_i \cap S_j = \void.$
+		3. Tutti gli elementi di una stessa parte sono messi in relazione: $\forall a,b \in S_i, aRb$.
+		4. Elementi appartenenti a diverse parti non sono messi in relazione: $\forall a\in S_i \forall b\inS_j, \neq(aRb)$.
+		Una partizione {S_1, ..., S_m} definisce una relazione di equivalenza: $xRy \iff \exists i | x,y\in S_i$
+		Una relazione di equivalenza su S definisce una partizione di S: $\forall i.S_i = {x|xRy},  y\in S$
+	Essendo che tutti gli elementi di un sottoinsieme sono equivalenti, ne posso prendere uno y e dire che gli altri elementi sono una sua classe di equivalenza.
+	
+-- Relazione di equivalenza indotta dal linguaggio L \subseteq \Sigma*.
+La notiamo con R_L \subseteq \Sigma*x\Sigma*.
+
+Con x,y\in \Sigma*, xR_Ly \iff \forall z\in\Sigma* | xz\in L \iff yz\in L.
+Quindi due elementi dell'insieme sono in relazione di equivalenza su L solamente se per qualunque altra stringa z vale che xz è in L solamente se yz è in L.
+Quindi x e y devono appartenere alla stessa classe di equivalenza e produrre stessi effetti. Se vado dentro al linguaggio con yz, così sarà con xz. Se non ricado dentro al linguaggio con yz, idem per xz.
+
+Proviamo a vederlo con un automa
+	- Sia M il mio DFA <Q, \Sigma, \delta, q_o, F>, possiamo definire che R_m \subseteq \Sigma*x\Sigma*
+	- Con x,y\in \Sigma* diciamo che xR_My \iff \hat{\delta}(q_0, q) = \hat{\delta}(q_0, y)
+	Per disegnarne l'automa facciamo vedere come a partire dallo stesso stato iniziale q_0 si va al finale q con ambo gli input x e y. Sono quindi equivalenti.
+	R_M in tali termini è detta relazione di equivalenza.
+Inoltre, ogni stato definisce un linguaggio. Definiamo: q\in Q: L_q = {x\in\Sigma* | \hat{\delta}(q_0,x) = q}
+	
+-- Relazione invariante destra
+Diciamo che R \subseteq \Sigma*x\Sigma* è invariante destra se e solo se:
+	con x,y\in \Sigma*, xRy \implies \forall z\in \Sigma* | xzRyz
+	Quindi se concateno una qualunque stringa z a x e y elementi dello stesso insieme della partizione, rimangono ugualmente in relazione.
+	Quindi z non varia la relazione rispetto all'estensione della stringa verso destra.
+	
+Un concetto importante per rendere la scrittura più compatta è il raffinamento. Si tratta di raggruppare più classi di equivalenza.
+Diciamo infatti che R_2 è raffinamento di R_1 se \forall x vale che [x]_{R_2} \subseteq [x]_{R_1}. R_2 comprende quindi un maggior numero di classi di equivalenza rispetto ad R_1.
+
+--- Teorema di Myhill-Nerode
+Garantisce l'esistenza dell'automa minimo e la dimostrazione è costruttiva. (fornisce anche l'automa minimo dimostrandolo)
+Abbiamo che i seguenti enunciati sono equivalenti:
+	1. L\subseteq \Sigma* è riconosciuto da un DFA. L è quindi regolare.
+	2. L è unione di classi di equivalenza di \Sigma* indotte da una relazione R di equivalenza invariante destra e di indice finito.
+		Per indice finito intendiamo che il numero di classi di equivalenza indotte è finito.
+	3. R_L è di indice finito.
+	
+1 \implies 2 \implies 3 \implies 1. Semplice. Le dimostrazioni un pò meno. Vediamole tutte.
+
+1. 1\implies 2.
+	HP: L è un linguaggio riconosciuto dalla mia M DFA. L = L(M).
+	Th: Enunciato 2.
+	
+	- Prendiamo la relazione R=R_M. Avremo che xR_My \iff \hat{\delta}(q_0,x) = \hat{\delta}(q_0,y) = q.
+		Visto prima, la relazione è di equivalenza se x,y sono della stessa classe di equivalenza e portano allo stesso stato.
+	- Qui abbiamo poi che il numero delle classi di equivalenza di R_M coincide con il numero degli stati |Q|.
+		Essendo |Q| finito, allora anche R_M è di indice finito.
+	- Dimostriamo ora che R_M è invariante destra
+		L = L(M) = {x\in \Sigma* | \hat{\delta}(q_0, x) \in F}			// Definizione vista sicuramente prima ma non mi sovviene il nome.
+			&= {x\in \Sigma* | \hat{\delta}(q_0, x) = q \land q\in F}	// La x porta allo stato q, visto prima. q fa poi parte degli stati finali.
+			&= \Cup_{q\in F} {x|\hat{\delta}(q_0,x) = q}					// Mostro che corrisponde all'unione di tutte le classi di equivalenza che portano a q.
+			&= \Cup_{q\in F} L_q											// L_q è una classe di equivalenza di R_M per definizione di quest'ultimo.
+			Quindi L è unione di classi di equivalenza di R_M		(RIVEDERE TI PREGO NON HO CAPITO)
+
+2. 2\implies 3
+	HP: L = unione di classi di equivalenza di R, la quale è invariante destra con indice finito.
+	Th: R_L è di indice finito, quindi ha un numero di classi finito
+	
+	Qui possiamo dimostrate che R è un raffinamento di R_L e che quindi ha un numero di classi maggiore o uguale rispetto al secondo.
+	Per dimostrare ciò dobbiamo prima confermare che:
+		\forall x,y \in \Sigma* | xRy \implies xR_Ly
+			&| [y\in[x]_R] \implies y\in [x]_{R_R}] \equiv [x]_R \subseteq [x]_{R_L}		// Vale per definizione di raffinamento.
+			
+	Prendiamo quindi xRy sapendo che R è invariante destro, allora avremo che xRy \implies xzRyz.
+	Essendo che poi L è l'unione delle classi di equivalenza di R, possiamo dire che xRy vale se x\in L \iff y\in L.
+	Ne concludiamo che [x]_r\subseteq L oppure [x]_R è fuori da L.
+	Più semplicemente, usiamo la definizione di invariante destro per dire che \forall z | xzRyz \implies xz\in L \iff yz\in L, che è la definizione di R_L.
+	
+	Comodo ricordare queste cose perché confermano che dato un M generico, R_M è raffinamento di R_L.
+	
+3. 3\implies 1
+	HP: R_L è di indice finito
+	Th: L è riconosciuto da un M DFA
+	
+	Per prima cosa costruiamo l'automa: 
+		- Q = {[x]_{R_L} | x\in \Sigma*}		// Insieme delle classi di equivalenza di R_L, le quali son finite.
+		- \Sigma è il linguaggio di L. Uguale.
+		- q_0 = [\epsilon]_{R_L}
+		- F = {[x]_{R_L} | x\in L}
+		- \delta(q, a) = \delta([x]_{R_L}, a) = [xa]_{R_L}
+		
+	Essendo R_L invariante destro possiamo dire che: [x]_{R_L} = [y]_{R_L} \implies [xa]_{R_L} = [ya]_{R_L}
+	
+	Adesso dimostriamo che L = L(M).
+		- Dimostrazione per induzione che \hat{\delta}([x], y) = [xy]
+			\hat{\delta}(q_0, x) = \hat{\delta}([\epsilon]_{R_L}, x) = [x]_{R_L}
+				&\implies x\in L(M) \iff \hat{\delta}(q_0, x) \in F
+					&\iff \hat{\delta}([\epsilon], x) \in F
+					&\iff [x]_{R_L} \in F
+					&\iff x\in L \implies L(M) = L.
+					
+	Dunque, dato L esiste un M DFA tale che L = L(M) ed M, costruito da R_L, ha il minimo numero di stati.
+	
+--- Pumping lemma TODO Rivedere, sembra un pochino incasinata come cosa.
+Fornisce una condizione \pi necessaria alla regolarità. Diciamo che L regolare \implies \pi_L, quindi se non vale la condizione, il linguaggio non è regolare.
+
+Con L regolare abbiamo che:
+	\exists k\in \mathbb{N} tale che (\forall z \in L) \land |z| > k, esiste una suddivisione di z in tre sottostringhe: z 0 uvw.
+	La suddivisione è tale che |uv| \leq k, |v|>0
+		\forall i \in N | uv^iw \in L.

@@ -1,8 +1,8 @@
 \contentsline {chapter}{\numberline {1}Complessità degli algoritmi}{3}{}%
 \contentsline {section}{\numberline {1.1}Concetto di complessità}{3}{}%
-\contentsline {section}{\numberline {1.2}Notazione asintotica}{3}{}%
-\contentsline {section}{\numberline {1.3}Equazioni di ricorrenza}{3}{}%
-\contentsline {chapter}{\numberline {2}Ordinamenti e selezioni}{4}{}%
-\contentsline {chapter}{\numberline {3}Strutture dati}{5}{}%
-\contentsline {chapter}{\numberline {4}Progetto e analisi di algoritmi}{6}{}%
-\contentsline {chapter}{\numberline {5}Algoritmi fondamentali}{7}{}%
+\contentsline {section}{\numberline {1.2}Notazione asintotica}{4}{}%
+\contentsline {section}{\numberline {1.3}Equazioni di ricorrenza}{6}{}%
+\contentsline {chapter}{\numberline {2}Ordinamenti e selezioni}{7}{}%
+\contentsline {chapter}{\numberline {3}Strutture dati}{8}{}%
+\contentsline {chapter}{\numberline {4}Progetto e analisi di algoritmi}{9}{}%
+\contentsline {chapter}{\numberline {5}Algoritmi fondamentali}{10}{}%

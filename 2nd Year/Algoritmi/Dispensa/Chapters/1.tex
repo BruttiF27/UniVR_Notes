@@ -11,10 +11,10 @@ L'iter di lavoro generale per la descrizione della funzione di complessità segu
 \begin{itemize}
 	\item \textbf{Dimostrazione caso pessimo} $O(m)$: L'istanza dove peggio di così l'algoritmo non può fare. Bisogna trovare il limite superiore della funzione.
 	\item \textbf{Dimostrazione caso ottimo} $\Omega(n)$: Il miglior scenario dove l'algoritmo svolge le operazioni nel minor tempo possibile. Qui è necessario fare delle assunzioni sul caso peggiore
-		non sarà sempre possibile ottenere il caso perfetto, tuttavia se coincide con il limite inferiore della funzione, si dice che la stima è perfetta.
+	non sarà sempre possibile ottenere il caso perfetto, tuttavia se coincide con il limite inferiore della funzione, si dice che la stima è perfetta.
 \end{itemize}
 \begin{eg}
-	\textbf{Ricerca di un elemento in un array} $T(n) = c*n$\par
+	\textbf{Ricerca di un elemento in un array} $T(n) = c\times n$\par
 	\noindent Il tempo di esecuzione di questo algoritmo è direttamente proporzionale alla dimensione dell'array, poiché ad ogni elemento aggiunto bisognerà controllare anche quelli.
 	$c$ è un valore costante, mentre $n$ è la dimensione, rappresenta le operazioni da eseguire.\par
 	Noi sappiamo che la ricerca della lunghezza dell'array è fatta a tempo costante, perché è un'operazione uguale indipendentemente dalla mole di dati. Ogni assegnazione è un'operazione.
@@ -35,57 +35,63 @@ L'iter di lavoro generale per la descrizione della funzione di complessità segu
 Abbiamo visto un caso semplice, ma è necessario chiarire come viene determinato l'ordine di grandezza di una funzione. Anzitutto consideriamo che non ne esiste uno specifico, possiamo
 tuttavia definirli come uno diverso dall'altro. Diciamo infatti che una funzione $f$ appartiene ad un dominio di grandezza di $g$, dove, a meno di costanti, quest'ultima cresce non meno rapidamente
 della prima. Formalmente: \[f\in O(g) \implies [(\exists c>0) \land (\exists\overline{n})].\forall n > \overline{n} \implies f(n) \leq cg(n).\]
-\noindent Quindi dichiamo che la funzione $f$ appartiene a \textbf{O grande} di $g$. Ciò implica l'esistenza di una costante $c > 0$ e di un valore $\overline{n}$ tali per cui ogni altro $n$ è maggiore
-stretto di $\overline{n}$. Ne consegue che la funzione $f(n)$ crescerà più lentamente o allo stesso modo di $cg(n)$.
+\noindent Quindi diciamo che la funzione $f$ appartiene a \textbf{O grande} di $g$ e la funzione di complessità indica il caso peggiore.
+Ciò implica l'esistenza di una costante $c > 0$ e di un valore $\overline{n}$ tali per cui ogni altro $n$ è maggiore stretto di $\overline{n}$.
+Ne consegue che la funzione $f(n)$ crescerà più lentamente o allo stesso modo di $cg(n)$.
 \begin{eg}
-	Sia la funzione $T(n) = 2x \in O(5x+7)$. Bisogna trovare una costante $c$ tale per cui valga la disequazione: $2x \leq c(5x+7)$. noterai che andrà bene ogni $c$.
+	Sia la funzione $T(n) = 2x \in O(5x+7)$.\par
+	\noindent Bisogna trovare una costante $c$ tale per cui valga la disequazione: $2x \leq c(5x+7)$. noterai che andrà bene ogni $c$.
 \end{eg}
 \begin{eg}
-	Sia la funzione $T(n) = 5x+7 \in O(2x)$. Trovare un $c$ tale per cui valga $5x+7 \leq c(2x)$.\par
+	Sia la funzione $T(n) = 5x+7 \in O(2x)$.\par
+	\noindent Bisogna trovare un $c$ tale per cui valga $5x+7 \leq c(2x)$.\par
 	\noindent Stiamo lavorando con un'analisi asintotica, quindi possiamo rimuovere ogni costante, otterremo quindi: $5x \leq c(2x)$. Numero per superare $5$? Scegliamo $c=3$. Risolvendola, noterai
 	che la relazione risulta corretta, poiché $\overline{n} = 7$.
 \end{eg}
+Per la dimostrazione delle equazioni nei diversi ordini di grandezza è possibile usare il \textbf{metodo di sostituzione}, preso direttamente da logica matematica. Fondamentalmente bisogna arrivare
+alla tesi tramite passaggi logici.
+\begin{eg}
+	Supponiamo che la seguente formula sia vera: \[f_1 \in O(g_1), f_2 \in O(g_2) \implies f_1+f_2 \in O(g_1+g_2)\]
+	\noindent Visto e considerato che stiamo ragionando al netto di costanti, bisogna seguire i seguenti passaggi generali, applicati al caso in esame:
+	\begin{enumerate}
+		\item Scrivere i dati in base alla loro definizione, quindi: \[f_1 \leq c_1g_1(n); f_2 \leq c_2g_2(n)\]
+		\item Identifica ciò che è necessario per la dimostrazione; in questo caso la costante $c$ ed il risultato della disequazione $\overline{n}$: \[c = c_1+c_2; \overline{n} = \overline{n_1}+\overline{n_2}\]
+		\item Verifica la  tesi: \begin{equation}
+			\begin{split}
+				T(n) &= f_1(n)+f_2(n) \leq c_1g_1(n) + c_2g_2(n)\\
+				&= f_1(n)+f_2(n) \leq c(g_1(n) + g_2(n))\\
+				&= f_1(n)+f_2(n) \leq c(g_1+g_2)(n) \implies f_1(n)+f_2(n) \leq \in O(g_1+g_2)
+			\end{split}
+		\end{equation}
+	\end{enumerate}
+\end{eg}
+\noindent Dove ragionare sul caso peggiore di un algoritmo è necessario, non è sufficiente per dare una visione completa della procedura. Infatti possiamo andare a vedere anche il caso ottimo, dove
+diremo che una funzione $f\in \Omega(g)$, quindi che asintoticamente, al netto di costanti $f$ non sta sotto $g$. Formalmente: \[\exists (c>0 \land \overline{n}) \forall n>\overline{n} \implies f(n) \geq cg(n)\]
+\noindent Anche questo concetto è dimostrabile tramite sostituzione logica:
+\begin{eg}
+	Sia una funzione $f \in O(g) \iff g \in \Omega(f)$. Quindi bisogna dimostrare che $f$ sta sotto a $g$ se e solo se $g$ sta sopra $f$.
+	\begin{enumerate}
+		\item
+		\item
+	\end{enumerate}
+\end{eg}
 
 
 
 
-
-
-
-
-
-
-
+% TODO RIPRENDI DA QUESTI PASSAGGI NUMERATI SOTTO
 
 
 \begin{comment}
-f_1 \in O(g_1), f_2 \in O(g_2) \implies f_1+f_2 \in O(g_1+g_2). Questa cosa è vera perché qui non stiamo considerando le costanti. La definizione è al netto delle costanti.
-	
-	1. Partiamo da ciò che abbiamo e trasformiamolo nella rispettiva definizione:
-		f_1 \leq c_1g_1(n)
-		f_2 \leq c_2g_2(n)	
-
-	2. Ragiona su quello che serve:
-		c = c_1+c_2
-		\overline{n} = \overline{n_1}+\overline{n_2}
-
-	3. Testa la tesi:
-		f_1(n)+f_2(n) \leq c_1g_1(n) + c_2g_2(n)
-			&\leq c(g_1(n) + g_2(n))
-			&\leq c(g_1+g_2)(n)		In questo caso è vera. Ci sei arrivato con la logica.
-			
-f \in \Omega(g). Asintoticamente, f non sta sotto g. Formalmente: \exists c>0 \exists \overline{n} \forall n>\overline{n} f(n) \geq cg(n)
-Asintoticamente, al netto di costanti, f sta sopra g.
-
 f \in O(g) \iff g \in \Omega(f)
-	1. Dimostra che vale a\implies b e che b\implies a. Scrivi la definizione effettiva.
-		\exists c\exists\overline{n} \forall n>\overline{n} f(n) \leq cg(n)
-		
-	2. Ci serve g(n) \geq c'f(n)
-		cg(n) \geq f(n) \to g(n) \geq f(n)/c.
-		Quindi, per renderlo leggibile: c' = 1/c
-		E per rendere il tutto vero: \overline{n'} = \overline{n}
-		
+1. Dimostra che vale a\implies b e che b\implies a. Scrivi la definizione effettiva.
+\exists c\exists\overline{n} \forall n>\overline{n} f(n) \leq cg(n)
+
+2. Ci serve g(n) \geq c'f(n)
+cg(n) \geq f(n) \to g(n) \geq f(n)/c.
+Quindi, per renderlo leggibile: c' = 1/c
+E per rendere il tutto vero: \overline{n'} = \overline{n}
+
 f_1 \in O(g), f_2 \in O(g) \implies f_1+f_2 \in O(g)
 La somma non cambia l'ordine di grandezza, per fortuna, quindi è instant.
 \exists c_1\exists\overline{n_1} \forall n>\overline{n_1} f_1(n) \leq c_1g(n)
@@ -109,35 +115,30 @@ Problema P, P \in O(f). Un problema è la richiesta data. Va usato il miglior al
 P \in \Omega(f), \forall A.A\in \Omega(f). Non esistono algoritmi in grado di risolvere il problema in un tempo più basso di f.
 \end{comment}
 
+%
 
-
-
-
-
-
-
-\begin{comment}
-ESERCIZIO SVOLTO 1
-- Complessità dell'algoritmo che moltiplica due matrici TODO USARE COME ESERCIZIO SVOLTO
-Abbniamo due matrici A,B. n*m, m*l
-
-mult(A,B)
-n <- rows[A]
-m <- cols[A]
-l <- cols[B]
-for(i<-1:n)										// c''*m*l*n, vedasi procedimento di prima. Questa è la formula finale.
-	for(j<-1:l)									// c'*m*l perché ci sono altre costanti raggruppate in c' e l'operazione è fatta fino ad l.
-		c_{ij} <- 0								// Assegnamento, un'operazione singola.
-		
-		for(k<-1:m)								// Assegnamento a k e test finale. Due operazioni.
-			c_{ij}<-c_{ij} + a_{ik}*b_{kj}		// Costa tre operazioni a tempo costante.	Il ciclo intero è (3+2)m+2, ma ignorando le costanti otteniamo: c*m.
-			
-Quando hai cicli nidificati è preferibile iniziare da quello più interno
-Se sei nel caso degenere, ovvero le matrici sono a 1dimensione e quindi vettori, la formula diventa c*m, perché i cicli da 1 a n o l si eseguono in un'operazione singola.
-Nel caso di matrici quadrate, m, l, ed n hanno tutte lo stesso valore, quindi cn^3
-\end{comment}
 \section{Equazioni di ricorrenza}
 
+
+
+
 \begin{comment}
-	complessità degli algoritmi, notazione asintotica, metodi di risoluzione delle equazioni di ricorrenza.
+	ESERCIZIO SVOLTO 1
+	- Complessità dell'algoritmo che moltiplica due matrici TODO USARE COME ESERCIZIO SVOLTO
+	Abbniamo due matrici A,B. n*m, m*l
+	
+	mult(A,B)
+	n <- rows[A]
+	m <- cols[A]
+	l <- cols[B]
+	for(i<-1:n)										// c''*m*l*n, vedasi procedimento di prima. Questa è la formula finale.
+	for(j<-1:l)									// c'*m*l perché ci sono altre costanti raggruppate in c' e l'operazione è fatta fino ad l.
+	c_{ij} <- 0								// Assegnamento, un'operazione singola.
+	
+	for(k<-1:m)								// Assegnamento a k e test finale. Due operazioni.
+	c_{ij}<-c_{ij} + a_{ik}*b_{kj}		// Costa tre operazioni a tempo costante.	Il ciclo intero è (3+2)m+2, ma ignorando le costanti otteniamo: c*m.
+	
+	Quando hai cicli nidificati è preferibile iniziare da quello più interno
+	Se sei nel caso degenere, ovvero le matrici sono a 1dimensione e quindi vettori, la formula diventa c*m, perché i cicli da 1 a n o l si eseguono in un'operazione singola.
+	Nel caso di matrici quadrate, m, l, ed n hanno tutte lo stesso valore, quindi cn^3
 \end{comment}

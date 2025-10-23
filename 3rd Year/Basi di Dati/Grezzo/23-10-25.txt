@@ -1,0 +1,20 @@
+23-10-25 Basi di dati
+
+Esercizio ER-2
+
+--- Costrutto generalizzazione di entità
+Definito con la proprietà delle istanze.
+È possibile vincolare la generalizzazione sinché le istanze condivise costruiscano una determinata configurazzione? (Quella richiesta dal sistema informativo)
+
+- Una generalizzazione si dice totale se ogni istanza dell'entità padre E è anche istanza di almeno un'entità figlia E_i; altrimenti è detta parziale.
+la gen. totale è un vincolo, la parziale è quella data di base se non comunicato altrimenti.
+- Una generalizzazione è detta esclusiva se ogni istanza dell'entità padre E è istanza al più di un'entità figlia (quindi più di una) E_i; altrimenti si dice sovrapposta.
+
+// Vedere slide per capire meglio questo concetto. Stanno le immagini.
+Questo costrutto si indica nelle frecce e possiamo avere:
+	- (t,e): totale e esclusiva (genera una partizione)
+	- (t,s): totale e sovrapposta
+	- (p,e): parziale e esclusiva
+	- (p,s): di default, parziale e sovrapposta
+	
+-- Esercizio ER3

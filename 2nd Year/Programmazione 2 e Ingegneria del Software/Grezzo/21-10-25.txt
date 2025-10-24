@@ -1,0 +1,48 @@
+21-10-25 Prog2
+
+--- Array: int[] arr = new int[dim];
+Sono visti come oggetti speciali allocati in heap e sono sequenze di puntatori ad oggetto, se li usi con oggetti non conterranno i loro valori.
+Gli array son definiti in runtime, quindi sono gestiti dinamicamente. Se non è inizializzato, la JVM lo mette diretto a null.
+Dichiarato un array tuttavia non è possibile più modificarne la lunghezza.
+
+Agli elementi di un array si accede con la classica norazione: nomeArr[indexNum]
+Per scriverci dentro, pure: nomeArr[indexNum] = new NomeClasse(eventuali_parametri);
+
+Equals non funziona con gli array, poiché fa un comparison fra i puntatori contenuti nei due array. Per fare questa cosa usare java.util.Arrays.
+Arrays.equals(arr1, arr2); Questa è un'applicazione corretta che ritorna il risultato atteso.
+Arrays.toString(arr); // Qua stampa ogni elemento dell'array in formato stringa.
+
+- enhanced for loops
+for (tipoVar : espressioneIterabile)
+
+// Equivalente al classico for cycle, ma più compatto ed astratto.
+for (String arg : args) {
+	System.out.println(arg);
+}
+
+Puoi fare anche matrici nel chilling
+String[][] table = new String[2][3];
+
+Se serve, si possono scambiare le righe intere prendendo il puntatore relativo.
+
+int[][] matrix = {{1,2,3}, {4,5,6}, {7,8,9}};
+int[] tmp = matrix[0];
+matrix[0] = matrix[matrix.length-1];
+matrix[matrix.length-1] = tmp;
+
+// Per stampare gli elementi di una matrice
+for (int[] row:matrix) {
+	System.out.println(Arrays.toString(row));		
+}
+
+--- Tipo enum
+Rappresentano un insieme finito di costanti. Utili oerché da un punto di vista di memoria costano poco e non devi costantemente creare altre variabili.
+Inoltre sono utili per definire valori arbitrari utilizzati più volte.
+
+public enum nomeEnum {
+	CST1, CST2, ...
+}
+
+Per controllare nomi e valori di enums usiamo rispettivamente
+nomeObjEnum.name();		// Torna il nome della costante assegnata all'oggetto
+nomeObjEnum.ordinal();	// Torna il valore della costante assegnata all'oggetto

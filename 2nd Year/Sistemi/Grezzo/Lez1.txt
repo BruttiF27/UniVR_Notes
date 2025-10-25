@@ -1,0 +1,22 @@
+Sistemi - Lezione 1
+
+Segnale: informazione che viaggia
+Sistema: tool per l'elaborazione del segnale
+
+I segnali si dividono in:
+	- a tempo continuo: Segnali fisici, come la voce. Varia nel tempo.
+	- a tempo discreto: Fondamentalmente un'onda post-campionamento, approssimata per essere elaborata dalla macchina. È finito nel tempo e nei valori.
+	
+Per convertire un segnale a tempo continuo in uno a tempo discreto:
+	1. Campionamento: Divide in intervalli uguali il segnale ricevuto. (non è un algoritmo distruttivo)
+	2. Quantizzazione: Approssima gli intervalli ad un valore leggibile dalla macchina. (ora il segnale non è più ricostruibile)
+	3. Encoding: Trasforma il segnale quantizzato in dati. Per esempio, un elettroencefalogramma.
+	
+Segnale unidimensionale: linea
+" bidimensionale: immagine
+" tridimensionale: immagine a colori
+
+Un sistema è rappresentato come una scatola nera, che riceve un input e dà un output. Vedremo com'è possibile modellare la scatoletta.
+
+Sistemi con feedback - È possibile aggiungere un blocco per far uscire il siddetto segnale di retroazione. Risulta utile se bisogna correggere un output fino a quando non è quello che vogliamo noi. Fondamentalmente il primo out va nel blocco di retroazione, ed il suo output è dato in input al sistema iniziale.
+Per esempio, il termostato. Se ci sono 40° il sistema riceve questo segnale e lo manda al blocco di retroazione, che agirà attivando l'A/C fin quando non si arriverà ad una temperatura vivibile.

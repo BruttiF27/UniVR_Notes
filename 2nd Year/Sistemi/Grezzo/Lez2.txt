@@ -1,0 +1,72 @@
+Sistemi - Lezione 2
+
+Un segnale non può esistere senza un sistema e viceversa
+
+Segnali: informazioni trasmesse nello spazio-tempo
+Sistema: strumento di elaborazione dei segnali
+
+[Inserisci immagini dei tre algoritmi]
+
+Campionamento:
+	passaggio da continuo o discreto. Un campionatore prende il segnale a tempo continuo e lo trasforma a tempo costante.
+	
+Quantizzazinoe:
+	Discretizziamo il segnale approssimandolo ad un numero leggibile dai limiti di risoluzione posti.
+	
+Encoding:
+	Rappresentazione compatta del dato quantizzato.
+	
+I segnali si indicano con la lettera minuscola 'f'. f(t) è un segnale a tempo continuo. Le maiuscole sono usate per le Trasformate, usate per convertire i segnali. t, tao, t_i sono variabile usate per tempo continuo, mentre k per il tempo discreto.
+
+f(3) ritornerà il valore di f al tempo 3.
+
+Noi consideriamo solo segnali continui o discreti monodimensionali e non negativi
+
+I sistemi saranno rappresentati come una scatoletta nera. Il loro contenuto non ci interessa. Si indicano con lettere maiuscole o greche. Hanno un ingresso ed un'uscita. Generalmente, le I/O sono correlate fra loro.
+u(t) è l'ingresso. v(t) è l'uscita.
+
+Dovremo analizzare questi sistemi, tramite un approccio moderno.
+Partiamo dal segnale, un qualunque evento fisico. Diciamo per esempio di avere una molla ed una massa ad essa attaccata. Vogliamo predire quello che succederà e quindi dovremo definire un modello del sistema.
+
+La definizione avviene tramite grafici. Per segnali a tempo continuo si usano equazioni differenziali, mentre per quelli a tempo discreto useremo equazioni alle differenze.
+Essendo algoritmicamente complesse, più avanti nel corso saranno introdotte le trasformate, che consentono di trasformare equazioni differenziali in equazioni di secondo grado con numeri complessi. In particolare:
+	- Trasformata di Laplace: Più generale, per segnali a tempo continuo.
+	- Trasformata di Fourier: Sottocategoria della precedente, usata sempre per segnali a tempo continuo.
+	- Trasformata Zeta: Per segnali a tempo discreto.
+	
+Definito il modello, è ora di effettuarne un'analisi in merito alle sue proprietà e stabilità. Generalmente lavoreremo con sistemi LTI, ovvero Lineari Tempo Invariante. Ciò significa:
+	- Lineare: Vale la sovrapposizione degli effetti.
+	- Tempo invariante: A prescindere dal punto di ingresso del segnale nel sistema, l'output sarà sempre lo stesso.
+Quando un sistema agisce come inteso si dice stabile. Prendiamo per esempio una macchina. Usando il freno, ci si aspetta che la velocità rallenti per poi fermarsi. L'output combacia con lo scopo, quindi il sistema è stabile, ed il freno è una sua proprietà.
+
+Sempre riguardo alle proprietà ora bisogna andare a valutare le prestazioni del sistema, ovvero quanto costa per ottenere l'uscita.
+
+L'ultima fase è quella di sintesi, utile per la correzione di un sistema sicché risulti stabile.
+
+Nella realtà non esistono sistemi lineari, ma è di nostro interesse l'analisi di un comportamento simile ad una funzione lineare. Quello che stiamo facendo è qunidi un'astrazione della funzione effettiva presa in esame.
+Un'altra caratteristica dei sistemi sui quali lavoreremo è la causalità. Causa è l'input, effetto è l'output.
+
+Approfondiamo la stabilità. Quando la grandezza di un output non tende ad infinito, è stabile.
+Stabilità BIBO (inserisci immagine):
+	Bounded input Bounded output. Se ho un input limitato in ampiezza, mi aspetto che lo sarà anche l'uscita. Formalmente: 
+	\begin{center}
+		$\exists M > 0.|u(t)| <  M \forall t \in \mathbb{R} \implies \exists N > 0.|v(t)| < N \forall t \in \mathbb{R}$
+	\end{center}
+
+Stabilità asintotica:
+	Esiste un limite tale per cui il mio valore si annulla. Ciò vale sia in input che output. Quindi se cessa l'input, così farà l'output. Questa stabilità implica la bibo, ma non viceversa.
+	\begin{center}
+		$\forall t$ di $v(t).t\in \mathbb{R}$, $lim_{t_1 \to \infty} v(t) = 0$
+	\end{center}
+	
+Come sono rappresentati i segnali?
+Definiamo prima il modello del segnale. y(t) = \sum_{i}\sum_{j} c_{ij} e^{\alpha t} \frac{t^e}{e!}
+
+[doppia sommatoria con due indici diversi, di un coefficiente, moltiplicata per una parte esponenziale ed una parte polinomiale.]
+t è il tempo
+\alpha è un numero complesso (ovviamente rappresentabile anche come \lambda + \omega t e quindi nella formula generale di prima scomponibile in due esponenziali)
+l è un numero reale.
+
+Puoi ovviamente anche passare in coordinate polari.
+- e^{j\omega} = cos(\omega t) + jsin(\omega t)
+- e^{\alpha t} = \rho(cos(\omega t) + jsin(\omega t))

@@ -1,0 +1,71 @@
+Lez7 - Sistemi
+
+Per risolvere l'equazione differenziale ed ottenere un valore specifico si devono porre dei vincoli, da porre solamente sull'uscita. I vincoli sono le condizioni del problema di cauchy.
+
+--- Come risolvere un sistema LTI a tempo continuo?
+La soluzione è l'uscita $v$ (risposta totale) del sistema, la quale può essere una funzione reale o complessa che può essere scomposta in: v = v_l + v_f, dove
+	- v_l: Risposta libera, comportamento del sistema che dipende solo dalle condizioni iniziali.
+	- v_f: Risposta forzata, comportamento del sistema che dipende solo da un determinato input $u$.
+
+1. Calcolo della risposta libera
+Prendiamo l'equazione omogenea associata, quindi uguale a zero e collegata all'equazione differenziale. Qua si prende l'output uguale a zero, eliminando l'input. Definita come: \[\sum_{i=0}^n a_i \frac{\partial^i v(t)}{\partial t} = 0\]
+\noindent per la risuluzione devo definire il polinomio caratteristico, definito come $P(s) = \sum_{i=0}^n a_is^i$.
+
+-- esempio: y''(t) + 2y'(t) + y(t) = u(t)
+1. Prendi l'omogenea: 
+	y''(t) + 2y'(t) + y(t) = 0
+2. Scrivo il polinomio caratteristico sostituendo a t la variabile s e mettendo come potenza di s l'ordine della derivata:
+	s^2 + 2s + 1 = 0
+3. Risolvi l'equazione ora di secondo grado. Le soluzioni (o radici, son sinonimi), sono indicate con \lambda_i, la molteplicità algebrica (ovvero l'ordine di grandezza, grado del polinomio), con \mu_i, mentre r sarà il numero di soluzioni distinte.
+	(s+1)^2 = 0
+		\lambda_1 = -1
+		\lambda_2 = -1
+		\mu_i = 2		// Grado max: 2
+		r = 1			// Due soluzioni uguali sovrapposte
+		
+4. Scrivi le soluzioni nella forma apposita; si scrivono con:
+	v_e(t) = \sum_{i=1}^r \sum_{l=0}^{u_i-1} c_{i,l}e^{\lambda_i t}\frac{t^l}{l!}
+	- I valori c_{i,l} sono calcolati con le condizioni di esistenza
+
+Sol: v_e(t) = \sum_{i=1}^r\sum_{l=0}^{\mu_i-1} c_{i,l}e^{\lambda_it}\frac{t^l}{l!}\\
+	&= \sum_{i=1}^1\sum_{l=0}^1 c_{i,l}e^{\lambda_i t}\frac{t^l}{l!}\\
+	&= c_{1,0}e^{-1t}\frac{t^0}{0!} + c_{1,1}e^{-1t}\frac{t^1}{l^1}
+	&= c_{1,0}e^{-t}1 + c_{1,1}e^{-t}t. Finito.
+	
+5. Imponi le condizioni iniziali
+
+	
+-- Esercizio: v'''(t) + 3v''(t) + 3v'(t) +1 = 0
+1-2. Polinomio caratteristico: P(s) = s^3 + 3s^2 + 3s + 1 = 0
+3. Soluzioni:
+	(s+1)^3 = 0
+		\lambda_1 = \lambda_2 = \lambda_3 = -1
+		r = 1
+		\mu = 3
+		
+4. v_l(t) = \sum_{i=1}^1 \sum_{l=0}^2 c_{i,l} e^{\lambda t}\frac{t^l}{l!}
+	&= c_{1,0}e^{-t}1 + c_{1,1}e^{-t}t + c_{1,2}e^{-t}\frac{t^2}{2}
+	
+5. Imponi \begin{cases}
+	v(0) = 0\\
+	v'(0) = 1\\
+	v''(0) = 0
+\end{cases} 
+	
+	- v_l(0) = c_{1,0}e^0 + c_{1,1}e^00 + c_{1,2}e^0\frac{0^2}{2}
+		&= c_{1,0}
+		// Ottenuto c_{1,0} = 0.
+		
+	- v_l'(0) = v_l tutto derivato
+		&= -1c_{1,0}e^{-t} - c_{1,1}e^{-t}t + c_{1,1}e^{-t} - c_{1,2}e^{-t}\frac{t^2}{2} + c_{1,2}e^{-t}t
+		&= -c_{1,0} + c_{1,1} = 1 \implies c_{1,1} = 1
+		// Ottenuto c_{1,1} = 1
+		
+	- v_l''(0) = 0+1e^{-t} - e^{-t}t + c{1,2}e^{-t}\frac{t^2}{2} - c_{1,2}e^{-t}t + c_{1,2}e^{-t}
+		&= c_{1,2}
+		// Ottenuto c_{1,2} = 0
+		
+Riscriviamo la risposta libera sostituendo nella formula generale i c ottenuti:
+	v_l(t) = c_{1,0}e^{-t} + c_{1,1}e^{-t}t + c_{1,2}e^{-t}\frac{t^2}{2}\\
+		&= 0e^{-t} + 1e^{-t}t + 0e^{-t}\frac{t^2}{2}\\
+		&= e^{-t}t		// Questa è la risposta libera.

@@ -1,0 +1,89 @@
+Lez5 - Sistemi
+--- Segnali generalizzati
+Talvolta ci sono delle grandezze non misurabili numericamente; quando ciò ha luogo, ci serviamo dei segnali generalizzati, la cui definizione è all'interno di un'operazione di integrale, che ritornerà il valore cercato.
+
+\[\int_{-\infty}^{+infty} \sigma(t)\phi(t)dt = N\]
+
+\noindent Dove sigma è la grandezza, phi lo strumento ed N la misura.
+Il nostro strumento di lavoro per la misurazione è detto impulso, una funzione con supporto (quanto è larga la funzione) infinitesimo, altezza (quanto è alta) infinita, ed area (integrale) uguale ad 1.
+La funzione impulso è definita in [0^-, 0^+].
+Il suo integrale: \[\int_{-\infty}^{+infty} \delta(t) dt = 1\]
+La grandezza da misurare è delta t, lo strumento è la costante 1, ed 1 è il risultato. In natura questa cosa NON ESISTE.
+Viene usato in approssimazioni matematiche, perché dà risultati semplici:
+\delta(t) = \begin{cases}
+	\infty in 0\\
+	0 altrimenti
+\end{cases}
+
+Propriamente, ciò si chiama impulso di Dirac. Noi useremo l'impulso unitario, definito allo stesso modo, ma al posto di avere altezza infinita avremo altezza=1. Ci consente di effettuare il campionamento.
+
+Due funzioni non derivabili, ma fondamentali per l'analisi dei segnali
+	- Finestra rettangolare unitaria
+	Rettangolo di altezza 1. Definita fra -t/2 e t/2. Definita come:
+	\pi(t) = \begin{cases}
+		1 in -t/2 \leq t \leq t/2\\
+		0 altrimenti
+	\end{cases}
+	Quest'onda se ripetuta nel tempo otteniamo un'onda quadra. Utile per il controllo dei motori, per esempio.
+
+	- finestra triangolare unitaria/impulso triangolare unitario
+	Triangolo di altezza 1. Definita come \Lambda(t) = \begin{cases}
+		1-|t| in -T \leq t \leq T\\
+		0 altrimenti
+	\end{cases}
+	Non viene usata per fare controlli particolari, ma funziona per fare filtraggi migliori. Se ripetuta nel tempo abbiamo un'onda triangolare. Ci aiuterà a generare le sinusoidi
+
+Abbiamo parlato di funzioni unitarie, quindi di ampiezza 1. Per considerare il caso generale, sostituire il valore dell'ampiezza all'1 nella definizione.
+
+Come ottenere l'impulso?
+Lo definiamo come una serie di funzioni fra cui cambiamo dei valori.
+Il risultato dell'area deve SEMPRE essere 1.
+Per il quadrato, base*altezza
+Per il triangolo, base*altezza*1/2
+
+Tuttavia, per entrambe vale: \delta(t) = lim_{n\to\infty} Area_n = 1.
+
+Il triangolo ci riesce a definire qual è la derivata dell'impulso (useremo un trucco per farlo, altrimenti è un casino). Si tratta di un impulso che cresce e che decresce, nell'infinitesimo molto vicino a 0.
+A noi più che questo interessa l'integrale di un impulso.
+
+Questo introduce una serie di funzioni dette polinomiali o segnali canonici.
+Questi segnali sono definiti come l'integrale dell'impulso o l'integrale dell'integrale dell'... dell'impulso.
+\delta_{-n}(t) = \begin{cases}
+	\frac{t^{n-1}}{(n-1)!} t\geq 0\\
+	0 altrimenti
+\end{cases}
+
+Integrando un impulso otteniamo la funzione gradino: \delta_{-1}(t) = \begin{cases}
+	\frac{t^{1-1}}{(1-1)!} t\geq 0\\
+	0 altrimenti
+\end{cases} = \begin{cases}
+	1 t\geq 0\\
+	0 altrimenti
+\end{cases}
+Questa funzione permette di garantire la causalità.
+f(t)*\delta_{-1}(t) = f_1(t), che è causale.
+
+What about integrale di integrale? (poco usata) Otteniamo la funzione rampa:
+\delta_{-2}(t) = \begin{cases}
+	\frac{t^{2-1}}{2-1} t\geq 0\\
+	0 altrimenti
+\end{cases} = \begin{cases}
+	t t\geq 0\\
+	0 altrimenti
+\end{cases}
+
+What about integrale di integrale di integrale? È una parabola, hai già capito. Basta.
+
+-- A che servono i segnali polinomiali?
+A caratterizzare il sistema. Per farlo si cerca di dargli un input (tendenzialmente una funzione gradino) e vediamo il tempo usato per ritornare il valore. Ciò è utile per avere una misura standard nel testing dei sistemi.
+
+- proprietà dell'impulso
+Segnale ideale, centrato in 0, definito fra 0^- e 0^+ con altezza 1.
+È una funzione pari.
+Ha sempre area unitaria.
+Proprietà del campionamento o riproducibilità del segnale (Importante): Se abbiamo una funzione continua in t_0 v:R\to R, allora v(t)\delta(t-t_o) = v(t_0)\delta(t-t_0), per t \in R.
+Fondamentalmente significa che se prendo un impulso traslato nel tempo t_0 e lo moltiplico per una funzione, ottengo il valore della funzione in quel punto t_0.
+Quindi per passare da continuo a discreto si moltiplica la funzione con l'impulso.
+
+La formula può essere anche riscritta come \[N(t_0) = \int_{-\infty}^{+\infty} v(\tau)\delta(\tau-t_0) d\tau\]
+Quindi il valore di una funzione in t_0 è l'integrale della funzione moltiplicata per un impulso traslato in t_0.

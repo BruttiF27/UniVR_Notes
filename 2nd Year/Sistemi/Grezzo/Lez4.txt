@@ -1,0 +1,80 @@
+Lez 4 - Sistemi
+
+--- Segnali
+	- a tempo continuo, con t\in R, R\to C, R\to R
+	- a tempo discreto, con k\in Z, Z\to Z, Z\to R, Z\to C
+	
+Abbiamo segnali sinusoidali a tempo continuo
+Si definisce con una funzinoe x(t) = Acos(\omega_o t + \phi)
+A: ampiezza
+\omega_0: frequenza, f = 1/t, con t=periodo
+\phi: fase
+
+Il punto d intersezinoe con l'asse delle y è Acos(\phi), lo shift temporale. La distanza fra i massimi dell'onda è il periodo t_0 = \frac{2\pi}{\omega_0}
+
+Il segnale sinusoidale ha alcune proprietà
+	- è periodico. Esiste quindi un certo t_0 che se sommato a t otteniamo lo stesso risultato. Dicevamo prima che t_0 è il periodo ed è il numero più piccolo per il quale vale la somma che ritorna lo stesso risultato.
+	- Uno shift temporale (spostarci avanti o indietro nel tempo) equivale ad un cambio di fase.
+
+Sinusoidali a tempo continuo:
+Con fase \phi=0, avremo un grafico di funzione coseno classica e si scriverà A=cos(\omega_0t). È pari, quindi x(t) 0 x(-t)
+
+Con fase \phi=-\frac{\pi}{2} avremo quello di una funzione seno e può essere scritta in tre modi diversi:
+\begin{cases}
+	Acos(\omega_0t - \frac{\pi}{2})\\
+	Asin(\omega_0t)\\
+	Acos(\omega_0(t-\frac{t_0}{4}))
+\end{cases}
+È dispari, quindi x(t) = -x(-t)
+	
+Sinusoidali a tempo discreto: x[n] = Acos(\Omega_0n + \phi)
+A è l'ampiezza
+\Omega_0 è la frequenza
+\phi è la fase
+
+Si rappresentano tramite lineette che prendono la forma della curva. Dei punti alle estremità delle linette indicano dove tocca sulla curva.
+
+Proprietà:
+	- Shift temporale equivale a cambio di fase, come prima.
+	- Se fase \phi=0, la funzione è coseno, è pari.
+	- Se fase \phi=-\frac{\pi}{2} è seno, è dispari.
+	- Un cambio di fase può implicare uno shift temporale. Tuttavia non sempre.
+		- Acos[\Omega_0(h+h_0)] = Acos[\Omega_0n + \phi]
+		Il rapporto fra \phi e \Omega_0 deve essere un intero. Quando questo non è vero, il sistema non è valido e non visibile.
+		
+- Segnali esponenziali reali a tempo continuo
+Crescente o decrescente in base al segno dell'esponente. C, a \in R
+Nel caso di time shift modificare il t all'esponente; la formula diventa Ce^{a(t+t_0)}. L'effetto dello shift riguarda quindi la scala della funzione.
+
+- Exp reali a tempo discreto
+formula già scritta, preferibilmente con C\alpha^n, con \alpha=e^b.
+Ci son 4 modi per rappresentarli.
+
+	- \alpha > 0, |\alpha| > 1, cresce ad infinitum nel primo quadrante
+	- \alpha > 0, |\alpha| < 1, decresce tende a 0 nel primo quadrante
+	- \alpha < 0, |\alpha| > 1, comportamento oscillatorio, cresce ad infinitum nell'asse delle x
+	- \alpha < 0, |\alpha| < 1, comportamento oscillatorio, tende a 0 nell'asse delle x
+	
+- Esponenziali complessi continui
+La formula si può scrivere in forma contratta: x(t) = ce^{at}, con:
+	- c = |c|e^{j\theta}
+	- a = r+j\omega_0
+Tuttavia è preferibile usare quella estesa per avere una visuale completa. si ottiene con:
+
+\begin{equation}
+	\begin{split}
+		x(t) &= |c|e^{j\theta}e^{(r+j\omega_0)t}\\
+		&= |c|e^{rt}e^{j(\omega_0t+\theta)}\\
+		&= |c|e^{rt}(cos(\omega_0t+\phi) + jsin(\omega_0t+\phi))
+	\end{split}
+\end{equation}
+L'ultimo passaggio è possibile grazie alla formula di eulero che permette di passare da esponenziale a forma polare del complesso: e^{j(\omega_0t+\theta)} = cos(\omega_0t+\phi) + jsin(\omega_0t+\phi)
+
+Il grafico diventa una sinusoidale smorzata.
+	- se r > 0 la sinusoide
+	- se r < 0
+
+
+
+
+- Esponenziali complessi discreti

@@ -1,0 +1,64 @@
+Lez8 - Sistemi
+
+--- Esercizio: calcolo della risposta libera nel tempo.
+v''(t) + 3v'(t) - 4v(t) = 5u'(t) - u(t)
+\begin{cases}
+	v(0) = 0\\
+	v'(0) = 1
+\end{cases}
+
+1,2: Polinomio caratteristico: P(s) = s^2+3s-4=0 
+3: Soluzioni e molteplicità: (s-1)(s+4)
+	\lambda_1 = 1, \lambda_2 = -4
+	\mu_1 = 1, \mu_2 = 1
+	r = 2
+	
+4. Scrittura in forma di soluzione:
+	v_l(t) = c_{1,0}e^t + c_{2,0}e^{-4t}\\
+		&= c_{1,0}e^t + c_{2,0}e^{-4t}
+		
+5. Applica le condizioni
+	- v_l(t) = c_{1,0}e^t + c_{2,0}e^{-4t}
+		&= c_{1,0}1 + c_{2,0}1
+		&= c_{1,0} + c_{2,0}
+	
+	- v_l'(t) = 1c_{1,0}e^t - 4c_{2,0}e^{-4t}
+		&= c_{1,0} - 4c_{2,0} = 1
+		
+Metti a sistema le equazioni ottenute per calcolare i singoli valori:
+	\begin{cases}
+		c_{1,0}+c_{2,0} = 0 \implies c_{1,0} = 1/5\\
+		c_{1,0} - 4c_{2,0} = 1 \implies c_{2,0} = -1/5
+	\end{cases}
+
+6. Scriviamo la risposta libera
+	v_l(t) = 1/5e^t - 1/5e^{-4t}
+	
+--- Convergenza dei modi elementari
+Dato m(t) = e^{\lambda t}\frac{t^l}{l!}
+	- lim_{t\to \infty} m(t) = 0 \iff la parte reale di \lambda è minore di 0.
+		Se tutte le radici sono così, il sistema è asintoticamente stabile.
+		
+	- Se m(t) è limitato (può prendere solo determinati valori) su [0,\+infty) \iff la parte reale di \lambda è minore o uguale di 0.
+		In questo caso, il sistema ha una stabilità semplice.
+		Se è uguale a zero, allora l=0 necessariamente.
+		
+	- Se lim_{t\to \infty} m(t) = \infty in tutti gli altri casi.
+		Qui invece il sistema è instabile
+
+--- Risposta forzata
+Per calcolarla serve la risposta impulsiva e la sua proprietà di campionamento. La usiamo per poter prendere un qualunque valore della funzione.
+
+-- Prodotto di convoluzione
+- Concetto di correlazione
+Ho due segnali, ne tengo uno fermo e sovrappongo l'altro al primo, per poi muoverlo nel tempo. Poi si calcola l'area sottesa fra i due. Più è simile, più sono correlati.
+
+- Convoluzione
+Ho due segnali, uno lo tengo fisso e l'altro lo rifletto rispetto all'asse y. Lo traslo sempre nel tempo e calcolo l'area sottesa fra i due.
+Dà libertà di scelta in merito al segnale da girare.
+
+L'operatore di convoluzione fra u e v segnali generici è definito come:
+	(u*v)(t) = \int_{-\infty}^{\infty} u(\tau)v(t-\tau) d\tau
+		&= \int_{-\infty}^{\infty} v(\tau)v(t-\tau) d\tau
+		
+t fa variare nel tempo, -\tau riflette il segnale rispetto all'asse delle y.

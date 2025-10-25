@@ -1,0 +1,63 @@
+Lez 3 - Sistemi
+
+Numeri complessi
+\alpha = \lambda + j\omega è forma cartesiana del numero complesso. Qualsiasi numero così scritto può essere rappresentato nel piano cartesiano.
+
+Forma polare: rappresentiamo il numero come un raggio (vettore) \rho ed un angolo \theta.
+	- s = \rho(cos\ptheta + jsin\theta)
+	- \rhocos\theta = reale(s)
+	- \rhosin\theta = immaginaria(s)
+\theta è l'argomento del numero complesso, mentre \rho è il modulo del numero complesso. |s| = \sqrt{reale(s)^2+immaginaria(s)^2}
+
+Casi particolari:
+	- \lambda > 0, \omega qualsiasi: \theta = arctan(\frac{\omega}{\lambda})
+	- \lambda < 0, \omega \geq 0: \theta = arctan(\frac{\omega}{\lambda}+\pi)
+	- \lambda < 0, \omega < 0: \theta = arctan(\frac{\omega}{\lambda}-\pi)
+	
+La forma esponenziale è il terzo metodo per la rappresentazione di un numero complesso. s = \rho e^{j\theta}. Per arrivare qua ringraziamo le formule di Eulero:
+	- cos\theta = \frac{e^{j\theta}+e^{-j\theta}}{2}
+	- sin\theta = \frac{e^{j\theta}-e^{-j\theta}}{2i}
+
+s = \rho e^{j\theta} = \rho(cos\theta + jsin\theta)
+
+Complesso coniugato, Ogni numero complesso è associato ad un altro la parte reale è uguale, ma l'immaginaria è opposta. Arg(s) = -Arg(\overline{s})
+s = \rho(cos\theta + jsin\theta)
+\overline{s} = \rho(cos(-\theta) + jsin(-\theta))
+
+- Somma
+s_1+s_2 = (\lambda_1+\lambda_2) + j(\omega_1+\omega_2)
+- Sottrazione
+s_1-s_2 = (\lambda_1-\lambda_2) + j(\omega_1-\omega_2)
+- Prodotto (polare)
+s_1*s_2 = \rho_1*\rho_2(cos(\theta_1+\theta_2) + jsin(\theta_1+\theta_2))
+- Divisione (polare)
+s_1/s_2 = \frac{\rho_1}{\rho_2}(cos(\theta_1-\theta_2) + jsin(\theta_1-\theta_2))
+
+Reciproco: numero per il quale il complesso è moltiplicato torna 1.
+s^{-1} = \frac{\overline{s}}{|s|^2} = 1.
+
+Complesso unitario: numero complesso il cui modulo è uguale a 1, quindi anche \rho = 1.
+
+Potenza di un complesso:
+s^n = \rho^n(cos(n\theta) + jsin(n\theta))
+
+Radici di un complesso:
+Ogni numero complesso s, con s\neq 0, ammette n-distinte radici n-esime complesse.
+s_2 è una di queste radici. È uguale a ^2\sqrt{s}.
+Se faccio (s_2)^2 = s come diretta conseguenza.
+
+Modulo della radice: |w_k| = ^n\sqrt{\rho}
+Argomento della radice: Arg(w_k) = \frac{\theta}{n} + \frac{2\pi}{n}k
+
+--- Funzioni a variabile complessa ---
+Punto interno: Un punto s_0 appartiene ad un intorno D(f) \subseteq \mathbb{C} è interno a D(f) sse esiste un disco di raggio \rho\in\mathbb{R} centrato in s_0 tale che B_p(s_0) \subset D(f).
+
+D(f) è un dominio. [spazio dove esiste la variabile]
+B_{\rho} è un disco, un sottonsieme di forma circolare (di raggio \rho) del dominio D(f). Si definisce come: B_{\rho}(s_0) = {s\in \mathbb{C} | ||s_0-s|| < \rho}, quindi l'insieme di ogni complesso la cui sottrazione fra s_0 ed s ha risultato minore del raggio del disco e che sta quindi al suo interno.
+
+Insieme aperto: insieme di tutti i punti definiti interni.
+Semipiano sx, dx, superiore, inferiore.
+
+- Funzione complessa f:D(f) \to \mathbb{C}, con D(f)\subseteq \mathbb{C} aperto.
+
+- Funzioni polinomiali P(s) = \sum_{k=0}^n ak*s^k

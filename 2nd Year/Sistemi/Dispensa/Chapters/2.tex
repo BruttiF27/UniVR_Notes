@@ -30,3 +30,90 @@ Per quanto riguarda i sistemi LTI, approfondiamo le proprietà menzionate nel ca
 Ora che conosciamo la teoria, bisogna capire come si modellano effettivamente i sistemi. Come già detto, vengono descritti mediante equazioni differenziali per input e output. Un buon iter di lavoro generale è prima scrivere tutte le equazioni che descrivono le leggi in atto, per poi estendere la scrittura con tutte le componenti richieste. Va ordinata con output a sinistra e input a destra. L'equazione differenziale generale per la rappresentazione dei modelli è: \[a_n\frac{\partial^nv(t)}{\partial t^n}+a_{n-1}\frac{\partial^{n-1}v(t)}{\partial t}+ ... + \frac{\partial^1v(t)}{\partial t} + a_0v(t) = b_m\frac{\partial^mu(t)}{\partial t}+b_{m-1}\frac{\partial^{m-1}u(t)}{\partial t} + ... + b_1\frac{\partial u(t)}{\partial t} + b_0u(t)\]
 \noindent Qui, $b_n, a_n \neq 0$ sono due normali coefficienti. La buona notizia è che esiste una forma più compatta, grazie alla sommatoria: \[\sum_{i=0}^na_i \frac{\partial^i v(t)}{\partial t} = \sum_{j=0}^mb_j\frac{\partial^ju(t)}{\partial t}\]
 \noindent Qui invece $n,m$ danno l'ordine delle equazioni differenziali, con generalmente $n\geq m$. Più precisamente, se $n>m$, si dice strettamente proprio e se $n\geq m$ si dice proprio. Nello schema con la black box, nel sistema si scrive proprio questa seconda equazione.
+
+%
+
+\section{Calcolo delle risposte}
+Come precedentemente menzionato, i sistemi sono definiti tramite equazioni differenziali, dove la forma generale mostra a sinistra l'output e a destra l'input. A noi interessa studiare il comportamento del sistema, quindi le sue risposte. Definiamo quindi \textbf{risposta totale}: \[v = v_l + v_f\]
+\noindent Dove le componenti sono:
+\begin{itemize}
+	\item \textbf{Risposta libera}: Comportamento del sistema che dipende solo dalle condizioni iniziali.
+	\item \textbf{Risposta forzata}: Comportamento del sistema che dipende solo da un determinato input $u$.
+\end{itemize}
+\noindent Il procedimento da effettuare si traduce nella risoluzione dell'equazione differenziale con specifici vincoli, per ottenere le due componenti ed infine descrivere il comportamento del sistema.
+
+\subsection{Calcolo della risposta libera}
+I passaggi sono equivalenti a quelli per la risoluzione di un'equazione differenziale associata ad un problema di Cauchy. Quindi:
+\begin{enumerate}
+	\item Ottenimento dell'equazione omogenea.
+	\item Ottenimento del polinomio caratteristico.
+	\item Risoluzione del suddetto polinomio per ottenere radici, ordine di grandezza e molteplicità algebrica.
+	\item Sostituzione dei valori nelle opportune variabili nella formula della soluzione generale.
+	\item Applicazione delle condizioni di Cauchy.
+	\item Scrittura della risposta libera.
+\end{enumerate}
+\begin{eg}
+	\textbf{Calcolare la risposta libera dell'equazione differenziale}:
+	\begin{center}
+		$\begin{cases}
+			v(0) = 0\\
+			v'(0) = 1
+		\end{cases}$; $v''(t) + 3v'(t) - 4v(t) = 5u'(t) - u(t)$
+	\end{center}
+	\noindent \textbf{1. Ottenimento equazione omogenea}\par
+	\noindent L'equazione omogenea associata a quella presa in esame è semplicemente la parte di nostro interesse posta uguale a zero, in questo caso l'output, quindi: \[v''(t) + 3v'(t) - 4v(t) = 0\]
+	\noindent \textbf{2. Ottenimento polinomio caratteristico}\par
+	\noindent Per ottenere la forma polinomiale bisogna sostituire alla $t$ una variabile $s$, il cui grado è il numero di derivata dell'elemento: \[s^2 + 3s - 4 = 0\]
+	\noindent \textbf{3. Risoluzione del polinomio ottenuto}\par
+	\noindent Non difficile. Sono i classici passaggi algebrici per le equazioni di secondo grado: \[s^2 + 3s - 4 = 0 \implies (s+4)(s-1) = 0\]
+	\noindent Da questo calcolo ricaviamo due radici distinte: $\lambda_1=-4, \lambda_2=1$, quindi molteplicità algebrica $r=2$, e che i loro ordini di grandezza sono $\mu_1=\mu_2=1$.\newline
+	
+	\noindent \textbf{4. Sostituzione nella formula generale}\par
+	\noindent Abbiamo già detto che la formula della soluzione generale è data da: \[v_l(t) = \sum_{i=1}^r \sum_{l=0}^{\mu_i-1} c_{i,l}\times e^{\lambda_i t}\times\frac{t^l}{l!}\]
+	\noindent Dove $i,l$ sono dati dai vincoli di Cauchy. Sostituiamo:
+	\begin{equation}
+		\begin{split}
+			v_l(t) &= c_1\times e^t\times\frac{t^0}{0!} + c_2\times e^{-4t}\times \frac{t^0}{0!}\\
+				&= c_1e^t + c_2e^{-4t}
+		\end{split}
+	\end{equation}
+	\noindent Questa equazione sarà la base sulla quale andremo ad applicare le condizioni e derivare ove necessario.\newline
+	
+	\noindent \textbf{5. Applicazione delle condizioni di Cauchy}\par
+	\noindent Osservando le condizioni, è chiaro che saranno applicate prima alla forma normale, poi alla derivata prima. Mettiamo a sistema le due formule, sostituiamo a $t$ il valore del vincolo e poniamo il tutto al valore richiesto: \[\begin{cases}
+		v_l(t) = c_{1,0}e^t + c_{2,0}e^{-4t}\\
+		v_l'(t) = 1c_{1,0}e^t - 4c_{2,0}e^{-4t}
+	\end{cases} \implies \begin{cases}
+		c_{1,0}1 + c_{2,0}1 = 0\\
+		c_{1,0} - 4c_{2,0} = 1
+	\end{cases} \implies \begin{cases}
+		c_{1,0} + c_{2,0} = 0\\
+		c_{1,0} - 4c_{2,0} = 1
+	\end{cases}\]
+	\noindent Risolvendo il sistema con passaggi algebrici otteniamo infine che:
+	\[\begin{cases}
+		c_{1,0}+c_{2,0} = 0 \implies c_{1,0} = 1/5\\
+		c_{1,0} - 4c_{2,0} = 1 \implies c_{2,0} = -1/5
+	\end{cases}\]
+	\noindent Ottenendo così i valori delle $c$ da sostituire alla formula generale.\newline
+	
+	\noindent \textbf{6. Scrittura della risposta libera}\par
+	\noindent Nulla di più semplice, una sostituzione delle $c$ nella formula generale: \[v_l(t) = \frac{1}{5}e^t - \frac{1}{5}e^{-4t}\]
+\end{eg}
+\noindent Una cosa interessante che si può ricavare dalla descrizione dell'equazione differenziale è il \textbf{modo elementare}, descritto come: \[m(t) = e^{\lambda t}\frac{t^l}{l!}\]
+\noindent Risulta utile considerare i suoi tre casi di studio, perché grazie ad essi possiamo trarre conclusioni sulla stabilità di un sistema:
+\begin{itemize}
+	\item Il limite per $t$ che tende ad infinito del modo è uguale a zero solamente se ogni radice del polinomio caratteristico è minore di zero. In tal caso, il sistema è \textbf{asintoticamente stabile}. \[lim_{t\to \infty} m(t) = 0 \iff \lambda_i < 0\]
+	\item Il modo $m(t)$ è limitato, quindi può prendere solo determinati valori, sull'intervallo $[0,+\infty)$ solamente se le radici del polinomio caratteristico sono minori o uguali a zero. In tal caso il sistema è detto \textbf{semplicemente stabile}.
+	\item Se il limite per $t$ che tende ad infinito è uguale ad infinito non rientriamo nei primi due casi ed il sistema è detto \textbf{instabile}.
+\end{itemize}
+
+\subsection{Calcolo della risposta forzata}
+Per il calcolo della risposta forzata ci serviremo di due strumenti: la \textbf{risposta impulsiva} e l'\textbf{operatore di convoluzione}. La prima per poter prendere un qualunque valore della funzione per descriverla, il secondo per darci spazio di manovra nei calcoli e ne parleremo adesso. Fra $u$ e $v$ segnali generici è definito come:
+\begin{equation}
+	\begin{split}
+		(u*v)(t) &= \int_{-\infty}^{\infty} u(\tau)v(t-\tau) d\tau\\
+			&= \int_{-\infty}^{\infty} v(\tau)v(t-\tau) d\tau
+	\end{split}
+\end{equation}
+\noindent La convoluzione è quell'operazione che ci consente, in presenza di due segnali, di calcolare l'area sottesa del loro prodotto girando rispetto all'asse delle $y$ uno dei due segnali per poi scorrerlo sull'altro. Il $-\tau$ infatti infica il segnale girato, mentre $t$ è la variazione nel tempo.

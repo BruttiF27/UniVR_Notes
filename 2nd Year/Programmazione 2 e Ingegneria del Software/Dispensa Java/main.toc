@@ -5,5 +5,7 @@
 \contentsline {section}{\numberline {2.1}Struttura ed esecuzione dei programmi}{6}{}%
 \contentsline {section}{\numberline {2.2}Dichiarazione di classi e oggetti}{7}{}%
 \contentsline {section}{\numberline {2.3}Librerie utili}{8}{}%
-\contentsline {chapter}{\numberline {3}Pratiche corrette e gestione errori}{11}{}%
-\contentsline {chapter}{\numberline {4}Documentazione del codice}{12}{}%
+\contentsline {section}{\numberline {2.4}Incapsulamento e information hiding}{10}{}%
+\contentsline {section}{\numberline {2.5}Array, matrici e tipo enum}{11}{}%
+\contentsline {chapter}{\numberline {3}Pratiche corrette e gestione errori}{13}{}%
+\contentsline {chapter}{\numberline {4}Documentazione del codice}{14}{}%

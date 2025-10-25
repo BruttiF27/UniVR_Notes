@@ -62,7 +62,7 @@ Parliamo adesso di codice effettivo. Per prima cosa bisogna dichiarare una class
 		else return false;
 	}
 \end{lstlisting}
-\noindent Nello specifico, per quanto riguarda i modificatori, abbiamo \textbf{public}, rendendo accessibile la classe senza limitazioni. Vedremo successivamente \textbf{private}, utile per porre limitazioni e rendere il codice più sicuro. Questi specificano le modalità di accesso. Un altro modificatore presente nello snippet è \textbf{static}, che rende il metodo utilizzabile a prescindere dall'oggetto. Vediamo ora come istanziare un oggetto, a partire dagli snippet del file Date.java di prima:
+\noindent Nello specifico, per quanto riguarda i modificatori, abbiamo \textbf{public}, rendendo accessibili i dati senza limitazioni e \textbf{private}, che blocca l'accesso dall'esterno della classe. Questi specificano le modalità di accesso. Un altro modificatore presente nello snippet è \textbf{static}, che rende il metodo utilizzabile a prescindere dall'oggetto. Vediamo ora come istanziare un oggetto, a partire dagli snippet del file Date.java di prima:
 \begin{lstlisting}[language=Java]
 	public class MainDate {
 		public static void main(String[] args) {
@@ -144,3 +144,74 @@ Le librerie digitali di Java sono un insieme di funzioni contenute in files appo
 	sb.append("kaliemu");										// Concatena in coda i caratteri fra le virgolette.
 \end{lstlisting}
 \noindent È possibile anche cancellare ed inserire sottostringhe con i metodi \textbf{delete} ed \textbf{insert}. Insomma, le stringhe base sono costanti, mentre le stringhe mutevoli di StringBuilder sono sicuramente più flessibili.
+
+%
+
+\section{Incapsulamento e information hiding}
+Per \textbf{incapsulamento} si intende un raggruppamento di dati e metodi, i quali lavorano sui primi. Consente di avere una visuale più compatta riguardo ai campi di ogni classe. Se alcuni campi sono poi dichiarati con il modificatore \textbf{private}, l'incapsulamento esprime il suo massimo potenziale di sicurezza, consentendo l'\textbf{information hiding} e rendendo accessibili i campi solamente tramite gli appositi metodi.
+\begin{lstlisting}[language=Java]
+	public class Person {
+		// Dichiarare senza modificatori setta public di base
+		String name;
+		private int age = -1;
+		
+		Person(String name) { this.name = name; }
+		
+		// Metodo per segnalare se age risulta illegale
+		void changeAge(int age) {
+			if (age > 0 && age <= 122) this.age = age;
+			else System.out.println("Invalid age.");
+		}
+	}
+\end{lstlisting}
+La variabile age in questo caso diventa accessibile solo tramite il metodo changeAge, perché risulta inaccessibile al di fuori. La corretta gestione di questa dinamica si ha introducendo due metodi appositi, il \textbf{getter}, che riceve il dato per poi assegnarlo all'oggetto, ed il \textbf{setter}, che si assicura sia in un formato corretto. Nello snippet appena visto, changeAge è inserito come setter.
+
+%
+
+\section{Array, matrici e tipo enum}
+In Java è possibile dichiarare \textbf{array} mono- e bidimensionali; sono visti come oggetti speciali allocati in heap, quindi definiti in runtime, e da un punto di vista pratico sono sequenze di puntatori ad oggetto. Alcuni aspetti importanti sono:
+\begin{itemize}
+	\item In mancanza di inizializzazione, la JVM li setta a null.
+	\item Post-dichiarazione, sarà impossibile modificarne la lunghezza.
+	\item Essendo sequenze di puntatori, il metodo equals non funzionerà come negli oggetti normali.
+\end{itemize}
+\begin{lstlisting}[language=Java]
+	// Dichiarazione di array
+	int[] arr = new int[dimensione];
+	// Scrittura in un indice specifico
+	arr[numeroIndice] = NomeClasse(eventuali_parametri);
+	// Accesso ad un elemento in un indice specifico
+	int var = arr[numeroIndice];
+\end{lstlisting}
+\noindent Per una manipolazione corretta degli array ci corre in aiuto \textbf{java.util.Arrays}, contenente metodi utili per fare confronti e stampare il contenuto. Questi sinergizzano ovviamente col ciclo for, il quale ha una forma enhanced con una sintatti più compatta.
+\begin{lstlisting}[language=Java]
+	// Enhanced for loop, equivalente alla scrittura classica
+	for (tipoVariabile : espressioneIterabile);
+	// Confronta se due array hanno gli stessi elementi
+	Arrays.equals(arr1, arr2);
+	// Stampa ogni elemento dell'array in formato stringa
+	Arrays.toString(arr);
+\end{lstlisting}
+\noindent Ovviamente, nella creazione di matrici, è possibile usare tutti i metodi appena visti; ci sono poche differenze rispetto a quanto già visto in C.
+\begin{lstlisting}[language=Java]
+	// Dichiarazione ed inizializzazione di una matrice di interi
+	int[][] matrix = {{1,2,3}, {4,5,6}, {7,8,9}};
+	// Per scambiare facilmente righe o colonne puoi prendere il puntatore.
+	int[] tmp = matrix[0];
+	matrix[0] = matrix[matrix.length-1];
+	matrix[matrix.length-1] = tmp;
+	// Stampa gli elementi di una matrice
+	for (int[] row:matrix) System.out.println(Arrays.toString(row));
+\end{lstlisting}
+\noindent Infine, abbiamo, sempre come in C, i tipi per le \textbf{enumerazioni}. Rappresentano un insieme finito di costanti e risultano utili per definire valori arbitrari utilizzati più volte, non richiedendo la dichiarazione di variabili per ogni blocco di codice. Vengono anche loro con alcuni metodi utili:
+\begin{lstlisting}[language=Java]
+	// Dichiarazione
+	public enum nomeEnum {
+		CST1, CST2, ...
+	}
+	
+	// Ritorna il nome della costante assegnata all'oggetto
+	nomeObjEnum.name(nomeOggetto.campo);
+	// Ritorna il valore della costante assegnata all'oggetto
+	nomeObjEnum.ordinal(nomeOggetto.campo);
+\end{lstlisting}

@@ -40,30 +40,34 @@ Essendo poi che stiamo lavorando su valori espressi come una moltiplicazione, è
 %
 
 \section{Vettori}
-I \textbf{vettori}, indicati con $\overrightarrow{A}$, sono oggetti nel piano cartesiano definiti mediante due misure: la distanza da un punto detto \textbf{origine} e la direzione orientata relativamente ad un asse di riferimento. Utilizzano \textbf{grandezze vettoriali}, espresse con un valore e una direzione, e possono essere rappresentati in un sistema di coordinate cartesiane o polari. Useremo le seguenti formule per ottenere le coordinate:
+I \textbf{vettori}, indicati con $\overrightarrow{A}$, sono oggetti in un piano di riferimento definiti mediante due misure: la distanza da un punto detto \textbf{origine} e la direzione orientata relativamente ad un asse di riferimento. Li utilizziamo per studiare la posizione di un punto materiale in più dimensioni, mediante le siddette \textbf{coordinate cartesiane} $(x,y)$ e \textbf{coordinate polari} $(r,\theta)$, strettamente legate fra loro.\par
+Finora, per esprimere i valori è stato utilizzato puramente un numero; chiamiamo questa una \textbf{grandezza scalare}, ma è possibile specificare valori anche con una direzione, creando le \textbf{grandezze scalari}. Essendo queste ultime non necessariamente sovrapposte agli assi, è possibile scomporle in parti ad essi associate. Scriviamo infatti in forma generale: \[\overrightarrow{A} = x\hat{i} + y\hat{j} + z\hat{k}\]
+\noindent Dove $x,y,z$ sono le grandezze dei vettori, dette \textbf{moduli} nel piano rispettivo e $\hat{i},\hat{j},\hat{k}$ i vettori unitari che danno loro la direzione. In particolare, è possibile introdurre l'aritmetica legata ai vettori. Dove esistono metodi grafici, ci concentreremo sulle apposite formule:
 \begin{itemize}
-	\item Coordinate cartesiane in funzione delle polari; $x = rcos(\theta)$, $y = rsin(\theta)$.
-	\item Coordinate polari in funzione delle cartesiane; $tan(\theta) = \dfrac{y}{x}$, $r = \sqrt{x^2 + y^2}$.
-\end{itemize}
-\noindent La grandezza del vettore si dice \textbf{modulo} ed è un valore sempre positivo. La presenza di valori implica che è possibile operarci, quindi è possibile effettuare:
-\begin{itemize}
-	\item \textbf{Somma fra vettori}; $\overrightarrow{A} + \overrightarrow{B} = \overrightarrow{C}$
-	\begin{itemize}
-		\item \textbf{Metodo punta-coda}\par
-		\noindent Il vettore risultante è ottenuto attaccando la testa del primo vettore $A$ alla coda dell'altro $B$. Traccia una linea dalla coda di $A$ alla testa di $B$ e hai fatto.
-		\item \textbf{Somma delle parti}\par
-		\noindent I vettori possono essere visti come la somma delle proprie componenti, ovvero nella forma $\overrightarrow{A} = A_x\hat{i} + A_y\hat{j}$, dove le varie A sono i moduli delle proiezioni dati dalle formule $A_x = Acos(\theta), A_y = Asin(\theta)$, mentre le lettere con accento circonflesso i vettori unitari che determinano la direzione. Ciò rende possibile utilizzare le formule polari viste prima:
-		\begin{center}
-			$A = \sqrt{A_x^2 + A_y^2}$, $\theta = tan^{-1}\left(\frac{A_y}{A_x}\right)$
-		\end{center}
-	\end{itemize}
-	Questa operazione gode di proprietà commutativa e associativa.
-	\item \textbf{Sottrazione fra vettori}; $\overrightarrow{A} - \overrightarrow{B} = \overrightarrow{C}$\par
-	\noindent La sottrazione usa la definizione di \textbf{opposto}, definito come $\overrightarrow{A} + \overrightarrow{-A} = 0$. Si tratta di un vettore parallelo al primo, ma con verso opposto. Attacca le code dei due vettori e traccia una linea che collega le teste: questo è il tuo risultato.
-	\item \textbf{Moltiplicazione con scalare}; $n\overrightarrow{A}$\par
-	\noindent Abbastanza autoesplicativo, serve solo a modificare il modulo ed eventualmente direzione se è negativo.
+	\item \textbf{Somma algebrica fra vettori}: $\overrightarrow{A} = \overrightarrow{B}+\overrightarrow{C} = (B_x+C_x)\hat{i} + (B_y+C_y)\hat{j}$
+	\item \textbf{Moltiplicazione con scalare}: $n\overrightarrow{A}$
+	\item \textbf{Coordinate cartesiane in funzione delle polari}: $x = rcos(\theta)$, $y = rsin(\theta)$.
+	\item \textbf{Coordinate polari in funzione delle cartesiane}: $\theta = tan^{-1}\left(\dfrac{y}{x}\right)$, $r = \sqrt{x^2 + y^2}$.
 \end{itemize}
 
 %
 
 \section{Esercizi svolti}
+\textbf{Esercizio 1: Passaggio fra tipi di coordinate}\par
+\noindent Supponiamo di avere due punti in coordinate cartesiane $A = (2.00, -4.00)m; B = (-3.00, 3.00)m$. Vogliamo passare a coordinate polari.\newline
+
+\noindent Ricordiamo che la forma polare è espressa nella formula $(r,\theta)$, dove $r$ è il raggio che passa per l'origine e $\theta$ l'ampiezza dell'angolo da esso formato. Abbiamo che: \[r = \sqrt{x^2 + y^2}; \theta = arctan\left(\frac{y}{x}\right)\]
+\noindent Quindi sostituiamo i valori richiesti alle variabili per il punto $A$ e $B$:
+\begin{itemize}
+	\item $r_A = \sqrt{x^2 + y^2} = \sqrt{2^2 - 4^2} = 4.47m$
+	\item $\theta_A = arctan\left(\dfrac{y}{x}\right) = \theta = arctan\left(\dfrac{-4}{2}\right) = \theta = arctan(-2) = -63.4°$
+	\item $r_B = \sqrt{-3^2 + 3^2} = 4.24m$
+	\item $\theta_B = arctan\left(\dfrac{3}{-3}\right) = arctan(-1) = -45°$
+\end{itemize}
+\noindent Notare che il punto $B$ risiede necessariamente nel secondo quadrante e che quindi dovremo sottrarre $180 - 45 = 135$ per ottenere l'effettivo valore in gradi.\newline
+
+\noindent\textbf{Esercizio 2: Somma nella stessa direzione}\par
+\noindent
+
+\noindent\textbf{Esercizio 3: Somma in direzioni diverse}\par
+\noindent

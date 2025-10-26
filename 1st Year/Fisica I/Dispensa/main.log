@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  18 OCT 2025 16:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.3.4)  26 OCT 2025 16:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -274,7 +274,44 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 Chapter 1.
 (./Chapters/1.tex [4
 
-] [5]) [6]
+]
+Overfull \hbox (4.34738pt too wide) in paragraph at lines 50--51
+[]\OT1/cmr/bx/n/12 Coordinate po-lari in fun-zione delle carte-siane\OT1/cmr/m/
+n/12 : $\OML/cmm/m/it/12 ^^R \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 tan[] []$\OT1/c
+mr/m/n/12 , $\OML/cmm/m/it/12 r \OT1/cmr/m/n/12 = []$. 
+ []
+
+[5]
+Underfull \hbox (badness 10000) in paragraph at lines 57--58
+
+ []
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 63.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 63.
+
+Missing character: There is no ° in font cmr12!
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 65.
+
+
+LaTeX Warning: Command \textdegree invalid in math mode on input line 65.
+
+Missing character: There is no ° in font cmr12!
+
+Overfull \hbox (0.40923pt too wide) in paragraph at lines 67--68
+\OT1/cmr/m/n/12 Notare che il punto $\OML/cmm/m/it/12 B$ \OT1/cmr/m/n/12 risied
+e nec-es-sari-a-mente nel sec-ondo quad-rante e che quindi dovremo
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 67--68
+
+ []
+
+) [6]
 Chapter 2.
 (./Chapters/2.tex
 Underfull \hbox (badness 10000) in paragraph at lines 15--16
@@ -353,13 +390,13 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 3497 strings out of 476182
- 53430 string characters out of 5795596
- 1936975 words of memory out of 5000000
- 25423 multiletter control sequences out of 15000+600000
+ 3498 strings out of 476182
+ 53444 string characters out of 5795596
+ 1937975 words of memory out of 5000000
+ 25424 multiletter control sequences out of 15000+600000
  567621 words of font info for 72 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 64i,16n,70p,641b,328s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,16n,70p,641b,252s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/f27/.texlive2023/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share
@@ -376,7 +413,7 @@ pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (23 pages, 224794 bytes).
+Output written on main.pdf (23 pages, 225917 bytes).
 PDF statistics:
  164 PDF objects out of 1000 (max. 8388607)
  104 compressed objects within 2 object streams

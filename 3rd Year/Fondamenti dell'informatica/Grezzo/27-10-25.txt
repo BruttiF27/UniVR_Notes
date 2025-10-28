@@ -1,0 +1,187 @@
+27-10-25 fondInfo
+
+--- Pumping lemma per linguaggi regolari
+Dato L linguaggio regolare, allora necessariamente \exists k \in N t.c \forall z\in L : |z| \geq k		//(se la lunghezza è maggiore di k)
+	Allora esistono tre sottostringhe di z che la compongono: \exists u,v,w t.c. z = uvw.
+	In particolare:
+		- |uv| \leq k
+		- |v| > 0
+		- \forall i\in N t.c. uv^iw\in L.		// Posso ripetere una stringa v un numero arbitrario di volte e rimango ugualmente nel linguaggio.
+		
+Supponiamo di avere un DFA M, con linguaggio L \subseteq \Sigma*. L è regolare, quindi L = L(M).
+	- Fra tutte le stringhe componibili ne esisterà una parte tali che |z| \geq k, mentre l'altra |z| < k.
+	- La prima sarà l'insieme di tutte le suddivisioni della stringa z, dove z = uvw.
+		- In questo insieme avremo una parte con tutte le stringhe |uv| \leq k, ed un'altra dove |v| > 0.
+		- La suddivisione che individua il lemma è l'intersezione fra queste due parti, la quale afferma che \forall i\in N, uv^iw\in L.
+		
+- Dimostrazione
+	L Regolare \implies esiste DFA M t.c. L = L(M).		M = <Q, \Sigma, \delta, q_0, F>. Gli stati Q sono di numero finito
+	
+	|Q| = n\in N. Ipotizzo che k=n, dove k è il numero di stati Q.
+	
+	Prendiamo una stringa z\in L tale che |z| \geq k
+	La stringa sarà: z = a_1a_2...a_m, m \geq k
+	In automa sarà: z = q_0 -> q_1 -> q_2 -> ... -> q_m, dove gli archi o freccette rappresentano in sequenza a_1, a_2, ..., a_m
+		Per leggere m simboli attraverseremo m+1 stati.
+		Attraverseremo tutti gli stati più uno.
+		
+		m \geq n \implies attraversiamo n+1 stati.
+				\implies m+1 \geq n+1
+				\implies Atttraersiamo più stati di quelli in Q, quindi uno di loro è ripetuto nel riconoscimento di z.
+				
+	Supponiamo \overline{q} \in Q sia il primo stato (leggendo z) che viene ripetuto, in cui torniamo per riconoscere z.
+	L'automa generalizzato è quindi: q_0 -> ... -> \overline{q} -> ... ->q_m
+		\overline{q} è uno stato che ritorna anche su se stesso e va anche a q_m. Gli archi sono rappresentati sempre da a_m.
+		
+	Non ci sono stati ripetuti perché \overline{q} è il primo perr costruzione. Il loop a cui va in contro è la stringa v che può essere ripetuta i volte, sempre rimanendo nel linguaggio
+
+Questa suddivisione soddisfa il lemma?
+	u va da q_0 alla prima occorrenza di \overline{q}.
+	v va da \overline{q} a \overline{q} (percorso che porta a riotrovare lo stato)
+	w va da \overline{q} a q_m finale.
+	
+	1. |uv| \leq k
+		q_0 -> q_1 -> ... -> q_{n-1}.		//q_{n-1} va in loop, ritorna su sé stesso.
+		Q = {q_0q_1...q_{n-1}}, |Q| = n.	// Necessariamente passa tutti gli stati.
+		
+	2. |v| > 0		// Almeno un arco deve uscire dallo stato e ritornare nello stesso.
+	
+	3. q_0 -> ... -> \overline{q} -> ... ->q_m
+		// Qualunque sia il numero di volte che v si ripete, si arriverà ugualmente allo stato finale. Quindi \forall i, uv^iw \in L raggiungerà q_m.
+		
+	Quindi di base questa suddivisione vale, ma viene a mancare se ci sono dei legami fra le stringhe.
+	
+%
+
+Dimostrato ch eil lemma è valido per linguaggi infiniti grazie al ciclo.
+Proviamo però a dimostrare che per un linguaggio non regolare non vale il lemma, dicendo che \neg(Linguaggio regolare) \implies \neg(pumping lemma)
+	
+Sia L non regolare, allora \forall k \exists z\in L t.c. |z| \geq k \forall uvw = z
+	- |v| > 0
+	- |uv| \leq k
+	- \exists i \in N . uv^iw \notin L
+	
+Prendiamo tutte le stringhe dell'intersezione fra i sottoinsiemi |v| > 0, |uv| \leq k. \exists i \in N t.c. uv^iw \notin L
+Quindi dimostriamo che esiste un indice i per il quale non vale il lemma.
+
+L = {0^n1^n | n\in N}. Quindi \espilon, 01, 0011, 000111, etc. sarà il linguaggio sul quale dimostreremo il non lemmma.
+
+\forall k\in N t.c. \exists z\in L, |z| \geq k t.c. \forall uvw = z:
+	- |uv| \leq k
+	- |v| > 0
+	- \exists i t.c. uv^iw \notin L
+	
+Condizioni di appartenenza a L: 0^a1^b\in L \iff a=b.
+	
+Fissiamo k\in N. k non deve avere alcun vincolo.
+	Quindi z = 0^k1^k, che ha lunghezza |<| \geq k.
+	
+La uv, per ipotesi, è necessariamente minore di k, qunidi né u né v possono toccare 1^k.
+	Dunque uv\in 0^k.	// La sottostringa uv è composta da soli 0.
+	
+Prendiamo una stringa z_i = uv^iw = 0^{k+(i-1)*|v|}1^k
+	- Se tolgo v e i=0: 0^{k+(0-1)|v|}1^k = 0^{k-|v|}1^k
+	- Se lascio v una volta e i=1: 0^{k+(1-1)|v|}1^k = 0^k1^k
+	- Se ripeto tre volte v e i=3: 0^{k+(3-1)|v|}1^k = 0^{k+2|v|}1^k
+	
+z_i = 0^{k+(i-1)|v|}1^k
+	- i=2 \implies z_2 = 0^{k+|v|}1^k \in L ?
+		\iff k+|v| = k \iff |v| = 0. Assurdo perché, come detto nei requisiti, |v| > 0, quindi z_2 \notin L.
+		
+--- Ex. 2.1
+Dato il linguaggio L = {0^n1^m0^{m+n} | n,m \in N}, dimostrare che non è regolare.
+
+- Condizioni di appartenenza
+	0^a1^b0^c \in L \iff c = a+b.
+	
+- Dimostrazione
+	1. Fissiamo k\in N.
+		n = m = k \implies z = 0^k1^k0^{2k}, che appartiene a L e |z| > \geq k.
+
+		0^k		1^k		0^{2k}
+		|------|-------|--------------------|
+
+	Per i vincoli sulle suddivisioni fissati dal pumping lemma:
+		- |uv| \leq k \land |v| > 0
+		- uv \in 0^k
+		
+	2. z_i = 0^{k+(i-1)|v|}1^k0^{2k}
+		i=2\implies z_2 = 0^{k+|v|}1^k ^{2k} \in L \iff
+			k + |v| + k = 2k
+			2k + |v| = 2k \iff |v| = 0. Assurdo per ipotesi sulla suddivisione.
+			
+	Quindi siccome |v| \neq 0 \implies z_2 \notin L.
+	
+--- Ex. 2.9
+L = {0^n | n potenza di 2} \equiv {0^n | \exists m . n = 2^m}
+
+- Condizioni di appartenenza: 0^a \in L \iff a potenza di 2.
+
+- Dimostrazione
+	1. Fissiamo k
+		z = 0^{2^k}. Così non pone vincoli su k. Appartiene ad L e |<| \geq k
+		z_i = 0^{2^k + (i-1)|v|}
+		
+		i = 2 \implies z_2 = 0^{2^k+|v|} \in L \iff \exists m t.c. 2^k + |v| = 2^m		// Se esiste quindi una potenza di 2 che cattura esattamente questa lunghezza.
+		
+		Notiamo che 2^k + |v| = 2^m:
+		- La funzione potenza di 2 è crescente	
+			2^m = 2^k + |v|, con |v| > 0
+			2^m > 2^k \implies m > k.
+		- Se m > k, allora \exists j>0 t.c. m = k+j
+			Otteniamo con questo: 2^k+|v| = 2^{k+j} 
+										&= 2^k * 2^j
+										
+			|v| = 2^k*2^j - 2^k = 2^k(2^j-1)
+			
+			per j > 0, allora 2^j>1 per forza. Quindi 2^j-1 > 0 \equiv 2^j-1 > 1
+			
+	Quindi z_2\in L \iff |v| > k, che \implies |uv| \geq |v| > k, che è assurdo per le ipotesi suddivisione.
+	Dunque |uv| \leq k \implies z_2\notin L per ipotesi.
+	
+--- Ex. 2.8
+\Sigma = {0,1}, L = {\sigma \in {0,1}* | numero di 0 è uguale al numero di 1}.
+	|\sigma|_0 \equiv n° di 0
+	|\sigma|_1 \equiv n° di 1
+	
+Diciamo L_0 = {0^n1^n | n\in N} \subset L.
+
+- Condizioni di appartenenza: \sigma \in L \iff |\sigma|_0 = |\sigma|_1
+- Dimostrazione:
+	1. Fissiamo k\in N.
+		z = 0^k1^k\in L.
+		
+		Per le condizioni sulla suddivisione abbiamo che |v| \in 0^k.
+		
+		z_i = 0^{k+(i-1)|v|}1^k
+		i = 2 \implies z_2 = 0^{k+|v|}1^k \im L \iff |z_2|_0 = |z_2|_1 \equiv k+|v| = k \iff |v| = 0.
+		
+		Siccome |v| \neq 0 per le ipotesi, allora z_2 \notin L.
+		
+--- Ex 2.29
+L = {0^n1^m0^h | n<m<h}, dimostrare che non è regolare.
+
+- Condizioni di appartenenza: 0^a1^b0^c \in L:
+	- \iff a<b<c
+	- \iff \exists i,j \neq 0, b=a+i, c=b+j
+	
+- Fissiamo k.
+	z = 0^k1^{k+1}0^{k+2} \in L, con |z| \geq k.
+	Per i vincoli sulla suddivisione abbiamo uv \in 0^k
+	
+	z_i = 0^{k+(i-1)|v|}1^{k+1}0^{k+2}
+	
+	i = 2 \implies z_2 = 0^{k+|v|}1^{k+1}0^{k+2} \in L \iff \begin{cases}
+		k+|v| < k+1 \iff |v|<1 \iff |v| = 0\\		// Sta roba è assurda per la suddivisione come prima lmao
+		k+1 < k+2		// Sta roba è vera
+	\end{cases}
+	
+	Siccome |v| \neq 0, allora z_2 \notin L per ipotesi.
+	
+---
+Il workflow è quindi:
+
+	- Se dimostrare un L reg, costruire automa e dimostrare L = L(M)
+	- Se dimostrare un L non reg, usare pumping lemma e verificare le condizioni di appartenenza.
+		1. Fissare k generico e scegliere la stringa z (attenzione, k non deve avere vincoli)
+		2. Cercare i\in N tale che z_i \notin L.

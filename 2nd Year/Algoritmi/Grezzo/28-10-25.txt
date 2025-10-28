@@ -1,0 +1,77 @@
+28-10-25 Algoritmi
+
+Formula per il totale dei nodi (somma totale elementi in una serie geometrica): \frac{1-2^{h+1}}{1-2} = 2^{h+1}-1
+Al livello più basso abbiamo in totale n/2 nodi, con 0 operazioni. 		// n/2 perché consideri solo quel livello senza guardare i superiori, quindi non è n.
+Al precedente, n/4, con 1 operazione.
+Al precedente ancora, n/8, con 2 operazioni. e così via.
+
+Voglio una formula che dà la complessità dell'algoritmo
+\sum_{i=0} i\frac{n}{2^{i+1}}		// i sono le operazioni fatte in quel livello, nel denominatore comporrà il totale dei nodi.
+
+\sum_{i=0} i\frac{n}{2^{i+1}} \leq n\sum_{i=0}^{+\infty} i(\frac{1}{2})^{i+1}.		// La sommatoria converge ad un numero finito, quindi è lineare.
+
+// Vediamo come converge
+\sum_{i=0}^{\infty} iq^{i+1}		// Somiglia alla sommatoria delle derivate di una serie geometrica.
+	&= \sum_{i=1}^{\infty} iq^{i+1}
+	&= q^2 \sum_{i=1}^{\infty} iq^{i-1}		// Sommatoria delle derivate dei termini di una serie geometrica. Questa converge alla derivata della somma. E' un numero finito.
+	
+Esce che la sommatoria è una costante e la funzione è lineare. Figo, hai le basi per fare un algoritmo di ordinamento basato sull'heap.
+
+--- HeapSort
+HeapSort(A) {
+	buildHeap(A);		// Crea l'heap
+	
+	for (i = A.length; i > 1; i--) {
+		switch(A[1], A[i]);
+		A.heapSize--;					// Riduco la dimensione dell'heap
+		heapify(A,1);
+	}
+}
+
+Perché funziona?
+Prendi l'array già organizzato come heap. L'elemento più piccolo è la radice, quello più grande, in fondo.
+Scambio l'elemento in fondo con il primo e poi decremento la dimensione. Prendo l'elemento più grande e lo metto in cima, poi con heapify ordina l'array fin quando non scorre tutti
+gli elementi.
+
+- Complessità: buildHeap è lineare, switch è costante, heapify è logn. il corpo del ciclo for nel peggiore dei casi è nlogn.
+	limite superiore nlogn, il limite inferiore è log(n!) = \theta(logn^n) = \theta(nlogn)
+- Ordina in loco, perché ogni operazione è fatta sullo stesso array
+- è stabile? No. Prova a usare un array con tutti gli elementi uguali.
+
+RICORDARE n! = n^n.
+
+--- QuickSort
+Ha di base divide et impera come nel mergeSort.
+Prendiamo l'array, lo divisiamo in due parti tali che tutti gli elementi della prima parte siano minori o uguali di quelli della seconda.
+Poi ordino la parte di sinistra e dopo la parte di destra.
+
+QuickSort(A, P, r) {		// P è dove parte l'array, r è dove finisce l'array.
+	if (P < r) {
+		q = partition(A,P,r);	// Divido l'array secondo la logica su scritta. q è l'elemento perno, pivot.
+		QuickSort(A,P,q);		// Ordino la sinistra
+		QuickSort(A,q+1,r);		// Ordino la destra
+	}
+}
+
+// Complessità: proporzionale agli spostamenti di i e j. è lineare.
+partition(A, P, r) {
+	x = A[P];			// Prende il primo elemento e lo rende quello medio per spostare gli elementi.
+	i = P-1;
+	j = r+1;
+	
+	while (1) {
+		while (A[j] > x) {
+			j = j-1;
+		}
+		
+		while (A[i] < x) {
+			i = i+1;
+		}
+		
+		if (i < j) {
+			switch(a[i], A[j]);
+		} else {
+			return j;
+		}
+	}
+}

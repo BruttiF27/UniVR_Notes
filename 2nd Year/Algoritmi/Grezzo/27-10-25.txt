@@ -1,0 +1,86 @@
+27-10-25 Algoritmi
+
+a = \begin{cases}
+	Potenza del pc: 100mil istruzioni al secondo
+	2n^2 di complessità
+\end{cases}
+
+b = \begin{cases}
+	potenza del pc: 1mil istruzioni al secondo
+	50nlogn di complessità
+\end{cases}
+
+Nel caso a abbiamo t = \frac{2*(10^6)^2}{10^8} = 2*10^4 = 20.000sec = 5.56h. Non carino. Hanno usato insertionSort.
+Nel caso b abbiamo t = \frac{50*10^6*log10^6}{10^6} = 1000sec = 16.67min. Meglio, no?
+Questo per dimostrare che tendenzialmente le costanti hanno poco impatto sul tempo di esecuzione, sebbene esistano casi in cui ciò non è vero.
+
+-- Esiste qualcosa di meglio di nlogn?
+- Alberi binari; costruiti con nodi e archi.
+	In cima abbiamo un nodo di riferimento detto radice, il quale avrà dei figli.
+	I figli sono altri nodi che discendono dal superiore. Sono necessariamente max 2 in quanto albero binario.
+	Possono avere anche solo uno o 0 figli.
+	Se un nodo non ha figli lo chiamiamo foglia.
+	
+	Gli alberi hanno dei livelli, i quali indicano il totale dei nodi in una singola riga. Quando un livello ha il numero massimo di nodi da esso ottenibili, si dice completo.
+	Esistono anche alberi semi-completi. Se tutti i livelli son completi tranne l'ultimo e questo ha foglie da sinistra verso destra senza buchi.
+	
+	Semi-compl:
+		-			// Lv.1, un nodo, max
+	-		-		// Lv.2, due nodi, max
+-	-				// Lv.3, due nodi, non max, albero semicompleto.
+
+	Ex. albero binario
+			1
+		2		3
+	4		5		6		7
+8	9	10
+
+Posso vedere i nodi come elementi di un array {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+Se da un nodo devo passare al figlio faccio indice*2+0 per il figlio sx, indice*2+1 per quello dx.
+All'incontrario è indice/2, divisione intera.
+Vantaggio: semplicità di spiegazione con la notazione puramente con gli indici.
+
+-- Heap è struttura ad albero binario semicompleto.
+In ogni nodo si pone un oggetto, su cui è definita una relazione di ordinamento, quindi sono comparabili.
+Per ogni nodo, i figli sono <= dei genitori.
+
+-- Supponiamo ci venga dato un'heap.
+Supponiamo che C'è un nodo che potrebbe non soddisfare la proprietà appena vista, quindi potrebbe essere più grande del genitore.
+Il problema è locale. Proviamo a vedere se l'anomalia viene trasmessa alle foglie. Se ci arriva, sarisce.
+
+- Heapify(A, i)		// Con struttura ad albero binario A e indice i.
+
+heapify(A, i) {
+	l = left(i);		// Prende figlio sx
+	r = right(i);		// Prende figlio dx
+	
+	if (l <= A.heapSize && A[l] > A[i]) {		// Se il figlio sx esiste ed il suo valore è maggiore di i, la proprietà non è rispettata.
+		largest = l; 
+	} else {									// Altrimenti segna che il più grande è i, come inteso.
+		largest = i;
+	}
+	
+	if (r <= A.heapSize && A[r] > A[largest]) {	// Controllo del figlio destro
+		largest = r;
+	}
+	
+	if (largest != i) {							// Caso in cui la proprietà non è valida.
+		switch(A[i], A[largest]);				// Switch nel senso che scambia la posizione dei due indici. L'anomalia è ora su largest
+		heapify(A, largest)						// Soluzione ricorsiva che continuerà a spostare l'anomalia fino all'eventuale foglia.
+	}
+}
+
+La complessità è equivalente al numero di livelli dell'albero, alla sua profondità. Il caso peggiore arriva quindi in fondo all'albero e la complessità è lineare.
+Il numero di nodi è esponenziale scendendo, quindi per ottenere il numero effettivo si fa il logaritmo dell'esponenziale.
+La complessità di heapify è quindi log(numero nodi).
+
+-- è possibile passare da array a heap?
+
+buildHeap(A) {
+	A.heapSize = A.length;
+	
+	// Tutti i nodi con chiave maggiore di i sono a posto. Chiama heapify, se la proprietà della heap è ok, va bene, altrimenti la riordina come vista nell'algoritmi prima.
+	for (i = A.length/2; i > 0; i--) {
+		heapify(A, i);
+	}
+}

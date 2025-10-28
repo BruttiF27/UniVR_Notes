@@ -1,0 +1,43 @@
+28-10-25 Prog2
+
+--- Packages e visibilità delle classi
+Pacchetto è un gruppo di classi, le quali son localmente correlate. Consente di avere codice modulare e riutilizzabile.
+Sono visti come una directory con files .java.
+
+Il linguaggio pone vincoli sulle cartelle, tali namespace e scope. Quindi puoi ridichiarare un package in più file senza problemi.
+
+// Convenzione di nomenclatura, nazione.affiliazione.myPackage. Metterlo all'inizio del file dice che il file appartiene al pacchetto.
+package it.nanowar.ofsteel.helloWorld;
+
+Puoi innestare più pacchetti e per usarli in file diversi bisogna usare import.
+import pacchetto.subpacchetto.subsubpacchetto
+import pacchetto.*		// Per importare ogni subPacket del pacchetto
+
+Se non è dichiarato un'appartenenza ad un pacchetto, al file sarà associato quello base, senza nome, ed inaccessibile da altri file o classi, quindi privato del pacchetto default.
+Cosa che tendenzialmente non va bene.
+
+Per progetti grossi è necessario affidarsi a build tools ad-hoc come Maven per gestire packaging e deployment
+
+--- Visibilità delle classi
+Ogni classe è locale al pacchetto dove è definita. Quindi importando un pacchetto potrai leggere ogni classe ivi dichiarata.
+Però bisogna comunicare al file dove può trovarla. Ci son due modi:
+	- Con nomi interamente qualificati
+	package calc ;
+
+	class Calculator {
+		public static num.Real div(num.Natural a, num.Natural b) {
+		// compute the division of a by b
+		}
+	}
+	
+	- Con direttive import
+	package calc;
+
+	import num.Real ; // this two imports can be replaced
+	import num.Natural ; // by a single num .import
+
+	class Calculator {
+		public static Real div(Natural a, Natural b) {
+		// compute the division of a by b
+		}
+	}

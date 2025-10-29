@@ -1,0 +1,71 @@
+28-10-25 fondInfo
+
+--- Linguaggi context-free (CF)
+Passaggio da linguaggi legati a DFA a linguaggi liberi da questi vincoli. Sono dati da una grammatica specifica, detta libera da contesto.
+
+-- Grammatica CF: G = <V, T, P, S>
+\begin{itemize}
+	\item \textbf{V}: Insieme finito di simboli non terminali, quindi di variabili.
+	\item \textbf{T}: Insieme finito di simboli terminali
+	\item \textbf{P}: Insieme finito di produzioni, ovvero regole di derivazione.
+	\item \textbf{S\in V}: Simbolo iniziale, appartenente all'insieme dei simboli variabili.
+\end{itemize}
+
+Una cosa da notare è come il tipo di produzioni determina il tipo di grammatica. Quindi le modalità di derivazione sono il discriminante per le varie grammatiche CF. Queste sono però sempre scritte in forma $A\to \alpha$, dove $A\in V$ e $\alpha \in (V\cup T)*$, dove è una sequenza di simboli terminali e non terminali.\par
+Dalla forma generale, se la A è una variabile, necessariamente avremo un linguaggio libero da contesto, perché questa può essere sostituita con \alpha indipendentemente dai simboli presenti prima e dopo A, quindi indipendentemente dal contesto.
+
+-- Esempio grammatica CF: grammatica espressioni booleane
+E = <V,T,P,S>
+	- V = {E}
+	- T = {0,1,\land,\lor,\neg,(,)}
+	- P : E \to 0|1 \equiv E\to 0, E\to 1
+		E \to (E \land E)
+		E \to (E \lor E)
+		E \to \neg E
+	- S = E
+
+Qui '|' = \lor
+E \to 0 | 1 | (E\land E) | (E \lor E) | \neg E
+
+-- Linguaggio generato
+Supponiamo di avere la produzione A\to \beta\in P. Questa dice che A può essere sostituita con \beta, che è sequenza di simboli terminali e non terminali per definizione.
+Quindi se noi abbiamo per esempio \alpha A \gamma, possiamo sostituire A e ottenere \alpha\beta\gamma. Questo con \alpha, \gamma \in (V\cup T)*, come \beta. Abbiamo appena fatto una derivazione.
+Le derivazioni si definiscono come l'applicazione di una produzione ad uno dei simboli non terminali in una sequenza \alpha \in (V\cup T)*.
+
+È possibile applicare un numero i volte di produzioni e la generazione termina quando non ci sono più simboli variabili.
+A partire da questo concetto possiamo definire un linguaggio generato da una grammatica context free.
+
+-- Linguaggio generato da G:L(G)
+
+//* generalmente indica una sequenza.
+
+La grammatica G è la stessa quadrupla: <V,T,P,S>
+L(G) = {\sigma\in T* | S\implies*\sigma}.
+Quindi è l'insieme delle sequenze di simboli terminali [T*] generate da S, ovvero per le quali esiste una derivazione da S.
+Diremo inoltre che L \subseteq T* è context free se esiste una grammatica G, sempre CF, che lo genera. Quindi t.c. L = L(G).
+
+-- Esempio: L = {0^n1^n | n\in N}.
+Vogliamo dimostrare che L è un linguaggio CF
+
+Con le sue stringhe possiamo definire la grammatica CF come: G:S\to \epsilon|0S1.
+Quindi con la grammatica G possiamo sostituire ad S una stringa vuota \epsilon oppure una con 0 e 1.
+	- \epsilon \in L? Sì.
+		Questa scrittura è valida per n=0, infatti 0^01^0 = \epsilon.
+		
+Proviamo quindi a dimostrare che L = L(G), quindi che:
+	1. L \subseteq L(G)
+		L \subseteq L(G) \equiv \sigma\in L \implues \sigma\in L(G) \equiv S \implies* \sigma. Quindi \sigma\in L \implies S\implies*\sigma.
+	2. L(G) \subseteq L
+		L(G) \subseteq L \equiv \sigma\in L(G) \implies \sigma\in L \equiv S\implies*\sigma. Quindi S\implies*\sigma \implies \sigma\in L.
+		
+Per dimostrare 1 bisogna fare induzione sulla lunghezza di \sigma:
+	Base: |\sigma| minima in L
+	Ind: Si suppone che \forall\sigma t.c. |\sigma|\leq n valga l'ipotesi 1. La dimostriamo per |\sigma|>n in L
+	
+Per dimostrare 2 facciamo induzione sulla lunghezza della derivazione.
+S\implies*\sigma \equiv \exists i t.c. S\implies_i\sigma. L'induzione è quindi su i.
+	Base: La derivazione più corta possibile di simboli terminali.
+	Ind: Supponiamo che \forall i\leq n t.c. S\implies_i\sigma, allora \sigma\in L, per ipotesi induttiva.
+	Dobbiamo dimostrare che se S\implies_{n+1}\sigma, allora \sigma\in L.
+	
+Da 13s in poi è solo dimostrazione di questa cosa. È un casino e serve mente fresca.

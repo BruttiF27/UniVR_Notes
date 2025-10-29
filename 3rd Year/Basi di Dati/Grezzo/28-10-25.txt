@@ -1,0 +1,64 @@
+28-10-25 Basi di dati
+
+--- Relazioni ternarie
+Relazione che lega tre entità. Ha vincoli di cardinalità massima N. Il massimo è necessariamente maggiore di 1 poiché altrimenti degenererebbe in alcune relazioni binarie.
+
+Dinamiche:
+\begin{itemize}
+	\item Un'istanza del concetto per esitere nel sistema richiede sempre la presenza di tre istanze di entità.
+	\item Non esistono eccezioni al punto precedente
+	\item Non esistono situazioni nelle quali la terna di entità debba essere rappresentata più volte.
+\end{itemize}
+
+Può darsi che si istanzi una ternaria erroneamente, poiché se è possibile derivare conclusioni da essa, potrebbe essere meglio rappresentarla come coppia di relazioni binarie
+indipendenti.
+
+Le relazioni ternarie sono utili anche per, in necessità di dover far comparire una coppia più volte, di legare una terza entità per differenziarle.
+Chiamasi effetto di storicizzazione. Per esempio, paziente e dottore devono prendere più appuntamenti, la terza entità sarebbe il tempo, con attributo identificativo la singola
+istanza di tempo.
+
+- Esempio di uso corretto di relazione ternaria
+Un prodotto è fornito ad un dipartimento da un fornitore. Ogni dep può scegliere qualiprodotti ordinare dai fornitori selezionando un sottoindieme dei prodotti forniti dal fornitore
+Ogni fornitore vende a più deps prodotti diversi ed ogni prodotto viene venduto da più fornitori.
+Vedere "esempio relTernaria.drawio".
+Puoi inoltre rappresentare una ternaria come coppie di relazioni binarie, ma cane se dovrai usare più entità. è un peso. Se le ternarie sono usate a modo sono molto carine.
+
+--- Strategie per la progettazione concettuale
+
+-- Approccio di workflow
+- TOP-DOWN:
+	1. Considerare le specifiche globalmente e produrre uno schema iniziale completo, ma con pochi concetti molto astratti.
+	2. Raffinare i concetti astratti fino ad arrivare al dettaglio e definire tutte le specifiche.
+
+- BOTTOM-UP:
+	1. Decomposizione le specifiche iniziali in parti elementari
+	2. Generare fli schemi per tutte le parti elementari individuate
+	3. Fondere gli schemi introducendo anche altri costrutti del modello er.
+	
+- INSIDE-OUT
+	1. Individuare nelle specifiche dei concetti guida per la definizione del DB.
+	2. Generaaizone gdegli schemi per i concetti guida
+	3. Fondwere gli schemi e generare lo schema finale.
+	
+-- Analisi di qualità dello schema concettuale.
+- Verifica di correttezza: Uno schema è corretto se usa correttamente i costrutti del modello concettuale.
+	Tipi di errori:	
+		- errori sintattici
+			- Evitare generalizzazione di relazioni
+			- Evitare relazioni non collegate ad entità oppure relazioni con un identificatore.
+		
+		- Errori semantici
+			- Usare una relazione per iun concetto che ha esistenza autonoma ed identificazione univoca
+			- Usare un attributo per un concetto con struttura propria ed associato ad altri concetti in più punti dello schema
+		
+- Verifica di completezza: Se rappresenta tutte le informazinoi di interesse e se tutte le operazioni nelle specifiche possono essere eseguite a partire dai dati dello schema
+	
+- Verifica di minimalità: Rappresento il concetto del sistema informativo una singola volta. Quando questo è, lo schema è detto minimale. Inoltre, lo schema non è ridondante.
+	Quindi non rappresento qualcosa che è derivabile da ciò che è già inserito nello schema.
+	Uno schema non minimale contiene ridondanze. Dei casi comuni sono:
+		- Ereditarietà delle relazioni
+		- Cicli di relazioni
+
+- Verifica di leggibilità: Quando uno schema rappresenta i requisiti in maniera naturale e facilmente comprensibile.
+	- Curare la scelta di nomi
+	- Evitare rappresentazioni grafiche contorte.

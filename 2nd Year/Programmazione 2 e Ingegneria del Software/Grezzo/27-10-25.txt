@@ -1,0 +1,51 @@
+27-10-25 Prog2
+
+--- Variabili e chiamata alla stack
+
+La memoria è divisa in tre parti:
+\begin{itemize}
+	\item \textbf{Statica}: Determinata con keyword static e condivisa da tutti gli oggetti di una classe.
+	\item \textbf{Dinamica}: Determinata con new, alloca spazio nella heap per la singola istanza di classe che lo richiede.
+	\item \textbf{Stack}: Usata per elementi creati in runtime, come variabili locali o parametri dei metodi.
+\end{itemize}
+
+--- Singleton workflow
+\begin{itemize}
+	\item \textbf{contesto}: Una classe rappresenta un oggetto che richiede una singola istanza.
+	\item \textbf{problema}: Gli utenti sono idioti e potrebbero usare la classe col culo.
+	\item \textbf{soluzione}: Forzare il massimo di oggetti dichiarabili a uno. Un singolo oggetto per classe.
+\end{itemize}
+
+``` Java
+public RingOfPower {
+	private static String owner = "Sauron";		// Campo condiviso dalle istanze, non da mutare
+	private static RingOfPower instance;		// Per dire se esiste un'istanza della classe
+
+	private RingOfPower() { }					// Deduco il costruttore? Vuoto? Basic.
+
+	// Metodo per generare un'istanza della classe. La generazione è limitata da instance. Se != null, non ne crea altre e ritorna quella già dichiarata.
+	public static RingOfPower getInstance() {
+		if (instance == null) instance = new RingOfPower(); 
+		return instance;
+	}
+
+	public String getOwner() {return owner;}	// Vabbè qua torna la stringa. Easy. Per usare la classe: RingOfPower.getInstance();
+}
+```
+
+--- Oggetti immutabili
+Gli oggetti costanti portano con loro metodi read_only. Ma dai, diocane?
+Sono dichiarati con la keyword modificatrice "final", già vista.
+
+Nei metodi le variabili son passate per valore, quindi se lo fai con un oggetto ti passa la stringa del puntatore. Cosa niente male perché consente di accedere ai suoi campi
+con l'operatore . quando necessario.
+
+--- Wrapper classes
+Tipi primitivi sotto forma di classe, definiscono operazioni di conversione fra i tipi.
+Sono chiamati come i tipi primitivi ma hanno la prima lettera maiuscola, creano oggetti che contengono un valore primitivo.
+
+``` Java
+	Integer wi = 27;		// Dichiarazione dell'oggetto wi col valore 3 in maniera non deprecata lmao
+```
+
+Le classi wrapper vengono con alcuni metodi di utility e gli oggetti da esse istanziati sono visti come costanti, come il tipo String.

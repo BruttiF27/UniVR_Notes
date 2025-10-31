@@ -1,33 +1,14 @@
-\section{Struttura ed esecuzione dei programmi}
-Java è usato tendenzialmente per la gestione di programmi di medie dimensioni, quindi necessariamente suddivisi in più parti. Il compilatore vede ogni file con estensione ".java" come una singola classe, ed infatti è richiesto che il nome associato alla classe nel file debba essere uguale a quello del file effettivo. Al sui interno bisognerà poi dichiarare un metodo di nome "main", che fungerà da entry point per quel singolo file. Compilato il programma, sarà possibile eseguirlo grazie al launcher.
-\begin{lstlisting}[language=Java]
-	// Per compilare: javac HelloWorld.java
-	// Per eseguire: java HelloWorld
-	
-	// Dichiarazione di classe, il nome coincide con quello del file.
-	public class HelloWorld {
-		// Entry point del programma, metodo di nome main
-		public static void main (string[] args) {
-			// Blocco di codice
-		}
-	}
-\end{lstlisting}
-\noindent Il compiler restituisce in output un file di estensione ".class". Infatti, ogni file è visto come classe con i relativi oggetti. Il caricamento nella compilazione di queste classi è basato sul \textbf{classpath}, la lista di locazioni dove queste possono essere prese. Se il compiler non trova la classe, lancerà un'eccezione e non verrà creato l'eseguibile.\par
-Ci sono più modi per indicare un classpath al compilatore; indicarla singolarmente oppure contenere tutte le classi in un barattolo, un file con estensione ".jar". Questi sono fondamentalmente degli archivi compressi in cui è salvato il bytecode e altre meta-informazioni. Quindi:
-\begin{itemize}
-	\item Per eseguire da cartelle diverse: \$ java -cp ./nomeCartella nomeEseguibile
-	\item Per creare un file .jar: \$ jar cvf nomeJar.jar classOne.class classTwo.class ...
-	\item Per eseguire un programma con file .jar: \$ java -cp nomeJar.jar nomeEseguibile
-\end{itemize}
-\noindent Nella creazione di un file .jar è possibile aggiungere anche una direttiva su quali classi eseguire di preciso e quali ignorare. Ciò si fa con un file nominato \textbf{manifest.txt}.
-\begin{lstlisting}
-	// manifest.txt
-	Main-Class: nomeClasse
-	
-	// Compilazione
-	jar cvfm nomeJar.jar manifest.txt classOne.class
-\end{lstlisting}
-\noindent Notare i termini \textbf{cvf} e \textbf{cvfm}, significanti rispettivamente create verbose file e create verbose file manifest.
+\begin{comment}
+	Tipi primitivi, variabili e costanti, operatori e assegnamenti.
+	Definizione di classe, campi, metodi e this., parametri formali e attuali
+	metodo costruttore (default constructor, dichiarazione e overloading)
+	Modificatori in generale e modificatori di accesso, visibilità.
+	costrutti condizionali e ciclici
+	Array (pseudocampo length) ed enums (definizione automatizzata)
+	importazione di classi dalle librerie e relativi metodi
+	istanziazione di oggetti con new ed esempio con java.util.Scanner
+\end{comment}
+
 
 %
 

@@ -1,32 +1,95 @@
-\section{Programmazione orientata agli oggetti}
-Il corso si propone di fornire le conoscenze necessarie alla comprensione, sviluppo e correzione di software realizzato in un linguaggio di programmazione orientato agli oggetti e di fornire le competenze relative alla strutturazione di progetti software di medie dimensioni.\par
-Lo scopo e l'utilità della OOP è quello di gestire appropriatamente un programma con molte linee di codice. Rende il codice estremamente modulare, riutilizzabile e di conseguenza risulta più facile mantenerlo. Per il modo in cui sono trattati gli oggetti, inoltre, il codice è reso particolarmente sicuro.\newline
-
-\noindent Familiarizziamo ora con i due concetti base della OOP: \textbf{classi} e \textbf{oggetti}. Le prime definiscono una struttura dati, alla quale è possibile associare dati, detti \textbf{attributi}, e funzioni, chiamate \textbf{metodi}. Dalle classi, che in parole povere fungono da tipo di dato, è possibile ottenere gli oggetti, delle loro istanze, con stessi dati e metodi. Infatti, il processo di creazione di un oggetto è detto \textbf{istanziazione}.\par
-Il workflow della OOP si basa sulle interazioni fra gli oggetti; queste avvengono grazie alle loro \textbf{interfacce}, set di messaggi che l'oggetto può ricevere, mappate ad un metodo nello stesso. Se si riceve un messaggio al di fuori dell'interfaccia, è detto illegale e viene bloccato. Un iter di lavoro generale per una corretta programmazione a oggetti è:
-\begin{enumerate}
-	\item Identificare i componenti.
-	\item Definire l'interfaccia dei componenti.
-	\item Definire le modalità con cui le interfacce consentono l'interazione fra oggetti.
-	\item Minimizzare le relazioni fra i componenti.
-\end{enumerate}
-\noindent Generalmente, è buona pratica documentare il programma ad ogni sviluppo, ma con grandi quantità di dati, la cosa può risultare tediosa. Per questa ragione si usa uno strumento utile per la documentazione delle classi: l'\textbf{Unified Modeling Language}, il quale consente di definire graficamente e quindi documentare un sistema orientato agli oggetti. Verrà approfondito più avanti nel corso.
+\section{Programmazione Orientata agli Oggetti}
+Per \textbf{Programmazione orientata agli oggetti}, o OOP, si intende un particolare paradigma di programmazione strutturato intorno agli oggetti; delle strutture di dati contenenti attributi e metodi. Il software scritto in un linguaggio orientato agli oggetti baserà il suo funzionamento secondo le interazioni fra questi elementi.\par
+Il vantaggio principale di questo modus operandi è nel rendere il codice estremamente modulare, riutilizzabile e mantenibile, in quanto diviso in sezioni precise. I due elementi base della OOP sono le \textbf{classi} e gli \textbf{oggetti}. Le prime definiscono una struttura dati, alla quale è possibile associare dati, detti \textbf{attributi}, e funzioni, chiamate \textbf{metodi}. Dalle classi, che in parole povere fungono da tipo di dato, è possibile ottenere gli oggetti, delle loro istanze, con stessi dati e metodi. A partire da questi elementi, definiamo i principi della programmazione orientata agli oggetti:
+\begin{itemize}
+	\item \textbf{Incapsulamento}: Restrizione dell'accesso ai dati di un oggetto.
+	\item \textbf{Astrazione}: Nascondere dettagli di implementazione e mostrare solamente le caratteristiche essenziali dell'oggetto.
+	\item \textbf{Ereditarietà}: Tramandare campi e metodi ad altri elementi a partire da una superclasse.
+	\item \textbf{Polimorfismo}: Possibilità di modificare campi e metodi delle singole istanze.
+\end{itemize}
+\noindent Un buon iter di lavoro generale per lavorare con un linguaggio orientato a oggetti è dato da \textbf{identificare} classi e oggetti necessari, per poi \textbf{dichiararle} insieme a relativi metodi e attributi utili. Dopodiché bisognerà \textbf{definire} le modalità di interazione fra gli oggetti ed infine \textbf{minimizzarne} quante più possibile.\par
+Essendo che si andrà a lavorare su progetti di medie o grandi dimensioni, risulta essere buona prassi anche una corretta documentazione del codice tramite \textbf{Unified Model Languages}, i quali consentono di creare una descrizione grafica di classi e oggetti. Verranno approfonditi più avanti nel corso.
 
 %
 
-\section{Il linguaggio Java}
-Il linguaggio utilizzato nel corso sarà Java, nato nel '95 e proprietà di Oracle, è diventato lo standard nel mercato del lavoro per il software development. La sua caratteristica principale è la portabilità, ovvero è possibile eseguire programmi su qualunque architettura grazie alla \textbf{Java Virtual Machine}, la quale funge da interprete al codice compilato.\par
-Più precisamente, dopo essere compilato, verrà creato in output un file con estensione ".class" contenente il \textbf{bytecode}. Questo codice è ciò che viene effettivamente interpretato in runtime da una parte della JVM, il compiler \textbf{Just In Time}, utile anche per ulteriori ottimizzazioni. In soldoni, a patto che la macchina abbia installata la JVM, sarà possibile eseguire i files compilati. Altre caratteristiche di Java sono:
+\section{Funzionamento di Java}
+Il linguaggio utilizzato nel corso sarà \textbf{Java}, nato nel '95 e proprietà di Oracle, è diventato lo standard nel mercato del lavoro per il software development. La sua caratteristica principale è la portabilità, ovvero è possibile eseguire programmi su qualunque architettura grazie alla \textbf{Java Virtual Machine}, la quale funge da interprete al codice compilato.\par
+Più precisamente, dopo la compilazione, verrà creato in output un file con estensione ".class" contenente il \textbf{bytecode}. Questo codice è ciò che viene effettivamente interpretato in runtime da una parte della JVM, il compiler \textbf{Just In Time}, utile anche per ulteriori ottimizzazioni. In soldoni, a patto che la macchina abbia installata la JVM, sarà possibile eseguire i files compilati. Altre caratteristiche di Java sono:
 \begin{itemize}
 	\item Linguaggio fortemente tipizzato, ovvero è possibile dichiarare variabili di un determinato tipo di dato, le quali non lo possono cambiare una volta aggiunte al codice.
 	\item Non ha manipolazioni esplicite di puntatori grazie alla filosofia dell'incapsulamento, rendendo meno probabili errori riguardanti la memoria.
 	\item Controlla il runtime, rendendo impossibile avere array overflow.
-	\item Il \textbf{Garbage collector} controlla eventuali leaks di memoria per tapparle.
+	\item Il \textbf{Garbage collector} domina la memoria dinamica, alloca e dealloca dove necessario. Inoltre gestisce memory leak.
 	\item È possibile usare eccezioni per controllare gli errori.
 	\item Linguaggio fortemente dinamico, poiché fa loading e linking in runtime. Inoltre, usa dimensioni di array dinamiche.
 \end{itemize}
-\noindent Dove è possibile installare sulla macchina solo la JVM, tipico se vuoi giocare a Minecraft, per scrivere programmi in Java è necessario usare il \textbf{Java Development Kit}, compreso di debugger, compiler, disassembler, ed un applicativo per la documentazione.\par
-Per l'esecuzione dei programmi abbiamo poi il \textbf{Java Runtime Environment}, avente con sé librerie di classe, il compiler JIT precedentemente menzionato, la JVM e il Java application launcher.\newline
+\noindent Dove è possibile installare sulla macchina solo la JVM, per scrivere programmi in Java è necessario usare il \textbf{Java Development Kit}, compreso di debugger, compiler, disassembler, ed un applicativo per la documentazione.\par
+Per l'esecuzione dei programmi abbiamo poi il \textbf{Java Runtime Environment}, avente con sé librerie di classe, il compiler JIT precedentemente menzionato, la JVM e il Java application launcher.
+
+%
+
+\section{Struttura, compilazione ed esecuzione dei programmi}
+Anzitutto, i programmi scritti in Java hanno estensione ".java" e vedono i blocchi di codice completamente all'interno di una classe, il cui nome deve essere uguale a quello del file. Al suo interno è poi necessario dichiarare l'entry point tramite il metodo \textbf{main}.
+\begin{lstlisting}[language=Java]
+	// Per compilare: javac file1.java file2.java ... filen.java
+	// Per eseguire: java file1 file2 ... filen
+	
+	// Dichiarazione di classe, il nome coincide con quello del file.
+	public class HelloWorld {
+		// Entry point del programma, metodo di nome main
+		public static void main (string[] args) {
+			// Blocco di codice
+		}
+	}
+\end{lstlisting}
+\noindent Post-compilazione, avremo in output un file di estensione ".class". Infatti, ogni file è visto come classe il cui caricamento in compilazione è basato sul \textbf{classpath}, la lista di locazioni dove le classi possono essere prese. Se il compiler non trova una classe, lancerà un'eccezione e non verrà creato l'eseguibile.\par
+Questo procedimento è valido se si lavora da terminale. È consigliato l'utilizzo di un IDE per la semplificazione del lavoro; nel corso verrà usato IntelliJ, il quale consente anche di automatizzare il deployment tramite \textbf{build tools} come Maven, che vedremo nella prossima sezione.
+
+%
+
+\section{Gestione di un progetto su più file}
+Perché limitarsi ad un singolo file quando è possibile dividere in \textbf{unità} ogni funzione? Abbiamo visto nello snippet precedente che possiamo compilare ed eseguire più classi allo stesso tempo, ma la scrittura è estremamente tediosa, inefficiente e soggetta ad errori. La soluzione si ha in due passaggi:
+\begin{itemize}
+	\item Una corretta divisione in cartelle del progetto.
+	\item Raggruppamento delle classi in un unico pacchetto.
+\end{itemize}
+\noindent Il primo passo riguarda uno studio per ingegneria del software, quindi concentriamoci sulla seconda parte. Non è buona prassi, ma generalmente, quando in un file .java non è indicata l'appartenenza ad un pacchetto, il compilatore lo assocerà a quello di default, il quale non ha un nome e non consente ad altre classi di accedervi. Quindi è consigliato specificare l'appartenenza ad un dato pacchetto prima della definizione di classe; ciò consentirà di avere un classpath più compatto e più facile da gestire.\par
+Se volessimo poi gestire facilmente più pacchetti, avremo bisogno di un contenitore più astratto: un file ".jar". Si tratta di un archivio compresso di bytecode e altre metainformazioni; idealmente, si ha un jar per progetto.
+\begin{lstlisting}[language=Java]
+	// Compila: javac -d bin/ src/pkg/MyClass.java
+	// Impacchetta: jar cvf MyJar.jar -C bin/ pkg/
+	// Esegui: java -cp MyJar.jar pkg.MyClass
+	
+	// Segnala che la classe MyClass sta all'interno del pacchetto pkg.
+	package pkg;
+	
+	public class MyClass {
+		public static void main(String[] args) {
+			// Blocco di codice
+		}
+	}
+\end{lstlisting}
+\noindent Bisogna tuttavia specificare quale sia la classe main; a questo scopo vengono in aiuto le metainformazioni menzionate prima. Tramite un file speciale chiamato "manifest.txt" è possibile fare non solo questo, ma anche specificare quali classi compilare.
+\begin{lstlisting}
+	// Impacchetta: jar cvfm MyJar.jar manifest.txt -C bin/ pkg/
+	// Esegui: java -jar MyJar.jar
+	
+	// manifest.txt
+	Main-Class: pkg.MyClass
+\end{lstlisting}
+
+
+
+\section{SPOSTARE: Il linguaggio Java}
+
+
+
+
+
+
+
+
+
 
 \noindent Si suppone che tu abbia frequentato il precedente corso di programmazione, tenuto con C. Conoscerlo faciliterà enormemente le cose, poiché la sintassi per le funzionalità base del linguaggio ne è in gran parte simile. Infatti si mantengono i tipi primitivi: \textbf{int}, \textbf{double}, \textbf{char}, aggiungendo \textbf{boolean} e \textbf{String}, quest'ultimo non primitivo, ma successivamente approfondito. Si mantengono inoltre altre funzionalità come il type casting. Riassumendo, diciamo che la sintassi base di Java è composta da:
 \begin{itemize}

@@ -3,28 +3,31 @@
 \contentsline {section}{\numberline {1.2}Funzionamento di Java}{5}{}%
 \contentsline {section}{\numberline {1.3}Struttura, compilazione ed esecuzione dei programmi}{6}{}%
 \contentsline {section}{\numberline {1.4}Gestione di un progetto su più file}{6}{}%
-\contentsline {section}{\numberline {1.5}SPOSTARE: Il linguaggio Java}{7}{}%
-\contentsline {chapter}{\numberline {2}Il linguaggio Java}{9}{}%
-\contentsline {section}{\numberline {2.1}Dichiarazione di classi e oggetti}{9}{}%
-\contentsline {section}{\numberline {2.2}Librerie utili}{10}{}%
-\contentsline {section}{\numberline {2.3}Incapsulamento e information hiding}{12}{}%
-\contentsline {section}{\numberline {2.4}Array, matrici e tipo enum}{13}{}%
-\contentsline {chapter}{\numberline {3}Librerie utili}{15}{}%
-\contentsline {section}{\numberline {3.1}java.lang.*}{15}{}%
-\contentsline {subsection}{\numberline {3.1.1}java.lang.System}{15}{}%
-\contentsline {subsection}{\numberline {3.1.2}java.lang.String}{15}{}%
-\contentsline {subsection}{\numberline {3.1.3}java.lang.Object}{15}{}%
-\contentsline {subsection}{\numberline {3.1.4}java.lang.Integer, java.lang.Character}{15}{}%
-\contentsline {subsection}{\numberline {3.1.5}java.lang.AutoCloseable}{15}{}%
-\contentsline {subsection}{\numberline {3.1.6}java.lang.Iterable<T>}{15}{}%
-\contentsline {subsection}{\numberline {3.1.7}java.lang.Thread}{15}{}%
-\contentsline {section}{\numberline {3.2}java.util.*}{15}{}%
-\contentsline {subsection}{\numberline {3.2.1}java.util.Scanner}{15}{}%
-\contentsline {subsection}{\numberline {3.2.2}java.util.Arrays}{15}{}%
-\contentsline {subsection}{\numberline {3.2.3}java.util.Iterator<T>}{15}{}%
-\contentsline {subsection}{\numberline {3.2.4}Strutture dati}{15}{}%
-\contentsline {section}{\numberline {3.3}java.io.*}{16}{}%
-\contentsline {subsection}{\numberline {3.3.1}java.io.Closeable}{16}{}%
-\contentsline {subsection}{\numberline {3.3.2}java.io.Reader, java.io.FileReader, java.io.BufferedReader}{16}{}%
-\contentsline {subsection}{\numberline {3.3.3}java.io.Writer, java.io.FileWriter, java.io.BufferedWriter, java.io.PrintWriter}{16}{}%
-\contentsline {chapter}{\numberline {4}Boh, da vedersi}{17}{}%
+\contentsline {chapter}{\numberline {2}Il linguaggio Java}{8}{}%
+\contentsline {section}{\numberline {2.1}Tipi primitivi, variabili e costanti, operatori e assegnamenti}{8}{}%
+\contentsline {section}{\numberline {2.2}Definizione di classe, this., parametri formali e attuali}{9}{}%
+\contentsline {section}{\numberline {2.3}Metodo costruttore, costruttore di default e overloading}{9}{}%
+\contentsline {section}{\numberline {2.4}Dichiarazione di classi e oggetti}{9}{}%
+\contentsline {section}{\numberline {2.5}Incapsulamento e information hiding}{10}{}%
+\contentsline {section}{\numberline {2.6}Array, matrici e tipo enum}{11}{}%
+\contentsline {chapter}{\numberline {3}Librerie utili}{13}{}%
+\contentsline {section}{\numberline {3.1}Libreria digitale}{13}{}%
+\contentsline {section}{\numberline {3.2}java.lang.*}{14}{}%
+\contentsline {subsection}{\numberline {3.2.1}.System}{14}{}%
+\contentsline {subsection}{\numberline {3.2.2}.String, StringBuilder}{14}{}%
+\contentsline {subsection}{\numberline {3.2.3}.Math, .Random}{14}{}%
+\contentsline {subsection}{\numberline {3.2.4}.Object}{14}{}%
+\contentsline {subsection}{\numberline {3.2.5}.Integer, .Character}{14}{}%
+\contentsline {subsection}{\numberline {3.2.6}.AutoCloseable}{14}{}%
+\contentsline {subsection}{\numberline {3.2.7}.Iterable}{14}{}%
+\contentsline {subsection}{\numberline {3.2.8}.Thread}{14}{}%
+\contentsline {section}{\numberline {3.3}java.util.*}{14}{}%
+\contentsline {subsection}{\numberline {3.3.1}.Scanner}{14}{}%
+\contentsline {subsection}{\numberline {3.3.2}.Arrays}{14}{}%
+\contentsline {subsection}{\numberline {3.3.3}.Iterator}{14}{}%
+\contentsline {subsection}{\numberline {3.3.4}Strutture dati}{14}{}%
+\contentsline {section}{\numberline {3.4}java.io.*}{15}{}%
+\contentsline {subsection}{\numberline {3.4.1}.Closeable}{15}{}%
+\contentsline {subsection}{\numberline {3.4.2}.Reader, .FileReader, .BufferedReader}{15}{}%
+\contentsline {subsection}{\numberline {3.4.3}.Writer, .FileWriter, .BufferedWriter, .PrintWriter}{15}{}%
+\contentsline {chapter}{\numberline {4}Boh, da vedersi}{16}{}%

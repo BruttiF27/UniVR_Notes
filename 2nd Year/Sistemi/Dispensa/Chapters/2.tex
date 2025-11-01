@@ -66,11 +66,11 @@ I passaggi sono equivalenti a quelli per la risoluzione di un'equazione differen
 	\noindent Per ottenere la forma polinomiale bisogna sostituire alla $t$ una variabile $s$, il cui grado è il numero di derivata dell'elemento: \[s^2 + 3s - 4 = 0\]
 	\noindent \textbf{3. Risoluzione del polinomio ottenuto}\par
 	\noindent Non difficile. Sono i classici passaggi algebrici per le equazioni di secondo grado: \[s^2 + 3s - 4 = 0 \implies (s+4)(s-1) = 0\]
-	\noindent Da questo calcolo ricaviamo due radici distinte: $\lambda_1=-4, \lambda_2=1$, quindi molteplicità algebrica $r=2$, e che i loro ordini di grandezza sono $\mu_1=\mu_2=1$.\newline
+	\noindent Da questo calcolo ricaviamo due radici distinte, quindi $r=2$, i cui valori sono: $\lambda_1=-4, \lambda_2=1$, e che le loro molteplicità sono: $\mu_1=\mu_2=1$.\newline
 	
 	\noindent \textbf{4. Sostituzione nella formula generale}\par
 	\noindent Abbiamo già detto che la formula della soluzione generale è data da: \[v_l(t) = \sum_{i=1}^r \sum_{l=0}^{\mu_i-1} c_{i,l}\times e^{\lambda_i t}\times\frac{t^l}{l!}\]
-	\noindent Dove $i,l$ sono dati dai vincoli di Cauchy. Sostituiamo:
+	\noindent Dove $i,l$ sono coefficienti ottenuti con i vincoli di Cauchy. Sostituiamo:
 	\begin{equation}
 		\begin{split}
 			v_l(t) &= c_1\times e^t\times\frac{t^0}{0!} + c_2\times e^{-4t}\times \frac{t^0}{0!}\\
@@ -109,11 +109,120 @@ I passaggi sono equivalenti a quelli per la risoluzione di un'equazione differen
 \end{itemize}
 
 \subsection{Calcolo della risposta forzata}
-Per il calcolo della risposta forzata ci serviremo di due strumenti: la \textbf{risposta impulsiva} e l'\textbf{operatore di convoluzione}. La prima per poter prendere un qualunque valore della funzione per descriverla, il secondo per darci spazio di manovra nei calcoli e ne parleremo adesso. Fra $u$ e $v$ segnali generici è definito come:
+Per il calcolo della risposta forzata ci serviremo di due strumenti: la \textbf{risposta impulsiva} e l'\textbf{operatore di convoluzione}. La prima per poter prendere un qualunque valore della funzione per descriverla, il secondo invece consente, in presenza di due segnali, di calcolare l'area sottesa del loro prodotto girando rispetto all'asse delle $y$ uno dei due segnali per poi scorrerlo sull'altro. La risposta forzata $v_f$ è quindi definita come:
 \begin{equation}
 	\begin{split}
-		(u*v)(t) &= \int_{-\infty}^{\infty} u(\tau)v(t-\tau) d\tau\\
-			&= \int_{-\infty}^{\infty} v(\tau)v(t-\tau) d\tau
+		v_f = (u*v)(t) &= \int_{-\infty}^{\infty} u(\tau)v(t-\tau) d\tau\\
+			&= \int_{-\infty}^{\infty} v(\tau)u(t-\tau) d\tau
 	\end{split}
 \end{equation}
-\noindent La convoluzione è quell'operazione che ci consente, in presenza di due segnali, di calcolare l'area sottesa del loro prodotto girando rispetto all'asse delle $y$ uno dei due segnali per poi scorrerlo sull'altro. Il $-\tau$ infatti infica il segnale girato, mentre $t$ è la variazione nel tempo.
+\noindent Questo operatore detiene anche la proprietà commutativa, associativa e distributiva rispetto alla somma, consentendo di segliere a piacere il segnale fermo. Inoltre vedremo che l'uscita $v(t)$ di un sistema LTI inizialmente a riposo, in corrispondenza di un ingresso $u(t)$ è data proprio dalla convoluzione fra quest'ultimo e la risposta impulsiva $h(t)$.
+\begin{equation}
+	\begin{split}
+		v(t) = (u*h)(t) &= \int_{-\infty}^{+\infty} h(\tau)u(t-\tau) d\tau\\
+		&= \int_{-\infty}^{+\infty} u(\tau)h(t-\tau) d\tau
+	\end{split}
+\end{equation}
+\noindent Supponendo sempre un sistema LTI causale e quindi inizialmente a riposo, abbiamo la risposta impulsiva $h(t)=0$ quando $t<0$, perché lo stimolo impulsivo $\delta(t)=0$ per $t<0$. In questi termini è possibile considerare l'integrale in un determinato intervallo di tempo, semplificando eventualmente i calcoli:
+\begin{equation}
+	\begin{split}
+		v(t) = (u*h)(t) &= \int_{0^{-}}^{+\infty} h(\tau)u(t-\tau) d\tau\\
+		&= \int_{-\infty}^{t^{+}} u(\tau)h(t-\tau) d\tau
+	\end{split}
+\end{equation}
+\noindent \textbf{- Calcolo della risposta impulsiva}\par
+\noindent Dato un sistema a riposo, la risposta impulsiva $h(t)$ è l'output in corrispondenza di un impulso unitario $\delta(t)$. La formula generale è: \[h(t) = d_0\delta(t) + \left[\sum_{i=1}^r\sum_{l=0}^{\mu_1-1} d_{i,l} \frac{t^l}{l!}e^{\lambda_i t}\right] \delta_{-1}(t)\]
+\noindent I cui elementi sono:
+\begin{itemize}
+	\item $d_0$: Coefficiente. Risulta uguale a zero esclusivamente se il sistema è proprio, quindi quando gli indici delle due sommatorie $n,m$ sono uguali.
+	\item $\delta(t)$: Impulso unitario, già menzionato.
+	\item $d_{i,l}$: Coefficienti specifici della risposta impulsiva.
+	\item $\frac{t^l}{l!}e^{\lambda_i t}$: Modi elementari, già menzionati.
+	\item $\delta_{-1}(t)$: Funzione gradino per garantire la causalità dell'uscita.
+\end{itemize}
+\begin{eg}
+	\textbf{Calcolare la risposta impulsiva dell'equazione differenziale} \[v'(t) + 2v(t) = u(t) + u(t)\]
+	\noindent\textbf{1. Equazione omogenea, polinomio caratteristico e calcolo delle radici}\par
+	\noindent Notiamo anzitutto che entrambi i lati dell'equazione presentano un numero di coefficienti uguale, quindi è confermato che il sistema è proprio e $d_0\neq 0$. Chiarito ciò poniamo l'output a zero e risolviamo il polinomio caratteristico: \[v'(t) + 2v(t) = 0\implies s+2=0\implies \lambda_1 = -2\]
+	\noindent Da questo risultato notiamo inoltre che abbiamo una sola radice, quindi $r=1$ e molteplicità $\mu_1=1$.\newline
+	
+	\noindent \textbf{2. Sostituzione valori nei modi elementari}\par
+	\noindent Puri passaggi algebrici: \[\frac{t^l}{l!}e^{\lambda_i t} \implies \frac{t^0}{0!}e^{-2t} \implies e^{-2t}\]
+	
+	\noindent \textbf{3. Scrittura risposta impulsiva e calcolo derivate necessarie}\par
+	\noindent Prendiamo la formula generale di prima e sostituiamo il valore ottenuto. Poi, in base all'ordine di grandezza dell'equazione, sarà necessario derivare il tutto per ricavare ogni singolo termine. In questo caso, dobbiamo derivare una sola volta. 
+	\begin{equation}
+		\begin{split}
+			h(t) &= d_0\delta(t) + \sum_{i=1}^r\sum_{l=l}^{\mu_1-1} d_{i,l} e^{\lambda_i t} \frac{t^l}{l!} \delta_{-1}(t)\\
+				&= d_0\delta(t) + d_{1,0}e^{-2t}\delta_{-1}(t)\\\\
+			h'(t) &= d_0\delta'(t) - 2d_{1,0}e^{-2t}\delta_{-1}(t) + d_{1,0}e^{-2t}\delta(t)
+		\end{split}
+	\end{equation}
+	
+	\noindent \textbf{4. Riscrittura equazione iniziale in termini di impulso}\par
+	\noindent Quindi dobbiamo porre $v(t)=h(t)$ e $u(t)=\delta(t)$ e sostituirli all'equazione originale. \[h'(t) + 2h(t) = \delta'(t) + \delta(t)\] 
+	\begin{equation}
+		\begin{split}
+			d_0\delta'(t) - 2d_{1,0}e^{-2t}\delta_{-1}(t) + d_{1,0}e^{-2t}\delta(t) + 2(d_0\delta(t) + d_{1,0}e^{-2t}\delta_{-1}(t)) &= \delta'(t) + \delta(t)\\
+			d_0\delta'(t) + 2d_0\delta(t) + d_{1,0}e^{-2t}\delta(t) &= \delta'(t) + \delta(t)
+		\end{split}
+	\end{equation}
+	
+	\noindent \textbf{5. Valutazione delle funzioni in $t=0$}
+	\begin{equation}
+		\begin{split}
+			d_0\delta'(t) + 2d_0\delta(t) + d_{1,0}\delta(t) &= \delta'(t) + \delta(t)\\
+			d_0\delta'(t) + 2d_0\delta(t) + d_{1,0}\delta(t) - \delta'(t) -\delta(t) &= 0\\
+			(d_0-1)\delta'(t) + (d_{1,0} + 2d_0 -1)\delta(t) &= 0
+		\end{split}
+	\end{equation}
+	
+	\noindent \textbf{6. Risoluzione del sistema di equazioni e soluzione finale}\par
+	\noindent Dall'algebra bisogna ricordarsi il concetto di indipendenza lineare. Possiamo porre a sistema i singoli ordini di grandezza e risolverli per ottenere i valori effettivi di nostro interesse. \[\begin{cases}
+		(d_0-1)\delta'(t) = 0\\
+		(d_{1,0} + 2d_0 -1)\delta(t) = 0
+	\end{cases} = \begin{cases}
+		d_0 = 1\\
+		d_{1,0} = -1
+	\end{cases}\]
+	\noindent Chiaro che $d_0=1, d_{1,0}=-1$ siano i coefficienti da sostituire nell'equazione originale. Una volta fatto ciò, il processo è concluso.
+	\begin{equation}
+		\begin{split}
+			h(t) &= d_0\delta(t) + d_{1,0}e^{-2t} \delta_{-1}(t)\\
+			&= \delta(t) -e^{-2t}\delta_{-1}(t)
+		\end{split}
+	\end{equation}
+\end{eg}
+
+\noindent \textbf{- Utilizzo dell'operatore di convoluzione}\par
+\noindent Ottenuta la risposta impulsiva, è ora possibile ottenere la forzata, la quale dipende esclusivamente da input e per i sistemi LTI causali è descritta come:
+\begin{equation}
+	\begin{split}
+		v_f(t) = (u*h)(t) &= \int_{0^{-}}^{t^{+}} h(\tau)u(t-\tau) d\tau\\
+		&= \int_{0^{-}}^{t^{+}} u(\tau)h(t-\tau) d\tau
+	\end{split}
+\end{equation}
+\begin{eg}
+	\textbf{Calcolare la risposta forzata $v_f$ a partire dai seguenti $h(t), u(t)$} \[h(t) = \frac{1}{2}\delta_0(t) + \frac{7}{4}e^{\frac{1}{2}t} \delta_{-1}(t); u(t) = 3\delta_{-1}(t)\]
+	\noindent Quindi notiamo che l'input è una funzione gradino di altezza $3$. Procediamo con la risoluzione dell'integrale. Le forme possibili sono:
+	\begin{equation}
+		\begin{split}
+			v(f) &= (h*u)(t) = (h*3\delta_{-1})(t)\\
+				&= \int_{-\infty}^{+\infty} h(\tau) 3\delta_{-1}(t-\tau) d\tau\\
+				&= \int_{-\infty}^{+\infty} 3\delta_{-1}(\tau) h(t-\tau) d\tau
+		\end{split}
+	\end{equation}
+	\noindent Volendo preservare la nostra sanità mentale, terremo ferma la funzione più complessa, ovvero la risposta impulsiva. I passaggi continuano come segue:
+	\begin{equation}
+		\begin{split}
+			(h*u)(t) &= \int_{-\infty}^{+\infty} h(\tau) 3\delta_{-1}(t-\tau) d\tau\\
+				&= \int_{-\infty}^{+\infty}\left[\frac{1}{2} \delta_0(\tau) + \frac{7}{4} e^{\frac{1}{2} \tau} \delta_{-1}(\tau)\right] 3\delta_{-1}(t-\tau) d\tau\\
+				&= \int_{-\infty}^{+\infty} \frac{1}{2}\delta_0(\tau) 3\delta_{-1}(t-\tau)d\tau + \int_{-\infty}^{+\infty} \frac{7}{4}e^{\frac{1}{2} \tau}\delta_{-1}(\tau) 3\delta_{-1}(t-\tau)d\tau\\
+				&= \frac{3}{2}\int_{0^-}^{0^+} \delta_0(\tau)\delta_{-1}(t-\tau)d\tau + \frac{21}{4}\int_{0}^{t^+} e^{\frac{1}{2}\tau}\delta_{-1}(\tau)\delta_{-1}(t-\tau)d\tau\\
+				&= \frac{3}{2}\times1 + \frac{21}{4}\int_{0}^{t^+}e^{\frac{1}{2} \tau} d\tau\\
+				&= \frac{3}{2} + \frac{21}{4}\left[\frac{1}{2} e^{\frac{1}{2}\tau}\right]_0^t = \frac{3}{2} + \frac{21}{4}\left(\frac{1}{2} e^{2t} - \frac{1}{2}\right) = \frac{3}{2} + \frac{21}{8} e^{\frac{1}{2} t} - \frac{21}{8} = v_f
+		\end{split}
+	\end{equation}
+\end{eg}
+\noindent Notare come gli estremi di integrazione variano ad un certo punto. Questo accade grazie al focus del nostro interesse. Per esempio, nel primo blocco, abbiamo l'intervallo di definizione dell'impulso, per il quale risulta essere sempre uguale ad $1$. Così è stato sostituito. Il secondo blocco riguarda invece gli istanti di tempo dopo l'impulso, quindi a partire da $0$ all'istante $t$.\par
+Un'ultima cosa che è utile menzionare, più perché è richiesta all'esame che altro, è saper definire la stabilità di un sistema. Già menzionato come una stabilità \textbf{asintotica} è confermata se la parte reale di ogni radice del polinomio caratteristico è minore di zero, ma per definire un sistema \textbf{BIBO-stabile} è necessario verificare che la risposta impulsiva sia integrabile e con un risultato finito.

@@ -1,0 +1,78 @@
+Lez9 Sistemi
+
+--- Risposta impulsiva
+Dato un sistema a riposo, è la risposta in corrispondenza di un impulso unitario.
+\delta(t) è impulso
+h(t) è la risposta impulsiva.
+
+Teorema utile:
+L'uscita v(t) di un sistema LTI, inizialmente a riposo, in corrispondenza di un ingresso u(t) è data dalla convoluzione.
+u(t) = (u*h)(t) = \int_{-\infty}^{+\infty} h(\tau)u(t-\tau) d\tau\\
+	&= \int_{-\infty}^{+\infty} u(\tau)h(t-\tau) d\tau
+	
+- Proprietà dell'integrale di convoluzione:
+	1. Proprietà commutativa: (u*v)(t) = (v*u)(t)
+	2. Proprietà associativa: (u*v))t) * \omega(t) = u(t) * (v*\omega)(t)
+	3. Proprietà distributiba rispetto alla somma: u(t)*(v(t)+\omega(t)) = (u*v)(t) + (u*\omega)(t)
+	
+Oss.
+Un sistema LTI causale, quindi inizialmente a riposo, siccome h(t) = 0 per t<0 (in quanto \delta(t) = 0 per t<0) ha:
+	v(t) = (u*h)(t) = \int_{0^{-}}^{+\infty} h(\tau)u(t-\tau) d\tau\\
+		&= \int_{-\infty}^{t^{+}} u(\tau)h(t-\tau) d\tau
+		
+-- Risposta forzata
+Generalmente è l'uscita del sistema dipendente solo dall'input
+
+- Per un sistema LTI causale per un ingresso u(t) (u(t)=0, t<0)
+	v_f(t) = (u*h)(t) = \int_{0^{-}}^{t^{+}} h(\tau)u(t-\tau) d\tau\\
+		&= \int_{0^{-}}^{t^{+}} u(\tau)h(t-\tau) d\tau
+Quindi per calcolare la risposta forzata è necessario prima calcolare quella impulsiva per avere tutti i dati.
+		
+-- Risposta impulsiva
+h(t) = d_0\delta(t) + (\sum_{i=1}^r\sum_{l=0}^{\mu_1-1} d_{i,l} \frac{t^l}{l!}e^{\lambda_i t}) \delta_{-1}(t)
+
+	- d_0: Coefficiente. d_0 \neq 0 \iff il sistema è proprio, quindi quando gli indici delle due sommatorie sono uguali: n=m.
+	- \delta(t): Impulso unitario.
+	- d_{i,l}: Coefficienti OCCHIO NON SONO QUELLI PER LA RISPOSTA LIBERA
+	- \frac{t^l}{l!}e^{\lambda_i t}: Modi elementari
+	- \delta_{-1}(t): Funzione gradino, serve a garantire la causalità dell'uscita.
+	
+- Calcolo della risposta impulsiva di un segnale: v'(t) + 2v(t) = uì(t) + u(t).
+
+Notiamo che n=m, sistema proprio, quindi d_0 \neq 0.
+1. Equazione omogenea: v'(t) + 2v(t) = 0
+2. Polinomio caratteristico: s+2=0
+3. Calcolo delle radici e sostituzione in modi elementari: \lambda_1 = -2, r = 1, e^{-2t}
+4. Scrivo la risposta impulsiva: 
+	h(t) = d_0\delta(t) + \sum_{i=1}^r\sum_{l=l}^{\mu_1-1} d_{i,l} e^{\lambda_i t} \frac{t^l}{l!} \delta_{-1}(t)
+		&= d_0\delta(t) + d_{1,0}e^{-2t}\delta_{-1}(t)
+		
+5. Riscrivo l'equazione iniziale ponendo v(t) = h(t) e u(t) = \delta(t).
+	h'(t) + 2h(t) = \delta'(t) + \delta(t)
+	
+	5.1 Calcolo le derivate di h(t):
+		h'(t) = d_0\delta'(t) - 2d_{1,0}e^{-2t}\delta_{-1}(t) + d_{1,0}e^{-2t}\delta(t)
+
+6. Sostituisco v(t) con h(t) e u(t) in \delta(t) nell'equazione originale.
+	d_0\delta'(t) - 2d_{1,0}e^{-2t}\delta_{-1}(t) + d_{1,0}e^{-2t}\delta(t) + 2(d_0\delta(t) + d_{1,0}e^{-2t}\delta_{-1}(t)) = \delta'(t) + \delta(t)\\
+	&\implies d_0\delta'(t) + 2d_0\delta(t) + d_{1,0}e^{-2t}\delta(t) = \delta'(t) + \delta(t)
+	
+	6.1 Valutiamo le funzioni in t=0
+	d_0\delta'(t) + 2d_0\delta(t) + d_{1,0}\delta(t) = \delta'(t) + \delta(t)\\
+		&= d_0\delta'(t) + 2d_0\delta(t) + d_{1,0}\delta(t) - \delta'(t) -\delta(t) = 0
+		&= (d_0-1)\delta'(t) + (d_{1,0} + 2d_0 -1)\delta(t) = 0
+		
+7. Risoluzione del sistema
+\begin{cases}
+	(d_0-1)\delta'(t) = 0\\
+	(d_{1,0} + 2d_0 -1)\delta(t) = 0
+\end{cases} = \begin{cases}
+	d_0 = 1\\
+	d_{1,0} = -1
+\end{cases}
+
+8. Sostituisco i coefficienti trovati: d_0=1, d_{1,0}=-1
+h(t) = d_0\delta(t) + d_{1,0}e^{-2t} \delta_{-1}(t)\\
+	&= \delta(t) -e^{-2t}\delta_{-1}(t)
+	
+Risposta impulsiva ottenuta col metodo lungo in culo.

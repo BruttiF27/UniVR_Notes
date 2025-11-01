@@ -1,0 +1,63 @@
+Lez10 Sistemi
+
+--- Risposta forzata e stabilità BIBO
+
+-- Esercizio risposta impulsva: 2v'(t) - v(t) = u'(t) + 3u(t)
+n=m, sistema proprio e d_0 \neq 0. Bisognerà scrivere ogni termine in h(t)
+
+1. Calcolo delle radici del polinomio caratteristico dato dall'omogenea:
+	2s-1 = 0 \implies \lambda_1=1/2, \mu_1=1, r=1.
+	
+2. Scrivo la risposta impulsiva sostituendo dalla formula generale:
+	d_0\delta_0 + d_1e^{1/2 t}\delta_{-1}(t)
+
+3. Riscrivo l'equazione iniziale con v(t) = h(t) e u(t) = \delta(t)
+	2h'(t) - h(t) = \delta_0'(t) + 3\delta_0(t)
+	
+4. Calcolo le derivate di h(t)
+	h'(t) = d_0\delta'(t) + 1/2d_1e^{1/2 t}\delta_{-1}(t) + d_1e^{1/2 t}\delta_0(t)
+	
+5. Sostituisco
+	2[d_0\delta_0'(t) + 1/2 d_1e^{1/2t}\delta_{-1}(t) + d_1e^{1/2 t}\delta_0(t)] - d_0\delta_0(t) + d_1 e^{1/2 t}\delta_{-1}(t) = \delta'(t) + 3\delta_0(t)
+	
+6. Rimuovo ogni \delta_{-1}(t), perché valutiamo quando c'è l'impulso. Raccolgo poi le funzioni linearmente indipendenti.
+\begin{cases}	
+	2d_0\delta_0'(t) = \delta_0'(t)\\
+	2d_1e^{1/2 t}\delta_0(t) - d_0\delta_0(t) = 3\delta_0(t)
+\end{cases}	= \begin{cases}
+	2d_0\delta_0'(t) = \delta_0'(t)\\
+	(2d_1e^{1/2 t}-d_0)\delta_0(t) = 3\delta_0(t)
+\end{cases}
+
+	6.1 Imponiamo t=0^{-}
+	\begin{cases}
+		2d_0 = 1\\
+		2d_1-d_0 = 3
+	\end{cases} \implies \begin{cases}
+		d_0 = 1/2\\
+		d_1 = 7/4
+	\end{cases}
+	
+7. Scrivo la risposta impulsiva con i coefficienti ottenuti
+	h(t) = 1/2\delta_0(t) + 7/4e^{1/2 t} \delta_{-1}(t).
+	
+-- Calcolo della risposta forzata
+Data la risposta impulsiva h(t) = 1/2\delta_0(t) + 7/4e^{1/2 t} \delta_{-1}(t) calcoliamo la risposta forzata con u(t) = 3\delta_{-1}(t). Con un gradino alto 3, in questo caso.
+
+v(f) &= (h*u)(t) = (h*3\delta_{-1})(t)\\
+	&= \int_{-\infty}^{+\infty} h(\tau) 3\delta_{-1}(t-\tau) d\tau\\
+	&= \int_{-\infty}^{+\infty} 3\delta_{-1}(\tau) h(t-\tau) d\tau
+	
+(h*u)(t) = \int_{-\infty}^{+\infty} h(\tau) 3\delta_{-1}(t-\tau) d\tau\\
+	&= \int_{-\infty}^{+\infty}[1/2 \delta_0(\tau) + 7/4 e^{1/2 \tau} \delta_{-1}(\tau)] 3\delta_{-1}(t-\tau) d\tau\\
+	&= \int_{-\infty}^{+\infty} 1/2\delta_0(\tau) 3\delta_{-1}(t-\tau)d\tau + \int_{-\infty}^{+\infty} 7/4e^{1/2 \tau}\delta_{-1}(\tau) 3\delta_{-1}(t-\tau)d\tau\\
+	&= 3/2\int_{-\infty}^{+\infty} \delta_0(\tau)\delta_{-1}(t-\tau)d\tau + 21/4\int_{-\infty}^{+\infty} e^{1/2\tau}\delta_{-1}(\tau)\delta_{-1}(t-\tau)d\tau\\
+	&= 3/2 1 + 21/4\int_{0}^{t}e^{1/2 \tau} d\tau\\
+	&= 3/2 + 21/4[1/2 e^{1/2\tau}]_0^t\\
+	&= 3/2 + 21/4(1/2 e^{2t} - 1/2) = 3/2 + 21/8 e^{1/2 t} - 21/8 = v_f
+		// Posso cambiare gli estremi di integrazione. Nel primo blocco ho 0^{-} e 0^{+}. Siccome consideriamo i valori solo quando c'è l'impulso, per noi vale 1.
+		// Nel secondo blocco, stessa cosa ma con 0 e t.
+		
+-- Richiami a stabilità:
+- Asintotica: Verificare che ogni radice abbia la parte reale minore di 0.
+- BIBO: Verificare che la risposta impulsiva sia integrabile ed il risultato sia definito.

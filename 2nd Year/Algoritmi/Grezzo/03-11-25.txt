@@ -1,0 +1,80 @@
+03-11-25 Algoritmi
+
+--- QuickSort (A,P,r)
+
+QuickSort (A,P,r) {
+	if (P<r) {
+		q = partition(A,P,r);
+		
+		QuickSort(A,P,q);
+		QuickSort(A,q+1,r);
+	}
+}
+
+partition (A,P,r) {
+	x = A[P];
+	i = P-1;
+	k = r+1;
+	
+	while (1) {
+		while (A[j]<=x) {		// Sposta finché non vale più la regola
+			j--;
+		}
+		
+		while (A[i]>=x) {		// Sposta finché non vale più la regola
+			i++;
+		}
+		
+		if (i < j) {			// Sei qua solo se hai violato ambo i casi
+			switch(A[i], A[j]);	// Cambia di posizione
+		} else {
+			return j;			// Torna l'indice j.
+		}
+	}
+}
+
+T(n) = \theta(n) + T(n-1) + T(1) \equiv \theta(n) + T(n-1)
+	&= n + (n-1) + T(n-2)
+	&= n + (n-1) + (n-2) + T(n-3)
+	&= \sum_{i=1}^n i = \frac{n(n+1)}{2}		// Il caso pessimo di QuickSort è quadratico, O(n^2).
+	
+Per risolvere pseudo-completamente il problema del caso pessimo (array ordinato) si può scegliere un elemento perno a cazzo oppure mescolare
+l'array in toto.
+
+randPartition (A,P,r) {
+	i = random(P,r);		// Scegli un numero a caso compreso fra P ed r.
+	switch(A[P], A[i]);
+	
+	return partition(A,P,r);
+}
+
+Qua parliamo di caso medio perché c'è la probabilità in gioco. Infatti hai una prob 1/n di pescare un dato elemento perno.
+Serva una funzione che associa ad ogni n una variabile aleatoria.
+
+Se vedo T(n) come la funzione di variabile aleatoria, abbiamo:
+	T(n) &= \theta(n) + 1/n(T(1) + T(n-1)) + 1/n(T(1) + T(n-1)) + 1/n(T(2) + T(n-2)) + ... + 1/n(T(n-1) + T(1))\\
+		&= \theta(n) + 1/n(T(1) + T(n-1)) + \sum_{i=1}^{n-1} 1/n(T(i) + T(n-1))
+		&= \theta(n) + \sum_{i=1}^{n-1} 1/n(T(i) + T(n-1)) // Questo perché T(1)è costante, fanculo. Poi il caso pessimo n^2, se moltiplicato a 1/n
+															// ci dona il valore n, che sta sotto \theta(n). Quindi si può rimuovere la componente
+		&= \theta(n) + 2/n \sum_{i=1}^{n-1} T(i)
+		
+	// TODO vedere dimostrazione con metodo di sostituzione, dimostra che il caso medio è nlogn
+	
+	// Question: Hai 12 sfere, tutte uguali. (ci puoi fare quel che vuoi). Fra d di loro ce ne potrebbe essere una con un peso diverso dalle altre.
+	// Abbiamo una bilancia coi due piatti. Hai tre pesate per dire se c'è una sfera diversa dalle altre e se pesa di più o meno.
+	
+	Esiste un criterio per dire se esiste un algoritmo per risolvere un determinato problema.
+	Con quello delle sfere appena visto, abbiamo tre possibili risultati; palla leggera, palla pesante, palle uguali.
+	Con tre pesate massimo per un tot di palle.
+	
+	La prima è obbligata. 4 palle vs 4 palle. 3pesate*3scenari = 9.
+	
+// QuickSort iterativo
+QuickSort (A,P,r) {
+	while (P<r) {
+		q = partition(A,P,r);
+		
+		QuickSort(A,P,q);
+		p = q+1;
+	}
+}

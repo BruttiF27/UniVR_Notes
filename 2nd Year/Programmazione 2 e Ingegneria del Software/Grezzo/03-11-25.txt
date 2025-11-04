@@ -1,0 +1,53 @@
+03-11-25 Prog2
+
+--- Ereditarietà e polimorfismo
+
+-- Ereditarietà
+Un tipo è un set di tutti i valori accomunati da una stessa proprietà. Ha lo scopo di ottimizzare il codice per quanto riguarda le ripetizioni.
+Ne esistono sottoinsiemi, peffò.
+
+Le classi son la stessa cosa, quindi possiamo definire una sottoclasse.
+Tutti gli oggetti di una sottoclasse quindi necessariamente appartengono alla sovracclasse. Tipo:
+- Classe Vehicle		// Classe primaria
+	- Classe Car		// Subclass
+	- Classe Bicycle	// Subclass
+	
+public class Vehicle {
+	int num;
+	int method();
+}
+
+public class Car extends Vehicle {
+	super.num = metodoGetter();
+}
+	
+public class bicycle extends Vehicle {
+	@Override
+	int method();		// Ridefinizione
+}
+
+Le sub-classi erediteranno tutti i campi della sovracclasse senza necessità di doverli ridicharare. Possono anche ridefinirli e aggiungere nuovi campi
+Possiamo riferirci ai campi della sovracclasse con la keyword super. Modificando la sovracclasse, lo stesso accadrà per le sottoclassi.
+Per ridefinire un metodo in una sottoclasse, è necessario che questo si trovi all'interno della sovracclasse. 
+Nella subclass va usata la keyword @Override prima della ridefinizione.
+
+Come detto in precedenza, in mancanza di modificatore d'accesso, viene assegnato private. Ciò vale anche per le subcclassi
+
+--- Gerarchia di classi
+Tutte le classi discendono dalla sovracclasse universo "Object", con metodi di base comune a tutte le subclass:
+	- public String toString();
+	- public boolean equals();
+	- public int hasCode();
+	
+L'identità degli oggetti differisce dall'eguaglianza fra oggetti. Come già visto, istanziare due oggetti con campi uguali li rende solo equivalenti.
+Tuttavia da un punto di vista identitario, sono due oggetti distinti, e per questo il metodo equals() ritornerà falso se li compara.
+Per fare i nostri comodi puoi overridare il metodo equals e modificarlo per far sì che dia i risultati voluti.
+
+Dichiarare variabili come protected in una classe li rende sempre visibili alle sottoclassi, anche se in pacchetti differenti.
+
+Potendo avere più costruttori (anche le sub ne hanno bisogno), possiamo sfruttare l'overloading del metodo super() per scegliere quale ci serve.
+La scelta avviene in base alla segnatura, quindi agli elementi che vengon dati a super.
+In assenza di costruttore della sub e con un costruttore nella super, siamo obbligati a definirne un altro nella sub.
+Per evitare che il metodo venga ridefinito, dichiararlo come final metodo nella classe radice.
+
+--- Polimorfismo

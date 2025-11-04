@@ -1,0 +1,262 @@
+03-11-25 FondInfo
+
+--- Grammatiche CF
+Per definire le proprietà di un linguaggio si usano gli alberi di derivazione (parse trees).
+Con G = <V,T,P,S> CF un albero di derivazione per G ha:
+	1. Ogni vertice ha un'etihetta V\cup T\cup {\epsilon}
+	2. L'etichetta della radice è in V.
+	3. Ogni vertice interno (non foglia) ha etichetta in V.
+	4. Se un vertice n etichettato con A\in V e i vertici n_1 n_2 ... n_k sono i figli etichettati con x_1 x_2 ... x_k\in V\cup T\cup {\epsilon}.
+		Allora A\implies x_1 x_2 ... x_k \in P.
+	5. Se un vertice ha etichetta \epsilon, allora è una foglia ed è l'unico figlio del padre.
+	
+Con l'albero possiamo effettuare le derivazioni.
+E \implies 0|1|(E\lor E)|(E \land E)|(\neg E)
+	
+	E
+		(
+		E
+			(
+			E
+				0
+			\lor
+			E
+				1
+			)
+		\land
+		E
+			(
+			\neg
+			E
+				0
+			)
+		)
+
+Tutti i simboli terminali sono le foglie, quindi le parentesi, i connettivi e le costanti.
+((0 \lor 1) \land (\neg 0)) è la stringa generata dalla grammatica descritta dall'albero.
+Se prendi tutto quello che viene generato da un nodo non terminale diverso dalla radice, stai prendendo un sottoalbero.
+
+Teorema: G = <V,T,P,S> CF. Allora S\implies* \alpha\in T* \iff esiste un albero di derivazione con radice etichettata con S e foglie etichettate
+(da sinistra verso destra) con \alpha.
+
+-- Ambiguità
+Una grammatica ambigua non può essere implementata. Supponiamo E \implies E+E | E*E | 0|1|2. Prendiamo la stringa 2*0+1.
+Per questa stringa si possono generare due alberi diversi.
+
+	E
+		E
+			2
+		*
+		E
+			E
+				0
+			+
+			E
+				1
+				
+	-------------
+	
+	E	
+		E
+			E
+				0
+			*
+			E
+				2
+		+
+		E
+			1
+			
+	-------------
+Alberi diversi, stessa stringa. Non vogliamo questa cosa nelle grammatiche. Una grammatica è ambigua se esiste almeno una parola \alpha che ha
+più di un albero di derivazione etichettato con radice S.
+Il linguaggio generato dalla grammatica ambigua è detto inerentemente ambiguo.
+Nel caso in esame, avessimo usato le parentesi, l'ambiguità sarebbe morta. Grazie, simboli ausiliari.
+
+-- Forme normali
+Grammatiche le cui produzioni rispettano vincoli di forma specifici.
+
+	1. Forma di Chomsky: Tutte le produzioni hanno la forma A \to a oppure A \to BC.
+		A,B,C \in V, mentre a \in T.
+		Quindi un non terminale può andare in terminale o in due non terminali. Quindi o finisce o mette altre variabili.
+		
+	2. Greibach: Tutte le produzioni hanno la forma A\to a\alpha, con a\in T e \alpha\in V*.
+		Questa fornisce la struttura di push e pop nella stack.
+		
+Ogni grammatica può essere riscritta sicché:
+	1. Ogni simbolo non terminale genera simboli terminali e ogni simbolo terminale è generato da simboli non terminali. (eliminazione simboli inutili)
+	2. Nessuna profuzione è della forma A\to B, A,B\in V. (eliminazione produzioni unitarie)
+	3. Se \epsilon \notin L, allora non ci deve essere A\to \epsilon, con A\in V. (Eliminazione \epsilon-produzioni).
+		Se c'è, allora può esserci.
+
+Passaggi di dimostrazione:
+1a. X\in V \cup T è utile se esiste una derivazione S\implies* \alpha X\beta \implies* \omega\in T*.
+	Quindi da S devo poter arrivare con * passi ad una produzione \alpha X\beta, e da altri n passi da qua ad una stringa terminale.
+	
+	S\to \alpha AB		A\to A. Capiamo che A è un simbolo inutile.
+	
+	Metodo algoritmico per eliminare i simboli che non arrivano a sequenze terminali.
+	Dopo la trasformazione, \forall A\in V . \exists \omega\in T* . A\implies*\omega, L(G) \neq \void.
+	
+	Supponiamo, L(G) \neq \void, perché se fosse vuoto tutti i simboli sarebbero inutili.
+	Definiamo \Gamma^1(\omega) = {A\in V | \exists \alpha \in (T\cup \omega)*. A\to \alpha\in P}
+	
+	\begin{cases}
+		\Gamma^0(W) = W
+		\Gamma^{i+1}(W) = \Gamma(\Gamma^1(W))
+	\end{cases}
+	
+	Partiamo con W=\void
+	
+	\Gamma(\void) = {A\in V | \exists \alpha\in T* . A\to \alpha\in P}
+	\Gamma^0(\void) = \void
+	\Gamma^1(\void) = \Gamma(\void) = {B}
+	\Gamma^2(\void) = \Gamma{B} = {A\in V | \exists \aplha\in (T\cup {B})* . A\to \alpha} = {B,S}
+	\Gamma^3(\void) = \Gamma{B,S} = {A\in V | \exists \alpha \in (T\cup {B,S})* . A\to \alpha} = {B,S}
+	
+	B,S sono simboli utili perché generano simboli terminali, tutti gli altri, con le rispettive profuzioni sono eliminati.
+	Per esempio, 
+	
+Ex. 2
+	S \to \epsilon|A|b|D
+	A \to 0|0A0|B|E
+	B \to 1|1B1|A|\epsilon
+	C \to A|b|2
+	D \to \epsilon|D
+	E \to \epsilon
+	
+	\Gamma(\void) = {X\in V | X\to \alpha\in T*} = {A,B,C}
+	\Gamma(A,B,C) = {X\in V | X\implies* \alpha\in (T\cup {A,B,C})*} = {A,B,C,S}
+	\Gamma(A,B,C,S) = {X\implies* \alpha\in (T\cup {A,B,C,S})} = {A,B,C,S}
+	
+	Qui capiamo che {D,E} Sono inutili.
+	
+1b. Eliminiamo i simboli non raggiungibili da S.
+	\Gamma(W) = {X\in V\cup T | \exists A\in W . A \to \alpha X\beta \in P} \cup S
+	\Gamma(\void) = {S}.
+		Aggiungiamo ciò che possiamo raggiungere da S in un certo numero di passi.
+		
+	S\to a|bC
+	C \to d|dE
+	E\to \epsilon
+	F\to f
+	
+	\Gamma(\void) = {S}
+	\Gamma(S) = {X\in V\cup T | S\to \alpha X\beta\in P}\cup {S} = {a,b,c}
+	\Gamma(a,b,c) = {X\in V\cup T | C\to \alpha X\beta\in P \lor S\to \alpha X\beta\in P} = {a,b,c,d,E,S}
+	\Gamma(a,b,c,S,d,E) = {a,b,C,d,E,S,\epsilon}
+	
+	F è inutile.
+	
+Per ogni grammatica CF esiste una grammatica G' t.c L(G) = L(G') e G' è senza simboli inutili.
+G' si ottiene applicando i sequenza le die trasformazioni viste (nell'ordine visto)
+
+Ex. 3
+S \to \epsilon|A|B
+A\to 0|0A0|B 
+B\to 1|1B1|A|\epsilon
+C\to A|B|2
+
+\Gamma(\void) = {S}
+\Gamma(S) = {S,A,B,\epsilon}
+\Gamma(S,A,B,\epsilon) = {S,A,B,\epsilon, 0,1}.
+
+Quindi C è inutile perché non raggiungibile da S.
+
+Raggruppiamo ora tutti i simboli non terinali che generano \epsilon dopo tot numero di passi: {S,B,A}. Scriviamo dove andrebbe effettivamente al posto
+di \epsilon. La grammatica diventa:
+
+S \to \epsilon|A|B
+A\to 0|0A0|00|B
+B\to 1|1B1|11|A
+Eliminando B\to\epsilon, 00 e 11 sarebbero al più generabili e quindi si aggiungono. \epsilon produzionali: eliminate.
+S\to \epsilon si tiene solamente se \epsilon fa parte di L(G).
+
+-- Eliminazioni produzioni unitarie A\to B.
+S\to A\to A0A è compattabile in S\to A0A.
+
+S \to \epsilon|A|B
+A\to 0|0A0|00|B
+B\to 1|1B1|11|A
+
+Sostituisco i simboli con le loro relative produzioni:
+S\to \epsilon|0|A0A|B|1|1B1|11
+A\to 0|0A0|00|1|1B1|11
+B\to 1|1B1|11|0|0A0|00
+
+Notiamo che le produzioni ottenute sono tutte equivalenti, quindi possiamo scrivere S\to \epsilon|0|0S0|00|1S1|11|1
+
+Quando la grammatica è senza simboli inutili, senza \epsilon-profuzioni e senza produzioni unitarie, possiamo trasformarla in forma normale di Chomsky.
+
+-------------------------
+
+Esercizio 1.2: L = {0^{2n}10^n | n\in N}. \epsilon\notin L perché per n=0, la stringa = 1.
+
+S\to 1|00S0
+
+	Dimostra che L = L(G)
+		L\subseteq L(G) per induzione sulla lunghezza della stringa |\sigma|=n.
+		L(G) \subseteq L per induzione sui passi \implies_k.
+		
+		L\subseteq L(G):
+			Base: \sigma=1, S\implies 1. OK.
+			Passo: \forall|\sigma| < n t.c. \sigma\in L, \exists S\implies*\sigma.
+				Prendiamo |\sigma|=n, con \sigma\in L, \exists i.\sigma = 0^{2i}10^i
+				
+				\sigma' = 0^{2i -2}1^{i-1} = 0^{2(i-1)}10^{i-1}
+				|\sigma'| = 3(i-1) < n \implies S\implies*\sigma' = 0^{2i-1}10^{i-1}
+					&\implies S\implies* 0^{2i-2}S0^{i-1} \to 0^{2i-2}10^{i-1} = \sigma'
+					&\implies S\implies* 0^{2i-2}S0^{i-1} \implies 0^{2i-2}00S00^{i-1} \implies 0^{2i}10^i = \sigma.
+					
+		L(G) \subseteq L:
+			Base: S\to 1\in L. OK
+			Passo: \forall k\leq n . S\implies*\sigma, allora \sigma\in L.
+				Prensiamo S\implies^{n+1}\sigma, quindi S\to 00S0\implies^n 00\sigma'0 = \sigma.
+				Quindi genero \sigma' da S in n passi. Per ipotesi induttiva \sigma'\in L. Quindi \exists i . \sigma'=0^{2i}10^i.
+				Dunque: \sigma = 000^{2i}10^i0 = 0^{2i+2}10^{i+1}.
+				
+--------------------------
+Compiti per casa:
+L = {0^n1^m0^{n+m} | n,m\in N}
+
+S\to 0S0|A
+A\to 1A0|\epsilon
+--------------------------
+Ex. 1.19
+L = {0^n1^m | n=2m3\mathbb{N}}		3\mathbb{N} = {3i | i\in N}.
+	&= {0^{3m+p}1^m | m\in N, p\in 3\in\mathbb{N}
+	&= {3^{m+3i}1^m | m,i\in \mathbb{N}}
+	&= {0^{3i}0^{3m}1^m | m,i\in \mathbb{N}}
+	
+Possiamo fare la furbata e vedere L come L_1L_2, quindi una concatenazione.
+L_1 = {0^{3i}|i\in N}, regolare \implies CF.
+L_2 = {0^{3m}1^m | m\in N}, CF.
+
+Quindi L è CF per le proprietà di chiusura dei Linguaggi CF.
+S \to 000S1 | \epsilon 
+
+	L \subseteq L(G): 
+		Base: -\epsilon\in L e S\to \epsilon. OK
+		Passo: \forall \sigma\in L . |\sigma| < n t.c. S\implies*\sigma.
+			Prendiamo \sigma\in L . |\sigma|=n, \exists i . \sigma = 0^{3i}1^i.
+			
+			\sigma' = 0^{3(i-1)}1^{i-1}
+			|\signa'|< |\sigma| = n \implies esiste S\implies*\sigma'
+			
+			S\implies*0^{3(i-1)}S1^{i-1} \to 0^{3i-1}1^{i-1}. Allora S\implies*0^{3(i-1)}S1^{i-1} \to 0^{3(i-1)}000S11^{i-1} \to 0^{3i}1^i = \sigma7
+			
+	L(G) \subseteq L:
+		Base: S\to \epsilon\in L
+		Ind: \forall k\leq n . S\implies*\sigma, allora \sigma\in L.
+			Prendiamo S\implies^{n+1}\sigma.
+			S \to 000S1 \implies^n 000\sigma'1 = \sigma.
+			S\implies^n \sigma'\ implies \sigma'\in L.
+			
+			Allora \exists i . \sigma' = 0^{3i}1^i, quindi \sigma=000\sigma'1 = 0^30^{3i}1^i1 = 0^{3(i+1)}1^{i+1} \in L.
+			
+-------------------------
+Ex. 1.10: L_m = {0^{nm}1^{m^2}0^{m+n} | n\in N}		// L_m significa che è un input. Questa è una famiglia di linguaggi al variare di m. Sono sempre CF.
+
+L_3 = {0^{n3}1^90^{n+3} | n\in N}. Tutte le variazioni di L_M sono CF, tranne per m=0, che è regolare.
+
+S\to 1^90^3|000S0

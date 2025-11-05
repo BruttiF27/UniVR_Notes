@@ -1,0 +1,53 @@
+04-11-25 Prog2
+
+--- Polimorfismo
+Stesso termine, il quale assume significati diversi in base al contesto (tendenzialmente in base ai parametri ottenuti dal metodo)
+Una reference di tipo T può puntare ad in ogetto di tipo S solamente se S è T oppure S è una subclass di T
+
+Person person;
+
+person = new Person("Paul");		// Va bene
+person = new Student("Sam", 123);	// OK, sottotipo.
+
+- Principio di sostituzione di Liskov TODO RIVEDERE
+Se ho un contesto di tipo T, in quel contesto posso mettere oggetti di tipo S, a patto che quest'ultima sia una subclass di T.
+Puoi sostituire superclasse con subclasse, ha senso perché è un suo sottoinsieme e puntano ad una stessa reference
+
+-- Dynamic binding
+La JVM, in presenza di più metodi con stesso nome, contiua ricorsivamente dalle superclassi alle subclassi fin quando non trova quello richiesto.
+
+C'è type casting anche per le classi, è utilissimo per tenere il codice breve.
+Upcast: cast a una superclasse. person = student; Tutte le info di student sono date a person.
+Downcast: cast a una subclasse. Student S2 = (Student) S1;
+Si modifica la reference, ma la reference dell'oggetto non cambierà.
+
+-- Downcast safety
+instanceof consente di capire da quale classe proviene l'oggetto considerato.
+
+-- Classi astratte
+- Metodo astratto
+Metodo senza codice. Descrive una funzionalità data dalla classe ma non ne prevede l'implementazione. Si da con la keyword abstract.
+
+modifiers abstract type methodName(parameters);
+
+Una classe astratta è una classe contenente almeno un metodo astratto.
+
+public abstract class Shape {
+	private int Color;
+	public void setColor(int color) {this.color = color}
+	
+	// No implementazione, ma esiste. Non istanziabile.
+	public abstract void draw();
+}
+
+Per istanziare una classe astratta si usa l'ereditarietà. Le subclassi implementeranno le funzionalità dei metodi astratti.
+
+Le classi astratte possono fungere anche da template, ma in senso più chiaro.
+In C si potevano dare solo parametri generali al compiler, ma qui è possibile dare parametri e definire anche un metodo in toto.
+Non sarà istanziabile, ma dà comunque l'idea di come lavorare.
+
+--- interfaccia
+Classe con particolari caratteristiche. Non può essere istanziata perché contengono solo metodi astratti.
+Di base non è un tipo per gli oggetti, ma per le reference sì.
+In un'interfaccia tutti i metodi sono pubblici ed astratti, mentre i campi sono sia static che final, quindi costanti e accessibili senza necessitare istanziazioni.
+Per implementare un'interfaccia si ussa implements

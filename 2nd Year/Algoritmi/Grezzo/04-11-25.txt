@@ -1,0 +1,77 @@
+04-11-25 Algoritmi
+Soluzione palle:
+	Prima pesata: 4 palle per piatto. (1,2,3,4) - (5,6,7,8)
+		Se il piatto tilta, o c'è una palla che pesa di più o di meno, altrimenti dovrai prendere il terzo gruppo di palle restanti.
+		
+	Seconda pesata: (1,5,7) - (2,6,9)
+		Se il piatto tilta con sx più pesante possiamo avere che 5+ o 7+ o 2-.
+		Se il piatto tilta con dx più pesante possiamo avere che 1- o 6+.
+		Se i piatti sono uguali, possiamo avere 3- o 4- o 8+.
+	
+	Terza pesata:
+	
+Possiamo vedere un algoritmo che lavora per confronti come un albero di decisione, che ha radice come il totale delle sue permutazioni [n!] e termina quando si 
+ottiene la singola istanza, la foglia. La profondità è ugualmente data dal logaritmo. Nel nostro caso specifico: log(n!) = log(n^n) = nlogn.
+Un algoritmo che lavora al meglio partiziona l'insieme delle soluzioni e non ci devono essere soluzioni ripetute. Non può fare meglio di così, ammesso che esista.
+Questo è il limite inferiore.
+Se esiste, possiamo provare il limite superiore, se non esiste abbiamo almeno questo limite inferiore teorico.
+
+--- Algoritmi di ordinamento lineari
+Se avessimo un'informazione in più per l'ordinamento che consente di riordinare saltando dei passaggi? A questo punto potremmo scendere ulteriormente in execTime.
+Quindi sotto nlogn.
+
+Supponiamo di avere un array di int, tutti compresi fra 1 e k, dove k è arbitrario. Posso usare questa k per ordinare più velocemente.
+Contando gli elementi è in grado di capire la posizione degli elementi.
+
+// Vuole ordinare gli elementi di A, compresi fra 1 e K, per poi metterli in B.
+CountingSort(A, B, K)				// Array A, Array B, int K.
+	for (i<-1 to K) C[i] <- 0		// Questa riga ha complessità K
+	for (j<-1 to length[A])			// length[A] è la lunghezza di A.	Questo ciclo ha compl. n
+		C[A[j]]++					// L'indice è visto come l'elemento A[j], il quale è incrementato.
+	for (i<- 2 to K)				// Questo for ha compl. K
+		C[i] <- C[i] + C[i-1]		// Elementi con chiave minore di i
+	for (j <- length[A] down to 1)	// Scorri l'array alla rovescia fino al primo elemento (non è 0 qui, in pseudo è 1.)	Il for qui ha compl. n.
+		B[C[A[j]]] <- A[j]
+		C[A[j]]--					// Questa linea garantisce stabilità. Decrementa l'indice dei numeri contati, sicché si possano inserire alla posizione
+										// antecedente in B.
+
+La complessità dell'algoritmo è n+k.
+		
+A = {3, 6, 4, 1, 3, 4, 1, 4}
+B = {1, 1, 3, 3, 4, 4, 4, 6}		// Questa è la risposta
+// C al secondo for
+C = {0, 0, 0, 0, 0, 0} \implies {0, 0, 1, 0, 0, 0} \implies {0, 0, 1, 0, 0, 1} \implies 0 0 1 1 0 1 \implies 1 0 1 1 0 1 \implies 1 0 2 1 0 1 \implies ...
+// C dice quindi per ogni indice dice quanti elementi ci sono con quel valore. Finalmente, \implies {2, 0, 2, 3, 0, 1}
+
+// C al terzo for
+C = {2, 2, 4, 7, 7, 8}
+
+Potrebbe ordinare anche elementi da 1 a n, basta mettere k=n.
+Essendo che puoi porre k=n, il tempo di esecuzione dipende da n. Se è n^2 è quadratico, per esempio.
+Qui le costanti hanno un impatto rilevante. Con un k molto grande, tipo 2^{63}, è impraticabile, ma teoricamente cresce sempre linearmente.
+
+--- RadixSort
+
+329, 457, 657, 839, 436, 720, 355.
+
+Ordina a partire dalla cifra meno significativa tramite counting sort. Otteniamo al primo ciclo:
+720, 355, 436, 457, 657, 329, 839.
+
+Al secondo, numeri ordinati per le due cifre meno significative:
+720, 329, 436, 839, 355, 457, 657.
+
+Al terzo, numeri ordinati per le tre cifre meno significative, quindi tutte.:
+329, 355, 436, 457, 657, 720, 839.
+
+n numero di elementi
+k la base
+l il numero di cifre
+
+Complessità: l(n+k).
+
+--- BucketSort
+Prendi lo spazio degli elelìmenti e dividilo in n bucket equiprobabili.
+Assegna i vari oggetti al bucket rilevante. Poi ordina i bucket e concatena i risultati.
+
+Ci si aspetta che in media ci sia un elemento per bucket.
+In tempo lineare ordina i bucket, poi concatenando hai finito.

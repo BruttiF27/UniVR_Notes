@@ -1,22 +1,115 @@
+\section{Libreria digitale}
+Le librerie digitali di Java sono un insieme di funzioni contenute in pacchetti appositi e fornite da terze parti. Come altri utenti ne hanno scritte, così potremmo fare anche noi. In ogni caso, tutti i file da eseguire sono visti come classi, ed infatti dovranno essere compresi nel classpath, se non sono standard.\par
+Per utilizzare una libreria è necessario importarla nel file desiderato con la keyword \textbf{import}. Per esempio, nella libreria java.util è presente la classe Scanner, che viene usata per ricevere input da tastiera.
+\begin{lstlisting}[language=Java]
+	// Aggiunge il pacchetto Scanner dal path java/util/Scanner
+	import java.util.Scanner;
+	
+	public class Mult {
+		public static void main(String args[]) {
+			
+			// Dichiarazione dell'oggetto keyScan di classe Scanner
+			Scanner keyScan = new Scanner(System.in);
+			int n1, n2;
+			
+			System.out.print("Inserisci il primo fattore: ");
+			// Assegna a n1 l'intero letto da tastiera, idem n2.
+			n1 = keyScan.nextInt();
+			System.out.print("Inserisci il secondo fattore: ");
+			n2 = keyScan.nextInt();
+			
+			// Chiudi lo scanner con il metodo close().
+			keyScan.close();
+			System.out.println("Risultato: " + n1*n2);
+		}
+	}
+\end{lstlisting}
+
+%
+
+\section{java.lang.*}
+Il pacchetto java.lang.* comprende la libreria nativa del linguaggio, contenente tutte le funzioni di base come costrutti, oggetti e altri strumenti.
+
+\subsection{Classi wrapped}
+
+\subsection{.System}
+Costanti err, in, out, metodo currentTimeMillis().
+
+\subsection{.String, StringBuilder}
+.String:
+Le stringhe son costanti e senza terminatore, str.length(), str.charAt(i), s.equals(t), str.indexOf(c), str.substring(start, end), str.replace(target, replacement), format()
+
+.StringBuilder
+StringBuilder delete(int start, int end), StringBuilder insert(int index, String str), StringBuilder reverse()
+
+\subsection{.Math}
+
 \begin{comment}
-	Da decidersi:
-	- record, stack di attivazione
-	- Metodi di confronto fra oggetti
-	- Assegnamento fra variabili array. Matrici e struttura in memoria, array sparsi.
-	- Interfaccia pubblica di una classe, classi e oggetti mutabili/immutabili. Aliasing fra variabili e rischi
-	- Javadoc
-	- Definizione di classi per estensione, ereditando campi e metodi
-	- Relazione superclasse/sottoclasse e concatenazione dei costruttori da sottoclasse a superclasse con super()
-	- Ridefinizione o aggiunta di metodi
-	- Tipo statico delle espressioni e dinamico dei valori
-	- Late binding e class tag degli oggetti
-	- Ereditarietà singola e multipla
-	- Interfacce e relativo utilizzo
-	- Metodi e classi abstract
-	- Parametri varargs, tipi generici, libreria Comparable<T>. Vincoli sulle variabili di tipo
-	- Classi wrapper, autoboxing/unboxing
-	- Eccezioni implicite ed esplicite (throw/catch), gerarchia eccezioni, controllate/non controllate. Throws per metodi, definizione di classi di eccezione
-	- Race condition, Deadlock, synchronized
-	- Classi anonime, espressioni lambda, interfacce funzionali
-	- Stream lazy
+	\subsection{.Integer, .Character}
+	\subsection{.AutoCloseable}
+	\subsection{.Iterable}
+	\subsection{.Thread}
+\end{comment}
+
+\section{java.util.*}
+Il pacchetto java.util.* contiene varie funzioni di utility per rendere il codice più leggibile, astratto, modulare e sicuro.
+\subsection{.Scanner}
+netxLine, nextInt, nextFloat
+
+\subsection{.Random}
+
+\subsection{.Arrays}
+
+\begin{comment}
+	\subsection{.Iterator}
+	\subsection{Strutture dati}
+	java.util.Collection<E>, java.util.List<E>, java.util.Queue<E>, java.util.Set<E>, java.util.LinkedList<E>, java.util.ArrayList<E>, java.util.PriorityQueue<E>
+	java.util.HashSet<E>, java.util.SortedSet<E>, java.util.TreeSet<E>, java.util.Map<K,V>, java.util.HashMap<K,V>, java.util.SortedMap<K,V>, java.util.TreeMap<K,V>
+\end{comment}
+
+\section{java.io.*}
+Il pacchetto java.io.* fornisce funzioni relative alla gestione di un flusso di dati, sia in input, che in output.
+
+\begin{comment}
+	\subsection{.Closeable}
+	\subsection{.Reader, .FileReader, .BufferedReader}
+	\subsection{.Writer, .FileWriter, .BufferedWriter, .PrintWriter}
+\end{comment}
+
+
+
+
+
+
+\begin{comment}
+	
+	
+	\noindent Continuiamo ragionando sull'ultima istruzione dello snippet appena visto. Le stringhe, come già detto, sono viste come oggetti, e per usarle bisogna istanziare un oggetto. Dopodiché, non saranno più mutabili in quanto non sono viste come sequenze di caratteri. Tuttavia, abbiamo a disposizione alcuni metodi con cui lavorarci:
+	\begin{lstlisting}[language=Java]
+		String str = new String("SHAW!");
+		String same = new String("SHAW!");
+		
+		System.out.println(str.length());		// Stampa la lunghezza di una stringa.
+		System.out.println(str.charAt(4));		// Stampa il singolo carattere alla posizione 4.
+		System.out.println(str.equals(same));	// Confronta str e same, torna vero se sono uguali.
+		str.indexOf(a) 							// Ricerca del carattere 'a' all'interno della stringa. Se assente torna -1, altrimenti torna l'indice.
+		str.substring(start, end)				// Ottiene una sottostringa con gli indici dati in input. Crea una nuova stringa.
+		str.replace(target, replacement)		// Rimpiazza i caratteri di target con quelli di replacement.
+	\end{lstlisting}
+	\noindent La classe String possiede anche il metodo \textbf{format}. Permette di formattare la stringa con una sintassi simil-C, ed è utile per mantenere un template.
+	\begin{lstlisting}[language=Java]
+		String str = new String("Egale");
+		int num = 2;
+		
+		// Dona un formato alla stringa
+		String formatStr = String.format("%s = %d", str, num);
+		System.out.println(formatStr);
+	\end{lstlisting}
+	\noindent Sebbene gli oggetti da String diventino costanti post-inizializzazione, java.lang fornisce la classe \textbf{StringBuilder}, che consente di gestire dinamicamente una stringa.
+	\begin{lstlisting}[language=Java]
+		StringBuilder sb = new StringBuilder("Droxie");				// Crea una stringa mutevole
+		sb.append("kaliemu");										// Concatena in coda i caratteri fra le virgolette.
+	\end{lstlisting}
+	\noindent È possibile anche cancellare ed inserire sottostringhe con i metodi \textbf{delete} ed \textbf{insert}. Insomma, le stringhe base sono costanti, mentre le stringhe mutevoli di StringBuilder sono sicuramente più flessibili.
+	
 \end{comment}

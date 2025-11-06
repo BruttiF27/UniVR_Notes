@@ -5,29 +5,25 @@
 \contentsline {section}{\numberline {1.4}Gestione di un progetto su più file}{6}{}%
 \contentsline {chapter}{\numberline {2}Il linguaggio Java}{8}{}%
 \contentsline {section}{\numberline {2.1}Tipi primitivi, variabili e costanti, operatori e assegnamenti}{8}{}%
-\contentsline {section}{\numberline {2.2}Definizione di classe, this., parametri formali e attuali}{9}{}%
-\contentsline {section}{\numberline {2.3}Metodo costruttore, costruttore di default e overloading}{9}{}%
-\contentsline {section}{\numberline {2.4}Dichiarazione di classi e oggetti}{9}{}%
-\contentsline {section}{\numberline {2.5}Incapsulamento e information hiding}{10}{}%
-\contentsline {section}{\numberline {2.6}Array, matrici e tipo enum}{11}{}%
-\contentsline {chapter}{\numberline {3}Librerie utili}{13}{}%
-\contentsline {section}{\numberline {3.1}Libreria digitale}{13}{}%
-\contentsline {section}{\numberline {3.2}java.lang.*}{14}{}%
-\contentsline {subsection}{\numberline {3.2.1}.System}{14}{}%
-\contentsline {subsection}{\numberline {3.2.2}.String, StringBuilder}{14}{}%
-\contentsline {subsection}{\numberline {3.2.3}.Math, .Random}{14}{}%
-\contentsline {subsection}{\numberline {3.2.4}.Object}{14}{}%
-\contentsline {subsection}{\numberline {3.2.5}.Integer, .Character}{14}{}%
-\contentsline {subsection}{\numberline {3.2.6}.AutoCloseable}{14}{}%
-\contentsline {subsection}{\numberline {3.2.7}.Iterable}{14}{}%
-\contentsline {subsection}{\numberline {3.2.8}.Thread}{14}{}%
-\contentsline {section}{\numberline {3.3}java.util.*}{14}{}%
-\contentsline {subsection}{\numberline {3.3.1}.Scanner}{14}{}%
-\contentsline {subsection}{\numberline {3.3.2}.Arrays}{14}{}%
-\contentsline {subsection}{\numberline {3.3.3}.Iterator}{14}{}%
-\contentsline {subsection}{\numberline {3.3.4}Strutture dati}{14}{}%
-\contentsline {section}{\numberline {3.4}java.io.*}{15}{}%
-\contentsline {subsection}{\numberline {3.4.1}.Closeable}{15}{}%
-\contentsline {subsection}{\numberline {3.4.2}.Reader, .FileReader, .BufferedReader}{15}{}%
-\contentsline {subsection}{\numberline {3.4.3}.Writer, .FileWriter, .BufferedWriter, .PrintWriter}{15}{}%
-\contentsline {chapter}{\numberline {4}Boh, da vedersi}{16}{}%
+\contentsline {section}{\numberline {2.2}Dichiarazione di classi e oggetti, this, parametri formali e attuali}{8}{}%
+\contentsline {section}{\numberline {2.3}Metodo costruttore e overloading}{10}{}%
+\contentsline {section}{\numberline {2.4}Modificatori, visibilità e memoria di un programma}{10}{}%
+\contentsline {section}{\numberline {2.5}Costrutti condizionali e ciclici}{12}{}%
+\contentsline {section}{\numberline {2.6}Array, enumerazioni e record}{13}{}%
+\contentsline {chapter}{\numberline {3}Paradigmi OOP}{15}{}%
+\contentsline {section}{\numberline {3.1}Incapsulamento}{15}{}%
+\contentsline {section}{\numberline {3.2}Ereditarietà}{16}{}%
+\contentsline {section}{\numberline {3.3}Polimorfismo}{16}{}%
+\contentsline {section}{\numberline {3.4}Astrazione}{16}{}%
+\contentsline {chapter}{\numberline {4}Librerie utili}{17}{}%
+\contentsline {section}{\numberline {4.1}Libreria digitale}{17}{}%
+\contentsline {section}{\numberline {4.2}java.lang.*}{18}{}%
+\contentsline {subsection}{\numberline {4.2.1}Classi wrapped}{18}{}%
+\contentsline {subsection}{\numberline {4.2.2}.System}{18}{}%
+\contentsline {subsection}{\numberline {4.2.3}.String, StringBuilder}{18}{}%
+\contentsline {subsection}{\numberline {4.2.4}.Math}{18}{}%
+\contentsline {section}{\numberline {4.3}java.util.*}{18}{}%
+\contentsline {subsection}{\numberline {4.3.1}.Scanner}{18}{}%
+\contentsline {subsection}{\numberline {4.3.2}.Random}{18}{}%
+\contentsline {subsection}{\numberline {4.3.3}.Arrays}{18}{}%
+\contentsline {section}{\numberline {4.4}java.io.*}{18}{}%

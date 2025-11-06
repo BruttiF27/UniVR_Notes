@@ -6,20 +6,18 @@ Supponendo che tu abbia frequentato o quantomeno ascoltato il corso di programma
 	\item \textbf{Operatori}: Simboli per effettuare operazioni.
 	\item \textbf{Dati}: Valori delle variabili, le informazioni nel codice.
 \end{itemize}
-\noindent Si mantengono tutte le funzioni legate al linguaggio C per quanto riguarda tipi primitivi, operatori ed assegnamenti. Abbiamo quindi: \textbf{int}, \textbf{double}, \textbf{char}, aggiungendo \textbf{boolean} e \textbf{String}, quest'ultimo non primitivo, ma successivamente approfondito.\par
-Di base ogni dato è considerato una variabile se non specificato altrimenti. Infatti, per la dichiarazione di costanti sarà necessario aggiungere la keyword \textbf{final}.
+\noindent Si mantengono tutte le funzioni legate al linguaggio C per quanto riguarda tipi primitivi, operatori ed assegnamenti. Abbiamo quindi: \textbf{int}, \textbf{double}, \textbf{char}, aggiungendo \textbf{boolean} e \textbf{String}, quest'ultimo non primitivo, successivamente approfondito.\par
+Di base ogni dato è considerato una variabile se non specificato altrimenti. Infatti, per la dichiarazione di costanti sarà necessario aggiungere la keyword \textbf{final}. Ciò vale sia per variabili che per oggetti.
 
 %
 
-\section{Dichiarazione di classi e oggetti, this., parametri formali e attuali}
-Le classi e gli oggetti sono il fulcro sul quale si basa la programmazione in Java e orientata agli oggetti in generale. Come già menzionato, le classi sono come un template, compresi di attributi e metodi, degli oggetti che verranno eventualmente istanziati. Per rendere una classe visibile ad altri file, sarà necessario dichiararla come public.
+\section{Dichiarazione di classi e oggetti, this, parametri formali e attuali}
+Le classi e gli oggetti sono il fulcro sul quale si basa la programmazione in Java ed il paradigma a oggetti in generale. Come già menzionato, le prime si possono vedere come un insieme, il quale detiene attributi e metodi, ed i secondi sono le singole istanze delle classi con le suddette specifiche. Data questa struttura, ne consegue che per lavorare dovremo prima definire una classe, per poi istanziare gli oggetti.
 \begin{lstlisting}[language=Java]
 	// Dichiarazione della classe Date nel file Date.java
 	public class Date {
-		
 		// Scope dei campi della classe, questi sono attributi...
 		int day, month, year;
-		
 		// ...e questo un metodo.
 		String printDate() {
 			return day + "/" + month + "/" + year;
@@ -30,107 +28,156 @@ Le classi e gli oggetti sono il fulcro sul quale si basa la programmazione in Ja
 	// Dichiarazione della classe MainDate nel file MainDate.java
 	public class MainDate {
 		public static void main(String[] args) {
-		
 			// Istanziazione dell'oggetto Today
 			Date Today = new Date();
 		}
 	}
 \end{lstlisting}
-\noindent Come si può vedere, la classe rappresenta il corpo contenente tutto il codice, mentre gli oggetti vengono istanziati in un altro file, ove richiesto, con la keyword \textbf{new}. Questa istruzione fa sì che venga allocato spazio sufficiente per contenere i dati dell'oggetto.
+\noindent Come si può vedere, la classe rappresenta il corpo contenente tutto il codice, mentre gli oggetti vengono istanziati in un altro file, ove richiesto, con la keyword \textbf{new}. Questa istruzione fa sì che venga allocato spazio sufficiente per contenere i dati dell'oggetto.\newline
 
-
-% TODO this.
-% TODO parametri formali e attuali
-
-
-
-%
-
-\section{Metodo costruttore, costruttore di default e overloading}
-
-
-
-\begin{comment}
-	\noindent Si può estendere il discorso introducendo i concetti di \textbf{modificatore} e \textbf{funzione costruttore}. Il primo indica la modalità di accesso alla struttura e può essere usato sia per classi che oggetti, ed il secondo è un metodo dello stesso nome della classe che viene eseguito alla creazione di un nuovo oggetto. Per esempio, consideriamo il seguente codice all'interno della classe Date, dichiarata prima:
-	\begin{lstlisting}[language=Java]
-		// Funzione costruttore. Qui popola le variabili dell'oggetto. Modificatore public.
-		public Date(int day, int month, int year) {
-			// "this." indica la locazione dell'oggetto corrente.
-			this.day = day;
-			this.month = month;
-			this.year = year;
-		}
+\noindent I metodi dichiarati possono, ovviamente, anche ricevere parametri, per la loro eventuale gestione ed elaborazione. Possiamo quindi introdurre il concetto di \textbf{parametri formali} e \textbf{parametri attuali}. I primi sono quelli dati all'inizio del metodo, mentre i secondi sono il risultato dell'elaborazione della funzione e sarà ciò che viene ritornato.
+\begin{lstlisting}[language=Java]
+	// Il metodo prende il parametro formale n
+	public int incr (int n) {
+		// res e' il parametro attuale elaborato
+		int res = n+1;
+		return res;
+	}
+	
+	public void printIncr (int x) {
+		int y = incr(x);
+		System.out.println(y);
+	}
+\end{lstlisting}
+\noindent Bisogna quindi prestare attenzione a quale dato viene ritornato dal metodo, perché se nella funzione incr ritornassimo n, tutta l'elaborazione sarebbe stata inutile.\par
+Un'altro concetto molto importante è la parola chiave per far riferimento all'oggetto corrente: la keyword \textbf{this}, la quale può essere usata per attributi e variabili ed è particolarmente utile per evitare ambiguità fra gli oggetti.
+\begin{lstlisting}[language=Java]
+	public class Cliente {
+		private String nome;
 		
-		// Metodo isFirstDay con modificatore static. Non ha accesso a campi non statici.
-		static boolean isFirstDay(int day) {
-			if (day == 1) return true;
-			else return false;
+		// Il metodo prende il nome dato come parametro
+		public void getName (String nome) {
+			// Associa il parametro al preciso oggetto corrente
+			this.nome = nome;
 		}
-	\end{lstlisting}
-\end{comment}
+	}
+\end{lstlisting}
+\noindent L'utilizzo di this è molto importante per rendere il codice chiaro ed è uno standard da rispettare. In assenza di this, il programma non avrebbe capito quale stringa nome prendere, causando errori di compilazione.
 
 %
 
-\section{Modificatori e visibilità}
-Modificatori in generale e modificatori di accesso, visibilità.
+\section{Metodo costruttore e overloading}
+I \textbf{metodi costruttore} sono funzioni di una classe particolari, il cui blocco di codice determina ciò che viene eseguito all'istanziazione di un oggetto. In assenza di dichiarazione di tale metodo, il compilatore aggiungerà quello di default, che non esegue niente.\par
+Ogni classe ha quindi un costruttore, il quale avrà il suo stesso nome e potrà prendere parametri, ma sarà sprovvisto della keyword return.
+\begin{lstlisting}[language=Java]
+	public class Punto {
+		int x, y;
+		
+		// Metodo costruttore. Stampa la stringa ad istanziazione.
+		public Punto () {
+			System.out.println("Punto istanziato");
+		} 
+	}
+\end{lstlisting}
+\noindent È possibile inoltre definire più costruttori in una classe, ma dovranno essere differenziati in base alla segnatura, quindi ai parametri. Per capire quale prendere, introduciamo il concetto di \textbf{constructor overloading}.\par
+Supponiamo di definire un costruttore "Punto(int x)"; nell'istanziazione dell'oggetto, se sarà dato un intero come parametro, il compilatore sceglierà quest'ultimo, in alternativa, se non è dato niente, sceglierà il primo. Qualunque altro scenario comporta errori di compilazione.
 
+%
 
+\section{Modificatori, visibilità e memoria di un programma}
+Avrai sicuramente notato le keyword usate nella dichiarazione di classi o utilizzate per le variabili; queste si chiamano \textbf{modificatori} e sono capaci di cambiare il significato delle componenti del programma. Approfondiamone il concetto ed il significato.\newline
 
-
-\begin{comment}
+\noindent \textbf{Modificatore public}\par
+\noindent Applicabile a classi, oggetti e variabili. Rende la componente accessibile in qualunque altro file. Tendenzialmente, volendo rendere il codice sicuro, non viene utilizzato per variabili.
+\begin{lstlisting}[language=Java]
+	public class PublicClass {
+		public PublicClass () { /* Blocco di codice */ }
+	}
+\end{lstlisting}
+\noindent \textbf{Modificatore protected}\par
+\noindent Applicabile a oggetti, metodi e attributi. Restringe l'accesso alla componente, consentendolo solo alla classe in cui è dichiarata e le sue eventuali sottoclassi, a prescindere dal pacchetto. Attua il principio di ereditarietà, il quale sarà spiegato in dettaglio più avanti.
+\begin{lstlisting}[language=Java]
+	public class PublicClass {
+		protected int value = 1;
+	}
 	
-	\noindent Nello specifico, per quanto riguarda i modificatori, abbiamo \textbf{public}, rendendo accessibili i dati senza limitazioni e \textbf{private}, che blocca l'accesso dall'esterno della classe. Questi specificano le modalità di accesso. Un altro modificatore presente nello snippet è \textbf{static}, che rende il metodo utilizzabile a prescindere dall'oggetto. Vediamo ora come istanziare un oggetto, a partire dagli snippet del file Date.java di prima:
-	\begin{lstlisting}[language=Java]
-		public class MainDate {
-			public static void main(String[] args) {
-				
-				// Utilizzo di isFirstDay fuori oggetto. Possibile dato static.
-				System.out.println(Date.isFirstDay(1));
-				
-				// Creazione dell'oggetto today e stampa con il metodo printDate.
-				Date today = new Date(14, 10, 2024);
-				System.out.println(today.printDate());
-			}
+	public class TrustedPerson extends PublicClass {
+		// La subclass accede a value senza problemi
+		int safeVar = value;
+	}
+\end{lstlisting}
+\noindent \textbf{Modificatore private}\par
+\noindent Applicabile a oggetti e attributi. Rende la componente visibile esclusivamente dalla classe in cui è dichiarata. Usato molto spesso per sfruttare l'incapsulamento, se vi si prova ad accedere da classi differenti, il compiler darà errore.
+\begin{lstlisting}[language=Java]
+	public class PublicClass {
+		private int invisible = 1;
+	}
+	
+	public class NoobHacker {
+		// Azione illegale. Il compiler si lagna.
+		int stealVar = invisible;
+	}
+\end{lstlisting}
+\noindent \textbf{Modificatore package private}\par
+\noindent Assegnato in automatico dal compilatore in assenza di modificatori, restringe l'accesso, consentendolo esclusivamente a classi di uno stesso pacchetto.\newline
+
+\noindent Prima di introdurre l'ultimo modificatore, è necessario parlare della memoria utilizzata dai programmi Java. Abbiamo una parte di memoria \textbf{static}, usata per elementi condivisi da tutte le istanze di classe, come definizioni di classe e campi statici; un'altra di \textbf{heap}, usata per l'allocazione di memoria dinamica e quindi istanziazione di oggetti, ed un'ultima di \textbf{stack}, dedita agli elementi creati in runtime. Tradotto in codice, abbiamo:
+\begin{lstlisting}[language=Java]
+	public class memoryTest {
+		// Variabile nuova, spazio allocato in heap
+		int i;
+		// Oggetto String statico, condiviso da ogni classe
+		static String s1;
+		void aMethod () {
+			// s2 non static, elemento creato in runtime, va in stack memory.
+			String s2 = new String("abc");
+			s1 = s2;
 		}
-	\end{lstlisting}
-	
-	
-	...
-	
-	
-	Per \textbf{incapsulamento} si intende un raggruppamento di dati e metodi, i quali lavorano sui primi. Consente di avere una visuale più compatta riguardo ai campi di ogni classe. Se alcuni campi sono poi dichiarati con il modificatore \textbf{private}, l'incapsulamento esprime il suo massimo potenziale di sicurezza, consentendo l'\textbf{information hiding} e rendendo accessibili i campi solamente tramite gli appositi metodi.
-	\begin{lstlisting}[language=Java]
-		public class Person {
-			// Dichiarare senza modificatori setta public di base
-			String name;
-			private int age = -1;
-			
-			Person(String name) { this.name = name; }
-			
-			// Metodo per segnalare se age risulta illegale
-			void changeAge(int age) {
-				if (age > 0 && age <= 122) this.age = age;
-				else System.out.println("Invalid age.");
-			}
-		}
-	\end{lstlisting}
-	La variabile age in questo caso diventa accessibile solo tramite il metodo changeAge, perché risulta inaccessibile al di fuori. La corretta gestione di questa dinamica si ha introducendo due metodi appositi, il \textbf{getter}, che riceve il dato per poi assegnarlo all'oggetto, ed il \textbf{setter}, che si assicura sia in un formato corretto. Nello snippet appena visto, changeAge è inserito come setter.
-\end{comment}
+	}
+\end{lstlisting}
+\noindent Nota importante da tenere a mente: i metodi statici possono interagire esclusivamente con altri metodi static; altrimenti si avrà un errore di compilazione.
 
 %
 
 \section{Costrutti condizionali e ciclici}
-
-
-
-
-\begin{comment}
-	content...
-\end{comment}
+Ogni linguaggio di programmazione contiene i costrutti per la manipolazione del flow, siano essi condizioni o cicli non importa. Saranno sempre presenti, seppur con forma differente. Supponendo che tu abbia già frequentato programmazione 1, salterò direttamente alle sintassi diverse da quelle del C, perché \textbf{if-else}, \textbf{while}, \textbf{do-while}, \textbf{switch} e \textbf{for} sono definiti esattamente come nel suddetto linguaggio.\par
+Tuttavia, dalla versione Java 5, è stato introdotto l'\textbf{enhanced for loop}, che svolge esattamente allo stesso modo le funzioni del suo gemello, ma ha una sintassi semplificata.
+\begin{lstlisting}[language=Java]
+	for (tmpVar : iterObj) {
+		// Blocco di istruzioni
+	}
+\end{lstlisting}
+\noindent In parole povere, dice "scorri tutto iterObj con indice tmpVar", quindi è consigliabile usarlo quando si ha la certezza di voler scorrere un oggetto iterabile per intero.\par
+Anche il costrutto switch ha ottenuto migliorie. Mettiamo caso di avere più casi che riportano uno stesso numero; in una scrittura tradizionale sarebbe necessario definire casi separati, ma in Java è possibile raggrupparli ed usare un operatore \textbf{arrow} per indicare ciò che devono eseguire.
+\begin{lstlisting}[language=Java]
+	switch (colore) {
+		case VERDE -> System.out.println("Luce verde");
+		case GIALLO -> System.out.println("Luce gialla");
+		case ROSSO -> System.out.println("Luce rossa");
+	}
+\end{lstlisting}
+\noindent Non solo, ma possiamo anche ritornare valori dal blocco con la keyword \textbf{yield}, per il quale abbiamo due scritture diverse. Una usa arrow, l'altra i due punti e dove entrambe svolgono una stessa funzione, non è possibile mischiarle. Bisogna necessariamente scegliere una delle due notazioni. Questo perché usando la prima, è come se ci fosse un break incorporato nel caso, mentre nella seconda è ancora presente il fall-through.
+\begin{lstlisting}[language=Java]
+	// Notazione con operatore arrow '->'
+	String season = switch (month) {
+		case DECEMBER, JANUARY, FEBRUARY -> "Winter";
+		case MARCH, APRIL, MAY -> "Spring";
+		case JUNE, JULY, AUGUST -> "Summer";
+		case SEPTEMBER, OCTOBER, NOVEMBER -> "Autumn";
+	}
+	
+	// Notazione con operatore colon ':'
+	String season = switch (month) {
+		case DECEMBER, JANUARY, FEBRUARY: "Winter";
+		case MARCH, APRIL, MAY: "Spring";
+		case JUNE, JULY, AUGUST: "Summer";
+		case SEPTEMBER, OCTOBER, NOVEMBER: "Autumn";
+	}
+\end{lstlisting}
 
 %
 
-\section{Array e tipi enumerativi}
+\section{Array, enumerazioni e record}
 In Java è possibile dichiarare \textbf{array} mono- e bidimensionali; sono visti come oggetti speciali allocati in heap, quindi definiti in runtime, e da un punto di vista pratico sono sequenze di puntatori ad oggetto. Alcuni aspetti importanti sono:
 \begin{itemize}
 	\item In mancanza di inizializzazione, la JVM li setta a null.
@@ -145,45 +192,24 @@ In Java è possibile dichiarare \textbf{array} mono- e bidimensionali; sono vist
 	// Accesso ad un elemento in un indice specifico
 	int var = arr[numeroIndice];
 \end{lstlisting}
-\noindent Per una manipolazione corretta e agevolata di array è utile la libreria \textbf{java.util.Arrays}, contenente metodi per effettuare confronti e stampare il contenuto. Verrà approfondita più avanti.
-
-
-
-
-
-\begin{comment}
-	Questi sinergizzano ovviamente col ciclo for, il quale ha una forma enhanced con una sintatti più compatta.
-	\begin{lstlisting}[language=Java]
-		// Enhanced for loop, equivalente alla scrittura classica
-		for (tipoVariabile : espressioneIterabile);
-		// Confronta se due array hanno gli stessi elementi
-		Arrays.equals(arr1, arr2);
-		// Stampa ogni elemento dell'array in formato stringa
-		Arrays.toString(arr);
-	\end{lstlisting}
-	\noindent Ovviamente, nella creazione di matrici, è possibile usare tutti i metodi appena visti; ci sono poche differenze rispetto a quanto già visto in C.
-	\begin{lstlisting}[language=Java]
-		// Dichiarazione ed inizializzazione di una matrice di interi
-		int[][] matrix = {{1,2,3}, {4,5,6}, {7,8,9}};
-		// Per scambiare facilmente righe o colonne puoi prendere il puntatore.
-		int[] tmp = matrix[0];
-		matrix[0] = matrix[matrix.length-1];
-		matrix[matrix.length-1] = tmp;
-		// Stampa gli elementi di una matrice
-		for (int[] row:matrix) System.out.println(Arrays.toString(row));
-	\end{lstlisting}
-	\noindent Infine, abbiamo, sempre come in C, i tipi per le \textbf{enumerazioni}. Rappresentano un insieme finito di costanti e risultano utili per definire valori arbitrari utilizzati più volte, non richiedendo la dichiarazione di variabili per ogni blocco di codice. Vengono anche loro con alcuni metodi utili:
-	\begin{lstlisting}[language=Java]
-		// Dichiarazione
-		public enum nomeEnum {
-			CST1, CST2, ...
-		}
-		
-		// Ritorna il nome della costante assegnata all'oggetto
-		nomeObjEnum.name(nomeOggetto.campo);
-		// Ritorna il valore della costante assegnata all'oggetto
-		nomeObjEnum.ordinal(nomeOggetto.campo);
-	\end{lstlisting}
-\end{comment}
-
-%
+\noindent Per una manipolazione corretta e agevolata di array è utile la libreria \textbf{java.util.Arrays}, contenente metodi per effettuare confronti e stampare il contenuto. Verrà approfondita più avanti. Naturalmente, per scorrerli e lavorarci sarà necessario utilizzare costrutti ciclici.\par
+Le matrici hanno ricevuto delle migliorie; la loro dichiarazione è simile a quella degli array ed è possibile usare su di esse tutti i metodi utili per questi ultimi. Inoltre, in quanto sequenze di puntatori, è possibile scambiare facilmente righe e colonne.
+\begin{lstlisting}[language=Java]
+	// Dichiarazione ed inizializzazione di una matrice di interi
+	int[][] matrix = {{1,2,3}, {4,5,6}, {7,8,9}};
+	// Per scambiare righe o colonne puoi prendere il puntatore.
+	int[] tmp = matrix[0];
+	matrix[0] = matrix[matrix.length-1];
+	matrix[matrix.length-1] = tmp;
+	// Stampa gli elementi di una matrice
+	for (int[] row : matrix) System.out.println(Arrays.toString(row));
+\end{lstlisting}
+\noindent Un altro elemento importante per la programmazione in Java sono i \textbf{tipi enumerazioni}. Sono classi che rappresentano un insieme finito di costanti, le quali sono tutte le istanze che può assumere l'eventuale oggetto.\par
+Le enumerazioni si definiscono con la keyword \textbf{enum}, ed il loro vantaggio sta nell'efficienza del processo di recupero valori; è infatti consigliato utilizzarle in necessità di richiamare più volte determinati dati.
+\begin{lstlisting}[language=Java]
+	// Dichiarazione dell'enumerazione
+	public enum Numbers { ONE, TWO, THREE };
+	// Istanziazione dell'oggetto
+	Numbers numOne = Numbers.ONE;
+\end{lstlisting}
+\noindent Gli elementi delle enumerazioni, in quanto già rappresentanti un'istanza della classe, sono implicitamente del tipo Months, per questo non è necessario utilizzare new

@@ -1,0 +1,42 @@
+10-11-25 Algoritmi
+
+// Ordinamento lessicografico - ordina caratteri di stringhe
+BucketSort, assegna ogni elemento dell'array al suo bucket, ordina i singoli buckets e hai l'array ordinato.
+
+Definizione formale
+Suppongo VA X_{ij} = \begin{cases}
+	1 se A[i]\in Bucket_j\\
+	0 altrimenti
+\end{cases}. Capiamo che la VA è di Bernoulli. Un valore ha probabilità 1/n di essere in un bucket, in quanto sono equiprobabili. Le variabili sono anche indipendenti fra di loro.
+Quindi P[x_{ij}= 1] = 1/n = p.
+
+X_{j} = \sum_i X_{ij}.		// Conta il numero di elementi che finiscono nel bucket j, quindi quelli che valgono 1.
+
+La complssità è data quindi da \sum_j X_j^2		// La complessità è quindi data dalla somma dei bucket j che hanno valore 1, gli altri non sono toccati.
+La complessità media è invece data dal valore atteso: \sum_j E[X_j^2]
+
+E[X_{ij}] = 1/n
+Var[X_{ij}] = p*q \implies 1/n(1 - 1/n)
+E[X_j] = \sum_i E[X_{ij}] = n(1/n) = 1		// Mediamente in ogni bucket m'aspetto un elemento.
+Var[X_j] = \sum_i Var[X_{ij}] = n(1/n)(1 - 1/n) = 1 - 1/n
+E[X_j^2] = Var[X_j] + E^2[X_j] = 1 - 1/n + 1^2 = 2 - 1/n
+
+Dunque: \sum_j E[X_j^2] \implies n(2 - 1/n) = 2n - 1
+
+r = \sqrt(x^2 + y^2)
+\theta = arctan(y/x)
+
+Elementi distribuiti uniformemente in un cerchio di raggio r. Ordinare gli elementi in fase da 0 a 2\pi.
+Bucket = 2\pi / n oppure raguionando per angoli abbiamo \alpha_i = i * 2\pi/n
+
+E se volessi ordinare gli elementi per modulo crescente?
+|r| = r*\sqrt(i/n)
+
+--- Problema della selezione
+Dato un array di oggetti sulla quale è definita una relazione di ordinamento. Trovare il valore in posizione i.
+
+Interfaccia data da Select(A,i)
+Meno di n-1 confronti non posso farne; ma in tal caso, se voglio un max o un min, avremo verosimilmente due valori vincitori.
+\Omega(n)
+
+// Tip: divisione in tre parti dell'array, a mò di quickSort

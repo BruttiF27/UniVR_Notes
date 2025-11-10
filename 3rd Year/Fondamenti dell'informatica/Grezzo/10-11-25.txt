@@ -1,0 +1,236 @@
+10-11-25 FondInfo
+
+-- Proprietà di chiusura dei linguaggi context free
+Th. I CF sono chiusi per unione, concatenazione e stella di kleene.
+	G_1 <V1, T1 ,P1, S1>, G_2 <V2, T2, P2, S_2>, L(G_1), L(G_2)
+L'unione fra i due linguaggi è a sua volta context free, quindi esiste una grammatica G' che lo genera.
+	
+	G' = <V1\cup V2, T1 \cup T2, P1\cup P2, S1\cup S2>
+	Le stringhe generate saranno necessariamente in G1 o G2.
+	
+La concatenazione fra i due linguaggi è CF
+G' = <V1\cup V2\cup {S}, T1 \cup T2, P1\cup P2\cup {S\TO S1S2}, S>
+
+La stella di kleene L(G1)* è CF
+G' = <V\cup {S}, T1, P1\cup {S\to S1S|\epsilon}, S>
+
+Th. I CF non sono chiusi per intersezione
+	L1, L2 CF non necessariamente L1\cap L2 è CF.
+	
+	Per dimostrarlo bisogna trovare un esempio dove la loro intersezione non sia context free.
+	
+Dim: 
+L1 = {a^ib^ic^j | i,j\in N}. Questo linguaggio è CF.
+	S\to RC
+	R\to aRb | \epsilon
+	C\to cC| \epsilon
+L1 = L(G1)
+	
+L2 = {a^jb^ic^i | i,j\in N}
+	S\to AR
+	A\to aA | \epsilon
+	R\to bRc | \epsilon
+L2 = L(G2)
+
+L = L1\cap L2 \implies {a^ib^jc^k | i=j, j=k}
+	= {a^ib^jc^k | i=j=k}
+	= {a^nb^nc^n | n\in N}, non è CF ed è dimostrabile col pumping lemma
+	
+Ocio: In caso di intersezione ed unione finite, in presenza di L_i infiniti lunguaggi regolari o CF:
+	- La loro intersezione non è detto sia regolare
+	- La loro unione non è detto che sia regolare o CF.
+	
+Th. I linguaggi CF non sono chiusi rispetto a complementazione
+Dim: Se dato L\in CF anche \overline{L} fosse CF allora osserviamo che:
+	L1, L2 CF \implies L1\cap L2 = \overline{\overline{L1}\cup \overline{L2}}
+	\overline{L1}, \overline{L2} sarebbero context free, qunidi anche la loro unione sarebbe cf. Per la legge di de omrgan, l'ultima formula scritta sarebbe cf.
+	Tuttavia non è garantito che lo sia anche l'intersezione, quindi i CF non possono essere chiusi per complemento.
+	
+--- Problemi decidibili
+Quali test su un linguaggio sono algoritmici e decidibili?
+Per i linguaggi cf i seguenti problemi sono decidibili, dato un linguaggio CF L:
+	1. L = \void
+	2. L è finito
+	3. L è infinito
+	
+è decidibile determinare se x\in L.
+
+--- Automa pila: permette di riconoscere un linguaggio context free
+Nonostante i CF siano determinati e generati dalle relative grammatiche, esiste anche un automa apposito, che corrisponderebbe al funzionamento dei linguaggi di programmazione.
+
+{a^nb^n | n\in N}
+
+Fondamentalmente questo automa avrebbe anche una memoria stack; se arriva in uno stato finale, significa che ha terminato di scorrere la stack e che boh le stringhe sono uguali o qualcosa
+E' semplicemente l'aggiunta della stack o memoria lifo ad un'automa a stati finiti NFA.
+
+Si chiama APND: automa a pila non deterministico.
+	All'NFA aggiungiamo infatti un alfabeto per la stack, ed è un simbolo iniziale sulla pila
+	
+<Q, \Sigma, R, \delta, q_0, F, Z_0>
+	- Q insieme finito di stati
+	- \Sigma insieme finito di simboli (alfabeto).
+	- Insieme finito di simboli per la stack
+	- \delta è la relazione di transizione
+		\delta:Qx(\Sigma\cup {\epsilon}) x R \to P(QxR*)
+			- Q è lo stato attuale dell'automa, nel mezzo abbiamo il simbolo e la R è il simbolo della stack. Non complesso, non difficile.
+			- Da un push o pop, andiamo ad inserire dei valori sulla stack (QxR*) è l'insieme di coppie stato-push di sequenza di simboli nella stack.
+	- q_0\in Q è lo stato iniziale
+	- F\subseteq Q sono gli stati finali
+	- Z_0\in R è il simbolo iniziale sulla pila
+	
+La chiusura transitica di \delta fornisce un'esecuzione dell'automa.
+
+-- Linguaggio riconosciuto da un APND
+La stringa sarà riconosciuta uando la pila è vuota e la stringa è stata del tutto letta.
+
+Abbiamo APND M, con:
+	- L_p(M), linguaggio per la pila vuota
+	- L_F(M), linguaggio per lo stato finale
+	
+	L_p(M) = {\sigma\in \Sigma* | (q_0, \sigma, Z_0) \to* (q, \epsilon, \epsilon), q \in Q}
+	L_F(M) = {\sigma\in \Sigma* | (q_0, \sigma, Z_0) \to* (q, \epsilon, \gamma), \gamma\in R*, q\in F}
+	
+\forall M APND \exista M' APND t.c. L_p(M) = L_F(M)
+
+L = {\sigma \subset \sigma^R | \sigma\in {a,b}*}		// Questo p per indicare sequenze palindrome
+	\sigma^R è definito come il reverse di \sigma. Quindi \sigma = abb \implies \sigma^R = bba
+	
+Grammatica:
+	S \to aSa | bSb | c
+	
+		S\to aSa \to abSba
+			&\to abbSbba
+			&\to abbcbba
+			
+<{q_0,q_1}, {a,b,c}, {Z,A,B}, q_0,Z,\void,\delta>
+STT q_0:
+	q_0 	& a 			& b 			& c 
+	Z 		& q_0,ZA 		& q_0,ZB 		& q_1,\epsilon
+	A & & &
+	B & & &
+	
+STT q_1:
+	q_1 	& a 			& b 			& c 
+	Z 		& q_1,Z			& q_1,Z	 		&
+	A 		& q_1,\epsilon	& q_1,Z			&
+	B 		& q_1,Z			& q_1,\epsilon	& 
+	
+Esempio di esecuzione con queste STT: abbcbba
+Ad ogni carattere letto, questo viene distrutto e solo il resto della stringa mantenuto. Questo sarà un automa deterministico.
+Stack [BASE - ... - CIMA]:
+	Z \TO A - Z \TO A - B - Z \TO A - B - B - Z \TO A - B - B \TO A - B \TO A
+	
+Quindi fa push fino ad arrivare alla C, che poi eseguirà i pop. Rimane nello stato finale q_1 fin quando la regola di palindroma è rispettata.
+
+Altro esempio, stesso automa di prima ma rimuoviamo la c, non sapendo quale sia la metà della stringa, useremo un NFA.
+L = {\sigma\sigma^R | \sigma^R reverse \sigma, \sigma\in {a,b}*}: Stringa: abbbba
+
+	Q = {q_0, q_1}, \Sigma = {a,b}, R = {Z,A,B}
+	
+STT q_0:
+	q_0 	& \epsilon 		& a 							& b 
+	Z 		& 		 		& q_0, AZ						& q_0, BZ 
+	A 		& 				& q_0, AA - q_1,\epsilon		& q_0, BA
+	B 		& 				& q_0, AB						& q_0, BB - q_1, \epsilon
+	
+STT q_1:
+	q_1 	& \epsilon 		& a 			& b 
+	Z 		& q_1, \epsilon	& 		 		&
+	A 		& 				& q_1, \epsilon	&
+	B 		& 				& 				& q_1, \epsilon
+	
+Stack [stringa, STACK[Base-...-Cima]]
+	abbbba, Z
+	bbbba, aZ
+	bbba, baZ
+		- bba, BBAZ
+			ba, BBBAZ
+		- bba, BAZ
+	
+Infine, APD deterministici \subset APND non deterministici
+
+--- Esercizi linguaggi non CF
+
+- Ex. 2.1: L = <0^{2n}10^{n^2} | n\in N>		// Il quadrato richiede necessariamente la stack. Non è un linguaggio CF.
+Che non è CF, lo dimostriamo usando il pumping lemma
+
+\forall k \exists z \in L t.c. |z| \geq k t.c. \forall uvwxy = z t.c.:
+	|vwx| \leq k
+	|vx| > 0
+	\exists i\in N t.c. uv^iwx^iy \notin L.
+k non deve avere alcun vincolo o condizione
+
+Fissiamo k\in N e prendiamo n=k \implies z= 0^{2k}10^{k^2} e definiamo le condizioni di appartenenza ad L.
+0^i10^j \in L \iff \exists h t.c.: \begin{cases}
+	j=h^2\\
+	i=2h
+\end{cases}
+
+Se v o x contengono l'1 centrale, allora \forall i > 1 ripetere v e/o x comporta l'aumento del numero di 1 uscendo banalmente da L, perché contiene un singolo 1 al centro.
+
+	1. v,x\in O^{2k}
+		z_i = uv^iwx^iy = 0^{2k + (i-1)|vx|}10^{k^2}.
+		Prendiamo i=2: 0^{2k+|vx|}10^{k^2} \in L \iff \exists h t.c.: \begin{cases}
+			2k + |vx| = 2h\\
+			k^2 = h^2 \iff k=h perché in N
+		\end{cases} \implies 2k + |vx| = 2k \iff |vx| = 0
+		z_2\in L \iff |vx| = 0. Poiché per ipotesi |vx| \neq 0, allora z_2 \notin L.
+		
+	2. v\in 0^{2k}, x\in 0^{k^2}
+		z_i = 0^{2k+(i-1)|v|}10^{k^2+(i-1)|x|}
+		z_2 = 0^{2k + |v|}10^{}k^2+|v|\in L \iff \exists h t.c.: \begin{cases}
+			2k+|v| = 2h\\
+			k^2 + |x| = h^2
+		\end{cases}
+		Se |x| = 0, allora per ipotesi |v|\neq 0 e quindi il caso è analogo ad 1. Inoltre, potremo dire che |x|\neq 0.
+		Se |x|\neq 0, allora dato che il quadrato è una funzione monotona crescente (ovvero cresce e basta): h^2 = k^2+|x| > k^2 \implies h>k \implies \exists m \geq 1 t.c. h=k+m
+		
+		\begin{cases}
+			2k + |v| = 2(k+m)\\
+			k^2 + |x| = (k+m)^2
+		\end{cases} = \begin{cases}
+			|v| = 2m\\
+			|x| = 2km + m^2
+		\end{cases} \implies |x| > 2km \geq k \implies |x| > x.
+		Ciò uttavia non va bene perché allora avremo |vx| = |v| + |x| > |v|+k \geq k
+		Siccome per ipotesi |vx| \leq k \implies z_2 \notin L.
+		
+	3. v,x \in 0^{k^2}
+		z_2 = 0^{2k}10^{k^2+|vx|} \in L \iff \exists h t.c. \begin{cases}
+			2k = 2h \implies k=h\\
+			k^2 + |vx| = h^2 \implies |vx| = 0
+		\end{cases}
+		
+		Siccome per ipotesi, |vx| > 0, allora z_2 \notin L.
+		
+-- Esercizio 2.16
+L = {0^n1^m0^h | m<n, m<h}, non CF.
+
+Condizioni di appartenenza: 0^n1^m0^h\in L \iff \exists i,j t.c. n=m+i \land h = m+j.
+
+Supponiamo m = k; possiamo dire che n=h=k+1. Dunque Z=0^{k+1}1^k0^{k+1} \in L
+	Se v\in0^{k+1} e x\in 0^{k+1} allora |vwx| > k, il quale è escluso dalle ipotesi sulla suddivisione.
+	
+	Se v o x contwngono sia 0 che 1 a cavallo tra gruppi, allora \forall i > 1, Z_i\notin L perché cambia la struttura dei gruppi di simboli.
+	
+Caso 1: v,x \in 0^{k+1}
+	z_i = 0^{k+1 + (i-1)|vx|}1^k0^{k+1}
+	Prendiamo i=0. Allora: Z_0 = 0^{k+1- |vx|}1^k0^{k+1} \in L \iff \begin{cases}
+		k+1 - |vx| > k \implies |vx| < 1 \iff |vx| = 0
+		k+1 > k 		Sempre vera
+	\end{cases}
+	
+	Dunque z_0\in L \iff |vx| = 0, ma per ipotesi |vx| > 0, quindi z_0\notin L.
+	
+Caso 2: v\in 0^{k+1}
+	z_i = 0^{k+1 + (i-1)|v|}1^{k + (i-1)|x|}0^{k+1}
+	Se |x|=0, allora |v|\neq 0 e quindi siamo come nel caso 1. Invece se |x|\neq 0, possiamo ragionarci.
+	
+	Prendiamo dunque i=2, allora: z_2 = 0^{k+1+|v|}1^{k+|x|}0^{k+1} \in L \iff \begin{cases}
+		k+1 + |v| > k+|x|\\
+		k+|x| < k+1 \implies |x| < 1 \iff |x| = 0, che è assurdo. Dunque la stringa non appartiene al linguaggio.
+	\end{cases}
+	
+Caso 3: v,x\in 1^k.	Analogo al caso |x|\neq 0 del punto 2.
+Caso 4: v\in 1^k, x\in 0^{k+1}, analogo al punto 2, la dimostrazione è uguale, ma bisogna solo scambiare le x con le v.
+Caso 5: v,x\in 0^{k+1} (secondo gruppo), analogo al punto 1.

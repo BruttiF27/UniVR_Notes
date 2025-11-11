@@ -1,0 +1,102 @@
+10-11-25 Prog2
+
+--- interfacce
+``` Java
+// Definizione di interfaccia - Non ha modificatori, ogni metodo di interfaccia è necessariamente pubblico e astratto, è implicito.
+public interface Time {
+	int getMinutes();
+	int getSeconds();
+	int getHours();
+}
+
+// Dichiarazione della classe che utilizzerà i metodi dell'interfaccia, va a definire tutto. Possiamo dire che è subclasse di Date e che implementa Time. Va bene.
+public class TimeStamp extends Date implements Time {
+	protected final int seconds;
+	protected final int minutes;
+	protected final int hours;
+	
+	public TimeStamp (int seconds, int minutes, int hours, int day, int month, int year) {
+		super(day, month, year);
+		this.seconds = seconds;
+		this.minutes = minutes;
+		this.hours = hours;
+	}
+	
+	public int getSeconds() {
+		return seconds;
+	}
+	
+	public int getMinutes() {
+		return minutes;
+	}
+	public int getHours() {
+		return hours;
+	}
+	
+	@Override
+	public String toString () {
+		return String.format("%s[%d:%d:%d]", super.toString(), hours, minutes, seconds);
+	}
+	
+	@Override
+	public boolean equals (Object other) {
+		if (super.equals(other) == false) return false;
+		if (!(other instanceof TimeStamp)) return false;		// Se l'oggetto non è un timestamp, fare il confronto è uguale. Skippa tutto, nel caso.
+		Timestamp otherAsTimeStamp = (TimeStamp) other;
+		
+		return hours == otherAsTimeStamp.getHours() &&
+			minutes == otherAsTimeStamp.getMinutes() &&
+			seconds == otherAsTimeStamp.getSeconds();
+	}
+}
+
+// Istanziazione della classe utilizzante l'interfaccia
+Time ts1 = new TimeStamp(0, 0, 10, 10, 11, 2025);
+
+// Upcast più che legittimo.
+Date ts2 = new TimeStamp(0, 0, 10, 10, 11, 2025);
+```
+
+Un'interfaccia può estendere più interfacce, ma non può farlo con le classi.
+Una classe può invece estendere una sola classe, ma può implementare più interfacce. Curioso.
+Generalmente, è utile usare interfacce per definire astrattamente le componenti di una classe, le quali possono essere definite in modi completamente differenti nelle eventuali classi
+che andranno ad implementare le interfacce. Fa proprio un disaccoppiamento fra codice e concetto.
+Un'interfaccia molto importante, dentro a java.lang.Comparable è int compareTo(Object obj).
+	- Torna un negativo sr this è minore di obj
+	- Torna zero se this è uguale a obj
+	- Torna un positivo se this è maggiore di obj
+	
+java.lang.Iterable contiene Iterator iterator();
+java.util.Iterator
+Quindi gli oggetti da sta classe ci si può iterare sopra. Una classe che implementa iterable può essere usata in un enhanced for loop.
+Metodi: 
+boolean hasNext()		// Dice quando non ho più elementi da scorrere
+next();					// restituisce l'elemento successivo e avanza di un'iterata.
+
+--- Classi innestate e anonime
+Una classe innestata è una classe definita all'interno di un'altra classe. Vengono usate per definire funzioni di utility, indipendentemente dalle istanziazioni.
+class Outer {
+	static class Nested {
+	
+	}
+}
+Possiamo definirle statiche e le non statiche. Le prime possono essere chiamate senza necessità di istanziare un oggetto esterno. Inoltre hanno accesso ad altri membri della
+classe claudente se questi sono statici. Possono essere usate anche indipendentemente dalla classe claudente.
+Le classi interne ad altre non statiche sono dette interne. Queste possono accedere ai membri di istanza della classe claudente.
+Per usare le classi interne bisogna istanziare un oggetto. Questo è dovuto dall'assenza di static, come ben sai.
+
+Per chiamare entrambe va usata la notazione col punto. pkg.outerClass.innerClass
+
+Si possono creare anche classi all'interno di metodi di classi, dette classi locali. Queste sono istanziabili e hanno uno scope limitato al metodo, quindi solo alle sue variabili
+locali COSTANTI, e i relativi oggetti verranno deallocati appena terminerà il metodo.
+
+Il codice con le classi interne risulta meno ridondante, più organizzato e riutilizzabile. In termini di leggibilità non è male, neanche.
+
+--- Classi anonime
+Classi locali senza nome. Normalmente usate per implementare un interfaccia. Sono utilizzabili puramente grazie all'ereditarietà, perché per poter essere chiamata serve un nome.
+
+// Definizione in runtime di un'estensione della classe Person
+new Person("Sam") {
+	// Blocco di codice
+}
+Tecnicamente queste classi anonime sono espressioni che valuta un oggetto e non è possibile specificarne un costruttore.

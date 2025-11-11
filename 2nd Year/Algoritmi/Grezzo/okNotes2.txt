@@ -1,0 +1,79 @@
+okNotes - Chapter 2
+
+% Nome capitolo: Algoritmi di ordinamento
+
+\section{Problemi di ordinamento}
+Si pone il problema di riassettare le variabili presenti in una struttura dati in base ad una determinata relazione. Di base si parla di relazioni su interi, quindi metterli in
+ordine crescente, decrescente e simili.
+Abbiamo già parlato di complessità degli algoritmi, eventuali caso pessimo, ottimo e medio. Introduciamo ora i concetti di lavoro in loco e stabilità.
+Un algoritmo lavora in loco quando per operare utilizza la singola struttura dati data in input, senza richiederne altre di supporto.
+Un algoritmo è stabile quando non scambia di posizione due elementi uguali.
+
+Complessità:
+Caso ottimo:
+Lavoro in loco:
+Stabilità:
+
+\section{Insertion Sort}
+
+Complessità: n^2
+Caso ottimo: n^2
+Lavoro in loco: Sì
+Stabilità: Sì
+
+% TODO INSERISCI WORKFLOW CON PSEUDOCODICE
+
+\section{Merge Sort}
+
+Complessità: nlogn
+Caso ottimo: nlogn
+Lavoro in loco: No (Usa array di supporto)
+Stabilità: Sì
+
+% TODO INSERISCI WORKFLOW CON PSEUDOCODICE
+
+\section{Heap Sort}
+
+Complessità: nlogn
+Caso ottimo: nlogn
+Lavoro in loco: Boh non ricordo lmao
+Stabilità: Mi sembra di sì
+
+% TODO INSERISCI WORKFLOW CON PSEUDOCODICE
+
+\section{Quick Sort}
+
+Complessità: n^2 (Se l'array è già ordinato)
+Caso ottimo: nlogn
+Lavoro in loco: Credo di sì?
+Stabilità: No
+
+% TODO INSERISCI WORKFLOW CON PSEUDOCODICE
+
+\section{Counting Sort}
+
+Complessità: max(n,k)
+Caso ottimo: max(n,k)
+Lavoro in loco: Boh lmao
+Stabilità: Mi par de sì
+
+% TODO INSERISCI WORKFLOW CON PSEUDOCODICE
+
+\section{Radix Sort}
+
+Complessità: kN
+Caso ottimo: kN
+Lavoro in loco: Non ricordo manco qua
+Stabilità: Penseresti di sì vedendo l'esempio con i numeri binari
+
+% TODO INSERISCI WORKFLOW CON PSEUDOCODICE
+
+\section{Bucket Sort}
+
+Complessità: n^2
+Caso ottimo: Boh, dipende. Valuta quello medio, questo si basa sulla probabilità.
+Caso medio: (n + n^2/k + k), con k il numero di bucket.
+Lavoro in loco: Penso di sì?
+Stabilità: Boh, penso di sì.
+
+% TODO INSERISCI WORKFLOW CON PSEUDOCODICE

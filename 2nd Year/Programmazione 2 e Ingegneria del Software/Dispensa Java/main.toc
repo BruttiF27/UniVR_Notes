@@ -15,15 +15,20 @@
 \contentsline {section}{\numberline {3.2}Ereditarietà}{16}{}%
 \contentsline {section}{\numberline {3.3}Polimorfismo}{16}{}%
 \contentsline {section}{\numberline {3.4}Astrazione}{16}{}%
-\contentsline {chapter}{\numberline {4}Librerie utili}{17}{}%
-\contentsline {section}{\numberline {4.1}Libreria digitale}{17}{}%
-\contentsline {section}{\numberline {4.2}java.lang.*}{18}{}%
-\contentsline {subsection}{\numberline {4.2.1}Classi wrapped}{18}{}%
-\contentsline {subsection}{\numberline {4.2.2}.System}{18}{}%
-\contentsline {subsection}{\numberline {4.2.3}.String, StringBuilder}{18}{}%
-\contentsline {subsection}{\numberline {4.2.4}.Math}{18}{}%
-\contentsline {section}{\numberline {4.3}java.util.*}{18}{}%
-\contentsline {subsection}{\numberline {4.3.1}.Scanner}{18}{}%
-\contentsline {subsection}{\numberline {4.3.2}.Random}{18}{}%
-\contentsline {subsection}{\numberline {4.3.3}.Arrays}{18}{}%
-\contentsline {section}{\numberline {4.4}java.io.*}{18}{}%
+\contentsline {chapter}{\numberline {4}Modelli di progettazione}{17}{}%
+\contentsline {section}{\numberline {4.1}Singleton}{17}{}%
+\contentsline {section}{\numberline {4.2}Iterator}{18}{}%
+\contentsline {section}{\numberline {4.3}Observer}{18}{}%
+\contentsline {section}{\numberline {4.4}Factory}{18}{}%
+\contentsline {chapter}{\numberline {5}Librerie utili}{19}{}%
+\contentsline {section}{\numberline {5.1}Libreria digitale}{19}{}%
+\contentsline {section}{\numberline {5.2}java.lang.*}{20}{}%
+\contentsline {subsection}{\numberline {5.2.1}Classi wrapper}{20}{}%
+\contentsline {subsection}{\numberline {5.2.2}.System}{20}{}%
+\contentsline {subsection}{\numberline {5.2.3}.String, StringBuilder}{20}{}%
+\contentsline {subsection}{\numberline {5.2.4}.Math}{20}{}%
+\contentsline {section}{\numberline {5.3}java.util.*}{20}{}%
+\contentsline {subsection}{\numberline {5.3.1}.Scanner}{20}{}%
+\contentsline {subsection}{\numberline {5.3.2}.Random}{20}{}%
+\contentsline {subsection}{\numberline {5.3.3}.Arrays}{20}{}%
+\contentsline {section}{\numberline {5.4}java.io.*}{20}{}%

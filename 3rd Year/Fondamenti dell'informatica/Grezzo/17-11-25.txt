@@ -1,0 +1,163 @@
+17-11-25 - FondInfo
+
+--- Teoria della calcolabilità
+Per tutto ciò per il quale non bastano gli automi. Qual è il sovrainsieme dei context free?
+
+-- Insieme delle funzioni primitive ricorsive
+(Definizione non ancora sufficiente per comprendere tutto il calcolabile) - Modello di calcolo che permette di descrivere un processo di calcolo componendo funzioni più semplici
+che sono già definite.
+
+- Funzioni ricorsive di base (Quelle elementari, le basi)
+Ne abbiamo tre tipi:
+	- Costante 0: \lambda x.0					// [Qualunque input ritorna 0] Le x sono i parametri di ingresso, ciò che è dopo il punto è il calcolo del risultato.
+	- Successore S: \lambda x.x+1				// Vista in mate di base, lmao godo
+	- Identità/proiezione i-esima: \lambda x_1x_2...x_n.x_i		// Identità su uno degli input. Restituisce l'input con indice i.
+	
+Queste funzioni sono dette totali poiché definite per ogni numero naturale.
+
+- Operazioni
+	- Composizione: g:N\to N, h:N\to N; f=g\circ h = \lambda x.g(h(x)), f:N\to N.
+		Ex. g:NxN \to N; h_1,h_2: NxNxN\to N
+			f = g\circ(h_1, h_2) : NxNxN\to N.	f = \lambda x_1x_2x_3 . g(h_1(x_1x_2x_3), h_2(x_1x_2x_3))
+			
+		Generalmente, g:N^k\to N, con h_1h_2...h_k:N^n\to N; allora f = g\circ g(h_1...h_k) = \lambda x_1...x_n . g(h_1(x_1...x_n)...h_k(x_1...x_n)) ed f:N^n\to N.
+		La composizione di funzioni totali è a sua volta totale.
+		
+	- Primitiva ricorsione: g:N\to N; h:NxNxN\to N. Definiamo f:NxN\to N per primitiva ricorsione: 
+		\begin{cases}	
+			f(0,x) = g(x)					// 0 è l'indice. Caso base.
+			f(y+1, x) = h(y, f(y,x), x)		
+		\end{cases}
+		Ex. Funzione somma.		+:NxN\to N
+		
+		Induttivamente: \begin{cases}
+			+(0,x) = x\\
+			+(y+1, x) = S(+(y,x))
+		\end{cases}
+		Dunque:
+			- f_1 = \lambda x.x
+			- f_2 = \lambda x.S(x) = \lambda x.x+1
+			- f_3 = \lambda x_1x_2x_3 . x_2
+			- f_4 f_2\circ f_3
+			
+		\begin{cases}
+			f_5(0,x) = f_1(x) = x\\
+			f_5(y+1, x) = f_4(y, f_5(y,x), x) = f_2\circ f_3(y, f_5(y,x), x) = f_2(f_5(y,x)) = S(f_5(u,x))
+		\end{cases}
+		+ : f_1f_2f_3f_4f_5
+		
+		Anche le funzioni definite per primitiva ricorsione son totali.
+		
+	- Moltiplicazione: *:NxN\to N
+	\begin{cases}
+		*(0,x) = 0\\
+		*(y+1, x) = +(x, *(y,x))
+	\end{cases}
+	Dunque:
+		- f_1 = \lambda x.0
+		- f_2 = \lambda x_1x_2x_3 . x_2
+		- f_3 = \lambda x_1x_2x_3 . x_3
+		- f_4 = + = \lambda x_1x_2 . +(x_1,x_2)
+		- f_5 = f_4 \circ (f_2,f_3)
+		- f_6: \begin{cases}
+			f_6(0,x) = f_1(x) = 0\\
+			f_6(y+1, x) = f_5(y, f_6(y,x), x) = f_4\circ(f_2,f_3)(y, f_6(y,x), x) = f_4(f_2(y, f_6(y,x))), f_3(y, f_6(yx), x) = f_4(f_6(y,x), x) = + (f_6(y,x), x)
+		\end{cases}
+		
+		* : f_1f_2f_3f_4f_5f_6
+		
+	- Decremento: D:N\to N, con D(0) = 0 e D(y+1) = y.
+		- f_1 = \lambda x.0
+		- f_2 = \lambda x_1x_2x_3 . x_1
+		- f_3 = \begin{cases}
+			f_3(0,x) = f_1(x) = 0\\
+			f_3(y+1, x) = f_2(y, f_3(y,x), x) = y
+		\end{cases}
+		
+	- Differenza: -:NxN\to N
+		\begin{cases}
+			-(0,x) = x\\
+			-(y+1, x) = D(-(y,x))
+		\end{cases}
+		
+---
+Supponiamo adesso che f sia primitiva ricorsiva, quindi f\in PR. PR è la classe delle funzioni primitive ricorsive, ovvero la minima classe di funzioni chiusa per composizione
+e primitiva ricorsione, e contenente tutte le ricorsive di base.
+
+\exists una sequenza P_f di funzioni in PR tali che l'ultima funzione della sequenza è esattamente f. Quindi P_f = f_1f_2...f_n t.c. \forall i . f_i\in PR \land f_n=f.
+Con queste definizioni stiamo descrivendo le funzioni come sequenze finite di caratteri, rientrando quindi nel calcolabile.
+
+Mostriamo tuttavia che il modello fallisce nel catturare il concetto di calcolabile, al contrario delle finziopni.
+
+f:N\to N, f\in PR, \exists P_f seqienza di f_i\in PR tali che l'ultimo sia f.
+Definiamo quindi h:N\to N t.c. h(n) = f_n(n)+1. Prendiamo un n e generiamo la lista di funzioni fino a n e gli sommo 1. h(n) è calcolabile.
+
+Se h(n) è calcolabile e PR catturano tutto ciò che è calcolabile, allora h\in PR.
+
+Esisterà anche un indice tale che f_i = h, per rispettare il fatto di essere primitiva ricorsiva. Supponiamo quindi per assurdo che le PR catturino ogni cosa calcolabile.
+Se vale la supposizione, allora esiste un indice i tale che f_i = h e allo stesso tempo sia in PR.
+Allora potremmo calcolare h(i): f_i(i) = h(i) = f_i(i) + 1.		// Questa cosa tuttavia è assurda perché un naturale non è uguale al suo successore.
+
+Dunque PR non può catturare tutte le funzioni calcolabili.
+
+-- Funzione di Ackermann
+Generatore di funzioni. Notare che lo schema di primitiva ricorsione non è rispettato perché la funzione che andiamo a calcolare è anche quella calcolata.
+Tuttavia rientra ugualmente nelle funzioni totali, quindi calcolabili.
+\begin{cases}
+	Ack(0,y) = y+1\\
+	Ack(x+1, 0) = Ack(x, 1)\\
+	Ack(x+1, y+1) = Ack(x, Ack(x+1, y))
+\end{cases}
+E.g. Con x=4 e y=2, Ack(4,2) ha più di 19k cifre.
+
+-- Macchine di Turing
+Cerca di descrivere il modo in cui porto avanti la computazione. Sono un modello basato su DFA che permette di descrivere come avviene il processo di calcolo come sequenza
+di operazioni r/w su una memoria.
+Si definisce con un programma finito. Che è la funzione di transizione... che è la tabella finita, la STT. Qui si indica lo stato, il simbolo (scrittura) e la direzione di
+spostamento
+
+Definizione: MdT
+Una MdT M consiste di:
+	- \Sigma alfabeto finito; \Sigma = {s_0, ..., s_n}
+		Contiene almeno due simboli: $, rappresentante la cella vuota e almeno un simbolo significativo, 0.
+	- Q insieme finito di stati non vuoto, con q_0\in Q quello iniziale.
+	- P insieme finito di istruzioni, corrisponde alla \delta dei DFA.
+		P = {I_1, ..., I_k}; \forall i I_i è una quintupla, le quali possono essere di due tipi:
+			- q,s,q',s',R; stato corrente q, simbolo letto sul nastro s, stato prox q', simbolo sostituiente s s' e spostamento a dx.
+			- q,s,q',s',L; Idem, ma spostamento a sx.
+		Quindi nell'automa a stati finiti definiamo \delta:Qx\Sigma \to Qx\Sigmax{R,l} = \begin{cases}
+			<q,s,q',s',R>\\
+			<q,s,q',s',L>
+		\end{cases}
+		
+Descrizione istantanea di una MdT:
+	...$$...$s_1s_2...s_{i-1}s_is_{i+1}...s_n$$$	// La porzione significativa è compresa fra i $ non inclusi.
+	Quindi l'istante si descrive con una quadrupla: (q, v, s_i, w)
+		- v è la sequenza di simboli prima di q, il simbolo letto.
+		- w è quella dopo q.
+
+La computazione di una MdT è una sequenza di descrizioni istantanee.
+
+\delta(q,r) = (q',r',R) \implies <q, v, r, sw> \to <q', v', s, w>, dove v'=vp'.		// Consigliato consultare il disegno nelle slides.
+\delta(q,r) = (q',r',L) \implies <q, w, r, v> \to <q', w', s, r'v>
+
+Una computazione è detta terminante se esiste una descrizione istantanea <q, v, r, w> tale che nessuna istruzione inizia con <q,r...>, ovvero \delta(q,r) non è definita.
+Una macchina di Turing esiste e funziona per ogni funzione ricorsiva di base.
+
+--- Esercizio pumping lemma context free
+L = {0^n0^{2^n} | n\in N} = {0^{n+2^n} | n\in N}.
+
+Condizioni di appartenenza:
+	- 0^i\in L \iff \exists j . i=j+2^j
+		Attenzione, sapere che L non è CF non dà la garanzia che lo siano anche tutte le sue componenti. Bisogna ragionare su L per evitare problemi.
+		
+Fissiamo k\in N, n=k; z = 0^{k+2^k} \in L, perché |z| > k.
+z_i = 0^{k+2^k + (i-1)|vx|} e prendiamo i=2.
+	z_2 = 0^{k+2^k + 1|vx|}, il quale \in L \iff \exists h . k+2^k + |vx| = h+2^h.
+	h+2^h > k+2^k. Ma allora essendo la funzione crescente, allora h>k. Dunque esiste anche un m>0 tale che h = k+m.
+	
+k+2^k + |vx| = k+m + 2^{(k+m)} \implies |vx| = 2^k2^m-2^k+m = 2^k(2^m-1)+m. Cosa implica sulla lunghezza di vx?
+Dato che m>0, allora 2^m>1 \implies 2^m-1>0.
+
+|vx| = 2^k(2^m-1)+m > 2^k(2^m-1)\geq 2^k > k \implies |vx| > k. Per il pumping lemma, |vwx| \leq k, \implies z_2\in L \iff |vx| > k.
+Tuttavia, per il PL, |vx| \leq |vwx| \leq k \implies z_2\notin L.

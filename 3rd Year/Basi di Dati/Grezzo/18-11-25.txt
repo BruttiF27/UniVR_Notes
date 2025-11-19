@@ -1,0 +1,57 @@
+18-11-25 Basi di dati
+
+--- Valori nulli e vincoli di integrità
+Sappiamo che ogni tupla va commpletata in ogni suo valore in modo significativo. Non ci devono essere valori vuoti. Può capitare tuttavia di avere dei buchi. Non sono ammessi, 
+quindi si potrebbe creare più tabelle per sopperire a sta mancanza.
+
+I buchi sono dati eventualmente da:
+	- attributi inesistenti: non esiste per questa tupla un valore per l'attributo A
+	- Attributi sconosciuti: esiste un valore per l'attributo A di questa tupla ma non è noto al DB
+	- Il valore di un attributo A è sconosciuto o inesistente.
+
+In tal caso si può dare una costante speciale detta valore nullo.
+Dunque, gli attributi della tupla potranno assumere valori del dominio oppure la costante nulla.
+	Tupla su X: t:X\to {NULL}\cup(\cup_{A\in X}DOM(A))
+	Dove: t[A] = v\in DOM(A) \lor t[A] = NULL
+	
+L'uso di valori nulli tuttavia è accettabile solo in alcuni attributi; avere tuple di soli valori nulli non è possibile, né accettabile.
+Negli attributi replicati per rappresentare legami fra tuple, la presenza di valori nulli potrebbe rendere inutilizzabile l'informazione. Quindi sono utili, ma con parsimonia.
+
+Esercizio: Rappresentare con un insieme di relazioni le informazioni contenute in un orario ferroviario dove si riportino per ogni treno in partenza dalla stazione di verona:
+NUMERO, ORARIODIPARTENZA, DESTINAZIONEFINALE, CATEGORIA, FERMATEINTERMEDIE (con orario di fermata), ORARIODIARRIVO (alla destinazione finale)
+	
+Tabelle:
+	- TRENO (NUMERO, ORARIODIPARTENZA, CATEGORIA, DESTINAZIONE, ORARIODIARRIVO)
+	- FERMATA (STAZIONE, ORARIO, NUMEROTRENO)
+	
+--- Vincoli di integrità
+Restrizioni alla popolazione di una base di dati in quanto non tutte le possibili istanze sono corrette rispetto al sistema informativo in esame.
+Trattasi di una condizione espressa da un predicato sempre soddisfatta da ogni istanza del DB. Per esempio:
+
+\forall t\in TRENO : t[OraPart] \in {0,1,...,23}							// Le ore devono essere un valore compreso fra 0 e 23
+\forall t\in TRENO : t[MinutoPart] \in {0,1,...,59}							// I minuti fra 0 e 59
+\forall t\in TRENO : t[Numero] > 0											// Ed il numero del treno maggiore di 0
+\forall t\in TRENO : t[Numero] > 5000 \implies t[Categoria] = 'Regionale'	// Infine, ogni numero di treno > 5000 è necessariamente un regionale
+\forall t,t' \in TRENO : t\neq t' \implies t[Numero] \neq t'[Numero]		// Unicità dell'identificatore
+\forall f\in FERMATA : \exists t\in TRENO : t[Numero] = f[NumTreno]			// Il numero del treno deve stare anche nella fermata.
+\forall t\in TRENO : t[Categoria] = 'Regionale' \implies \exists f\in Fermata : f[NumTreno] = t[Numero]		// Anche i treni hanno le fermate che hanno il loro numero di treno.
+
+Classificazione dei vincoli strutturali:
+	- Di dominio: Impongono una restrizione sul dominio degli attributi. Per esempio quello che lega OraPart ad un numero fra 0 e 23.
+	- Di tupla: La restrizione riguarda una combinazione di valori, come quella del treno > 5000 allora è necessariamente regionale.
+	- Intra-relazionali: Impongono restrizioni al contenuto di una relazione e specificano una condizione che ogni tupla della relazione deve soddisfare rispetto alle altre.
+		- Chiavi (o vincoli di chiave) sono:
+			- Superchiave: Data una relazione di schema R(X), un insieme di attributi K sottinsieme di X, è superchiave per R(X) se, per ogni istanza di R(X) vale:
+				\forall t,t'\in r:t\neqt' \implies t[K] \neq t'[K], dove t[K] \neq t'[K] \equiv \exists A_i \in K : t[A_i] \neq t'[A_i]. // C'è almeno un attributo diverso, quindi.
+			- Chiave candidata: Data una relazione di schema R(X) ed un insieme di attributi K sottoinsieme di X, è chiave candidata per R(X), se K è superchiave per R(X) e vale:
+				\neg\exists K' \subset K:K' è superechiave per R(X). // Se due tuple son distinte, allora avranno sicuro qualcosa di diverso. Inoltre, esiste sempre una chiave
+				candidata K per una relazione R(X). Questo perché:
+					- X è Superchiave di R(X)
+					- Se X non ha sottinsiemi propri che sono superchiave, allora X è chiave.
+					- Altrimenti si riapplica lo stesso ragionamento ricorsivamente al sottinsieme di X che è superchiave.
+					- Dato che la cardinalità di X è finita e siccome l'insieme vuoto non è superchiave, si troverà in un numero finito di passi una chiave candidata.
+			- Chiave primaria: Tra le candidate se ne sceglie una e verrà utilizzata quando dovremo rappresentare le tuple della relazione.
+				Non ha mai valori nulli e su K genera unna struttura d'accesso ai dati come supporto per le interrogazioni.
+			- 
+	- Inter-relazionali:
+		- Di integrità referenziale

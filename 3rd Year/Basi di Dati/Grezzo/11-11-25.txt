@@ -1,0 +1,53 @@
+11-11-25 Basi di dati
+
+--- Modello relazionale
+Anche questo ha costrutti per rappresentare le informazioni del sistema informativo, come anche altri costrutti per darne proprietà da mettere dentro ai contenitori.
+Il modello relazionale è quello utilizzato oggigiorno.
+
+I costrutti principali sono:
+	- Domini di base: Entità minime.
+		Domini dai quali si scelgono i valori delle proprietà delle istanze di informazione da rappresentare. Questi possono essere caratteri, stringhe, decimali
+		in virgola fissa e mobile. Possibile usare domini per rappresentare istanti o intervalli di tempo.
+		Ogni sistema ha poi eventuali suoi domini ad-hoc per rappresentare dati diversi, ma è specifico del sistema stesso.
+	
+	- Relazione (o tabella):
+		Quali istanze di informazione osno gestite e come queste cose diventano dati nel sistema? Ovvero, come rappresentare i dati nel sistema?
+		Ogni riga della tabella è un'istanza di informazione, mentre i valori delle colonne descrivono sempre la stessa proprietà delle istanze da rappresentare.
+	
+		Relazione come serie di ennuple (o lists):
+			Dati n insiemi di valori (domini) D_1, ..., D_n con n>0 e indicato con D_1\times ... \times D_n = {(v_1, ..., v_n) | v_1\in D_1 \land ... \land v_n\in D_n} il prodotto
+			cartesiano fra di loro, diciamo che una relazione \rho è un qualsiasi sottoinsieme del prodotto cartesiano appena definito.
+			Una \rho è una riga. |\rho| è la cardinalità della relazione.
+			Le ennuple non sono ordinate, non sono ammessi nemmeno duplicati. Sono soprattutto di cardinalità finita.
+			Tuttavia i valori nelle ennuple sono legati da una relazione di ordinamento e sono anche già ordinati.
+			
+			Esempio di relazione come insieme di ennuple. \rho = {(MILANO, 20100, 1300000), (VERONA, 37100, 350000), (BRESCIA, 25100, 250000)}, quindi \rho \subseteq D_1 x D_2 x D_3
+				Con D_1 è dato da stringhe, gli altri sono numeri interi.
+				
+				Accesso ai valori di una n-upla: t[i], con t ennupla ed i l'indice.
+				Però è meglio usare la riga di intestazione, che vedremo nella seguente definizione
+				
+		Relazione come serie di tuple (o mappings):
+			Bisogna definire i nomi delle colonne, poi definire i domini dei valori delle colonne, ed infine come sono fatte le righe.
+			Sia \Chi insieme di nomi e \Delta l'insieme di tutti i domini di base ammessi dal modello. Definiamo la funzione DOM:\Chi\to \Delta. Associa nomi/domini.
+			
+			La funzione associa ad ogni nome A di \Chi un dominio DOM(A) di \Delta. I nomi di \Chi sono detti attributi.
+			Quindi una tupla t:X\to \Cup_{A\in X} DOM(A), dove t[A] = v \in DOM(A).
+			
+			Esempio: \Chi = {Nome, CAP, Abitanti}, con:
+				DOM(Nome)
+				DOM(CAP)
+				DOM(Abitanti)
+				\rho_{\Chi} = {t_1, t_2, t_3}
+	
+			Non ci possono essere tuple duplicate in quanto una relazione è un loro insieme. Nelle unioni non ripeti niente.
+			I domini per gl attributi possono essere esclusivamente quelli di base.
+			Generalmente un DB è costituito da più relazioni.
+	
+	- Superchiavi, chiavi e chiavi primarie: Descrivono vincoli, corrispondono al vincolo di identificazione.
+	
+	
+	- Vincoli di integrità referenziale: Utili per rappresentare legami fra entità.
+	
+	
+	- Vincoli di integrità generici

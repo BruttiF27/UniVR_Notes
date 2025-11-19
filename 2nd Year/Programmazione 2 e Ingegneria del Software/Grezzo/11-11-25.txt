@@ -100,18 +100,18 @@ Pair <Integer> intPair = new Pair <> (2, 4);
 Per rendere la cosa ulteriormente astratta, possiamo usare la lettera T come placeholder della classe; il compiler la sostituirà senza lagnarsi alla classe Object. Chiamiamo
 questa definizione "Tipo di parametro libero". Possono essere anche legati, specificando un limite di classe superiore o inferiore.
 	- Unbounded: 
-	```
-	public class Pair <T> { // we want to use Person here
+		```
+		public class Pair <T> { // we want to use Person here
 		private T first, second;
-	}
-	```
+		}
+		```
 	- Bounded:
-	```
-	// Limite superiore
-	class Clazz <T extends S1 & S2 & ... & Sk>
-	// Limite inferiore
-	class Clazz <T super S>
-	```
+		```
+		// Limite superiore
+		class Clazz <T extends S1 & S2 & ... & Sk>
+		// Limite inferiore
+		class Clazz <T super S>
+		```
 	
 Se T è legato, il compiler non si lagnerà per i relativi metodi dichiarati, poiché ha un limite al quale fermarsi.
 	
@@ -134,4 +134,4 @@ Gli iterabili C,D provenienti da una subclasse B non riconoscono come sovracclas
 
 Possiamo usare il parametro Wildcard '?' nel diamond per indicare un tipo generico Oggetto libero. Non differisce da una normale dichiarazione di unbounded generic T, infatti
 non sarà possibile usare metodi ad esso associati; tuttavia il vantaggio è che non richiede classi per essere usato. Puoi usarlo come parametro generale.
-Puoi anche legare ? dicendo che è una subclasse. In tal caso puoi usare i metodi definiti con questo tipo.
+Puoi tuttavia legare ? specificando limite superiore o inferiore con extends/super. In tal caso puoi usare i metodi definiti con questo tipo.

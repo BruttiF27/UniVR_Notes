@@ -22,7 +22,7 @@ Per progetti grossi è necessario affidarsi a build tools ad-hoc come Maven per 
 Ogni classe è locale al pacchetto dove è definita. Quindi importando un pacchetto potrai leggere ogni classe ivi dichiarata.
 Però bisogna comunicare al file dove può trovarla. Ci son due modi:
 	- Con nomi interamente qualificati
-	package calc ;
+	package calc;
 
 	class Calculator {
 		public static num.Real div(num.Natural a, num.Natural b) {

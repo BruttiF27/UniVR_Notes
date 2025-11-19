@@ -49,5 +49,3 @@ Potendo avere più costruttori (anche le sub ne hanno bisogno), possiamo sfrutta
 La scelta avviene in base alla segnatura, quindi agli elementi che vengon dati a super.
 In assenza di costruttore della sub e con un costruttore nella super, siamo obbligati a definirne un altro nella sub.
 Per evitare che il metodo venga ridefinito, dichiararlo come final metodo nella classe radice.
-
---- Polimorfismo

@@ -1,0 +1,29 @@
+17-11-25 Prog2
+
+--- Collectionss
+Definiamo collection framework un insieme di classi ed interfacce che implementano collezioni di elementi. Elementi che possono essere una qualunque struttura dati.
+Sono definite in java.util e implementano tutti l'interfaccia Iterable<E>.
+Ogni collezione di dati ha le sue particolarità.
+	Alcune sono ordinate
+	Alcune hanno suplicati
+	Alcune ancora hanno più funzionalità di altre.
+	
+Ghemo:
+	- La possibilità di cambiare struttura dati per qualche motivo e non immagino il casino che han dovuto fare per implementare sta cosa.
+	- Interfacce List
+		Possono avere duplicati ed il loro ordine di inserimento è preservato. Metodi in slide.
+	- Interfacce Set
+		Non possono avere duplicati e l'ordine di inserimento non è preservato. Metodi in slide.
+		Non fornisce metodi aggiuntivi rispetto a Collection<E>, stabilisce solo le due caratteristiche appena dette.
+	- Interfacce Map
+		Associazioni fra chiavi e valori. Le prime devono essere uniche e solo un valore può essere associato ad ogni chiave.
+		Questi due cosi devono essere oggetti necessariamente.
+
+HashSet
+	Costruita in base ad una chiave, la quale dà accesso diretto agli elementi in tempo costante.
+	Generlmente mantiene una HashMap, che rende gli oggetti distinguibili esclusivamente grazie all'hashcode generato.
+TreeSet
+HashMap
+
+--- Usi comuni per le collections
+Normalmente si tende ad iterare gli elementi di una collezione, infatti ognuna di loro è subclass di iterable.

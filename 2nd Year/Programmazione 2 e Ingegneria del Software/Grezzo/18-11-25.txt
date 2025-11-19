@@ -1,0 +1,8 @@
+18-11-25 Prog2
+
+Solo dolore
+
+--- Definizione di eccezioni
+try, catch, throw
+Il flow delle eccezioni
+Gerarchia delle eccezioni

@@ -1,0 +1,69 @@
+18-11-25 - Algoritmi
+
+--- Albero binario di ricerca
+Si rappresentano tramite appositi nodi, i quali posseggono:
+	- una chiave (la quale può essere qualunuque oggetto). In questo caso hanno una relazione di ordinamento.
+		Preso un qualunque nodo, i nodi figli sx devono avere chiave <= del parent, mentre quelli di dx devono avere chiave >= del parent.
+	- ptr p
+	- ptr Left: Punta al figlio sx
+	- ptr Right: Punta al figlio dx
+	
+La ricerca avviene spostandosi dai parent ai children di dx o sx con una complessità lineare in un albero sbilanciato, mentre se è (sufficientemente) bilanciato possiamo avere anche
+tempi logaritmici. Per sufficientemente si intende avere una profondità logaritmica.
+
+Possiamo costruire un albero binario per far sì che la ricerca e l'inserimento siano entrambe logn e che rimanga bilanciato?
+	Supponiamo di avere un albero bilanciato tranne per un buco all'estrema destra. Se devo inserire un nodo più piccolo rispetto a tutti gli altri, lo sbilancerò per forza.
+	Verrà inserito il nodo alla base sinistra e dovrò riordinare tutto in tempo lineare.
+Esistono tuttavia delle tecniche per avere alberi sufficientemente bilanciati per garantirci tempi logn per inserimento estrazione e ricerca.
+
+-- Tre modi principali per visitare i nodi di un albero binario:
+Ovvero per ogni nodo di un albero effettuo un'operazione in un determinato modo.
+
+1. 
+PreVisit(x)		// x è un nodo.
+	if (x != NIL) {
+		Visit(x)		// Vedo la radice prima e poi vedo i due figli prima di spostarmi
+		PreVisit(left(x))
+		PreVisit(right(x))
+	}	
+2.
+InVisit(x)
+	if (x != NIL) {
+		InVisit(left(x))
+		Visit(x)
+		InVisit(right(x))
+	}
+	
+3.
+PostVisit (x)
+	if (x != NIL)
+		PostVisit(left(x))
+		PostVisit(right(x))
+		Visit(x)
+		
+Con il seguente albero:
+						7
+				3				10
+			1				9		12
+			
+PreVisit = 7, 3, 1, 10, 9, 12
+InVisit = 1, 3, 7, 9, 10, 12		// Guarda un pò, è ordinato. Grazie alla logica del binary search tree è possibile dimostrare per induzione che l'albero ordina.
+PostVisit = 1, 3, 9, 12, 10, 7
+
+Essendo che scorro l'intero albero abbiamo che la complessità è lineare.
+Per la costruzione di un albero da un array qualsiasi tuttavia la complessità è nlogn. In questo tempo possiamo costruire alberi bilanciati e sbilanciati.
+Per il bilanciato bisogna ordinare l'array, prendere il suo mediano e poi inserisci ricorsivamente tutti i nodi secondo la logica dell'albero.
+
+BT (A, p, r) {
+	n = r-p+1;					// n è la cardinalità del sottoarray.
+	
+	if (n < 1) return NIL;		// Controlla se l'array è vuoto
+	
+	m = (p+r)/2;
+	Node x = new Node(A[m]);
+	x.left = BT(A, p, m-1);
+	x.right = BT(A, m+1, r);
+	
+	return x;
+}
+

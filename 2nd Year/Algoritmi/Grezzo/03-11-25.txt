@@ -11,7 +11,7 @@ QuickSort (A,P,r) {
 	}
 }
 
-partition (A,P,r) {
+partition (A,P,r) {	// Complessità: n
 	x = A[P];
 	i = P-1;
 	k = r+1;

@@ -4,29 +4,36 @@ okNotes - Chapter 2
 
 \section{Problemi di ordinamento}
 Si pone il problema di riassettare le variabili presenti in una struttura dati in base ad una determinata relazione. Di base si parla di relazioni su interi, quindi metterli in
-ordine crescente, decrescente e simili.
-Abbiamo già parlato di complessità degli algoritmi, eventuali caso pessimo, ottimo e medio. Introduciamo ora i concetti di lavoro in loco e stabilità.
-Un algoritmo lavora in loco quando per operare utilizza la singola struttura dati data in input, senza richiederne altre di supporto.
-Un algoritmo è stabile quando non scambia di posizione due elementi uguali.
-
-Complessità:
-Caso ottimo:
-Lavoro in loco:
-Stabilità:
+ordine crescente, decrescente e simili. Formalmente, è un problema definito da due parti:
+\begin{itemize}
+	\item \textbf{Input}: Sequenza $a_1, ..., a_n$ di oggetti su cui è definita una relazione di ordinamento, utilizzabile per riassettare gli elementi in base ad essa.
+	\item \textbf{Output}: Permutazione $a_1', ..., A_n'$ di $a_i, ..., a_n$ tale che $\forall i,j, i<j \implies a_i' \leq a_j'$. $(i,j)$ è una coppia di valori, dove $i$ è 
+	l'indice, mentre $j$ è il valore di lunghezza della sequenza.
+\end{itemize}
+\noindent Finora abbiamo ragionato in termini di complessità degli algoritmi, eventuali caso pessimo, ottimo e medio. Tuttavia per parlare a 360° del loro funzionamento, è necessario
+analizzare anche il modo in cui agisce il workflow, ovvero se \textbf{lavora in loco}, quindi opera utilizzando la singola struttura data in input senza richiederne ulteriori a
+supporto, e se è \textbf{stabile}, quindi non scambia di posizione gli elementi uguali.\par
+Non esiste l'algoritmo perfetto ed universale per la risoluzione dei problemi, nell'implementazione infatti bisognerà fare un compromesso e scegliere a quale caratteristica dare
+priorità oppure valutare direttamente quale workflow si adatta meglio alle richieste del cliente. Ragion per cui ne vediamo più di uno.
 
 \section{Insertion Sort}
-
-Complessità: n^2
-Caso ottimo: n^2
+% TODO INSERISCI UNA TABELLA PER LE CARATTERISTICHE
+Complessità: O(n^2)
+Caso ottimo: \Omega(n)
 Lavoro in loco: Sì
 Stabilità: Sì
 
+Questo algoritmo prende in input un array A. Mantiene due parti, una ordinata, ed una non ordinata; ad ogni iterazione si prende un elemento dalla parte in disordine per inserirlo
+in quella corretta. Ciò è possibile grazie ad un indice j che tiene conto della lunghezza del lato ordinato, il quale verrà incrementato fino alla lunghezza dell'array intero.
+```Pseudo
 % TODO INSERISCI WORKFLOW CON PSEUDOCODICE
+```
+
 
 \section{Merge Sort}
 
-Complessità: nlogn
-Caso ottimo: nlogn
+Complessità: O(nlogn)
+Caso ottimo: \Omega(nlogn)
 Lavoro in loco: No (Usa array di supporto)
 Stabilità: Sì
 
@@ -34,18 +41,18 @@ Stabilità: Sì
 
 \section{Heap Sort}
 
-Complessità: nlogn
-Caso ottimo: nlogn
-Lavoro in loco: Boh non ricordo lmao
-Stabilità: Mi sembra di sì
+Complessità: O(nlogn)
+Caso ottimo: \Omega(nlogn)
+Lavoro in loco: Sì
+Stabilità: No
 
 % TODO INSERISCI WORKFLOW CON PSEUDOCODICE
 
 \section{Quick Sort}
 
-Complessità: n^2 (Se l'array è già ordinato)
-Caso ottimo: nlogn
-Lavoro in loco: Credo di sì?
+Complessità: O(n^2) (Se l'array è già ordinato)
+Caso ottimo: O(nlogn)
+Lavoro in loco: Sì
 Stabilità: No
 
 % TODO INSERISCI WORKFLOW CON PSEUDOCODICE

@@ -76,5 +76,3 @@ L'uguale è un abuso di notazione lecito perché ci interessa solamente l'ordine
 		
 	4. T(n) = 2T(n/2) + nlog n		// a = 2, b = 2, f(n) = nlog n, n^{log_b a} = n^1 = n.
 									// Qui il teorema non è applicabile perché per qualunque epsilon si sarà sempre maggiori di nlog n. Sono battuti da qualsiasi polinomio.
-		
-		

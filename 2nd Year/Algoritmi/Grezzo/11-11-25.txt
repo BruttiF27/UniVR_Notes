@@ -1,0 +1,85 @@
+11-11-25 - Algoritmi
+
+Per trovare min e max, la complesità è 2n-2, perché esegui due volte uno stesso algoritmo di complessità n-1.
+
+-- Ricerca contemporanea di minimo e massimo
+Dato un array, ogni elemento potrebbe essere potenziale min e potenziale Max, li segnamo rispettivamente come m e M.
+Confrontando elementi possiamo escludere determinati elementi dalla loro potenzialità.
+
+Prendiamo la somma m+M, la quale deve essere uguale a 2 quando la ricerca è conclusa. Questo perché m ed M rappresentano ogni elemento dell'array che è potenzialmente min o max.
+Con i confronti è probabile che:
+	- Il valore non diminuisca (Confronto inutile)
+	- Il valore diminuisca di 1 (Un valore perde la potenzialità in ambito di due confronti)
+	- Il valore diminuisca di 2 (Due valori perdono la potenzialità in ambito di due confronti)
+
+Generalmente, al'inizio: m+M = 2n.
+Dopo x volte: m+M = 2n-2x
+
+Per n pari abbiamo che:
+Per n/2 volte, calo di 2.
+Per n-2 volte, calo di 1.
+Tot: 3/2 n-2 e sotto questo numero di confronti non si può andare.
+
+Osservazione:
+Dato una rray di lunghezza n, confronto ogni elemento a coppie di 2 a 2, per poi spostare in due gruppi rispettivamente i min e i max.
+Poi si cerca il minimo in min ed il massimo in max.
+Il problema è quando c'è un array dispari, una coppia sarà monca.
+
+-- Algoritmi per la ricerca del minimo
+Possibilmente con una complessità minore di nlogn. Possiamo usarne uno casuale.
+Supponiamo un array diviso in due parti [p-q], [q-r] t.c. gli alementi a sinistra siano <=, mentre a destra siano >=. Vogliamo l'indice i.
+
+Nel caso fortunato di un array diviso a metà avremo: T(n) = n + T(n/2). Per il teorema dell'esperto abbiamo che la parte nota vince sull'argomento, dunque la complessità è \Theta(n).
+Questo è tuttavia un caso fortunato. L'array non necessariamente è diviso a metà.
+Se tuttavia prendo a caso un elemento perno, verosimilmente, in media, avrò complessità lineare. E' una logica simile a randomized quicksort.
+
+RandSelect(A, p, r, i) {
+	if (p = r) return A[p];
+	
+	q <- RandPartition(A, p, r);				// Divido l'array in due parti con un perno casuale.
+	k <- q-p+1									// Quanti elementi stanno a sinistra del perno? (Quindi anche quanti stanno a dx)
+	
+	if (i <= k) return RandSelect(A,p,q,i);		// Seleziona l'iesimo elemento nell'array
+	else return RandSelect(A, q+1, r, i-k);		// Seleziona dalla parte [q+1, r] e cerca l'indice i-k perché così non sballa gli indici del sub-array.
+}
+
+Complessità: T(n) = n + 1/n max(T(1), T(n-1)) + \sum_{i=1}^{n-1} max(T(i), T(n-i))
+
+Esiste anche un algoritmo deterministico per risolvre il problema delle selezioni in tempo lineare.
+Problema è che dipende molto dalle costanti, a tal punto che a grandi numero va meglio nlogn. Quindi non si può ragionare in termini di analisi asintotica.
+
+L'idea è pensare di scegliere il perno in maniera più intelligente, con lo scopo di stare in una zona proporzionale.
+Select del mediano non sarebbe male come idea, preferibilmente su un insieme più piccolo
+
+1: Dividi A in n/5 (approx per difetto) gruppi di 5 elementi più il gruppo con gli ultimi che restano.
+	Compl: 0
+2: Calcolo il mediano di ogni singolo gruppo
+	Compl: 5n
+3: Sia x il mediano dei mediani, calcolato ricorsivamente con select();
+	Compl: T(n/5), con n/5 approx per eccesso. Eccesso a causa del gruppo con gli ultimi elementi restanti.
+4: Partiziona su x. Sia k il numero di elementi a sinistra. Quindi x è il perno usato.
+	Compl: n
+5: Scelgo la parte interessata.
+	if (i<=k) select(left, i)
+	else select(right, i-k)
+	Compl: T(dimensione più grande) [*qui]
+	
+Complessità: \Theta(n) + T(n/5) + T(7/10n + 6)
+	
+5 elementi perché così il mediano è ben definito, ed è anche un numero sufficientemente basso per avere complessità lineare. Un compromesso.
+
+Per esempio, con un array ottenuto dall'elaborazione dei mediani, ottengo che ha lunghezza 9. Se prendo la parte più grande, avrò 4 mediani maggiori del perno.
+Uno di questi mediani è in un insieme con possibilmente non 5 elementi. La cosa si mostra con:
+
+3 (\frac{n/5}{2} - 1 - 1) \\geq 3/10 n - 6		// Limite inferiore al numero di elementi che stanno a dx. Puoi farlo anche per la sx.
+
+Tutti gli elementi a destra meno uno esprimeranno 3 valori maggiori del mediano.
+
+n - (3/10 n -6) = 7/10n + 6. Questa formula è l'argomento da sostituire a "dimensione più grande"[*]
+
+L'equazione di ricorrenza \Theta(n) + T(n/5) + T(7/10n + 6) è sotto c(n). Usiamo la sostituzione
+
+T(n) \leq c'n + c(n/5) + c(7/10n + 6)		// Sostituzione applicabile solo se 7/10n + 6 è più piccolo di n.
+	\leq c'n + c(n/5 + 1 + 7/10n + 6)
+		= c'n + 7c + c9/10n					// Al prox passaggio procedo a tenere la mia ipotesi MENO all'espressione rimanente
+		\leq cn - (1/10cn - c'n -7c)		// Serve (1/10cn - c'n -7c) \geq 0 per avere questo valore \leq cn.

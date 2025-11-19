@@ -1,0 +1,44 @@
+17-11-25 - Algoritmi
+
+O Limite sup
+\Omega Limite inf
+\Theta Intersezione fra O e \Omega
+
+Le strutture dati hanno la filosofia delle interfacce in java; possibile utilizzarle universalmente.
+
+--- Struttura dati: Pila
+Metodo: empty(S) 		// Prende una pila vuota - fungerebbe da costruttore
+		isEmpty(S)		// Verifica se la stack è vuota
+		Push(S, x)		// Inserisci x in S.
+		Top(S)			// Prende l'elemento in cima ad S.
+		Pop(S)			// Rimuove un elemento dalla stack.
+
+// Descrizione di logica LIFO
+Pop(Push(S,x)) = S
+Top(Push(S,x)) = x
+Top(Empty(S)) = ERR
+Pop(Empty(S)) = ERR
+
+Th: Se non ci sono errori si arriverà sempre ad una descrizione di sequenze di push
+
+--- Struttura dati: Coda
+Sempre una stack, ma ha logica FIFO.
+
+Metodi:
+	Enqueue(Q,x)		// Accoda l'elemento x alla coda Q
+	Head(S)				// Ritorna il primo nodo della coda
+	Tail(Q)				// Rimuove l'ultimo elemento
+	
+Lista doppiamente concatenata vede l'esistenza del campo next, ma anche del prev.
+
+// x è un ptr ad un nodo. Rimuovi x
+Remove(x)
+if (prev != NULL) prev(succ(x)) = prev(x);
+if (next != NULL) succ(prev(x)) = next(x);
+
+Problema di edge cases. Meglio codice pulito e non comprendente ogni edge case oppure un codice complesso e sporco ma solido e completamente funzionale?
+Dipende da quanto viene invocata.
+
+--- Tecnica delle sentinelle
+Al posto di usare NULL si andrebbe ad utilizzare uno pseudooggetto per evitare errori negli edge cases.
+Rende il codice molto più semplice, nel caso specifico precedente rimuoverebbe gli if, dando per scontato che ci siano queste sentinelle per garantire sicurezza.

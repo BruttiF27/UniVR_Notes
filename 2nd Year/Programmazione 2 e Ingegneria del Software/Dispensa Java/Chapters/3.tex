@@ -36,19 +36,75 @@ L'incapsulamento è un concetto che ha origine nelle modalità di interazione ne
 %
 
 \section{Ereditarietà}
-- Definizione di classi per estensione, ereditando campi e metodi
-- Relazione superclasse/sottoclasse e concatenazione dei costruttori da sottoclasse a superclasse con super()
-- Gerarchia di classe
-- Ereditarietà singola e multipla
+Quello di \textbf{ereditarietà} è un concetto strettamente legato all'insiemistica. Partiamo dal presupposto che esiste un insieme universo, il quale comprende ogni singola altra cosa nel mondo; in Java, le classi funzionano con la medesima dinamica. Tutte le classi sono un sottoinsieme improprio di \textbf{Object}, la quale presenta i seguenti metodi per noi importanti:
+\begin{itemize}
+	\item \textbf{protected Object clone()}: Istanzia e ritorna una copia dell'oggetto richiesto.
+	\item \textbf{boolean equals(Object obj)}: Controlla se un oggetto è uguale a quello chiamante.
+	\item \textbf{int hashCode()}: Ritorna il valore dell'hashcode dell'oggetto chiamante, ovvero la parte sinistra alla chiocciola della reference.
+	\item \textbf{String toString()}: Ritorna una rappresentazione dell'oggetto sotto forma di stringa.
+\end{itemize}
+\noindent Tutte le classi, e quindi anche i tipi, sono \textbf{estensioni} della classe Object, e di conseguenza potranno chiamare ed eseguire i metodi in essa contenuti. Questo concetto è naturalmente replicabile con ulteriori sottoclassi, quindi ci è concesso creare nuovi metodi e campi riutilizzabili in più file senza che vengano ridefiniti. La potenzialità di questo paradigma sta nella riduzione all'estremo di codice ripetuto; le sottoclassi sono quindi capaci di attingere da ciò che è definito nella superclasse, e, nel caso dei metodi, fare ciò che è chiamato \textbf{overriding}\par
+Supponiamo ora di avere una classe "Vehicle". Il concetto di veicolo è specificabile in sottoinsiemi come automobili, biciclette e simili. In Java ciò si traduce come:
+\begin{lstlisting}[language=Java]
+	public class Vehicle {
+		protected int num;
+		protected int getNum() { /* Blocco di codice */}
+		public Vehicle { /* Blocco del costruttore */ }
+	}
+	
+	// Estensione di Vehicle, chiama il metodo per ottenere il numero.
+	public class Car extends Vehicle {
+		public Car { 
+			this.num = super.getNum();
+		}
+	}
+	
+	// Ridefinizione di getNum per mantenere lo stesso nome e semplificare il codice
+	public class Bicycle extends Vehicle {
+		@Override
+		public int getNum() { /* Ridefinizione del codice */ }
+	}
+\end{lstlisting}
+\noindent L'accesso a campi e metodi della superclasse avviene tramite la keyword \textbf{super}, mentre la ridefinizione è per prima cosa segnalata da \textbf{@Override}, per poi riscrivere il blocco di codice. Quest'ultima feature è particolarmente utile per mantenere il numero di nomi basso e rendere il codice più chiaro a livello di struttura.\par
+Un'altra feature utile è la possibilità di controllare se una classe è superclasse di un'altra, con la keyword \textbf{instanceof}. Per esempio, in un codice che rappresenta Person, Student, Lecturer e Sam avremo:
+\begin{lstlisting}[language=Java]
+	Student sam = new Student();
+	
+	(sam instanceof Student)	// True, Identita'.
+	(sam instanceof Person)		// True, Person sovracclasse di Student.
+	(sam instanceof Lecturer)	// False, Student non legato a Lecturer.
+	(sam instanceof Object)		// Tautologia.
+\end{lstlisting}
+\noindent Un compito comune da eseguire in campo di ereditarietà ed istanziazione di oggetti è controllare se questi siano uguali o meno; come già specificato, la classe Object ha con sé il metodo equals(), che consente di fare proprio questo. Tuttavia, Java salva gli oggetti con riferimenti diversi per differenziarli, indipendentemente dal loro contenuto. Supponiamo per esempio di istanziare due stringhe sintatticamente uguali; se non ridefinito correttamente, come da suo funzionamento, ritornerà false.\par
+Dunque qui abbiamo due strade per correggere questo comportamento. Possiamo fare overriding del metodo equals() e specificare che cosa deve essere uguale per far sì che ritorni true, oppure più semplicemente ridefinire questo metodo insieme ad hashCode(). Per quest'ultima soluzione è necessario far sì che la stessa reference sia assegnata ad ogni oggetto i cui campi sono uguali ad un altro.
 
 %
 
 \section{Polimorfismo}
-- Ridefinizione o aggiunta di metodi
+Per \textbf{polimorfismo} intendiamo un'entità che può assumere più forme; nella programmazione a oggetti si può implementare in diverse modalità. Per esempio, restando sempre nel campo dei riferimenti, diciamo che una reference di tipo $T$ può puntare ad un oggetto di tipo $S$ se e solo se $S$ è $T$ oppure una sua sottoclasse. In quest'ultimo caso, gli oggetti di tipo $T$ possono essere rimpiazzati da oggetti di tipo $S$, usando il \textbf{principio di sostituzione di Liskov}; quindi:
+\begin{lstlisting}[language=Java]
+	Person p;
+	p = new Person();		// Corretto, T=S.
+	p = new Student();		// Corretto, T sottoinsieme di S
+	
+	Person person = new Person("Paul");
+	Student student = new Student ("Sam", 123);
+	person = student;		// Sostituzione corretta, assegnato un sottotipo
+	student = person;		// Errore di compilazione.
+\end{lstlisting}
+\noindent Nell'ultimo caso, l'errore avviene perché il compilatore effettua una ricerca ricorsiva dei metodi, partendo dalla sottoclasse fino ad arrivare a Object. Se ritorna un problema, è perché non trova il metodo chiamato in nessuna delle classi, quindi bisogna fare attenzione a rispettare i parametri da dare alle funzioni.\par
+Abbiamo già menzionato il concetto di type casting; la stessa dinamica è applicabile agli oggetti, in due direzinoni:
+\begin{itemize}
+	\item \textbf{Upcast}: Garantito dal principio di sostituzione, type safe. Visto nello snippet di prima, dove ad un oggetto person è assegnato uno student. Si può scrivere implicitamente poiché è eseguito dal compiler in runtime.
+	\item \textbf{Downcast}: Necessario esplicitarlo, non ha garanzia di essere type safe. Nel caso di prima, riguarda il caso di errore di compilazione; per far sì che sia corretto bisogna castare il tipo Student prima di person. Per evitare eventuali problemi è consigliato l'utilizzo di instanceof per controllare le superclassi.
+\end{itemize}
 
 %
 
 \section{Astrazione}
+
+% TODO RIPRENDI DA QUA, T13, CLASSI ASTRATTE ED INTERFACCE
+
 - Interfaccia pubblica di una classe
 - Interfacce e relativo utilizzo
 - Metodi e classi abstract

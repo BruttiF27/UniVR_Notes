@@ -1,5 +1,5 @@
 \section{Libreria digitale}
-Le librerie digitali di Java sono un insieme di funzioni contenute in pacchetti appositi e fornite da terze parti. Come altri utenti ne hanno scritte, così potremmo fare anche noi. In ogni caso, tutti i file da eseguire sono visti come classi, ed infatti dovranno essere compresi nel classpath, se non sono standard.\par
+Le librerie digitali di Java sono un insieme di funzioni contenute in \textbf{pacchetti} appositi e fornite da terze parti. Come altri utenti ne hanno scritte, così potremmo fare anche noi. In ogni caso, tutti i file da eseguire sono visti come classi, ed infatti dovranno essere compresi nel classpath, se non sono standard.\par
 Per utilizzare una libreria è necessario importarla nel file desiderato con la keyword \textbf{import}. Per esempio, nella libreria java.util è presente la classe Scanner, che viene usata per ricevere input da tastiera.
 \begin{lstlisting}[language=Java]
 	// Aggiunge il pacchetto Scanner dal path java/util/Scanner
@@ -23,6 +23,15 @@ Per utilizzare una libreria è necessario importarla nel file desiderato con la 
 			System.out.println("Risultato: " + n1*n2);
 		}
 	}
+\end{lstlisting}
+\noindent Quindi abbiamo capito che un pacchetto è un insieme di classi le quali sono logicamente correlate. Lo scopo principale è strutturare il codice in modo più chiaro grazie alla modularità che ne consegue. In termini più semplici, è considerabile come una libreria le cui interfacce sono date dalle classi.\par
+I pacchetti possono essere innestati ed il path è dato dalla segnatura come visto nello snippet; i punti sostituiscono lo slash. In assenza di una dichiarazione del pacchetto, al file verrà associato quello di default, \textbf{package private}, il quale lo renderà inaccessibile da altri file. L'uso di quest'ultimo è sconsigliato e considerato cattiva pratica.\newline
+
+\noindent La struttura dei pacchetti influenza anche la visibilità delle classi. Per esempio, supponiamo di avere un classpath di pacchetti "it.univr.bugs". Se inseriamo il main all'interno della directory univr e le classi funzionali all'interno di bugs, queste ultime non saranno visibili dalla prima; quindi è necessario importare il pacchetto con le modalità già viste.
+\begin{lstlisting}[language=Java]
+	package it.univr;	// Specifica del path corrente
+	import it.univr.bugs.*;		// Per includere ogni classe
+	import it.univr.bugs.Hornet;	// Per includere una classe specifica
 \end{lstlisting}
 
 %
@@ -71,6 +80,8 @@ netxLine, nextInt, nextFloat
 
 \subsection{.Arrays}
 
+\subsection{Java Collection Framework}
+
 \begin{comment}
 	\subsection{.Iterator}
 	\subsection{Strutture dati}
@@ -93,8 +104,6 @@ Il pacchetto java.io.* fornisce funzioni relative alla gestione di un flusso di 
 
 
 \begin{comment}
-	
-	
 	\noindent Continuiamo ragionando sull'ultima istruzione dello snippet appena visto. Le stringhe, come già detto, sono viste come oggetti, e per usarle bisogna istanziare un oggetto. Dopodiché, non saranno più mutabili in quanto non sono viste come sequenze di caratteri. Tuttavia, abbiamo a disposizione alcuni metodi con cui lavorarci:
 	\begin{lstlisting}[language=Java]
 		String str = new String("SHAW!");
@@ -122,5 +131,4 @@ Il pacchetto java.io.* fornisce funzioni relative alla gestione di un flusso di 
 		sb.append("kaliemu");										// Concatena in coda i caratteri fra le virgolette.
 	\end{lstlisting}
 	\noindent È possibile anche cancellare ed inserire sottostringhe con i metodi \textbf{delete} ed \textbf{insert}. Insomma, le stringhe base sono costanti, mentre le stringhe mutevoli di StringBuilder sono sicuramente più flessibili.
-	
 \end{comment}

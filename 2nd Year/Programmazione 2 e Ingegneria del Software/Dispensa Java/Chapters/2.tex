@@ -11,7 +11,7 @@ Di base ogni dato è considerato una variabile se non specificato altrimenti. In
 
 %
 
-\section{Dichiarazione di classi e oggetti, this, parametri formali e attuali}
+\section{Dichiarazione di classi e oggetti, this, variabili locali e di istanza}
 Le classi e gli oggetti sono il fulcro sul quale si basa la programmazione in Java ed il paradigma a oggetti in generale. Come già menzionato, le prime si possono vedere come un insieme, il quale detiene attributi e metodi, ed i secondi sono le singole istanze delle classi con le suddette specifiche. Data questa struttura, ne consegue che per lavorare dovremo prima definire una classe, per poi istanziare gli oggetti.
 \begin{lstlisting}[language=Java]
 	// Dichiarazione della classe Date nel file Date.java
@@ -35,22 +35,12 @@ Le classi e gli oggetti sono il fulcro sul quale si basa la programmazione in Ja
 \end{lstlisting}
 \noindent Come si può vedere, la classe rappresenta il corpo contenente tutto il codice, mentre gli oggetti vengono istanziati in un altro file, ove richiesto, con la keyword \textbf{new}. Questa istruzione fa sì che venga allocato spazio sufficiente per contenere i dati dell'oggetto.\newline
 
-\noindent I metodi dichiarati possono, ovviamente, anche ricevere parametri, per la loro eventuale gestione ed elaborazione. Possiamo quindi introdurre il concetto di \textbf{parametri formali} e \textbf{parametri attuali}. I primi sono quelli dati all'inizio del metodo, mentre i secondi sono il risultato dell'elaborazione della funzione e sarà ciò che viene ritornato.
-\begin{lstlisting}[language=Java]
-	// Il metodo prende il parametro formale n
-	public int incr (int n) {
-		// res e' il parametro attuale elaborato
-		int res = n+1;
-		return res;
-	}
-	
-	public void printIncr (int x) {
-		int y = incr(x);
-		System.out.println(y);
-	}
-\end{lstlisting}
-\noindent Bisogna quindi prestare attenzione a quale dato viene ritornato dal metodo, perché se nella funzione incr ritornassimo n, tutta l'elaborazione sarebbe stata inutile.\par
-Un'altro concetto molto importante è la parola chiave per far riferimento all'oggetto corrente: la keyword \textbf{this}, la quale può essere usata per attributi e variabili ed è particolarmente utile per evitare ambiguità fra gli oggetti.
+\noindent Essendo che i metodi dichiarati sono in grado di ricevere appositi parametri per un'eventuale elaborazione, è necessario chiarire il modo in cui si possono comportare le variabili. Infatti, troviamo due concetti molto importanti:
+\begin{itemize}
+	\item \textbf{variabile d'istanza}: Corrisponde agli attributi di una classe, i quali sono inizializzati all'istanziazione di un oggetto. Non sono condivisi fra gli oggetti di una stessa classe.
+	\item \textbf{variabile locale}: Attributi definiti all'interno di metodi o blocchi di codice, legati allo scope dove nascono. Non sono visibili da altri blocchi di codice e vengono deallocati a fine metodo.
+\end{itemize}
+\noindent Un'altro concetto molto importante è la parola chiave per far riferimento all'oggetto corrente: la keyword \textbf{this}, la quale può essere usata per attributi, variabili, o anche da sola per prendere l'oggetto intero, ed è particolarmente utile per evitare ambiguità fra gli oggetti.
 \begin{lstlisting}[language=Java]
 	public class Cliente {
 		private String nome;
@@ -62,7 +52,7 @@ Un'altro concetto molto importante è la parola chiave per far riferimento all'o
 		}
 	}
 \end{lstlisting}
-\noindent L'utilizzo di this è molto importante per rendere il codice chiaro ed è uno standard da rispettare. In assenza di this, il programma non avrebbe capito quale stringa nome prendere, causando errori di compilazione.
+\noindent L'utilizzo di this è molto importante per rendere il codice chiaro ed è uno standard da rispettare. In questo snippet, senza this, il programma non avrebbe capito quale stringa nome prendere, causando errori di compilazione.
 
 %
 

@@ -1,1 +1,296 @@
-\section{Risposta in frequenza e Trasformata di Laplace}
+\section{Risposta in frequenza}
+Per risposta in frequenza intendiamo l'output di un sistema quando in ingresso è fornita una funzione sinusoidale. Per lo studio degli input non utilizzeremo questa forma, bensì una di esponenziale complessa, che chiameremo \textbf{fasore}, e rappresenta un vettore roteante in una circonferenza unitaria, quindi di raggio $1$. Si rappresentano con: \[u(t) = Ae^{j(\omega_0 t + \phi)} \equiv Ae^{j\omega_0 t}e^{j\phi}\]
+\noindent Mentre la risposta ha una forma simile a quella forzata, già vista nel capitolo precedente. La differenza di fondo è la presenza del fasore nell'equazione, il quale assume il ruolo di input $u(t)$ e consente di differenziare le varie frequenze nell'istante di tempo richiesto. Si scrive:
+\begin{equation}
+	\begin{split}
+		v(t) &= \int_{-\infty}^{+\infty} h(\tau) u(t-\tau) d\tau\\
+			&= \int_{-\infty}^{+\infty} h(\tau) Ae^{j[\omega_0(t-\tau)+\phi]} d\tau\\
+			&= Ae^{j(\omega_0 t+\phi)} \int_{-\infty}^{+\infty} h(t)e^{-j\omega_0\tau} d\tau
+	\end{split}
+\end{equation}
+\noindent Abbiamo potuto rimuovere le costanti dall'integrale, lasciando al suo interno quella che effettivamente chiamiamo risposta in frequenza $H(j\omega)$, rappresentata dall'integrazione della risposta impulsiva con il fasore. Quindi, l'output è descritto come: \[v(t) = H(j\omega_0)Ae^{j(\omega_0 t + \phi)}\]
+\noindent Una caratteristica importante da ricordare è che se il modulo di questo output è minore di infinito, allora il sistema converge ed è sicuramente almeno BIBO-stabile.\par
+Finora abbiamo svolto i calcoli facendoci del male con le equazioni differenziali, quindi in questo capitolo verranno introdotte le \textbf{trasformate}, il cui scopo è cercare di semplificarci lo svolgimento e la comprensione degli esercizi. Vedremo infatti che la risposta in frequenza risulta essere la \textbf{Trasformata di Fourier} della risposta impulsiva di un sistema e quindi anche la \textbf{Trasformata di laplace} della risposta impulsiva ristretta all'asse immaginario. Queste due considerazioni sono equivalenti e si indicano con:
+\[H(j\omega) = \mathcal{F}[h(t)](s) = \mathcal{L}[h(t)](s); s=j\omega\]
+\noindent Le trasformate sono utili per saltare passaggi laboriosi di analisi 2; con Laplace, trasformeremo equazioni differenziali in algebriche con dominio complesso. Vedremo infatti che $s$ è una variabile complessa.\par
+Tuttavia, per riportare un risultato equivalente a quello che avremmo ottenuto senza l'ausilio della trasformata, sarà necessario attuare una trasformata inversa, o \textbf{antitrasformata}, ed infine ottenere la soluzione nel dominio del tempo.
+
+%
+
+\section{Trasformata di Laplace unilatera}
+Sia $v(t)$ una funzione generica con $t\in\mathbb{R}$, ottenuta come somma di funzioni reali a variabile reale o complessa. Per far sì che accetti la trasformata di Laplace, deve rispettare i seguenti criteri:
+\begin{itemize}
+	\item Funzione localmente sommabile nell'intervallo $[0, \infty)$. Quindi che: \[\int_a^b |v(t)| dt < \infty, \forall a,b \in [0,\infty)\]
+	\item Funzione formata da un insieme finito di segnali polinomiali.
+\end{itemize}
+\noindent Noi definiamo la \textbf{Trasformata di Laplace}, o TdL unilatera come l'integrale della moltiplicazione fra l'output ed il fasore. Si tratta di una funzione che ha sia dominio che codominio in campo complesso e si scrive: \[V(s) = \int_{0^-}^{+\infty} v(t)e^{-st} dt \equiv L[v(t)](s)\]
+\noindent Notare che la convenzione di scrittura vede le funzioni trasformate con la lettera maiuscola. Da qui in avanti le funzioni verranno così distinte. Questa formula è fondamentale perché rappresenta la base di ogni trasformata che andremo ad utilizzare. Sebbene esistano tabelle apposite per utilizzarle out of the pocket, in mancanza di esse si dovrebbe partire da qua. Inoltre, attenzione: con una funzione $v(t)$ generica localmente sommabile, non abbiamo la certezza che lo sia anche la sua trasformata; ragion per cui è necessario definire la \textbf{regione di convergenza} di quest'ultima.\par
+Definiamo questa regione $RdC$ come un semipiano positivo, posto alla destra di un determinato asse $\alpha$, considerato come ascissa di convergenza. Scriviamo: \[RdC = \{s\in C | Re(s) > \alpha\}\]
+\begin{dimostrazione}
+	\textbf{RdC è un semipiano positivo}\par
+	\noindent Sia $v(t)$ una combinazione lineare di esponenziali, vogliamo dimostrare che la regione di convergenza della sua trasformata è un semipiano positivo definito come appena visto. Abbiamo quindi:
+	\begin{itemize}
+		\item $v(t) = \sum_{i=0}^n c_ie^{\lambda it}; \lambda_i = \sigma_i+j\omega_i \in \mathbb{C}$
+		\item $RdC = \{s\in C | Re(s) > \alpha\}$
+		\item $\mathcal{L}[v(t)](s) = \int_{0^-}^{+\infty} v(t)e^{-st}$
+	\end{itemize}
+	\noindent Per prima cosa, partiamo dalla definizione di trasformata e sostituiamo a $v(t)$ la nostra supposizione, ovvero che sia combinazione lineare. Otteniamo:
+	\begin{equation}
+		\begin{split}
+			V(t) &= \int_{0^-}^{+\infty} \sum_{i=0}^n c_ie^{\lambda it}e^{-st} dt\\
+			&= \sum_{i=0}^n c_i \int_{0^-}^{+\infty} e^{\lambda it}e^{-st} dt
+		\end{split}
+	\end{equation}
+	\noindent Prendendo un generico $i$ possiamo porre le definizioni di numero complesso per $\lambda_i$ ed $s$, dandoci: \[\lambda_i = \sigma_i + j\omega_i; s=\sigma + j\omega\]
+	\noindent Ciò ci consente di riscrivere l'integrale come segue:
+	\begin{equation}
+		\begin{split}
+			\int_{0^-}^{+\infty} e^{\sigma_i t}e^{j\omega_i t}e^{-\sigma t}e^{-j\omega t} dt &= \int_{0^-}^{+\infty} e^{(\sigma_i-\sigma + j\omega_i -j\omega)t} dt\\
+			&= \left[\left(\frac{e^{(\sigma_i-\sigma + j\omega_i -j\omega)t}}{\sigma_i-\sigma + j\omega_i -j\omega}\right)\right]_{0^-}^{+\infty}\\
+			&= \lim_{t\to\infty}\left(\frac{e^{(\sigma_i-\sigma)t}e^{j(\omega_i-\omega)t}}{\sigma_i-\sigma + j\omega_i -j\omega}\right) - \frac{1}{\sigma_i-\sigma + j\omega_i -j\omega}
+		\end{split}
+	\end{equation}
+	\noindent Possiamo notare che $e^{j(\omega_i-\omega)t}$ è un fasore, quindi necessariamente uguale ad $1$, possiamo quindi rimuoverlo. La vera parte che ci interessa è $e^{(\sigma_i-\sigma)t}$, perché saprà dirci se l'integrale converge, perché lo farà se $\sigma_i < \sigma$.\par
+	$\sigma$ è però la parte reale di $s$, mentre $\sigma_i$ la reale di $\lambda_i$, dunque possiamo sostituire i primi termini a questi ultimi e ottenere che: \[\forall s\in \mathbb{C}, Re(s) > Re(\lambda_i)\]
+	\noindent Di conseguenza, il semipiano positivo è composto da tutti quei valori di $s$ che devono necessariamente essere maggiori o uguali delle radici.
+\end{dimostrazione}
+\noindent Notare infine che per un sistema LTI stabile, la regione di convergenza conterrà sempre anche l'asse immaginario. Passiamo ora alle \textbf{proprietà} della TdL:
+\begin{itemize}
+	\item \textbf{Linearità}\par
+	\noindent Siano $v_1, v_2$ funzioni che ammettono TdL e rispettivamente $V_1, V_2$ le loro trasformate. Avremo che $av_1(t) + bv_2(t)$ ammette TdL. Invece, per l'ascisse di convergenza si prenderà il valore più alto fra le due, quindi, in tutto avremo: \[\mathcal{L}[av_1(t) + bv_2(t)](s) = aV_1(s) + bV_2(s); \alpha \geq max\{\alpha_1, \alpha_2\}\]
+	\item \textbf{Traslazione nel dominio del tempo}\par
+	\noindent Sia $v(t)$ funzione che ammette TdL; traslandola avremo $v(t-\tau)$, la quale continuerà ad ammettere la trasformata solamente con $\tau > 0$. In tal caso definiamo: \[\mathcal{L}[v(t-\tau)](s) = e^{-st}L[v(t)](s)\]
+	\noindent La regione di convergenza con questa proprietà rimane immutata.
+	\item \textbf{Traslazione nel dominio dei complessi}\par
+	\noindent Parliamo quindi di moltiplicazioni per una funzione esponenziale complessa. Sia $v(t)$ che ammette TdL, allora ciò varrà anche per $e^{\lambda t}v(t)$ e descriveremo la trasformata come \[\mathcal{L}[e^{\lambda t}v(t)](s) = V(s-\lambda)\]
+	\noindent In questa proprietà, la regione di convergenza viene spostata, di conseguenza, anche l'ascissa diventa \[\alpha = \alpha_0 + Re(\lambda)\]
+	\noindent Con $\lambda$ esponenziale qualsiasi.
+	\item \textbf{Cambio di scala}\par
+	\noindent Sia $v(t)$ che ammette TdL, allora anche $v(rt)$ ammette TdL, la quale è definita come \[\mathcal{L}[v(rt)](s) = \frac{1}{r} V\left(\frac{s}{r}\right)\]
+	\item \textbf{Comportamento con le derivate}\par
+	\noindent Sia $v(t)$ che ammette TdL ed un limite finito $v(0^-) = \lim_{t\to 0^-} v(t)$. Allora anche la derivata i-esima della funzione ammette TdL. \[L\left[\frac{d^iv(t)}{dt^i}\right] = s^iV(s) - \sum_{k=0}^{i-1} \left[\frac{d^kv(t)}{dt^k}\right]_{t=0^-} (s^{i-1-k})\]
+	\noindent L'ascissa di convergenza qui è $\alpha \leq \alpha_0$, con $\alpha_0$ ascisse originale. Essendo una proprietà importante, dimostriamone il funzionamento per derivata prima e seconda.
+	\begin{dimostrazione}
+		\textbf{Dimostrazione per derivata prima}
+		\begin{equation}
+			\begin{split}
+				\mathcal{L}\left[\frac{dv(t)}{dt}\right](s) &= \int_{0^-}^{+\infty}\frac{dv(t)}{dt}e^{-st} dt\\
+				&= v(t)e^{-st}\Big|_{0^-}^{+\infty} -\left(-s\int_{0^-}^{+\infty}v(t)e^{-st}dt\right)\\
+				&= \lim_{\epsilon\to \infty} v(\epsilon)e^{-s\epsilon} - \lim_{\epsilon\to 0^-}v(\epsilon)e^{-s\epsilon} + sV(s)\\
+				&= sV(s) - v(0^-)
+			\end{split}
+		\end{equation}
+	\end{dimostrazione}
+	\begin{dimostrazione}
+		\textbf{Dimostrazione per derivata seconda}
+		\begin{equation}
+			\begin{split}
+				\mathcal{L}\left[\frac{d^2v(t)}{dt^2}\right](s) &= L\left[\frac{d}{dt}\left(\frac{dv(t)}{dt}\right)\right](s)\\
+				&= s\mathcal{L}\left[\frac{d}{dt}v(t)\right](s) - \frac{dv(t)}{dt}\Big|_{t=0^-}\\
+				&= s(s\mathcal{L}[v(t)](s) - v(0^-)) - \frac{dv(t)}{dt}\Big|_{t=0^-}\\
+				&= s^2V(s) - sv(0^-) - \frac{dv(t)}{dt}\Big|_{t=0^-}
+			\end{split}
+		\end{equation}
+	\end{dimostrazione}
+	\item \textbf{Moltiplicazione per funzione polinomiale}\par
+	\noindent Sia $v(t)$ che ammette TdL, allora lo farà anche $t^iv(t)$. \[\mathcal{L}[t^iv(t)] = (-1)^i\frac{d^iV(s)}{ds^i}\]
+	\begin{dimostrazione}
+		\begin{equation}
+			\begin{split}
+				\mathcal{L}[tv(s)](s) &= \int_{0^-}^{+\infty} tv(t) e^{-st}dt = -\int_{0^-}^{+\infty} v(t) (-te^{-st}) dt\\
+				&= -\int_{0^-}^{+\infty} v(t) \frac{de^{-st}}{ds} dt = -\frac{d}{ds}\int_{0^-}^{+\infty} v(t)e^{-st} dt\\
+				&= -\frac{d}{ds}V(s)
+			\end{split}
+		\end{equation}
+	\end{dimostrazione}
+	\item \textbf{Integrazione nel dominio del tempo}\par
+	\noindent Sia $v(t)$ che ammette TdL, e se è definito $\psi(t) = \int_{0^-}^t v(t) dt$ suo integrale nel tempo, allora anche quest'ultimo ammette TdL. Qui l'ascissa di convergenza è il massimo fra $0$ ed $\alpha_0$. \[\mathcal{L}\left[\int_{0^-}^{\tau} v(t) d\tau\right](s) = \frac{V(s)}{s}\]
+	\begin{dimostrazione}
+		\begin{equation}
+			\begin{split}
+				v_i(t) &= \int_{0^-}^t v(\tau) d\tau \implies v_1'(t) = v(t) \land v(0^-) = \int_{0^-}^{0^-} v(\tau) d\tau = 0\\
+				&= \mathcal{L}[v(t)](s) = \mathcal{L}[v_1'(t)](s) \implies s\mathcal{L}[v_1'(t)](s) - v_1(0^-)\\
+				&= v_1(0^-) = 0 \implies s\mathcal{L}\left[\int_{0}^t v(\tau) d\tau\right](s)\\
+				&= \mathcal{L}\left[\int_{0}^t v(\tau) d\tau\right] = \frac{V(s)}{s}
+			\end{split}
+		\end{equation}
+	\end{dimostrazione}
+	\item \textbf{Integrazione nel dominio dei complessi}\par
+	\noindent
+	\item \textbf{Teorema del valore iniziale}\par
+	\noindent
+	\item \textbf{Teorema del valore finale}\par
+	\noindent
+	\item \textbf{Convoluzione nel dominio del tempo}\par
+	\noindent
+\end{itemize}
+
+\begin{comment}
+	
+	
+	- Integrazione nel dominio dei complessi
+	v(t) ammette TdL ed esiste \lim_{t\to 0^-} \frac{v(t)}{t}, allora \mathcal{L}[\frac{v(t)}{t}](s) = \int_s^{\infty} \mathcal{L}[v(t)](\sigma) d\sigma
+	
+	- Teorema del valore iniziale
+	Permette di capire il comportamento asintotico della funzione in 0.
+	v(t) ammette TdL ed esiste finito il \lim_{t\to 0^-}v(t), allora il \lim_{t\to 0^-} v(t) = \lim_{s\to \infty} s\mathcal{L}[v(t)](s).
+	Dice quindi il limite della derivata prima in condizioni nulle.
+	
+	- Teorema del valore finale
+	Permette di capire il comportamento asintotico della funzione in infinito
+	v(t) ammette TdL ed esiste finito il \lim_{t\to \infty} v(t), allora il \lim_{t\to \infty}v(t) = \lim_{s\to 0^+} s\mathcal{L}[v(t)](s).
+	Possiamo quindi guardare il limite in 0^+ per capire il comportamento in infinito.
+	
+	- Convoluzione nel dominio del tempo
+	siano u(t) e v(t) due funzioni generiche e causali (nulle per t<0) e che ammettono TDL. Allora (u*v)(t) ammette TDL.
+	
+	\mathcal{L}[(u*v)(t)](s) = \mathcal{L}[u(t)](s) \times \mathcal{L}[v(t)](s)
+	
+	Dim
+	\mathcal{L}[(u*v)(t)](s) &= \int_{0^-}^{+\infty} (\int_{-\infty}^{+\infty}u(\lambda)v(t-\lambda) d\lambda)e^{-st} dt\\
+	&= \int_{0^-}^{\infty}\int_{0^-}^{\infty} u(\lambda)v(t-\lambda)e^{-st} dt d\lambda\\
+	&= \int_{0^-}^{\infty} u(\lambda)(\int_{0^-}^{+\infty} v(t-\lambda)e^{-st} dt) d\lambda
+	
+	Sostituiamo ora: x=t-\lambda, t=x+\lambda, dt=dx
+	
+	\mathcal{L}[(u*v)(t)](s) &= \int_{0^-}^{\infty} u(\lambda)(\int_{0^-}^{+\infty} v(x)e^{-s(x+\lambda)} dx) d\lambda\\
+	&= \int_{0^-}^{+\infty} u(\lambda)e^{-s\lambda} d\lambda\int_{0^-}^{+\infty} v(x)e^{-sx} dx\\
+	&= \mathcal{L}[u(t)](s)\mathcal[v(t)](s).
+	
+	Quelle veramente utili sono:
+	- linearità 1
+	- traslazioni nel tempo 2
+	- traslazioni nel dominio 3
+	- proprietà della derivata 5
+	- convoluzione nel dominio del tempo 11
+\end{comment}
+
+%
+
+\section{Trasformate notevoli}
+
+\begin{comment}
+	Lez15 - Sistemi
+	
+	--- Trasformate notevoli
+	Utili per trasformare le funzioni in modo più veloce.
+	
+	-- Trasformata dell'impulso \delta_0(t).
+	\mathcal{L}[\delta_0(t)](s) = \int_{0^-}^{\infty}\delta(t)e^{-st} dt\\
+	&= e^{-st}|_{t=0} = 1
+	
+	Con un'ampiezza A, la trasformata sarà uguale ad A, perché:
+	\mathcal{L}[A\delta_0(t)](s) = A\mathcal{L}[\delta_0(t)](s) = A\times 1 = A.
+	
+	Con un impulso ritardato, quindi \delta_0(t-\tau):
+	\mathcal{L}[\delta_0(t-\tau)](s) = e^{-s\tau}\mathcal{L}[\delta_0(t)](s) = e^{-s\tau}
+	Questo vale grazie alla proprietà del ritardo nel tempo
+	
+	-- Trasformata del gradino \delta_{-1}(t).
+	\mathcal{L}[\delta_{-1}(t)](s) &= \int_{0^-}^{+\infty}\delta_{-1}(t)e^{-st} dt\\
+	&= \int_{0^-}^{+\infty} e^{-st} dt\\
+	&= \lim_{\epsilon\to\infty; \mu\to 0^-}(-\frac{e^{st}}{s})|_{t=\mu}^{\epsilon\\
+		&= \lim_{\mu\to 0^-}\frac{e^{-st}}{s} - \lim_{\epsilon\to \infty}\frac{e^{-st}}{s} = \frac{1}{s}
+		
+		Grazie alla proprietà della linearità e a quella del ritardo nel tempo possiamo generalizzarla come abbiamo fatto con l'impulso:
+		\mathcal{L}[A\delta_{-1}(t)](s) = \frac{A}{s}
+		\mathcal{L}[\delta_{-1}(t-\tau)](s) = \frac{e^{-s\tau}}{s}
+		
+		-- Esponenziale complesso causale v(t) = e^{\lambda t}\delta_{-1}(t)
+		
+		\mathcal{L}[e^{\lambda t}\delta_{-1}(t)](s) = \mathcal{L}[\delta_{-1}(t)](s-\lambda)\\
+		&= \frac{1}{s-\lambda}
+		Grazie alla trasl. nelle frequenze.
+		
+		Per la costante ampiezza e la traslazione vale il ragionamento di prima:
+		\mathcal{L}[Ae^{\lambda t}\delta_{-1}(t)](s) = \frac{A}{s-\delta}
+		
+		\mathcal{L}[e^{\lambda(t-\tau)}\delta_{-1}(t-\tau)](s) =  \frac{e^{-(s-\lambda)\tau}}{s-\delta}
+		
+		-- Esponenziale complesso causale moltiplicato per una funzione polinomiale v(t) = \frac{t^l}{l!}e^{\lambda t}\delta_{-1}(t)
+		
+		\mathcal{L}[\frac{t^l}{l!}e^{\lambda t}\delta_{-1}(t)](s) &= \frac{1}{l!}\mathcal{L}[t^le^{\lambda t}\delta_{-1}(t)](s)\\
+		&= \frac{(-1)^l}{l!}\frac{l^l}{ds^l} \mathcal{L}[e^{\lambda t}\delta_{-1}(t)](s)\\
+		&= \frac{(-1)^l}{l!}\frac{l^l}{ds^l}(\frac{1}{s-\lambda})\\
+		&= \frac{(-1)^l}{l!}\frac{l!(-1)^l}{(s-\lambda)^{l+1}}\\
+		&= \frac{1}{(s-\lambda)^{l+1}}
+		
+		Esempi diretti:
+		- per l=1: \mathcal{L}[te^{\lambda t}\delta_{-1}(t)](s) = \frac{1}{(s-\lambda)^2}
+		- per l=2: \mathcal{L}[\frac{t^2}{2!}e^{\lambda t}\delta_{-1}(t)](s) = \frac{1}{(s-\lambda)^3}
+		- Manca exp1: \mathcal{L}[\frac{t}{l!}\delta_{-1}(t)](s) = \frac{1}{s^{l+1}}
+		- Manca exp2: \mathcal{L}[t\delta_{-1}(t)](s) = \frac{l!}{s^{l+1}}
+		- Manca pol: \mathcal{L}[e^{-\lambda t}\delta_{-1}(t)](s) = \frac{1}{s+\lambda}
+		
+		-- Trasf. per famiglie sinusoidali: Coseno
+		\mathcal{L}[cos(\omega t)](s) &= \mathcal{L}[\frac{e^{j\omega t}-e^{-j\omega t}}{2}](s)\\
+		&= \frac{1}{2}\mathcal{L}[e^{j\omega t} + e^{-j\omega t}](s)\\
+		&= \frac{1}{2}(\frac{1}{s-j\omega} + \frac{1}{s+j\omega})\\
+		&= \frac{1}{2}(\frac{s}{s^2+\omega^2})
+		
+		-- Trasf. per famiglie sinusoidali: Seno
+		\mathcal{L}[sin(\omega t)](s) &= \mathcal{L}[\frac{e^{j\omega t} - e^{-j\omega t}}{2j}](s)\\
+		&= \frac{1}{2j}(\mathcal{L}[e^{j\omega t}](s) - \mathcal{L}[e^{-j\omega t}](s))\\
+		&= \frac{1}{2j}(\frac{1}{s - j\omega} - \frac{1}{s+j\omega})\\
+		&= \frac{1}{2j}(\frac{s + j\omega - s + j\omega}{s^2+\omega^2})\\
+		&= \frac{\omega}{s^2 + \omega^2}
+\end{comment}
+
+%
+
+\section{Utilizzo della TdL per il calcolo delle risposte}
+
+
+\begin{comment}
+		--- Come usare TdL per i sistemi LTI causali?
+		- Se n\geq m e u(t) = u(t)\delta_{-1}(t); u(t)=0, t<0) e consideriamo le n-1 condizioni iniziali:
+		v(0^-); \frac{dv(0^-)}{dt}; ...; \frac{d^{n-1}v(0^-)}{dt^{n-1}}
+		Se u(t) ammette TDL, allora anche v(t) ammette TDL per t\geq 0.
+		
+		Siano U(s) e V(s) le TDL di u(t) e v(t). Il modello si può riscrivere come:
+		\mathcal{L}[\sum_{i=0}^n a_i \frac{d^iv(t)}{dt^i}](s) = \mathcal{L}[\sum_{j=0}^m b_j\frac{d^j u(t)}{dt^j}](s)
+		
+		Grazie alla proprietà di linearità è possibile tirar fuori le costanti, ottenendo:
+		
+		\sum_{i=0}^n a_i \mathcal{L}[\frac{d^i v(t)}{dt^i}](s) = \sum_{j=0}^n b_j \mathcal{L}[\frac{d^ju(t)}{dt^j}](s)
+		
+		Inoltre, applicando n+m volte la regola della derivata si ottiene:
+		
+		a_n[s^nV(s) - \sum_{k=0}^{n-1} \frac{d^kv(t)}{dt^k}|_{t=0^-} (s^{h-1-k})] + a_{n-1}[s^{n-1}V(s) - \sum_{k=0}^{n-2} \frac{d^kv(t)}{dt^k}|_{t=0^-}(s^{h-2-k})] + ... + a_0V(s)
+		
+		Dolore, questa era l'uscita. Per volerci meno male però imponiamo le condizioni di esistenza per u(t)|_{t=0^-} = 0, rendendo nulla la sommatoria per l'entrata. Quindi:
+		
+		b_ms^mU(s) + b_{m-1}s^{m-1}U(s) + ... + b_0U(s)
+		
+		Adesso espandendo le sommatorie e raccogliendo tutto otteniamo:
+		(a_ns^n + a_{n-1}s^{n-1} + ... + a_0)V(s) - a_nv(0^-)s^{n-1} - (a_{n-1}v(0^-) + a_n\frac{dv(t)}{dt}|_{t=0})s^{n-2} - ... - (\sum_{k=0}^{n-1} a_{k+1}\frac{d^kv(t)}{dt^k}|_{t=0^-}) = (b_ms^m + b_{m-1}s^{m-1} + ... + b_0)U(s).
+		
+		È grosso, quindi lo riscriviamo come: d(s)V(s) - p(s) = n(s)U(s), dove:
+		- d(s): (a_ns^n + a_{n-1}s^{n-1} + ... + a_0). Polinomio di grado n, dipende solo dai coefficienti delle derivate associate all'uscita. È anche il polinomio caratteristico di v(t)
+		- p(s): a_nv(0^-)s^{n-1} - (a_{n-1}v(0^-) + a_n\frac{dv(t)}{dt}|_{t=0})s^{n-2} - ... - (\sum_{k=0}^{n-1} a_{k+1}\frac{d^kv(t)}{dt^k}|_{t=0^-}. È un polinomio di grado n-1 che contiene le condizioni iniziali. 
+		- n(s): (b_ms^m + b_{m-1}s^{m-1} + ... + b_0). Può essere associato alle derivate dell'ingresso. È un polinomio di grado m. È anche il polinomio caratteristico di u(t)
+		
+		Possiamo inoltre dire: V(s) = \frac{n(s)}{d(s)}U(s) + \frac{p(s)}{d(s)}
+		Ed è grazie a questa scrittura che possiamo concludere:
+		- \frac{p(s)}{d(s)}: è una funzione razionale dipendente solo dalle CI del sistema e dai coefficienti del polinomio caratteristico di v(t). V_l(s) = \frac{p(s)}{d(s)} Ci dona quindi risposta libera.
+		- \frac{h(s)}{d(s)}U(s): è una funzione razionale che dipende dai coefficienti del polinomio caratteristico di u(t), dai coefficienti del polinomio caratteristico di v(t) moltiplicati per la TDL di u(t). V_f(s) = \frac{h(s)}{d(s)}U(s) Ci donoa quindi risposta forzata.
+		- \frac{n(s)}{d(s)}: Detta funzione di trasferimento H(s), definita come:
+		H(s) = \frac{\sum_{j=0}^m b_js^j}{\sum_{i=0}^na_is^i}. Quindi è il rapporto fra i polinomi caratteristici delle funzioni di ingresso e di uscita.
+		H(s) è defnita come TDL della risposta impulsiva h(t)
+		
+		Quindi per trovare risposta libera e forzata devi trasformare tutto in laplace e fare passaggi algebrici per arrivare alla forma con solo V(s) a sinistra dell'equazione.
+		
+		Ex. Dato LTI descritto come: \frac{d^3v(t)}{dt^3} + \frac{d^2v(t)}{dt^2} = \frac{du(t)}{dt}
+		
+		Applichiamo Laplace:
+		\mathcal{L}[\frac{d^3v(t)}{dt^3}](s) + \mathcal{L}[\frac{d^2v(t)}{dt^2}](s) = \mathcal{L}[\frac{du(t)}{dt}](s)\\
+		&\implies s^3V(s) - s^2v(0^-) - s^1\frac{dv(0)^-}{dt} - s^0\frac{d^2v(0^-)}{dt} + s^2V(s) - sv(0^-) - s^0\frac{dv(0^-)}{dt} = sU(s)
+		
+		Raggruppiamo per V(s)
+		(s^3+s^2)V(s) - [s^2v(0^-) + s\frac{dv(0)^-}{dt} + \frac{d^2v(0^-)}{dt} + sv(0^-) + \frac{dv(0^-)}{dt}] = sU(s)
+		
+		Spostiamo per ottenere V(s) = ...
+		V(s) = \frac{s}{s^3+s^2}U(s) + \frac{s^2v(0^-) + s(\frac{dv(0^-)}{dt}+v(0^-)) + (\frac{d^2v(0^-)}{dt^2}+\frac{dv(0^-)}{dt})}{s^3+s^2}
+		
+		E qui vanno applicate le condizioni iniziali.
+\end{comment}

@@ -52,7 +52,7 @@ I passaggi sono equivalenti a quelli per la risoluzione di un'equazione differen
 	\item Applicazione delle condizioni di Cauchy.
 	\item Scrittura della risposta libera.
 \end{enumerate}
-\begin{eg}
+\begin{esempio}
 	\textbf{Calcolare la risposta libera dell'equazione differenziale}:
 	\begin{center}
 		$\begin{cases}
@@ -99,7 +99,7 @@ I passaggi sono equivalenti a quelli per la risoluzione di un'equazione differen
 	
 	\noindent \textbf{6. Scrittura della risposta libera}\par
 	\noindent Nulla di più semplice, una sostituzione delle $c$ nella formula generale: \[v_l(t) = \frac{1}{5}e^t - \frac{1}{5}e^{-4t}\]
-\end{eg}
+\end{esempio}
 \noindent Una cosa interessante che si può ricavare dalla descrizione dell'equazione differenziale è il \textbf{modo elementare}, descritto come: \[m(t) = e^{\lambda t}\frac{t^l}{l!}\]
 \noindent Risulta utile considerare i suoi tre casi di studio, perché grazie ad essi possiamo trarre conclusioni sulla stabilità di un sistema:
 \begin{itemize}
@@ -140,7 +140,7 @@ Per il calcolo della risposta forzata ci serviremo di due strumenti: la \textbf{
 	\item $\frac{t^l}{l!}e^{\lambda_i t}$: Modi elementari, già menzionati.
 	\item $\delta_{-1}(t)$: Funzione gradino per garantire la causalità dell'uscita.
 \end{itemize}
-\begin{eg}
+\begin{esempio}
 	\textbf{Calcolare la risposta impulsiva dell'equazione differenziale} \[v'(t) + 2v(t) = u(t) + u(t)\]
 	\noindent\textbf{1. Equazione omogenea, polinomio caratteristico e calcolo delle radici}\par
 	\noindent Notiamo anzitutto che entrambi i lati dell'equazione presentano un numero di coefficienti uguale, quindi è confermato che il sistema è proprio e $d_0\neq 0$. Chiarito ciò poniamo l'output a zero e risolviamo il polinomio caratteristico: \[v'(t) + 2v(t) = 0\implies s+2=0\implies \lambda_1 = -2\]
@@ -192,7 +192,7 @@ Per il calcolo della risposta forzata ci serviremo di due strumenti: la \textbf{
 			&= \delta(t) -e^{-2t}\delta_{-1}(t)
 		\end{split}
 	\end{equation}
-\end{eg}
+\end{esempio}
 
 \noindent \textbf{- Utilizzo dell'operatore di convoluzione}\par
 \noindent Ottenuta la risposta impulsiva, è ora possibile ottenere la forzata, la quale dipende esclusivamente da input e per i sistemi LTI causali è descritta come:
@@ -202,7 +202,7 @@ Per il calcolo della risposta forzata ci serviremo di due strumenti: la \textbf{
 		&= \int_{0^{-}}^{t^{+}} u(\tau)h(t-\tau) d\tau
 	\end{split}
 \end{equation}
-\begin{eg}
+\begin{esempio}
 	\textbf{Calcolare la risposta forzata $v_f$ a partire dai seguenti $h(t), u(t)$} \[h(t) = \frac{1}{2}\delta_0(t) + \frac{7}{4}e^{\frac{1}{2}t} \delta_{-1}(t); u(t) = 3\delta_{-1}(t)\]
 	\noindent Quindi notiamo che l'input è una funzione gradino di altezza $3$. Procediamo con la risoluzione dell'integrale. Le forme possibili sono:
 	\begin{equation}
@@ -223,6 +223,6 @@ Per il calcolo della risposta forzata ci serviremo di due strumenti: la \textbf{
 				&= \frac{3}{2} + \frac{21}{4}\left[\frac{1}{2} e^{\frac{1}{2}\tau}\right]_0^t = \frac{3}{2} + \frac{21}{4}\left(\frac{1}{2} e^{2t} - \frac{1}{2}\right) = \frac{3}{2} + \frac{21}{8} e^{\frac{1}{2} t} - \frac{21}{8} = v_f
 		\end{split}
 	\end{equation}
-\end{eg}
+\end{esempio}
 \noindent Notare come gli estremi di integrazione variano ad un certo punto. Questo accade grazie al focus del nostro interesse. Per esempio, nel primo blocco, abbiamo l'intervallo di definizione dell'impulso, per il quale risulta essere sempre uguale ad $1$. Così è stato sostituito. Il secondo blocco riguarda invece gli istanti di tempo dopo l'impulso, quindi a partire da $0$ all'istante $t$.\par
 Un'ultima cosa che è utile menzionare, più perché è richiesta all'esame che altro, è saper definire la stabilità di un sistema. Già menzionato come una stabilità \textbf{asintotica} è confermata se la parte reale di ogni radice del polinomio caratteristico è minore di zero, ma per definire un sistema \textbf{BIBO-stabile} è necessario verificare che la risposta impulsiva sia integrabile e con un risultato finito.

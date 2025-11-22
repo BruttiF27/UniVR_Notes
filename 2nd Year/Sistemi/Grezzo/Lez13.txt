@@ -1,0 +1,78 @@
+Lez13 - Sistemi
+Le due lezioni precedenti non ci sono in quanto esercitazioni.
+
+--- Risposta in frequenza
+Comportamento del sistema con in ingrasso funzioni sinusoidali. (per rappresentare andamento in ampiezza e frequenza useremo i diagrammi di Bode)
+
+Funzioni esponenziali complesse si chiamano fasori e si rappresentano con u(t) = Ae^{j(\omega_0 t + \phi)}. Si tratta di un vettore che ruota intorno ad una circonferenza unitaria.
+Ci chiediamo: come si comporta un segnale al variare delle frequenze?
+
+Com'è fatto v(t) = \int_{-\infty}^{+\infty} h(\tau) u(t-\tau) d\tau\\
+	&= \int_{-\infty}^{+\infty} h(\tau) Ae^{j[\omega_0(t-\tau)+\phi]}\\
+	&= Ae^{j(\omega_0 t+\phi)} \int_{-\infty}^{+\infty} h(t)e^{-j\omega_0\tau} d\tau
+	
+Nell'ultima riga dell'equazione, la parte fuori l'integrale è costante, mentre l'altra parte integra la risposta impulsiva con il fasore, ed è qui nominata risposta \textbf{in frequenza}. Se il modulo di quest'ultima è minore di infinito, converge ed è bibostabile. Verifichiamolo.
+
+|\int_{-\infty}^{+\infty} h(t)e^{-j\omega_0\tau} d\tau| \leq \int_{-\infty}^{+\infty} |h(\tau)e^{-j\omega_0\tau}|d\tau\\
+	&= \int_{-\infty}^{+	infty} |h(\tau)|\times|e^{-j\omega_0\tau}| d\tau
+	
+Sappiamo che e^{-j\omega_0\tau} vale 1 in quanto fasore unitario che gira sulla circonferenza. Quindi rimane solo l'integrale di |h(\tau)|, il quale deve essere minore di +\infty. Se è tale, converge.
+
+Quindi con questi passaggi definiamo la risposta in frequenza H(j\omega_0) = \int_{-\infty}^{+\infty} h(\tau)e^{-j\omega_0\tau} d\tau.
+Quindi la risposta impulsiva a diverse frequenze, le quali sono date dal fasore, ovvero e^{-j\omega_0\tau}.
+
+In modo contratto, l'output v(t) = H(j\omega_0)Ae^{j(\omega_0 t + \phi)}.
+
+La risposta in frequenza è la trasformata di fourier della risposta impulsiva del sistema, quindi anche la trasformata di laplace della risposta impulsiva ristretta all'asse immaginario. Puoi vederla in entrambi i modi, sono equivalenti, e si scrive:
+H(j\omega) = F[h(t)](s) = L[h(t)](s), con s=j\omega
+
+L'idea delle trasformate è poter semplificare i conti. Aggiungeremo la trasformata di laplace per trasformare equazioni differenziali ad algebriche con dominio complesso. s è una variabile complessa.
+Poi torneremo indietro con un'operazione detta antitrasformata, per ottenere la soluzione nel dominio del tempo.
+
+--- Trasformata di laplace unilatera (TdL)
+Sia v(t), con t\in R una funzione generica ottenuta come somma di funzioni reali o complesse. Per adesso vediamola come ottenuta da somma di funzioni a variabile reale a valori reali o a valori complessi.
+- La funzione deve essere localmente sommabile in [0,\infty), quindi che \int_a^b |v(t)| dt < \infty \forall a,b \in [0,\infty).
+- La funzione deve essere formata da un insieme finito di segnali polinomiali.
+
+Definiamo TdL unilatera come V(s) = \int_{0^-}^{+\infty} v(t)e^{-st} dt = L[v(t)](s).
+È una funzione C\to C e permette di avere conti più semplici.
+
+Ocio: Data v(t) generica localmente sommabile, non significa che lo sia anche V(s). Quindi dobbiamo definire la regione di convergenza di V(s).
+Inoltre, le maiuscole sono usate per le funzioni trasformate, giusto per specificare la norazione.
+
+La regione di convergenza è un semipiano positivo definito come RdC = {s\in C | Re(s) > \alpha}, con \alpha \in R definito come ascissa di convergenza. Cerchiamo di dimostrarlo.
+
+\begin{proof}
+Sia v(t) una combinazione lineare di esponenziali \sum_{i=0}^n c_ie^{\lambda i t}, con \lambda_i = \sigma_i+j\omega_i \in C.
+Vogliamo dimostrare che la RdC della L[v(t)](s) è un semipiano positivo definito come RdC = {s\in C | Re(s) > \alpha}.
+
+Abbiamo che L[v(t)](s) = \int_{0^-}^{+\infty} v(t)e^{-st} dt Sostituiamo a v(t) la nostra supposizione, che sia combinazione lineare. Otteniamo:
+	&= \int_{0^-}^{+\infty} \sum_{i=0}^n c_ie^{\lambda it}e^{-st} dt\\
+	&= \sum_{i=0}^n c_i \int_{0^-}^{+\infty} e^{\lambda it}e^{-st} dt
+	
+Prendendo un generico i possiamo porre \lambda_i = \sigma_i + j\omega_i, ovvero la sua definizione di complesso per quell'indice, e s=\sigma + j\omega, che è sempre un complesso. Possiamo riscrivere l'integrale come:
+
+	&= \int_{0^-}^{+\infty} e^{\sigma_i t}e^{j\omega_i t}e^{-\sigma t}e^{-j\omega t} dt\\
+	&= \int_{0^-}^{+\infty} e^{(\sigma_i-\sigma + j\omega_i -j\omega)t} dt\\
+	&= (\frac{e^{(\sigma_i-\sigma + j\omega_i -j\omega)t}}{\sigma_i-\sigma + j\omega_i -j\omega})|_{0^-}^{+\infty}\\
+	&= lim_{t\to\infty}(\frac{e^{(\sigma_i-\sigma)t}e^{j(\omega_i-\omega)t}}{\sigma_i-\sigma + j\omega_i -j\omega}) - \frac{1}{\sigma_i-\sigma + j\omega_i -j\omega}
+	
+Abbiamo che e^{j(\omega_i-\omega)t è un fasore, quindi è uguale ad 1.
+La vera parte che ci interessa è e^{(\sigma_i-\sigma)t}, perché l'integrale converge se \sigma_i < \sigma.
+\sigma è però la parte reale di s, mentre \sigma_i la reale di \lambda_i.
+
+Quindi abbiamo che \forall s\in C, Re(s) > Re(\lambda_i).
+Quindi il semipiano positivo è composto da tutti quei valori di s che devono necessariamente essere maggiori o uguali delle radici.
+
+Notare che per un sistema LTI stabile, la RdC contiene sempre l'asse immaginario.
+\end{proof}
+
+La TdL ha le seguenti proprietà:
+	- Linearità
+		Siano v_1, v_2 funzioni che ammettono la TdL e rispettivamente V_1, V_2 le loro trasformate. Allora abbiamo che av_1(t) + bv_2(t) ammette TdL ed è definita come L[av_1(t) + bv_2(t)](s) = aV_1(s) + bV_2(s). Per l'ascisse di convergenza invece si prende il valore più alto fra le due. \alpha \geq max{\alpha_1, \alpha_2}.
+	- Shift temporale, la traslazione nel dominio del tempo.
+		v(t) ammette TdL, allora v(t-\tau), solamente con \tau>0 ammette TdL e vale: L[v(t-\tau)](s) = e^{-st}L[v(t)](s). Qui la RdC è invariata.
+	- Traslazione nel dominio dei complessi, quindi moltiplicazione per una funzione esponenziale.
+		Sia v(t) che ammette TdL, allora e^{\lambda t}v(t) ammette TdL. Viene definita come : L[e^{\lambda t}v(t)](s) = V(s-\lambda). Qui la RdC è spostata, quindi anche l'ascissa diventa \alpha = \alpha_0 + Re(\lambda). Con \lambda esponenziale qualsiasi.
+	- Cambio di scala
+		Sia v(t) che ammette TdL, allora anche v(rt) ammette TdL. Definita come L[v(rt)](s) = 1/r V(s/r).

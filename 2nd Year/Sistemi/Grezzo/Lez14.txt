@@ -1,0 +1,73 @@
+Lez14 - Sistemi
+
+- Proprietà della derivata della TdL.
+Data v(t) che ammette TdL ed esiste finito v(0^-) = lim_{t\to 0^_} v(t), allora anche la sua derivata i-esima ammette TdL.
+Quindi L[\frac{d^iv(t)}{dt^i}] = s^iV(s) - \sum_{k=0}^{i-1} [\frac{d^kv(t)}{dt^k}]_{t=0^-} (s^{i-1-k})
+L'ascissa di convergenza qui è \alpha \leq \alpha_0, con \alpha_0 ascisse originale.
+
+Dimostrazione per derivata prima
+\mathcal{L}[\frac{dv(t)}{dt}](s) &= \int_{0^-}^{+\infty}\frac{dv(t)}{dt}e^{-st} dt\\
+	&= v(t)e^{-st}|_{0^-}^{+\infty} -\left(-s\int_{0^-}^{+\infty}v(t)e^{-st}dt\right)\\
+	&= \lim_{\epsilon\to \infty} v(\epsilon)e^{-s\epsilon} - \lim_{\epsilon\to 0^-}v(\epsilon)e^{-s\epsilon} + sV(s)\\
+	&= sV(s) - v(0^-)
+
+Dimostrazione per derivata seconda
+\mathcal{L}[\frac{d^2v(t)}{dt^2}](s) = L[\frac{d}{dt}(\frac{dv(t)}{dt})](s)\\
+	&= s\mathcal{L}[\frac{d}{dt}v(t)](s) - \frac{dv(t)}{dt}|_{t=0^-}\\
+	&= s(s\mathcal{L}[v(t)](s) - v(0^-)) - \frac{dv(t)}{dt}|_{t=0^-}\\
+	&= s^2V(s) - sv(0^-) - \frac{dv(t)}{dt}|_{t=0^-}\\
+
+- Moltiplicazione per funzione polinomiale
+v(t) ammette TdL, allora anche t^iv(t) ammette TdL.
+\mathcal{L}[t^iv(t)] = (-1)^i\frac{d^iV(s)}{ds^i}
+
+Dim
+\mathcal{L}[tv(s)](s) = \int_{0^-}^{+\infty} tv(t) e^{-st}dt = -\int_{0^-}^{+\infty} v(t) (-te^{-st}) dt\\
+	&= -\int_{0^-}^{+\infty} v(t) \frac{de^{-st}}{ds} dt = -\frac{d}{ds}\int_{0^-}^{+\infty} v(t)e^{-st} dt\\
+	&= -\frac{d}{ds}V(s)
+	
+- Integrazione nel dominio del tempo
+v(t) ammette TdL, e se è definito \psi(t) = \int_{0^-}^t v(t) dt suo integrale nel tempo, allora anche quest'ultimo ammette TdL. Qui l'ascissa di convergenza è il massimo fra 0 ed \alpha_0.
+\mathcal{L}[\int_{0^-}^{\tau} v(t) d\tau](s) = \frac{V(s)}{s}
+
+Dim
+v_i(t) = \int_{0^-}^t v(\tau) d\tau \implies v_1'(t) = v(t) \land v(0^-) = \int_{0^-}^{0^-} v(\tau) d\tau = 0\\
+	&= \mathcal{L}[v(t)](s) = \mathcal{L}[v_1'(t)](s) \implies s\mathcal{L}[v_1'(t)](s) - v_1(0^-)\\
+	&= v_1(0^-) = 0 \implies s\mathcal{L}[\int_{0}^t v(\tau) d\tau](s)\\
+	&= \mathcal{L}[\int_{0}^t v(\tau) d\tau] = \frac{V(s)}{s}
+	
+- Integrazione nel dominio dei complessi
+v(t) ammette TdL ed esiste \lim_{t\to 0^-} \frac{v(t)}{t}, allora \mathcal{L}[\frac{v(t)}{t}](s) = \int_s^{\infty} \mathcal{L}[v(t)](\sigma) d\sigma
+
+- Teorema del valore iniziale
+Permette di capire il comportamento asintotico della funzione in 0.
+v(t) ammette TdL ed esiste finito il \lim_{t\to 0^-}v(t), allora il \lim_{t\to 0^-} v(t) = \lim_{s\to \infty} s\mathcal{L}[v(t)](s).
+Dice quindi il limite della derivata prima in condizioni nulle.
+
+- Teorema del valore finale
+Permette di capire il comportamento asintotico della funzione in infinito
+v(t) ammette TdL ed esiste finito il \lim_{t\to \infty} v(t), allora il \lim_{t\to \infty}v(t) = \lim_{s\to 0^+} s\mathcal{L}[v(t)](s).
+Possiamo quindi guardare il limite in 0^+ per capire il comportamento in infinito.
+
+- Convoluzione nel dominio del tempo
+siano u(t) e v(t) due funzioni generiche e causali (nulle per t<0) e che ammettono TDL. Allora (u*v)(t) ammette TDL.
+
+\mathcal{L}[(u*v)(t)](s) = \mathcal{L}[u(t)](s) \times \mathcal{L}[v(t)](s)
+
+Dim
+\mathcal{L}[(u*v)(t)](s) &= \int_{0^-}^{+\infty} (\int_{-\infty}^{+\infty}u(\lambda)v(t-\lambda) d\lambda)e^{-st} dt\\
+	&= \int_{0^-}^{\infty}\int_{0^-}^{\infty} u(\lambda)v(t-\lambda)e^{-st} dt d\lambda\\
+	&= \int_{0^-}^{\infty} u(\lambda)(\int_{0^-}^{+\infty} v(t-\lambda)e^{-st} dt) d\lambda
+	
+Sostituiamo ora: x=t-\lambda, t=x+\lambda, dt=dx
+
+\mathcal{L}[(u*v)(t)](s) &= \int_{0^-}^{\infty} u(\lambda)(\int_{0^-}^{+\infty} v(x)e^{-s(x+\lambda)} dx) d\lambda\\
+	&= \int_{0^-}^{+\infty} u(\lambda)e^{-s\lambda} d\lambda\int_{0^-}^{+\infty} v(x)e^{-sx} dx\\
+	&= \mathcal{L}[u(t)](s)\mathcal[v(t)](s).
+	
+Quelle veramente utili sono:
+	- linearità 1
+	- traslazioni nel tempo 2
+	- traslazioni nel dominio 3
+	- proprietà della derivata 5
+	- convoluzione nel dominio del tempo 11

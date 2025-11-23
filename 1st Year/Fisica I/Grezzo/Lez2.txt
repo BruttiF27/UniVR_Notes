@@ -1,0 +1,40 @@
+Lez2 - Fisica 1
+
+Possiamo riprendere le leggi del moto ed usare l'algebra per consentirci di ottenere le diverse componenti della formula.
+Utile per sostituire le singole componenti in funzione di altre al posto delle variabili che non abbiamo.
+Da v = v_0 + at = v_f:
+	- t = \frac{v_f - v_i}{a} \implies \delta x = 1/2(v_f+v_i)\frac{v_f - v_i}{a}\\
+		&\implies 2a(x_f - x_i) = v_f^2 - v_i^2		// Relazione utile se non abbiamo il tempo, ma accelerazione costante.
+		
+Esercizio:
+Siamo su un palazzo ed una pallina viene lanciata verso l'alto con v=20m/s, arriva fino a 50m d'altezza. Quanto ci mette a raggiungere h_max?
+Dunque:
+	v = 20m/s
+	t_f = ?
+	
+Prima di iniziare l'esercizio, capire astrattamente il fenomeno e asserire che cosa dovrebbe succedere al punto desiderato.
+Partendo dal punto di riferimento che è il terreno, quindi h=0m, sappiamo che la pietra è lanciata verso l'alto; quindi questa avrà un'accelerazione positiva. L'altezza massima sarà raggiunta quando la velocità sarà uguale a 0; poi il corpo ritornerà verso il basso con un'accelerazione negativa g=9.81m/s^2
+Noi non sappiamo l'altezza alla quale è lanciata la pietra. Dovremo quindi usare la velocità per studiare questo fenomeno.
+
+Sappiamo quindi che il fenomeno è descritto da v=v_0 - gt. Questo deve essere uguale a 0; dunque v_0 - gt = 0
+Con un passaggio algebrico otteniamo il tempo che ci serve: t = v_0/g = 20/9.8 = 2.04s
+
+Adesso chiede anche quale sia la massima altezza raggiunta dalla pietra. Tradotto, lo spostamento in un determinato istante. Sappiamo:
+	- v=v_0 + at
+	- x=x_0 + v_0t - 1/2 at^2
+Possiamo usare la seconda formula per rappresentare il moto quando l'altezza è massima. x_0 è il punto di riferimento, e possiamo usare il t calcolato prima.
+L'accelerazione è data dalla costante gravitazionale. Hai tutto.
+	x = 0 + 20(2,04) - 1/2(9,81)(2,04)^2 = 20,4m
+	
+--- Moti in due dimensioni
+Usiamo il piano cartesiano per la rappresentazione delle particelle; i moti rappresentati tramite vettori, che possono essere scomposti nelle relative componenti sull'asse x e sull'asse y.
+I vettori sono descritti con modulo, verso e direzione. Le loro singole parti sugli assi sono dette versori, hanno modulo 1 e ne danno appunto il verso.
+
+La spiegazione sui vettori è abbastanza chill, dovrei aver già rielaborato l'argomento correttamente.
+
+Per le componenti vettoriali si può usare la legge del moto a velocità costante per l'asse x, mentre per l'asse y si può usare quella di accelerazione costante.
+Rielaborandole in termini vettorialo otteniamo infatti:
+	- x = x_0+v_0t = 0 + v_{0x}t = v_0cos\theta t
+	- y = y_0 + v_{0y}t + 1/2at^2 = v_0sin\theta t - 1/2 gt^2
+	
+

@@ -1,42 +1,38 @@
-Lo studio della fisica avviene attraverso dei \textbf{modelli di analisi}, ovvero approssimazioni di fenomeni reali per renderne la comprensione più semplice. Nelle sezioni successive saranno prima forniti gli strumenti di base e poi il relativo modello usato per la risoluzione degli esercizi.
-
-\section{Moto in una dimensione}
-Iniziamo il percorso con la \textbf{cinematica}, la quale tratta il moto dei corpi, visti come un punto materiale, da un punto di vista descrittivo, ignorando le interazioni con l'ambiente circostante. I concetti di base sono:
+\section{Moti in una dimensione}
+Iniziamo il percorso con la \textbf{cinematica}, la quale tratta il moto dei corpi, visti come un punto materiale, da un punto di vista descrittivo, ignorando le interazioni con l'ambiente circostante. Ciò avviene con il relativo asse di riferimento, il quale per ora sarà rappresentato da un singolo asse.\par
+Pensando ad un corpo in movimento ci si aspetta che abbia una \textbf{posizione} in determinati punti e che si possa \textbf{spostare} sul piano, magari con una determinata \textbf{velocità}. Questi concetti sono strettamente legati e fanno riferimento punto scelto nell'asse. Sono definiti come:
 \begin{itemize}
 	\item \textbf{Posizione} $x$: Punto occupato, istante per istante, dal punto materiale rispetto ad un altro punto di riferimento, scelto come origine.
-	\item \textbf{Spostamento} $\Delta x = x_f - x_i$: Variazione della posizione di un punto materiale, da quella iniziale $x_i$, a quella finale $x_f$, in un certo intervallo di tempo.
-	\item \textbf{Velocità} $v = \frac{\Delta x}{\Delta t}$: Detta anche velocità media, è il rapporto fra lo spostamento del punto materiale e l'intervallo di tempo in cui ha compiuto tale movimento.
-	\item \textbf{Velocità istantanea} $v_x = \lim_{\Delta t\to 0}\frac{\Delta x}{\Delta t}$: Velocità di un corpo in un preciso istante $t$, è il limite della velocità quando l'istante tende a zero.
+	\item \textbf{Spostamento} $\Delta x = (x_f - x_i)[m]$: Variazione della posizione di un punto materiale, da quella iniziale $x_i$, a quella finale $x_f$, in un certo intervallo di tempo.
+	\item \textbf{Velocità} $v = \frac{\Delta x}{\Delta t}[m/s]$: Detta anche velocità media, è il rapporto fra lo spostamento del punto materiale e l'intervallo di tempo in cui ha compiuto tale movimento.
 \end{itemize}
-\noindent Il modello di analisi più semplice è quello del \textbf{moto rettilineo uniforme}, il quale pone un punto materiale che si muove ad una velocità costante. Come diretta conseguenza, la velocità istantanea sarà sempre uguale indipendentemente dall'istante colto. Inoltre, si prenderà l'istante finale del tempo, quindi, da un punto di vista di formule, avremo che:
-\begin{center}
-	Velocità: $v_x = \dfrac{\Delta x}{\Delta t}$, Posizione finale: $x_f = x_i+v_xt$
-\end{center}
-\noindent Altra caratteristica degna di nota è come la velocità può essere espressa anche in quantità scalare, se al posto dello spostamento è utilizzata la \textbf{distanza} $d$ percorsa dalla particella. Si tratta di un valore sempre positivo, indipendentemente dalla direzione in cui va il punto.\newline
+\noindent Potrebbe venirci l'idea o la necessità di misurare la velocità in frazioni più piccoli del moto, ottenendo un valore più preciso della stessa. Seguendo questo ragionamento, possiamo portarlo all'estremo e minimizzare questo intervallo, quindi il tempo. Ciò consente di ottenere la \textbf{velocità istantanea}, definita come il limite della stessa quando il tempo tende a zero: \[v_x = \lim_{\Delta t\to 0}\frac{\Delta x}{\Delta t}\]
+\noindent Una dinamica particolare ma molto utile della fisica, è che talvolta le componenti delle equazioni sono interpretabili come funzioni o riscrivibili in termini di altre. Prendiamo infatti lo spostamento; questo è un valore dipendente dal tempo, quindi esprimibile in sua funzione. Se riprendiamo infatti la formula della velocità istantanea possiamo dire che, ricavando $v_f = v_i + \Delta t$: \[v_x = \lim_{\Delta t\to 0} \frac{x(t_f) - x(t_i)}{\Delta t} \implies \lim_{\Delta t\to 0} \frac{x(t_i+\Delta t) - x(t_i)}{\Delta t} = \frac{dx}{dt}\]
+\noindent Facendo attenzione, si noterà che questa è una funzione incrementale, quindi una derivata. Abbiamo appena provato che la velocità istantanea è la derivata della funzione di spostamento rispetto al tempo.\par
+Chiaramente, è possibile andare anche all'indietro, applicando l'integrale alla velocità ricaviamo lo spostamento a partire dalla prima. \[\frac{dx}{dt} = v_x \implies \int dx = \int v_xdt \implies x = x_0 + v_xt\]
+\noindent Con questi passaggi abbiamo ottenuto la funzione del tempo $x(t)$, più comunemente conosciuta come \textbf{legge oraria}, la quale descrive il moto di un punto materiale con velocità costante.\newline
+
+\noindent Lo studio dei fenomeni fisici non si piega ad ogni caratteristica in esso presente; infatti, come premesso nell'introduzione, verranno usati modelli di analisi per approssimarli ad una forma simile e riproducibile. La legge del moto appena ottenuta si applica con il modello di riferimento del \textbf{moto rettilineo uniforme}, esprimente la sua dinamica. Come diretta conseguenza, la velocità istantanea sarà sempre uguale indipendentemente dall'istante colto.\newline
 
 % TODO AGGIUNGI GRAFICO MOTO RETTILINEO UNIFORME
 
-\noindent Dove quello appena visto è un modello molto usato, non ci si può aspettare che in ogni fenomeno fisico i corpi si muovano a velocità costante; questa infatti può variare, e quando accade, si dice che il corpo \textbf{accelera}. In tal merito introduciamo i concetti di:
+\noindent E se la velocità cambiasse nel tempo? Non ci si può aspettare che in ogni fenomeno fisico i corpi si muovano a velocità costante; questa infatti può variare, e quando accade, si dice che il corpo \textbf{accelera}. Questa, come visto per la velocità, è misurata in un determinato intervallo di tempo, e quindi si può anche studiare nei singoli istanti tramite il limite. Definiamo:
 \begin{itemize}
-	\item \textbf{Accelerazione} $a_x = \frac{\Delta v_x}{\Delta t}$: Variazione della velocità divisa per l'intervallo di tempo in cui avviene la variazione. Va a $0$ quando la velocità del corpo è massima ed è negativa quando la velocità in direzione positiva decresce.
+	\item \textbf{Accelerazione} $a = \frac{\Delta v_x}{\Delta t}[m/s^2]$: Rapporto fra la variazione di velocità rispetto al tempo. Va a $0$ quando la velocità del corpo è massima ed è negativa quando la velocità in direzione positiva decresce.
 	\item \textbf{Accelerazione istantanea} $a_x = \lim_{\Delta t \to 0} \frac{\Delta v_x}{\Delta t}$: Il limite dell'accelerazione media per il tempo che tende a zero. Coglie il valore in un determinato istante di tempo.
 \end{itemize}
-\noindent Il modello di analisi aggiornato con questi dati si dice \textbf{punto materiale ad accelerazione costante}, ed è fondamentalmente un'estensione di quanto visto prima. Qui l'accelerazione media è numericamente uguale a quella istantanea in qualunque intervallo di tempo. Aggiungendo l'accelerazione alle formule, otteniamo quanto segue, rispettivamente per la velocità media, la posizione finale e la velocità in posizione finale:
-\begin{align*}
-	a_x &= \frac{v_{xf} - v_{xi}}{t-0} \implies v_{xf} = v_{xi} + a_xt\\
-	v_x &= \frac{v_{xi} + v_{xf}}{2}\\
-	x_f-x_i &= v_xt = \frac{1}{2}(v_{xi} + v_{xf})t \implies x_f = x_i+\frac{1}{2}(v_{xi}+v_{xf})t\\
-	x_f &= x_i + \frac{1}{2}[v_{xi}+(v_{xi}+a_xt)]t \implies x_f = x_i + v_{xi}t + \frac{1}{2}a_xt^2\\
-	x_f &= x_i +\frac{1}{2}(v_{xi}+v_{xf})\left(\frac{v_{xf}-v_{xi}}{a_x}\right) = x_i+\frac{v_{xf}^2-v_{xi}^2}{2a_x} \implies v_{xf}^2 = v_{xi}^2 + 2a_x(x_f - x_i)
-\end{align*}
+\noindent Attuando un ragionamento simile a prima con il calcolo differenziale, possiamo vedere $v(t)$ come la funzione della velocità nel tempo e dire, sapendo che $t_f = t_i + \Delta t$: \[a_x = \frac{\Delta v}{\Delta t} = \frac{v(t_f) - v(t_i)}{\Delta t} \implies \frac{v(t_i + \Delta t) - v(t_i)}{\Delta t} = \frac{dv}{dt}\]
+\noindent Quindi, l'accelerazione è la derivata della funzione di velocità rispetto al tempo. Come già visto, grazie all'integrale possiamo anche ottenere l'equazione che esprime la \textbf{velocità} con accelerazione costante: \[\int dv(t) = \int a dt \implies v(t) = v_0 + at\]
+\noindent Come anche quella per lo \textbf{spostamento} negli stessi termini: \[\int v_0 + at dt = \int v_0 dt + \int at dt \implies x(t) = x_0 + v_0t + \frac{1}{2} at^2\]
+\noindent Quest'ultima legge del moto è utilizzata nel modello di riferimento \textbf{punto materiale ad accelerazione costante}, ed è fondamentalmente un'estensione di quanto visto prima. Qui l'accelerazione media è numericamente uguale a quella istantanea in qualunque intervallo di tempo.\newline
 
 % TODO AGGIUNGI GRAFICO PUNTO MATERIALE AD ACCELERAZIONE COSTANTE
 
-\noindent Un caso più specifico di quanto appena visto è invece il \textbf{moto di caduta}. Tutti i corpi sotto effetto della gravità terrestre cadono con la stessa accelerazione costante: $g = 9,8m/s^2$. È possibile usare le equazioni cinematiche del precedente modello di analisi, semplicemente il moto è ora verticale, ed essendo che l'accelerazione va verso il basso, bisognerà indicare la costante gravitazionale con segno negativo.
+\noindent Un caso differente di quanto appena visto è invece il \textbf{moto di caduta}. Tutti i corpi sotto effetto della gravità terrestre cadono con la stessa accelerazione costante: $g = 9,8m/s^2$. È possibile usare le equazioni cinematiche del precedente modello di analisi, l'unica differenza sta nel moto, che ha direzione verticale, ed essendo che l'accelerazione va verso il basso, bisognerà indicare la costante gravitazionale con segno negativo.
 
 %
 
-\section{Moto in due dimensioni}
+\section{Moti in due dimensioni}
 Prima di iniziare abbiamo la necessità di aggiungere un attributo alle grandezze. Precedentemente, essendo stato il moto in una singola dimensione, potevamo ignorare questa caratteristica e lavorare con quelle che sono chiamate \textbf{grandezze scalari}, le quali indicano un solo valore numerico.\par
 Lavorando ora in due dimensioni dobbiamo considerare anche la \textbf{direzione} del moto. Andremo quindi ad aggiungere questo attributo alle variabili e le chiameremo \textbf{grandezze vettoriali}. Sintatticamente non cambia molto, infatti le formule rimangono le stesse, eccezion fatta che ora le grandezze sono vettoriali, ma è possibile utilizzarle per nuovi modelli di analisi.\newline
 
@@ -85,13 +81,6 @@ Lavorando ora in due dimensioni dobbiamo considerare anche la \textbf{direzione}
 \noindent Come ultimo concetto del capitolo, supponiamo di avere due osservatori $A,B$ di uno stesso fenomeno posti in posizioni diverse. Ciò significa che osserveranno l'evento con due origini differenti. Questo è un tipo di problema spesso utilizzato e necessita dei concetti di velocità e accelerazione \textbf{relative}.\par
 Definiamo qui un tempo $t=0$ dove le origini coincidono; andando avanti nel tempo fino a $t$ si troveranno ad una distanza $v_{BA}t$ l'una dall'altra, sotto il punto di vista dell'osservatore $B$. Diciamo di volere la posizione del vettore della posizione relativa ad $A$. Avremo che: \[\overrightarrow{r}_A = \overrightarrow{r}_B + \overrightarrow{v}_{BA}t\]
 \noindent Essendo questa la formula che mostra la posizione finale e quindi uno spostamento, possiamo ragionare con il calcolo differenziale per poter ottenere anche la velocità e l'accelerazione, derivando rispettivamente una o due volte la formula.
-
-%
-
-\section{Calcolo differenziale per la cinematica}
-Questa sezione è necessaria perché non sempre possono bastare le formule pronte per la risoluzione dei problemi. Applicare il calcolo differenziale alla fisica consente di capire in toto cosa c'è dietro alle formule e cosa significano veramente da un punto di vista matematico.\par
-Considera lo schema di un moto che subisce un'accelerazione, avremo in gioco i valori per lo spostamento, velocità ed accelerazione. Da un punto di vista analitico, il primo è un'area, la seconda una tangente e la terza è la tangente della tangente. Ciò si traduce in derivate ed integrali, quindi le tre formule sono collegate dalle seguenti relazioni: \[\Delta x = \int_{t_i}^{t_f} v_x(t) dt; \Delta v_x = \int_{0}^{t} a_x dt\] \[a_x = \frac{dv_x}{dt}; v_x = \frac{dx}{dt}\]
-\noindent Il succo del concetto è che, in assenza di numeri discreti, è possibile ricavare i valori grazie all'analisi matematica.
 
 %
 

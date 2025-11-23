@@ -1,0 +1,49 @@
+Lez1 - Fisica 1
+
+Massa spazio e tempo sono le tre quantità sulle quali si basa la fisica in toto. Qualunque cosa venga dopo deriva da esse.
+Noi usiamo il sistema internazionale per la misurazione delle quantità.
+Concetto di cifre significative, legata allo strumento usato per la misurazione.
+
+--- Moti in una dimensione
+
+Velocità: quantità di spazio che copro in un determinato tempo. v = spazio/tempo (m/s)
+	Come definiamo lo spazio s? Il riferimento più semplice è una linea monodimensionale. Dunque: \frac{x_f-x_i}{\delta t}, dove \delta t = t_f-t_i
+	f ed i indicano rispettivamente il valore finale ed iniziale della misura.
+	
+	Su questa linea potremmo considerare dei tratti intermedi allo spazio percorso, usando la formula appena vista, e otterremmo un valore della velocità media più vicino a quella del singolo istante. Capisci quindi che più piccolo è l'intervallo, più preciso sarà il valore. Dunque introduciamo la
+Velocità istantanea: v = lim_{\delta t\to 0} \frac{x_f - x_i}{\delta t}. Minimizzando il tempo avremo il valore della velocità nel singolo istante.
+
+Poi introduciamo lo spostamento x(t), dato in funzione del tempo. Dunque, usando la formula della velocità istantanea potremmo dire che:
+	v_{ist} = lim_{\delta t\to 0} \frac{x(t_f) - x_{t_i}}{\delta t}
+	t_f = t_i + \delta t
+Quindi la formula è riscrivibile in
+	v_{ist} = lim_{\delta t\to 0} \frac{x(t_i+\delta t) - x(t_i)}{\delta t}, che guarda caso è una funzione incrementale, una derivata, quindi \frac{dx}{dt}
+La velocità è quindi la derivata dello spostamento rispetto al tempo. Il movimento più semplice è quando la velocità è costante.
+
+Chiaramente si può anche tornare indietro, integrando la derivata. Dunque è possibile ricavare lo spostamento a partire dalla velocità.
+\frac{dx}{dt} = v_{ist} \implies \int dx = \int v_{ist}dt \implies x = v_{ist}t + x_0
+x_0 sarebbe la costante da aggiungere post-integrazione indefinita.
+Otteniamo quindi la funzione del tempo, cioè x(t) = x_0 + v_{ist}t, detta anche legge oraria, la quale descrive il moto di un punto materiale quando la velocità è costante.
+
+E se la velocità cambiasse nel tempo? Di base si va ugualmente a controllare la differenza fra v_f e v_i, quindi ottenendo \delta v.
+Possiamo definire l'accelerazione come il rapporto fra la variazione di velocità rispetto al tempo, quindi a = \frac{\delta v}{\delta t} (m/s^2)
+Dice quindi quanto varia la velocità in un determinato intervallo di tempo.
+
+Anche l'accelerazione può essere calcolata in un singolo istante tramite il limite, come visto per la velocità. Abbiamo
+a_{ist} = lim_{\deta t\to 0} \frac{\delta v}{\delta t}
+Quindi possiamo portarlo ancora più avanti e vederlo come una funzione, dove v è funzione della velocità in funzione del tempo.
+\frac{\delta v}{\delta t} = \frac{v(t_f) - v(t_i)}{\delta t}
+	t_f = t_i + \delta t, come visto prima. Sostituendo otteniamo: \frac{v(t_i + \delta t) - v(t_i)}{\delta t}, la derivata della velocità rispetto al tempo dv/dt
+	
+Dunque ora sappiamo che la velocità è la derivata dello spostamento rispetto al tempo v = \frac{dx(t)}{dt}
+E che l'accelerazione è la derivata della velocità rispetto al tempo a = \frac{dv(t)}{dt}
+
+Ora possiamo provare a prendere un moto la cui accelerazione è costante, proviamo ad ottenere la legge del moto integrando.
+\int dv(t) = \int a dt \implies v(t) = at + v_0. Questa equazione descrive come cambia la velocità con accelerazione costante.
+
+Dunque abbiamo ottenuto la legge oraria che descrive il moto di una particella a velocità costante: x(t) = x_0 + v_{ist}t
+E ora abbiamo anche la legge che ne descrive la velocità ad accelerazione costante: v(t) = v_0 + at
+	Quest'ultima ci consente di ottenere lo spostamento con un'altra integrazione. Dunque:
+	x(t) = \int v_0 + at dt = \int v_0 dt + \int at dt = v_0t + 1/2 at^2 + x_0
+	
+E quindi otteniamo la legge oraria per lo spostamento quando accelerazione è costante: x(t) = v_0t + 1/2 at^2 + x_0

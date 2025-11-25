@@ -53,7 +53,16 @@ Originalmente, per ottenere i valori da queste classi, era necessario fare wrapp
 \noindent In particolare, la classe Character ha alcuni metodi statici di utility dal nome particolarmente esaustivo, come per esempio isLetter(), isDigit(), isSpaceChar(), toUpperCase(), toLowerCase() e altri.
 
 \subsection{.System}
-Costanti err, in, out, metodo currentTimeMillis().
+La classe System non può essere istanziata e comprende campi e metodi utili per la gestione di input/output standard e flusso. Dà inoltre accesso a proprietà esternamente definite e variabili di ambiente, permette di caricare file e librerie, ed infine un metodo di utility per copiare velocemente una porzione di array.
+\begin{lstlisting}[language=Java]
+	// Campi visti
+	static PrintStream err		// stderr stream
+	static InputStream in		// stdin stream
+	static PrintStream out		// stdout stream
+	
+	// Metodi visti
+	static long currentTimeMillis() // Ritorna l'ora attuale
+\end{lstlisting}
 
 \subsection{.String, StringBuilder}
 .String:
@@ -63,11 +72,107 @@ Le stringhe son costanti e senza terminatore, str.length(), str.charAt(i), s.equ
 StringBuilder delete(int start, int end), StringBuilder insert(int index, String str), StringBuilder reverse()
 
 \subsection{.Math}
+La classe Math non è istanziabile e contiene metodi per effettuare operazioni numeriche di base come esponenziali, logaritmi, radici e funzioni trigonometriche.
+\begin{lstlisting}[language=Java]
+	// Campi visti
+	static double E		// 2.71
+	static double PI	// 3.14
+	
+	// Metodi visti
+	static int abs (int n)	// Valore assoluto di n
+	static double log (double n)	// logaritmo in base e di n
+	static double log10 (double n)	// logaritmo in base 10 di n
+	static int max (int a, int b)	// Massimo fra a,b
+	static int min (int a, int b) 	// Minimo fra a,b
+	static long round (double d) 	// Approssimazione per ecc/dif
+	static double sin (double r) 	// Seno di angolo r in radianti
+	static double cos (double r) 	// Coseno di angolo r in radianti
+	static double tan (double r) 	// Tangente di angolo r in radianti
+	static double sqrt (double n) 	// Radice quadrata positiva di n
+	static double toDegrees (double r) 	// Passa da rad a deg
+	static double toRadians (double d) 	// Passa da deg a rad
+\end{lstlisting}
+
+\subsection{.Comparable}
+L'interfaccia Comparable porta un metodo utile generalizzato per paragonare due oggetti.
+\begin{lstlisting}[language=Java]
+	// Negativo se this<obj, zero se this=obj e positivo se this>obj
+	public int compareTo (T obj)
+\end{lstlisting}
+\noindent Esempio di utilizzo interfaccia Comparable mantenendo la sua logica facendo override del metoto compareTo:
+\begin{lstlisting}[language=Java]
+	public class Student extends Person implements Comparable {
+		// ...
+		@Override
+		public int compareTo(Object obj) {
+			Student other = (Student) obj;	// cast al tipo specifico
+			return this.matricola - other.matricola;
+		}
+	}
+\end{lstlisting}
+
+\subsection{.Iterable, .Iterator}
+Se una classe implementa l'interfaccia Iterable, i suoi oggetti potranno essere iterati con un ciclo for-each grazie al suo uso dell'interfaccia Iterator, parte del JCF, il quale sarà approfondito più avanti.
+\begin{lstlisting}[language=Java]
+	// Metodi visti
+	boolean hasNext ()	// Vero se l'iterazione ha piu' elementi
+	E next ()	// Torna il prossimo elemento
+\end{lstlisting}
+Esempio di utilizzo:\newline
+\begin{minipage}{0.5\linewidth}
+	\begin{lstlisting}[language=Java]
+		import java.util.Iterator;
+		import java.lang.Iterable;
+		
+		class ClassRoom implements Iterable {
+			private Student[] students;
+			
+			ClassRoom(Student[] students) {
+				this.students = students;
+			}
+			
+			@Override
+			public Iterator iterator () {
+				return new CRIterator(students);
+			}
+		}
+	\end{lstlisting}
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+	\begin{lstlisting}[language=Java]
+		import java.util.Iterator;
+		
+		class CRIterator implements Iterator {
+			private Student[] arr;
+			private int next = 0;
+		}
+		
+		CRIterator (Student[] arr) { this.arr = arr; }
+		
+		@Override
+		public boolean hasNext () {
+			return next < arr.length;
+		}
+		
+		@Override
+		public Object next () {
+			return new Student(arr[next++]);
+		}
+	\end{lstlisting}
+\end{minipage}
+\begin{lstlisting}[language=Java]
+	Student[] arrS = {new Student("Sam", 456), new Student("Paul", 123)};
+	ClassRoom classRoom = new ClassRoom(arrS);
+	
+	for (Object obj:classRoom) {
+		System.out.println(((Student)obj).toString)
+	}
+\end{lstlisting}
+
+
 
 \begin{comment}
-	\subsection{.Integer, .Character}
 	\subsection{.AutoCloseable}
-	\subsection{.Iterable}
 	\subsection{.Thread}
 \end{comment}
 
@@ -77,13 +182,26 @@ Il pacchetto java.util.* contiene varie funzioni di utility per rendere il codic
 netxLine, nextInt, nextFloat
 
 \subsection{.Random}
+La classe Random è istanziabile, ed è usata per la generazione di variabili pseudocasuali.
+\begin{lstlisting}[language=Java]
+	// Costruttori
+	Random()
+	Random(long seed)
+	
+	// Metodi
+	boolean nextBoolean()	// Casuale true/false
+	double nextDouble()		// Decimale fra [0.0, 1.0)
+	float nextFloat()		// Decimale fra [0.0, 1.0)
+	int nextInt()			// Casuale intero [-2^31, 2^31)
+	int nextInt(int max)	// Casuale intero [0, max)
+	long nextLong()			// Casuale intero [-2^63, 2^63)
+\end{lstlisting}
 
 \subsection{.Arrays}
 
 \subsection{Java Collection Framework}
 
 \begin{comment}
-	\subsection{.Iterator}
 	\subsection{Strutture dati}
 	java.util.Collection<E>, java.util.List<E>, java.util.Queue<E>, java.util.Set<E>, java.util.LinkedList<E>, java.util.ArrayList<E>, java.util.PriorityQueue<E>
 	java.util.HashSet<E>, java.util.SortedSet<E>, java.util.TreeSet<E>, java.util.Map<K,V>, java.util.HashMap<K,V>, java.util.SortedMap<K,V>, java.util.TreeMap<K,V>

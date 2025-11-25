@@ -65,8 +65,9 @@ Supponiamo ora di avere una classe "Vehicle". Il concetto di veicolo è specific
 		public int getNum() { /* Ridefinizione del codice */ }
 	}
 \end{lstlisting}
-\noindent L'accesso a campi e metodi della superclasse avviene tramite la keyword \textbf{super}, mentre la ridefinizione è per prima cosa segnalata da \textbf{@Override}, per poi riscrivere il blocco di codice. Quest'ultima feature è particolarmente utile per mantenere il numero di nomi basso e rendere il codice più chiaro a livello di struttura.\par
-Un'altra feature utile è la possibilità di controllare se una classe è superclasse di un'altra, con la keyword \textbf{instanceof}. Per esempio, in un codice che rappresenta Person, Student, Lecturer e Sam avremo:
+\noindent L'accesso a campi e metodi della superclasse avviene tramite la keyword \textbf{super}, se questi sono stati dichiarati come pubblici o protetti. Questa parola è anche strettamente legata al metodo costruttore; questo non è ereditato dalle sottoclassi, tuttavia è necessario che queste abbiano anche le caratteristiche della superclasse e siano costruite in tali termini. In soldoni, i costruttori non sono ereditati ed ogni sottoclasse ha bisogno del prorpio, ma quest'ultimo chiamerà necessariamente il costruttore della sovracclasse con super().\par
+La ridefinizione è invece per prima cosa segnalata da \textbf{@Override}, per poi riscrivere il blocco di codice. Quest'ultima feature è particolarmente utile per mantenere il numero di nomi basso e rendere il codice più chiaro a livello di struttura.\par
+Un'ultima caratteristica del linguaggio utile è la possibilità di controllare se una classe è superclasse di un'altra, con la keyword \textbf{instanceof}. Per esempio, in un codice che rappresenta Person, Student, Lecturer e Sam avremo:
 \begin{lstlisting}[language=Java]
 	Student sam = new Student();
 	
@@ -76,7 +77,8 @@ Un'altra feature utile è la possibilità di controllare se una classe è superc
 	(sam instanceof Object)		// Tautologia.
 \end{lstlisting}
 \noindent Un compito comune da eseguire in campo di ereditarietà ed istanziazione di oggetti è controllare se questi siano uguali o meno; come già specificato, la classe Object ha con sé il metodo equals(), che consente di fare proprio questo. Tuttavia, Java salva gli oggetti con riferimenti diversi per differenziarli, indipendentemente dal loro contenuto. Supponiamo per esempio di istanziare due stringhe sintatticamente uguali; se non ridefinito correttamente, come da suo funzionamento, ritornerà false.\par
-Dunque qui abbiamo due strade per correggere questo comportamento. Possiamo fare overriding del metodo equals() e specificare che cosa deve essere uguale per far sì che ritorni true, oppure più semplicemente ridefinire questo metodo insieme ad hashCode(). Per quest'ultima soluzione è necessario far sì che la stessa reference sia assegnata ad ogni oggetto i cui campi sono uguali ad un altro.
+Dunque qui abbiamo due strade per correggere questo comportamento. Possiamo fare overriding del metodo equals() e specificare che cosa deve essere uguale per far sì che ritorni true, oppure più semplicemente ridefinire questo metodo insieme ad hashCode(). Per quest'ultima soluzione è necessario far sì che la stessa reference sia assegnata ad ogni oggetto i cui campi sono uguali ad un altro.\par
+Un'altra dinamica a cui prestare attenzione è legata all'incapsulamento; generalmente, i campi dichiarati nelle superclassi, a meno che non si voglia siano condivisi a tutti i figli, sono dichiarati come privati; sarà quindi necessario utilizzare metodi getter per potervi accedere, in quanto sono gestiti come pubblici.
 
 %
 
@@ -102,13 +104,67 @@ Abbiamo già menzionato il concetto di type casting; la stessa dinamica è appli
 %
 
 \section{Astrazione}
+Per \textbf{astrazione} intendiamo la possibilità di descrivere la forma del programma senza implementarne le funzionalità. Risulta utile sia per avere una chiara definizione della struttura delle classi, sia per, come vedremo più avanti, utilizzarle come esempio e ridurre drasticamente la dimensione del codice.\par
+Introduciamo quindi il nuovo modificatore \textbf{abstract}, il quale è utilizzabile su metodi e classi; nel primo caso consente di descrivere una funzionalità della classe senza definire il suo funzionamento, ragion per cui il metodo non sarà invocabile e definibile esclusivamente in \textbf{classi astratte}. Queste ultime hanno la particolarità di avere almeno un metodo astratto, il quale rende impossibile una loro istanziazione.\par
+Qui entra in gioco l'ereditarietà; per poter utilizzare classi astratte sarà necessario estenderle in sottoclassi normali con tutti i metodi definiti. L'utilità è lampante: descrivere un comportamento generale che avrà caratteristiche specifiche per ogni sottoclasse, ridefinito grazie all'override dei metodi. Questo è un paradigma di programmazione, infatti, e si chiama \textbf{Template}.
+\begin{lstlisting}[language=Java]
+	// Definizione della classe astratta
+	public abstract class Strumento {
+		public String nome;
+		public String prezzo;
+		// Metodo che rende la classe effettivamente astratta
+		public abstract void SuonaFaDiesis();
+	}
+	
+	// Estensione concreta di Strumento per renderla istanziabile
+	public class Chitarra extends Strumento {
+		@Override
+		public void SuonaFaDiesis () { /* Ridefinizione */ }
+	}
+	
+	// Estensione astratta di strumento
+	public abstract class StrumentoAFiato extends Strumento { }
+	
+	public class Flauto extends StrumentoAFiato {
+		@Override
+		public void SuonaFaDiesis () { /* Ridefinizione */ }
+	}
+\end{lstlisting}
+\noindent Se portiamo il concetto di classe astratta all'estremo, quindi ogni metodo della classe sarà definito come astratto, arriveremo a quella che è considerata un'\textbf{interfaccia} pubblica. Rappresentano la parte dell'oggetto visibile ed interagibile dall'esterno, nascondendo i procedimenti interni; sono tutte intrinsecamente definite come pubbliche e astratte.\par
+Naturalmente, non essendo concrete, non possono essere definite e sono viste come tipo esclusivamente per il riferimento. Inoltre, ogni metodo ivi presente è pubblico, mentre i campi sono statici e finali. Le interfacce non si estendono, ma vengono \textbf{implementate} con l'apposita keyword \textbf{implements}, la quale svolge un lavoro analogo ad extends, permettendo di ereditare la forma dei metodi e dei campi alla sottoclasse implementativa.
+\begin{lstlisting}[language=Java]
+	// Dichiarazione di interfaccia
+	public interface Pesabile {
+		String UDM = "Kg";		// Implicitamente anche static final
+		double getPeso();
+	}
+	
+	// Implementazione di interfaccia
+	public class Articolo implements Pesabile {
+		private double peso;
+		private String descrizione;
+		
+		public Articolo (String descrizione, double peso) {
+			setDescrizione(descrizione);
+			setPeso(peso);
+		}
+		
+		@Override
+		public double getPeso () {
+			return peso;
+		}
+	}
+\end{lstlisting}
+\noindent Sebbene non si possano ereditare più classi, per una classe concreta è possibile implementare più interfacce allo stesso tempo, mentre un'interfaccia può estenderne una o multiple senza poterle implementare.
 
-% TODO RIPRENDI DA QUA, T13, CLASSI ASTRATTE ED INTERFACCE
+% Interfacce funzionali
 
-- Interfaccia pubblica di una classe
-- Interfacce e relativo utilizzo
-- Metodi e classi abstract
-- Aliasing fra variabili e rischi
+
+
+
+
+
+
 - Classi anonime, espressioni lambda, interfacce funzionali
 - Parametri varargs, tipi generici, libreria Comparable<T>. Vincoli sulle variabili di tipo
 
@@ -116,8 +172,7 @@ Abbiamo già menzionato il concetto di type casting; la stessa dinamica è appli
 \begin{comment}
 	Da decidersi:
 	- Javadoc
-	- Late binding e class tag degli oggetti
-	- Eccezioni implicite ed esplicite (throw/catch), gerarchia eccezioni, controllate/non controllate. Throws per metodi, definizione di classi di eccezione
+	
 	- Race condition, Deadlock, synchronized
 	- Stream lazy
 \end{comment}

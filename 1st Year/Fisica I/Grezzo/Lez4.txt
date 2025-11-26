@@ -1,0 +1,43 @@
+Lez4 - Fisica 1
+
+--- Riepilogo sui vettori
+Vettori hanno modulo, direzione e verso; rappresentabili tramite le loro parti e hanno operazioni come somma, sottrazione e prodotto con scalare.
+Modulo è il valore effettivo, la direzione è l'orientamento del vettore, mentre il verso è se va su o giù
+Forma generale di un vettore: v = v_x\hat{x} + v_y\hat{y} + v_z\hat{z}
+
+--- Riepilogo leggi del moto a velocità costante e accelerazione costante
+s(t) = s_0 + vt		// Dice come si muove l'oggetto rispetto al tempo con velocità costante
+s(t) = s_0 + v_0t + 1/2(at^2)	// Dice come si muove l'oggetto rispetto al tempo con velocità variabile e accelerazione costante
+
+// Questa è un pò un bonus, utilizzabile quando non è dato il tempo.
+v^2-s_0^2 = 2a(s-s_0)
+
+--- Ex.1
+Siamo su un palazzo e si lancia una pietra verso l'alto con v_i=20m/s da un'altezza di 50m; determinare il tempo in cui la pietra raggiunge la massima altezza.
+Questo risulta essere un moto di caduta, avremo qunidi un'accelerazione con verso negativo.
+
+Dati:
+	v_i = 20m/s
+	v_f = 0m/s		// Perché al massimo la velocità sarà 0, poi torna giù.
+	h_i = 50m
+
+Esecuzione:
+	Usiamo v(t) = v_0 + at \implies v(t) = v_0 - gt \implies t = \frac{v_0}{a} = \frac{20}{9.8} = 2.04s è il tempo all'altezza massima.
+	
+	Ora voglio conoscere lo spazio percorso dalla pietra:
+	Usiamo s(t) = s_0 + v_0t + 1/2(at^2) = 50m + 20*2.04 + 1/2(-9.8*2.04^2) = 50 + 40.8 - 20.4 = 70.4m
+	
+--- Ex.2:
+Supponiamo di avere un razzo che stiamo lanciando verso l'alto con una velocità vettoriale v_0; a causa della forza di gravità, il movimento andrà a comporre una parabola. Quindi avremo una posizione sulla x e sulla y. Due dimensioni. Nel suo punto massimo, inoltre, avremo che il razzo si sposta esclusivamente nell'asse delle x perché la velocità y sarà uguale a zero.
+Due dimensioni con evoluzioni diverse, sulla x non abbiamo accelerazione, mentre sulla y agisce la costante gravitazionale g=-9.81. Scomponiamo il vettore nelle sue parti:
+
+Per la x:
+	s(t) = s + v_0t \implies x(t) = x + v_{0x}t
+	
+Per la y:
+	v = v_0t - gt \implies v_y = v_{0y} - gt
+	s(t) = s + v_0t + 1/2(gt^2) \implies y(t) = y + v_0t + 1/2(gt^2)
+	
+Come visto dalle componenti vettoriali:
+	v_{0x} = |v_0|cos\theta
+	v_{0y} = |v_0|sin\theta

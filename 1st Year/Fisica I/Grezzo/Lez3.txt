@@ -1,0 +1,8 @@
+Lez3 - Fisica 1
+
+--- Programma del corso
+--- Altro esempio su moto di proiettile, adattato con i vettori, idem con quello di caduta
+Velocità come grandezza vettoriale, scomponibile nelle parti associate agli assi.
+--- Cambio in coordinate polari
+
+Non c'era molto qui dentro, è quella lezione sui vettori che non era così difficile da capire.

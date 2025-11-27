@@ -10,6 +10,7 @@
 \contentsline {chapter}{\numberline {3}Trasformata di Laplace}{20}{}%
 \contentsline {section}{\numberline {3.1}Risposta in frequenza}{20}{}%
 \contentsline {section}{\numberline {3.2}Trasformata di Laplace unilatera}{21}{}%
-\contentsline {section}{\numberline {3.3}Trasformate notevoli}{25}{}%
-\contentsline {section}{\numberline {3.4}Utilizzo della TdL per il calcolo delle risposte}{25}{}%
-\contentsline {chapter}{\numberline {4}Diagrammi di Bode}{26}{}%
+\contentsline {section}{\numberline {3.3}Trasformate notevoli}{26}{}%
+\contentsline {section}{\numberline {3.4}Utilizzo della TdL per il calcolo delle risposte}{28}{}%
+\contentsline {section}{\numberline {3.5}Antitrasformata di Laplace unilatera}{29}{}%
+\contentsline {chapter}{\numberline {4}Diagrammi di Bode}{30}{}%

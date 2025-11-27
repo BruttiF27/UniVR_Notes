@@ -116,155 +116,128 @@ Definiamo questa regione $RdC$ come un semipiano positivo, posto alla destra di 
 		\end{equation}
 	\end{dimostrazione}
 	\item \textbf{Integrazione nel dominio dei complessi}\par
-	\noindent
+	\noindent Sia $v(t)$ che ammette TdL ed esistente $\lim_{t\to 0^-} \frac{v(t)}{t}$, allora vale: \[\mathcal{L}\left[\frac{v(t)}{t}\right](s) = \int_s^{\infty} \mathcal{L}[v(t)](\sigma) d\sigma\]
 	\item \textbf{Teorema del valore iniziale}\par
-	\noindent
+	\noindent Questa proprietà permette di capire il comportamento asintotico della funzione in $0$, poiché ritorna il limite della derivata prima in condizioni nulle.
+	Sia $v(t)$ che ammette TdL ed esistente finito il $\lim_{t\to 0^-}v(t)$, allora vale:
+	\[\lim_{t\to 0^-} v(t) = \lim_{s\to \infty} s\mathcal{L}[v(t)](s)\]
 	\item \textbf{Teorema del valore finale}\par
-	\noindent
+	\noindent Questa proprietà permette di capire il comportamento asintotico della funzione in infinito guardando il limite in $0^+$. Sia $v(t)$ che ammette TdL ed esistente finito il $\lim_{t\to \infty} v(t)$, allora:
+	\[\lim_{t\to \infty}v(t) = \lim_{s\to 0^+} s\mathcal{L}[v(t)](s)\]
 	\item \textbf{Convoluzione nel dominio del tempo}\par
-	\noindent
+	\noindent siano $u(t)$ e $v(t)$ due funzioni generiche e causali nulle per $t<0$ e che ammettono TdL. Allora anche $(u*v)(t)$ ammetterà TdL e varrà: \[\mathcal{L}[(u*v)(t)](s) = \mathcal{L}[u(t)](s) \times \mathcal{L}[v(t)](s)\]
+	\begin{dimostrazione}
+		\begin{equation}
+			\begin{split}
+				\mathcal{L}[(u*v)(t)](s) &= \int_{0^-}^{+\infty} \left(\int_{-\infty}^{+\infty}u(\lambda)v(t-\lambda) d\lambda\right)e^{-st} dt\\
+				&= \int_{0^-}^{\infty}\int_{0^-}^{\infty} u(\lambda)v(t-\lambda)e^{-st} dt d\lambda\\
+				&= \int_{0^-}^{\infty} u(\lambda)\left(\int_{0^-}^{+\infty} v(t-\lambda)e^{-st} dt\right) d\lambda
+			\end{split}
+		\end{equation}
+		\noindent Sostituiamo ora: $x=t-\lambda$, $t=x+\lambda$, $dt=dx$, otteniamo:
+		\begin{equation}
+			\begin{split}
+				\mathcal{L}[(u*v)(t)](s) &= \int_{0^-}^{\infty} u(\lambda)\left(\int_{0^-}^{+\infty} v(x)e^{-s(x+\lambda)} dx\right) d\lambda\\
+				&= \int_{0^-}^{+\infty} u(\lambda)e^{-s\lambda} d\lambda\int_{0^-}^{+\infty} v(x)e^{-sx} dx\\
+				&= \mathcal{L}[u(t)](s)\mathcal[v(t)](s)
+			\end{split}
+		\end{equation}
+	\end{dimostrazione}
 \end{itemize}
-
-\begin{comment}
-	
-	
-	- Integrazione nel dominio dei complessi
-	v(t) ammette TdL ed esiste \lim_{t\to 0^-} \frac{v(t)}{t}, allora \mathcal{L}[\frac{v(t)}{t}](s) = \int_s^{\infty} \mathcal{L}[v(t)](\sigma) d\sigma
-	
-	- Teorema del valore iniziale
-	Permette di capire il comportamento asintotico della funzione in 0.
-	v(t) ammette TdL ed esiste finito il \lim_{t\to 0^-}v(t), allora il \lim_{t\to 0^-} v(t) = \lim_{s\to \infty} s\mathcal{L}[v(t)](s).
-	Dice quindi il limite della derivata prima in condizioni nulle.
-	
-	- Teorema del valore finale
-	Permette di capire il comportamento asintotico della funzione in infinito
-	v(t) ammette TdL ed esiste finito il \lim_{t\to \infty} v(t), allora il \lim_{t\to \infty}v(t) = \lim_{s\to 0^+} s\mathcal{L}[v(t)](s).
-	Possiamo quindi guardare il limite in 0^+ per capire il comportamento in infinito.
-	
-	- Convoluzione nel dominio del tempo
-	siano u(t) e v(t) due funzioni generiche e causali (nulle per t<0) e che ammettono TDL. Allora (u*v)(t) ammette TDL.
-	
-	\mathcal{L}[(u*v)(t)](s) = \mathcal{L}[u(t)](s) \times \mathcal{L}[v(t)](s)
-	
-	Dim
-	\mathcal{L}[(u*v)(t)](s) &= \int_{0^-}^{+\infty} (\int_{-\infty}^{+\infty}u(\lambda)v(t-\lambda) d\lambda)e^{-st} dt\\
-	&= \int_{0^-}^{\infty}\int_{0^-}^{\infty} u(\lambda)v(t-\lambda)e^{-st} dt d\lambda\\
-	&= \int_{0^-}^{\infty} u(\lambda)(\int_{0^-}^{+\infty} v(t-\lambda)e^{-st} dt) d\lambda
-	
-	Sostituiamo ora: x=t-\lambda, t=x+\lambda, dt=dx
-	
-	\mathcal{L}[(u*v)(t)](s) &= \int_{0^-}^{\infty} u(\lambda)(\int_{0^-}^{+\infty} v(x)e^{-s(x+\lambda)} dx) d\lambda\\
-	&= \int_{0^-}^{+\infty} u(\lambda)e^{-s\lambda} d\lambda\int_{0^-}^{+\infty} v(x)e^{-sx} dx\\
-	&= \mathcal{L}[u(t)](s)\mathcal[v(t)](s).
-	
-	Quelle veramente utili sono:
-	- linearità 1
-	- traslazioni nel tempo 2
-	- traslazioni nel dominio 3
-	- proprietà della derivata 5
-	- convoluzione nel dominio del tempo 11
-\end{comment}
 
 %
 
 \section{Trasformate notevoli}
+Viste le proprietà e capito il procedimento generale, possiamo ora mostrare quelle che sono le trasformate più di comune utilizzo; annotarle è necessario poiché consentono di trasformare le funzioni in modo più veloce. Ricordare che la funzione può essere anche traslata per tempo e avere ampiezze diverse, quindi esistono trasformate anche per questi due casi. Ringrazia le proprietà di linearità e ritardo nel tempo.\newline
 
-\begin{comment}
-	Lez15 - Sistemi
-	
-	--- Trasformate notevoli
-	Utili per trasformare le funzioni in modo più veloce.
-	
-	-- Trasformata dell'impulso \delta_0(t).
-	\mathcal{L}[\delta_0(t)](s) = \int_{0^-}^{\infty}\delta(t)e^{-st} dt\\
-	&= e^{-st}|_{t=0} = 1
-	
-	Con un'ampiezza A, la trasformata sarà uguale ad A, perché:
-	\mathcal{L}[A\delta_0(t)](s) = A\mathcal{L}[\delta_0(t)](s) = A\times 1 = A.
-	
-	Con un impulso ritardato, quindi \delta_0(t-\tau):
-	\mathcal{L}[\delta_0(t-\tau)](s) = e^{-s\tau}\mathcal{L}[\delta_0(t)](s) = e^{-s\tau}
-	Questo vale grazie alla proprietà del ritardo nel tempo
-	
-	-- Trasformata del gradino \delta_{-1}(t).
-	\mathcal{L}[\delta_{-1}(t)](s) &= \int_{0^-}^{+\infty}\delta_{-1}(t)e^{-st} dt\\
-	&= \int_{0^-}^{+\infty} e^{-st} dt\\
-	&= \lim_{\epsilon\to\infty; \mu\to 0^-}(-\frac{e^{st}}{s})|_{t=\mu}^{\epsilon\\
-		&= \lim_{\mu\to 0^-}\frac{e^{-st}}{s} - \lim_{\epsilon\to \infty}\frac{e^{-st}}{s} = \frac{1}{s}
-		
-		Grazie alla proprietà della linearità e a quella del ritardo nel tempo possiamo generalizzarla come abbiamo fatto con l'impulso:
-		\mathcal{L}[A\delta_{-1}(t)](s) = \frac{A}{s}
-		\mathcal{L}[\delta_{-1}(t-\tau)](s) = \frac{e^{-s\tau}}{s}
-		
-		-- Esponenziale complesso causale v(t) = e^{\lambda t}\delta_{-1}(t)
-		
-		\mathcal{L}[e^{\lambda t}\delta_{-1}(t)](s) = \mathcal{L}[\delta_{-1}(t)](s-\lambda)\\
-		&= \frac{1}{s-\lambda}
-		Grazie alla trasl. nelle frequenze.
-		
-		Per la costante ampiezza e la traslazione vale il ragionamento di prima:
-		\mathcal{L}[Ae^{\lambda t}\delta_{-1}(t)](s) = \frac{A}{s-\delta}
-		
-		\mathcal{L}[e^{\lambda(t-\tau)}\delta_{-1}(t-\tau)](s) =  \frac{e^{-(s-\lambda)\tau}}{s-\delta}
-		
-		-- Esponenziale complesso causale moltiplicato per una funzione polinomiale v(t) = \frac{t^l}{l!}e^{\lambda t}\delta_{-1}(t)
-		
-		\mathcal{L}[\frac{t^l}{l!}e^{\lambda t}\delta_{-1}(t)](s) &= \frac{1}{l!}\mathcal{L}[t^le^{\lambda t}\delta_{-1}(t)](s)\\
-		&= \frac{(-1)^l}{l!}\frac{l^l}{ds^l} \mathcal{L}[e^{\lambda t}\delta_{-1}(t)](s)\\
-		&= \frac{(-1)^l}{l!}\frac{l^l}{ds^l}(\frac{1}{s-\lambda})\\
-		&= \frac{(-1)^l}{l!}\frac{l!(-1)^l}{(s-\lambda)^{l+1}}\\
-		&= \frac{1}{(s-\lambda)^{l+1}}
-		
-		Esempi diretti:
-		- per l=1: \mathcal{L}[te^{\lambda t}\delta_{-1}(t)](s) = \frac{1}{(s-\lambda)^2}
-		- per l=2: \mathcal{L}[\frac{t^2}{2!}e^{\lambda t}\delta_{-1}(t)](s) = \frac{1}{(s-\lambda)^3}
-		- Manca exp1: \mathcal{L}[\frac{t}{l!}\delta_{-1}(t)](s) = \frac{1}{s^{l+1}}
-		- Manca exp2: \mathcal{L}[t\delta_{-1}(t)](s) = \frac{l!}{s^{l+1}}
-		- Manca pol: \mathcal{L}[e^{-\lambda t}\delta_{-1}(t)](s) = \frac{1}{s+\lambda}
-		
-		-- Trasf. per famiglie sinusoidali: Coseno
-		\mathcal{L}[cos(\omega t)](s) &= \mathcal{L}[\frac{e^{j\omega t}-e^{-j\omega t}}{2}](s)\\
-		&= \frac{1}{2}\mathcal{L}[e^{j\omega t} + e^{-j\omega t}](s)\\
-		&= \frac{1}{2}(\frac{1}{s-j\omega} + \frac{1}{s+j\omega})\\
-		&= \frac{1}{2}(\frac{s}{s^2+\omega^2})
-		
-		-- Trasf. per famiglie sinusoidali: Seno
-		\mathcal{L}[sin(\omega t)](s) &= \mathcal{L}[\frac{e^{j\omega t} - e^{-j\omega t}}{2j}](s)\\
-		&= \frac{1}{2j}(\mathcal{L}[e^{j\omega t}](s) - \mathcal{L}[e^{-j\omega t}](s))\\
-		&= \frac{1}{2j}(\frac{1}{s - j\omega} - \frac{1}{s+j\omega})\\
-		&= \frac{1}{2j}(\frac{s + j\omega - s + j\omega}{s^2+\omega^2})\\
-		&= \frac{\omega}{s^2 + \omega^2}
-\end{comment}
+\noindent$\bullet$ \textbf{Trasformata dell'impulso} $\delta_0(t)$:
+\begin{itemize}
+	\item Condizione basilare: \[\mathcal{L}[\delta_0(t)](s) = \int_{0^-}^{\infty}\delta(t)e^{-st} dt = e^{-st}\Big|_{t=0} = 1\]
+	\item Ampiezza considerata: \[\mathcal{L}[A\delta_0(t)](s) = A\mathcal{L}[\delta_0(t)](s) = A\times 1 = A\]
+	\item Funzione traslata nel tempo: \[\mathcal{L}[\delta_0(t-\tau)](s) = e^{-s\tau}\mathcal{L}[\delta_0(t)](s) = e^{-s\tau}\]
+\end{itemize}
+
+\noindent$\bullet$ \textbf{Trasformata del gradino} $\delta_{-1}(t)$:
+\begin{itemize}
+	\item Condizione basilare:
+	\begin{equation}
+		\begin{split}
+			\mathcal{L}[\delta_{-1}(t)](s) &= \int_{0^-}^{+\infty}\delta_{-1}(t)e^{-st} dt = \int_{0^-}^{+\infty} e^{-st} dt\\
+				&= \lim_{\epsilon\to\infty; \mu\to 0^-}\left(-\frac{e^{st}}{s}\right)\Big|_{t=\mu}^{\epsilon}\\
+				&= \lim_{\mu\to 0^-}\frac{e^{-st}}{s} - \lim_{\epsilon\to \infty}\frac{e^{-st}}{s} = \frac{1}{s}
+		\end{split}
+	\end{equation}
+	\item Ampiezza considerata: \[\mathcal{L}[A\delta_{-1}(t)](s) = \frac{A}{s}\]
+	\item Funzione traslata nel tempo: \[\mathcal{L}[\delta_{-1}(t-\tau)](s) = \frac{e^{-s\tau}}{s}\]
+\end{itemize}
+
+\noindent$\bullet$ \textbf{Esponenziale complesso causale} $v(t) = e^{\lambda t}\delta_{-1}(t)$:
+\begin{itemize}
+	\item Condizione basilare: \[\mathcal{L}[e^{\lambda t}\delta_{-1}(t)](s) = \mathcal{L}[\delta_{-1}(t)](s-\lambda) = \frac{1}{s-\lambda}\]
+	\item Ampiezza considerata: \[\mathcal{L}[Ae^{\lambda t}\delta_{-1}(t)](s) = \frac{A}{s-\delta}\]
+	\item Funzione traslata nel tempo: \[\mathcal{L}[e^{\lambda(t-\tau)}\delta_{-1}(t-\tau)](s) =  \frac{e^{-(s-\lambda)\tau}}{s-\delta}\]
+\end{itemize}
+
+\noindent$\bullet$ \textbf{Esponenziale complesso causale moltiplicato per una funzione polinomiale} $v(t) = \frac{t^l}{l!}e^{\lambda t}\delta_{-1}(t)$:
+\begin{itemize}
+	\item Condizione basilare:
+	\begin{equation}
+		\begin{split}
+			\mathcal{L}\left[\frac{t^l}{l!}e^{\lambda t}\delta_{-1}(t)\right](s) &= \frac{1}{l!}\times \mathcal{L}[t^le^{\lambda t}\delta_{-1}(t)](s)\\
+			&= \frac{(-1)^l}{l!}\times\frac{l^l}{ds^l}\times\mathcal{L}[e^{\lambda t}\delta_{-1}(t)](s)\\
+			&= \frac{(-1)^l}{l!}\times\frac{l^l}{ds^l}\left(\frac{1}{s-\lambda}\right)\\
+			&= \frac{(-1)^l}{l!}\times\frac{l!(-1)^l}{(s-\lambda)^{l+1}}\\
+			&= \frac{1}{(s-\lambda)^{l+1}}
+		\end{split}
+	\end{equation}
+	\item per $l=1$: \[\mathcal{L}[te^{\lambda t}\delta_{-1}(t)](s) = \frac{1}{(s-\lambda)^2}\]
+	\item per $l=2$: \[\mathcal{L}\left[\frac{t^2}{2!}e^{\lambda t}\delta_{-1}(t)\right](s) = \frac{1}{(s-\lambda)^3}\]
+	\item Manca il primo esponenziale: \[\mathcal{L}\left[\frac{t}{l!}\delta_{-1}(t)\right](s) = \frac{1}{s^{l+1}}\]
+	\item Manca il secondo esponenziale: \[\mathcal{L}[t\delta_{-1}(t)](s) = \frac{l!}{s^{l+1}}\]
+	\item Manca il polinomio: \[\mathcal{L}[e^{-\lambda t}\delta_{-1}(t)](s) = \frac{1}{s+\lambda}\]
+\end{itemize}
+
+\noindent$\bullet$ \textbf{Trasformata per famiglie sinusoidali - Coseno}:
+\begin{equation}
+	\begin{split}
+		\mathcal{L}[cos(\omega t)](s) &= \mathcal{L}\left[\frac{e^{j\omega t}-e^{-j\omega t}}{2}\right](s) = \frac{1}{2}\mathcal{L}[e^{j\omega t} + e^{-j\omega t}](s)\\
+			&= \frac{1}{2}\left(\frac{1}{s-j\omega} + \frac{1}{s+j\omega}\right) = \frac{1}{2}\left(\frac{s}{s^2+\omega^2}\right)
+	\end{split}
+\end{equation}
+
+\noindent$\bullet$ \textbf{Trasformata per famiglie sinusoidali - Seno}:
+\begin{equation}
+	\begin{split}
+		\mathcal{L}[sin(\omega t)](s) &= \mathcal{L}\left[\frac{e^{j\omega t} - e^{-j\omega t}}{2j}\right](s) = \frac{1}{2j}(\mathcal{L}[e^{j\omega t}](s) - \mathcal{L}[e^{-j\omega t}](s))\\
+			&= \frac{1}{2j}\left(\frac{1}{s - j\omega} - \frac{1}{s+j\omega}\right) = \frac{1}{2j}\left(\frac{s + j\omega - s + j\omega}{s^2+\omega^2}\right)\\
+			&= \frac{\omega}{s^2 + \omega^2}
+	\end{split}
+\end{equation}
 
 %
 
 \section{Utilizzo della TdL per il calcolo delle risposte}
+Come già detto, il passaggio a funzione trasformata è uno step per ottenere le risposte libere, forzate e impulsive. Bisogna prima fare dei passi iniziali per ottenere gli strumenti di lavoro della sezione. Richiamiamo quindi alla memoria la scrittura descrivente un sistema: \[\sum_{i=0}^n a_i \frac{d^iv(t)}{dt^i} = \sum_{j=0}^m b_j\frac{d^j u(t)}{dt^j}\]
+\noindent Supponiamo ora il grado degli input $n$ maggiore di quello degli output $m$, con $u(t) = u(t)\delta_{-1}(t)$, con le seguenti condizioni iniziali: \[v(0^-); \frac{dv(0^-)}{dt}; ...; \frac{d^{n-1}v(0^-)}{dt^{n-1}}\]
+\noindent Se $u(t)$ ammette TdL, allora lo farà anche $v(t)$, per $t\geq 0$. Siano ora $U(s)$ e $V(s)$ le TdL di $u(t)$ e $v(t)$ rispettivamente. Il modello si può riscrivere come: \[\mathcal{L}\left[\sum_{i=0}^n a_i \frac{d^iv(t)}{dt^i}\right](s) = \mathcal{L}\left[\sum_{j=0}^m b_j\frac{d^j u(t)}{dt^j}\right](s)\]
+\noindent Da qui possiamo effettuare alcuni passaggi algebrici grazie alla proprietà viste nella sezione precedente:
+\begin{itemize}
+	\item Tiriamo fuori le costanti: \[\sum_{i=0}^n a_i \mathcal{L}\left[\frac{d^i v(t)}{dt^i}\right](s) = \sum_{j=0}^n b_j \mathcal{L}[\frac{d^ju(t)}{dt^j}](s)\]
+	\item Applichiamo $n+m$ volte la regola della derivata: \[a_n\left[s^nV(s) - \sum_{k=0}^{n-1} \frac{d^kv(t)}{dt^k}\Big|_{t=0^-} (s^{h-1-k})\right] + a_{n-1}\left[s^{n-1}V(s) - \sum_{k=0}^{n-2} \frac{d^kv(t)}{dt^k}\Big|_{t=0^-}(s^{h-2-k})\right] + ... + a_0V(s)\]
+	\item Imponiamo le CE iniziali per $u(t)\big|_{t=0^-} = 0$: \[b_ms^mU(s) + b_{m-1}s^{m-1}U(s) + ... + b_0U(s)\]
+	\item Espandiamo le sommatorie e raccogliamo: \begin{equation}
+		\begin{split}
+			& (a_ns^n + a_{n-1}s^{n-1} + ... + a_0)V(s) +\\
+			&- a_nv(0^-)s^{n-1} - \left(a_{n-1}v(0^-) + a_n\frac{dv(t)}{dt}\Big|_{t=0}\right)s^{n-2} - ... - \left(\sum_{k=0}^{n-1} a_{k+1}\frac{d^kv(t)}{dt^k}\Big|_{t=0^-}\right)\\
+			&= (b_ms^m + b_{m-1}s^{m-1} + ... + b_0)U(s).
+		\end{split}
+	\end{equation}
+\end{itemize}
+
+
 
 
 \begin{comment}
-		--- Come usare TdL per i sistemi LTI causali?
-		- Se n\geq m e u(t) = u(t)\delta_{-1}(t); u(t)=0, t<0) e consideriamo le n-1 condizioni iniziali:
-		v(0^-); \frac{dv(0^-)}{dt}; ...; \frac{d^{n-1}v(0^-)}{dt^{n-1}}
-		Se u(t) ammette TDL, allora anche v(t) ammette TDL per t\geq 0.
-		
-		Siano U(s) e V(s) le TDL di u(t) e v(t). Il modello si può riscrivere come:
-		\mathcal{L}[\sum_{i=0}^n a_i \frac{d^iv(t)}{dt^i}](s) = \mathcal{L}[\sum_{j=0}^m b_j\frac{d^j u(t)}{dt^j}](s)
-		
-		Grazie alla proprietà di linearità è possibile tirar fuori le costanti, ottenendo:
-		
-		\sum_{i=0}^n a_i \mathcal{L}[\frac{d^i v(t)}{dt^i}](s) = \sum_{j=0}^n b_j \mathcal{L}[\frac{d^ju(t)}{dt^j}](s)
-		
-		Inoltre, applicando n+m volte la regola della derivata si ottiene:
-		
-		a_n[s^nV(s) - \sum_{k=0}^{n-1} \frac{d^kv(t)}{dt^k}|_{t=0^-} (s^{h-1-k})] + a_{n-1}[s^{n-1}V(s) - \sum_{k=0}^{n-2} \frac{d^kv(t)}{dt^k}|_{t=0^-}(s^{h-2-k})] + ... + a_0V(s)
-		
-		Dolore, questa era l'uscita. Per volerci meno male però imponiamo le condizioni di esistenza per u(t)|_{t=0^-} = 0, rendendo nulla la sommatoria per l'entrata. Quindi:
-		
-		b_ms^mU(s) + b_{m-1}s^{m-1}U(s) + ... + b_0U(s)
-		
-		Adesso espandendo le sommatorie e raccogliendo tutto otteniamo:
-		(a_ns^n + a_{n-1}s^{n-1} + ... + a_0)V(s) - a_nv(0^-)s^{n-1} - (a_{n-1}v(0^-) + a_n\frac{dv(t)}{dt}|_{t=0})s^{n-2} - ... - (\sum_{k=0}^{n-1} a_{k+1}\frac{d^kv(t)}{dt^k}|_{t=0^-}) = (b_ms^m + b_{m-1}s^{m-1} + ... + b_0)U(s).
-		
 		È grosso, quindi lo riscriviamo come: d(s)V(s) - p(s) = n(s)U(s), dove:
 		- d(s): (a_ns^n + a_{n-1}s^{n-1} + ... + a_0). Polinomio di grado n, dipende solo dai coefficienti delle derivate associate all'uscita. È anche il polinomio caratteristico di v(t)
 		- p(s): a_nv(0^-)s^{n-1} - (a_{n-1}v(0^-) + a_n\frac{dv(t)}{dt}|_{t=0})s^{n-2} - ... - (\sum_{k=0}^{n-1} a_{k+1}\frac{d^kv(t)}{dt^k}|_{t=0^-}. È un polinomio di grado n-1 che contiene le condizioni iniziali. 
@@ -293,4 +266,123 @@ Definiamo questa regione $RdC$ come un semipiano positivo, posto alla destra di 
 		V(s) = \frac{s}{s^3+s^2}U(s) + \frac{s^2v(0^-) + s(\frac{dv(0^-)}{dt}+v(0^-)) + (\frac{d^2v(0^-)}{dt^2}+\frac{dv(0^-)}{dt})}{s^3+s^2}
 		
 		E qui vanno applicate le condizioni iniziali.
+		
+		---
+		
+		Lez16 - Sistemi
+		
+		Riassunto trasformate notevoli per gli esercizi:
+		- A \to A/s
+		- A\delta(t_0-t) \to Ae^{-st_0}
+		- A\delta_{-1}(t) \to A/s
+		- Ae^{\lambda t}\delta_{-1}(t) \to \frac{A}{\delta-\lambda}
+		- A\frac{t^l}{l!}e^{\lambda t}\delta_{-1}(t) \to \frac{A}{(s-\lambda)^{l+1}}
+		- sin(\omega t) \to \frac{\omega}{s^2 + \omega^2}
+		- cos(\omega t) \to \frac{s}{s^2 + \omega^2}
+		
+		Quindi il senso di usare laplace è andare in una forma dove ci è più semplice ottenere le risposte libere, forzate, impulsive e totali, per poi ritornare alla forma originale con quanto ottenuto tramite l'antitrasformata.
+		
+		---
+		
+		H(s), che è la TdL della risposta impulsiva, si dice anche funzione di trasferimento. Già scritta nella lezione precedente. Si tratta di una funzione razionale il cui numeratore ha grado generalmente minore o uguale a quello del denominatore, quindi:
+		- q\leq m; \sum \xi_i = m
+		- r \leq n; \sum \mu_i = n
+		Se proviamo a fattorizzarla, otterremo \[\frac{b_m(s-\beta_1)^{\xi_1}(s-\beta_2)^{\xi_2} ... (s-\beta_q)^{\xi_q}}{a_n(s-\alpha_1)^{\mu_1}(s-\alpha_2)^{\mu_2} ... (s-\alpha_r)^{\mu_r}}\]
+		Le \xi sono le molteplicità delle soluzioni del numeratore
+		Le \mu sono quelle del denominatore
+		Le \beta e le \alpha fra le tonde sono rispettivamente radici del numeratore e del denominatore.
+		Otteniamo una scrittura più pulita: \[H(s) = k\frac{(s-z_1)(s-z_2) ... (s-z_m)}{(s-p_1)(s-p_2) ... (s-p_n)}\]
+		Qui i fattori a numeratore si dicono zeri della funzione razionale, mentre quelli a denominatore sono i poli. Entrambi sono le radici dei polinomi rispettivi, ovviamente.
+		
+		Definiamo poi uno zero di una funzione razionale H(s) un qualsiasi numero \beta\in C tale per cui H(\beta) = 0.
+		Un polo di una funzione razionale H(s) è invece un qualsiasi numero \alpha\in C tale per cui H(\alpha) = \infty.
+		
+		Accorciamo ulteriormente, k=\frac{bm}{an}
+		
+		Ora, grazie alla funzione di trasferimento possiamo fare asserzioni sulla stabilità.
+		Supponiamo H(s) in forma ridotta, quindi con radici in comune rimosse.
+		Siano \lambda_i, ..., \lambda_r; r\leq n i suoi poli post-semplificazione.
+		Se la parte reale delle \lambda_i è minore di 0, con le i che vanno da 1 a r, possiamo dire che il sistema è bibostabile. (Questa cosa evita di calcolare integrali, è importante)
+		Quindi un sistema è bibostabile se tutti i suoi poli giacciono nel semipiano complesso negativo.
+		È possibile anche bibostabilizzare un sistema; bisogna rimuovere gli zeri \lambda_i con parte reale maggiore di 0, quindi dividendoli per poli uguali. Così andremo a rispettare la definizione.
+		
+		Esempio: v'(t) - 3v(t) = u''(t) - 5u'(t) + 4u(t).
+		Notare che qui n < m, in genere è l'opposto.
+		
+		Vogliamo vedere se è stabile o no, quindi per prima cosa passiamo al polinomio caratteristico
+		s-3 = s^2-5s+4
+		
+		Troviamo H(s).
+		H(s) = \frac{n(s)}{d(s)} = \frac{pol caratteristico d'ingresso}{" d'uscita} = \frac{s^2-5s+4}{s-3}
+		
+		Fattorizziamolo.
+		\frac{(s-1)(s-4)}{s-3}
+		A denominatore abbiamo \lambda_1 = 3, mi fa capire che il sistema non è asintoticamente stabile perché ha parte reale maggiore di 0.
+		
+		Per vedere se è bibostabile proviamo a semplificare i termini con questo problema. Tuttavia noterai che non possiamo fare un cazzo, quindi rimane instabile.
+		
+		Esempio: v''(t) + 3v'(t) + 2v(t) = u''(t) - 4u'(t) + 3u(t)
+		1. Polinomio caratteristico
+		\[s^2 + 3s + 2 = s^2 - 4s + 3\]
+		2. Ricaviamo H(s)
+		\[H(s) = \frac{s^2 - 4s + 3}{s^2 + 3s + 2}\]
+		3. Fattorizziamo i polinomi
+		\[H(s) = \frac{(s-3)(s-1)}{(s+1)(s+2)}\]
+		4. Controlla re(\lambda_i) < 0
+		\lambda_1 = -1, \lambda_2 = -2. Il sistema è asintoticamente stabile.
+		Come conseguenza diretta, il sistema è anche bibostabile.
+		
+		Esempio: v'''(t) + 7v''(t) - 2v'(t) + 6v(t) = u''(t) + 3u'(t) - 4u(t)
+		1,2. Polinomio caratteristico per H(s)
+		\[H(s) = \frac{s^2+3s-4}{s^3+7s^2-2s+6}\]
+		3. Fattorizzazione
+		\[H(s) = \frac{(s+4)(s-1)}{(s+3)(s+2)(s-1)}\]
+		\lambda_3 = +1. Non è asintoticamente stabile. Tuttavia, semplificandolo, si rimuove proprio questo fattore, rendendo il sistema bibostabile.
+\end{comment}
+
+\section{Antitrasformata di Laplace unilatera}
+
+\begin{comment}
+	--- Antitrasformata di laplace unilatera
+	Presupponiamo di aver fatto tutte le trasformazioni e di aver ottenuto la forma V(s) = \frac{n(s)}{d(s)}, la risposta del nostro sistema in laplace. Abbiamo due vie.
+	- Se il grado di n(s) \geq al grado di d(s):
+	Diciamo che questo è un sistema proprio. Dobbiamo fare una divisione polinomiale, poi fratti semplici ed infine l'antitrasformata, che grazie alla sua linearità, si può applicare alle singole componenti dell'equazione.
+	
+	- Divisione polinomiale:
+	Ci fa ottenere V(s) = \frac{r(s)}{d(s)}+k, dove il grado di r(s) < di quello di d(s), con k\in C.
+	Il procedimento è semplice; bisogna trovare una costante da moltiplicare al polinomio divisore tale per cui, quando questo è sottratto al dividendo, scompaia il termine di grado più alto. Per esempio:
+	\[\frac{2s^2 + 4s - 3}{s^2 - s - 1}\]
+	In questo caso possiamo moltiplicare 2 al polinomio del denominatore.
+	Sottraendo il numeratore a questo nuovo denominatore otteniamo $6s-1$.
+	Quindi la nuova forma di V(s) è: \[\frac{6s-1}{s^2-s-1}+2\]
+	
+	- Decomposizione in fratti semplici
+	Consente di andare a riscrivere \frac{r(s)}{d(s)} come sommatoria di frazioni, la quale ha forma \[\sum_{i=1}^r\sum_{l=0}^{\mu_1-1}\frac{c_{i,l}}{(s-\alpha_i)^{l+1}}\]
+	Che guarda caso è la forma di una trasformata notevole. Come si fa?
+	Usare la formula: \[c_{i,l} = lim_{s\to \alpha_i}\frac{d^{\mu_i-l-1}((s-\alpha_i)^{\mu_i}\frac{r(s)}{d(s)})}{ds^{\mu_i-l-1}}\]
+	
+	Esempio: V(s) = \frac{s-20}{(s+4)(s-2)}.
+	Qui abbiamo \alpha_1=-4;\alpha_2=2, con entrambi i gradi \mu_1=\mu_2=1
+	Scomponiamo in fratti semplici:
+	\[\frac{A}{s+4} + \frac{B}{s-2}\] Ora abbiamo due scelte:
+	1. Svolgere calcoli a fattor comune (sconsigliato)
+	2. Formula del porcodiodilimite, usata per ogni singolo c:
+	- c_{1,0} = A, che ha \mu=1;\alpha=-4
+	A = lim_{s\to-4}\frac{d^{1-0-1}((s+4)^1 \frac{s-20}{(s+4)(s-2)})}{d^{1-0-1}} = \frac{d^0((-4+4)^1 \frac{-4-20}{(-4+4)(-4-2)})}{d^0} = \frac{-24}{-6} = 4.
+	- c_{2,0} = B, che ha \mu=1;\alpha=2
+	B = lim_{s\to 2}\frac{d^{1-0-1}((s-2)^1\frac{s-20}{(s+4)(s-2)})}{d^{1-0-1}} = -\frac{18}{6} = 3
+	
+	Quindi i fratti semplici diventano: \[V(s) = \frac{s-20}{(s+4)(s-2)} = \frac{4}{s+4} + \frac{3}{s-2}\]
+	
+	- Applicazione dell'antitrasformata
+	Abbiamo quindi una forma V(s) = k+\sum_{i=1}^r\sum_{l=0}^{\mu_1-1} \frac{c_{i,l}}{(s-\lambda_i)^{l+1}}
+	Andando indietro con le trasformate abbiamo:
+	v(t) = \mathcal{L}[k](t) + \sum_{i=1}^r\sum_{l=0}^{\mu_1-1} c_{i,l}\mathcal{L}[\frac{1}{(s-\lambda_i)^{l+1}}](t)
+	Che ci fa ottenere.
+	k\delta_0(t) + \sum_{i=1}^r\sum_{l=0}^{\mu_1-1} c_{i,l}\frac{t^l}{l!}e^{\lambda_i t}\delta_{-1}(t)
+	
+	
+	
+	- Se il grado di n(s) < al grado di d(s):
+	Diciamo che questo è un sistema strettamente proprio, si salta la divisione polinomiale e si fanno gli altri due passaggi.
 \end{comment}

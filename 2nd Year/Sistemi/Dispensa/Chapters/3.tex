@@ -217,7 +217,7 @@ Viste le proprietà e capito il procedimento generale, possiamo ora mostrare que
 %
 
 \section{Utilizzo della TdL per il calcolo delle risposte}
-Come già detto, il passaggio a funzione trasformata è uno step per ottenere le risposte libere, forzate e impulsive. Bisogna prima fare dei passi iniziali per ottenere gli strumenti di lavoro della sezione. Richiamiamo quindi alla memoria la scrittura descrivente un sistema: \[\sum_{i=0}^n a_i \frac{d^iv(t)}{dt^i} = \sum_{j=0}^m b_j\frac{d^j u(t)}{dt^j}\]
+Come già detto, il passaggio a funzione trasformata è uno step per ottenere la risposta totale, e quindi anche la libera, impulsiva e forzata. Bisogna prima fare dei passi iniziali per ottenere gli strumenti di lavoro della sezione. Richiamiamo quindi alla memoria la scrittura descrivente un sistema: \[\sum_{i=0}^n a_i \frac{d^iv(t)}{dt^i} = \sum_{j=0}^m b_j\frac{d^j u(t)}{dt^j}\]
 \noindent Supponiamo ora il grado degli input $n$ maggiore di quello degli output $m$, con $u(t) = u(t)\delta_{-1}(t)$, con le seguenti condizioni iniziali: \[v(0^-); \frac{dv(0^-)}{dt}; ...; \frac{d^{n-1}v(0^-)}{dt^{n-1}}\]
 \noindent Se $u(t)$ ammette TdL, allora lo farà anche $v(t)$, per $t\geq 0$. Siano ora $U(s)$ e $V(s)$ le TdL di $u(t)$ e $v(t)$ rispettivamente. Il modello si può riscrivere come: \[\mathcal{L}\left[\sum_{i=0}^n a_i \frac{d^iv(t)}{dt^i}\right](s) = \mathcal{L}\left[\sum_{j=0}^m b_j\frac{d^j u(t)}{dt^j}\right](s)\]
 \noindent Da qui possiamo effettuare alcuni passaggi algebrici grazie alla proprietà viste nella sezione precedente:
@@ -233,57 +233,35 @@ Come già detto, il passaggio a funzione trasformata è uno step per ottenere le
 		\end{split}
 	\end{equation}
 \end{itemize}
+\noindent Questa è una scrittura enorme, ragion per cui da qui in poi verrà abbreviata per garantirne un riutilizzo più semplice con: \[d(s)V(s) - p(s) = n(s)U(s)\]
+\noindent Le componenti sono:
+\begin{itemize}
+	\item $d(s) = (a_ns^n + a_{n-1}s^{n-1} + ... + a_0)$, è un polinomio di grado $n$, il quale dipende solo dai coefficienti delle derivate associate all'uscita. È anche il polinomio caratteristico di $v(t)$.
+	\item $p(s) = a_nv(0^-)s^{n-1} - (a_{n-1}v(0^-) + a_n\frac{dv(t)}{dt}|_{t=0})s^{n-2} - ... - (\sum_{k=0}^{n-1} a_{k+1}\frac{d^kv(t)}{dt^k}|_{t=0^-}$, si tratta di un polinomio di grado $n-1$ che contiene le condizioni iniziali.
+	\item $n(s) = (b_ms^m + b_{m-1}s^{m-1} + ... + b_0)$, polinomio di grado $m$. È anche il polinomio caratteristico di $u(t)$.
+\end{itemize}
+\noindent Questa forma ci semplifica enormemente le cose, permettendoci di ricavare più facilmente le varie componenti della risposta totale con le seguenti formule:
+\begin{itemize}
+	\item \textbf{Risposta totale} \[V(s) = \frac{n(s)}{d(s)}U(s) + \frac{p(s)}{d(s)}\]
+	\item \textbf{Risposta libera} \[V_l(s) = \frac{p(s)}{d(s)}\]
+	\item \textbf{Risposta forzata} \[V_f(s) = \frac{h(s)}{d(s)}U(s)\]
+	\item \textbf{Risposta impulsiva} o funzione di trasferimento \[H(s) = \frac{\sum_{j=0}^m b_js^j}{\sum_{i=0}^na_is^i}\]
+\end{itemize}
+\begin{esempio}
+	\textbf{Dato il sistema $v'''(t) + v''(t) = u(t)$, trovare la risposta totale $V_t(s)$}\par
+	\noindent Per raggiungere la forma semplificata, è necessario effettuare passaggi algebrici ed ottenere la formula per $V_t(s)$. Grazie alla proprietà della linearità possiamo applicare la trasformata un elementoper volta, dunque:
+	\begin{equation}
+		\begin{split}
+			\left(s^3V(s) - s^2v(0^-) - s^1\frac{dv(0)^-}{dt} - s^0\frac{d^2v(0^-)}{dt}\right) + \left(s^2V(s) - sv(0^-) - s^0\frac{dv(0^-)}{dt}\right) &= sU(s)\\
+			(s^3+s^2)V(s) - \left[s^2v(0^-) + s\frac{dv(0)^-}{dt} + \frac{d^2v(0^-)}{dt} + sv(0^-) + \frac{dv(0^-)}{dt}\right] &= sU(s)			
+		\end{split}
+	\end{equation}
+	\noindent Spostando infine gli elementi per ricavare $V_t(s)$, otteniamo quanto richiesto: \[V(s) = \frac{s}{s^3+s^2}U(s) + \frac{s^2v(0^-) + s(\frac{dv(0^-)}{dt}+v(0^-)) + (\frac{d^2v(0^-)}{dt^2}+\frac{dv(0^-)}{dt})}{s^3+s^2}\]
+	\noindent L'esercizio qui è puramente per mostrare il procedimento; in questo momento si dovrebbero applicare le condizioni di Cauchy.
+\end{esempio}
 
 
-
-
-\begin{comment}
-		È grosso, quindi lo riscriviamo come: d(s)V(s) - p(s) = n(s)U(s), dove:
-		- d(s): (a_ns^n + a_{n-1}s^{n-1} + ... + a_0). Polinomio di grado n, dipende solo dai coefficienti delle derivate associate all'uscita. È anche il polinomio caratteristico di v(t)
-		- p(s): a_nv(0^-)s^{n-1} - (a_{n-1}v(0^-) + a_n\frac{dv(t)}{dt}|_{t=0})s^{n-2} - ... - (\sum_{k=0}^{n-1} a_{k+1}\frac{d^kv(t)}{dt^k}|_{t=0^-}. È un polinomio di grado n-1 che contiene le condizioni iniziali. 
-		- n(s): (b_ms^m + b_{m-1}s^{m-1} + ... + b_0). Può essere associato alle derivate dell'ingresso. È un polinomio di grado m. È anche il polinomio caratteristico di u(t)
-		
-		Possiamo inoltre dire: V(s) = \frac{n(s)}{d(s)}U(s) + \frac{p(s)}{d(s)}
-		Ed è grazie a questa scrittura che possiamo concludere:
-		- \frac{p(s)}{d(s)}: è una funzione razionale dipendente solo dalle CI del sistema e dai coefficienti del polinomio caratteristico di v(t). V_l(s) = \frac{p(s)}{d(s)} Ci dona quindi risposta libera.
-		- \frac{h(s)}{d(s)}U(s): è una funzione razionale che dipende dai coefficienti del polinomio caratteristico di u(t), dai coefficienti del polinomio caratteristico di v(t) moltiplicati per la TDL di u(t). V_f(s) = \frac{h(s)}{d(s)}U(s) Ci donoa quindi risposta forzata.
-		- \frac{n(s)}{d(s)}: Detta funzione di trasferimento H(s), definita come:
-		H(s) = \frac{\sum_{j=0}^m b_js^j}{\sum_{i=0}^na_is^i}. Quindi è il rapporto fra i polinomi caratteristici delle funzioni di ingresso e di uscita.
-		H(s) è defnita come TDL della risposta impulsiva h(t)
-		
-		Quindi per trovare risposta libera e forzata devi trasformare tutto in laplace e fare passaggi algebrici per arrivare alla forma con solo V(s) a sinistra dell'equazione.
-		
-		Ex. Dato LTI descritto come: \frac{d^3v(t)}{dt^3} + \frac{d^2v(t)}{dt^2} = \frac{du(t)}{dt}
-		
-		Applichiamo Laplace:
-		\mathcal{L}[\frac{d^3v(t)}{dt^3}](s) + \mathcal{L}[\frac{d^2v(t)}{dt^2}](s) = \mathcal{L}[\frac{du(t)}{dt}](s)\\
-		&\implies s^3V(s) - s^2v(0^-) - s^1\frac{dv(0)^-}{dt} - s^0\frac{d^2v(0^-)}{dt} + s^2V(s) - sv(0^-) - s^0\frac{dv(0^-)}{dt} = sU(s)
-		
-		Raggruppiamo per V(s)
-		(s^3+s^2)V(s) - [s^2v(0^-) + s\frac{dv(0)^-}{dt} + \frac{d^2v(0^-)}{dt} + sv(0^-) + \frac{dv(0^-)}{dt}] = sU(s)
-		
-		Spostiamo per ottenere V(s) = ...
-		V(s) = \frac{s}{s^3+s^2}U(s) + \frac{s^2v(0^-) + s(\frac{dv(0^-)}{dt}+v(0^-)) + (\frac{d^2v(0^-)}{dt^2}+\frac{dv(0^-)}{dt})}{s^3+s^2}
-		
-		E qui vanno applicate le condizioni iniziali.
-		
-		---
-		
-		Lez16 - Sistemi
-		
-		Riassunto trasformate notevoli per gli esercizi:
-		- A \to A/s
-		- A\delta(t_0-t) \to Ae^{-st_0}
-		- A\delta_{-1}(t) \to A/s
-		- Ae^{\lambda t}\delta_{-1}(t) \to \frac{A}{\delta-\lambda}
-		- A\frac{t^l}{l!}e^{\lambda t}\delta_{-1}(t) \to \frac{A}{(s-\lambda)^{l+1}}
-		- sin(\omega t) \to \frac{\omega}{s^2 + \omega^2}
-		- cos(\omega t) \to \frac{s}{s^2 + \omega^2}
-		
-		Quindi il senso di usare laplace è andare in una forma dove ci è più semplice ottenere le risposte libere, forzate, impulsive e totali, per poi ritornare alla forma originale con quanto ottenuto tramite l'antitrasformata.
-		
-		---
-		
+\begin{comment}	
 		H(s), che è la TdL della risposta impulsiva, si dice anche funzione di trasferimento. Già scritta nella lezione precedente. Si tratta di una funzione razionale il cui numeratore ha grado generalmente minore o uguale a quello del denominatore, quindi:
 		- q\leq m; \sum \xi_i = m
 		- r \leq n; \sum \mu_i = n

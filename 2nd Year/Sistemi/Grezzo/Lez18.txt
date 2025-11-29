@@ -1,0 +1,72 @@
+Lez18 - Sistemi
+
+--- Esercizi TdL 2
+
+Ex1: v''(t) - 5v'(t) + 4v(t) = u'(t) - 3u(t)
+\begin{cases}
+	v(0^-) = 0\\
+	v'(0^-) = 1
+\end{cases}
+u(t) = e^t\delta_{-1}(t)
+
+1. Stabilità
+s^2 - 5s + 4 = 0\implies (s-1)(s-4)\implies \lambda_1=1, \lambda_2=4; \mu_1 = \mu_2 = 1
+Il sistema è instabile.
+
+\mathcal{L}[v''(t) - 5v'(t) + 4v(t)](s) = \mathcal{L}[u'(t) - 3u(t)](s)
+
+	- \mathcal{L}[v''(t)](s) = s^2V(s) - sv(0) - s^0v'(0) = s^2V(s)-1
+	- -5\mathcal{L}[v'(t)](s) = -5[sV(s) - s^0v(0)] = -5sV(s)
+	- 4\mathcal{L}[v(t)](s) = 4V(s) 
+	- \mathcal{L}[u'(t)](s) = s^1U(s) + s^0u(0) = sU(s)
+	- -3\mathcal{L}[u(t)](s) = -3U(s)
+	
+Equazione finora: s^2V(s)-1 -5sV(s) +4V(s) = sU(s) -3U(s)\\
+	&= (s^2 - 5s + 4)V(s) = (s-3)U(s)
+
+V(s) = \frac{1}{(s-1)(s-4)} + \frac{s-3}{(s-1)(s-4)}U(s)
+
+Proviamo a valutare la bibostabilità.
+H(s) = \frac{s-3}{(s-1)(s-4)}. non puoi semplificare niente. Sistema ugualmente instabile.
+
+2. Determinare la funzione di trasferimento H(s)
+Appena calcolata lmfao
+
+3. Calcolare risposta impulsiva h(t) nel tempo
+h(t) = \mathcal{L}^{-1}[H(s)](t)
+	- Il grado del numeratore è minore di quello del denominatore? No. Nessuna divisione polinomiale necessaria. Andiamo diretti ai fratti semplici, per poi antitrasformare.
+	
+A = \lim_{s\to 1} (s-1) \frac{(s-3)}{(s-1)(s-4)} = 2/3
+B = \lim_{s\to 4} (s-4) \frac{(s-3)}{(s-1)(s-4)} = 1/3
+
+H(s) = 2/3(\frac{1}{s-1}) + 1/3(\frac{1}{s-4})
+
+Antitrasformiamo, ottenendo: h(t) = (2/3e^t + 1/3e^{4t}) \delta_{-1}(t)
+
+4. Calcolare risposta totale v_t(t) = v_l(t) + v_f(t)
+Sommiamo le frequenze ed antitrasformiamo il risultato.
+
+Abbiamo ottenuto che la risposta totale in laplace è:
+V(s) = \frac{1}{(s-1)(s-4)} + \frac{s-3}{(s-1)(s-4)}U(s)
+
+Tuttavia ci manca U(s).
+U(s) = \mathcal{L}[u(t)](s); u(t) = e^t\delta_{-1}(t)
+	&= \frac{1}{(s-1)}
+	
+Dunque: V(s) = \frac{1}{(s-1)(s-4)} + \frac{s-3}{(s-1)^2(s-4)}\\
+	&= \frac{2s-4}{(s-2)^2(s-4)}		// Passaggi algebrici omessi.
+	
+Antitrasformiamo quanto ottenuto.
+
+Fratti semplici diretti in quanto il grado del num è minore del denum
+V_t(s) = \frac{A}{s-1} + \frac{B}{(s-1)^2} + \frac{C}{s-4}
+
+A = \lim_{s\to 1} \frac{d^{2-0-1}}{ds^{2-0-1}} (s-1)^2\frac{2s-4}{(s-1)^2(s-4)} = -\frac{4}{9}
+B = \lim_{s\to 1} \frac{d^{2-1-1}}{ds^{2-1-1}}(s-1)^2 \frac{2s-4}{(s-1^2)(s-4)} = 2/3
+C = \lim_{s\to 4} \frac{d^{1-0-1}}{ds^{1-0-1}} (s-4) \frac{2s-4}{(s-1)^2(s-4)} = 4/9
+
+Dunque V_t(s) = -4/9 \frac{1}{s-1} + 2/3\frac{1}{(s-1)^2} + 4/9\frac{1}{s-4}.
+
+Allora v_t(t) = (-4/9e^t + 2/3te^t + 4/9e^{4t})\delta_{-1}(t)
+
+Se serve, alla fine della videolezione c'è anche un esercizio su un input sinusoidale, per avere il dolore massimo.

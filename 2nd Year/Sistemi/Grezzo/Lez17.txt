@@ -1,0 +1,96 @@
+Lez17 - Sistemi
+
+--- Esercitazione TdL 1
+
+Es 1.
+Equazione del sistema: v''(t) - v'(t) - 2v(t) = u''(t) + 2u'(t) + u(t)
+Condizioni di Cauchy: \begin{cases}
+	v(0^-) = 1\\
+	v'(0^-) = -1
+\end{cases}
+Input da testare al sistema u(t) = e^{-3t}\delta_{-1}(t)
+
+Si richiede inoltre:
+	1. Stabilità
+	2. Risposta libera nel tempo e nelle frequenze
+	3. Risposta impulsiva
+	4. Risposta forzata
+	5. Risposta totale
+	
+1. Stabilità: Dobbiamo verificare che tutte le radici siano negative.
+	- Passa a polinomio caratteristico: s^2-s-2=0
+	- Calcola le radici:
+		\lambda_{1,2} = \frac{+1\pm\sqrt{1+(4)(2)}}{2} = \frac{1\pm 3}{-1}
+		Dunque: \lambda_1=2, \lambda_2=-1; entrambe con \mu=1
+		Il sistema non è asintoticamente stabile a causa di \lambda_1.
+	- Stabilizziamo il sistema
+		Per garantire stabilità bibo, i poli di H(s) devono avere parte reale minore di zero, ricorda. Proviamo a vedere se semplificando otteniamo una forma stabile.
+		
+		H(s) = \frac{s^2+2s+1}{s^2-s-2} = \frac{(s+1)^2}{(s-2)(s+1)} = \frac{s+1}{s-2}		// Damn, il sistema non è manco bibostabile.
+		
+2a. Risposta libera nel tempo:
+	- Prendi polinomio caratteristico, le sue radici e molteplicità, già calcolato prima.
+	- Avendo già calcolato le radici, possiamo sostituirle alla forma generale:
+		v_l(t) = \sum_{i=1}^r\sum_{l=0}^{\mu_1-1} c_{i,l}\frac{t^l}{l!}e^{\lambda_it}\\
+			&= c_1e^{2t} + c_2e^{-t}
+	- Applichiamo le condizioni di cauchy
+		\begin{cases}
+			v_l(t) = c_1e^{2t} + c_2e^{-t} = 1\\
+			v_l'(t) = 2c_1e^{2t} - c_2e^{-t} = -1
+		\end{cases} \implies \begin{cases}
+			v_l(0) = c_1 + c_2 = 1\\
+			v_l'(0) = 2c_1 - c_2 = -1
+		\end{cases} \implies \begin{cases}
+			c_1 = 0\\
+			c_2 = 1
+		\end{cases}
+		
+	- Otteniamo la risposta libera nel tempo sostituendo quanto ottenuto alle c, quindi risulta: v_l(t) = e^{-t}
+	
+2b. Risposta libera nelle frequenze/con Laplace
+	- Calcoliamo la TdL del sistema un pezzp per volta grazie alla linearità
+		\mathcal{L}[v''(t) - v'(t) - 2v(t)](s) = \mathcal{L}[u''(t) + 2u'(t) + u(t)](s)
+		\begin{itemize}
+			\item \mathcal{L}[v''(t)](s) = s^2V(s) - s^1v(0^-) - s^0 \frac{dv(0^-)}{dt} = s^2V(s) - s^1(1) - 1(-1) \implies s^2V(s) - s + 1
+			\item \mathcal{L}[v'(t)](s) = sV(s) - s^0v(0^-) = sV(s) + 1
+			\item 2\mathcal{L}[v(t)](s) = V(s)
+			\item \mathcal{L}[u''(t)](s) = s^2U(s) - s^1u(0^-) - s^0\frac{du(0^-)}{dt} = s^2U(s) - s^1(0) - s^0(0) = s^2U(s)
+			\item 2\mathcal{L}[u'(t)](s) = sU(s) - s^0u(0^-) = sU(s)
+			\item \mathcal{L}[u(t)](s) = U(s)
+		\end{itemize}
+		
+		Ricordare che le condizioni iniziali dell'entrata sono sempre 0, data la causalità, quindi si potranno sempre rimuovere i termini valutati in 0.
+		
+		Quindi il sistema diventa: \[(s^2V(s) - s + 1) - (sV(s) + 1) - 2V(s) = (s^2U(s)) + (2sU(s)) + (U(s))\]
+		
+		Ora raccogliamo ogni V(s) ed U(s), lasciando il resto da solo:
+		\[(s^2-s-2)V(s) -s+2 = (s^2+2s+1)U(s)\]
+		
+		Da qui otteniamo la forma della risposta totale in laplace:
+			- V(s) = \frac{s-2}{(s-2)(s+1)} + \frac{(s+1)^2}{(s-2)(s+1)}U(s)
+		Ora troviamo anche U(s), grazie alle formule dirette:
+			- u(t) = e^{-3t}\delta_{-1}(t) \implies U(s) = \frac{1}{s+3}
+			
+		Quindi la forma dell'output totale è: \[\frac{s-2}{(s-2)(s+1)} + \frac{(s+1)^2}{(s-2)(s+1)}(\frac{1}{s+3}) = \frac{1}{s+1} + \frac{s+1}{s-2}(\frac{1}{s+3})\]
+		Dove, comodamente, il primo elemento è la risposta libera, il secondo la risposta impulsiva, ed il secondo moltiplicato al terzo quella forzata. Ho fatto vedere il processo completo, ma in base alla richiesta si possono evitare alcuni passaggi.
+		
+	Quindi noi abbiamo la risposta libera in laplace: V_l(s) = \frac{1}{s+1}. Si dovrebbe fare i fratti semplici, ma abbiamo una sola radice; quindi applichiamo l'antitrasformata, ottenendo: e^{-t}\delta_{-1}(t)
+	
+3. Calcolo risposta impulsiva in Laplace
+	- Riprendiamoci H(s) = \frac{s+1}{s-2}. In quanto i gradi di num e denum sono uguali, si fa divisione polinomiale per rimuovere l'incognita:
+		Moltiplichiamo per 1 il sottrattore s-2 ed eseguiamo la sottrazione: (s+1) - (s-2) = 3
+		Dunque la nostra H(s) = \frac{1+3}{s-2}
+		
+	- Applicguamo l'antitrasformata.
+		h(t) = \delta_0(t) + e^{2t}\delta_{-1}(t)
+		
+4. Calcolo risposta forzata
+	- Riprendiamoci V_f(s) = \frac{s+1}{(s-2)(s+3)}
+	- Eseguiamo i fratti semplici, bisogna ottenere: \frac{A}{s-2} + \frac{B}{s+3}
+		Usare la formula del limite, per favore.
+		- A = \lim_{s\to 2} \frac{d^{1-0-1}}{ds^{1-0-1}} \frac{s+1}{(s-2)(s+3)} (s-2) = 3/5
+		- B = \lim_{s\to -3} \frac{d^{1-0-1}}{ds^{1-0-1}} \frac{s+1}{(s-2)(s+3)} (s+3) = 2/5
+		
+	Otteniamo dunque (3/5e^{2t} + 2/5e^{-3t})\delta_{-1}(t)
+	
+Per l'antitrasformata totale, basta sommare la libera con la forzata e poi applicare l'antitrasformata a ciò che ne risulta.

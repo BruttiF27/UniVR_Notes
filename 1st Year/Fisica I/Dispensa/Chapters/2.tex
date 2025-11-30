@@ -37,29 +37,24 @@ Prima di iniziare abbiamo la necessità di aggiungere un attributo alle grandezz
 Lavorando ora in due dimensioni dobbiamo considerare anche la \textbf{direzione} del moto. Andremo quindi ad aggiungere questo attributo alle variabili e le chiameremo \textbf{grandezze vettoriali}. Sintatticamente non cambia molto, infatti le formule rimangono le stesse, eccezion fatta che ora le grandezze sono vettoriali, ma è possibile utilizzarle per nuovi modelli di analisi.\newline
 
 \noindent \textbf{- Moto in due dimensioni con accelerazione costante}\par
-\noindent Il punto materiale è specificato dal vettore posizione $\overline{r} = x\hat{i}+y\hat{j}$. Ciò significa che il moto può essere modellizzato in due moti indipendenti lungo rispettivamente l'asse $x$ e l'asse $y$. Ciò significa che per ottenere i vettori finali richiesti, sarà necessario effettuare la somma fra le parti.\newline
+\noindent Il punto materiale è specificato dal vettore posizione $\overrightarrow{r} = x\hat{i}+y\hat{j}$. Ciò significa che il moto può essere modellizzato in due moti indipendenti lungo rispettivamente l'asse $x$ e l'asse $y$ e quindi, per ottenere i vettori finali richiesti, sarà necessario effettuare la somma fra le parti. Supponendo che l'accelerazione abbia effetto in ambo le dimensioni, possiamo scrivere la legge del moto completa come segue: \[x = x_0+v_{0x}t+\frac{1}{2}at^2; y = y_0+v_{0y}t+\frac{1}{2}at^2\]
+\noindent Dove naturalmente, le $x_0, y_0$ sono le posizioni iniziali, si tiene conto della velocità in un certo istante, come anche dell'accelerazione. Tenere a mente che velocità e accelerazione sono ora considerate grandezze vettoriali.\newline
 
 % TODO Aggiungi grafico per il moto in due dimensioni con acc costante
 
 \noindent \textbf{- Moto dei proiettili}\par
-\noindent Per proiettile si intende un punto materiale che è lanciato in una certa direzione, ed è sempre influenzato dalla gravità per poi arrivare a terra. Ne consegue che il movimento crea una parabola. L'unica differenza rispetto al modello di analisi precedente è come il ruolo dell'accelerazione è assunto dalla costante gravitazionale, esattamente come nel moto di caduta, solo in due dimensioni. Ci sono tuttavia due punti che è interessante analizzare:
+\noindent Per proiettile si intende un punto materiale che è lanciato in una certa direzione, ed è sempre influenzato dalla gravità per poi arrivare a terra. Ne consegue che il movimento crea una parabola. L'unica differenza rispetto al modello di analisi precedente è come il ruolo dell'accelerazione è assunto dalla costante gravitazionale, esattamente come nel moto di caduta, solo in due dimensioni. Ci sono tuttavia alcuni punti che è interessante analizzare.\par
+Per prima cosa, è necessario notare come il movimento del punto materiale nell'asse delle $x$ ha sempre velocità costante, mentre in quello delle $y$ influisce l'accelerazione gravitazionale. Dunque possiamo vedere il primo come un moto rettilineo uniforme ed il secondo come un uniformemente accelerato, dandoci:
 \begin{itemize}
-	\item \textbf{Altezza massima} $h = \frac{v_i^2sin^2\theta_i}{2g}$: Il picco di coordinate cartesiane o massimo della funzione, se preferisci. Si ottiene ragionando sulla velocità del vettore verticale. Quando questa è uguale a zero, ne consegue che il proiettile è arrivato al massimo. Possiamo quindi scrivere: 
-	\begin{equation}
-		\begin{split}
-			y_f = y_i + v_{yi}t - \frac{1}{2}gt^2 &\implies h=(v_isin\theta_i)\frac{v_isin\theta_i}{g}-\frac{1}{2}g\left(\frac{v_isin\theta_i}{g}\right)^2\\
-			&\implies h = \frac{v_i^2sin^2\theta_i}{2g}
-		\end{split}
-	\end{equation}
-	\item \textbf{Gittata orizzontale} $R = \frac{v_i^2sin2\theta_i}{g}$: La distanza raggiunta dal proiettile una volta ritornato a terra dopo il lancio, in un tempo doppio di quello necessario per raggiungere l'altezza massima. Dalla formula iniziale, poniamo:
-	\begin{equation}
-		\begin{split}
-			x_f = x_i+v_{xi}t &\implies R=v_{xi}t = (v_icos\theta_i)2t \implies R=(v_icos\theta_i)\frac{2v_i\sin\theta_i}{g}\\
-			&\implies R=\frac{2v_i^2sin\theta_icos\theta_i}{g}\\
-			&\implies R=\frac{v_i^2sin2\theta_i}{g}
-		\end{split}
-	\end{equation}
+	\item \textbf{Velocità iniziale di $x$}: $v_{0x} = v_0cos\theta$
+	\item \textbf{Velocità iniziale di $y$}: $v_{0y} = v_0sin\theta$
+	\item \textbf{Legge di $x$}: $x = x_0 + v_{0x}t$
+	\item \textbf{Legge di $y$}: $y = y_0 - v_{0y}t + \frac{1}{2}gt^2$
 \end{itemize}
+\noindent Questo modello di analisi introduce anche due nuovi concetti nelle forme di \textbf{altezza massima} $h_{max} = \frac{v_{0y}^2}{2g}$, con relativo istante di tempo, e \textbf{gittata orizzontale}. La prima rappresenta il massimo della funzione e si ottiene ragionando sulla velocità del vettore verticale. Quando questa è uguale a zero, ne consegue che il proiettile è arrivato al massimo. La seconda, invece, è la distanza raggiunta dal proiettile una volta ritornato a terra dopo il lancio.\par
+Per quanto riguarda il primo concetto, possiamo subito ottenere il valore dell'istante del tempo in cui la particella raggiunge il suo massimo, grazie alla legge del moto diciamo: \[t_{max} = \frac{v_0sin\theta}{g} = \frac{v_{0y}}{g}\]
+\noindent Era la componente mancante per la legge del moto, pensa te. Sostituendola alla $t$, otteniamo quindi la posizione delle $y$ all'istante del tempo dove la funzione ha massimo: \[y = h_{max} = \frac{v_{0y}}{g} - \frac{1}{2}g\left(\frac{v_{0y}}{g}\right)^2 \implies h_{max} = \frac{v_{0y}^2}{2} - \frac{1}{2}\left(\frac{v_{0y}^2}{g}\right) = \frac{v_{0y}^2}{2g}\]
+\noindent Per quanto riguarda la gittata, invece, possiamo fare un ragionamento sulla natura del fenomeno e notare che a prescindere dal modo in cui è lanciato, il moto sarà sempre una parabola perfettamente simmetrica. Dunque, il tempo che ha usato per arrivare al suo massimo è la metà di quello usato per ritoccare terra. Più semplicemente, $2t$. Sostituendolo alla legge oraria usata per $x$, otterremo infatti: \[R = \frac{2(v_{0x}v_{0y})}{g}\]
 
 % TODO Aggiungi grafico per il moto di proiettile
 
@@ -68,7 +63,7 @@ Lavorando ora in due dimensioni dobbiamo considerare anche la \textbf{direzione}
 \begin{itemize}
 	\item \textbf{Accelerazione centripeta} $a_c = \frac{v^2}{r} = r\omega^2$: Accelerazione con direzione perpendicolare al vettore della velocità, verso il centro della circonferenza.
 	\item \textbf{Periodo del moto} $T=\frac{2\pi r}{v}$: Intervallo di tempo richiesto al moto per compiere un giro completo.
-	\item \textbf{Velicità angolare} $\omega = \frac{2\pi}{T}$: Prodotto fra la frequenza e la lunghezza della circonferenza, è misurata in radianti.
+	\item \textbf{Velocità angolare} $\omega = \frac{2\pi}{T}$: Prodotto fra la frequenza e la lunghezza della circonferenza, è misurata in radianti.
 \end{itemize}
 \noindent Esiste inoltre una relazione fra la velocità angolare e la velocità con cui il punto si muove lungo la traiettoria circolare: \[\omega = 2\pi\frac{v}{2\pi r} = \frac{v}{r} \implies v = r\omega\]
 \noindent Questo ci è particolarmente comodo, perché in questo modo possiamo esprimere l'accelerazione centripeta con una formula molto più semplice e compatta: \[a_c = \frac{v^2}{r} \implies a_c = \frac{(r\omega)^2}{r} = r\omega^2\]

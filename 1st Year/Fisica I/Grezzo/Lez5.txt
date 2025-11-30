@@ -1,0 +1,42 @@
+Lez5 - Fisica 1
+
+Riprendiamo il moto di proiettile, dove abbiamo visto che nella x la velocità è costante, mentre nella y c'è accelerazione costante.
+In tal merito abbiamo quindi le leggi del moto per il vettore x e quello y, dove:
+	- v_{0x} = v_0cos\theta; v_{0y} = v_0sin\theta
+	- x = x_0 + v_{0x}t; y = y_0 - v_{0y}t + 1/2gt^2
+	
+Come trovare la gittata ora?
+Possiamo calcolarci il massimo, ottenendo tempo max e altezza massima con:
+	- t = v_0sin\theta/g = v_{0y}/g, ricavato dalla legge del moto
+	- y = h_max = v_{0y}/g - 1/2g(v_{0y}/g)^2 \implies h_max = v_{0y}^2/2 - 1/2(v_{0y}^2/g) = \frac{v_{0y}^2}{2g}
+	
+Banalmente per calcolare la gittata possiamo notare che il proiettile compone una parabila simmetrica. Quindi il tempo che ci mette per arrivare al max sarà lo stesso che usa per andare al minimo. 2t, possiamo dire. Quindi 2(v_{0y}/g)
+La gittata sarà invece il valore della x, quindi possiamo usare la legge del moto per la x, sostituendo il tempo appena trovato alla t.
+Dunque: R = \frac{2v_{0x}v_{0y}}{g}
+
+---
+
+Supponiamo adesso di avere un movimento circolare, il quale si muove a velocità costante.
+Sterzando, il punto cambia direzione, cambiando quindi pure la velocità, e quindi si avrà un'accelerazione.
+Per trovare l'accelerazione bisogna ragionare sui vettori. Prendiamo tre punti sul moto e diciamo che qui hanno v_1, v_2, v_3. \delta v = v_3 - v_2.
+
+Se il movimento è perfettamente circolare, il verso dell'accelerazione è perpendicolare alla curva, quindi va verso il centro. Questa si chiama accelerazione centripeta e costringe la particella a girare in senso circolare; quando questa cessa, il punto andrà in linea retta.
+
+Che valore ha in modulo l'accelerazione centripeta a_c?
+\frac{\delta r}{r} = \delta a = \frac{\delta v}{v}
+Perché? Molto semplicemente i rapporti sono identici perché i triangoli che formano i delta sono simili.
+
+Per il modulo dividiamo i membri per \delta t, otteniamo: \frac{\delta r}{\delta tr} = 1/v\frac{\delta v}{\delta t}. L'ultima frazione è l'accelerazione.
+a = v/r(\delta r/\delta t)		// Qui l'ultima frazione rappresenta la velocità, quindi otteniamo infine che il modulo di a = v^2/r
+
+--- Leggi di Newton
+Strettamente legate al concetto di forza, misurata in Newton. 1N = Kg(m/s^2)
+
+1. Principio di inerzia: Un oggetto che non subisce forze rimane in quiete oppure si muove a velocità costante.
+Consente di dare una condizione di base per il sistema di riferimento: i sistemi inerziali.
+Dunque in assenza di forze, il sistema di riferimento è inerziale, in alternativa non si dice tale.
+
+2. F = ma
+Le forze vanno a perturbare lo stato di quiete, modificando velocità tramite un'accelerazione.
+
+3. Ad ogni forza ne corrisponde una uguale e contraria.

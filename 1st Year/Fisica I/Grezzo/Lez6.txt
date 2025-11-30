@@ -1,0 +1,25 @@
+Lez6 - Fisica 1
+
+Capiamo, il principio di inerzia consente di giocare con i sistemi di riferimento. Sono tutti intercambiabili; diciamo di averne uno inerziale, dove la particella è ferma. Se volessimo usarne un altro dove questa è in movimento, esprimeremo x con la legge del moto appropriata; per un'eventuale accelerazione si farà la derivata etc. Sono gli stessi procedimenti già visti, ma posti in termini di sistema di riferimento. Le forze in gioco sono le stesse.
+
+Riprendiamo l'esempio dell'auto che va in una curva perfetta, la cui accelerazione centripeta è data dal raggio R.
+Qui potremmo avere due sistemi di riferimento; quello esterno e quello dell'auto.
+
+Per la seconda legge di newton, attenzione alla direzione della forza. La formula completa è data dalla SOMMA di tutte le forze in gioco.
+Essendo le forze dei vettori, si ricaveranno le componenti con le formule viste nel precedente argomento, quindi:
+	- F_x = Fcos\theta
+	- F_y = Fsin\theta
+Un corpo è in quiete se le forze non ci sono o si annullano. Quindi per la seconda legge, sappiamo che se ci sono forze in gioco, F deve essere necessariamente uguale a 0.
+
+Ricordare inoltre che l'accelerazione si può scrivere come la derivata della velocità, ed essendo m una costante, la si può internare.
+Supponiamo ora di avere due palle, dove una urta l'altra. Per la terza legge di newton sappiamo di avere una forza uguale e contraria alla prima.
+Dunque F_{1,2} = -F_{2,1}
+
+Possiamo quindi scrivere F_{2,1} = \frac{d}{dt}(m_2v_2), ovvero l'accelerazione data dalla massa della palla 2 e quindi la forza uguale e contraria alla prima.
+Vedremo poi in futuro che p=mv è la quantità di moto.
+
+Un'ultima cosa da considerare con le forze è la forza normale, ovvero una risultante N tale per cui la somma di tutte le forze sia 0.
+Supponiamo di avere un piano inclinato ed una massa posta su di esso. Scivolerà verso il basso, naturalmente, ma perché?
+	Questo accade perché la forza peso è perfettamente parallela all'asse delle y, mentre la risultante N è perpendicolare al piano. A causa di ciò, la somma delle forze è diversa da zero, ed il corpo si muove.
+
+Dunque diciamo che in questo caso: F = mgsin\theta

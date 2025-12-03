@@ -206,6 +206,40 @@ Le enumerazioni si definiscono con la keyword \textbf{enum}, ed il loro vantaggi
 
 %
 
-\section{Gestione degli errori}
+\section{Classi innestate e interne}
+Se ritieni che scrivere un file per ogni singola classe necessaria sia eccessivo e renda il programma eccessivamente complesso, hai la possibilità di dichiararne di più in un singolo file. Fare questo, dipendentemente dalla posizione in cui sono inserite, introduce due concetti:\newline
 
-- Eccezioni implicite ed esplicite (throw/catch), gerarchia eccezioni, controllate/non controllate. Throws per metodi, definizione di classi di eccezione
+\noindent$\bullet$ \textbf{Classe innestata}: Classe statica visibile ed utilizzabile a prescindere da quella in cui è dichiarata. Possono avere accesso ad ogni campo statico della classe primaria, indipendentemente dal modificatore d'accesso.
+\begin{lstlisting}[language=Java]
+	// Dichiarazione di classe innestata
+	public class Outer {
+		static class Nested { /* Blocco di codice */ }
+	}
+	
+	// Istanziazione di un suo oggetto
+	Outer.Nested nestedObject = new Outer.Nested();
+\end{lstlisting}
+\noindent$\bullet$ \textbf{Classe interna}: Classe non statica con le stesse dinamiche dell'innestata, ma il suo utilizzo dipende dalla primaria.
+\begin{lstlisting}[language=Java]
+	// Dichiarazione di classe interna
+	public class Outer {
+		class Inner { /* Blocco di codice */ }
+	}
+	
+	// Istanziazione richiede un oggetto della classe primaria.
+	Outer outerObject = new Outer();
+	Outer.Inner innerObject = Outer.new Inner();
+\end{lstlisting}
+\noindent Una dinamica di ottimizzazione molto utilizzata è invece la dichiarazione di classi non statiche all'interno dei metodi. Queste sono dette \textbf{locali}, possono accedere esclusivamente a variabili finalizzate e vengono deallocate al termine del metodo. Generalmente ha senso utilizzarle anche per ridurre la complessità generale del codice in runtime, garantire una maggiore leggibilità e organizzazare al meglio le funzionalità del codice, dando anche limitazioni sullo scope.
+\begin{lstlisting}[language=Java]
+	public void outerMethod () {
+		int j = 1;
+		
+		class Local {
+			int addOne () { return j + 1; }
+		}
+		
+		Local localObject = new Local();
+		System.out.println(localObject.addOne()); // Output: 2
+	}
+\end{lstlisting}

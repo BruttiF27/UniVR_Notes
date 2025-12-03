@@ -111,6 +111,29 @@ L'interfaccia Comparable porta un metodo utile generalizzato per paragonare due 
 	}
 \end{lstlisting}
 
+\begin{comment}
+	// Interfaccia comparabile con generics
+	java.lang.Comparable<T>	è un interfaccia contenente int compareTo(T obj); Fondamentalmente parliamo di una classe apposita per le comparazioni, alla quale viene dato un generic.
+	I metodi potranno poi essere overridati per essere adattati al caso in esame.
+	Ritorna 0 se gli oggetti sono uguali, un intero > 0 se il primo oggetto è maggiore dell'altro, mentre un numero < 0 se è minore.
+	
+	```
+	public class Student extends Person implements Comparable <Student> {
+		...
+		@Override	// Per adattare il metodo alla classe specifica.
+		public int compareTo (Student other) {
+			return this.matricola − other.matricola;
+		}
+	}
+	```
+	
+	java.lang.Iterable<E> è un'utile interfaccia contenente il metodo Iterator<E>, Iterator(), che a sua volta contiene metodi boolean HasNext(), E next().
+	Queste due interfacce sono inutilizzabili da sole; per usare iterable è necessario implementare iterator, altrimenti sarà impossibile scorrere gli oggetti dati.
+	1. Dichiara l'iterable implementato dall'interfaccia, l'oggetto sta dentro le <>, detto operatore diamond.
+	2. Definisci costruttore e overrida la funzione Iterator() per adattarne il comportamento.
+	3. Dichiara l'iteratore per scorrere l'oggetto in esame, poi overrida le funzioni hasNext e next per adattarne il comportamento.
+\end{comment}
+
 \subsection{.Iterable, .Iterator}
 Se una classe implementa l'interfaccia Iterable, i suoi oggetti potranno essere iterati con un ciclo for-each grazie al suo uso dell'interfaccia Iterator, parte del JCF, il quale sarà approfondito più avanti.
 \begin{lstlisting}[language=Java]

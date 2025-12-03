@@ -10,29 +10,30 @@
 \contentsline {section}{\numberline {2.4}Modificatori, visibilità e memoria di un programma}{10}{}%
 \contentsline {section}{\numberline {2.5}Costrutti condizionali e ciclici}{12}{}%
 \contentsline {section}{\numberline {2.6}Array, enumerazioni e record}{13}{}%
-\contentsline {section}{\numberline {2.7}Gestione degli errori}{14}{}%
-\contentsline {chapter}{\numberline {3}Paradigmi OOP}{15}{}%
-\contentsline {section}{\numberline {3.1}Incapsulamento}{15}{}%
-\contentsline {section}{\numberline {3.2}Ereditarietà}{16}{}%
-\contentsline {section}{\numberline {3.3}Polimorfismo}{18}{}%
-\contentsline {section}{\numberline {3.4}Astrazione}{19}{}%
-\contentsline {chapter}{\numberline {4}Modelli di progettazione}{21}{}%
-\contentsline {section}{\numberline {4.1}Singleton}{21}{}%
-\contentsline {section}{\numberline {4.2}Iterator}{22}{}%
-\contentsline {section}{\numberline {4.3}Observer}{22}{}%
-\contentsline {section}{\numberline {4.4}Factory}{22}{}%
-\contentsline {chapter}{\numberline {5}Librerie utili}{23}{}%
-\contentsline {section}{\numberline {5.1}Libreria digitale}{23}{}%
-\contentsline {section}{\numberline {5.2}java.lang.*}{24}{}%
-\contentsline {subsection}{\numberline {5.2.1}Classi wrapper}{24}{}%
-\contentsline {subsection}{\numberline {5.2.2}.System}{25}{}%
-\contentsline {subsection}{\numberline {5.2.3}.String, StringBuilder}{25}{}%
-\contentsline {subsection}{\numberline {5.2.4}.Math}{25}{}%
-\contentsline {subsection}{\numberline {5.2.5}.Comparable}{26}{}%
-\contentsline {subsection}{\numberline {5.2.6}.Iterable, .Iterator}{26}{}%
-\contentsline {section}{\numberline {5.3}java.util.*}{27}{}%
-\contentsline {subsection}{\numberline {5.3.1}.Scanner}{27}{}%
-\contentsline {subsection}{\numberline {5.3.2}.Random}{27}{}%
-\contentsline {subsection}{\numberline {5.3.3}.Arrays}{28}{}%
-\contentsline {subsection}{\numberline {5.3.4}Java Collection Framework}{28}{}%
-\contentsline {section}{\numberline {5.4}java.io.*}{28}{}%
+\contentsline {section}{\numberline {2.7}Classi innestate e interne}{14}{}%
+\contentsline {chapter}{\numberline {3}Paradigmi OOP}{16}{}%
+\contentsline {section}{\numberline {3.1}Incapsulamento}{16}{}%
+\contentsline {section}{\numberline {3.2}Ereditarietà}{17}{}%
+\contentsline {section}{\numberline {3.3}Polimorfismo}{19}{}%
+\contentsline {section}{\numberline {3.4}Astrazione}{20}{}%
+\contentsline {chapter}{\numberline {4}Strutturazione e mantenimento}{23}{}%
+\contentsline {section}{\numberline {4.1}Singleton}{23}{}%
+\contentsline {section}{\numberline {4.2}Documentazione Javadoc}{24}{}%
+\contentsline {section}{\numberline {4.3}Gestione degli errori}{24}{}%
+\contentsline {section}{\numberline {4.4}Unit testing con Junit}{24}{}%
+\contentsline {section}{\numberline {4.5}Gestione files CSV e JSON}{24}{}%
+\contentsline {chapter}{\numberline {5}Librerie utili}{25}{}%
+\contentsline {section}{\numberline {5.1}Libreria digitale}{25}{}%
+\contentsline {section}{\numberline {5.2}java.lang.*}{26}{}%
+\contentsline {subsection}{\numberline {5.2.1}Classi wrapper}{26}{}%
+\contentsline {subsection}{\numberline {5.2.2}.System}{27}{}%
+\contentsline {subsection}{\numberline {5.2.3}.String, StringBuilder}{27}{}%
+\contentsline {subsection}{\numberline {5.2.4}.Math}{27}{}%
+\contentsline {subsection}{\numberline {5.2.5}.Comparable}{28}{}%
+\contentsline {subsection}{\numberline {5.2.6}.Iterable, .Iterator}{28}{}%
+\contentsline {section}{\numberline {5.3}java.util.*}{29}{}%
+\contentsline {subsection}{\numberline {5.3.1}.Scanner}{29}{}%
+\contentsline {subsection}{\numberline {5.3.2}.Random}{29}{}%
+\contentsline {subsection}{\numberline {5.3.3}.Arrays}{30}{}%
+\contentsline {subsection}{\numberline {5.3.4}Java Collection Framework}{30}{}%
+\contentsline {section}{\numberline {5.4}java.io.*}{30}{}%

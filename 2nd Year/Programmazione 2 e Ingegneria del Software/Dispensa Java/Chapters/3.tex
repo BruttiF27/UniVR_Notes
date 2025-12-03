@@ -100,6 +100,71 @@ Abbiamo già menzionato il concetto di type casting; la stessa dinamica è appli
 	\item \textbf{Upcast}: Garantito dal principio di sostituzione, type safe. Visto nello snippet di prima, dove ad un oggetto person è assegnato uno student. Si può scrivere implicitamente poiché è eseguito dal compiler in runtime.
 	\item \textbf{Downcast}: Necessario esplicitarlo, non ha garanzia di essere type safe. Nel caso di prima, riguarda il caso di errore di compilazione; per far sì che sia corretto bisogna castare il tipo Student prima di person. Per evitare eventuali problemi è consigliato l'utilizzo di instanceof per controllare le superclassi.
 \end{itemize}
+\noindent Un altro modo per ottenere il polimorfismo, ed universalmente codice meno verboso e utilizzabile in più contesti senza che venga modificato, è dato dai tipi generici, \textbf{generics}. Questa feature si attiva usando la sintassi "<T>" al posto dei parametri. I caratteri convenzionati sono T(ype), E(lement), K(ey), V(alue). Scriveremo quindi, per esempio:
+\begin{lstlisting}[language=Java]
+	// Dichiarazione della classe con parametro di tipo generico.
+	public class Pair <T> {
+		private T first, second;
+		
+		// Essendo generico, può essere qualunque oggetto.
+		public Pair(T first, T second) {
+			this.first = first;
+			this.second = second;
+		}
+		
+		public T getFirst () { return first; }
+		public T getSecond () { return second; }
+	}
+	
+	// La classe è utilizzabile con più tipi. Cast non necessario.
+	Pair <String> p = new Pair <> ("one", "two");
+	Pair <Integer> q = new Pair <> (1, 2);
+\end{lstlisting}
+\noindent I generics funzionano perché al posto del carattere il compilatore riconosce la classe Object, ed in quanto ogni altra classe è suo sottoinsieme, si effettua un downcast tautologico.
+
+% TODO RIPRENDI DA QUA, T16
+
+\begin{comment}
+	Chiamiamo
+	questa definizione "Tipo di parametro libero". Possono essere anche legati, specificando un limite di classe superiore o inferiore.
+	- Unbounded: 
+	```
+	public class Pair <T> { // we want to use Person here
+		private T first, second;
+	}
+	```
+	- Bounded:
+	```
+	// Limite superiore
+	class Clazz <T extends S1 & S2 & ... & Sk>
+	// Limite inferiore
+	class Clazz <T super S>
+	```
+	
+	Se T è legato, il compiler non si lagnerà per i relativi metodi dichiarati, poiché ha un limite al quale fermarsi.
+	
+	```
+	public class Pair <T extends Person > { // we want to use Person here
+		private T first , second;
+		
+		public Pair (T first , T second) {
+			this.first = first;
+			this.second = second;
+		}
+		
+		public T getFirst () { return first.getName(); } // no error
+		public T getSecond () { return second; } // T extends Person
+	}
+	```
+	
+	--- Generics e ereditarietà
+	Gli iterabili C,D provenienti da una subclasse B non riconoscono come sovracclasse il padre A della sub B. Di conseguenza risultano incompatibili.
+	
+	Possiamo usare il parametro Wildcard '?' nel diamond per indicare un tipo generico Oggetto libero. Non differisce da una normale dichiarazione di unbounded generic T, infatti
+	non sarà possibile usare metodi ad esso associati; tuttavia il vantaggio è che non richiede classi per essere usato. Puoi usarlo come parametro generale.
+	Puoi tuttavia legare ? specificando limite superiore o inferiore con extends/super. In tal caso puoi usare i metodi definiti con questo tipo.
+\end{comment}
+
 
 %
 
@@ -155,24 +220,42 @@ Naturalmente, non essendo concrete, non possono essere definite e sono viste com
 		}
 	}
 \end{lstlisting}
-\noindent Sebbene non si possano ereditare più classi, per una classe concreta è possibile implementare più interfacce allo stesso tempo, mentre un'interfaccia può estenderne una o multiple senza poterle implementare.
+\noindent Sebbene non si possano ereditare più classi, per una classe concreta è possibile implementare più interfacce allo stesso tempo, mentre un'interfaccia può estenderne una o multiple senza poterle implementare. Si potrebbe pensare in questi termini, di scrivere un singolo metodo per ogni interfaccia, usando il concetto di \textbf{interfaccia funzionale}.\par
+Fondamentalmente risulta utile crearle per evitare dipendenze fra i metodi nelle classi che le implementano. Una classe che fa uso di un'interfaccia deve necessariamente definire ogni suo metodo, ma se questa ne ha uno solo, il problema non si pone.\newline
 
-% Interfacce funzionali
-
-
-
-
-
-
-
-- Classi anonime, espressioni lambda, interfacce funzionali
-- Parametri varargs, tipi generici, libreria Comparable<T>. Vincoli sulle variabili di tipo
-
-
-\begin{comment}
-	Da decidersi:
-	- Javadoc
+\noindent In precedenza abbiamo nominato come sia possibile scrivere più classi all'interno di un singolo file. Quando si dichiara una classe locale senza nome, questa è detta \textbf{anonima}; si tratta di classi istanziate ed utilizzate una singola volta, ovvero quando ne è chiamato il metodo. Questa caratteristica del linguaggio è resa possibile solo grazie all'ereditarietà, perché per essere usate, le classi anonime devono necessariamente estendere una classe oppure implementate un'interfaccia. Sono viste inoltre come \textbf{espressioni}, ed in quanto tali devono far parte di un enunciato e non possiamo specificarne un costruttore.\par
+È possibile fondere questo concetto alle interfacce funzionali, permettendoci di ottenere ciò che è conosciuto come \textbf{funzione lambda}. La loro ragion d'essere è rendere il codice più compatto, leggibile ed indipendente. Hanno sintassi: \begin{center}
+	listaDiParametri -> bloccoDiCodice
+\end{center}
+\begin{lstlisting}[language=Java]
+	// Istanziazione di singleInc, come gia' visto.
+	SingleInterface singleInc = new SingleInterface () {
+		@Override
+		public int singleMethod(int param) { return param + 1; }
+	};
 	
-	- Race condition, Deadlock, synchronized
-	- Stream lazy
-\end{comment}
+	// Utilizzo della lambda. Risparmiate ben tre righe.
+	SingleInterface singleDec = param -> param-1;
+	
+	System.out.println(singleInc.singleMethod(3)); // Output: 4
+	System.out.println(singleDec.singleMethod(3)); // Output: 2
+\end{lstlisting}
+\noindent Notare che in quanto classi anonime, le lambda erediteranno le loro dinamiche. Inoltre, i parametri che può accettare possono andare da zero a molti, mentre il corpo della funzione è necessariamente una sola espressione oppure un blocco di codice.\par
+Un ultima cosa utile, ma non necessariamente sicura o consigliata è la possibilità di passare ai metodi una variabile argomenti, detta \textbf{varargs}; si traduce nel passaggio di un array e può aiutare a ridurre la dimensione del codice. La sintassi è: \begin{center}
+	nomeMetodo(tipo... nomeParametro)
+\end{center}
+\begin{lstlisting}[language=Java]
+	public interface SingleInterface { int singleMethod(int... params); }
+	
+	// Utilizzo di varargs con un normale metodo, classe anonima.
+	SingleInterface singleInc = new SingleInterface() {
+		@Override
+		public int singleMethod (int... params) { return params [0] + 1; }
+	};
+	
+	// Utilizzo di varargs con una lambda
+	SingleInterface singleDec = params -> params [0]-1;
+
+	System.out.println(singleInc.singleMethod(3, 4, 5)); // Output: 4
+	System.out.println(singleDec.singleMethod(3, 2)); // Output: 2
+\end{lstlisting}

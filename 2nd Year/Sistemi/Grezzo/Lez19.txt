@@ -1,0 +1,52 @@
+Lez19 - Sistemi
+
+--- Schemi a blocchi
+Possiamo avere una visione più ampia del blocco rappresentativo del sistema. Ce ne possono essere di più, perché normalmente si eseguono più operazioni, come per un microfono la ricezione della voce, relativo campionamento e discretizzazione.
+Un sistema microfono-casse è un esempio di un sistema a più blocchi.
+
+Ci sono tre modi per mettere insieme i sistemi:
+	1. A cascata: x_1->A->y_1=x_2->B->y_2
+	2. Somma dei sistemi: A partire da un input x, questo è diramato a partire da un nodo in due direzioni x_1, x_2, le quali andranno rispettivamente nei sistemi A,B. Questi sistemi ritorneranno y_1, y_2, che andranno in un nodo sommatore per poi formare l'output finale y.
+	3. Sistema di retroazione: Permette di avere un controllo maggiore sui nostri sistemi, tendenzialmente usato per rimuovere i poli e adattare l'uscita del sistema. Si parte con un input x che va in un nodo sommatore, poi x_1 entra nel sistema A che ritorna uscita y_1. Questa è data in output totale, ma è anche inviata come x_2 ad un altro sistema B, che ritorna y_2, data nel nodo sommatore. Il ciclo ricomincia e si ritorna y totale.
+	
+I blocchi sono sistemi SingleInputSingleOutput
+I nodi sommatori possono ricevere più input, ma tornano un singolo output.
+
+Esistono due tipi di controlli che si effettuano nei sistemi:
+	1. Controllo ad anello aperto: I/O passano attraverso un solo sistema e prego che vada tutto bene.
+	2. Controllo ad anello chiuso: Identico al sistema di retroazione. Un esempio è il termostato. Nel blocco B ci saranno le funzioni di trasferimento dei sistemi.
+	
+Quello che in un sistema controllato ad anello chiuso si prende come input è detto segnale di riferimento r. Si ha poi un primo controllo di feedforward nel primo sistema; risolve il problema. Poi il segnale ottenuto, detto segnale di controllo u, è inviato ad un secondo processo in un altro sistema. Se non torniamo indietro, abbiamo l'output controllato c, in alternativa si va in un terzo sistema detto elemento di feedback, il quale ritorna un segnale di feedback b, inviato al nodo sommatore/sottrattore iniziale, per ritornare un segnale di attuazione e=r-b. Quest'ultimo è inviato all'element di feedforward ed il ciclo ricomincia.
+Si dice feedback o errore negativo quando e=r-b, mentre è positivo quando e=r+b.
+
+Poi abbiamo i controllori, ne abbiamo 3 tipi con relative regole di controllo:
+	1. Controllore proporzionale P: Rende l'output proporzionale ad e. Quindi u=k_Pe.
+	2. Controllore derivativo D: L'uscita è proporzionale ad una costante di moltiplicazione rispetto alla derivata di e rispetto al tempo. u=k_D\frac{de}{dt}
+	3. Controllore integrativo I: idem, ma per gli integrali. u=k_I\int e(t) dt
+	
+I controllori si possono combinare fra di loro, ottenendo PD, PI, fino a PID. Scegli quello che ti serve, insomma.
+Esempio controllore PID: u_{PID} = k_Pe + k_D\frac{de}{dt} + k_I\int e(t) dt
+
+Con questa logica si può campionare il segnale a tempo continuo in uno a tempo discreto. Tendenzialmente è presente anche un blocco "zero holder", che mantiene il segnale identico fino all'istante successivo, garantendo che la conversione prenda tutti i dati con la discretizzazione. Lo rincontreremo con fourier.
+Dato un sistema a blocchi, il nostro scopo è ottenere la sua forma canonica, ovvero la forma uguale a quella del blocco di retroazione, per poi infine raggiungere un disegno uguale a quello del controllo ad anello libero, dove il sistema comprende ogni singolo controllo e operazione eseguita.
+
+Nomenclature della forma canonica:
+	- Funzione di trasferimento diretta G
+	- Funzione di trasferimento di feedback H: Permette di modificare l'output di G per stabilizzare l'output totale.
+	- Funzione di trasferimento dell'anello GH.
+	- C/R: funzione di trasferimento dell'anello chiuso
+		C/R = \frac{R}{1+-GH}, come già visto è [eq. caratteristica input/eq. caratteristica uscita]
+	- e/R: Rapporto del segnale di attuazione = \frac{1}{1+-GH}
+	- B/R: Rapporto di feedback = \frac{GH}{1+-GH}
+	
+In soldoni ci interessa compattare il sistema alla forma minimizzata. Per arrivarci bisogna applicare varie regole di trasformazione:
+	- Combinazione di blocchi in serie/a cascata: Dati due blocchi A, B otteniamo un nuovo blocco il cui contenuto è AB. È come se facessimo una convoluzione fra i due segnali.
+	- Combinazione di blocchi in parallelo: Dato un input di un blocco, il quale verrà poi in output sommato ad un altro, possiamo ottenere un blocco unico con al suo interno A+-B.
+	- Rimozione di blocco parallelo: Si va a pre-operare con un blocco
+	- Rimozione di anello di feedback: Dato un sistema a blocchi con controllo di retroazione, possiamo semplificarlo con un singolo I/O ed un blocco con \frac{A}{1+-AB}
+	- Rimozione dal loop: Dato un primo sistema come nella regola precedente, vedere il disegno che è più chiaro.
+	- Riorganizzazione di input nel nodo somma: Ringrazia la proprietà commutativa.
+	- Spostamento dei nodi somma prima/dopo del blocco
+	- Spostamento di nodi qualunque prima/dopo del blocco
+	
+Consigliato vedere le foto delle regole di trasformazione, sono sicuramente più chiare rispetto alla spiegazione a parole.

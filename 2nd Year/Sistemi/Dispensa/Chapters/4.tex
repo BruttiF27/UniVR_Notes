@@ -1,1 +1,73 @@
-Bode
+\section{Sistemi a più blocchi}
+Come già studiato precedentemente, i sistemi sono rappresentati graficamente con un input, un blocco centrale, ed un output, ma questa forma non prende in considerazione istanze più complesse. Normalmente, infatti, un sistema non compie solo un'operazione, ma molteplici. Prendiamo per esempio un sistema di microfono e casse, qui vengono eseguite più operazioni per modificare i segnali ed eventualmente ritornarli in output. Ciò si può rappresentare con più blocchi in un singolo schema, in tre modi diversi:
+\begin{itemize}
+	\item \textbf{A cascata/In parallelo}: Semplicemente uno dopo l'altro.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\linewidth]{Images/BlocchiCascata.png}
+	\end{figure}
+	\item \textbf{Somma dei sistemi}: L'input si dirama in due sistemi che producono due output, i quali saranno poi sommati per ritornare l'output effettivo.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\linewidth]{Images/SommaSistemi.png}
+	\end{figure}
+	\item \textbf{Sistema di retroazione}: Permette di avere un controllo maggiore sui sistemi, è tendenzialmente usato per rimuovere i poli e adattare l'uscita del sistema. Vede un primo blocco ritornare un input, il quale, se non in forma desiderata, passa in un secondo blocco per essere rielaborato. Il tutto sarà inviato al nodo sommatore per riproporre l'output, fin quando non sarà adeguato ai nostri canoni.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\linewidth]{Images/Retroazione.png}
+	\end{figure}
+\end{itemize}
+\noindent Notare che qui abbiamo due elementi di base: i \textbf{blocchi} che rappresentano i sistemi, i quali eseguono le operazioni, e i \textbf{nodi}, dove i segnali si diramano oppure vengono accumulati con somma o sottrazione. I primi seguono la logica SISO, mentre gli ultimi possono ricevere più input, ma ritornando sempre un singolo output.\par
+Con questa logica è possibile aggiungere dei controlli ai segnali dei sistemi, anche qui abbiamo più possibilità:
+\begin{itemize}
+	\item \textbf{Controllo ad anello aperto}: Graficamente identico ai blocchi in parallelo, non effettuo controlli sui segnali.
+	\item \textbf{Controllo ad anello chiuso}: Graficamente identico alla retroazione, modifico il segnale fin quando non è dentro i canoni desiderati.
+\end{itemize}
+\noindent Naturalmente vedremo più nel dettaglio quest'ultimo. Anzitutto, quello che si prende come input è detto \textbf{segnale di riferimento} $r$, il quale subisce un controllo di feedforward nel primo sistema, cercando di risolvere il problema. Nel caso in cui l'output risultante, detto \textbf{segnale di controllo} $u$, non torna indietro, abbiamo ottenuto l'\textbf{uscita controllata} $c$; in alternativa si procede in un altro sistema detto \textbf{elemento di feedback}, il quale esegue operazioni per "conformare il segnale", ritornando in output il \textbf{segnale di feedback} $b$ che è inviato al nodo per la somma o sottrazione posto prima del primo sistema. L'output del nodo è detto infine \textbf{segnale di attuazione} o \textbf{errore} $e$, ed è inviato come input del primo sistema. In particolare diremo che abbiamo un feedback negativo quando $e = r-b$, mentre è positivo quando $e = r+b$.\par
+Dove questa è la struttura generale, è possibile utilizzare tre tipi di controllori diversi, potenzialmente unendoli fra loro. Come componenti base abbiamo:
+\begin{itemize}
+	\item \textbf{Controllore proporzionale} $P$: Rende l'output proporzionale all'errore, quindi: \[u=k_Pe\]
+	\item \textbf{Controllore derivativo} $D$: Rende l'uscita proporzionale ad una costante di moltiplicazione rispetto alla derivata dell'errore rispetto al tempo. \[u=k_D\frac{de}{dt}\]
+	\item \textbf{Controllore integrativo} $I$: Stessa dinamica, ma con gli integrali. \[u=k_I\int e(t) dt\]
+\end{itemize}
+\noindent Pare che i controllori siano linearmente indipendenti fra di loro, ciò significa che per usarne più di uno alla volta basta sommare quello presi. Nel caso più complesso, infatti, avremo: \[u_{PID} = k_Pe + k_D\frac{de}{dt} + k_I\int e(t) dt\]
+\noindent Ed è proprio grazie a questi controlli che è possibile campionare il segnale a tempo continuo in uno a tempo discreto. Tendenzialmente è presente anche un blocco "zero holder", che mantiene il segnale identico fino all'istante successivo, garantendo che la conversione prenda tutti i dati con la discretizzazione. Verrà ripreso con Fourier.\par
+Quello che interessa a noi è, dato un sistema a blocchi, ottenere la sua \textbf{forma canonica}, ovvero la forma uguale a quella del blocco di retroazione, per poi raggiungere un disegno uguale a quello del controllo ad anello libero, dove il sistema comprende ogni singolo controllo e operazione eseguita. In soldoni, parliamo di minimizzazione del sistema. La forma canonica ha le seguenti nomenclature:
+\begin{itemize}
+	\item \textbf{Funzione di trasferimento diretta} $G$
+	\item \textbf{Funzione di trasferimento di feedback} $H$
+	\item \textbf{Funzione di trasferimento dell'anello} $GH$
+	\item \textbf{funzione di trasferimento dell'anello chiuso} $\frac{C}{R} = \frac{R}{1\pm GH}$
+	\item \textbf{Rapporto del segnale di attuazione} $\frac{e}{R} = = \frac{1}{1\pm GH}$
+	\item \textbf{Rapporto di feedback} $\frac{B}{R} = \frac{GH}{1\pm GH}$
+\end{itemize}
+
+%
+
+\section{Regole di trasformazione}
+Chiaramente per minimizzare uno schema si utilizzano una sequela di regole apposite, con lo scopo generale di raggruppare, riorganizzare e rimuovere nodi e blocchi. Esistono due metodi per l'ottimizzazione dello schema, tuttavia verrà utilizzato solo quello di flusso in quanto più breve. In ogni caso, per entrambi, le regole sono:
+\begin{itemize}
+	\item \textbf{Combinazione di blocchi in serie/a cascata}: Dati due blocchi $A,B$ otteniamo un nuovo blocco il cui contenuto è AB. 
+	\item \textbf{Combinazione di blocchi in parallelo}: Dato un input di un blocco, il quale verrà poi in output sommato ad un altro, possiamo ottenere un blocco unico con al suo interno $A\pm B$.
+	\item 
+	\item 
+	\item 
+	\item 
+	\item 
+	\item 
+\end{itemize}
+
+\begin{comment}
+	- Rimozione di blocco parallelo: Si va a pre-operare con un blocco
+	- Rimozione di anello di feedback: Dato un sistema a blocchi con controllo di retroazione, possiamo semplificarlo con un singolo I/O ed un blocco con \frac{A}{1+-AB}
+	- Rimozione dal loop: Dato un primo sistema come nella regola precedente, vedere il disegno che è più chiaro.
+	- Riorganizzazione di input nel nodo somma: Ringrazia la proprietà commutativa.
+	- Spostamento dei nodi somma prima/dopo del blocco
+	- Spostamento di nodi qualunque prima/dopo del blocco
+	
+	Consigliato vedere le foto delle regole di trasformazione, sono sicuramente più chiare rispetto alla spiegazione a parole.
+\end{comment}
+
+%
+
+\section{Schemi di flusso}

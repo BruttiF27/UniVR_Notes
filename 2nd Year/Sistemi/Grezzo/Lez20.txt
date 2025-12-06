@@ -1,0 +1,4 @@
+Lez20 - Sistemi
+
+--- Metodo lento per la trasformazione di schemi a blocchi
+Non viene usato. Useremo i diagrammi di flusso

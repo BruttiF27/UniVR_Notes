@@ -13,4 +13,8 @@
 \contentsline {section}{\numberline {3.3}Trasformate notevoli}{26}{}%
 \contentsline {section}{\numberline {3.4}Utilizzo della TdL per il calcolo delle risposte}{28}{}%
 \contentsline {section}{\numberline {3.5}Antitrasformata di Laplace unilatera}{31}{}%
-\contentsline {chapter}{\numberline {4}Diagrammi di Bode}{32}{}%
+\contentsline {chapter}{\numberline {4}Schemi a blocchi}{32}{}%
+\contentsline {section}{\numberline {4.1}Sistemi a più blocchi}{32}{}%
+\contentsline {section}{\numberline {4.2}Regole di trasformazione}{34}{}%
+\contentsline {section}{\numberline {4.3}Schemi di flusso}{35}{}%
+\contentsline {chapter}{\numberline {5}Diagrammi di Bode}{36}{}%

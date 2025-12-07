@@ -1,0 +1,31 @@
+Lez8 - Fisica 1
+
+Avendo un qualunque oggetto con una determinata massa, attaccato ad un filo, diramato in altri due, sappiamo che se il corpo è sospeso, le forze risultanti si equivalgono. La forza che si oppone alla peso si dice tensione T. Dunque P - T = 0.
+Se la tensione di una corda attaccata al corpo è divisa in altre funi, la somma delle tensioni di queste altre deve essere uguale al valore della tensione esercitata dalla fune attaccata al corpo. Essendo le forze vettoriali, naturalmente si possono scomporre nelle loro componenti.
+
+-- Sistema di carrucole
+Abbiamo un filo con due pesi attaccati alle sue estremità. Tendenzilmente facciamo un'approssimazione, ignorando l'effetto della carrucola.
+Quindi findamentalmente abbiamo due pesi, con due forze e quindi anche due tensioni diverse. Avremo quindi un sistema di forze dato da:
+\begin{cases}
+	T - m_1g = m_1a\\
+	m_2g - T = m_2a
+\end{cases}
+\noindent I segni negativi sono utilizzati per tenere conto del movimento in direzione inversa che compie un corpo rispetto all'altro.
+
+-- Forze di attrito
+L'interazione fra un corpo in movimento e la superficie in cui è posto si dice forza di attrito e ha direzione inversa rispetto al movimento del corpo. Quando è considerato, le forze sono descritte con F = \mu Mg, con \mu coefficiente di attrito, il quale può essere:
+	Attrito statico $\mu_s$
+	Attrito dinamico $\mu_d$
+	
+-- Piano inclinato considerando attrito
+Supponiamo un corpo di massa m posto su un piano inclinato di angolo \theta. Non si muove.
+Abbiamo la forza peso, mgsin\theta va verso il basso, mentre mgcos\theta la fa spingere contro la superficie.
+La forza che considera l'attrito è F_a = \mu_scos\theta. Attrito statico perché il corpo non è in movimento.
+
+Sappiamo che mgsin\theta - F_A = 0 \implies mgsin\theta - \mu_smgcos\theta = 0 \implies sin\theta = \mu_scos\theta \implies \mu_s = tan\theta.
+
+--- Concetto di energia
+Esistono tanti tipi di energia, come meccanica, cinetica e tant'altre. Cambiando lo stato di quiete si modifica l'energia di un corpo. La variazione di energia, ovvero quanta ne è consumata, si calcola con il lavoro L = \Delta E = Fscos\theta.
+Il lavoro è un valore scalare
+
+Energia potenziale. Se alzo un libro si immagazzina dell'energia in esso, e quando viene rilasciato, così sarà anche per l'energia sotto forma di energia cinetica. Lo rispiegherà più in seguito.

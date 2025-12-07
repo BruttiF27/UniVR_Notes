@@ -27,13 +27,33 @@ Diciamo di voler spingere un corpo di massa $3kg$ con una certa forza che produc
 \noindent Se consideri un oggetto poggiato su un tavolo, noterai che non viene accelerato, distruggendo ogni cosa nel suo cammino verso il centro della terra. Questo è perché il tavolo esercita una forza che annulla quella del peso, chiamata \textbf{forza normale}, poiché porta il corpo ad essere in quiete. Le forze sono infine misurate con l'unità \textbf{Newton}, dove $1N = 1kg \times m/s^2$. Passiamo ora ai modelli di analisi che utilizzano quanto appena visto:\newline
 
 \noindent \textbf{- Punto materiale in equilibrio}\par
-\noindent Se l'accelerazione di un corpo schematizzato come punto materiale è nulla, stiamo parlando di un corpo in equilibrio. La forza risultante deve necessariamente essere uguale a zero.\newline
+\noindent Se l'accelerazione di un corpo schematizzato come punto materiale è nulla, stiamo parlando di un corpo in equilibrio e la forza risultante deve necessariamente essere uguale a zero.\par
+Supponiamo quindi un corpo con una determinata massa $m$, il quale è appeso con una fune che si dirama poi in altre due, attaccate al soffitto. Le forze risultanti si equivalgono ed il corpo rimane sospeso in aria. Dalla terza legge di Newton sappiamo che alla forza peso esercitata dal corpo ne corrisponde una uguale e contraria, ed in questo caso prende il nome di \textbf{tensione} $T$, dunque: \[P-T=0\]
+\noindent Abbiamo supposto che la corda attaccata al corpo si dirami in altre due; ciò significa che il valore della tensione è la somma delle tensioni esercitate dalle due funi. Essendo infine le forze dei valori vettoriali, si possono ottenere le loro componenti coi metodi già visti.\newline
 
-\noindent \textbf{- Punto materiale soggetto ad una forza risultante}\par
-\noindent Se un corpo ha un'accelerazione, abbiamo la certezza che su di esso agisce una forza, ed infatti sarà possibile analizzarne la dinamica grazie alla seconda legge di Newton. In caso di una fune, diremo che la forza risultante sarà uguale al modulo della \textbf{tensione} $T$, ottenendo le seguenti formule: \[\sum F_x = T = ma_x; a_x = \frac{T}{m}\]
+\noindent \textbf{- Sistema di carrucole}\par
+\noindent Supponiamo una fune retta da una carrucola con due corpi attaccati alle sue estremità. Avremo necessariamente due masse diverse indipendenti e due tensioni legate una all'altra. Ciò crea un sistema di forze descritto come \[\begin{cases}
+	T - m_1g = m_1a\\
+	m_2g - T = m_2a
+\end{cases}\]
+\noindent Dove i segni negativi sono presenti per tenere conto del movimento in direzione inversa che compie un corpo rispetto all'altro. Quando uno sale, l'altro scende e viceversa.\par
+Tuttavia finora abbiamo compiuto delle grandi approssimazioni. Nella vita vera, quando un corpo è posto su una superficie, viene attuata la \textbf{forza di attrito}, una resistenza al moto con direzione opposta rispetto al movimento del corpo. Questa è descritta con \[F_A = \mu\cdot mg\]
+\noindent Dove $m$ è la massa, $g$ la costante gravitazionale, e $\mu$ la \textbf{costante di attrito}, determinata in base alle superfici e per la quale ne esistono due tipi:
+\begin{itemize}
+	\item \textbf{Attrito statico} $\mu_s$: Attuata finché il corpo è fermo.
+	\item \textbf{Attrito dinamico} $\mu_d$: Attuata su corpi in movimento.
+\end{itemize}
+\noindent Che cosa cambia nei modelli di analisi visti in precedenza? Che fondamentalmente bisogna considerare una nuova forza nella sommatoria da calcolare. Supponiamo nuovamente un corpo di massa $m$ posto su un piano inclinato di angolo $\theta$ e che il corpo non si muova. Abbiamo la forza peso, le cui componenti sono date da $P_y = mgsin\theta$ e $P_x = mgcos\theta$, dove quest'ultima spinge il corpo contro la superficie.\par
+La forza di attrito, come già menzionato, è scomponibile nelle sue componenti, e quella che impedisce il movimento al corpo, sta sull'asse delle $x$. È data da: $F_a = \mu_scos\theta$. Possiamo infine ricavare la costante di attrito con alcuni semplici passaggi algebrici: \[mgsin\theta - F_A = 0 \implies mgsin\theta - \mu_smgcos\theta = 0 \implies sin\theta = \mu_scos\theta \implies \mu_s = tan\theta\]
 
-% TODO - Riprendi da forze di attrito
 
+\begin{comment}	
+	--- Concetto di energia
+	Esistono tanti tipi di energia, come meccanica, cinetica e tant'altre. Cambiando lo stato di quiete si modifica l'energia di un corpo. La variazione di energia, ovvero quanta ne è consumata, si calcola con il lavoro L = \Delta E = Fscos\theta.
+	Il lavoro è un valore scalare
+	
+	Energia potenziale. Se alzo un libro si immagazzina dell'energia in esso, e quando viene rilasciato, così sarà anche per l'energia sotto forma di energia cinetica. Lo rispiegherà più in seguito.
+\end{comment}
 
 
 % Estensione del modello moto circolare uniforme

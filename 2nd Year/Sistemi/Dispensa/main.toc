@@ -7,14 +7,17 @@
 \contentsline {section}{\numberline {2.2}Calcolo delle risposte}{12}{}%
 \contentsline {subsection}{\numberline {2.2.1}Calcolo della risposta libera}{13}{}%
 \contentsline {subsection}{\numberline {2.2.2}Calcolo della risposta forzata}{15}{}%
+\contentsline {section}{\numberline {2.3}Esercizi svolti}{19}{}%
 \contentsline {chapter}{\numberline {3}Trasformata di Laplace}{20}{}%
 \contentsline {section}{\numberline {3.1}Risposta in frequenza}{20}{}%
 \contentsline {section}{\numberline {3.2}Trasformata di Laplace unilatera}{21}{}%
 \contentsline {section}{\numberline {3.3}Trasformate notevoli}{26}{}%
 \contentsline {section}{\numberline {3.4}Utilizzo della TdL per il calcolo delle risposte}{28}{}%
-\contentsline {section}{\numberline {3.5}Antitrasformata di Laplace unilatera}{31}{}%
-\contentsline {chapter}{\numberline {4}Schemi a blocchi}{32}{}%
-\contentsline {section}{\numberline {4.1}Sistemi a più blocchi}{32}{}%
-\contentsline {section}{\numberline {4.2}Regole di trasformazione}{34}{}%
-\contentsline {section}{\numberline {4.3}Schemi di flusso}{35}{}%
-\contentsline {chapter}{\numberline {5}Diagrammi di Bode}{36}{}%
+\contentsline {section}{\numberline {3.5}Antitrasformata di Laplace unilatera}{32}{}%
+\contentsline {section}{\numberline {3.6}Esercizi svolti}{34}{}%
+\contentsline {chapter}{\numberline {4}Schemi a blocchi}{35}{}%
+\contentsline {section}{\numberline {4.1}Sistemi a più blocchi}{35}{}%
+\contentsline {section}{\numberline {4.2}Regole di trasformazione}{37}{}%
+\contentsline {section}{\numberline {4.3}Schemi di flusso}{38}{}%
+\contentsline {section}{\numberline {4.4}Esercizi svolti}{38}{}%
+\contentsline {chapter}{\numberline {5}Diagrammi di Bode}{39}{}%

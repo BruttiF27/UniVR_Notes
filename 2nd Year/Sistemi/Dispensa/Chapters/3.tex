@@ -259,108 +259,90 @@ Come già detto, il passaggio a funzione trasformata è uno step per ottenere la
 	\noindent Spostando infine gli elementi per ricavare $V_t(s)$, otteniamo quanto richiesto: \[V(s) = \frac{s}{s^3+s^2}U(s) + \frac{s^2v(0^-) + s(\frac{dv(0^-)}{dt}+v(0^-)) + (\frac{d^2v(0^-)}{dt^2}+\frac{dv(0^-)}{dt})}{s^3+s^2}\]
 	\noindent L'esercizio qui è puramente per mostrare il procedimento; in questo momento si dovrebbero applicare le condizioni di Cauchy.
 \end{esempio}
+\noindent Ritornando alla funzione di trasferimento, generalmente vedremo che al numeratore il polinomio avrà grado minore o uguale a quello del denominatore; da qui in poi riferiti come $q\leq m$ ed $r\leq n$, dove $m$ è la sommatoria delle molteplicità delle soluzioni del numeratore ed $n$ quella del denominatore. Fattorizzandola otteniamo la seguente scrittura: \[H(s) = \frac{b_m(s-\beta_1)^{\xi_1}(s-\beta_2)^{\xi_2} \cdot\cdot\cdot (s-\beta_q)^{\xi_q}}{a_n(s-\alpha_1)^{\mu_1}(s-\alpha_2)^{\mu_2} \cdot\cdot\cdot (s-\alpha_r)^{\mu_r}}\]
+\noindent Dove le $\xi$ sono le molteplicità delle soluzioni del numeratore e le $\mu$ quelle del denominatore, mentre le $\beta$ e le $\alpha$ fra le tonde si dicono \textbf{zeri} della funzione di trasferimento e \textbf{poli}, queste ultime sono le radici del polinomio caratteristico. È possibile compattare ulteriormente la funzione; dicendo $K = \frac{b_m}{a_n}$ otteniamo: \[H(s) = K\frac{(s-z_1)(s-z_2) \cdot\cdot\cdot (s-z_m)}{(s-p_1)(s-p_2) \cdot\cdot\cdot (s-p_n)}\]
+\begin{definizione}
+	\textbf{Zero di una funzione razionale}\par
+	\noindent Definiamo zero di una funzione razionale un qualsiasi numero complesso $\beta\in \mathbb{C}$ tale per cui $H(\beta) = 0$. Inoltre, diciamo $\beta$ zero di molteplicità algebrica $\mu$ per $H(s)$ se valgono: \[\begin{cases}
+		\lim_{s\to\beta} \frac{1}{(s-\beta)^\mu}H(\beta) \neq 0\\
+		\lim_{s\to\beta} \frac{1}{(s-\beta)^{\mu-1}}H(\beta) = 0
+	\end{cases}\]
+\end{definizione}
 
+\begin{definizione}
+	\textbf{Polo di una funzione razionale}\par
+	\noindent Definiamo polo di una funzione razionale H(s) è un qualsiasi numero complesso $\alpha\in \mathbb{C}$ tale per cui $H(\alpha) = \infty$. Inoltre, diciamo $\alpha$ polo di molteplicità algebrica $\mu$ per $H(s)$ se valgono: \[\begin{cases}
+	\lim_{s\to\alpha}(s-\alpha)^\mu H(\alpha) \neq \infty\\
+	\lim_{s\to\alpha}(s-\alpha)^{\mu-1}H(\alpha) = \infty
+	\end{cases}\]
+\end{definizione}
+\noindent Il fatto che la funzione di trasferimento sia razionale, ammette la presenza di fattori comuni a numeratore e denominatore, consentendoci di rimuoverli e semplificare la funzione. Questa cosa è molto utile anche per poter fare asserzioni sulla stabilità di un sistema.\par
+Supponiamo una $H(s)$ in forma ridotta, con $\lambda_i, \cdot\cdot\cdot, \lambda_r$; $r\leq n$ i suoi poli post-semplificazione. Se ogni $\lambda$ ha parte reale minore di $0$, possiamo dire che il sistema è bibostabile. Diciamo quindi che un sistema è BIBO-stabile quando tutti i suoi poli giacciono nel semipiano complesso negativo.
+\begin{esempio}
+	\textbf{Verificare la stabilità del sistema}: $v'(t) - 3v(t) = u''(t) - 5u'(t) + 4u(t)$\par
+	\noindent Notiamo che in questo caso $n < m$, quando in genere è l'opposto. Procediamo per passi:
+	\begin{enumerate}
+		\item \textbf{Passaggio a polinomio caratteristico} \[v'(t) - 3v(t) = u''(t) - 5u'(t) + 4u(t)\implies s-3 = s^2-5s+4\]
+		\item \textbf{Ricerca di $H(s)$} \[H(s) = \frac{n(s)}{d(s)} = \frac{s^2-5s+4}{s-3}\]
+		\item \textbf{Fattorizzazione dei polinomi} \[H(s) = \frac{(s-1)(s-4)}{s-3}\]
+	\end{enumerate}
+	\noindent È evidente che in quanto $\lambda_1=3$, il sistema non è asintoticamente stabile. Non potendo rimuovere fattori abbiamo inoltre la conferma che non è nemmeno BIBO-stabile.
+\end{esempio}
 
-\begin{comment}	
-		H(s), che è la TdL della risposta impulsiva, si dice anche funzione di trasferimento. Già scritta nella lezione precedente. Si tratta di una funzione razionale il cui numeratore ha grado generalmente minore o uguale a quello del denominatore, quindi:
-		- q\leq m; \sum \xi_i = m
-		- r\leq n; \sum \mu_i = n
-		Se proviamo a fattorizzarla, otterremo \[\frac{b_m(s-\beta_1)^{\xi_1}(s-\beta_2)^{\xi_2} ... (s-\beta_q)^{\xi_q}}{a_n(s-\alpha_1)^{\mu_1}(s-\alpha_2)^{\mu_2} ... (s-\alpha_r)^{\mu_r}}\]
-		Le \xi sono le molteplicità delle soluzioni del numeratore
-		Le \mu sono quelle del denominatore
-		Le \beta e le \alpha fra le tonde sono rispettivamente radici del numeratore e del denominatore.
-		Otteniamo una scrittura più pulita: \[H(s) = k\frac{(s-z_1)(s-z_2) ... (s-z_m)}{(s-p_1)(s-p_2) ... (s-p_n)}\]
-		Qui i fattori a numeratore si dicono zeri della funzione razionale, mentre quelli a denominatore sono i poli. Entrambi sono le radici dei polinomi rispettivi, ovviamente.
-		
-		Definiamo poi uno zero di una funzione razionale H(s) un qualsiasi numero \beta\in C tale per cui H(\beta) = 0.
-		Un polo di una funzione razionale H(s) è invece un qualsiasi numero \alpha\in C tale per cui H(\alpha) = \infty.
-		
-		Accorciamo ulteriormente, k=\frac{bm}{an}
-		
-		Ora, grazie alla funzione di trasferimento possiamo fare asserzioni sulla stabilità.
-		Supponiamo H(s) in forma ridotta, quindi con radici in comune rimosse.
-		Siano \lambda_i, ..., \lambda_r; r\leq n i suoi poli post-semplificazione.
-		Se la parte reale delle \lambda_i è minore di 0, con le i che vanno da 1 a r, possiamo dire che il sistema è bibostabile. (Questa cosa evita di calcolare integrali, è importante)
-		Quindi un sistema è bibostabile se tutti i suoi poli giacciono nel semipiano complesso negativo.
-		È possibile anche bibostabilizzare un sistema; bisogna rimuovere gli zeri \lambda_i con parte reale maggiore di 0, quindi dividendoli per poli uguali. Così andremo a rispettare la definizione.
-		
-		Esempio: v'(t) - 3v(t) = u''(t) - 5u'(t) + 4u(t).
-		Notare che qui n < m, in genere è l'opposto.
-		
-		Vogliamo vedere se è stabile o no, quindi per prima cosa passiamo al polinomio caratteristico
-		s-3 = s^2-5s+4
-		
-		Troviamo H(s).
-		H(s) = \frac{n(s)}{d(s)} = \frac{pol caratteristico d'ingresso}{" d'uscita} = \frac{s^2-5s+4}{s-3}
-		
-		Fattorizziamolo.
-		\frac{(s-1)(s-4)}{s-3}
-		A denominatore abbiamo \lambda_1 = 3, mi fa capire che il sistema non è asintoticamente stabile perché ha parte reale maggiore di 0.
-		
-		Per vedere se è bibostabile proviamo a semplificare i termini con questo problema. Tuttavia noterai che non possiamo fare un cazzo, quindi rimane instabile.
-		
-		Esempio: v''(t) + 3v'(t) + 2v(t) = u''(t) - 4u'(t) + 3u(t)
-		1. Polinomio caratteristico
-		\[s^2 + 3s + 2 = s^2 - 4s + 3\]
-		2. Ricaviamo H(s)
-		\[H(s) = \frac{s^2 - 4s + 3}{s^2 + 3s + 2}\]
-		3. Fattorizziamo i polinomi
-		\[H(s) = \frac{(s-3)(s-1)}{(s+1)(s+2)}\]
-		4. Controlla re(\lambda_i) < 0
-		\lambda_1 = -1, \lambda_2 = -2. Il sistema è asintoticamente stabile.
-		Come conseguenza diretta, il sistema è anche bibostabile.
-		
-		Esempio: v'''(t) + 7v''(t) - 2v'(t) + 6v(t) = u''(t) + 3u'(t) - 4u(t)
-		1,2. Polinomio caratteristico per H(s)
-		\[H(s) = \frac{s^2+3s-4}{s^3+7s^2-2s+6}\]
-		3. Fattorizzazione
-		\[H(s) = \frac{(s+4)(s-1)}{(s+3)(s+2)(s-1)}\]
-		\lambda_3 = +1. Non è asintoticamente stabile. Tuttavia, semplificandolo, si rimuove proprio questo fattore, rendendo il sistema bibostabile.
-\end{comment}
+%
 
 \section{Antitrasformata di Laplace unilatera}
+Lo scopo dell'antitrasformata è di passare da dominio complesso ottenuto con Laplace a quello del tempo, è l'ultimo passaggio da eseguire. Presupposto il fatto di aver effettuato tutte le trasformazioni e di aver ottenuto la forma della risposta in laplace $V(s) = \frac{n(s)}{d(s)}$, abbiamo due casi possibili:
+\begin{itemize}
+	\item \textbf{Sistema proprio}: $deg(n(s)) \geq deg(d(s))$\par
+	\noindent Necessaria divisione polinomiale, fratti semplici e applicazione di antitrasformata.
+	\item \textbf{Sistema strettamente proprio}: $deg(n(s)) < deg(d(s))$\par
+	\noindent Necessari fratti semplici e applicazione di antitrasformata.
+\end{itemize}
+\noindent \textbf{- Divisione polinomiale}\par
+\noindent Dati due polinomi, bisogna trovare una costante da moltiplicare al polinomio divisore tale per cui, quando questo è sottratto al dividendo, scompaia il termine di grado più alto. Consente di ottenere: \[V(s) = \frac{r(s)}{d(s)}+k; deg(r(s)) < deg(d(s)); k \in \mathbb{C}\]
+\begin{esempio}
+	\textbf{Divisione polinomiale}: \[V(s) = \frac{2s^2 + 4s - 3}{s^2 - s - 1}\]
+	\noindent Moltiplicando $k=2$ al denominatore $d(s)$ possiamo rimuovere il primo termine del numeratore $r(s)$ sottraendogli quanto ottenuto, quindi la nuova forma di $V(s)$ è: \[V(s) = \frac{6s-1}{s^2-s-1}+2\]
+\end{esempio}
+\noindent \textbf{- Decomposizione in fratti semplici}\par
+\noindent Permette di riscrivere $\frac{r(s)}{d(s)}$ come sommatoria di frazioni, nella forma: \[\sum_{i=1}^r\sum_{l=0}^{\mu_1-1}\frac{c_{i,l}}{(s-\alpha_i)^{l+1}}\]
+\noindent Dove esistono due modi, quello preferibile e generale è l'utilizzo di una formula apposita con un limite: \[c_{i,l} = lim_{s\to \alpha_i}\frac{d^{\mu_i-l-1}\left((s-\alpha_i)^{\mu_i}\frac{r(s)}{d(s)}\right)}{ds^{\mu_i-l-1}}\]
+\begin{esempio}
+	\textbf{Fratti semplici}\par
+	\noindent Data la risposta $V(s) = \frac{s-20}{(s+4)(s-2)}$, notiamo che abbiamo come poli $\alpha_1=-4;\alpha_2=2$, con entrambi i gradi $\mu_1=\mu_2=1$. La forma da ottenere presenta un singolo fattore per denominatore, quindi: \[\frac{A}{s+4} + \frac{B}{s-2}\]
+	\noindent Utilizziamo la formula vista prima per il calcolo di ogni valore delle lettere maiuscole, sapendo che $A$ ha molteplicità $\mu=1$ con polo $\alpha=-4$ e $B$ ha molteplicità $\mu=1$ con polo $\alpha=2$:
+	\begin{equation}
+		\begin{split}
+			A &= lim_{s\to-4}\frac{d^{1-0-1}\left((s+4)^1 \frac{s-20}{(s+4)(s-2)}\right)}{d^{1-0-1}} = \frac{d^0\left((-4+4)^1 \frac{-4-20}{(-4+4)(-4-2)}\right)}{d^0} = \frac{-24}{-6} = 4\\
+			B &= lim_{s\to 2}\frac{d^{1-0-1}\left((s-2)^1\frac{s-20}{(s+4)(s-2)}\right)}{d^{1-0-1}} = -\frac{18}{6} = 3
+		\end{split}
+	\end{equation}
+	\noindent Dunque nella forma dei fratti semplici, sostituendo otteniamo: \[V(s) = \frac{s-20}{(s+4)(s-2)} = \frac{4}{s+4} + \frac{3}{s-2}\]
+\end{esempio}
+\noindent\textbf{- Applicazione dell'antitrasformata}\par
+\noindent Banalmente il passaggio inverso delle trasformate notevoli. A partire dalla forma ottenuta di $V(s)$ ritorniamo nel dominio del tempo, ottenendo la forma: \[v(t) = \mathcal{L}[k](t) + \sum_{i=1}^r\sum_{l=0}^{\mu_1-1} c_{i,l}\mathcal{L}\left[\frac{1}{(s-\lambda_i)^{l+1}}\right](t)\]
+\noindent Che ci fa infine ottenere: \[K\delta_0(t) + \sum_{i=1}^r\sum_{l=0}^{\mu_1-1} c_{i,l}\cdot \frac{t^l}{l!}\cdot e^{\lambda_i t}\cdot \delta_{-1}(t)\]
 
-\begin{comment}
-	--- Antitrasformata di laplace unilatera
-	Presupponiamo di aver fatto tutte le trasformazioni e di aver ottenuto la forma V(s) = \frac{n(s)}{d(s)}, la risposta del nostro sistema in laplace. Abbiamo due vie.
-	- Se il grado di n(s) \geq al grado di d(s):
-	Diciamo che questo è un sistema proprio. Dobbiamo fare una divisione polinomiale, poi fratti semplici ed infine l'antitrasformata, che grazie alla sua linearità, si può applicare alle singole componenti dell'equazione.
-	
-	- Divisione polinomiale:
-	Ci fa ottenere V(s) = \frac{r(s)}{d(s)}+k, dove il grado di r(s) < di quello di d(s), con k\in C.
-	Il procedimento è semplice; bisogna trovare una costante da moltiplicare al polinomio divisore tale per cui, quando questo è sottratto al dividendo, scompaia il termine di grado più alto. Per esempio:
-	\[\frac{2s^2 + 4s - 3}{s^2 - s - 1}\]
-	In questo caso possiamo moltiplicare 2 al polinomio del denominatore.
-	Sottraendo il numeratore a questo nuovo denominatore otteniamo $6s-1$.
-	Quindi la nuova forma di V(s) è: \[\frac{6s-1}{s^2-s-1}+2\]
-	
-	- Decomposizione in fratti semplici
-	Consente di andare a riscrivere \frac{r(s)}{d(s)} come sommatoria di frazioni, la quale ha forma \[\sum_{i=1}^r\sum_{l=0}^{\mu_1-1}\frac{c_{i,l}}{(s-\alpha_i)^{l+1}}\]
-	Che guarda caso è la forma di una trasformata notevole. Come si fa?
-	Usare la formula: \[c_{i,l} = lim_{s\to \alpha_i}\frac{d^{\mu_i-l-1}((s-\alpha_i)^{\mu_i}\frac{r(s)}{d(s)})}{ds^{\mu_i-l-1}}\]
-	
-	Esempio: V(s) = \frac{s-20}{(s+4)(s-2)}.
-	Qui abbiamo \alpha_1=-4;\alpha_2=2, con entrambi i gradi \mu_1=\mu_2=1
-	Scomponiamo in fratti semplici:
-	\[\frac{A}{s+4} + \frac{B}{s-2}\] Ora abbiamo due scelte:
-	1. Svolgere calcoli a fattor comune (sconsigliato)
-	2. Formula del porcodiodilimite, usata per ogni singolo c:
-	- c_{1,0} = A, che ha \mu=1;\alpha=-4
-	A = lim_{s\to-4}\frac{d^{1-0-1}((s+4)^1 \frac{s-20}{(s+4)(s-2)})}{d^{1-0-1}} = \frac{d^0((-4+4)^1 \frac{-4-20}{(-4+4)(-4-2)})}{d^0} = \frac{-24}{-6} = 4.
-	- c_{2,0} = B, che ha \mu=1;\alpha=2
-	B = lim_{s\to 2}\frac{d^{1-0-1}((s-2)^1\frac{s-20}{(s+4)(s-2)})}{d^{1-0-1}} = -\frac{18}{6} = 3
-	
-	Quindi i fratti semplici diventano: \[V(s) = \frac{s-20}{(s+4)(s-2)} = \frac{4}{s+4} + \frac{3}{s-2}\]
-	
-	- Applicazione dell'antitrasformata
-	Abbiamo quindi una forma V(s) = k+\sum_{i=1}^r\sum_{l=0}^{\mu_1-1} \frac{c_{i,l}}{(s-\lambda_i)^{l+1}}
-	Andando indietro con le trasformate abbiamo:
-	v(t) = \mathcal{L}[k](t) + \sum_{i=1}^r\sum_{l=0}^{\mu_1-1} c_{i,l}\mathcal{L}[\frac{1}{(s-\lambda_i)^{l+1}}](t)
-	Che ci fa ottenere.
-	k\delta_0(t) + \sum_{i=1}^r\sum_{l=0}^{\mu_1-1} c_{i,l}\frac{t^l}{l!}e^{\lambda_i t}\delta_{-1}(t)
-	
-	
-	
-	- Se il grado di n(s) < al grado di d(s):
-	Diciamo che questo è un sistema strettamente proprio, si salta la divisione polinomiale e si fanno gli altri due passaggi.
-\end{comment}
+%
+
+\section{Esercizi svolti}
+\textbf{Esercizio 1}: Verificare la stabilità del seguente sistema: \[v''(t) + 3v'(t) + 2v(t) = u''(t) - 4u'(t) + 3u(t)\]
+\begin{enumerate}
+	\item \textbf{Polinomio caratteristico} \[v''(t) + 3v'(t) + 2v(t) = u''(t) - 4u'(t) + 3u(t)\implies s^2 + 3s + 2 = s^2 - 4s + 3\]
+	\item \textbf{Trova $H(s)$} \[H(s) = \frac{s^2 - 4s + 3}{s^2 + 3s + 2}\]
+	\item \textbf{Fattorizza i polinomi} \[H(s) = \frac{(s-3)(s-1)}{(s+1)(s+2)}\]
+	\item \textbf{Verifica valore di $Re(\lambda)$}\par
+	\noindent $\lambda_1 = -1$, $\lambda_2 = -2$. Il sistema è asintoticamente stabile e come conseguenza diretta, è anche bibostabile.
+\end{enumerate}
+
+\noindent\textbf{Esercizio 2}: Verificare la stabilità del seguente sistema: \[v'''(t) + 7v''(t) - 2v'(t) + 6v(t) = u''(t) + 3u'(t) - 4u(t)\]
+\begin{enumerate}
+	\item \textbf{Polinomio caratteristico} \[v'''(t) + 7v''(t) - 2v'(t) + 6v(t) = u''(t) + 3u'(t) - 4u(t)\implies s^3+7s^2-2s+6 = s^2+3s-4\]
+	\item \textbf{Trova $H(s)$} \[H(s) = \frac{s^2+3s-4}{s^3+7s^2-2s+6}\]
+	\item \textbf{Fattorizza i polinomi} \[H(s) = \frac{(s+4)(s-1)}{(s+3)(s+2)(s-1)} = \frac{(s+4)}{(s+3)(s+2)}\]
+	\item \textbf{Verifica valore di $Re(\lambda)$}\par
+	\noindent $\lambda_3 = +1$. Non è asintoticamente stabile. Tuttavia, semplificandolo, si rimuove proprio questo fattore, rendendo il sistema bibostabile.
+\end{enumerate}
+
+% TODO Inserisci calcolo antitrasformata

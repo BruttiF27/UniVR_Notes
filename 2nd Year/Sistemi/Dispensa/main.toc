@@ -17,7 +17,6 @@
 \contentsline {section}{\numberline {3.6}Esercizi svolti}{34}{}%
 \contentsline {chapter}{\numberline {4}Schemi a blocchi}{35}{}%
 \contentsline {section}{\numberline {4.1}Sistemi a più blocchi}{35}{}%
-\contentsline {section}{\numberline {4.2}Regole di trasformazione}{37}{}%
-\contentsline {section}{\numberline {4.3}Schemi di flusso}{38}{}%
-\contentsline {section}{\numberline {4.4}Esercizi svolti}{38}{}%
-\contentsline {chapter}{\numberline {5}Diagrammi di Bode}{39}{}%
+\contentsline {section}{\numberline {4.2}Schemi di flusso}{38}{}%
+\contentsline {section}{\numberline {4.3}Esercizi svolti}{40}{}%
+\contentsline {chapter}{\numberline {5}Diagrammi di Bode}{43}{}%

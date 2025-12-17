@@ -41,38 +41,145 @@ Quello che interessa a noi è, dato un sistema a blocchi, ottenere la sua \textb
 	\item \textbf{Rapporto del segnale di attuazione} $\frac{e}{R} = = \frac{1}{1\pm GH}$
 	\item \textbf{Rapporto di feedback} $\frac{B}{R} = \frac{GH}{1\pm GH}$
 \end{itemize}
-
-%
-
-\section{Regole di trasformazione}
-Chiaramente per minimizzare uno schema si utilizzano una sequela di regole apposite, con lo scopo generale di raggruppare, riorganizzare e rimuovere nodi e blocchi. Esistono due metodi per l'ottimizzazione dello schema, tuttavia verrà utilizzato solo quello di flusso in quanto più breve. In ogni caso, per entrambi, le regole sono:
+\noindent Chiaramente per minimizzare uno schema si utilizzano una sequela di regole apposite, con lo scopo generale di raggruppare, riorganizzare e rimuovere nodi e blocchi. Esistono due metodi per l'ottimizzazione dello schema, queste sono le regole per il primo metodo, che è eccessivamente lungo, quindi le lascio solo per completezza:
 \begin{itemize}
-	\item \textbf{Combinazione di blocchi in serie/a cascata}: Dati due blocchi $A,B$ otteniamo un nuovo blocco il cui contenuto è AB. 
-	\item \textbf{Combinazione di blocchi in parallelo}: Dato un input di un blocco, il quale verrà poi in output sommato ad un altro, possiamo ottenere un blocco unico con al suo interno $A\pm B$.
-	\item 
-	\item 
-	\item 
-	\item 
-	\item 
-	\item 
+	\item \textbf{Combinazione di blocchi in serie/a cascata}
+	\item \textbf{Combinazione di blocchi in parallelo}
+	\item \textbf{Rimozione di blocco parallelo}
+	\item \textbf{Rimozione di anello di feedback}
+	\item \textbf{Rimozione dal loop}
+	\item \textbf{Riorganizzazione di input nel nodo somma}
+	\item \textbf{Spostamento dei nodi somma prima/dopo del blocco}
+	\item \textbf{Spostamento di nodi qualunque prima/dopo del blocco}
 \end{itemize}
-
-\begin{comment}
-	- Rimozione di blocco parallelo: Si va a pre-operare con un blocco
-	- Rimozione di anello di feedback: Dato un sistema a blocchi con controllo di retroazione, possiamo semplificarlo con un singolo I/O ed un blocco con \frac{A}{1+-AB}
-	- Rimozione dal loop: Dato un primo sistema come nella regola precedente, vedere il disegno che è più chiaro.
-	- Riorganizzazione di input nel nodo somma: Ringrazia la proprietà commutativa.
-	- Spostamento dei nodi somma prima/dopo del blocco
-	- Spostamento di nodi qualunque prima/dopo del blocco
-	
-	Consigliato vedere le foto delle regole di trasformazione, sono sicuramente più chiare rispetto alla spiegazione a parole.
-\end{comment}
 
 %
 
 \section{Schemi di flusso}
+Questo è il modo più corretto e coinciso per la rappresentazione degli schemi a blocchi; gli \textbf{schemi di flusso} sono dei diagrammi rappresentati tramite \textbf{nodi} $x_i$ e \textbf{archi} $A_j$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{Images/DiagrammaDiFlussoBase.png}
+	\caption{Diagramma di flusso base}
+	\label{fig:BaseFlowDiagram}
+\end{figure}
+
+\noindent Come nel metodo precedente abbiamo delle proprietà, nettamente meno numerose:
+\begin{itemize}
+	\item \textbf{Regola dell'addizione}: $y = \sum x_i\cdot A_j$\par
+	\noindent L'uscita $y$ è data dalla somma di ogni input $x_i$ elaborato attraverso la funzione $A_j$ dell'arco attraversato.
+	\item \textbf{Regola della trasmissione}: $y_i = x\cdot A_j$\par
+	\noindent Uno specifico output $y_i$ è dato da un input $x$ trasmesso in un determinato arco con relativa funzione $A_j$. Ne consegue che uno stesso input può essere trasmesso in più direzioni.
+	\item \textbf{Regola della moltiplicazione}: $y = (x\cdot A) \cdot (x_1\cdot B) \cdot ...$\par
+	\noindent È possibile raggruppare più input $x,x_1,...$ in un singolo output $y$ rappresentandoli come la moltiplicazione tra le funzioni attraverso le quali passano.
+\end{itemize}
+\noindent Prima di iniziare a lavorarci è necessario chiarire i concetti di \textbf{cammino}, \textbf{cammino ad anello}, e \textbf{guadagno}. Il primo rappresenta la strada presa nel flusso per arrivare da input a output, il secondo svolge la medesima funzione, ma termina dove ha avuto inizio, mentre il terzo è il valore del prodotto di tutti i pesi degli archi in un dato percorso. Più semplicemente è l'applicazione della terza proprietà.\par
+Ok, ma come si fa a passare da uno schema a blocchi ad un diagramma di flusso? Bisogna compiere alcune operazioni preliminari:
+\begin{enumerate}
+	\item \textbf{Determinazione dei nodi}: I nodi da trasferire nel flusso sono quelli di input/output, di somma/sottrazione e anche quelli già visibili nello schema a blocchi.
+	\item \textbf{Collegare i nodi con gli archi}: I nodi vanno uniti in base al percorso che corrono. In assenza di elaborazioni fra un elemento e un altro, il peso è posto uguale a $1$, mentre se il cammino attraversa un blocco, il peso sarà equivalente alla funzione in esso contenuta. Attenzione ai segni nei nodi di somma e sottrazione.
+\end{enumerate}
+\begin{minipage}{0.5\linewidth}
+	\includegraphics[width=1\linewidth]{Images/BlockToFlow1.png}
+\end{minipage}
+\vspace{0.05\linewidth}
+\begin{minipage}{0.5\linewidth}
+	\includegraphics[width=1\linewidth]{Images/BlockToFlow2.png}
+\end{minipage}
+
+\noindent Come si può vedere dalle immagini, nello schema di flusso i blocchi sono stati sostituiti dagli archi ed è stato aggiunto il segno ove necessario. Il resto dei dati, eccezion fatta per i nodi aggiunti, è rimasto esattamente lo stesso.\par
+Il prossimo passo da compiere ora è la ricerca della \textbf{funzione di trasferimento} o trasmittanza; si tratta del rapporto fra:
+\begin{itemize}
+	\item La sommatoria di ogni percorso, coi relativi discriminanti: $\sum_i P_i\Delta_i$\par
+	\noindent Dove in particolare $P_i$ è il guadagno dell'i-esimo cammino in avanti.
+	\item Il discriminante del sistema intero: $\Delta = 1(-1)^{k+1}\sum_k\sum_j P_{jk}$\par
+	\noindent Qui $P_{jk}$ è il prodotto dei percorsi che non si toccano. Per ogni $j$ che incrementa, bisognerà prendere unità, coppie, triple e così via.
+\end{itemize}
+\noindent Insomma la forma finale della trasmittanza è data dalla formula: \[T = \frac{\sum_i P_i\Delta_i}{\Delta}\]
+\noindent Per ottenere i componenti della formula è necessario compiere alcuni passaggi:
+\begin{itemize}
+	\item \textbf{Ricerca di tutti i percorsi in avanti}: Parliamo infatti di ogni permutazione di cammino percorribile in avanti, i quali partono dall'input per terminare in output. Nel caso del grafo appena ottenuto abbiamo un singolo percorso, dato da: \[P_1 = (x_1, x_2, x_3, x_4) = 1\cdot G \cdot 1 = G\]
+	\item \textbf{Controllo di presenza anelli}: Quindi vedere se c'è qualche istanza in cui il segnale può tornare da dove è iniziato. Gli anelli che non si toccano e che quindi non hanno nulla in comune possono essere accorpati. Qui abbiamo solo: \[A_{1,1} = (x_2, x_3) = -GH\]
+	\item \textbf{Calcolo del discriminante}: Un solo percorso, una sola sommatoria: \[\Delta = 1-(P_{1,1})+0 = 1+GH\]
+	\noindent Il discriminante del percorso specifico è invece $1$ perché gli anelli che toccano il percorso vanno annullati.
+\end{itemize}
+\noindent Con questi dati abbiamo confermato che la funzione di trasferimento $T$ è data da: \[T = \frac{P_1\cdot \Delta_1}{\Delta} = \frac{G}{1+GH}\]
 
 %
 
 \section{Esercizi svolti}
-Per nessun motivo devi usare il primo metodo. Gli schemi di flusso regnano supremi.
+\textbf{Esecizio 1}: Calcolare trasmittanza del seguente sistema a blocchi:
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/FlowDiagramEx1-1.png}
+	\label{fig:FlowDiagramEx1-1}
+\end{figure}
+
+\noindent Prendiamo i nodi esistenti e ricaviamo quelli dati dai blocchi di somma. Otteniamo $x, ..., x_{10}, y$ nodi, e collegandoli con gli archi corretti otteniamo il seguente schema di flusso:
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/FlowDiagramEx1-2.png}
+	\label{fig:FlowDiagramEx1-2}
+\end{figure}
+
+\noindent Adesso è necessario descrivere ogni permutazione di percorso in avanti, ottenendo:
+\begin{equation}
+	\begin{split}
+		P_1 &= (x_1, x_2, x_3, x_4, x_5, x_6, x_7, x_8, x_9, x_{10}) = AC\\
+		P_2 &= (x_1, x_2, x_5, x_6, x_7, x_8, x_9, x_{10}) = FC\\
+		P_3 &= (x_1, x_2, x_3, x_4, x_5, x_6, x_8, x_9, x_{10}) = AG\\
+		P_4 &= (x_1, x_2, x_5, x_6, x_8, x_9, x_{10}) = FG
+	\end{split}
+\end{equation}
+\noindent Ora valutiamo la (palese) presenza di anelli, dunque:
+\begin{equation}
+	\begin{split}
+		A_{1,1} &= (x_3, x_4) = -AB\\
+		A_{2,1} &= (x_7, x_8, x_9) = -CD\\
+		A_{3,1} &= (x_1, x_2, x_5, x_6, x_7, x_8, x_9, x_10) = FCE\\
+		A_{4,1} &= (x_1, x_2, x_5, x_6, x_8, x_9, x_10) = FGE\\
+		A_{5,1} &= (x_1, x_2, x_3, x_4, x_5, x_6, x_7, x_8, x_9, x_10) = ACE\\
+		A_{6,1} &= (x_1, x_2, x_3, x_4, x_5, x_6, x_8, x_9, x_10) = AGE
+	\end{split}
+\end{equation}
+\noindent Accorpiamo le coppie di anelli che non hanno nodi in comune:
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline
+		& $x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & $x_6$ & $x_7$ & $x_8$ & $x_9$ & $x_{10}$\\
+		\hline
+		$A_{1,1}$ & & & \checkmark & \checkmark & & & & & &\\
+		\hline
+		$A_{2,1}$ & & & & & & \checkmark & \checkmark & \checkmark & &\\
+		\hline
+		$A_{3,1}$ & \checkmark & \checkmark & & & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark\\
+		\hline
+		$A_{4,1}$ & \checkmark & \checkmark & & & \checkmark & \checkmark & & \checkmark & \checkmark &\checkmark\\
+		\hline
+		$A_{5,1}$ & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark\\
+		\hline
+		$A_{6,1}$ & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & \checkmark & & \checkmark & \checkmark & \checkmark\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\noindent Otteniamo quindi gli anelli di ordine $2$:
+\begin{equation}
+	\begin{split}
+		A_{1,2} &= (A_{1,1}\cdot A_{2,1}) = ABCD\\
+		A_{2,2} &= (A_{1,1}\cdot A_{3,1}) = -ABCFE\\
+		A_{3,2} &= (A_{1,1}\cdot A_{4,1}) = -ABFGE
+	\end{split}
+\end{equation}
+\noindent Non è più possibile continuare l'accorpamento in quanto le triple vanno sempre a toccarsi in qualche modo. Quindi possiamo procedere al calcolo del discriminante del sistema. Effettuiamo la somma fra tutti i guadagni di ogni anello, per poi applicare quanto ottenuto ai singoli percorsi:
+\begin{equation}
+	\begin{split}
+		\Delta &= 1 - [-AB-CD+FCE+FGE+ACE+AGE] + [ABCD-ABCEF-ABEFG]\\
+		\Delta_1 &= 1\\
+		\Delta_2 &= 1+AB\\
+		\Delta_3 &= 1\\
+		\Delta_4 &= 1+AB
+	\end{split}
+\end{equation}
+\noindent E finalmente otteniamo la funzione di trasferimento, gesù cristo: \[T = \frac{AC(1) + FC(1+AB) + AG(1) + FG(1+AB)}{1+AB+CD-FCE-FGE-ACE-AGE+ABCD-ABCEF-ABEFG}\]

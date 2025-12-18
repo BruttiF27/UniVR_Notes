@@ -1,8 +1,3 @@
-\begin{comment}
-	Da riorganizzare il contenuto
-\end{comment}
-
-
 \section{Leggi di Newton}
 Il concetto che governa le dinamiche di questo mondo è la \textbf{forza}, della quale esistono due tipi:
 \begin{itemize}
@@ -46,20 +41,92 @@ Tuttavia finora abbiamo compiuto delle grandi approssimazioni. Nella vita vera, 
 \noindent Che cosa cambia nei modelli di analisi visti in precedenza? Che fondamentalmente bisogna considerare una nuova forza nella sommatoria da calcolare. Supponiamo nuovamente un corpo di massa $m$ posto su un piano inclinato di angolo $\theta$ e che il corpo non si muova. Abbiamo la forza peso, le cui componenti sono date da $P_y = mgsin\theta$ e $P_x = mgcos\theta$, dove quest'ultima spinge il corpo contro la superficie.\par
 La forza di attrito, come già menzionato, è scomponibile nelle sue componenti, e quella che impedisce il movimento al corpo, sta sull'asse delle $x$. È data da: $F_a = \mu_scos\theta$. Possiamo infine ricavare la costante di attrito con alcuni semplici passaggi algebrici: \[mgsin\theta - F_A = 0 \implies mgsin\theta - \mu_smgcos\theta = 0 \implies sin\theta = \mu_scos\theta \implies \mu_s = tan\theta\]
 
-
-\begin{comment}	
-	--- Concetto di energia
-	Esistono tanti tipi di energia, come meccanica, cinetica e tant'altre. Cambiando lo stato di quiete si modifica l'energia di un corpo. La variazione di energia, ovvero quanta ne è consumata, si calcola con il lavoro L = \Delta E = Fscos\theta.
-	Il lavoro è un valore scalare
-	
-	Energia potenziale. Se alzo un libro si immagazzina dell'energia in esso, e quando viene rilasciato, così sarà anche per l'energia sotto forma di energia cinetica. Lo rispiegherà più in seguito.
-\end{comment}
-
-
 % Estensione del modello moto circolare uniforme
 % Moto circolare non uniforme
 % Moto in sistemi di riferimento accelerati
 % Moto in presenza di forze frenanti
 
+%
+
 \section{Concetto di energia}
+Per poter lavorare con il concetto di \textbf{energia} è necessario chiarire che ci troviamo all'interno di un sistema, dove è ben definito il confine. Questo perché l'energia è un valore scalare che si \textbf{conserva} all'interno di un determinato ambiente confinato e di conseguenza il suo totale è costante.\par
+Notiamo che cambiando lo stato di quiete di un corpo varierà anche il suo valore di energia. Ciò è calcolato tramite il \textbf{lavoro}, misurato in \textbf{Joule} $[1J = N\cdot m]$ e dato dall'equazione: \[L = \Delta E = Fs\cdot cos\theta\]
+\noindent Dove $F$ è il modulo della forza applicata, $s$ il suo spostamento, mentre $\theta$ la direzione della forza. Notare che se $\theta=0$, il lavoro è massimo.\par
+Bisogna pensarlo come un trasferimento di energia, poiché questa si conserva nei vari corpi del sistema e mai scompare. Infatti, se il valore è positivo diciamo che l'energia è trasferita al sistema, mentre se è negativo viene passata dal sistema al corpo.\newline
+
+\noindent Prendiamo ora come esempio un sistema costituito da un singolo corpo. Siamo coscienti del fatto che spostando questo corpo, per la seconda legge di Newton, si abbia anche un'accelerazione, dunque possiamo ricondurre il lavoro, e quindi la variazione dell'energia, ad una forza totale applicata in una determinata area; svolgendo i passaggi algebrici dell'integrale possiamo ottenere quella che è chiamata \textbf{energia cinetica} $E_c$: \[\Delta E = \int m\cdot a ds = \int m\cdot\frac{dv}{dt} ds = \int m\cdot\frac{dv}{dt}\cdot\frac{ds}{dt} dt = \int mv dv = \frac{1}{2}mv^2\]
+\noindent Questa energia, essendo espressa in funzione della velocità, ne è anche influenzata. Naturalmente, nel punto iniziale equivale a zero.\par
+Supponiamo invece di avere un sistema con due corpi, composto dal terreno e un libro. Sollevando quest'ultimo da terra si ha una variazione di energia, la quale sarà conservata nella massa; più si alza, maggiore sarà, e verrà ritrasferita al sistema lasciando cadere l'oggetto sotto forma di energia cinetica. L'energia immagazzinata dal libro è detta \textbf{energia potenziale} $E_p$, dipende dalla forza in gioco e la sua equazione può cambiare forma in base all'evento preso in esame. Ovviamente nel punto finale, l'energia potenziale è uguale a zero.\par
+Per esempio, se la variazione di energia è verticale come nel caso del libro, diremo che il lavoro è dato dalla massa, l'accelerazione gravitazionale e l'altezza alla quale è posto il corpo:\[L = mgh\]
+\noindent Generalmente, se è nostra intenzione calcolare l'energia potenziale di qualunque forza anche non costante, la si deve integrare, in qualunque sua forma. Prendiamo infatti la forza elastica data da $F = -kx$; in tal caso la sua energia potenziale sarà data da: \[L = \int -k\cdot x ds \implies L = \frac{1}{2} kx_i^2 - \frac{1}{2} kx_f^2\]
+\noindent Man mano che l'energia potenziale diminuisce, il suo valore si trasferisce alla cinetica. Quindi abbiamo un valore di $E_{tot}$ dato dalla somma di questi due recipienti, il quale, giustamente, rimane sempre costante. Inoltre, è possibile ricavare la velocità finale con una formula diretta:
+\begin{itemize}
+	\item \textbf{Per forze generali}: $v_f = \sqrt{2gh}$
+	\item \textbf{Per le molle}: $v_f = \sqrt{\frac{k}{m}}\cdot s$
+\end{itemize}
+\noindent Introduciamo ora una piccola tassonomia delle forze; definiamo infatti \textbf{conservative} quelle forze il cui lavoro dipende esclusivamente dal punto di inizio e di fine; quindi, indipendentemente dal percorso, se si termina nello stesso punto finale avrà lo stesso valore. Ne consegue che se il percorso inizia da un dato punto per far lì ritorno, il lavoro sarà uguale a zero.\par
+\noindent Diciamo invece forze \textbf{non conservative} quelle la cui variazione dell'energia dipende dallo spostamento, e definiremo \textbf{energia meccanica} del sistema la somma fra le energie cinetica e potenziale: \[E_{mecc} = E_c + E_p\]
+\noindent Infine, come ultimo concetto, legando il lavoro eseguito ad un determinato intervallo di tempo, è possibile misurare la \textbf{potenza} $P$ di un dato evento fisico, la cui unità di misura è il \textbf{Watt}. $[1W = 1J/s]$ \[P = \frac{L}{t}\]
+\noindent Un'altra cosa importante è come la potenza è la derivata dell'energia rispetto al tempo e che di conseguenza la variazione dell'energia è l'integrale della forza per lo spostamento. In questi termini, possiamo scrivere la potenza come prodotto vettoriale fra forza e velocità. \[P = \frac{dE}{dt}; \Delta E = \int F\cdot ds \implies dE = F\cdot ds\] \[P = \frac{F\cdot ds}{dt} = F\cdot \frac{ds}{dt} = \overrightarrow{F}\cdot\overrightarrow{v}\]
+\noindent E in questi termini, la forza è rappresentabile anche come la variazione dell'energia rispetto allo spazio: \[F = \frac{dE}{ds}\]
+
+%
+
+\section{Quantità di moto e urti}
+La \textbf{quantità di moto} di un oggetto è definita come il prodotto della sua massa con la sua velocità. Si tratta di una grandezza vettoriale, la quale, per la terza legge di Newton, si conserva. Naturalmente è un valore che si misura avendo più corpi a disposizione; infatti la quantità di moto totale $\overrightarrow{p}_{tot}$ è data dalla somma vettoriale dell'interazione fra i due corpi e si chiama \textbf{urto}. Partendo dal presupposto che prima di scontrarsi, i corpi hanno una determinata energia cinetica definita come: \[\frac{\Delta}{2}m_1v_1^2; \frac{\Delta}{2}m_2v_2^2\]
+\noindent Abbiamo che la dinamica degli urti presenta due casi limite:
+\begin{itemize}
+	\item \textbf{Urti anelastici}: I corpi rimangono attaccati insieme e si spostano in una direzione con una velocità uguale. L'energia cinetica non si conserva ed una sua parte è trasferita nell'urto.
+	\item \textbf{Urti elastici}: I corpi urtano, prendono velocità diverse e poi vanno in direzioni differenti con altrettante velocità diverse. L'energia cinetica è perfettamente conservata.
+\end{itemize}
+\noindent Analizziamo meglio i casi presentati; nell'urto anelastico abbiamo capito di avere due corpi $m_1$, $m_2$ con rispettive velocità $v_1$, $v_2$, i quali, scontrandosi, restano uniti e si muovono in una sola direzione a velocità $v_f$. Essendo la quantità di moto costante, abbiamo che: $\overrightarrow{p_i} = \overrightarrow{p_f}$, e la dinamica è descritta dall'equazione: \[m_1v_1 + m_2v_2 = (m_1+m_2)v_f\]
+\noindent Dove, in particolare: \[m_1v_1 + m_2v_2 = \overrightarrow{p_i}; (m_1+m_2)v_f = \overrightarrow{p_f}\]
+\noindent Inoltre è possibile ricavare la velocità finale in un solo passaggio conoscendo massa e velocità di ambo i corpi: \[v_f = \frac{m_1v_1 + m_2v_2}{m_1+m_2}\]
+\noindent Per quanto riguarda l'urto elastico, invece, dati due corpi $m_1$, $m_2$ con due velocità $v_1$, $v_2$; scontrandosi vanno in direzioni opposte con due velocità diverse $v_{1f}$, $v_{2f}$. L'energia cinetica totale qui è conservata ed è costante, come anche la quantità di moto totale. Abbiamo di conseguenza due equazioni:
+\begin{itemize}
+	\item \textbf{Quantità di moto totale}: $p_{tot} \implies m_1v_1 + m_2v_2 = m_1v_{1f} + m_2v_{2f}$
+	\item \textbf{Energia totale}: $E_{tot} \implies \frac{1}{2}m_1v_1^2 + \frac{1}{2}m_2v_2^2 = \frac{1}{2}m_1v_{1f}^2 + \frac{1}{2}m_2v_{2f}^2$
+\end{itemize}
+\noindent Un nuovo concetto importante, che ci consente di iniziare a considerare i corpi come effettive forme e non come punto materiale è il \textbf{centro di massa}. Supponiamo una forma nel piano cartesiano che si estende da $m_1$ a $m_2$; allora esiste un punto, detto centro di massa $C_m$ con coordinate $(x_{C_m}, y_{C_m})$ definito dal sistema: \[\begin{cases}
+	x_{C_m} = \frac{\sum_{i=1}^n x_im_i}{\sum_{j=1}^k m_k}\\
+	y_{C_m} = \frac{\sum_{i=1}^n y_im_i}{\sum_{j=1}^k m_k}
+\end{cases}\]
+\noindent Più semplicemente si tratta della sommatoria del prodotto del modulo dei corpi con la loro massa, divisa per la sommatoria di tutte le masse.
+
+\begin{comment}
+	TODO URTI IN UNA E DUE DIMENSIONI
+\end{comment}
+%
+
 \section{Esercizi svolti}
+
+\begin{comment}
+	-- Esercizio urto anelastico
+	Abbiamo un'auto m_1=1500Kg con v_1=25m/s verso est e all'incrocio urta un furgone m_2=500Kg con v_2=20m/s verso nord
+	Il risultato è un urto anelastico che si muove a v_f con un determinato angolo \theta.
+	Calcolare direzione e modulo di v_f assumendo che l'urto sia perfettamente anelastico, quindi senza conservare energia cinetica.
+	
+	// Tutte le velocità sono vettoriali, immagina che abbiano la freccia a destra.
+	
+	L'equazione del fenomeno è sicuramente data da: \[m_1v_1 + m_2v_2 = (m_1+m_2)v_f\]
+	\noindent Siamo in uno scenario a due dimensioni, quindi sarà necessario scomporre i vettori in componenti
+	\begin{cases}
+		x\implies m_1v_1 + 0 = (m_1+m_2)v_fcos\theta\\
+		y\implies 0 + m_2v_2 = (m_1+m_2)v_fsin\theta
+	\end{cases}
+	
+	Proviamo a dividere la seconda equazione per la prima
+	\[\frac{(m_1+m_2)v_fsin\theta}{(m_1+m_2)v_fcos\theta} = \frac{m_2v_2}{m_1v_1} \implies tan\theta = \frac{m_2v_2}{m_1v_1}\]
+	Da qua otteniamo il valore dell'angolo e poi da questo anche v_f.
+	
+	-- Esercizio urto elastico
+	Abbiamo due oggetti m_1, m_2 con v_1 = v_2 = 0. Dopo l'urto i due oggetti vanno in due direzioni con due \theta diversi e due velocità finali diverse.
+	La quantità di moto totale e l'energia cinetica sono costanti in quanto urto perfettamente elastico.
+	
+	E_{tot} \implies \frac{1}{2}m_1v_1^2 + \frac{1}{2}m_2v_2^2 = \frac{1}{2}m_1v_{1f}^2 + \frac{1}{2}m_2v_{2f}^2
+	
+	P_{tot} = \begin{cases}
+		0 = m_1v_{1f}cos\theta + m_2v_{2f}cos\phi\\
+		0 = m_1v_{1f}sin\theta + m_2v_{2f}sin\phi
+	\end{cases}
+\end{comment}

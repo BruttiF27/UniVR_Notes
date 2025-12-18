@@ -9,30 +9,24 @@
 \contentsline {chapter}{\numberline {3}Basi della dinamica}{15}{}%
 \contentsline {section}{\numberline {3.1}Leggi di Newton}{15}{}%
 \contentsline {section}{\numberline {3.2}Concetto di energia}{17}{}%
-\contentsline {section}{\numberline {3.3}Esercizi svolti}{17}{}%
-\contentsline {chapter}{\numberline {4}Quantità di moto e urti}{18}{}%
-\contentsline {section}{\numberline {4.1}Quantità di moto}{18}{}%
-\contentsline {section}{\numberline {4.2}Urti in una dimensione}{18}{}%
-\contentsline {section}{\numberline {4.3}Urti in due dimensioni}{18}{}%
-\contentsline {section}{\numberline {4.4}Esercizi svolti}{18}{}%
-\contentsline {chapter}{\numberline {5}Moto rotazionale}{19}{}%
-\contentsline {section}{\numberline {5.1}Rotazione di un corpo rigido attorno a un asse fisso}{19}{}%
-\contentsline {section}{\numberline {5.2}Momento angolare}{19}{}%
-\contentsline {section}{\numberline {5.3}Equilibrio statico ed elasticità}{19}{}%
-\contentsline {section}{\numberline {5.4}Esercizi svolti}{19}{}%
-\contentsline {chapter}{\numberline {6}Gravità}{20}{}%
-\contentsline {section}{\numberline {6.1}Legge di gravitazione universale}{20}{}%
-\contentsline {section}{\numberline {6.2}Esercizi svolti}{20}{}%
-\contentsline {chapter}{\numberline {7}Moto oscillatorio}{21}{}%
-\contentsline {section}{\numberline {7.1}Moto di un corpo attaccato ad una molla}{21}{}%
-\contentsline {section}{\numberline {7.2}Oscillatore armonico}{21}{}%
-\contentsline {section}{\numberline {7.3}Pendolo}{21}{}%
-\contentsline {section}{\numberline {7.4}Esercizi svolti}{21}{}%
-\contentsline {chapter}{\numberline {8}Meccanica dei fluidi}{22}{}%
-\contentsline {section}{\numberline {8.1}Pressione e profondità}{22}{}%
-\contentsline {section}{\numberline {8.2}Spinta di Archimede}{22}{}%
-\contentsline {section}{\numberline {8.3}Dinamica dei fluidi}{22}{}%
-\contentsline {section}{\numberline {8.4}Equazione di Bernoulli e comportamento nei tubi}{22}{}%
-\contentsline {section}{\numberline {8.5}Esercizi svolti}{22}{}%
-\contentsline {chapter}{\numberline {9}Termodinamica}{23}{}%
-\contentsline {chapter}{\numberline {10}Onde}{24}{}%
+\contentsline {section}{\numberline {3.3}Quantità di moto e urti}{19}{}%
+\contentsline {section}{\numberline {3.4}Esercizi svolti}{20}{}%
+\contentsline {chapter}{\numberline {4}Moto rotazionale e gravitazione}{21}{}%
+\contentsline {section}{\numberline {4.1}Rotazione di un corpo rigido attorno a un asse fisso}{21}{}%
+\contentsline {section}{\numberline {4.2}Momento angolare}{21}{}%
+\contentsline {section}{\numberline {4.3}Equilibrio statico ed elasticità}{21}{}%
+\contentsline {section}{\numberline {4.4}Legge di gravitazione universale}{21}{}%
+\contentsline {section}{\numberline {4.5}Esercizi svolti}{21}{}%
+\contentsline {chapter}{\numberline {5}Moto oscillatorio}{22}{}%
+\contentsline {section}{\numberline {5.1}Moto di un corpo attaccato ad una molla}{22}{}%
+\contentsline {section}{\numberline {5.2}Oscillatore armonico}{22}{}%
+\contentsline {section}{\numberline {5.3}Pendolo}{22}{}%
+\contentsline {section}{\numberline {5.4}Esercizi svolti}{22}{}%
+\contentsline {chapter}{\numberline {6}Meccanica dei fluidi}{23}{}%
+\contentsline {section}{\numberline {6.1}Pressione e profondità}{23}{}%
+\contentsline {section}{\numberline {6.2}Spinta di Archimede}{23}{}%
+\contentsline {section}{\numberline {6.3}Dinamica dei fluidi}{23}{}%
+\contentsline {section}{\numberline {6.4}Equazione di Bernoulli e comportamento nei tubi}{23}{}%
+\contentsline {section}{\numberline {6.5}Esercizi svolti}{23}{}%
+\contentsline {chapter}{\numberline {7}Termodinamica}{24}{}%
+\contentsline {chapter}{\numberline {8}Onde}{25}{}%

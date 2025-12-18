@@ -5,7 +5,7 @@ English translation? Why would you even consider that?
 Status delle dispense:
 - Primo anno:
   - Analisi matematica 1: Giuro che la comincio quando dovrò dare analisi 2.
-  - Logica:È incompleta, da rivedere. Avendo passato l'esame non credo la riprenderò.
+  - Logica: È incompleta, da rivedere. Avendo passato l'esame non credo la riprenderò.
   - Programmazione 1: Ha roba a sufficienza ma non è completa.
   - Architettura degli elaboratori: Questa è pregna di contenuto scritto bene. Non è completa, però.
   - Fisica 1: Attualmente in lavorazione

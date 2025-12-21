@@ -64,12 +64,23 @@ La classe System non può essere istanziata e comprende campi e metodi utili per
 	static long currentTimeMillis() // Ritorna l'ora attuale
 \end{lstlisting}
 
-\subsection{.String, StringBuilder}
-.String:
-Le stringhe son costanti e senza terminatore, str.length(), str.charAt(i), s.equals(t), str.indexOf(c), str.substring(start, end), str.replace(target, replacement), format()
-
-.StringBuilder
-StringBuilder delete(int start, int end), StringBuilder insert(int index, String str), StringBuilder reverse()
+\subsection{.String, .StringBuilder}
+Le classi String, StringBuilder e StringJoiner sono utilizzate per la manipolazione di stringhe. Lavorano su oggetti immutabili. Le ultime due possono anche prendere delle stringhe già esistenti e convertirle in loro oggetti.
+\begin{lstlisting}[language=Java]
+	// Metodi visti - String
+	String("Caratteri")		// Costruttore
+	int length()			// Lunghezza della stringa
+	char charAt(int index)		// Carattere a indice index
+	int indexOf(int ch)		// ch in stringa? Y=indice/n=-1
+	String substring(int beginIndex, int endIndex) // Ottiene substring
+	String replace(char oldChar, char newChar) // Sostituisce old con new
+	
+	// Metodi visti - StringBuilder
+	StringBuilder("Caratteri")	// Costruttore
+	StringBuilder append("caratteri")	// Concatena alla stringa
+	StringBuilder insert(int index, String str)	// inserisce str a partire da index
+	StringBuilder delete(int beginIndex, int ednIndex) // Cancella caratteri negli indici
+\end{lstlisting}
 
 \subsection{.Math}
 La classe Math non è istanziabile e contiene metodi per effettuare operazioni numeriche di base come esponenziali, logaritmi, radici e funzioni trigonometriche.
@@ -93,7 +104,7 @@ La classe Math non è istanziabile e contiene metodi per effettuare operazioni n
 	static double toRadians (double d) 	// Passa da deg a rad
 \end{lstlisting}
 
-\subsection{.Comparable}
+\subsection{.Comparable, .Comparator}
 L'interfaccia Comparable porta un metodo utile generalizzato per paragonare due oggetti.
 \begin{lstlisting}[language=Java]
 	// Negativo se this<obj, zero se this=obj e positivo se this>obj
@@ -110,29 +121,6 @@ L'interfaccia Comparable porta un metodo utile generalizzato per paragonare due 
 		}
 	}
 \end{lstlisting}
-
-\begin{comment}
-	// Interfaccia comparabile con generics
-	java.lang.Comparable<T>	è un interfaccia contenente int compareTo(T obj); Fondamentalmente parliamo di una classe apposita per le comparazioni, alla quale viene dato un generic.
-	I metodi potranno poi essere overridati per essere adattati al caso in esame.
-	Ritorna 0 se gli oggetti sono uguali, un intero > 0 se il primo oggetto è maggiore dell'altro, mentre un numero < 0 se è minore.
-	
-	```
-	public class Student extends Person implements Comparable <Student> {
-		...
-		@Override	// Per adattare il metodo alla classe specifica.
-		public int compareTo (Student other) {
-			return this.matricola − other.matricola;
-		}
-	}
-	```
-	
-	java.lang.Iterable<E> è un'utile interfaccia contenente il metodo Iterator<E>, Iterator(), che a sua volta contiene metodi boolean HasNext(), E next().
-	Queste due interfacce sono inutilizzabili da sole; per usare iterable è necessario implementare iterator, altrimenti sarà impossibile scorrere gli oggetti dati.
-	1. Dichiara l'iterable implementato dall'interfaccia, l'oggetto sta dentro le <>, detto operatore diamond.
-	2. Definisci costruttore e overrida la funzione Iterator() per adattarne il comportamento.
-	3. Dichiara l'iteratore per scorrere l'oggetto in esame, poi overrida le funzioni hasNext e next per adattarne il comportamento.
-\end{comment}
 
 \subsection{.Iterable, .Iterator}
 Se una classe implementa l'interfaccia Iterable, i suoi oggetti potranno essere iterati con un ciclo for-each grazie al suo uso dell'interfaccia Iterator, parte del JCF, il quale sarà approfondito più avanti.
@@ -199,6 +187,8 @@ Esempio di utilizzo:\newline
 	\subsection{.Thread}
 \end{comment}
 
+%
+
 \section{java.util.*}
 Il pacchetto java.util.* contiene varie funzioni di utility per rendere il codice più leggibile, astratto, modulare e sicuro.
 \subsection{.Scanner}
@@ -223,12 +213,65 @@ La classe Random è istanziabile, ed è usata per la generazione di variabili ps
 \subsection{.Arrays}
 
 \subsection{Java Collection Framework}
+La Java Collection Framework è un insieme di strutture dati iterabili definite tramite l'uso di parametri generici, rendendole utilizzabili in qualunque contesto. Si tratta di uno dei pacchetti più importanti di tutto il linguaggio.\par
+Tutte le strutture dati del framework estendono l'interfaccia padre \textbf{Collection}, la quale porta svariati metodi utili:
+\begin{lstlisting}[language=Java]
+	public interface Collection<E> extends Iterable<E> {
+		int size ();
+		int hasCode ();
+		boolean equals (Object obj); // Notare equals non generic
+		boolean isEmpty ();
+		boolean contains (Object obj);
+		boolean containsAll (Collection<?> c);
+		boolean add (E e);
+		boolean addAll (Collection<? extends E>);
+		boolean remove (Object obj);
+		boolean removeAll (Collection <?> c);
+		void clear ();
+		Object[] toArray ();
+		Iterator<E> iterator (); // from Iterable<E>
+	}
+\end{lstlisting}
+\noindent le strutture dati sottoclassi di Collection si riassumono in tre macrocategorie, date da:
+\begin{itemize}
+	\item \textbf{List}: Una lista di elementi, la quale può avere duplicati e dove si mantiene l'ordine di inserimento. Sottoclassi sono \textbf{ArrayList} e \textbf{LinkedList}.
+	\item \textbf{Queue}: Una lista di elementi legati da una relazione di ordinamento. Sottoclassi sono \textbf{Dequeue} e \textbf{PriorityQueue}.
+	\item \textbf{Set}: Insieme di elementi unici. Sottoclasse è \textbf{HashSet}.
+\end{itemize}
+\noindent Il modo corretto per la dichiarazione di queste strutture è istanziare la sottoclasse a partire dalla sovracclasse, funzionale grazie al principio di sostituzione.
+\begin{lstlisting}[language=Java]
+	// Esempio di implementazione
+	Collection<Person> list = new LinkedList<>();	// Crea lista
+	list.add(new Person("Joe"));	// Aggiunge Joe in coda alla lista
+	list.add(new Person("Sam"));
+\end{lstlisting}
+\noindent Naturalmente ogni struttura avrà metodi per facilitarne il workflow. Abbiamo un insieme di metodi condivisi fra List e Queue, mentre per Set sono sufficienti quelli ereditati da Collection.
+\begin{lstlisting}[language=Java]
+	// Metodi per List e Queue
+	E get (int i);	// Ottieni l'elemento a posizione i
+	E set(int i, E e);	// Rimpiazza l'elemento e a posizione i
+	void set(int i, E e);	// Aggiungi elemento e a posizione i
+	E remove(int i);	// Rimuovi elemento a posizione i
+	int indexOf(E e);	// Ritorna la posizione dell'elemento e
+	List<E> subList(int l, int r);	// Ritorna lista fra gli indici [l,r)
+\end{lstlisting}
+\noindent Un'utile implementazione di Set si ha con la sua sottoclasse \textbf{HashSet}, la quale consente l'accesso agli elementi della struttura a tempo costante in base a una determinata chiave. Questa struttura dati mantiene ineternalmente una HashMap, la quale garantisce l'unicità degli elementi usando il loro \textbf{hashcode} come chiave.\par
+Per una corretta generazione del codice si deve usare il metodo \textbf{hash(obj1, obj2)}, dato dalla classe Object, per poi fare override di equals() con lo scopo di basarlo sulla chiave. Un'altra implementazione utile di Set è \textbf{TreeSet}, basata sulla logica degli RB-Alberi. Aggiunge i metodi first() e last() per prendere il nodo radice e l'ultimo del cammino rispettivamente.\newline
 
-\begin{comment}
-	\subsection{Strutture dati}
-	java.util.Collection<E>, java.util.List<E>, java.util.Queue<E>, java.util.Set<E>, java.util.LinkedList<E>, java.util.ArrayList<E>, java.util.PriorityQueue<E>
-	java.util.HashSet<E>, java.util.SortedSet<E>, java.util.TreeSet<E>, java.util.Map<K,V>, java.util.HashMap<K,V>, java.util.SortedMap<K,V>, java.util.TreeMap<K,V>
-\end{comment}
+\noindent Un'ultima struttura sempre facente parte del JCF ma non ereditante Collection è la \textbf{Map<K, V>}, dove K sta per key e V per value. Si tratta di un insieme di associazioni che collegano una specifica chiave ad un determinato valore. Capirai che Set e Map sono strettamente legati. Presenta i seguenti metodi:
+\begin{lstlisting}[language=Java]
+	V put(K key, V values);	// Inserisci associamento
+	V get(Object key);	// Torna il valore associato alla chiave
+	V remove(Object key);	// Rimuovi l'associamento della chiave
+	boolean containsKey(Object key);	// Vedi se la mappa ha una chiave
+	boolean containsValue(Object value);	// Torna se valore in mappa
+	Set<K> keySet();	// Ritorna le chiavi della mappa
+	Collection<V> values();	// Ritorna i valori nella mappa
+\end{lstlisting}
+\noindent La JCF rende il il codice estremamente standardizzato; tuttavia non basta creare gli oggetti, bisogna anche poterci lavorare.\par
+Le mansioni principali sono quelle di scorrere gli elementi e il loro ordinamento; questo lavoro è reso semplice grazie alla sinergia con le interfacce Iterable e Comparable e di conseguenza anche con Iterator e Comparator.
+
+%
 
 \section{java.io.*}
 Il pacchetto java.io.* fornisce funzioni relative alla gestione di un flusso di dati, sia in input, che in output.
@@ -237,39 +280,4 @@ Il pacchetto java.io.* fornisce funzioni relative alla gestione di un flusso di 
 	\subsection{.Closeable}
 	\subsection{.Reader, .FileReader, .BufferedReader}
 	\subsection{.Writer, .FileWriter, .BufferedWriter, .PrintWriter}
-\end{comment}
-
-
-
-
-
-
-\begin{comment}
-	\noindent Continuiamo ragionando sull'ultima istruzione dello snippet appena visto. Le stringhe, come già detto, sono viste come oggetti, e per usarle bisogna istanziare un oggetto. Dopodiché, non saranno più mutabili in quanto non sono viste come sequenze di caratteri. Tuttavia, abbiamo a disposizione alcuni metodi con cui lavorarci:
-	\begin{lstlisting}[language=Java]
-		String str = new String("SHAW!");
-		String same = new String("SHAW!");
-		
-		System.out.println(str.length());		// Stampa la lunghezza di una stringa.
-		System.out.println(str.charAt(4));		// Stampa il singolo carattere alla posizione 4.
-		System.out.println(str.equals(same));	// Confronta str e same, torna vero se sono uguali.
-		str.indexOf(a) 							// Ricerca del carattere 'a' all'interno della stringa. Se assente torna -1, altrimenti torna l'indice.
-		str.substring(start, end)				// Ottiene una sottostringa con gli indici dati in input. Crea una nuova stringa.
-		str.replace(target, replacement)		// Rimpiazza i caratteri di target con quelli di replacement.
-	\end{lstlisting}
-	\noindent La classe String possiede anche il metodo \textbf{format}. Permette di formattare la stringa con una sintassi simil-C, ed è utile per mantenere un template.
-	\begin{lstlisting}[language=Java]
-		String str = new String("Egale");
-		int num = 2;
-		
-		// Dona un formato alla stringa
-		String formatStr = String.format("%s = %d", str, num);
-		System.out.println(formatStr);
-	\end{lstlisting}
-	\noindent Sebbene gli oggetti da String diventino costanti post-inizializzazione, java.lang fornisce la classe \textbf{StringBuilder}, che consente di gestire dinamicamente una stringa.
-	\begin{lstlisting}[language=Java]
-		StringBuilder sb = new StringBuilder("Droxie");				// Crea una stringa mutevole
-		sb.append("kaliemu");										// Concatena in coda i caratteri fra le virgolette.
-	\end{lstlisting}
-	\noindent È possibile anche cancellare ed inserire sottostringhe con i metodi \textbf{delete} ed \textbf{insert}. Insomma, le stringhe base sono costanti, mentre le stringhe mutevoli di StringBuilder sono sicuramente più flessibili.
 \end{comment}

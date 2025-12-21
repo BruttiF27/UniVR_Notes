@@ -106,7 +106,7 @@ Abbiamo già menzionato il concetto di type casting; la stessa dinamica è appli
 	public class Pair <T> {
 		private T first, second;
 		
-		// Essendo generico, può essere qualunque oggetto.
+		// Essendo generico, puo' essere qualunque oggetto.
 		public Pair(T first, T second) {
 			this.first = first;
 			this.second = second;
@@ -116,55 +116,28 @@ Abbiamo già menzionato il concetto di type casting; la stessa dinamica è appli
 		public T getSecond () { return second; }
 	}
 	
-	// La classe è utilizzabile con più tipi. Cast non necessario.
+	// Classe utilizzabile con piu' tipi. Cast non necessario.
 	Pair <String> p = new Pair <> ("one", "two");
 	Pair <Integer> q = new Pair <> (1, 2);
 \end{lstlisting}
-\noindent I generics funzionano perché al posto del carattere il compilatore riconosce la classe Object, ed in quanto ogni altra classe è suo sottoinsieme, si effettua un downcast tautologico.
-
-% TODO RIPRENDI DA QUA, T16
-
-\begin{comment}
-	Chiamiamo
-	questa definizione "Tipo di parametro libero". Possono essere anche legati, specificando un limite di classe superiore o inferiore.
-	- Unbounded: 
-	```
-	public class Pair <T> { // we want to use Person here
+\noindent I generics funzionano perché al posto del carattere il compilatore riconosce la classe Object, ed in quanto ogni altra classe è suo sottoinsieme, si effettua un downcast tautologico. L'uso del generic in questo modo lo rende un \textbf{parametro libero}, mentre se lo si usa per estendere altri parametri, sarà necessario dare un limite inferiore per evitare che il compiler riscontri problemi nella sua ricerca ricorsiva. T sarà chiamato \textbf{parametro legato}.
+\begin{lstlisting}[language=Java]
+	class Clazz <T extends S1 & S2 & ... & Sk>	// Limite superiore
+	class Clazz <T super S>	// Limite inferiore
+\end{lstlisting}
+\begin{lstlisting}[language=Java]
+	public class Pair <T extends Person> {
 		private T first, second;
-	}
-	```
-	- Bounded:
-	```
-	// Limite superiore
-	class Clazz <T extends S1 & S2 & ... & Sk>
-	// Limite inferiore
-	class Clazz <T super S>
-	```
-	
-	Se T è legato, il compiler non si lagnerà per i relativi metodi dichiarati, poiché ha un limite al quale fermarsi.
-	
-	```
-	public class Pair <T extends Person > { // we want to use Person here
-		private T first , second;
 		
-		public Pair (T first , T second) {
+		public Pair (T first, T second) {
 			this.first = first;
 			this.second = second;
 		}
 		
-		public T getFirst () { return first.getName(); } // no error
-		public T getSecond () { return second; } // T extends Person
+		public T getFirst () { return first.getName(); } // Nessun errore
+		public T getSecond () { return second; } // T estende Person, ok.
 	}
-	```
-	
-	--- Generics e ereditarietà
-	Gli iterabili C,D provenienti da una subclasse B non riconoscono come sovracclasse il padre A della sub B. Di conseguenza risultano incompatibili.
-	
-	Possiamo usare il parametro Wildcard '?' nel diamond per indicare un tipo generico Oggetto libero. Non differisce da una normale dichiarazione di unbounded generic T, infatti
-	non sarà possibile usare metodi ad esso associati; tuttavia il vantaggio è che non richiede classi per essere usato. Puoi usarlo come parametro generale.
-	Puoi tuttavia legare ? specificando limite superiore o inferiore con extends/super. In tal caso puoi usare i metodi definiti con questo tipo.
-\end{comment}
-
+\end{lstlisting}
 
 %
 

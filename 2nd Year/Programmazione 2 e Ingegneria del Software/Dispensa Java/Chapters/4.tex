@@ -1,7 +1,4 @@
-% TODO Cosa vuol dire strutturare un codice?
-% TODO Come si ottiene un modello? (esempio con singleton)
-
-I \textbf{modelli di progettazione} o design pattern sono soluzioni standardizzate a problemi comuni in ambito di sviluppo software. Risultano utili per dare un'idea del workflow adattato ed evita che si vada a reinventare la ruota. Consentono, di conseguenza, di creare codice più mantenibile ed efficiente in una struttura ripetibile. Si dividono in tre categorie:
+Nella seconda parte del corso, Ingegneria del Software, si approfondirà meglio il concetto di strutturazione e creazione del codice, tuttavia, è necessario fornire qualche nozione già da ora per iniziare a organizzare correttamente il codice. Un primo modus operandi è dato dai \textbf{modelli di progettazione} o design pattern. Si tratta di soluzioni standardizzate a problemi comuni in ambito di sviluppo software e risultano utili per dare un'idea del workflow adattato, evitando di reinventare la ruota. Consentono, di conseguenza, di creare codice più mantenibile ed efficiente in una struttura ripetibile. Si dividono in tre categorie:
 \begin{itemize}
 	\item \textbf{Creazionali}: Rendono un sistema indipendente dal modo in cui gli oggetti sono istanziati ed elaborati.
 	\item \textbf{Strutturali}: Scolpiscono una composizione di classi ed oggetti per formare una struttura più grande. Utili per facilitare la progettazione e minimizzare le dipendenze fra le parti.
@@ -31,13 +28,56 @@ Appartenente ai pattern creazionali, implica che ogni classe vada a rappresentar
 
 %
 
-\section{Documentazione Javadoc}
+\section{Gestione degli errori}
+Nella scrittura di programmi è inevitabile incappare in errori o situazioni non ideali; Java porta delle soluzioni per la loro gestione nelle forme di routine di interruzione date dalla classe \textbf{Exception}, implementabile con le keyword:
+\begin{itemize}
+	\item \textbf{try}: Prova ad eseguire del codice
+	\item \textbf{throw}: Nel verificarsi di una situazione anomala, lancia l'eccezione
+	\item \textbf{catch}: Cattura l'eccezione e gestiscila col conseguente blocco di codice.
+\end{itemize}
+\noindent Esistono delle classi di eccezioni native di alcune librerie, ma è possibile anche definirle noi stessi, estendendo Exception. Per utilizzare questa funzionalità è necessario dichiarare che una determinata classe può lanciare un'eccezione.
+\begin{lstlisting}[language=Java]
+	// Il metodo pop puo' lanciare le eccezioni indicate
+	public Object pop () throws EmptyStackException, IOException { ... }
+	
+	// Prova ad eseguire il codice
+	try {
+		// Chiama il metodo. Se non lancia nulla, continua
+		stack.pop();
+	// Ad eccezione lanciata, catturala
+	} catch (EmptyStackException e) {
+		// E gestisci l'errore con il seguente blocco di codice
+		System.out.println(e);
+	}
+\end{lstlisting}
+\noindent Per controllare le eccezioni è possibile definire più blocchi catch, ma verrà eseguito solamente il primo in cui si entra. Inoltre, è presente una gerarchia di eccezioni, definite come:
+\begin{itemize}
+	\item \textbf{Checked}: Situazioni anomale prevedibili, devono essere dichiarate e quindi controllate dal compiler. Generate con throw. Ne fanno parte \textbf{Exception}, \textbf{IOException} e le eccezioni user-defined.
+	\item \textbf{Unchecked}: Situazioni anomale non prevedibili, non devono essere dichiarate, né catturate. Gestite dalla JVM. Ne fanno parte \textbf{Error}, \textbf{ThreadDeath}, \textbf{RuntimeException}, \textbf{NullPointerException}.
+\end{itemize}
+\noindent Il fatto che le eccezioni controllate debbano essere dichiarate su ogni singolo metodo che può lanciarle aumenta la complessità del codice in modo importante, quindi, sebbene risultino più sicure, è consigliato restringerne l'uso esclusivamente in caso di estrema necessità. In alternativa è possibile sfruttare un loophole, lanciando ogni eccezione controllata sotto forma di non controllata e lasciando il lavoro sporco alla JVM, in questo modo:
+\begin{lstlisting}[language=Java]
+	public class MyException extends Exceptions { } // checked
+
+	public void foo () throws MyException {
+		throw new MyException();
+	}
+
+	// Non e' richiesta alcuna dichiarazione...
+	public void bar () {
+		try {
+			// ...perche' la chiamera' il metodo se serve...
+			foo();
+		// ...ed entrando qui, la rilanci come unchecked.
+		} catch (MyException e) {
+			throw new RuntimeException(e);	// Lavoro: sbolognato.
+		}
+	}
+\end{lstlisting}
 
 %
 
-\section{Gestione degli errori}
-
-- Eccezioni implicite ed esplicite (throw/catch), gerarchia eccezioni, controllate/non controllate. Throws per metodi, definizione di classi di eccezione
+\section{Documentazione Javadoc}
 
 %
 

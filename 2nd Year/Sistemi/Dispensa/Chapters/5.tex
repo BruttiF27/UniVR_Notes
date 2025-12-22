@@ -1,5 +1,151 @@
 \section{Grafici logaritmici}
+Abbiamo notato come ogni segnale può essere rappresentato come una somma di sinusoidi, e che ai sistemi LTI bibostabili, quando dato in input sinusoidale, ritorneranno un output della stessa forma e frequenza, ma con ampiezza e fase diverse.\par
+Quella di Bode è una rappresentazione grafica eseguita mediante \textbf{grafici logaritmici} che sfrutta proprio questa caratteristica, mostrando il comportamento dell'uscita di un segnale diviso per ampiezze e fasi senza conoscere la funzione del sistema al variare della frequenza.\newline
+
+\noindent Più precisamente, per i \textbf{diagrammi di Bode} vengono utilizzati due grafici semi-logaritmici, i quali presentano le pulsazioni $\omega[Hz = rad/s]$ sull'asse delle $x$, mentre sulle $y$ descrivono le ampiezze $A[dB = 20log_{10}(|A|)]$ o le fasi $\phi[deg]$, in due grafici diversi.\par
+Essendo i grafici in una scala logaritmica sull'asse delle $x$, avremo intervalli dati dalle potenze di $10$, chiamati \textbf{decadi}; quindi il minimo è dato da $-\infty$, il massimo è $+\infty$ e non si tocca mai lo zero. Gli intervalli di decadi sono graficamente definiti dallo spazio di $10$ quadrati del grafico.\newline
+
+% TODO Inserire esempio di grafico logaritmico
+
+\noindent Stiamo ragionando in termini di risposta in frequenza, quindi partiamo da un sistema che divide l'input in due parti per andare in due blocchi diversi. Poi somma questi due output per ritornare l'uscita. Supponiamo che:
+\begin{itemize}
+	\item $u(t) = \sin(\frac{1}{2}t)$
+	\item $v(t) = 2.83\deg\cdot \sin(\frac{1}{2}t - 0.785\deg)$
+	\item $\omega = \frac{1}{2}$
+\end{itemize}
+\noindent Ora applicheremo la trasformata di Laplace passando al dominio dei complessi: \[\frac{V(s)}{U(s)} = \frac{2s + 1}{s} \implies \frac{2j\omega + 1}{j\omega} = 2 - \frac{1}{\omega}j\]
+\noindent Ottenuto il comportamento in frequenza, sappiamo che la parte reale è $2$ e l'immaginaria è $-\frac{1}{\omega}j$, quindi prendiamo il piano cartesiano con la parte reale (x) e l'immaginaria (y), andando a scrivere i puntini al variare della frequenza $\omega$. A partire da questo piano possiamo calcolare ampiezza $l$ e fase $\theta$ della funzione, dove:
+\begin{itemize}
+	\item $l = \sqrt{Re^2 + Im^2} = |\sigma + j\omega| = |\sigma|$
+	\item $\theta = Arg(\sigma + j\omega) = atan2(\sigma, j\omega)$
+\end{itemize}
+\noindent La funzione $atan2$ e quindi la funzione \textbf{argomento} $Arg$ è definita generalmente come: \[Arg(\sigma+j\omega) = \begin{cases}
+	\sigma > 0 \implies arctan(\frac{\omega}{\sigma})\\
+	\sigma = 0, \omega>0\implies \frac{\pi}{2}\\
+	\sigma = 0, \omega<0\implies -\frac{\pi}{2}\\
+	\sigma < 0, \omega\geq 0 \implies arctan(\frac{\omega}{\sigma})+\pi\\
+	\sigma < 0, \omega<0 \implies arctan(\frac{\omega}{\sigma})-\pi
+\end{cases}\]
+\noindent Tuttavia, usando la funzione segno, otteniamo una forma di Arg più compatta, definita come \[sng(\alpha) = \begin{cases}
+	\alpha > 0 \implies 1\\
+	0
+\end{cases} \implies Arg(\sigma + j\omega) = \begin{cases}
+	\sigma > 0 \implies arctan(\frac{\omega}{\sigma})\\
+	\sigma = 0, \omega\neq 0 \implies sng(\omega \cdot \frac{\pi}{2})\\
+	\sigma < 0 \implies arctan(\frac{\omega}{\sigma}) + sng(\omega) \cdot \pi
+\end{cases}\]
+\noindent Dove nell'ultimo caso specifichiamo che $sng(\omega) = 1$ se $\omega = 0$.
+
+
+
+
+\begin{comment}	
+	È intelligente andare a verificare il comportamento della funzione ai suoi estremi, quindi vediamo che succede con valori minimi e massimi.
+	Nel caso preso in esame, abbiamo che, variando la frequenza e quindi portando il punto all'estremità in basso e in alto, avremo gradi minimi di -90° e 0°. Abbiamo ottenuto i confini per i gradi nel diagramma di Bode.
+	Per quanto riguarda le ampiezze, minore è la frequenza, più grande sarà il vettore.
+	
+	Unire i due grafici è un casino quindi bisogna trovare una soluzione per tenere tutte le frequenze.
+	
+	--- Operazioni nei complessi
+	- |a\cdot b| = |a|\cdot |b|, arg(a\cdot b) = arg(a) + arg(b)
+	- |\frac{a}{b}| = \frac{|a|}{|b|}, arg(\frac{a}{b}) = arg(a) - arg(b)
+	- |a^\mu| = |a|^\mu, arg(a^\mu) = \mu\cdot arg(a)
+	
+	-- Logaritmo negli esponenziali
+	log s = x \iff s = e^x, dove: s = \rho e^{j\theta}, x = \sigma + j\omega
+	
+	s = e^x \implies \rho e^{j\theta} = e^{\sigma + j\omega} \implies e^{log\rho}e^{j\theta} = e^\sigmae^{j\omega}
+	
+	Arrivamo che log\rho = \sigma e \theta = \omega. Dunque: 
+	\begin{equation}
+		\begin{split}
+			log s &= x\\
+			&= log\rho + j\omega\\
+			&= log|s| + j\cdot arg(s)
+		\end{split}
+	\end{equation}
+\end{comment}
 
 %
 
 \section{Forma di Bode}
+
+
+
+
+
+
+\begin{comment}
+	--- Forma di Bode
+	La forma di Bode consente di avere un metodo più semplice per arrivare ai diagrammi di prima senza dover sostituire il valore della frequenza ogni volta per ottenere ogni punto.
+	
+	Partiamo dalla funzione di trasferimento in laplace H(s), nella sua forma dove sono espansi gli zeri e i poli. Possiamo farci ulterior male e definire la costante K come K_b, definita come: \[H(s) = K_b\frac{\prod_i(1+s\tau_1')^{\mu i'}\cdot \prod_k(1+2\xi_k'\cdot \frac{s}{\omega_{n,k}'} + \frac{s^2}{(\omega_{n,k}')^2})^{\mu k'}}{s^{\nu_1\prod_i(\+s\tau_i)^{\mu_i}}\cdot\prod_k(1+2\xi_k\cdot\frac{s}{\omega_{n,k}} + \frac{s^2}{(\omega_{n,k})^2})^{\mu_k}}\]
+	Questa scrittura orrenda è detta forma di bode.
+	- K_b (guadagno di Bode) termine costante che racchiuderà ogni valore costante.
+	- S^{\nu} raggruppa tutte le radici nulle, eg: \frac{s^5}{s^4} = \frac{1}{s^{-1}}
+	- (1+s\tau_i)^{\mu_i} raggruppa la singola radice reale, eg: (s+1)
+	- (1+2\xi_k \frac{s}{\omega_{n,k}} + \frac{s^2}{(\omega_{n,k})^2})^{\mu_k} raggruppa la singola radice complessa coniugata (il trinomio non scomponibile)
+	
+	Come arrivare alla forma di Bode
+	1. Raccogliere "le costanti"
+	- Poli/zeri nulli:
+	H(s) = 4\frac{s^3+s^2-2s}{s^3+s^2} = 4\frac{s(s^2+s-2)}{s^2(s+1)} = 4\cdot \frac{1}{s}\cdot\frac{s^2+s-2}{s+1}
+	
+	- Poli e zeri reali
+	H(s) = 4\cdot \frac{1}{s}\cdot\frac{s^2+s-2}{s+1} = 4\cdot\frac{1}{s}\cdot \frac{(s-1)(s+2)}{s+1}
+	
+	// Adesso bisogna raggiungere la forma (1+s\tau)^\mu. Ciò si ottiene tirando fuori ogni costante per far rimanere come addendo nei poli e negli zeri il valore '1'.
+	H(s) = 4\cdot\frac{1}{s}\cdot\frac{-1(1-s)\cdot 2(1+\frac{s}{2})}{1(1+s)}
+	
+	// Facciamo confluire tutte le costanti nel K_b, che in questo caso è 4.
+	H(s) = -8\cdot\frac{1}{s}\cdot \frac{(1-s)(1+\frac{s}{2})}{(1+s)}
+	
+	// Questa appena ottenuta è la forma di Bode. Basta raccogliere le costanti da ambo i polinomi scomposti. Il \tau è detta poi la costante di tempo e deve essere definita rispetto a questa forma. Si tratta della radice di ogni elemento del polinomio.
+	
+	- Polo/zero complesso coniugato
+	// Ricorda: z*\overline{z} = |z|^2
+	
+	&= (s-(\sigma+j\omega))^\mu(s-(\sigma-j\omega))^\mu\\
+	&= (s^2-s\sigma+sj\omega - s\sigma - sj\omega + |s|^2)\mu\\
+	&= (s^2 - 2s\sigma + |s|^2)^\mu\\
+	&= |s|^{2\mu}(1-2\frac{\sigma}{|s|^2}s + \frac{s^2}{|s|^2})^\mu\\
+	&= |s|^{2\mu}(\+2\xi\cdot \frac{s}{\omega_n} + \frac{\omega_n^2}{\omega_n})^\mu
+	
+	// Coeff. di smorzamento: \xi = -\frac{\sigma}{|s|} = -\frac{Re(s)}{|s|}
+	// Pulsazione naturale: \omega_n = |s|
+	
+	Esempio - forma di bode numero complesso coniugato
+	(s-(2+j))^2(s-(2-j))^2 &= (s^2-4s+5)^2
+	&= 5^2(1-\frac{4}{5}s + \frac{s^2}{5})^2		// Raccolta la costante.
+	
+	Banalmente, \omega_n = \sqrt{5}. 
+	
+	La forma di bode è data da (1+2\xi_k \frac{s}{\omega_{n,k}} + \frac{s^2}{(\omega_{n,k})^2})^{\mu_k}, quindi ricondiuciamoci ad essa.
+	
+	\frac{2\xi}{\omega_n} = -\frac{4}{\sqrt{5}} \implies -\frac{4}{\sqrt{5}}\cdot\frac{1}{2} = -\frac{2}{\sqrt{5}}
+	
+	5^2(1-\frac{4}{\sqrt{5}}s + \frac{s^2}{(\sqrt{5})^2})^2 = 5^2(1+2(-\frac{2}{\sqrt{5}})\frac{5}{\sqrt{5}} + \frac{5^2}{(\sqrt{5})^2})^2
+	
+	Occhio che non tutti i trinomi sono complessi coniugati. Sebbene sia possibile risparmiare passaggi se trovi un trinomio, occhio a quale sia. Prima scomponi, se possibile, altrimenti puoi usare la forma di bode senza problemi.
+	
+	---
+	
+	Poi ci sarà da trasformare H(s) in H(j\omega) perché stiamo facendo analisi in frequenza.
+	
+	Esempio: H(s) = \frac{s^3-2s^2-8s}{s^4-2s^3+2s^2}
+	1. Trova lo zero nullo raccogliendo la s
+	H(s) = \frac{2(s^2-2s-8)}{s^2(s^2-2s+2)} = \frac{1}{s}\cdot\frac{s^2-2s-8}{s^2-2s+2}
+	
+	2. Verifica il discriminante dei polinomi. Se è maggiore di 0 è semplificabile.
+	H(s) = \frac{(s-4)(s+2)}{s^2-2s+2}
+	
+	3. Raccogliamo i termini costanti per moltiplicarli a K_b
+	\frac{-4(1-\frac{s}{4})\cdot 2(1+\frac{s}{2})}{2(\frac{s^2}{2}-s+1)}
+	&= -4\frac{(1-\frac{s}{4}) \cdot (1+\frac{s}{2})}{(\frac{s^2}{2}-s+1)}
+	
+	4. Troviamo i \tau (questi sempre positivi devono essere) e \omega_n
+	- (1-\frac{s}{4}) \implies \tau_1 = -\frac{1}{4}
+	- (1+\frac{s}{2}) \implies \tau_2 = \frac{1}{2}
+	- (1-s+\frac{s^2}{2}) \implies \omega_n^2 = 2 \implies \omega_n=\sqrt{2}
+	\frac{2\xi}{\omega_n}=-1 \implies \frac{2\xi}{\sqrt{2}}=-1 \implies \xi = \frac{-1\sqrt{2}}{2} = -\frac{\sqrt{2}}{2}
+\end{comment}

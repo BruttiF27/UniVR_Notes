@@ -20,3 +20,5 @@
 \contentsline {section}{\numberline {4.2}Schemi di flusso}{38}{}%
 \contentsline {section}{\numberline {4.3}Esercizi svolti}{40}{}%
 \contentsline {chapter}{\numberline {5}Diagrammi di Bode}{43}{}%
+\contentsline {section}{\numberline {5.1}Grafici logaritmici}{43}{}%
+\contentsline {section}{\numberline {5.2}Forma di Bode}{44}{}%

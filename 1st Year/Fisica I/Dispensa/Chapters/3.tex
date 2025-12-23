@@ -41,11 +41,6 @@ Tuttavia finora abbiamo compiuto delle grandi approssimazioni. Nella vita vera, 
 \noindent Che cosa cambia nei modelli di analisi visti in precedenza? Che fondamentalmente bisogna considerare una nuova forza nella sommatoria da calcolare. Supponiamo nuovamente un corpo di massa $m$ posto su un piano inclinato di angolo $\theta$ e che il corpo non si muova. Abbiamo la forza peso, le cui componenti sono date da $P_y = mgsin\theta$ e $P_x = mgcos\theta$, dove quest'ultima spinge il corpo contro la superficie.\par
 La forza di attrito, come già menzionato, è scomponibile nelle sue componenti, e quella che impedisce il movimento al corpo, sta sull'asse delle $x$. È data da: $F_a = \mu_scos\theta$. Possiamo infine ricavare la costante di attrito con alcuni semplici passaggi algebrici: \[mgsin\theta - F_A = 0 \implies mgsin\theta - \mu_smgcos\theta = 0 \implies sin\theta = \mu_scos\theta \implies \mu_s = tan\theta\]
 
-% Estensione del modello moto circolare uniforme
-% Moto circolare non uniforme
-% Moto in sistemi di riferimento accelerati
-% Moto in presenza di forze frenanti
-
 %
 
 \section{Concetto di energia}
@@ -88,10 +83,13 @@ La \textbf{quantità di moto} di un oggetto è definita come il prodotto della s
 	\item \textbf{Energia totale}: $E_{tot} \implies \frac{1}{2}m_1v_1^2 + \frac{1}{2}m_2v_2^2 = \frac{1}{2}m_1v_{1f}^2 + \frac{1}{2}m_2v_{2f}^2$
 \end{itemize}
 \noindent Un nuovo concetto importante, che ci consente di iniziare a considerare i corpi come effettive forme e non come punto materiale è il \textbf{centro di massa}. Supponiamo una forma nel piano cartesiano che si estende da $m_1$ a $m_2$; allora esiste un punto, detto centro di massa $C_m$ con coordinate $(x_{C_m}, y_{C_m})$ definito dal sistema: \[\begin{cases}
-	x_{C_m} = \frac{\sum_{i=1}^n x_im_i}{\sum_{j=1}^k m_k}\\
-	y_{C_m} = \frac{\sum_{i=1}^n y_im_i}{\sum_{j=1}^k m_k}
+	x_{C_m} = \frac{\sum_{i=1} x_im_i}{\sum_{i=1} m_i}\\
+	y_{C_m} = \frac{\sum_{i=1} y_im_i}{\sum_{i=1} m_i}
 \end{cases}\]
-\noindent Più semplicemente si tratta della sommatoria del prodotto del modulo dei corpi con la loro massa, divisa per la sommatoria di tutte le masse.
+\noindent Più semplicemente si tratta della sommatoria del prodotto del modulo dei corpi con la loro massa, divisa per la sommatoria di tutte le masse. Considerando quindi non più particelle informi, è necessario aggiornare l'utilizzo di tutte le formule viste finora che concernono la presenza della massa. La cosa positiva è che le relative dinamiche rimangono immutate. Per la \textbf{velocità} sarà necessario fare la derivata della posizione del centro di massa rispetto al tempo: \[\overrightarrow{v_{C_m}} = \frac{\sum_i m_i\overrightarrow{v_i}}{\sum_i m_i}\]
+\noindent L'accelerazione sarà quindi la derivata della velocità, ma, in particolare, con un semplice passaggio algebrico, notiamo che il prodotto fra massa totale e accelerazione del centro di massa corrisponde alla sommatoria delle forze che attua ogni punto: \[\overrightarrow{a_{cm}} = \frac{1}{m_{tot}}\sum_i m_i\overrightarrow{a_i} \implies m_{tot}\overrightarrow{v_{C_m}} = \sum_i m_i\overrightarrow{a_i} = \sum_i \overrightarrow{F_i}\]
+\noindent Possiamo poi calcolare la quantità di moto del centro di massa moltiplicandolo con la sua velocità: \[\overrightarrow{p} = m_{tot}\cdot\overrightarrow{v_{cm}}\]
+\noindent Ed infine, la stessa dinamica di sostituzione si presenta anche con l'energia. L'energia cinetica è infatti vista come il quoziente fra il prodotto della massa totale con la velocità del centro di massa al quadrato e 2. \[K_{tot} = \sum_i \frac{1}{2}m_iv_i^2 = \frac{1}{2}\cdot m_{tot}v_{Cm}^2\]
 
 \begin{comment}
 	TODO URTI IN UNA E DUE DIMENSIONI

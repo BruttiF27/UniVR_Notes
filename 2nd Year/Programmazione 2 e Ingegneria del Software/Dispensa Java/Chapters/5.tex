@@ -271,6 +271,117 @@ Per una corretta generazione del codice si deve usare il metodo \textbf{hash(obj
 \noindent La JCF rende il il codice estremamente standardizzato; tuttavia non basta creare gli oggetti, bisogna anche poterci lavorare.\par
 Le mansioni principali sono quelle di scorrere gli elementi e il loro ordinamento; questo lavoro è reso semplice grazie alla sinergia con le interfacce Iterable e Comparable e di conseguenza anche con Iterator e Comparator.
 
+\subsection{Interfacce funzionali primitive}
+Le interfacce funzionali sono un argomento già menzionato nei capitoli precedenti, tuttavia è possibile usufruire delle loro versioni base e di uso comune definite in questo pacchetto, date da:\newline
+
+\noindent \textbf{- Predicate}\par
+\noindent Prende un parametro di tipo T e ritorna un boolean. Viene spesso usato per filtrare elementi in una collection.
+\begin{lstlisting}[language=Java]
+	@FunctionalInterface
+	public interface Predicate<T> {
+		boolean test(T t);	// Qui T e' generics, ma puo' essere specificato
+	}
+	
+	// Versione semplice
+	Predicate<Integer> isEven = new Predicate<>() {
+		@Override
+		public boolean test(Integer n) { return n%2 == 0; }
+	}
+	
+	// Versione lambda
+	Predicate<Integer> isEven = n -> n%2 == 0;
+	
+	System.out.println(isEven.test(2)); // true
+	System.out.println(isEven.test(3)); // false
+\end{lstlisting}
+\noindent \textbf{- Function}\par
+\noindent Prende un parametro di tipo T e ritorna un risultato di tipo R. Spesso usato per mappare un valore ad un altro.
+\begin{lstlisting}[language=Java]
+	@FunctionalInterface
+	public interface Function<T, R> {
+		R apply(T t);
+	}
+	
+	// Function strLen prende String e ritorna Integer
+	Function<String, Integer> strLen = str -> str.length();
+	
+	Systm.out.println(strLen.apply("Hello"));	// Qua stampa 5
+\end{lstlisting}
+\noindent \textbf{- BiPredicate}\par
+\noindent Prende due parametri di tipi T e U per ritornare un boolean
+\begin{lstlisting}[language=Java]
+	@FunctionalInterface
+	public interface BiPredicate<T, U> {
+		boolean test(T t, U u);
+	}
+	
+	// La lambda isGreaterThan prende i due parametri e ritorna se la condizione e' vera
+	BiPredicate<Integer, Integer> isGreaterThan = (a,b) -> a > b
+	
+	System.out.println(isGreaterThan.test(2, 5)); // false
+	System.out.println(isGreaterThan.test(3, 1)); // true
+\end{lstlisting}
+\noindent \textbf{- BiFunction}\par
+\noindent Prende due parametri di tipi T, U e ritorna un risultato di tipo R, spesso usata per implementare operazioni su due valori.
+\begin{lstlisting}[language=Java]
+	@FunctionalInterface
+	public interface BiFunction<T, U, R> {
+		R apply(T t, U u);
+	}
+	
+	BiFunction<Integer, Integer, Integer> sumInt = (a,b) -> a+b;
+	
+	System.out.println(sumInt.apply(3,9));	// Stampa 12
+\end{lstlisting}
+\noindent \textbf{- Consumer}\par
+\noindent Prende un parametro di tipo T e non ritorna niente. Spesso usata per modellare effetti collaterali.
+\begin{lstlisting}[language=Java]
+	@FunctionalInterface
+	public interface Consumer<T> {
+		void accept(T t);
+	}
+	
+	// La lambda ha un effetto sull'argomento, ma non ritorna nulla
+	Consumer<String> printUC = str -> System.out.println(str.toUpperCase());
+	
+	printUC.accept("string");	// Stampa STRING
+\end{lstlisting}
+\noindent \textbf{- Supplier}\par
+\noindent Funzione che non prende parametri ma ritorna un valore di tipo T; spesso usata per la generazione di valori
+\begin{lstlisting}[language=Java]
+	@FunctionalInterface
+	public interface Supplier<T> {
+		T get();
+	}
+	
+	Supplier<Double> randomNum = () -> Math.random();
+	System.out.println(randomNum.get());		// Stampa il numero casuale
+\end{lstlisting}
+\noindent Ulteriori interfacce funzionali sono date da: \begin{center}
+	\textbf{UnaryOperator<T>} extends Function<T, T>, \textbf{BinaryOperator<T>} extends BiFunction<T, T, T>
+\end{center}
+\noindent Dove la prima prende un parametro T per ritornarne un altro, mentre la seconda ne prende due di tipo T per ritornarne un terzo. Esiste infine una sintassi compatta per fare method reference:
+\begin{lstlisting}[language=Java]
+	// Sintassi compatta
+	System.out::println
+	// Equivale a
+	str -> System.out.println(str)
+\end{lstlisting}
+\noindent Generalmente, valgono queste regole:
+\begin{itemize}
+	\item Per metodi statici: Class::staticMethod
+	\item Per metodi d'istanza: object::instanceMethod
+	\item Per metodi non statici: Class::nonStaticMethod
+	\item Per il costruttore: Class::new
+\end{itemize}	
+
+\subsection{.Stream}
+
+
+\begin{comment}
+	content...
+\end{comment}
+
 %
 
 \section{java.io.*}

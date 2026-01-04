@@ -1,0 +1,51 @@
+Lez14 - Fisica 1
+
+--- Moto oscillatorio
+Per esempio quello di una molla attaccata al muro con un massa all'altra estremità. La molla ha massa trascurabile.
+Possiamo prendere un sistema di riferimento in base alla posizione di equilibrio, alla quale tende sempre a ritornare.
+
+Quando una forza è esercitata nel verso opposto della forza della molla è detta di richiamo. Fondamentalmente comprimiamo la molla e sarà necessario annotare questa dinamica col segno negativo nell'equazione della forza: \[F = -k(x-x_0)\]
+\noindent, dove k è la costante elastica, mentre le x determinano lo spostamento e x_0 lo stato di equilibrio. Questa è detta legge di hooke.
+
+L'equazione che descrive la legge del moto di una massa attaccata a una molla è data da: \[x(t) = A\sin(\omega t + \phi)\]
+Dove A è l'ampiezza della sinusoide, \omega = \sqrt{\frac{k}{m}} e il seno può essere sostituito col coseno inserendo una fase. Tutti i moti oscillatori hanno la stessa legge del moto, eventualmente differirà l'\omega
+	Inoltre: \omega t = \pi \implies t = \pi/\omega.
+	
+Per calcolare velocità e accelerazione si deriva la legge del moto, ovviamente. Quindi:
+	- v = -A\sin(\omega t)
+	- a = -A\omega^2\cos(\omega t)
+	
+Mentre per l'energia potenziale abbiamo E_p = 1/2kx^2. Quando la molla è in quiete, l'energia potenziale è a 0.
+
+-- Pendolo
+Abbiamo un filo di massa ignorabile con una massa alla sua estremità.
+Qui abbiamo una posizione di equilibrio che è parallelo al verso della forza peso.
+
+Qua serve calcolare F perpendicolare \[F = mgcos\theta\] 
+\noindent e F parallelo \[mg\sin\theta\] 
+\noindent È la forza peso che fa muovere il pendolo quando non è in equilirbrio. Possiamo riassumere le forze in un sistema: \begin{cases}
+	T - mgcos\theta = 0\\
+	ma = mgsin\theta
+\end{cases}
+
+Ciò che veramente fa variare la dinamica in questo sistema di riferimento è l'ampiezza dell'angolo \theta; quindi per trovare ciò che manca (accelerazione) bisogna fare la derivata seconda della legge del moto.
+Derivata che risulta essere a = L\frac{d^2\theta}{dt^2}.\par
+	Dove L è la lunghezza del pendolo
+
+Possiamo dunque dire che L\frac{d^2\theta}{dt^2} = -g\theta \implies \frac{d^2\theta}{dt^2} = -\frac{g}{L}\theta
+
+-- Esiste anche il pendolo fisico, che è un corpo rigido che agisce come un pendolo senza una corda. Non dovrebbe chiederlo, ma esiste.
+
+--- Meccanica dei fluidi
+Fluido: le molecole si possono anche allontanare fra di loro.
+Come si applicano le forze ad un liquido? Non c'è forza di attrito fra i piani di queste molecole; quello che può esserci applicando una forza è solamente la componente perpendicolare alla superficie del fluido.
+
+La forza dipende dalla superficie del liquido, dunque. Supponiamo un bicchiere e l'aria. Quest'ultima pesa sull'acqua del bicchiere con un P=mg.
+Più grosso è il bicchiere, maggiore sarà la massa che agisce sulla superficie.
+Diciamo quindi che P = \frac{F}{S}. Il peso genera una determinata pressione, che è la somma del trancio di acqua e il peso dell'aria esercitato su di essa.
+F_{prof} = P_mS + Mg
+
+Per calcolare la pressione bisogna avere la superficie.
+F_p/S = P_0 + Mg/S
+
+M = \rho*V, dove V è il volume.

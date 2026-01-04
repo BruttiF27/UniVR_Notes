@@ -1,0 +1,107 @@
+Lez10 - Fisica 1
+
+Nello spostare un oggetto, applicando una forza, si effettua del lavoro. Quindi il lvaoro è forza F*spostamento s.
+
+L = Fscos\theta
+Theta è l'angolo con il quale si applica la forza sul corpo, quando \theta=0 il lavoro è massimo.
+
+Il lavoro è la variazione di energia, ed è un valore scalare che si misura in Joule. 1J = Newton*metri
+
+Se la variazione di energia è verticale, L = mgh. L'energia è conservata nella massa, la quale si rilascia quando la massa cade. mgh è detta energia potenziale.
+Per ogni forza possiamo avere un'energia potenziale diversa. Se la forza eventualmente cambia bisogna fare l'integrale della forza per ogni tratto di spostamento che varia. Questo è da usare se la forza non è costante.: \[L = \int F ds\]
+
+La forza elastica per esempio non è costante. F=-kx, qui avremo \[L = \int -kx ds\]
+
+La variazione del'energia potenziale qui è dunque: \Delta E_p = 1/2 kx_i^2 - 1/2 kx_f^2. Capiamo quindi che ci sono energie potenziali diverse in base alla forza.
+
+Noi diciamo che l'energia di un sistema si conserva, non si consuma. Si trasferisce in un'altra forma: l'energia cinetica.
+Come si calcola?
+\[\Delta E = \int F ds = \int ma ds = \int m dv/dt ds = \int m dv/dt ds/dt dt = \int mv dv = 1/2mv^2 = 1/2mv_f^2 - 1/2mv_i^2\]
+Variazione dell'energia in funzione della velocità, questa qui.
+
+L'energia cinetica dipende dalla velocità e si scrive E_c = 1/2 mv^2
+	Nel punto iniziale è uguale a 0.
+L'energia potenziale dipende dalla forza, invece.
+	Nel punto finale è uguale a 0.
+
+Man mano che l'energia potenziale diminuisce, il suo valore si trasferisce alla cinetica. Quindi abbiamo un valore di E_tot dato dalla somma di questi due recipienti. Infatti rimane sempre costante.
+
+1/2mv^2 0 mgh \implies v = \sqrt{2gh}. Questa è la velocità finale.
+Per le molle: v_max = \sqrt{\frac{k}{m}}s
+
+-- Forza conservativa - Rivedere
+Forza in cui il lavoro dipende esclusivamente dalla posizione del punto iniziale e finale. Quindi indipendentemente dal percorso, il lavoro svolto sarà sempre lo stesso. Ne consegue che se si va da un punto A e là si ritorna, il lavoro L=0.
+	L'attrito è invece una forza non conservativa. Dove la variazione dell'energia dipende dallo spostamento, infatti: \[\Delta E = F\cdot s = mgCos\theta\cdot\mu_D\cdot L\]
+	
+-- Potenza
+P = \frac{trasf. di energia}{unità di tempo}
+Supponiamo di avere 1000j di energia nel corpo, il cui valore dipende dal serbatoio, mentre il valore di potenza dipende dal motore, che trasforma energia potenziale in cinetica. Si misura in Watt=1j/sec. Naturalmente più consuma in meno tempo, più potente sarà il motore.
+
+La potenza è inoltre la derivata dell'energia rispetto al tempo. \[P = \frac{dE}{dt}\]
+\noindent Ne consegue che la variazione dell'energia è l'integrale della forza per lo spostamento. In questi termini, possiamo scrivere la potenza come prodotto vettoriale fra forza e velocità: \[\Delta E = \int F\cdot ds \implies dE = F\cdot ds\]
+
+\[P = \frac{F\cdot ds}{dt} = F\cdot \frac{ds}{dt} = \overrightarrow{F}\cdot\overrightarrow{v}\]
+
+La forza si può rappresentare anche come la variazione dell'energia rispetto allo spazio \[F = \frac{dE}{ds}\]
+
+--- Quantità di moto
+\overrightarrow{P} = m\overrightarrow{v}, e per la terza legge di newton si conserva. Per misurare la quantità di moto è necessario avere almeno due corpi, con la loro rispettiva \overrightarrow{P}. La quantità di moto $P_{tot}$ è data dalla somma vettoriale dell'interazione fra i due corpi, chiamata urto. In tal merito, ne abbiamo due tipi (sono casi limite):
+	- Anelastici: I corpi rimangono attaccati insieme e si spostano in una direzione a velocità $v_f$
+	- Elastici: I corpi urtano, prendono velocità diverse e poi vanno in direzioni opporte
+	
+Abbiamo visto che l'energia si conserva. Parliamo di energia cinetica; entrambi i due corpi hanno la propria, data da: $\frac{\Delta}{2}m_1v_1^2$ e $\frac{\Delta}{2}m_2v_2^2$.
+	Nel caso dell'urto anelastico l'energia cinetica non si è conservata ed una sua parte è consumata nell'urto, trasformandosi in un'altra forza e possiamo ragionare solo in termini di conservazione di quantità di moto.
+	Nell'urto elastico invece l'energia cinetica è perfettamente conservata
+	
+Urto anelastico:
+Due corpi m_1, m_2 con due velocità v_1, v_2 che scontrandosi restano uniti e si muovono in una sola direzione a velocità v_f.
+La quantità di moto è costante, quindi \overrightarrow{P_i} = \overrightarrow{P_f}.
+La dinamica è descritta dall'equazione: \[m_1v_1 + m_2v_2 = (m_1+m_2)v_f\]
+Dove, in particolare: \[m_1v_1 + m_2v_2 = \overrightarrow{P_i}\] e \[(m_1+m_2)v_f = \overrightarrow{P_f}\]
+	Inoltre posso calcolarmi la velocità finale in un solo passaggio quando si conosce massa e velocità di ambo i corpi: \[v_f = \frac{m_1v_1 + m_2v_2}{m_1+m_2}\]
+	
+Urto elastico:
+Due corpi m_1, m_2 con due velocità v_1, v_2 che scontrandosi vanno in direzioni opposte con due velocità diverse. L'energia cinetica totale qui è conservata ed è costante, come anche la quantità di moto totale. Abbiamo due equazioni:
+	- P_{tot} \implies m_1v_1 + m_2v_2 = m_1v_{1f} + m_2v_{2f} // velocità vettoriali
+	- E_{tot} \implies \frac{1}{2}m_1v_1^2 + \frac{1}{2}m_2v_2^2 = \frac{1}{2}m_1v_{1f}^2 + \frac{1}{2}m_2v_{2f}^2 // Qua solo valori scalari
+	
+-- Esercizio urto anelastico
+Abbiamo un'auto m_1=1500Kg con v_1=25m/s verso est e all'incrocio urta un furgone m_2=500Kg con v_2=20m/s verso nord
+	Il risultato è un urto anelastico che si muove a v_f con un determinato angolo \theta.
+	Calcolare direzione e modulo di v_f assumendo che l'urto sia perfettamente anelastico, quindi senza conservare energia cinetica.
+	
+// Tutte le velocità sono vettoriali, immagina che abbiano la freccia a destra.
+
+L'equazione del fenomeno è sicuramente data da: \[m_1v_1 + m_2v_2 = (m_1+m_2)v_f\]
+\noindent Siamo in uno scenario a due dimensioni, quindi sarà necessario scomporre i vettori in componenti
+\begin{cases}
+	x\implies m_1v_1 + 0 = (m_1+m_2)v_fcos\theta\\
+	y\implies 0 + m_2v_2 = (m_1+m_2)v_fsin\theta
+\end{cases}
+
+Proviamo a dividere la seconda equazione per la prima
+\[\frac{(m_1+m_2)v_fsin\theta}{(m_1+m_2)v_fcos\theta} = \frac{m_2v_2}{m_1v_1} \implies tan\theta = \frac{m_2v_2}{m_1v_1}\]
+Da qua otteniamo il valore dell'angolo e poi da questo anche v_f.
+
+-- Esercizio urto elastico
+Abbiamo due oggetti m_1, m_2 con v_1 = v_2 = 0. Dopo l'urto i due oggetti vanno in due direzioni con due \theta diversi e due velocità finali diverse.
+	La quantità di moto totale e l'energia cinetica sono costanti in quanto urto perfettamente elastico.
+	
+E_{tot} \implies \frac{1}{2}m_1v_1^2 + \frac{1}{2}m_2v_2^2 = \frac{1}{2}m_1v_{1f}^2 + \frac{1}{2}m_2v_{2f}^2
+
+P_{tot} = \begin{cases}
+	0 = m_1v_{1f}cos\theta + m_2v_{2f}cos\phi\\
+	0 = m_1v_{1f}sin\theta + m_2v_{2f}sin\phi
+\end{cases}
+
+--- Centro di massa
+Consente di passare dal lavorare con punti materiali a oggetti con una forma. Supponiamo una forma che va da m_1 a m_2, esiste un punto, detto centro di massa C_m con coordinate (x_{C_m}, y_{C_m}) definito dal sistema:
+\begin{cases}
+	x_{C_m} = \frac{x_1m_1 + x_2m_2}{m_1+m_2}\\
+	y_{C_m} = \frac{y_1m_1 + y_2m_2}{m_1+m_2}
+\end{cases}
+
+In presenza di più masse tutte collegate fra di loro, il centro di massa sarà dato da: \begin{cases}
+	x_{C_m} = \frac{\sum_{i=1}^n x_im_i}{\sum_{j=1}^k m_k}\\
+	y_{C_m} = \frac{\sum_{i=1}^n y_im_i}{\sum_{j=1}^k m_k}
+\end{cases}

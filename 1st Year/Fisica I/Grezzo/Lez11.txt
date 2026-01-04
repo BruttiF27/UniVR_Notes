@@ -1,0 +1,41 @@
+Lez11 - Fisica 1
+
+Per quanto riguarda il centro di massa possiamo calcolarne la velocità facendo la derivata della posizione del centro di massa rispetto al tempo. Idem accelerazione.
+\[\overrightarrow{v_{cm}} = \frac{\sum_i m_i\overrightarrow{v_i}}{\sum_i m_i}\]
+
+In particolare, per l'accelerazione, sappiamo che si tratta del quoziente fra la sommatoria del prodotto fra ogni massa con relativa accelerazione e la massa totale. Con un semplice passaggio algebrico notiamo che il prodotto fra massa totale e accelerazione del centro di massa corrisponde alla sommatoria delle forze che attua ogni punto: \[\overrightarrow{a_{cm}} = \frac{1}{m_{tot}}\sum_i m_i\overrightarrow{a_i} \implies m_{tot}\overrightarrow{v_{cm}} = \sum_i m_i\overrightarrow{a_i} = \sum_i \overrightarrow{F_i}\]
+
+Possiamo poi calcolare la quantità di moto del centro di massa moltiplicandolo con la sua velocità: \[\overrightarrow{\rho} = m_{tot}\cdot\overrightarrow{v_{cm}}\]
+
+La stessa dinamica di sostituzione si presenta anche con l'energia. L'energia cinetica è infatti vista come il quoziente fra il prodotto della massa totale con la velocità del centro di massa al quadrato e 2. \[K_{tot} = \sum_i \frac{1}{2}m_iv_i^2 = \frac{1}{2}\cdot m_{tot}v_{Cm}^2\]
+
+--- Corpi rigidi
+I corpi si muovono nello spazio ma anche rispetto a loro stessi, quindi bisogna considerare anche questa dinamica rotazionale.
+
+Supponiamo un corpo che ruota, bisogna prendere un punto all'estremità del corpo, il quale crea un raggio R che lo collega col centro di massa. Essendo che ruota, abbiamo uno spostamento \Delta s in un intervallo di tempo \Delta t ad una data velocità v = \frac{\Delta s}{\Delta v}.
+	In quanto lo spostamento crea un arco, possiamo scrivere che \Delta s = R\theta, dove \theta è l'ampiezza dell'angolo. Grazie a ciò otteniamo quella che è conosciuta come \textbf{velocità angolare}; la variazione dell'angolo rispetto al tempo: \[v = \frac{\Delta s}{\Delta t} = \frac{R\Delta\theta}{\Delta t} = R\cdot\omega\]
+\noindent La velocità angolare è costante, perché non dipende dalla posizione del punto nel raggio. È comodo. Facendo la derivata della velocità angolare otteniamo l'accelerazione angolare \alpha. \[\alpha = \frac{dv}{dt} = \frac{d(R\omega)}{dt} = R\frac{d\omega}{dt} = R\frac{d^2\theta}{dt^2} = R\alpha\]
+\noindent Al posto dello spazio, velocità e accelerazione abbiamo le loro controparti angolari. Sostituendole alle equazioni del moto otteniamo il comportamento relativo agli angoli.
+
+Dunque, prendiamo un corpo composto da tante piccole massette m_i, ognuna con una posizione s_i. Possiamo passare dal moto traslazionale all'angolare dicendo s=R\theta e possiamo riutilizzare tutte le leggi del moto viste in precedenza.\par
+In particolare, diciamo \textbf{momento di inerzia} $I$ la resistenza di un corpo al suo movimento rotatorio. Nel caso in cui il numero di particelle del corpo sia finito, abbiamo: \[I = \sum_i m_ir_i^2\]
+\noindent Mentre se parliamo di un numero continuo, avremo: \[I = \int r_i^2\cdot dm\]
+\noindent dove r_i è la posizione di ogni massa e dm una massa infinitesima.
+
+La misura del momento di inerzia dipende anche dalla forma dell'oggetto, vedasi l'esempio di lanciare un coltello, che gira più facilmente in base al modo in cui si lancia. Infatti ne descriveremo l'energia cinetica come \[K = \frac{1}{2}I\omega^2\]
+
+--- Rotazione di un corpo attaccato a un asse
+Supponiamo di applicare una forza ad un corpo rigido attaccato a un asse fisso da una delle sue estremità; questo ruoterà attorno all'asse.
+Chiamiamo la lunghezza del corpo a partire dall'asse \textbf{braccio} $r$, e la capacità di una forza di porre in rotazione un corpo in tal senso è detta \textbf{momento della forza} $\overrightarrow{\tau}$, determinato da: \[\overrightarrow{\tau} = rFsin\theta = Fd\]
+\noindent Dove r è la distanza fra l'asse di rotazione ed il punto in cui è applicata la forza, e d la distanza fra l'asse di rotazione e il vettore della forza. Il sin\theta è poi l'angolazione che determina l'efficacia della forza. Difatti, esercitando una forza parallela al braccio, non ruota, mentre se è perpendicolare si avrà massimo effetto.
+
+A partire dalla definizione di momento della forza, possiamo sostituire la definizione di forza con le sue componenti angolari: \[\tau_i = r_iF_i = r_im_ia_i = r_im_ir_i\alpha = r_i^2m_i\alpha\]
+\noindent In necessità di calcolare il momento totale, si farà la sommatoria dei \tau, che guarda caso risulta essere: \[\tau_{tot} = I\alpha\]
+
+Quindi stiamo semplicemente sostituendo le variabili da termini di traslazione in termini rotazionali:
+\begin{itemize}
+	\item $K = \frac{1}{2}mv^2 \implies K = \frac{1}{2}I\omega^2$
+	\item $F = ma \implies \tau I\alpha$
+\end{itemize}
+\noindent Quindi il momento di inerzia prende il posto della massa e il momento di una forza sostituisce la forza. Abbiamo tuttavia un terzo elemento; il \textbf{momento angolare}, usato al posto della quantità di moto: \[\overrightarrow{L} = \overrightarrow{r} \times \overrightarrow{p}\]
+\noindent Il momento angolare si conserva, quindi è costante in assenza di forze.

@@ -1,4 +1,36 @@
 \section{Moto di un corpo attaccato ad una molla}
-\section{Oscillatore armonico}
+Stiamo ora iniziando a considerare sistemi di riferimento costituito da un blocco di massa $m$ attaccato all'estremità di una molla, con il primo che risulta essere libero di muoversi su un piano orizzontale privo di attrito. Quando la molla è in quiete, non è compressa o estesa, si dice che il sistema è nella sua \textbf{posizione di equilibrio}, generalmente identificata come $x=0$.\par
+Si osserva che esercitando delle forze sulla massa, spostandola dalla posizione $x$, questa oscillerà fino a ritornare alla posizione di equilibrio. Muovendosi, la molla esercita una forza sul blocco, ed è descritta dalla \textbf{Legge di Hooke}: \[F_s = -k(x-x_0)\]
+\noindent Questa forza è detta \textbf{di richiamo}, poiché è sempre diretta verso la posizione di equilibrio e quindi opposta allo spostamento del blocco, mentre la $k$ è detta \textbf{costante elastica}.\par
+Ricavare lo spostamento dalla legge del moto richiederebbe risolvere un'equazione differenziale del secondo ordine, ma è estremamente doloroso e tedioso, quindi la sua soluzione è data da: \[x(t) = A\cos(\omega t + \phi)\]
+\noindent Dove $A$ è l'\textbf{ampiezza} della sinusoide, $\omega = \sqrt{\frac{k}{m}}$ è detta \textbf{pulsazione}, mentre $\phi$ è un'ampiezza di angolo che quando sommata a $\omega$ determina la \textbf{fase} del moto. Una cosa molto utile è che ogni moto oscillatorio condivide la stessa legge del moto; l'unica eventuale differenza sarà data dalla pulsazione.\par
+Naturalmente, per ricavare velocità e accelerazione si dovrà derivare la legge del moto, come al solito; otteniamo:
+\begin{itemize}
+	\item \textbf{Velocità}: $v = -\omega A\sin(\omega t + \phi)$
+	\item \textbf{Accelerazione}: $a = -\omega^2A\cos(\omega t + \phi)$
+\end{itemize}
+\noindent Altre due misure importanti per questo modello di analisi sono il \textbf{periodo} $T$ e la \textbf{frequenza} $f$ del moto, date rispettivamente dalle formule: \[T = \frac{2\pi}{\omega} = 2\pi\sqrt{\frac{m}{k}}; f = \frac{1}{T} = \frac{1}{2\pi}\sqrt{\frac{k}{m}}\]
+\noindent Naturalmente anche qui possiamo fare considerazioni con l'energia; sostituendo le componenti alle definizioni otteniamo:
+\begin{itemize}
+	\item \textbf{Energia cinetica}: $K = \frac{1}{2}mv^2 = \frac{1}{2}m\omega^2 A^2\sin^2(\omega t + \phi)$
+	\item \textbf{Energia potenziale}: $U = \frac{1}{2}kx^2 = \frac{1}{2}kA^2\cos^2(\omega t + \phi)$
+	\item \textbf{Energia totale}: $E_{tot} = K+U = \frac{1}{2}kA^2[\sin^2(\omega t + \phi) + cos^2(\omega t + \phi)]$
+\end{itemize}
+
+%
+
 \section{Pendolo}
+Per pendolo intendiamo un sistema composto da corpo di massa $m$ attaccato all'estremità di un filo di lunghezza $L$, dove sono esercitate forza peso e conseguente tensione. La prima delle due forze è l'unica ad avere componente tangenziale, ed è quella che tende a riportare il pendolo all'angolazione $\theta = 0$, comportando la sua assunzione del ruolo di forza di richiamo. Applicando la seconda legge di Newton lungo la direzione tangenziale possiamo dire che: \[F = ma \implies -mg\sin\theta = m\frac{d^2s}{dt^2}\]
+\noindent Dove $s$ è lo spostamento misurato lungo l'arco, ed il segno negativo è necessario per dire che punta verso la posizione di equilibrio. Inoltre, in quanto $s = L\theta$, possiamo sostituire, ottenendo: \[\frac{d^2\theta}{dt^2} = -\frac{g}{L}\sin\theta\]
+\noindent Essendo poi le forze parallela e perpendicolare in relazione, come visto in precedenza, è possibile gestire le forze tramite il seguente sistema lineare: \[\begin{cases}
+	T - mgcos\theta = 0\\
+	ma = mgsin\theta
+\end{cases}\]
+
+%
+
+\section{Oscillatore armonico}
+
+%
+
 \section{Esercizi svolti}

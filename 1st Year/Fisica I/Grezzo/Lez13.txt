@@ -1,0 +1,49 @@
+Lez13 - Fisica 1
+
+--- Gravitazione
+L'attrazione gravitazionale è un vettore: F = G\frac{m_1m_2}{r^2}
+m_1, m_2 sono le due masse
+r è la distanza fra le due
+G è la costante di gravitazione universale: 6.7*10^{-11}[N*m^2/kg^2]
+Più grandi le masse, più forte l'attrazione.
+
+La forza è piccolissima, per questo è necessario avere corpi abnormi, come boh, dei pianeti???
+
+Riprendendo la formula, possiamo sostituire la forza alla sua definizione della seconda legge di Newton, ottenendo: \[ma = G\frac{m*M}{r^2} \implies a = G\frac{M}{r^2}\]
+\noindent Se in tali termini consideriamo l'accelerazione come la costante gravitazionale terrestre, otteniamo: \[g = G\frac{M_T}{r_T^2}\]
+Accelerazione indipendente da altre masse se non la propria, capito?
+
+Possiamo ragionare in termini di energia anche con la gravità. Sostituiamo la definizione di attrazione gravitazionale alla forza nell'integrale: \[L = \Delta E = \int F * ds = \int_{r_1}^{r_2} G\frac{mM}{r^2} = -\frac{G*m*M}{r}\big|_{r_1}^{r_2}\]
+\noindent Lo zero della forza gravitazionale si ha quanto più ci si allontana dalla massa. Claro.
+
+--- Leggi di Keplero
+Leggi sperimentali che dicono come si muovono i pianeti. Siamo in un sistema dove è presente il sole.
+
+1. Nel moto di rivoluzione, i pianeti descrivono un'orbita ellitica ed il sole occupa uno dei due fuochi. Il punto dell'orbita più vicino al sole è detto perielio, mentre quello più lontano è l'afelio.
+2. Nel moto di rivoluzione, il raggio vettore che unisce il sole ad un pianeta descrive aree uguali in tempi uguali.
+	Ciò significa che, dati due intervalli di tempo uguali, un pianeta copre distanze diverse in base alla vicinanza che ha col sole. In ogni caso, l'area coperta dallo spostamento sarà la stessa.
+	Quindi l'energia si conserva, perché il prodotto vettoriale fra la distanza r e la quantità di moto della massa deve sempre dare lo stesso valore.
+3. Il quadrato del periodo di rivoluzione è direttamente proporzionale al cubo del semiasse maggiore dell'orbita. Dunque tanto più grande è l'orbita, tanto più tempo ci si impiegherà a percorrerla.
+
+Nel muoversi, i pianeti hanno una forza centripeta, naturalmente, che è quella di gravità. Infatti è possibile eguagliarle:
+\begin{equation}
+	\begin{split}
+		F_c &= M_{pianeta}(\frac{v^2}{r} = G\frac{M_{sole}M_{pianeta}}{r^2})\\
+			&= v^2 = \frac{G\cdot M_{sole}}{r}\\
+			&= \frac{(2\pi R)^2}{t^2} = \frac{G\cdot M_{sole}}{r}\\
+			&= \frac{r^3}{t^2} = \frac{G\cdot M_{sole}}{4\pi^2}
+	\end{split}
+\end{equation}
+
+Ricordiamo che, nei moti circolari:
+	- v = \frac{2\pi R}{t}
+
+Supponiamo ora di avere un pianeta e un'astronave che percorre la sua orbita. Consideriamone l'energia totale, spezzabile in somma fra energia potenziale e cinetica.
+Da qua possiamo calcolarci la \textbf{velocità di fuga}, ovvero una velocità tale da far raggiungere l'orbita al corpo e rendere almeno nullo l'effetto dell'attrazione gravitazionale. Riprendendo la formula che eguaglia forza centripeta e gravitazionale, abbiamo osservato: \[v^2 = \frac{G\cdot M_{sole}}{r} \implies v = \sqrt{\frac{G\cdot M_{sole}}{r}}\]
+\noindent Quando la velocità è minore di quella di fuga, il corpo lanciato dalla terra farà una parabola e tornerà a terra.
+
+Supponiamo che il corpo abbia raggiunto il massimo della sua energia potenziale; allora l'energia totale è data da \[E_{tot} = -G\frac{Mm}{r_{max}}\]
+\noindent Ma allora, quando il corpo ha il massimo dell'energia cinetica vale il contrario, e l'energia totale è data dal suo valore. In questi termini possiamo dire quindi: \[\frac{1}{2}mv^2 - \frac{GMm}{r} = -G\frac{Mm}{r_{max}}\]
+
+Ora voglio calcolare le dinamiche di un razzo lanciato da terra che va in aria. Ci sarà un punto minimo r_T, che è il raggio della terra, ed un punto massimo, che è un r tendente ad infinito. Ciò modifica l'equivalenza come segue: \[\frac{1}{2}mv^2 - G\frac{Mm}{r_t} = 0\]
+\noindent Dove l'attrazione gravitazionale indica il punto iniziale e 0 quello finale. In base a questo troviamo la velocità di fuga, ottenuta tramite passaggi algebrici: \[v = \sqrt{\frac{2GM}{r_T}}\]

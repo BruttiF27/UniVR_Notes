@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  22 DEC 2025 18:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  5 JAN 2026 16:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -234,6 +234,9 @@ Package: verbatim 2023-11-06 v1.5v LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks30
 \verbatim@line=\toks31
 \verbatim@in@stream=\read2
+)
+(/usr/share/texlive/texmf-dist/tex/latex/gensymb/gensymb.sty
+Package: gensymb 2022/10/17 v1.0.2 (KJH)
 ))
 
 LaTeX Warning: \include should only be used after \begin{document} on input lin
@@ -297,8 +300,18 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 \c@lstlisting=\count298
-LaTeX Font Info:    Trying to load font information for U+msa on input line 27.
+LaTeX Info: Redefining \celsius on input line 9.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 9.
 
+
+Package gensymb Warning: Not defining \perthousand.
+
+LaTeX Info: Redefining \ohm on input line 9.
+Package gensymb Info: Using \Omega for \ohm on input line 9.
+
+Package gensymb Warning: Not defining \micro.
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 27.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -317,20 +330,20 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 ) [1
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [1] (./main.toc)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [1] (./main.toc [2
+
+])
 \tf@toc=\write3
 \openout3 = `main.toc'.
 
- [2
-
-]
+ [3]
 Chapter 1.
 (./Chapters/1.tex
 Underfull \hbox (badness 10000) in paragraph at lines 7--8
 
  []
 
-<Images/RicezioneSegnale.png, id=18, 621.32124pt x 258.9675pt>
+<Images/RicezioneSegnale.png, id=22, 621.32124pt x 258.9675pt>
 File: Images/RicezioneSegnale.png Graphic file (type png)
 <use Images/RicezioneSegnale.png>
 Package pdftex.def Info: Images/RicezioneSegnale.png  used on input line 17.
@@ -338,7 +351,7 @@ Package pdftex.def Info: Images/RicezioneSegnale.png  used on input line 17.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[3
+[4
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 22--23
@@ -350,29 +363,29 @@ Underfull \hbox (badness 10000) in paragraph at lines 26--27
 
  []
 
-[4 <./Images/RicezioneSegnale.png>]
+[5 <./Images/RicezioneSegnale.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 41--42
 
  []
 
-[5{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+[6{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
 Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
-[6]
+[7]
 Underfull \hbox (badness 10000) in paragraph at lines 93--94
 
  []
 
-[7] [8] [9]) [10]
+[8] [9] [10]) [11]
 Chapter 2.
 (./Chapters/2.tex
 Underfull \hbox (badness 10000) in paragraph at lines 14--15
 
  []
 
-[11
+[12
 
 ]
 Overfull \hbox (27.91655pt too wide) detected at line 30
@@ -384,7 +397,7 @@ n/12 + \OML/cmm/m/it/12 b[][] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 b[]u\OT1/cmr/m
 /n/12 (\OML/cmm/m/it/12 t\OT1/cmr/m/n/12 )
  []
 
-[12] [13]
+[13] [14]
 Underfull \hbox (badness 10000) in paragraph at lines 68--70
 
  []
@@ -399,7 +412,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 97--99
 
  []
 
-[14] [15]
+[15] [16]
 Overfull \hbox (7.75677pt too wide) in paragraph at lines 146--148
 \OT1/cmr/m/it/12 Da questo risul-tato no-ti-amo in-oltre che ab-bi-amo una sola
  radice, quindi $\OML/cmm/m/it/12 r \OT1/cmr/m/n/12 = 1$ \OT1/cmr/m/it/12 e mol
@@ -411,9 +424,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 146--148
 
  []
 
-[16] [17] [18]) [19]
+[17] [18] [19]) [20]
 Chapter 3.
-(./Chapters/3.tex [20
+(./Chapters/3.tex [21
 
 ]
 Overfull \hbox (5.86935pt too wide) in paragraph at lines 14--15
@@ -421,58 +434,58 @@ Overfull \hbox (5.86935pt too wide) in paragraph at lines 14--15
  anal-isi 2; con Laplace, trasformer-
  []
 
-[21] [22] [23] [24] [25]
+[22] [23] [24] [25] [26]
 Underfull \hbox (badness 10000) in paragraph at lines 151--152
 
  []
 
-[26] [27] [28]
+[27] [28] [29]
 Overfull \hbox (67.71962pt too wide) detected at line 226
 \OML/cmm/m/it/12 a[] [] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 a[] [] \OT1/cmr/m/n/
 12 + \OML/cmm/m/it/12 ::: \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 a[]V\OT1/cmr/m/n/1
 2 (\OML/cmm/m/it/12 s\OT1/cmr/m/n/12 )
  []
 
-[29]
+[30]
 Overfull \hbox (5.34421pt too wide) detected at line 258
 []
  []
 
-[30] [31] [32] [33]) [34]
+[31] [32] [33] [34]) [35]
 Chapter 4.
 (./Chapters/4.tex
-<Images/BlocchiCascata.png, id=135, 377.41pt x 84.315pt>
+<Images/BlocchiCascata.png, id=138, 377.41pt x 84.315pt>
 File: Images/BlocchiCascata.png Graphic file (type png)
 <use Images/BlocchiCascata.png>
 Package pdftex.def Info: Images/BlocchiCascata.png  used on input line 7.
 (pdftex.def)             Requested size: 225.0pt x 50.26517pt.
-<Images/SommaSistemi.png, id=136, 370.38374pt x 166.6225pt>
+<Images/SommaSistemi.png, id=139, 370.38374pt x 166.6225pt>
 File: Images/SommaSistemi.png Graphic file (type png)
 <use Images/SommaSistemi.png>
 Package pdftex.def Info: Images/SommaSistemi.png  used on input line 12.
 (pdftex.def)             Requested size: 225.0pt x 101.22006pt.
-<Images/Retroazione.png, id=137, 337.26pt x 166.6225pt>
+<Images/Retroazione.png, id=140, 337.26pt x 166.6225pt>
 File: Images/Retroazione.png Graphic file (type png)
 <use Images/Retroazione.png>
 Package pdftex.def Info: Images/Retroazione.png  used on input line 17.
 (pdftex.def)             Requested size: 225.0pt x 111.16359pt.
- [35
+ [36
 
- <./Images/BlocchiCascata.png> <./Images/SommaSistemi.png>] [36 <./Images/Retro
-azione.png>] [37]
-<Images/DiagrammaDiFlussoBase.png, id=151, 341.275pt x 66.2475pt>
+ <./Images/BlocchiCascata.png> <./Images/SommaSistemi.png>] [37 <./Images/Retro
+azione.png>] [38]
+<Images/DiagrammaDiFlussoBase.png, id=154, 341.275pt x 66.2475pt>
 File: Images/DiagrammaDiFlussoBase.png Graphic file (type png)
 <use Images/DiagrammaDiFlussoBase.png>
 Package pdftex.def Info: Images/DiagrammaDiFlussoBase.png  used on input line 6
 2.
 (pdftex.def)             Requested size: 225.0pt x 43.67697pt.
- [38 <./Images/DiagrammaDiFlussoBase.png>]
-<Images/BlockToFlow1.png, id=156, 341.275pt x 161.60374pt>
+ [39 <./Images/DiagrammaDiFlussoBase.png>]
+<Images/BlockToFlow1.png, id=159, 341.275pt x 161.60374pt>
 File: Images/BlockToFlow1.png Graphic file (type png)
 <use Images/BlockToFlow1.png>
 Package pdftex.def Info: Images/BlockToFlow1.png  used on input line 83.
 (pdftex.def)             Requested size: 225.0pt x 106.54536pt.
-<Images/BlockToFlow2.png, id=157, 301.125pt x 120.45pt>
+<Images/BlockToFlow2.png, id=160, 301.125pt x 120.45pt>
 File: Images/BlockToFlow2.png Graphic file (type png)
 <use Images/BlockToFlow2.png>
 Package pdftex.def Info: Images/BlockToFlow2.png  used on input line 87.
@@ -482,13 +495,13 @@ Overfull \hbox (2.61108pt too wide) in paragraph at lines 82--89
 $[]$ $[]$ 
  []
 
-[39 <./Images/BlockToFlow1.png> <./Images/BlockToFlow2.png>]
-<Images/FlowDiagramEx1-1.png, id=163, 873.2625pt x 241.90375pt>
+[40 <./Images/BlockToFlow1.png> <./Images/BlockToFlow2.png>]
+<Images/FlowDiagramEx1-1.png, id=166, 873.2625pt x 241.90375pt>
 File: Images/FlowDiagramEx1-1.png Graphic file (type png)
 <use Images/FlowDiagramEx1-1.png>
 Package pdftex.def Info: Images/FlowDiagramEx1-1.png  used on input line 114.
 (pdftex.def)             Requested size: 450.0pt x 124.6538pt.
-<Images/FlowDiagramEx1-2.png, id=164, 712.6625pt x 265.99374pt>
+<Images/FlowDiagramEx1-2.png, id=167, 712.6625pt x 265.99374pt>
 File: Images/FlowDiagramEx1-2.png Graphic file (type png)
 <use Images/FlowDiagramEx1-2.png>
 Package pdftex.def Info: Images/FlowDiagramEx1-2.png  used on input line 121.
@@ -497,49 +510,92 @@ Package pdftex.def Info: Images/FlowDiagramEx1-2.png  used on input line 121.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[40 <./Images/FlowDiagramEx1-1.png>] [41 <./Images/FlowDiagramEx1-2.png>]
+[41 <./Images/FlowDiagramEx1-1.png>] [42 <./Images/FlowDiagramEx1-2.png>]
 Overfull \hbox (18.28482pt too wide) detected at line 184
 []
  []
 
-) [42]
+) [43]
 Chapter 5.
 (./Chapters/5.tex
-Underfull \hbox (badness 10000) in paragraph at lines 3--4
+<Images/graficoLogaritmico_example.png, id=181, 1258.7025pt x 674.52pt>
+File: Images/graficoLogaritmico_example.png Graphic file (type png)
+<use Images/graficoLogaritmico_example.png>
+Package pdftex.def Info: Images/graficoLogaritmico_example.png  used on input l
+ine 6.
+(pdftex.def)             Requested size: 404.99725pt x 217.02414pt.
 
- []
-
-
-Overfull \hbox (12.91719pt too wide) in paragraph at lines 5--5
+Overfull \hbox (12.91719pt too wide) in paragraph at lines 10--10
 \OT1/cmr/m/n/12 Pi^^Ru pre-cisa-mente, per i \OT1/cmr/bx/n/12 di-a-grammi di Bo
 de \OT1/cmr/m/n/12 ven-gono uti-liz-zati due grafici semi-logaritmici,
  []
 
+[44
 
-Underfull \hbox (badness 10000) in paragraph at lines 6--7
-
- []
-
-[43
-
-]
-Overfull \hbox (0.71275pt too wide) detected at line 36
-\OML/cmm/m/it/12 sng\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 \OT1/cmr/m/n/12 ) = []  
+ <./Images/graficoLogaritmico_example.png>]
+Overfull \hbox (0.71275pt too wide) detected at line 38
+\OML/cmm/m/it/12 sgn\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 \OT1/cmr/m/n/12 ) = []  
 =[]\OMS/cmsy/m/n/12 )  \OML/cmm/m/it/12 Arg\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^
 [ \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 j!\OT1/cmr/m/n/12 ) = []
  []
 
-) [44] (./main.aux)
+[45]
+Overfull \hbox (21.98544pt too wide) detected at line 56
+\OML/cmm/m/it/12 H\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 s\OT1/cmr/m/n/12 ) = \OML/c
+mm/m/it/12 K[] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 K[][]
+ []
+
+[46]
+Overfull \hbox (7.37901pt too wide) detected at line 67
+[] \OT1/cmr/m/n/12 = [] = \OMS/cmsy/m/n/12 ^^@\OT1/cmr/m/n/12 8[]
+ []
+
+[47]
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 91--92
+
+ []
+
+[48]
+<Images/zeriPoliNulliGrafico.png, id=199, 787.94376pt x 952.55875pt>
+File: Images/zeriPoliNulliGrafico.png Graphic file (type png)
+<use Images/zeriPoliNulliGrafico.png>
+Package pdftex.def Info: Images/zeriPoliNulliGrafico.png  used on input line 10
+0.
+(pdftex.def)             Requested size: 270.00275pt x 326.40929pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--104
+
+ []
+
+[49 <./Images/zeriPoliNulliGrafico.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 105--106
+
+ []
+
+) [50]
+Chapter 6.
+(./Chapters/6.tex) [51
+
+]
+Chapter 7.
+(./Chapters/7.tex) [52
+
+] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 5444 strings out of 474222
- 82694 string characters out of 5748733
+ 5533 strings out of 474222
+ 84549 string characters out of 5748733
  1944975 words of memory out of 5000000
- 27617 multiletter control sequences out of 15000+600000
+ 27696 multiletter control sequences out of 15000+600000
  567928 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  64i,20n,70p,983b,328s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -562,10 +618,10 @@ exmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1
 /public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (45 pages, 392481 bytes).
+Output written on main.pdf (53 pages, 474321 bytes).
 PDF statistics:
- 271 PDF objects out of 1000 (max. 8388607)
- 164 compressed objects within 2 object streams
+ 300 PDF objects out of 1000 (max. 8388607)
+ 181 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

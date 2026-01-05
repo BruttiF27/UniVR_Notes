@@ -1,0 +1,91 @@
+Lez26 - Sistemi
+
+--- Diagramma di bode totale
+Ottenuti i grafici, bisogna mostrare il comportamento totale di Bode. Fondamentalmente si sommano assieme.
+Dovremo scrivere le frequenze \omega_n trovate finora per ogni elemento. Prendiamo come riferimento l'esercizio della Lez25
+	- Abbiamo una costante K_b che sta là. È sempre sulla stessa riga. Non influisce.
+	- Il primo termine (1+s) ha \omega_n=10^0
+	- Il secondo termine s^2 ha \omega_n=10^0, in quanto ha lo zero nullo.
+	- Il terzo termine ha \omega_n=4
+	- L'unico polo ha \omega_n=0.5
+	
+Ora li confiniamo in una tabella dove gli estremi sono dati dalle decadi più vicine al loro valore. In questo caso:
+
+10^{-1} | 0.5 | 10^0 | 4 | 10^1
+
+Adesso calcoliamo il valore di ciascun termine nei valori trovati. Aggiungiamo gli estremi per capire meglio l'andamento.
+- Per le ampiezze: Somma degli andamenti per decade per ogni intervallo (se lo vedi graficamente è più semplice, giuro)
+	Blocco antecedente a 10^{-1} = 40dB/dec
+	Blocco di 10^{-1} = 40dB/dec
+	Blocco di 0.5 = 20dB/dec
+	Blocco di 10^0 = 40dB/dec
+	Blocco di 4 = 80dB/dec
+	Blocco di 10^1 = 80dB/dec
+	
+Tendenzialmente si fa con le tabelle sta cosa dell'andamento:
+\begin{tabular}
+	\begin{table}[|c|c|c|c|c|c|]
+	\hline
+	& 10^{-1} & 0.5 & 10^0 & 4 & 10^1\\
+	\hline
+	K_b & 0 & 0 & 0 & 0 & 0\\
+	\hline
+	zeroR_1 & 0 & 0 & 0 & 20 & 20\\
+	\hline
+	zeroNul_1 & 40 & 40 & 40 & 40 & 40\\
+	\hline
+	zeroCC_1 & 0 & 0 & 0 & 0 & 40\\
+	\hline
+	poloR_1 & 0 & 0 & -20 & -20 & -20\\
+	\hline
+	& 40 & 40 & 20 & 40 & 80
+	\end{table}
+\end{tabular}
+
+Dopo la tabella si fa il grafico delle ampiezze.
+\begin{tabular}
+	\begin{table}[|c|c|c|c|c|c|]
+	\hline
+	& 10^{-1} & 0.5 & 10^0 & 4 & 10^1\\
+	\hline
+	K_b & 24 & 24 & 24 & 24 & 24\\
+	\hline
+	zeroR_1 & 0 & 0 & 0 & 12 & 20\\		[20log(\omega|\tau|)]
+	\hline
+	zeroNul_1 & -40 & -12 & 0 & 24 & +40\\	[20\mu log(\omega)]
+	\hline
+	zeroCC_1 & 0 & 0 & 0 & 0 & 15.9\\	[40\mu sng(\zeta)log(\frac{\omega}{\omega_n})]
+	\hline
+	poloR_1 & 0 & 0 & -6 & -18 & -26\\	[20log(\omega|\tau|)]
+	\hline
+	& -16 & 12 & 18 & 42 & 74\\
+	\hline
+	\end{table}
+\end{tabular}
+
+Le formule utilizzate sono quelle viste per i quattro casi di costante, zeri reali, complessi e coniugati e simili. Meglio riprenderle da là piuttosto che trustare quelle scritte nelle [].
+Questi risultati vanno riportati nel diagramma di bode totale. Segna anzitutt gli intervalli dati dalle \omega_n e poi segna i punti dati dai valori delle ampiezze. Per quanto riguarda la fase, segnare nell'intervallo di quanto cresce o decresce la funzione.
+
+Adesso bisogna fare il grafico delle fasi, che segue un ragionamento simile.
+Andiamo a considerare naturalmente il solo valore asintotico.
+
+\begin{tabular}
+	\begin{table}[|c|c|c|c|c|c|]
+	\hline
+	& 10^{-1} & 0.5 & 10^0 & 4 & 10^1\\
+	\hline
+	K_b & -180 & -180 & -180 & -180 & -180\\
+	\hline
+	zeroR_1 & 0 & 0 & 0 & 90 & 90\\
+	\hline
+	zeroNul_1 & 180 & 180 & 180 & 180 & 180\\
+	\hline
+	zeroCC_1 & 0 & 0 & 0 & 0 & 180\\
+	\hline
+	poloR_1 & 0 & 0 & 90 & 90 & 90\\
+	\hline
+	& 0 & 0 & 90° & 180° & 360°
+	\end{table}
+\end{tabular}
+
+E potremo disegnare il grafico in base ai valori ottenuti. Occhio a non disegnare spezzate oblique. Queste rette vanno disegnate come fosse campionamento, quindi perfettamente a 90° se cambiano direzione.

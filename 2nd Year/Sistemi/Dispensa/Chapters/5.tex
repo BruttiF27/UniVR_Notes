@@ -1,13 +1,15 @@
 \section{Grafici logaritmici}
 Abbiamo notato come ogni segnale può essere rappresentato come una somma di sinusoidi, e che ai sistemi LTI bibostabili, quando dato in input sinusoidale, ritorneranno un output della stessa forma e frequenza, ma con ampiezza e fase diverse.\par
-Quella di Bode è una rappresentazione grafica eseguita mediante \textbf{grafici logaritmici} che sfrutta proprio questa caratteristica, mostrando il comportamento dell'uscita di un segnale diviso per ampiezze e fasi senza conoscere la funzione del sistema al variare della frequenza.\newline
+Quella di Bode è una rappresentazione grafica eseguita mediante \textbf{grafici logaritmici} che sfrutta proprio questa caratteristica, mostrando il comportamento dell'uscita di un segnale diviso per ampiezze e fasi senza conoscere la funzione del sistema al variare della frequenza.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{Images/graficoLogaritmico_example.png}
+	\caption{Grafico logaritmico}
+\end{figure}
 
 \noindent Più precisamente, per i \textbf{diagrammi di Bode} vengono utilizzati due grafici semi-logaritmici, i quali presentano le pulsazioni $\omega[Hz = rad/s]$ sull'asse delle $x$, mentre sulle $y$ descrivono le ampiezze $A[dB = 20log_{10}(|A|)]$ o le fasi $\phi[deg]$, in due grafici diversi.\par
-Essendo i grafici in una scala logaritmica sull'asse delle $x$, avremo intervalli dati dalle potenze di $10$, chiamati \textbf{decadi}; quindi il minimo è dato da $-\infty$, il massimo è $+\infty$ e non si tocca mai lo zero. Gli intervalli di decadi sono graficamente definiti dallo spazio di $10$ quadrati del grafico.\newline
-
-% TODO Inserire esempio di grafico logaritmico
-
-\noindent Stiamo ragionando in termini di risposta in frequenza, quindi partiamo da un sistema che divide l'input in due parti per andare in due blocchi diversi. Poi somma questi due output per ritornare l'uscita. Supponiamo che:
+Essendo i grafici in una scala logaritmica sull'asse delle $x$, avremo intervalli dati dalle potenze di $10$, chiamati \textbf{decadi}; quindi il minimo è dato da $-\infty$, il massimo è $+\infty$ e non si tocca mai lo zero. Gli intervalli di decadi sono graficamente definiti dallo spazio di $10$ quadrati del grafico.\par
+Stiamo ragionando in termini di risposta in frequenza, quindi partiamo da un sistema che divide l'input in due parti per andare in due blocchi diversi. Poi somma questi due output per ritornare l'uscita. Supponiamo che:
 \begin{itemize}
 	\item $u(t) = \sin(\frac{1}{2}t)$
 	\item $v(t) = 2.83\deg\cdot \sin(\frac{1}{2}t - 0.785\deg)$
@@ -26,66 +28,326 @@ Essendo i grafici in una scala logaritmica sull'asse delle $x$, avremo intervall
 	\sigma < 0, \omega\geq 0 \implies arctan(\frac{\omega}{\sigma})+\pi\\
 	\sigma < 0, \omega<0 \implies arctan(\frac{\omega}{\sigma})-\pi
 \end{cases}\]
-\noindent Tuttavia, usando la funzione segno, otteniamo una forma di Arg più compatta, definita come \[sng(\alpha) = \begin{cases}
+\noindent Tuttavia, usando la funzione segno, otteniamo una forma di Arg più compatta, definita come: \[sgn(\alpha) = \begin{cases}
 	\alpha > 0 \implies 1\\
 	0
 \end{cases} \implies Arg(\sigma + j\omega) = \begin{cases}
 	\sigma > 0 \implies arctan(\frac{\omega}{\sigma})\\
-	\sigma = 0, \omega\neq 0 \implies sng(\omega \cdot \frac{\pi}{2})\\
-	\sigma < 0 \implies arctan(\frac{\omega}{\sigma}) + sng(\omega) \cdot \pi
+	\sigma = 0, \omega\neq 0 \implies sgn(\omega \cdot \frac{\pi}{2})\\
+	\sigma < 0 \implies arctan(\frac{\omega}{\sigma}) + sgn(\omega) \cdot \pi
 \end{cases}\]
-\noindent Dove nell'ultimo caso specifichiamo che $sng(\omega) = 1$ se $\omega = 0$.
+\noindent Dove nell'ultimo caso specifichiamo che $sgn(\omega) = 1$ se $\omega = 0$. Ci è poi particolarmente utile andare a verificare il comportamento della funzione ai suoi estremi, quindi esaminiamo cosa succede con valori minimi e massimi.\par
+Nel caso preso in esame, variando la frequenza e quindi portando il punto all'estremità in basso e in alto, avremo gradi minimi di -90° e 0°. Questi sono i confini per i gradi nel diagramma di Bode, mentre per quanto riguarda le ampiezze, minore è la frequenza, più grande sarà il vettore. Questo metodo, seppur funzionale, tuttavia, risulta essere estremamente lento, perché bisogna verificare tutte le frequenze; ripetere questo processo ogni volta è atroce.\par
+La soluzione più agevole vede la trasformazione della risposta nella \textbf{forma di Bode}, che discuteremo nella prossima sezione; ma prima è necessario chiarire alcuni presupposti sui numeri complessi per lavorarci:
+\begin{itemize}
+	\item \textbf{Moltiplicazione}: $|a\cdot b| = |a|\cdot |b|$, $Arg(a\cdot b) = Arg(a) + Arg(b)$
+	\item \textbf{Divisione}: $|\frac{a}{b}| = \frac{|a|}{|b|}$, $Arg(\frac{a}{b}) = Arg(a) - Arg(b)$
+	\item \textbf{Esponenziali}: $|a^\mu| = |a|^\mu$, $Arg(a^\mu) = \mu\cdot Arg(a)$
+	\item \textbf{Logaritmi}: Leggermente più complicato. Bisogna ricordare \[\log s = x \iff s = e^x; s = \rho e^{j\theta}, x = \sigma + j\omega\]
+	\noindent Ne deduciamo quindi che: \[s = e^x \implies \rho e^{j\theta} = e^{\sigma + j\omega} \implies e^{\log\rho}e^{j\theta} = e^\sigma e^{j\omega}\]
+	\noindent Arriviamo infine a $\log\rho = \sigma$, $\theta = \omega$. Dunque: \[\log s = x \implies \log\rho + j\omega \implies \log|s| + j\cdot Arg(s)\]
+\end{itemize}
+
+%
+
+\section{Forma di Bode}
+Chiariti i presupposti delle operazioni nel campo dei complessi, introduciamo la \textbf{Forma di Bode}. Si tratta di una scrittura che ha lo scopo di arrivare agli omonimi diagrammi senza dover sostituire il valore della frequenza per ogni singolo punto.\par
+Partiamo dalla funzione di trasferimento in laplace $H(s)$, in una forma dove sono espansi gli zeri e i poli. Ridefiniamo la costante $K$ come $K_b$, dove porteremo ogni singola costante dei fattori, facendoci ottenere:
+\[H(s) = K\frac{(s-z_1)(s-z_2) \cdot\cdot\cdot (s-z_m)}{(s-p_1)(s-p_2) \cdot\cdot\cdot (s-p_n)} = K_b\frac{\prod_i(1+s\tau_i')^{\mu_i'} \prod_k\left(1+2\zeta_k'\cdot \frac{s}{\omega_{n,k}'} + \frac{s^2}{(\omega_{n,k}')^2}\right)^{\mu_k'}}{(s^\nu)\prod_i(1+s\tau_i)^{\mu_i}\prod_k\left(1+2\zeta_k\cdot\frac{s}{\omega_{n,k}} + \frac{s^2}{(\omega_{n,k})^2}\right)^{\mu_k}}\]
+\noindent Questa forma si può sempre ottenere e presenta le seguenti componenti:
+\begin{itemize}
+	\item $K_b$: Detto \textbf{guadagno di Bode}, è il termine costante che racchiuderà tutte le altre costanti prese dai fattori.
+	\item $s^\nu$: Raggruppa tutte le radici nulle, per esempio $\frac{s^5}{s^4} = \frac{1}{s^{-1}}$
+	\item $(1+s\tau_i)^{\mu_i}$: Raggruppa una radice reale, come $(s+1)$
+	\item $\left(1+2\zeta_k \frac{s}{\omega_{n,k}} + \frac{s^2}{(\omega_{n,k})^2}\right)^{\mu_k}$: Raggruppa una radice complessa coniugata, ovvero quel trinomio che non si può scomporre.
+\end{itemize}
+\noindent Vediamo come è possibile arrivare alla forma di Bode partendo dalla funzione di trasferimento in frequenza $H(s)$. Supponiamo di avere la seguente: \[H(s) = \frac{s^3 - 2s^2 - 8s}{s^4 - 2s^3 + 2s^2}\]
+\noindent Come primo passaggio è necessario \textbf{raccogliere} ed eventualmente semplificare le $s$ presenti nella funzione. Qui otteniamo: \[H(s) = \frac{s^3 - 2s^2 - 8s}{s^4 - 2s^3 + 2s^2} = \frac{s(s^2 - 2s - 8)}{s^2(s^2 - 2s + 2)} = \frac{(s-4)(s+2)}{s(s - (1-j))(s - (1+j))}\]
+\noindent Abbiamo ottenuto al numeratore due zeri reali, mentre al denominatore abbiamo un polo nullo e una coppia di poli complessi e coniugati. Possiamo procedere con la prossima manipolazione che è il \textbf{raccoglimento delle costanti}.\par
+In questo caso, dobbiamo lavorare esclusivamente sugli zeri, poiché sono gli unici fattori che presentano una costante diversa da $1$: \[\frac{(s-4)(s+2)}{s(s - (1-j))(s - (1+j))} = \frac{-4\left(1+\frac{s}{-4}\right)\cdot 2\left(1 + \frac{s}{2}\right)}{s(s - (1-j))(s - (1+j))} = -8\frac{\left(1+\frac{s}{-4}\right)\left(1 + \frac{s}{2}\right)}{s(s - (1-j))(s - (1+j))}\]
+\noindent Per ottenere una forma più compatta possiamo dire inoltre che $\tau_1'=-\frac{1}{4}$ e $\tau_2'=\frac{1}{2}$: \[H(s) = -8\frac{(1 + s\tau_1')(1 + s\tau_2')}{s(s - (1-j))(s - (1+j))}\]
+\noindent Adesso bisogna manipolare la coppia di poli complessi e coniugati. Sì, l'abbiamo scomposto prima per sicurezza, ma è più semplice raccogliere la costante quando sviluppato. Otteniamo: \[s(s - (1-j))(s - (1+j)) = s^2 -2s +2 = 2\left(1 - s + \frac{s^2}{2}\right)\]
+\noindent Vedendo la forma capiamo dall'ultimo termine che $\omega_n^2 = 2 \implies \omega_n = \sqrt{2}$. È evidente poi che $\frac{2\zeta}{\omega_n} = -1 \implies \zeta = -\frac{1}{\sqrt{2}}$ dal secondo termine. Dunque, riscrivendo quanto ottenuto nella forma richiesta: \[\left(1+2\zeta_k \frac{s}{\omega_{n,k}} + \frac{s^2}{(\omega_{n,k})^2}\right)^{\mu_k} \implies 2\left(1 + \left(-\frac{1}{\sqrt{2}}\right)\frac{s}{\sqrt{2}} + \frac{s^2}{(\sqrt{2})^2}\right)\]
+\noindent Abbiamo finalmente ottenuto la forma di Bode della funzione di trasferimento richiesta: \[H(s) = -16\frac{\left(1+\frac{s}{-4}\right)\left(1 + \frac{s}{2}\right)}{1\left(1 + \left(-\frac{1}{\sqrt{2}}\right)\frac{s}{\sqrt{2}} + \frac{s^2}{(\sqrt{2})^2}\right)} = K_b\frac{(1 + s\tau_1')(1 + s\tau_2')}{s^\nu\left(1 + 2\zeta_1\frac{s}{\omega_n} + \frac{s^2}{\omega_n^2}\right)}\]
+
+%
+
+\section{Grafici della risposta in frequenza}
+Come già menzionato, i diagrammi di Bode sono due, uno per l'ampiezza e l'altro per la fase. Questi possono rappresentare ogni singolo fattore nella relativa forma di Bode che si suppone ottenuta dalla funzione di trasferimento. Ciò significa che esistono diagrammi per rappresentare:
+\begin{itemize}
+	\item \textbf{Guadagno di Bode} $K_b$.
+	\item \textbf{Zeri/Poli nulli} come $s^\mu$, con molteplicità $\mu$.
+	\item \textbf{Zeri/Poli reali} come $(1+\tau s)^\mu$, con $\tau$ costante di tempo.
+	\item \textbf{Zeri/Poli complessi e coniugati} come $\left(1+2\zeta\frac{\omega}{\omega_n}+ \frac{\omega^2}{\omega_n^2}\right)^\mu$, dove $\zeta$ è detto \textbf{coefficiente di smorzamento} e $\omega$ la \textbf{pulsazione naturale}. 
+\end{itemize}
+\noindent Ognuno di loro ha una definizione particolare riguardo al disegno. Studiamoli uno per volta.\newline
+
+\noindent\textbf{Termine costante} $K_b = H(j\omega)$\par
+\noindent Il guadagno di Bode è un numero reale tale per cui $Im(K_b) = 0 \implies |H(j\omega)| = Re(K_b) = |K_b|$. Ciò significa che il modulo è in decibel e la funzione giace sull'asse dei reali. L'ampiezza $A(\omega)$ della funzione è data da: \[A(\omega) = \big|H(j\omega)\big|_{dB} = 20\log_{10}|K_b|\]
+\noindent Mentre la fase $\phi(\omega)$ è definita come:
+\begin{center}
+	$\phi(\omega) = 0\degree$ oppure $\phi(\omega) = -180\degree$
+\end{center}
+\noindent A seconda del segno positivo e negativo rispettivamente.\newline
+
+\noindent\textbf{Zeri/Poli nulli} $H(j\omega) = (j\omega)^\nu$\newline
+\noindent Fissato $\omega\in\mathbb{R}$, il numero $H(j\omega) = (j\omega)^\nu$ è, a seconda della potenza $\nu\in\mathbb{Z}$ o un reale puro, positivo o negativo, oppure un immaginario puro, positivo o negativo.\par
+Il fattore è rappresentato come una retta che cresce o decresce di $20dB$ ogni decade in base al valore della potenza $\nu$ a partire da dove il valore si annulla. In particolare l'ampiezza è data da: \[A(\omega) = |H(j\omega)|_{dB} = 20log_{10}(\omega^\nu) = 20\nu log_{10}(\omega)\]
+\noindent Mentre la fase è una retta che non si stacca dall'asse immaginario ed è data da: \[\phi(\omega) = Arg(j\omega)^\nu = \nu Arg(j\omega) = \nu 90\degree\]
+\noindent Supponendo $\nu=1$, la retta dell'ampiezza crescerebbe di $20dB/dec$ e la fase sarebbe $90\degree$, mentre in presenza di $\nu=-1$, l'ampiezza decrescerebbe della stessa quantità, con una fase di $-90\degree$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/zeriPoliNulliGrafico.png}
+\end{figure}
+
+\noindent\textbf{Zeri/Poli reali}\newline
+
+\noindent\textbf{Zeri/Poli complessi e coniugati}\newline
+
+
+
 
 
 
 
 \begin{comment}	
-	È intelligente andare a verificare il comportamento della funzione ai suoi estremi, quindi vediamo che succede con valori minimi e massimi.
-	Nel caso preso in esame, abbiamo che, variando la frequenza e quindi portando il punto all'estremità in basso e in alto, avremo gradi minimi di -90° e 0°. Abbiamo ottenuto i confini per i gradi nel diagramma di Bode.
-	Per quanto riguarda le ampiezze, minore è la frequenza, più grande sarà il vettore.
+	3. Zero/Polo reali (1+\tau s)^\mu
+	Polo: \frac{1}{1+\frac{s}{\omega_0}} = \frac{1}{1+\tau s} \implies \omega_0=\frac{1}{|\tau|}
 	
-	Unire i due grafici è un casino quindi bisogna trovare una soluzione per tenere tutte le frequenze.
+	Scriveremo, razionalizzando: \frac{1-j\omega/\omega_0}{1+\omega^2/\omega_0^2}
+	Dove:
+	Re = \frac{1}{1+\omega^2/\omega_0}
+	Im = \frac{-\frac{\omega}{\omega_0}j}{\+\frac{\omega^2}{\omega_0^2}}
 	
-	--- Operazioni nei complessi
-	- |a\cdot b| = |a|\cdot |b|, arg(a\cdot b) = arg(a) + arg(b)
-	- |\frac{a}{b}| = \frac{|a|}{|b|}, arg(\frac{a}{b}) = arg(a) - arg(b)
-	- |a^\mu| = |a|^\mu, arg(a^\mu) = \mu\cdot arg(a)
+	La figata è poter dire:
+	- A(w) = -20log_{10}(\sqrt{Re^2 + Im^2}) = -20log_{10}(\sqrt{1+\frac{\omega^2}{\omega_0}})
+	- \phi(w) = atan2(Re + Im) = atan2(-\frac{\omega}{\omega_0})
 	
-	-- Logaritmo negli esponenziali
-	log s = x \iff s = e^x, dove: s = \rho e^{j\theta}, x = \sigma + j\omega
+	Possiamo avere alcune situazioni:
+	- Se \omega << \omega_0:
+	A(w) = -20log_{10}(1) = 0
+	\phi(w) = atan2(0) = 0
 	
-	s = e^x \implies \rho e^{j\theta} = e^{\sigma + j\omega} \implies e^{log\rho}e^{j\theta} = e^\sigmae^{j\omega}
+	- Se \omega = \omega_0
+	A(w) = -20log_{10}(\sqrt{2}) = -3dB
+	\phi(w) = atan2(-1) = -45°
 	
-	Arrivamo che log\rho = \sigma e \theta = \omega. Dunque: 
+	- Se \omega >> \omega_0
+	A(w) = -20log_{10}(\omega / \omega_0) = -20dB/decade
+	\phi(w) = atan2(-\infty) = -90°
+	
+	// Consigliato di vedere i grafici rilevanti. Non posso esattamente disegnarli per ora.
+	
+	Se consideriamo uno \omega >> 0:
+	A(w) &= 20log_{10}(\omega|\tau|)^\mu\\
+	&= 20\mu(log_{10}(\omega) + log_{10}(|\tau|))
+	
+	\phi(w) &= arg(\omega\tau)^\mu\\
+	&= \mu\cdot sgn(\tau)\cdot 90°
+	
+	// Con \mu > 0 abbiamo zero, mentre se mu < 0 abbiamo un polo.
+	
+	Se consideriamo \omega << 0
+	A(\omega) = 0
+	\phi(\omega) = 0
+	
+	4. Zeri/Poli complessi e coniugati (1+2\zeta\frac{\omega}{\omega_n}+ \frac{\omega^2}{\omega_n^2})^\mu
+	
+	Dunque stiamo considerando tutti quei punti che giacciono in qualunque altro punto rispetto agli altri appena visti.
+	Bisogna trovare la pulsazione naturale \omega_n ed il coefficiente di smorzamento \zeta.
+	
+	Per i poli (se vuoi gli zeri inverti il segno):
+	Parte reale: Re = \frac{1 - (\frac{\omega}{\omega_0})}{(1 - (\frac{\omega}{\omega_0})^2)^2 + (2\zeta\frac{\omega}{\omega_0})^2}
+	Parte immaginaria: = \frac{- 2j(\frac{\omega}{\omega_0})}{(1 - (\frac{\omega}{\omega_0})^2)^2 + (2\zeta\frac{\omega}{\omega_0})^2}
+	
+	Per \omega << \omega_0
+	A(\omega) = -20log_{10}(1) = 0
+	
+	\phi(\omega) = atan2(0) = 0°
+	
+	Per \omega >> \omega_0
+	A(\omega) &= -20log_{10}(\frac{\omega}{\omega_0})^2
+	&= -40log_{10}(\frac{\omega}{\omega_0})
+	
+	\phi(\omega) &= atan2(2\zeta \frac{\omega}{\omega_0})
+	&= -180°
+	
+	Per \omega = \omega_0 = \omega_n
+	A(\omega) = 20log_{10}(2\zeta)
+	Per \zeta = 0.5 \implies A = 0
+	Per \zeta > 0.5 \implies Il grafico passa per \omega_0
+	Per \zeta < 0.5 \implies Picco di risonanza \omega_r = \omega_n\sqrt{1-2\zeta^2}, con m_r = 20\mulog_{10}(2\zeta \sqrt{1-\zeta^2})
+	Per \zeta = 0 \implies Discontinuità
+	
+	\phi(\omega) = -90°
+	
+	Il picco di risonanza aumenta di altezza con il diminuire di \zeta.
+	
+	-----
+	
+	Lez25 - Sistemi
+	
+	--- Dalla funzione di trasferimento al diagramma di bode.
+	
+	Supponiamo H(s) = \frac{s^2(s+1)(s^2+3s+16)}{(2s-1)}
+	Passiamo alla forma di Bode:
 	\begin{equation}
 		\begin{split}
-			log s &= x\\
-			&= log\rho + j\omega\\
-			&= log|s| + j\cdot arg(s)
+			H(s) &= \frac{s^2(s+1)(s^2+3s+16)}{(2s-1)}\\
+			&= \frac{s^2(1)(1+\frac{s}{1})^1 \cdot 16(\frac{16}{16} + \frac{3}{16}s + \frac{s^2}{16})^2}{-1(1 - \frac{2}{1}s)^1}\\
+			&= -16 \frac{s^2(1+s)(1+ \frac{3}{16}s + \frac{s^2}{16})}{1 - 2s}
 		\end{split}
 	\end{equation}
+	
+	Ottenuta la forma di Bode possiamo andare a prendere le singole parti viste e disegnare i rispettivi diagrammi.
+	- Per K_b:
+	Calcoliamo ampiezza e fase:
+	A = 20log_{10}(|-16|) = 24
+	\phi = \begin{cases}
+		0° K_b > 0\\
+		-180° K_b < 0
+	\end{cases} \implies -180°, perché K_b = -16.
+	
+	- Per gli altri zeri:
+	- (s+1)
+	Calcoliamo molteplicità \mu e Termine moltiplicato per s \tau. In questo caso \mu=1, \tau=1.
+	Ciò significa che frequenza di taglio \omega = \frac{1}{|\tau|} = 1
+	
+	Dunque prima di \omega, l'ampiezza A=0, mentre dopo è data dalla formula A=20\mulog_{10}(\omega|\tau|). In questo caso cresce di 20dB ogni decade.
+	
+	Le fasi hanno un comportamento molto simile. Fino a \omega, \phi = 0, mentre dopo \phi=\museg(\tau)*90° = 90°. Unendo le rette una decade prima e dopo di \omega, abbiamo il comportamento asintotico del sistema.
+	
+	- s^2
+	\mu=2, perché è di grado 2. Nel diagramma avremo un punto in (10^0,0).
+	Ampiezza A=20\mu\log(\omega) = \frac{40dB}{dec}. Quindi molto semplicemente cresce di 40dB per decade.
+	Fase \phi=\mu*90° = 180°. Semplice retta posta su 180°.
+	
+	- Complesso coniugato (\+ 3/16s + s^2/16):
+	\mu=1, poi \frac{2\zeta}{\omega_n}=3/16 e \omega_n^2=16.
+	
+	Dunque:
+	\omega_n = \sqrt{16} = 4
+	\frac{2\zeta}{\omega_n}=3/16 \implies \zeta = \frac{3}{16}\cdot\frac{\omega_n}{2} = \frac{3}{8}
+	
+	Per disegnare, in quanto \omega_n=4, partiamo dalla decade 10^0 e andiamo al quarto quadratino. Là sta \omega_n.
+	
+	Prima di \omega_n A=0, mentre dopo è data da A=20\mu\log_{10}(\frac{\omega}{\omega_n}) = \frac{40dB}{dec}. Quindi il valore cresce di 40dB a decade. Occhio che non parti dalla prima linea della divisione del grafico, ma bisogna contare sempre 10 quadratini.
+	
+	\omega_r = \omega_n\sqrt{1-2\zeta^2}
+	M_r = 20\mu log_{10}(2\zeta\sqrt{1-\zeta^2})
+	
+	Le fasi hanno naturalmente un funzionamento simile. \phi=0° prima di \omega_n, mentre dopo è \phi=180\mu\sng(\zeta) = 180°. Quindi abbiamo una retta a 180°.
+	Prendi i punti una decade prima e dopo di \omega_n e poi connettili per il comportamento asintotico del sistema.
+	
+	- Polo 1/(1-2s)
+	Definitivamente un polo in quanto molteplicità negativa. Abbiamo dunque:
+	\mu=-1, \tau=-2 \implies \omega_n=\frac{1}{|\tau|} = \frac{1}{2} = 0.5.
+	
+	Dunque l'ampiezza A=0 prima di \omega_n, mentre dopo è data da A=20\mu \log_{10}(\omega|\tau|) = -20dB/dec. Quindi cala di 20dB ad ogni decade.
+	
+	Per la fase, stessa roba prima di \omega_n, poi \phi=\mu*\sgn(\tau)*90° = 90°.
+	Prendendo una decade prima e dopo \omega_n, uniamo i puntini e otteniamo il comportamento asintotico.
+	
+	-----
+	
+	Lez26 - Sistemi
+	
+	--- Diagramma di bode totale
+	Ottenuti i grafici, bisogna mostrare il comportamento totale di Bode. Fondamentalmente si sommano assieme.
+	Dovremo scrivere le frequenze \omega_n trovate finora per ogni elemento. Prendiamo come riferimento l'esercizio della Lez25
+	- Abbiamo una costante K_b che sta là. È sempre sulla stessa riga. Non influisce.
+	- Il primo termine (1+s) ha \omega_n=10^0
+	- Il secondo termine s^2 ha \omega_n=10^0, in quanto ha lo zero nullo.
+	- Il terzo termine ha \omega_n=4
+	- L'unico polo ha \omega_n=0.5
+	
+	Ora li confiniamo in una tabella dove gli estremi sono dati dalle decadi più vicine al loro valore. In questo caso:
+	
+	10^{-1} | 0.5 | 10^0 | 4 | 10^1
+	
+	Adesso calcoliamo il valore di ciascun termine nei valori trovati. Aggiungiamo gli estremi per capire meglio l'andamento.
+	- Per le ampiezze: Somma degli andamenti per decade per ogni intervallo (se lo vedi graficamente è più semplice, giuro)
+	Blocco antecedente a 10^{-1} = 40dB/dec
+	Blocco di 10^{-1} = 40dB/dec
+	Blocco di 0.5 = 20dB/dec
+	Blocco di 10^0 = 40dB/dec
+	Blocco di 4 = 80dB/dec
+	Blocco di 10^1 = 80dB/dec
+	
+	Tendenzialmente si fa con le tabelle sta cosa dell'andamento:
+	\begin{tabular}
+		\begin{table}[|c|c|c|c|c|c|]
+			\hline
+			& 10^{-1} & 0.5 & 10^0 & 4 & 10^1\\
+			\hline
+			K_b & 0 & 0 & 0 & 0 & 0\\
+			\hline
+			zeroR_1 & 0 & 0 & 0 & 20 & 20\\
+			\hline
+			zeroNul_1 & 40 & 40 & 40 & 40 & 40\\
+			\hline
+			zeroCC_1 & 0 & 0 & 0 & 0 & 40\\
+			\hline
+			poloR_1 & 0 & 0 & -20 & -20 & -20\\
+			\hline
+			& 40 & 40 & 20 & 40 & 80
+		\end{table}
+	\end{tabular}
+	
+	Dopo la tabella si fa il grafico delle ampiezze.
+	\begin{tabular}
+		\begin{table}[|c|c|c|c|c|c|]
+			\hline
+			& 10^{-1} & 0.5 & 10^0 & 4 & 10^1\\
+			\hline
+			K_b & 24 & 24 & 24 & 24 & 24\\
+			\hline
+			zeroR_1 & 0 & 0 & 0 & 12 & 20\\		[20log(\omega|\tau|)]
+			\hline
+			zeroNul_1 & -40 & -12 & 0 & 24 & +40\\	[20\mu log(\omega)]
+			\hline
+			zeroCC_1 & 0 & 0 & 0 & 0 & 15.9\\	[40\mu sng(\zeta)log(\frac{\omega}{\omega_n})]
+			\hline
+			poloR_1 & 0 & 0 & -6 & -18 & -26\\	[20log(\omega|\tau|)]
+			\hline
+			& -16 & 12 & 18 & 42 & 74\\
+			\hline
+		\end{table}
+	\end{tabular}
+	
+	Le formule utilizzate sono quelle viste per i quattro casi di costante, zeri reali, complessi e coniugati e simili. Meglio riprenderle da là piuttosto che trustare quelle scritte nelle [].
+	Questi risultati vanno riportati nel diagramma di bode totale. Segna anzitutt gli intervalli dati dalle \omega_n e poi segna i punti dati dai valori delle ampiezze. Per quanto riguarda la fase, segnare nell'intervallo di quanto cresce o decresce la funzione.
+	
+	Adesso bisogna fare il grafico delle fasi, che segue un ragionamento simile.
+	Andiamo a considerare naturalmente il solo valore asintotico.
+	
+	\begin{tabular}
+		\begin{table}[|c|c|c|c|c|c|]
+			\hline
+			& 10^{-1} & 0.5 & 10^0 & 4 & 10^1\\
+			\hline
+			K_b & -180 & -180 & -180 & -180 & -180\\
+			\hline
+			zeroR_1 & 0 & 0 & 0 & 90 & 90\\
+			\hline
+			zeroNul_1 & 180 & 180 & 180 & 180 & 180\\
+			\hline
+			zeroCC_1 & 0 & 0 & 0 & 0 & 180\\
+			\hline
+			poloR_1 & 0 & 0 & 90 & 90 & 90\\
+			\hline
+			& 0 & 0 & 90° & 180° & 360°
+		\end{table}
+	\end{tabular}
+	
+	E potremo disegnare il grafico in base ai valori ottenuti. Occhio a non disegnare spezzate oblique. Queste rette vanno disegnate come fosse campionamento, quindi perfettamente a 90° se cambiano direzione.
 \end{comment}
 
 %
 
-\section{Forma di Bode}
-
-
-
-
-
+\section{Esercizi svolti}
 
 \begin{comment}
-	--- Forma di Bode
-	La forma di Bode consente di avere un metodo più semplice per arrivare ai diagrammi di prima senza dover sostituire il valore della frequenza ogni volta per ottenere ogni punto.
-	
-	Partiamo dalla funzione di trasferimento in laplace H(s), nella sua forma dove sono espansi gli zeri e i poli. Possiamo farci ulterior male e definire la costante K come K_b, definita come: \[H(s) = K_b\frac{\prod_i(1+s\tau_1')^{\mu i'}\cdot \prod_k(1+2\xi_k'\cdot \frac{s}{\omega_{n,k}'} + \frac{s^2}{(\omega_{n,k}')^2})^{\mu k'}}{s^{\nu_1\prod_i(\+s\tau_i)^{\mu_i}}\cdot\prod_k(1+2\xi_k\cdot\frac{s}{\omega_{n,k}} + \frac{s^2}{(\omega_{n,k})^2})^{\mu_k}}\]
-	Questa scrittura orrenda è detta forma di bode.
-	- K_b (guadagno di Bode) termine costante che racchiuderà ogni valore costante.
-	- S^{\nu} raggruppa tutte le radici nulle, eg: \frac{s^5}{s^4} = \frac{1}{s^{-1}}
-	- (1+s\tau_i)^{\mu_i} raggruppa la singola radice reale, eg: (s+1)
-	- (1+2\xi_k \frac{s}{\omega_{n,k}} + \frac{s^2}{(\omega_{n,k})^2})^{\mu_k} raggruppa la singola radice complessa coniugata (il trinomio non scomponibile)
-	
 	Come arrivare alla forma di Bode
 	1. Raccogliere "le costanti"
 	- Poli/zeri nulli:

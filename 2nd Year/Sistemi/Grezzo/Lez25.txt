@@ -1,0 +1,62 @@
+Lez25 - Sistemi
+
+--- Dalla funzione di trasferimento al diagramma di bode.
+
+Supponiamo H(s) = \frac{s^2(s+1)(s^2+3s+16)}{(2s-1)}
+Passiamo alla forma di Bode:
+\begin{equation}
+	\begin{split}
+		H(s) &= \frac{s^2(s+1)(s^2+3s+16)}{(2s-1)}\\
+			&= \frac{s^2(1)(1+\frac{s}{1})^1 \cdot 16(\frac{16}{16} + \frac{3}{16}s + \frac{s^2}{16})^2}{-1(1 - \frac{2}{1}s)^1}\\
+			&= -16 \frac{s^2(1+s)(1+ \frac{3}{16}s + \frac{s^2}{16})}{1 - 2s}
+	\end{split}
+\end{equation}
+
+Ottenuta la forma di Bode possiamo andare a prendere le singole parti viste e disegnare i rispettivi diagrammi.
+	- Per K_b:
+	Calcoliamo ampiezza e fase:
+	A = 20log_{10}(|-16|) = 24
+	\phi = \begin{cases}
+		0° K_b > 0\\
+		-180° K_b < 0
+	\end{cases} \implies -180°, perché K_b = -16.
+	
+	- Per gli altri zeri:
+		- (s+1)
+		Calcoliamo molteplicità \mu e Termine moltiplicato per s \tau. In questo caso \mu=1, \tau=1.
+		Ciò significa che frequenza di taglio \omega = \frac{1}{|\tau|} = 1
+	
+		Dunque prima di \omega, l'ampiezza A=0, mentre dopo è data dalla formula A=20\mulog_{10}(\omega|\tau|). In questo caso cresce di 20dB ogni decade.
+	
+		Le fasi hanno un comportamento molto simile. Fino a \omega, \phi = 0, mentre dopo \phi=\museg(\tau)*90° = 90°. Unendo le rette una decade prima e dopo di \omega, abbiamo il comportamento asintotico del sistema.
+		
+		- s^2
+		\mu=2, perché è di grado 2. Nel diagramma avremo un punto in (10^0,0).
+		Ampiezza A=20\mu\log(\omega) = \frac{40dB}{dec}. Quindi molto semplicemente cresce di 40dB per decade.
+		Fase \phi=\mu*90° = 180°. Semplice retta posta su 180°.
+		
+	- Complesso coniugato (\+ 3/16s + s^2/16):
+		\mu=1, poi \frac{2\zeta}{\omega_n}=3/16 e \omega_n^2=16.
+		
+		Dunque:
+		\omega_n = \sqrt{16} = 4
+		\frac{2\zeta}{\omega_n}=3/16 \implies \zeta = \frac{3}{16}\cdot\frac{\omega_n}{2} = \frac{3}{8}
+		
+		Per disegnare, in quanto \omega_n=4, partiamo dalla decade 10^0 e andiamo al quarto quadratino. Là sta \omega_n.
+		
+		Prima di \omega_n A=0, mentre dopo è data da A=20\mu\log_{10}(\frac{\omega}{\omega_n}) = \frac{40dB}{dec}. Quindi il valore cresce di 40dB a decade. Occhio che non parti dalla prima linea della divisione del grafico, ma bisogna contare sempre 10 quadratini.
+		
+		\omega_r = \omega_n\sqrt{1-2\zeta^2}
+		M_r = 20\mu log_{10}(2\zeta\sqrt{1-\zeta^2})
+		
+		Le fasi hanno naturalmente un funzionamento simile. \phi=0° prima di \omega_n, mentre dopo è \phi=180\mu\sng(\zeta) = 180°. Quindi abbiamo una retta a 180°.
+		Prendi i punti una decade prima e dopo di \omega_n e poi connettili per il comportamento asintotico del sistema.
+		
+	- Polo 1/(1-2s)
+	Definitivamente un polo in quanto molteplicità negativa. Abbiamo dunque:
+	\mu=-1, \tau=-2 \implies \omega_n=\frac{1}{|\tau|} = \frac{1}{2} = 0.5.
+	
+	Dunque l'ampiezza A=0 prima di \omega_n, mentre dopo è data da A=20\mu \log_{10}(\omega|\tau|) = -20dB/dec. Quindi cala di 20dB ad ogni decade.
+	
+	Per la fase, stessa roba prima di \omega_n, poi \phi=\mu*\sgn(\tau)*90° = 90°.
+	Prendendo una decade prima e dopo \omega_n, uniamo i puntini e otteniamo il comportamento asintotico.

@@ -1,0 +1,111 @@
+Lez24 - Sistemi
+
+Quindi a partire dalla funzione di trasferimento otteniamo la forma di bode raccogliendo il termine costante dai polinomi.
+
+Disegneremo due grafici, uno per ampiezza, l'altro per la fase. Come si fa? Beh, bisognerebbe disegnare per ogni decade, ma useremo formule per semplificarci la vita. Ci sono 4 possibili diagrammi di bode:
+	- Termine costante K_b
+	- Zero/Polo nullo s^\mu, con \mu molteplicità
+	- Zero/polo reale (1+\tau s)^\mu, \tau è costante di temoi
+	- Zero/polo complesso coniugato (1+2\zeta\frac{\omega}{\omega_n}+ \frac{\omega^2}{\omega_n^2})^\mu, dove \zeta è coefficiente di smorzamento e \omega la pulsazione naturale.
+	
+1. Termine costante
+K_b giace sull'asse dei reali e non si può staccare da esso.
+Ampiezza: A = |H(j\omega)| = |K_b|
+Fase: \phi = atan2(\sigma + j\omega) = \begin{cases}
+	0^0 k_b > 0\\
+	-180° k_b < 0
+\end{cases}
+
+w comprende tutte le frequenze
+A(w) = 20log_{10}(|K_b|)
+\phi(w) = \begin{cases}
+	0^0 k_b > 0\\
+	-180° k_b < 0
+\end{cases}
+
+2. Zero/Polo nullo: s^\mu
+H(s) = H(j\omega) \implies (j\omega)^\mu
+\mu \in Z,
+	\mu > 0 zero
+	\mu < 0 polo
+	
+|H(j\omega)| = |(j\omega)| = |\omega|^\mu = \omega^\mu
+
+// L'ampiezza è data da una retta che cresce o decresce di 20 dB ogni decade in base al valore di \mu e parte da dove il valore si annulla.
+A(\omega) &= |H(j\omega)|_{dB} = 20log_{10}(\omega^\mu)\\
+	&= 20\mu log_{10}(\omega)
+
+// Retta costante che passa per 90°. La fase è un valore che non si stacca dall'asse immaginario.
+\phi(\omega) = arg(j\omega)^\mu = \mu arg(j\omega) = \mu 90°
+
+3. Zero/Polo reali (1+\tau s)^\mu
+Polo: \frac{1}{1+\frac{s}{\omega_0}} = \frac{1}{1+\tau s} \implies \omega_0=\frac{1}{|\tau|}
+
+Scriveremo, razionalizzando: \frac{1-j\omega/\omega_0}{1+\omega^2/\omega_0^2}
+Dove:
+	Re = \frac{1}{1+\omega^2/\omega_0}
+	Im = \frac{-\frac{\omega}{\omega_0}j}{\+\frac{\omega^2}{\omega_0^2}}
+	
+La figata è poter dire:
+	- A(w) = -20log_{10}(\sqrt{Re^2 + Im^2}) = -20log_{10}(\sqrt{1+\frac{\omega^2}{\omega_0}})
+	- \phi(w) = atan2(Re + Im) = atan2(-\frac{\omega}{\omega_0})
+	
+Possiamo avere alcune situazioni:
+	- Se \omega << \omega_0:
+		A(w) = -20log_{10}(1) = 0
+		\phi(w) = atan2(0) = 0
+		
+	- Se \omega = \omega_0
+		A(w) = -20log_{10}(\sqrt{2}) = -3dB
+		\phi(w) = atan2(-1) = -45°
+		
+	- Se \omega >> \omega_0
+		A(w) = -20log_{10}(\omega / \omega_0) = -20dB/decade
+		\phi(w) = atan2(-\infty) = -90°
+		
+// Consigliato di vedere i grafici rilevanti. Non posso esattamente disegnarli per ora.
+
+Se consideriamo uno \omega >> 0:
+	A(w) &= 20log_{10}(\omega|\tau|)^\mu\\
+		&= 20\mu(log_{10}(\omega) + log_{10}(|\tau|))
+		
+	\phi(w) &= arg(\omega\tau)^\mu\\
+		&= \mu\cdot sgn(\tau)\cdot 90°
+		
+// Con \mu > 0 abbiamo zero, mentre se mu < 0 abbiamo un polo.
+
+Se consideriamo \omega << 0
+	A(\omega) = 0
+	\phi(\omega) = 0
+
+4. Zeri/Poli complessi e coniugati (1+2\zeta\frac{\omega}{\omega_n}+ \frac{\omega^2}{\omega_n^2})^\mu
+
+Dunque stiamo considerando tutti quei punti che giacciono in qualunque altro punto rispetto agli altri appena visti.
+Bisogna trovare la pulsazione naturale \omega_n ed il coefficiente di smorzamento \zeta.
+
+Per i poli (se vuoi gli zeri inverti il segno):
+	Parte reale: Re = \frac{1 - (\frac{\omega}{\omega_0})}{(1 - (\frac{\omega}{\omega_0})^2)^2 + (2\zeta\frac{\omega}{\omega_0})^2}
+	Parte immaginaria: = \frac{- 2j(\frac{\omega}{\omega_0})}{(1 - (\frac{\omega}{\omega_0})^2)^2 + (2\zeta\frac{\omega}{\omega_0})^2}
+	
+Per \omega << \omega_0
+	A(\omega) = -20log_{10}(1) = 0
+	
+	\phi(\omega) = atan2(0) = 0°
+	
+Per \omega >> \omega_0
+	A(\omega) &= -20log_{10}(\frac{\omega}{\omega_0})^2
+		&= -40log_{10}(\frac{\omega}{\omega_0})
+	
+	\phi(\omega) &= atan2(2\zeta \frac{\omega}{\omega_0})
+		&= -180°
+		
+Per \omega = \omega_0 = \omega_n
+	A(\omega) = 20log_{10}(2\zeta)
+		Per \zeta = 0.5 \implies A = 0
+		Per \zeta > 0.5 \implies Il grafico passa per \omega_0
+		Per \zeta < 0.5 \implies Picco di risonanza \omega_r = \omega_n\sqrt{1-2\zeta^2}, con m_r = 20\mulog_{10}(2\zeta \sqrt{1-\zeta^2})
+		Per \zeta = 0 \implies Discontinuità
+	
+	\phi(\omega) = -90°
+	
+Il picco di risonanza aumenta di altezza con il diminuire di \zeta.

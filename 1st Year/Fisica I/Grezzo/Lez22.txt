@@ -1,0 +1,27 @@
+Lez22 - Fisica 1
+
+--- Applicazioni della termodinamica
+Diciamo trasformazione quando si vanno a modificare le proprietà del liquido o gas con il quale stiamo lavorando. Queste possono essere reversibili o irreversibili. Quando una trasformazione avviene, si considera un calore specifico in base alla dinamica; ce n'è uno per il volume costante come anche per la pressione costante.
+	Per comodità le trasformazioni vengono indicate con un piano cartesiano, dove sulle y sta la pressione, mentre sulle x sta il volume.
+
+- Trasformazione Isobara (Pressione costante)
+\[V = m\frac{RT}{P}\], le variabili rimangono solo V e T, mentre il resto son costanti.
+	Il grafico rappresenta una retta verticale che si può spostare solo sul piano delle x. Infatti si modifica solo il volume.
+	
+- Trasformazione Isocora (volume costante)
+\[P = m\frac{RT}{V}\]
+\noindent No variazione di volume? Allora il Lavoro = 0. Di conseguenza, \Delta E = Q + 0.
+	Il grafico mostra una situazione uguale alla precedente, ma ad assi invertiti.
+
+Diciamo che \Delta E è una variabile di stato, quindi dipende esclusivamente dallo stato dell'energia iniziale e da quello della finale.
+
+- Trasformazione isoterma (Temperatura costante)
+Quindi PV = mRT è tutto costante. Essendo poi la pressione espressa come \[P = \frac{const}{V} \implies y = \frac{const}{x}\]
+\noindent Avremo un grafico di 1/x, che come ricorderai è un'iperbole, ma caghiamo solo il primo quadrante.
+	Quindi P e V cambiano, ma in tal modo che il loro prodotto rimanga costante.
+	Abbiamo visto prima, inoltre, che la variazione dell'energia dipende dalla variazione di temperatura: \[\Delta E = nc_V\Delta T\]
+\noindent Essendo in questo caso la temperatura costante, non ha variazione e \Delta T = 0, rendendo nulla anche la variazione di energia.
+
+- Trasformazione Adiabatica (Calore Q = 0)
+L'oggetto è completamente isolato dall'esterno e non c'è scambio di energia con esso, quindi nessun calore. \Delta E = 0 + L. La variazione di energia corrisponderà esattamente al lavoro compiuto.
+	Vedremo poi che per questa trasformazione PV^\gamma = const, con \gamma = \frac{c_P}{c_V}

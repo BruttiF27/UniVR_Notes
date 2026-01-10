@@ -1,0 +1,65 @@
+Lez18 - Fisica 1
+
+```
+# Esempio di esercizio
+Supponiamo di avere un tubo di 2.5cm di acqua che serve per riempire un secchio di 30l. Serve 1min per riempire il secchio.
+	Spostiamo il tubo ad altezza 1m da terra e aggiungiamo alla sua estremità dove esce l'acqua un ugello di 0.5cm^2. Calcolare la distanza coperta dall'acqua che esce dal tubo.
+
+Per risolvere l'esercizio consigliabile ragionare come un proiettile con la sua gittata.
+In questi termini possiamo quindi usare le leggi del moto per i movimenti in due dimensioni:
+	- y = y_0 + v_0t - 1/2gt^2
+	- x = x_0 + v_0t
+	
+Abbiamo già la posizione di y che è 1m da terra; ora bisogna trovare il tempo t, per il quale serve v_{0y}.
+Capiamo che v_{0y} = 0, perché l'acqua è sparata in orizzontale. Dunque: \[y = y_0 + v_0t - 1/2gt^2 \implies 1/2gt^2 = 1 \implies t^2 = 2m/g \implies t = \sqrt{2m/g} = 0.45s\]
+
+Per quanto riguarda l'asse delle x, abbiamo x_0 = 0 dato il punto di riferimento; ma ci manca velocità e tempo.
+	Per la velocità bisogna calcolare quella della situazione iniziale dell'ugello da 2.5cm. Dopodiché, siccome A_1v_1 = A_2v_2 sarà semplice sostituire. Procediamo:
+	Sappiamo che 1L = 1000cm^3, quindi fa passare in 1min 30000cm^3. La portata è dunque \frac{30L * 1000cm^3}{60s} = 500cm^3/s. Possiamo dirlo grazie alla legge di continuità dei fluidi: \[A_1v_1 = A_2v_2 \implies A_1\frac{s_1}{t_1} = A_2\frac{s_2}{t_2}\]
+	
+Quindi dal primo tubo con ugello di 2.5cm escono 500cm^3/sec di acqua.
+Adesso bisogna calcolare v_2, che è v_{0x} nella legge del moto scritta prima.
+	Ma tu guarda, basta ricavarlo con passaggi algebrici, lmao: \[A_1v_1 = A_2v_2 \implies v_2 = \frac{A_1v_1}{A_2} = \frac{500cm^3/sec}{0.5cm^2} = 1000cm/sec = 10m/sec\]
+	Adesso abbiamo tutto per calcolare la posizione: \[x = x_0 + v_0t \implies x = 0 + (10m/s)(0.45s) \implies x = 4.5m\], che è la soluzione.
+```
+
+Adesso prendiamo un tubo e ragioniamo in termini di energia.
+La prima estremità ha diametro minore della seconda. Come si trasforma l'energia?
+	Abbiamo naturalmente due pressioni P1, P2. Queste sono ottenute grazie a P=F/A. Ciò consente eventualmente di ricavare forza e superficie.
+
+Proviamo a calcolarne il lavoro sostituendo la definizione di forza nell'integrale apposito: \[L = \int F\cdot ds = F\cdot s \implies PA\cdot\Delta x\]
+	Applicandolo al tubo preso in esame, otteniamo due espressioni differenti:
+	- L = F_1s_1 = P_1A_1\Delta x_1
+	- L = -P_2A_2\Delta x_2		// Senso inverso perché la pressione che agisce sul tubo all'estremità 2 è contraria all'altra.
+	
+Se voglio la variazione dell'energia totale, come al solito data da $E_{tot} = K + U = \frac{1}{2}mv^2 + mgh$, andrò ad osservare il comportamento alle estremità del tubo considerato.
+	E per trovare la variazione di energia \Delta E è necessario ricavare l'energia alle due estremità, date da:
+	- E_1 = \frac{1}{2}mv_1^2 + mgh		// Fluido che entra
+	- E_2 = \frac{1}{2}mv_2^2 + mgh		// Fluido che esce
+	
+Molto semplicemente ora sottraiamo l'energia finale a quella iniziale: \[\Delta E = E_2-E_1 = \frac{1}{2}mv_2^2 + mgh - \frac{1}{2}mv_1^2 + mgh = (P_1 - P_2)v\]
+
+Da questa formula possiamo eguagliare le due parti tramite dei passaggi algebrici e dire: E_1 = E_2.
+\begin{equation}
+	\begin{split}
+		P_1V + \frac{1}{2}mv_1^2 + mgh_1 &= P_2V + \frac{1}{2}mv_2^2 + mgh_2\\
+		P_1 + \frac{1}{2}(\frac{m}{V})v_1^2 + \frac{m}{V}gh_1 &= P_2 + \frac{1}{2}(\frac{m}{V})v_2^2 + \frac{m}{V}gh_2\\
+		P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 &= P_2 + \frac{1}{2}\rho v_2^2 + \rho gh_2
+	\end{split}
+\end{equation}
+
+Siamo dunque arrivati al teorema di Bernoulli. L'energia si conserva quindi è uguale in entrambe le estremità. È fondamentalmente il bilanciamento fra fluido, pressione e altezza.
+
+Supponiamo un recipiente di altezza h, fino ad essa riempito d'acqua. Ha un foro alla sua base; velocità di uscita del liquido? Possiamo usare il teorema di Bernoulli perché sappiamo che la differenza di energia è costante per entrambi i punti, ovvero la superficie e il foro.
+\begin{equation}
+	\begin{split}
+		P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 &= P_0 + \frac{1}{2}\rho v_0^2 + \rho gh_0\\
+		gh_1 &= v_0^2\\
+		v_0 = \sqrt{2gh_1}
+	\end{split}
+\end{equation}
+
+La pressione è uguale da ambo le parti perché parliamo di un recipiente circondato dall'atmosfera. Quindi possiamo dire P_1=P_0, rendendoli intercambiabili e addirittura semplificabili.
+	Si può inoltre approssimare la velocità della superficie del recipiente a zero, perché è praticamente nulla.
+	gh_0 = 0, perché alla base del recipiente, preso come riferimento.
+	\rho rimossi grazie all'algebra

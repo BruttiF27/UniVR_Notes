@@ -1,0 +1,76 @@
+Lez19 - Fisica 1
+
+--- Termodinamica
+I gas si espandono sempre in tutto il loro recipiente
+
+Concetto di temperatura
+La lunghezza di una sbarra di metallo aumenta quando è scaldata. \Delta L è proporzionale alla temperatura. La variazione è propriamente definita come \[\Delta L = \alpha L_i\delta T \implies L_f = L_i(1+\alpha\Delta T)\]
+Dove:
+	- \alpha: Coefficiente di dilatazione termica (lineare in questo caso)
+	- L_i: lunghezza iniziale
+	- \Delta T: Variazione di temperatura [T_f - T_i]
+	
+Si allunga perché il calore (quindi l'energia) esercitato sulle molecole le fa muovere (più è caldo, più si muovono); infatti il coefficiente di dilatazione dipende dal materiale.
+	La dilatazione data dalla temperatura non è esclusivamente lineare; infatti con i solidi bisogna parlare di volume; semplicemente si eleva tutto al cubo: \[L_f^3 = (L_i+\alpha\Delta T)^3\]
+
+I coefficienti di dilatazione termica tuttavia sono numeri molto bassi (non tanto quanto la gravitazione, ma insomma), abbastanza da poterli non considerare quando sono al quadrato o al cubo; rendendoli uguali a zero. Comodo, no? Possiamo quindi sviluppare il cubo di binomio:
+\begin{equation}
+	\begin{split}
+		L_f^3 &= (L_i+\alpha\Delta T)^3\\
+		L_f^3 &= L_i^3 + 3L_i^2(\alpha\Delta T) + 3L_i(\alpha\Delta T)^2 + (\alpha\Delta T)^3\\
+		L_f^3 &= L_i^3 + 3\alpha L_i^2\Delta T + 3\alpha^2 L_i(\Delta T)^2 + \alpha^3(\Delta T)^3\\
+		L_f^3 &= L_i^3 + 3\alpha L_i^3\Delta T\\
+		L_f^3 = L_i^3(1+3\alpha\Delta T)
+	\end{split}
+\end{equation}
+
+Quindi, fatta molto più semplicemente; il coefficiente di dilatazione termica cubica è tre volte quello lineare. Naturalmente per la superficie parliamo di 2\alpha.
+	La temperatura è misurata normalmente in celsius, ma esiste anche la Fahrenheit, sbagliata, e la scala Kelvin. 0K = -273.15°C. Numero corrispondente allo zero assoluto, il valore minimo di temperatura ottenibile in assenza totale di energia.
+	
+--- Legge di stato dei gas perfetti
+Nei gas perfetti le molecole non interagiscono mai fra di loro; vale specie quando abbiamo dei gas particolarmente diradati in un volume. Quindi in base al volume la legge è applicabile a qualunque gas
+
+PV = mRT
+
+P	pressione
+V 	volume
+m 	numero di moli
+R	Costante universale dei gas	8.314Joule/m
+T	temperatura
+
+Si può scrivere anche PV = NK_BT
+K_B	Costante di Boltsmann (dice come si distribuiscono le molecole)
+N 	Numero di molecole (che son diverse dalle moli)
+
+--- Teoria cinetica dei gas
+Possiamo studiare il movimento del gas considerando le molecole come particelle (e usare quindi le leggi di Newton viste in precedenza).
+	Le molecole sono a miliardi, però, per questo si utilizza la statistica e le relative distribuzioni per darci una mano.
+	
+Supponiamo un cubo dentro al quale stanno molte molecole. Prendiamone una, la quale sbatte sulle pareti. Abbiamo tre velocità in quanto siamo in 3D.
+La quantità di moto p=mv determina quella iniziale e finale:
+	- p_i = m_0v_{xi}
+	- p_f = -m_0v{xi}	// Sbatte e cambia direzione mantenendo stessa v
+	
+Proviamo a vedere la variazione della quantità di moto
+\Delta p = p_f - p_i = - m_0v_{xi} - m_0v_{xi} = -2m_0v_{xi}
+
+Ricordando che v=s/t; possiamo sostituire la distanza al posto dello spostamento per ottenere il valore scalare, ed eventualmente ricavare il tempo. \[v = s/t = 2d/\Delta t \implies \Delta t = \frac{2d}{v_{xi}}\]
+
+Ora voglio la forza F\Delta T = \Delta p. Cosa ne possiamo ottenere?
+In base a quello che abbiamo appena ottenuta diciamo: F = \frac{\Delta p}{\Delta t} = -\frac{2m_0v_{xi}}{2d}v_{xi} = -\frac{m_0v_{xi}^2}{d}
+	Questa era la variazione della quantità di moto; se voglio invece la forza di azione e reazione data dalla parete basta invertire il segno. Grazie, Newton.
+	
+Questa era però la forza di una singola molecola. Quindi bisogna fare la sommatoria di tutte le forze delle molecole.
+
+Velocità? More like velocità media: v_x^2 = \frac{\sim v_{xi}^2}{N}
+Quindi per la velocità media delle tre direzioni bisogna sommarle tutte; è come sommare 1/3 per componente x, y e z.
+	Ragion per cui (per qualche motivo) è valido dire 3\overline{v_x} = \overline{v^2}
+	
+Cosa cambia per la forza? Che si scrive: \[F = \frac{m_0}{d}\frac{N}{3}\overline{v^2}\]
+
+Questa formula ci fa ottenere le componenti per quella della pressione, dato che serve la forza e l'area. Con passaggi algebrici otteniamo \[P = \frac{N}{3V}m_0\overline{v^2} \implies PV = \frac{N}{3}m_0\overline{v^2}\]
+
+Please stay with me; che cosa succese dividendo per 2 m_0 e \overline{v^2}? Esatto, la formula dell'energia cinetica: 1/2mv^2. Quindi questa formula, isolando questa parte, consente di ottenere il valore di K per ogni singola molecola.
+
+\[PV = \frac{N}{3}\frac{1}{2}mv^2 \implies \frac{2N}{3}(\frac{1}{2}mv^2) = NK_BT \implies \frac{1}{2}mv^2 = \frac{3}{2}K_BT\]
+Quindi la temperatura è un'espressione macroscopica dell'energia cinetica.

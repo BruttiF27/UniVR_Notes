@@ -1,1 +1,184 @@
-7
+\section{Concetto di temperatura}
+Quando parliamo di termodinamica, stiamo considerando un concetto applicabile ai tre stati della materia, quindi solido, liquido e gassoso. Molto semplicemente analizzeremo quest'ultimo all'interno di appositi recipienti, dentro ai quali si espande fino a coprire tutta l'area interna.\par
+Ora che abbiamo la definizione per ogni stato della materia, possiamo definire il concetto di \textbf{temperatura}. Formalmente, è ciò che risulta dal movimento delle molecole in un oggetto; supponiamo infatti di avere una sbarra di metallo con una data lunghezza $L$
+
+
+
+
+
+% Definizione, dilatazione termica
+
+%
+
+\section{Legge di stato dei gas perfetti}
+
+%
+
+\section{Concetto di calore}
+definizione di calore, calore specifico,
+
+%
+
+\section{Statistica termodinamica, trasformazioni ed entropia}
+cenni di statistica termodinamica, trasformazioni termodinamiche, entropia.
+
+\begin{comment}
+	Concetto di temperatura
+	La lunghezza di una sbarra di metallo aumenta quando è scaldata. \Delta L è proporzionale alla temperatura. La variazione è propriamente definita come \[\Delta L = \alpha L_i\delta T \implies L_f = L_i(1+\alpha\Delta T)\]
+	Dove:
+	- \alpha: Coefficiente di dilatazione termica (lineare in questo caso)
+	- L_i: lunghezza iniziale
+	- \Delta T: Variazione di temperatura [T_f - T_i]
+	
+	Si allunga perché il calore (quindi l'energia) esercitato sulle molecole le fa muovere (più è caldo, più si muovono); infatti il coefficiente di dilatazione dipende dal materiale.
+	La dilatazione data dalla temperatura non è esclusivamente lineare; infatti con i solidi bisogna parlare di volume; semplicemente si eleva tutto al cubo: \[L_f^3 = (L_i+\alpha\Delta T)^3\]
+	
+	I coefficienti di dilatazione termica tuttavia sono numeri molto bassi (non tanto quanto la gravitazione, ma insomma), abbastanza da poterli non considerare quando sono al quadrato o al cubo; rendendoli uguali a zero. Comodo, no? Possiamo quindi sviluppare il cubo di binomio:
+	\begin{equation}
+		\begin{split}
+			L_f^3 &= (L_i+\alpha\Delta T)^3\\
+			L_f^3 &= L_i^3 + 3L_i^2(\alpha\Delta T) + 3L_i(\alpha\Delta T)^2 + (\alpha\Delta T)^3\\
+			L_f^3 &= L_i^3 + 3\alpha L_i^2\Delta T + 3\alpha^2 L_i(\Delta T)^2 + \alpha^3(\Delta T)^3\\
+			L_f^3 &= L_i^3 + 3\alpha L_i^3\Delta T\\
+			L_f^3 = L_i^3(1+3\alpha\Delta T)
+		\end{split}
+	\end{equation}
+	
+	Quindi, fatta molto più semplicemente; il coefficiente di dilatazione termica cubica è tre volte quello lineare. Naturalmente per la superficie parliamo di 2\alpha.
+	La temperatura è misurata normalmente in celsius, ma esiste anche la Fahrenheit, sbagliata, e la scala Kelvin. 0K = -273.15°C. Numero corrispondente allo zero assoluto, il valore minimo di temperatura ottenibile in assenza totale di energia.
+	
+	--- Legge di stato dei gas perfetti
+	Nei gas perfetti le molecole non interagiscono mai fra di loro; vale specie quando abbiamo dei gas particolarmente diradati in un volume. Quindi in base al volume la legge è applicabile a qualunque gas
+	
+	PV = mRT
+	
+	P	pressione
+	V 	volume
+	m 	numero di moli
+	R		8.314Joule/m
+	T	temperatura
+	
+	Si può scrivere anche PV = NK_BT
+	K_B	Costante di Boltsmann (dice come si distribuiscono le molecole)
+	N 	Numero di molecole (che son diverse dalle moli)
+	
+	--- Teoria cinetica dei gas
+	Possiamo studiare il movimento del gas considerando le molecole come particelle (e usare quindi le leggi di Newton viste in precedenza).
+	Le molecole sono a miliardi, però, per questo si utilizza la statistica e le relative distribuzioni per darci una mano.
+	
+	Supponiamo un cubo dentro al quale stanno molte molecole. Prendiamone una, la quale sbatte sulle pareti. Abbiamo tre velocità in quanto siamo in 3D.
+	La quantità di moto p=mv determina quella iniziale e finale:
+	- p_i = m_0v_{xi}
+	- p_f = -m_0v{xi}	// Sbatte e cambia direzione mantenendo stessa v
+	
+	Proviamo a vedere la variazione della quantità di moto
+	\Delta p = p_f - p_i = - m_0v_{xi} - m_0v_{xi} = -2m_0v_{xi}
+	
+	Ricordando che v=s/t; possiamo sostituire la distanza al posto dello spostamento per ottenere il valore scalare, ed eventualmente ricavare il tempo. \[v = s/t = 2d/\Delta t \implies \Delta t = \frac{2d}{v_{xi}}\]
+	
+	Ora voglio la forza F\Delta T = \Delta p. Cosa ne possiamo ottenere?
+	In base a quello che abbiamo appena ottenuta diciamo: F = \frac{\Delta p}{\Delta t} = -\frac{2m_0v_{xi}}{2d}v_{xi} = -\frac{m_0v_{xi}^2}{d}
+	Questa era la variazione della quantità di moto; se voglio invece la forza di azione e reazione data dalla parete basta invertire il segno. Grazie, Newton.
+	
+	Questa era però la forza di una singola molecola. Quindi bisogna fare la sommatoria di tutte le forze delle molecole.
+	
+	Velocità? More like velocità media: v_x^2 = \frac{\sim v_{xi}^2}{N}
+	Quindi per la velocità media delle tre direzioni bisogna sommarle tutte; è come sommare 1/3 per componente x, y e z.
+	Ragion per cui (per qualche motivo) è valido dire 3\overline{v_x} = \overline{v^2}
+	
+	Cosa cambia per la forza? Che si scrive: \[F = \frac{m_0}{d}\frac{N}{3}\overline{v^2}\]
+	
+	Questa formula ci fa ottenere le componenti per quella della pressione, dato che serve la forza e l'area. Con passaggi algebrici otteniamo \[P = \frac{N}{3V}m_0\overline{v^2} \implies PV = \frac{N}{3}m_0\overline{v^2}\]
+	
+	Please stay with me; che cosa succese dividendo per 2 m_0 e \overline{v^2}? Esatto, la formula dell'energia cinetica: 1/2mv^2. Quindi questa formula, isolando questa parte, consente di ottenere il valore di K per ogni singola molecola.
+	
+	\[PV = \frac{N}{3}\frac{1}{2}mv^2 \implies \frac{2N}{3}(\frac{1}{2}mv^2) = NK_BT \implies \frac{1}{2}mv^2 = \frac{3}{2}K_BT\]
+	Quindi la temperatura è un'espressione macroscopica dell'energia cinetica.
+\end{comment}
+
+\begin{comment}
+	Lez21 - Fisica 1
+	
+	Temperatura è l'aumentare della sbarra, con un determinato coefficiente, misurabile in celsius e kelvin.
+	La temperatura è strettamente collegata all'energia cinetica. All'aumentare della velocità delle molecole così fa anche la temperatura.
+	
+	--- Energia di un gas
+	Energia cinetica delle molecole, come detto il loro movimento è collegato alla temperatura. Infatti: \[\frac{3}{2}k_BT = \frac{1}{2}mv^2\]
+	La temperatura occhio che non è l'energia, bensì un side-effect.
+	
+	```Principio zero della termodinamica
+	Dati due oggetti con temperature T_1, T_2 rispettivamente, quando messi a contatto, c'è uno scambio di energia, detto calore, e si arriva ad una temperatura di equilibrio, detta equilibrio termico, uguale per entrambi.
+	```
+	
+	Il calore si indica con Q, e quando è presente si ha uno scambio di energia cinetica fra un oggetto più freddo e uno più caldo. Si misura in Joule, ma anche in Calorie. [1Cal = 4184J]. È definito come \[Q = mc\Delta T\]
+	m = massa che cambia la temperatura
+	c = calore specifico
+	\Delta T = differenza di temperatura
+	Dunque in base all'oggetto considerato, varia il calore specifico, misurato in [Joule/kg*°C]. La formula dice quanto calore serve per passare ad una certa temperatura.
+	
+	```Esempio di esercizio
+	Abbiamo un lingotto di metallo di m=0.05Kg ed è scaldato a T_m=200°C, per poi essere immerso in 0.04Kg di acqua, a temperatura T_a=20°C. La temperatura finale T_f = 22.4°C; trovare il calore specifico.
+	
+	Il lingotto scambia calore con l'acqua, naturalmente, per raggiungere l'equilibrio che presenta la T_f = 22.4°C, uguale per entrambi. Da una parte si dona, dall'altra si prende. Scriviamo quindi \[Q_m = -Q_a\]
+	\noindent Da qua possiamo espandere l'equazione con la definizione per oggetto:
+	\begin{equation}
+		\begin{split}
+			m_{met}c_{met}(T_f - T_{met, i}) &= -m_{acq}c_{acq}(T_f - T_{acq, i})\\
+			c_{met} = -\frac{m_{acq}c_{acq}(T_f - T_{acq, i})}{m_{met}(T_f - T_{met, i})}\\
+		\end{split}
+	\end{equtation}
+	```
+	
+	Ci sono più modi per scambiare calore, ognuno di questi lo traferisce con velocità diverse:
+	- Convezione: Nello scambio di calore un corpo perde la sua forma
+	- Conduzione: Scambio di calore da corpo caldo a corpo freddo per raggiungere equilibrio
+	- Irraggiamento: Trasferimento di energia mediante radiazioni (un'onda colpisce la materia e fa muovere le molecole aumentando la temperatura)
+	
+	Quindi:
+	- Q: Calore
+	- U: Energia interna
+	
+	Ragioniamo ancora in termini energetici e sostituiamo la forza (che è pressione per comodità, stiamo comunque lavorando con fluidi) nell'integrale apposito: \[\int Fdy \implies -\int PA dy\]
+	\noindent Questa cosa funziona perché supponendo un cilindro con un pistone che preme al suo interno, andiamo a modificare la sezione A del gas, creando inevitabilmente uno scambio di energia muovendo le molecole.
+	Quindi per trasferire energia abbiamo il calore oppure la compressione del gas in un contenitore. Con quest'ultima dinamica, definiamo il primo principio della termodinamica: \[\Delta U = Q + L\]
+	\noindent Ovvero che la variazione dell'energia interna è data dalla somma del calore con il lavoro eseguito.
+	
+	Esiste anche un altro tipo di calore, usato per ottenere il cambio di fase: \[Q = \Delta m L\]
+	L è il calore latente, dove può essere di fusione (solido->liquido) o evaporazione (liquido->gas)
+	
+	In tal merito, per le trasformazioni ne abbiamo di più tipi:
+	- Con temperatura T costante, è detta isoterma
+	- Con calore Q a 0 non c'è scambio di calore con l'esterno, simile all'esempio del pistone. Si dice adiabatica.
+	- Con Variazione di volume \Delta V = 0, si dice isocora
+	- Con pressione P costante, si dice isobara
+\end{comment}
+
+\begin{comment}
+	Lez22 - Fisica 1
+	
+	--- Applicazioni della termodinamica
+	Diciamo trasformazione quando si vanno a modificare le proprietà del liquido o gas con il quale stiamo lavorando. Queste possono essere reversibili o irreversibili. Quando una trasformazione avviene, si considera un calore specifico in base alla dinamica; ce n'è uno per il volume costante come anche per la pressione costante.
+	Per comodità le trasformazioni vengono indicate con un piano cartesiano, dove sulle y sta la pressione, mentre sulle x sta il volume.
+	
+	- Trasformazione Isobara (Pressione costante)
+	\[V = m\frac{RT}{P}\], le variabili rimangono solo V e T, mentre il resto son costanti.
+	Il grafico rappresenta una retta verticale che si può spostare solo sul piano delle x. Infatti si modifica solo il volume.
+	
+	- Trasformazione Isocora (volume costante)
+	\[P = m\frac{RT}{V}\]
+	\noindent No variazione di volume? Allora il Lavoro = 0. Di conseguenza, \Delta E = Q + 0.
+	Il grafico mostra una situazione uguale alla precedente, ma ad assi invertiti.
+	
+	Diciamo che \Delta E è una variabile di stato, quindi dipende esclusivamente dallo stato dell'energia iniziale e da quello della finale.
+	
+	- Trasformazione isoterma (Temperatura costante)
+	Quindi PV = mRT è tutto costante. Essendo poi la pressione espressa come \[P = \frac{const}{V} \implies y = \frac{const}{x}\]
+	\noindent Avremo un grafico di 1/x, che come ricorderai è un'iperbole, ma caghiamo solo il primo quadrante.
+	Quindi P e V cambiano, ma in tal modo che il loro prodotto rimanga costante.
+	Abbiamo visto prima, inoltre, che la variazione dell'energia dipende dalla variazione di temperatura: \[\Delta E = nc_V\Delta T\]
+	\noindent Essendo in questo caso la temperatura costante, non ha variazione e \Delta T = 0, rendendo nulla anche la variazione di energia.
+	
+	- Trasformazione Adiabatica (Calore Q = 0)
+	L'oggetto è completamente isolato dall'esterno e non c'è scambio di energia con esso, quindi nessun calore. \Delta E = 0 + L. La variazione di energia corrisponderà esattamente al lavoro compiuto.
+	Vedremo poi che per questa trasformazione PV^\gamma = const, con \gamma = \frac{c_P}{c_V}
+\end{comment}

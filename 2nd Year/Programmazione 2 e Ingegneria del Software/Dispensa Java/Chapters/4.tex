@@ -28,6 +28,40 @@ Appartenente ai pattern creazionali, implica che ogni classe vada a rappresentar
 
 %
 
+\section{Documentazione Javadoc}
+La documentazione del codice è fondamentale per chiunque debba andare a metterci le mani. Java ha un tool apposito chiamato \textbf{Javadoc} che consente di generarla automaticamente ed in modo standardizzato. Crea infatti una pagina html che descrive classi, metodi e campi ove indicato nel codice.\par
+Si suppone che si stia utilizzando Maven per costruire in automatico il programma; essendo Javadoc non nativo del linguaggio, bisognerà aggiungere la seguente dipendenza al pom.xml:
+\begin{lstlisting}[language=xml]
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.6.2</version>
+				<configuration>
+					<source>1.8</source>
+					<show>private</show>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+\end{lstlisting}
+\noindent Controllato il corretto inserimento del plugin nel file di costruzione, sarà possibile aggiungere i commenti di tipo Javadoc. Si tratta di commenti multilinea dove è possibile aggiungere una descrizione e, tramite annotazioni, specificare autore, parametri, tipo ritornato e altro.\par
+Attenzione: il commento va posizionato nella riga antecedente l'elemento che vogliamo commentare. Segue esempio completo:
+\begin{lstlisting}[language=Java]
+	/**	Il commento sara' letto dalla javadoc
+	Le righe prive di asterischi non saranno lette.
+	* @author F27
+	* @param arr		Segnala un parametro
+	* @return			Descrive il valore ritornato dal metodo
+	* @throws			Descrive le eccezioni lanciabili
+	* @link				Link per portare l'utente alla classe
+	* @deprecated		Spiegazione del perche' il metodo sia deprecato
+	*/
+\end{lstlisting}
+
+%
+
 \section{Gestione degli errori}
 Nella scrittura di programmi è inevitabile incappare in errori o situazioni non ideali; Java porta delle soluzioni per la loro gestione nelle forme di routine di interruzione date dalla classe \textbf{Exception}, implementabile con le keyword:
 \begin{itemize}
@@ -44,7 +78,7 @@ Nella scrittura di programmi è inevitabile incappare in errori o situazioni non
 	try {
 		// Chiama il metodo. Se non lancia nulla, continua
 		stack.pop();
-	// Ad eccezione lanciata, catturala
+		// Ad eccezione lanciata, catturala
 	} catch (EmptyStackException e) {
 		// E gestisci l'errore con il seguente blocco di codice
 		System.out.println(e);
@@ -58,17 +92,17 @@ Nella scrittura di programmi è inevitabile incappare in errori o situazioni non
 \noindent Il fatto che le eccezioni controllate debbano essere dichiarate su ogni singolo metodo che può lanciarle aumenta la complessità del codice in modo importante, quindi, sebbene risultino più sicure, è consigliato restringerne l'uso esclusivamente in caso di estrema necessità. In alternativa è possibile sfruttare un loophole, lanciando ogni eccezione controllata sotto forma di non controllata e lasciando il lavoro sporco alla JVM, in questo modo:
 \begin{lstlisting}[language=Java]
 	public class MyException extends Exceptions { } // checked
-
+	
 	public void foo () throws MyException {
 		throw new MyException();
 	}
-
+	
 	// Non e' richiesta alcuna dichiarazione...
 	public void bar () {
 		try {
 			// ...perche' la chiamera' il metodo se serve...
 			foo();
-		// ...ed entrando qui, la rilanci come unchecked.
+			// ...ed entrando qui, la rilanci come unchecked.
 		} catch (MyException e) {
 			throw new RuntimeException(e);	// Lavoro: sbolognato.
 		}
@@ -77,12 +111,153 @@ Nella scrittura di programmi è inevitabile incappare in errori o situazioni non
 
 %
 
-\section{Documentazione Javadoc}
-
-%
-
 \section{Unit testing con Junit}
+Ora che siamo capaci di gestire gli errori con le eccezioni è ora di fare un passo più avanti nell'ambito del controllo qualità con il concetto di \textbf{unit testing}; un workflow mirato alla verifica di un dato comportamento dei metodi in una classe. Quando un dato scenario presenta il risultato previsto, si dice che il test è stato passato.\par
+Risulta particolarmente utile perché in primo luogo costringe il codice ad essere consistente con le nuove versioni, riducendo allo simultaneamente i tempi di debug riutilizzando i test già scritti. Quelli che indichiamo come \textbf{test case} rappresentano gli scenari ottenibili dal codice scritto; sono composti da input e output previsto e sono contenuti in classi apposite dette \textbf{test suit}.\newline
+
+\noindent Per fare unit testing in Java viene utilizzato un framework chiamato \textbf{JUnit}, che porta con sé annotazioni apposite per la creazione dei test case. Questi vengono eseguiti tutti e, in presenza problemi, verranno opportunamente segnalati. Non essendo nativo del linguaggio, è necessario aggiungere la seguente dipendenza al file di configurazione di Maven:
+\begin{lstlisting}[language=xml]
+	<dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.10.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>3.5.4</version>
+		</dependency>
+	</dependencies>
+\end{lstlisting}
+\noindent Nella strutturazione dei progetti è buona prassi separare le classi di codice sorgente da quelle di testing, quindi consiglio di creare una directory un livello superiore alla principale e chiamarla \textbf{test} e rispettare la naming convention dei test suits: lo stesso nome della classe che testano con "Test" concatenato alla fine. Detto ciò abbiamo tutti gli strumenti per la scrittura del nostro test suit:
+\begin{lstlisting}[language=Java]
+	// Pacchetto di Junit dal quale e' presa l'annotazione Test
+	import org.junit.jupiter.api.Test;
+	
+	// Pacchetto con metodi per la verifica dei comportamenti
+	import static org.junit.jupiter.api.Assertions.*;
+	
+	public class AccountTest {
+		@Test // Annotazione per indicare che questo e' un test case
+		public void checkNullAccount () { assertThrows(NullPointerException.class, () -> new Account(null)); }
+	}
+\end{lstlisting}
+Notare che i test case non hanno un return type perché lavorano tramite asserzioni, quindi se il test non è passato JUnit lancia AssertionFailedError, per poi catturare l'errore e gestirlo. Le asserzioni di uso più comune sono:
+\begin{itemize}
+	\item static void assertThrows(condition, message): Lancia se si verifica la condizione.
+	\item static void assertTrue(condition, message): Lancia se vede un boolean true.
+	\item static void assertEquals(expected, actual, message): Lancia se expected è uguale ad actual.
+	\item static void assertArrayEquals(expected, actual, message): Idem, ma per gli array.
+\end{itemize}
+\noindent Nel pacchetto di Junit sono presenti anche altre annotazioni utili per la gestione del flusso dei test:
+\begin{itemize}
+	\item @DisplayName: Mostra nome per una classe o metodo test
+	\item @BeforeEach: Il metodo sarà eseguito prima di e per ogni test case
+	\item @AfterEach: Il metodo sarà eseguito dopo di e per ogni test case
+	\item @BeforeAll: Il metodo sarà eseguito una sola volta prima di tutti gli altri test 
+	\item @AfterAll: Il metodo sarà eseguito una vola volta dopo tutti gli altri test
+	\item @Disabled: Disabilita una classe o metodo di test 
+\end{itemize}
 
 %
 
 \section{Gestione files CSV e JSON}
+Sebbene Java non abbia supporto nativo per la gestione di file testuali standardizzati come i \textbf{Comma Separated Values} CSV o i \textbf{JavaScript Object Notation} JSON, è possibile aggiungere dipendenze al file di configurazione di Maven per aggiungere metodi utili al parsing.\newline
+
+\noindent\textbf{- File CSV}\par
+\noindent File testuale rappresentante dati tabulari, come i contenuti di un database. Vede le colonne separate da virgole e le righe separate da newlines. Dipendenza:
+\begin{lstlisting}[language=xml]
+	<dependency>
+		<groupId>com.opencsv</groupId>
+		<artifactId>opencsv</artifactId>
+		<version>5.12.0</version>
+	</dependency>
+\end{lstlisting}
+\noindent Per la lettura del file:
+\begin{lstlisting}[language=Java]
+	// Leggi un CSV da un oggetto File con il reader di default
+	File csvFile = new File ("i.csv");
+	CSVReader csvReader = new CSVReader(new FileReader(csvFile));
+	
+	// Leggi un CSV da un fileName con un reader user-defined
+	CSVReader csvReader = new CSVReader Builder(new FileReader("i.csv"))
+		.withSkipLines(1)
+		.withSeparator(';')
+		.build();
+		
+	// Leggi il CSV riga per riga
+	List<String[]> table = new ArrayList<>();
+	
+	// Qui eventualmente lancia CsvException
+	for(String[] row; (row = csvReader.readNext()) != null; ) {
+		table.add(row);
+	}
+	
+	// Leggi l'intero CSV in una volta; eventualmente lancia CsvException
+	List<String[]> table = csvReader.readAll();
+	
+\end{lstlisting}
+\noindent Per la scrittura del file:
+\begin{lstlisting}[language=Java]
+	// Scrivi un CSV da un oggetto File col writer di default
+	File csvFile = new File("o.csv");
+	CSVWriter csvWriter = new CSVWriter(new FileWriter(csvFile));
+	
+	// Scrivi un CSV con un fileName con un writer user-defined
+	CSVWriter csvWriter = new CSVWriter(new FileWriter("o.csv"),';');
+	
+	// Scrivi un CSV riga per riga
+	for (String[] row : table) csvWriter.writeNext(row);
+	csvWriter.flush();		// Non necessario se si chiude il file
+	
+	// Scrivi l'intero CSV in una volta
+	csvWriter.writeAll(table);
+	csvWriter.flush();		// Non necessario se si chiude il file
+\end{lstlisting}
+\noindent\textbf{- File JSON}\par
+\noindent File testuale che offre una rappresentazione leggibile di dati strutturati. Anche questo è un formato standard, ed è usato universalmente sul web. Ogni Json possiede oggetti, contenuti nelle {} sotto forma di coppie key-value, e array, liste ordinate di valori delimitati nelle []. I valori in questione possono essere stringhe, numeri, booleani, oggetti o altri array.\par
+Viene generalmente utilizzata la libreria di google, che comprende la classe Gson coi metodi fromJson e toJson, la cui dipendenza per Maven è data da:
+\begin{lstlisting}[language=xml]
+	<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>2.13.2</version>
+	</dependency>
+\end{lstlisting}
+\noindent Costruzione di file JSON da un'istanza di classe:
+\begin{lstlisting}[language=Java]
+	Gson gson = new Gson();
+	Student sam = new Student("Sam", 123);
+	String json = gson.toJson(sam);
+	System.out.println(json); // Stampa: '{" matricola ":123 ," name ":" Sam "}'
+\end{lstlisting}
+\noindent Parsing di un file JSON in un'istanza di classe:
+\begin{lstlisting}[language=Java]
+	Gson gson = new Gson();
+	String json = "{\"matricola \":123,\"name\":\"Sam\"}";
+	Student sam = gson.fromJson(json, Student.class); // Lancia JsonSyntaxException
+	System.out.println(sam.toString()); // Stampa 'Sam 123'
+\end{lstlisting}
+\noindent Scrivi un file JSON:
+\begin{lstlisting}[language=Java]
+	try (FileWriter writer = new FileWriter("sam.json")) {
+		Gson gson = GsonBuilder().setPrettyPrinting().create();
+		Student sam = new Student("Sam", 123);
+		gson.toJson(sam, writer); 	// Lancia JsonIOException
+	} catch (IOException ioe) {
+		throw new RuntimeException(ioe);
+	}
+\end{lstlisting}
+\noindent Leggi da un file JSON:
+\begin{lstlisting}[language=Java]
+	try (FileReader reader = new FileReader("sam.json")) {
+		Gson gson = new Gson();
+		
+		// Lancia JsonSyntaxException, JsonIOException
+		Student sam = gson.fromJson(reader, Student.class);
+	} catch (IOException ioe) {
+		throw new RuntimeException(ioe);
+	}
+\end{lstlisting}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  25 DEC 2025 18:39
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  13 JAN 2026 17:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -437,16 +437,38 @@ Underfull \hbox (badness 10000) in paragraph at lines 197--198
 Chapter 4.
 (./Chapters/4.tex [24
 
-] [25]) [26]
+]
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+)
+Overfull \hbox (0.69818pt too wide) in paragraph at lines 50--51
+[]\T1/cmr/m/n/12 Attenzione: il com-mento va po-sizion-ato nella riga an-tecede
+nte l'elemento che vogliamo
+ []
+
+[25] [26]
+Underfull \hbox (badness 10000) in paragraph at lines 116--117
+
+ []
+
+[27] [28]
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
+
+ []
+
+[29] [30]) [31]
 Chapter 5.
-(./Chapters/5.tex [27
+(./Chapters/5.tex [32
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 28--29
 
  []
 
-[28] [29]
+[33] [34]
 Overfull \hbox (0.14151pt too wide) in paragraph at lines 108--109
 \T1/cmr/m/n/12 L'interfaccia Com-pa-ra-ble porta un metodo utile gen-er-al-iz-z
 ato per parag-onare due oggetti. 
@@ -457,30 +479,30 @@ Overfull \hbox (2.61049pt too wide) in paragraph at lines 132--174
 []$ $[]$ 
  []
 
-[30] [31] [32]
-Underfull \hbox (badness 10000) in paragraph at lines 259--260
+[35] [36] [37]
+Underfull \hbox (badness 10000) in paragraph at lines 248--249
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 275--276
+Underfull \hbox (badness 10000) in paragraph at lines 264--265
 
  []
 
-[33] [34] [35]) [36] (./main.aux)
+[38] [39] [40]) [41] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6800 strings out of 474222
- 99446 string characters out of 5748733
+ 6913 strings out of 474222
+ 101049 string characters out of 5748733
  2248975 words of memory out of 5000000
- 28920 multiletter control sequences out of 15000+600000
+ 29029 multiletter control sequences out of 15000+600000
  576532 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,6n,70p,713b,1683s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,6n,70p,713b,1716s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/shar
 e/texmf/fonts/type1/public/cm-super/sfbi1200.pfb></usr/share/texmf/fonts/type1/
@@ -493,10 +515,10 @@ texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf/fonts/type1/pu
 blic/cm-super/sfrm1440.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfsl12
 00.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt1000.pfb></usr/share/t
 exmf/fonts/type1/public/cm-super/sftt1440.pfb>
-Output written on main.pdf (37 pages, 380297 bytes).
+Output written on main.pdf (42 pages, 397166 bytes).
 PDF statistics:
- 206 PDF objects out of 1000 (max. 8388607)
- 134 compressed objects within 2 object streams
+ 221 PDF objects out of 1000 (max. 8388607)
+ 144 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

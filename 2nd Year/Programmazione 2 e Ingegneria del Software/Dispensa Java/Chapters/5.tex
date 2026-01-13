@@ -180,19 +180,10 @@ Esempio di utilizzo:\newline
 	}
 \end{lstlisting}
 
-
-
-\begin{comment}
-	\subsection{.AutoCloseable}
-	\subsection{.Thread}
-\end{comment}
-
 %
 
 \section{java.util.*}
 Il pacchetto java.util.* contiene varie funzioni di utility per rendere il codice più leggibile, astratto, modulare e sicuro.
-\subsection{.Scanner}
-netxLine, nextInt, nextFloat
 
 \subsection{.Random}
 La classe Random è istanziabile, ed è usata per la generazione di variabili pseudocasuali.
@@ -209,8 +200,6 @@ La classe Random è istanziabile, ed è usata per la generazione di variabili ps
 	int nextInt(int max)	// Casuale intero [0, max)
 	long nextLong()			// Casuale intero [-2^63, 2^63)
 \end{lstlisting}
-
-\subsection{.Arrays}
 
 \subsection{Java Collection Framework}
 La Java Collection Framework è un insieme di strutture dati iterabili definite tramite l'uso di parametri generici, rendendole utilizzabili in qualunque contesto. Si tratta di uno dei pacchetti più importanti di tutto il linguaggio.\par
@@ -376,10 +365,117 @@ Le interfacce funzionali sono un argomento già menzionato nei capitoli preceden
 \end{itemize}	
 
 \subsection{.Stream}
+Da Java8, il pacchetto java.util.stream contiene classi apposite per processare i flussi di dati. Un flusso è una sequenza di elementi di una fonte e si definisce con la classe \textbf{Stream<T>}. La sequenza supporta operazioni di processione dati, definite tramite interfacce funzionali. I flussi hanno nativamente pipelining, iterazioni interne e parallelizzazioni. Alcuni utilizzi comuni sono:
+\begin{lstlisting}[language=Java]
+	// Stream.of(T... elems) scorre ogni elemento dato come parametro.
+	Stream<String> stream = Stream.of("a", "b", "c");
+	
+	// Arrays.stream(T[] arr) scorre ogni elemento di un dato array.
+	String[] arr = new String[] {"d", "e", "f"};
+	Stream<String> stream = Arrays.stream(arr);
+	
+	// Collection.stream() scorre ogni elemento di una collezione del JCF
+	Set<String> set = Set.of("g", "h", "i");
+	Stream<String> stream = set.stream();
+	
+	// Crea una lista a partire dallo stream
+	List<Integer> list = Stream.of(1, 2, 2, 3).toList(); 
+	
+	// Crea un set a partire dallo stream
+	Set<Integer> set = Stream.of(1, 2, 2, 3).collect(Collectors.toSet()); 
+	
+	// Crea un array a partire dallo stream
+	Integer[] arr = Stream.of(1,2,2,3).toArray(Integer[]::new);
+\end{lstlisting}
 
 
 \begin{comment}
-	content...
+	--- Generazione di stream
+	Trattasi di un'operazione che applica un operatore unario ripetitivamente su un seme per creare uno stream
+	Stream<T> iterate(T seed, UnaryOperator<T> generator)	// Ritorna un nuovo flusso con gli elementi generati.
+	
+	// Generazione infinita (stream lazy)
+	Stream<Double> stream = Stream.generate(Math::random);
+	List<Double> list = stream.toList();		// La computazione sarà infinita
+	
+	// Generazione controllata a partire da 0 con indice i, fintanto che i<10
+	Stream<Integer> stream = Stream.iterate(0, i -> i+1).limit(10);
+	List<Integer> list = stream.toList();	// La lista contiene i numeri da 0 a 9
+	
+	È possibile effettuare delle operazioni intermedie e terminali; le prime ritornano un nuovo Stream<T>, non modificano la fonte e possono essere concatenate con la notazione dot. Le seconde invece ritornano un risultato di un tipo specifico e ne è ammessa solo una.
+	
+	// Intermediate operations
+	String[] arr = {"a", "b", "c", "d"};
+	Stream<String> distinct = Arrays.stream(arr).distinct().sorted();	// Deduco le operazioni si facciano da sx a dx.
+	long count = Arrays.stream(arr).distinct().count();
+	
+	Chiamiamo filtri le operazioni intermedie che applicano un predicato ad ogni elemento del flusso: Stream<T> filter(Predicate<T> predicate)
+	
+	// Lambda
+	String[] arr = {"abc", "cde", "ecd", "cba"};
+	Stream<String> stream = Arrays.strea,(arr).filter(s -> s.contains("d"));		// Il flusso conterrà le stringhe con la d
+	
+	// Method reference
+	Character[] arr = {'a', '3', '7', 'd'};
+	Stream<Character> stream = Arrays.stream(arr).filter(Character::isDigit);	// Il flusso conterrà 3 e 7
+	
+	// Metodi per filtraggio intermedio
+	Stream<T> distinct()		// Scarta i duplicati
+	Stream<T> limit(int n)	// Ritorna i primi n elementi
+	Stream<T> skip(int n)	// Scarta i primi n elementi
+	Stream<T> sorted()		// Ordina gli elementi per ordine naturale. T deve essere comparable
+	
+	// Map
+	Operazione intermedia che applica una trasformazione agli elementi di uno stream
+	Stream<R> map (Function<T,R> mapper)
+	
+	// Via lambda
+	String[] arr = {"abc", "cdef", "ec", "cba"};
+	Stream<Integer> stream = Arrays.stream(arr).map(s -> s.length());		// Lo stream contiene 3, 4, 2, 3
+	
+	// Via method reference
+	String[] arr = {"aBc", "cd7f", "eC", "2Ba"};
+	Stream<String> stream = Arrays.stream(arr).map(String::toUpperCase);		// Lo stream contiene ABC, CD7F, EC, 2BA
+	
+	Esistono operazioni terminali che applicano un predicato su un intero flusso. Queste si dicono Predicate Matching. Controllano:
+	- Almeno un elemento matcha il predicato: boolean anyMatch(Predicate<T> predicate)
+	- Tutti gli elementi matchano il predicato: boolean allMatch(Predicate<T> predicate)
+	- Nessun elemento matcha il predicato: boolean noneMatch(Predicate<T> predicate)
+	Altri invece:
+	- Trovano il primo elemento dello stream, eventualmente che matcha un predicato: Optional<T> findFirst()
+	- Trovano un elemento dello stream, eventualmente che matcha un predicato Optional<T> findAny()
+	Eventualmente se non trovano nulla, ritornano un Optional vuoto. Optional è un valore potenziale.
+	
+	```Java
+	Integer[] arr = {-1, 4, -5, 0, 3};
+	Opional<Integer> opt = Arrays.stream(arr).filter(e -> e <= 0).findAny();
+	
+	// Controlla se un elemento è stato trovato
+	if (opt.isPresent()) System.out.println(opt.get());
+	else System.out.println(0);
+	
+	// Versione estremamente più compatta ed equivalente
+	System.out.println(opt.orElse(0))
+	
+	--- Iterazione negli stream
+	Trattasi di un'operazione terminale che itera (ma dai?) fra gli elementi del flusso. L'azione è eseguita su ogni elemento e lo stream viene consumato a fine operazione. Non dissimile dall'iterare una lista concatenata in C.
+	
+	```
+	void forEach (Consumer<T> action)
+	
+	// Stampa gli elementi di un flusso
+	Integer[] arr = {-1, 4, -5, 0, 3};
+	Arrays.stream(arr).filter(e -> e <= 0).forEach(System.out::println);	// Haha method reference, ricordi?
+	
+	// Conta gli elementi di un flusso
+	System.out.println(Arrays.stream(arr).filter(e -> e<= 0).count());
+	```
+	
+	--- Flat map
+	Operazione intermedia che estrae un flusso da ogni elemento dello stream dato come fonte.
+	Stream<R> flatMap(Function<T, Stream<R>>, mapper)	// Trasforma valori T in vari stream di tipo R.
+	
+	La trasformazione è applicata ad ogni elemento, ed è ritornato un nuovo stream che concatena tutti gli stream appena creati. Tipicamente T in questo caso rappresenta più valori, tendenzialmente il suo ruolo è affidato ad una collezion.
 \end{comment}
 
 %
@@ -388,7 +484,96 @@ Le interfacce funzionali sono un argomento già menzionato nei capitoli preceden
 Il pacchetto java.io.* fornisce funzioni relative alla gestione di un flusso di dati, sia in input, che in output.
 
 \begin{comment}
-	\subsection{.Closeable}
-	\subsection{.Reader, .FileReader, .BufferedReader}
-	\subsection{.Writer, .FileWriter, .BufferedWriter, .PrintWriter}
+	--- Flussi di input/output
+	Le operazioni di I/O dipendono dall'astrazione data dagli stream, che tuttavia in questi caso sono differenti dall'interfaccia Stream.
+	Un flusso I/O può essere utilizzato con file statici sul disco, stdin, stdout, stderr, una connessione oppure un flusso di dati da oppure a dispositivi hardware. In ogni caso, i flussi operano allo stesso modo di quelli già affrontati.
+	
+	I flussi I/O sono contenuti nel pacchetto java.io, le cui relative eccezioni fanno parte di IOException. Fondamentalmente abbiamo due tipi di flussi che condividono la stessa interfaccia:
+	```Java
+	read()	// Ritorna uno o più byte/caratteri dallo stream
+	write()	// Inserisce uno o più byte/caratteri nello stream
+	close()	// Chiude lo stream
+	```
+	\begin{itemize}
+		\item \textbf{Orientati ai Byte}: Flusso di Byte gestito da classi astratte InputStream e OutputStream, spesso usato per la gestione di dati in binario come immagini, audio o bytecode. Oltre al costruttore, che apre lo stream, presentano i seguenti metodi:
+		Le implementazioni concrete sono specifiche del mezzo attraverso il quale si fa I/O e si utilizzano con le seguenti sottoclassi:
+		\begin{itemize}
+			\item BufferedInputStream/BufferedOutputStream: Legge/scrive dati con un buffer.
+			\item DataInputStream/DataOutputStream: Legge/scrive tipi primitivi di Java
+			\item FileInputStream/FileOutputStream: Legge/scrive un file.
+		\end{itemize}
+		\begin{lslisting}[language=Java]
+			// Esempio di gestione IO con file binario
+			public static void main (String args[]) throws IOException {
+				FileInputStreamfis = null;
+				FileOutputStreamfos = null;
+				try {
+					fis = new FileInputStream(args[0]);
+					fos = new FileOutputStream(args[1]);
+					int b;
+					while ((b = fis.read()) != −1) {			// throws IOException
+						fos.write(b);						// throws IOException
+					}
+				} catch (FileNotFoundException fnfe) {
+					System.out.println("File not found...");
+				} finally {
+					if (fis != null) fis.close();			// throws IOException
+					if (fos != null) fos.close();			// throws IOException
+				}
+			}
+		\end{lslisting}
+		\item \textbf{Orientati ai caratteri}: Flusso di caratteri Unicode a 16b gestito da classi astratte Reader e Writer, tendenzialmente usati per gestire dati testuali, come stringhe. Anche qui le implementazioni concrete dipendono dal mezzo e sono date dalle sottoclassi:
+		\begin{itemize}
+			\item BufferedReader/BufferedWriter: Leggi/Scrivi con un buffer
+			\item InputStreamReader/OutputStreamWriter: Wrapper per leggere/scrivere da/a un mezzo basato su byte.
+			\item StringReader/StringWriter: Wrapper per leggere/scrivere da/a una stringa.
+			\item FileReader/FileWriter: Legge/scrive da/su un file.
+		\end{itemize}
+		\begin{lslisting}[language=Java]
+			public static void main ( String args []) throws IOException
+			Buffe redReade r br = null ;
+			Buffe redWrite r bw = null ;
+			try {
+				br = new Buff eredRead er ( new FileReader ( " i . txt " ) ) ;
+				bw = new Buff eredWrit er ( new FileWriter ( " o . txt " ) ) ;
+				String line ;
+				while (( line = br . readLine () ) != null ) {	// throws IOException
+					bw . write ( line ) ;						// throws IOException
+				}
+			} catch ( F i l e N o t F o u n d E x c e p t i o n fnfe ) {
+				System . out . println ( " File ␣ not ␣ found ... " ) ;
+			} finally {
+				if ( br != null ) br . close () ;				// throws IOException
+				if ( bw != null ) bw . close () ;				// throws IOException
+			}
+		}
+	\end{lslisting}
+	\end{itemize}
+	\noindent Attenzione che gli stream da java 7 si chiudono automaticamente con la IOException, quindi nella gestione si può omettere il metodo close().
+	
+	--- Files e URL
+	In java.IO è presente anche la classe File, che permette la gestione di pathnames assolute e relative per la creazione di file e cartelle. Metodi utili:
+	```
+	create()
+	delete()
+	exists()
+	renameTo()
+	getParent()
+	mkdir()
+	getAbsolutePath()
+	isFile()
+	isDirectory()
+	listFiles()
+	```
+	
+	In sinergia, il pacchetto java.net porta la classe URL per la modellazione degli Uniform Resource Locator, che fungeranno da puntatori a risorse online.
+	Gli URL si compongono di:
+	\begin{itemize}
+	\item protocollo: https://
+	\item dominio: www.google.com
+	\item port: :443
+	\item path: /search
+	\item parametri q=str&cr=countryIT
+	\end{itemize}
+	Il costruttore degli URL è deprecato, quindi vieve utilizzato il metodo .toURL().
 \end{comment}

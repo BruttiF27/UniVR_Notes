@@ -387,193 +387,252 @@ Da Java8, il pacchetto java.util.stream contiene classi apposite per processare 
 	// Crea un array a partire dallo stream
 	Integer[] arr = Stream.of(1,2,2,3).toArray(Integer[]::new);
 \end{lstlisting}
-
-
-\begin{comment}
-	--- Generazione di stream
-	Trattasi di un'operazione che applica un operatore unario ripetitivamente su un seme per creare uno stream
-	Stream<T> iterate(T seed, UnaryOperator<T> generator)	// Ritorna un nuovo flusso con gli elementi generati.
-	
+\noindent È possibile generare degli stream di vario tipo. Parliamo di un'operazione che applica un operatore unario ripetitivamente su un dato seme, la cui segnatura è data da: \begin{center}
+	Stream<T> iterate(T seed, UnaryOperator<T> generator)
+\end{center}
+\noindent Questo metodo ritornerà un nuovo flusso con gli elementi generati. Abbiamo altre tecniche come:
+\begin{lstlisting}[language=Java]
 	// Generazione infinita (stream lazy)
 	Stream<Double> stream = Stream.generate(Math::random);
-	List<Double> list = stream.toList();		// La computazione sarà infinita
+	// La computazione sara' infinita
+	List<Double> list = stream.toList();
 	
-	// Generazione controllata a partire da 0 con indice i, fintanto che i<10
+	// Generazione controllata da 0 con indice i, fintanto che i<10
 	Stream<Integer> stream = Stream.iterate(0, i -> i+1).limit(10);
-	List<Integer> list = stream.toList();	// La lista contiene i numeri da 0 a 9
-	
-	È possibile effettuare delle operazioni intermedie e terminali; le prime ritornano un nuovo Stream<T>, non modificano la fonte e possono essere concatenate con la notazione dot. Le seconde invece ritornano un risultato di un tipo specifico e ne è ammessa solo una.
-	
-	// Intermediate operations
+	// La lista contiene i numeri da 0 a 9
+	List<Integer> list = stream.toList();
+\end{lstlisting}
+\noindent Possiamo inoltre effettuare delle operazioni \textbf{intermedie} e \textbf{terminali}; le prime ritornano un nuovo Stream<T>, non modificano la fonte e possono essere concatenate con la notazione dot, mentre le seconde ritornano un risultato di un tipo specifico e ne è ammessa solo una. Per esempio:
+\begin{lstlisting}[language=Java]
 	String[] arr = {"a", "b", "c", "d"};
-	Stream<String> distinct = Arrays.stream(arr).distinct().sorted();	// Deduco le operazioni si facciano da sx a dx.
+	
+	// Ritorna lo stream distinct da fonte arr senza duplicati e ordinata.
+	Stream<String> distinct = Arrays.stream(arr).distinct().sorted();
+	
+	// Ritorna il totale degli elementi di arr distinti
 	long count = Arrays.stream(arr).distinct().count();
-	
-	Chiamiamo filtri le operazioni intermedie che applicano un predicato ad ogni elemento del flusso: Stream<T> filter(Predicate<T> predicate)
-	
-	// Lambda
+\end{lstlisting}
+\noindent Un concetto più raffinato di questo algoritmo si ha con i \textbf{filtri}, operazioni intermedie che applicano un predicato ad ogni elemento del flusso; hanno segnatura: \begin{center}
+	Stream<T> filter(Predicate<T> predicate)
+\end{center}
+\begin{lstlisting}[language=Java]
+	// Via lambda
 	String[] arr = {"abc", "cde", "ecd", "cba"};
-	Stream<String> stream = Arrays.strea,(arr).filter(s -> s.contains("d"));		// Il flusso conterrà le stringhe con la d
+	// stream conterra' le stringhe con la d
+	Stream<String> stream = Arrays.stream(arr)
+		.filter(s -> s.contains("d"));
 	
-	// Method reference
+	// Via method reference
 	Character[] arr = {'a', '3', '7', 'd'};
-	Stream<Character> stream = Arrays.stream(arr).filter(Character::isDigit);	// Il flusso conterrà 3 e 7
-	
-	// Metodi per filtraggio intermedio
-	Stream<T> distinct()		// Scarta i duplicati
-	Stream<T> limit(int n)	// Ritorna i primi n elementi
-	Stream<T> skip(int n)	// Scarta i primi n elementi
-	Stream<T> sorted()		// Ordina gli elementi per ordine naturale. T deve essere comparable
-	
-	// Map
-	Operazione intermedia che applica una trasformazione agli elementi di uno stream
+	// stream conterra' i caratteri 3 e 7
+	Stream<Character> stream = Arrays.stream(arr)
+		.filter(Character::isDigit);
+\end{lstlisting}
+\noindent Generalmente, vengono usati spesso i seguenti metodi per filtraggio intermedio:
+\begin{lstlisting}[language=Java]
+	// Ritorna lo stream scartando i duplicati
+	Stream<T> distinct();
+	// Ritorna i primi n elementi
+	Stream<T> limit(int n);	
+	// Scarta i primi n elementi e ritorna i successivi
+	Stream<T> skip(int n);
+	// Ordina gli elementi per ordine naturale. T deve essere comparable
+	Stream<T> sorted();
+\end{lstlisting}
+\noindent Naturalmente consegue che se è possibile filtrare degli elementi specifici, possiamo anche eseguire delle operazioni o trasformazioni su di essi. Ciò avviene grazie al metodo \textbf{map()}, di segnatura: \begin{center}
 	Stream<R> map (Function<T,R> mapper)
-	
+\end{center}
+\begin{lstlisting}[language=Java]
 	// Via lambda
 	String[] arr = {"abc", "cdef", "ec", "cba"};
-	Stream<Integer> stream = Arrays.stream(arr).map(s -> s.length());		// Lo stream contiene 3, 4, 2, 3
+	// stream contiene 3, 4, 2, 3
+	Stream<Integer> stream = Arrays.stream(arr).map(s -> s.length());
 	
 	// Via method reference
 	String[] arr = {"aBc", "cd7f", "eC", "2Ba"};
-	Stream<String> stream = Arrays.stream(arr).map(String::toUpperCase);		// Lo stream contiene ABC, CD7F, EC, 2BA
-	
-	Esistono operazioni terminali che applicano un predicato su un intero flusso. Queste si dicono Predicate Matching. Controllano:
-	- Almeno un elemento matcha il predicato: boolean anyMatch(Predicate<T> predicate)
-	- Tutti gli elementi matchano il predicato: boolean allMatch(Predicate<T> predicate)
-	- Nessun elemento matcha il predicato: boolean noneMatch(Predicate<T> predicate)
-	Altri invece:
-	- Trovano il primo elemento dello stream, eventualmente che matcha un predicato: Optional<T> findFirst()
-	- Trovano un elemento dello stream, eventualmente che matcha un predicato Optional<T> findAny()
-	Eventualmente se non trovano nulla, ritornano un Optional vuoto. Optional è un valore potenziale.
-	
-	```Java
+	// Lo stream contiene ABC, CD7F, EC, 2BA
+	Stream<String> stream = Arrays.stream(arr).map(String::toUpperCase);
+\end{lstlisting}
+\noindent Quando parliamo di operazioni terminali, invece, ribadisco, si attuano sull'intero flusso e non lo ritornano. Metodi di uso comune sono:
+\begin{lstlisting}[language=Java]
+	// Controlla se almeno un elemento matcha il predicato
+	boolean anyMatch(Predicate<T> predicate);
+	// Controlla che tutti gli elementi matchino il predicato
+	boolean allMatch(Predicate<T> predicate);
+	// Controlla che nessun elemento matchi il predicato
+	boolean noneMatch(Predicate<T> predicate);
+	// Trova il primo elemento dello stream che matcha un predicato
+	Optional<T> findFirst();
+	// Trova un elemento dello stream che matcha un predicato
+	Optional<T> findAny()
+\end{lstlisting}
+\noindent In questo ambito esiste il metodo \textbf{orElse()} che mostra una scrittura più compatta al posto di usare un costrutto condizionale:
+\begin{lstlisting}[language=Java]
+	// Salva in opt un elemento e minore o uguale a 0
 	Integer[] arr = {-1, 4, -5, 0, 3};
-	Opional<Integer> opt = Arrays.stream(arr).filter(e -> e <= 0).findAny();
+	Opional<Integer> opt = Arrays.stream(arr)
+		.filter(e -> e <= 0).findAny();
 	
-	// Controlla se un elemento è stato trovato
-	if (opt.isPresent()) System.out.println(opt.get());
-	else System.out.println(0);
+	// Stampa opt se non e' null, altrimenti stampa 0
+	System.out.println(opt.orElse(0));
 	
-	// Versione estremamente più compatta ed equivalente
-	System.out.println(opt.orElse(0))
-	
-	--- Iterazione negli stream
-	Trattasi di un'operazione terminale che itera (ma dai?) fra gli elementi del flusso. L'azione è eseguita su ogni elemento e lo stream viene consumato a fine operazione. Non dissimile dall'iterare una lista concatenata in C.
-	
-	```
+	/* Scrittura equivalente a quanto segue:
+	 * if (opt.isPresent()) System.out.println(opt.get());
+	 * else System.out.println(0);
+	 */
+\end{lstlisting}
+\noindent Possiamo inoltre iterare fra gli elementi del flusso. È un'azione eseguita su ogni singolo elemento e lo stream viene \textbf{consumato} a fine operazione. Segnatura: \begin{center}
 	void forEach (Consumer<T> action)
-	
+\end{center}
+\begin{lstlisting}[language=Java]
 	// Stampa gli elementi di un flusso
 	Integer[] arr = {-1, 4, -5, 0, 3};
-	Arrays.stream(arr).filter(e -> e <= 0).forEach(System.out::println);	// Haha method reference, ricordi?
+	Arrays.stream(arr).filter(e -> e <= 0).forEach(System.out::println);
 	
 	// Conta gli elementi di un flusso
 	System.out.println(Arrays.stream(arr).filter(e -> e<= 0).count());
-	```
+\end{lstlisting}
+\noindent Infine, esiste un'operazione intermedia che estrae un flusso da ogni elemento dello stream dato come fonte, chiamata \textbf{flatMap()}, con segnatura: \begin{center}
+	Stream<R> flatMap(Function<T, Stream<R>>, mapper)
+\end{center}
+\noindent Quindi si effettua una trasformazione per ogni elemento T, il quale viene poi ritornato come singolo flusso. Questi ultimi saranno concatenati e poi ritornati come un singolo Stream di tipo R. Tipicamente, come è facile dedurre, T rappresenta più valori e il ruolo dello stream finale è tendenzialmente affidato ad una Collection.
+\begin{lstlisting}[language=Java]
+	// Caso di uso con array
+	Byte[][] arr ={{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 	
-	--- Flat map
-	Operazione intermedia che estrae un flusso da ogni elemento dello stream dato come fonte.
-	Stream<R> flatMap(Function<T, Stream<R>>, mapper)	// Trasforma valori T in vari stream di tipo R.
+	// stream contiene 1, 2, 3, 4, 5, 6, 7, 8, 9
+	Stream<Byte> stream = Arrays.stream(arr)
+		.flatMap(r -> Arrays.stream(r));
+\end{lstlisting}
+\begin{lstlisting}[language=Java]
+	// Caso di uso con Collection
+	List<List<Integer>> list = new LinkedList<>();
+	list.add(new LinkedList<>()); list.add(new LinkedList<>());
 	
-	La trasformazione è applicata ad ogni elemento, ed è ritornato un nuovo stream che concatena tutti gli stream appena creati. Tipicamente T in questo caso rappresenta più valori, tendenzialmente il suo ruolo è affidato ad una collezion.
-\end{comment}
+	// Aggiungi cifre a posizione get(i)
+	list.get(0).add(1); list.get(0).add(3);
+	list.get(1).add(7);	list.get(1).add(9);
+	
+	// stream contiene 1, 3, 7, 9
+	Stream<Integer> stream = list.stream().flatMap(Collection::stream);
+\end{lstlisting}
+\begin{lstlisting}[language=Java]
+	// Scrittura ulteriormente concatenata
+	Integer[][] arr = {{1, -2, 3}, {4, -5, -6}, {-7, -8, 9}};
+	
+	Arrays.stream(arr)
+		.flatMap(Arrays::stream)
+		.filter(i -> i > 0)
+		.map(i -> String.format("%d is positive", i))
+		.forEach(System.out::println);
+	
+	/* output risultante:
+	 * '1 is positive'
+	 * '3 is positive'
+	 * '4 is positive'
+	 * '9 is positive'
+	 */
+\end{lstlisting}
 
 %
 
 \section{java.io.*}
-Il pacchetto java.io.* fornisce funzioni relative alla gestione di un flusso di dati, sia in input, che in output.
+Il pacchetto java.io.* fornisce classi ed eccezioni relative alla gestione di un flusso di dati, sia in input, che in output. In particolare, le operazioni dipendono da un'astrazione simil-stream, la quale, sebbene funzioni allo stesso modo dei metodi dell'interfaccia Stream, non ne fa alcun utilizzo.\par
+I flussi di I/O possono essere utilizzati con file statici sul disco, standard input, standard output, standard error, una connessione oppure uno stream di dati da/a dispositivi hardware; come vedremo, esistono due tipi di stream con i quali possiamo lavorare e condivisono i seguenti metodi:\begin{itemize}
+	\item \textbf{read()}: Ritorna uno o più byte/caratteri dallo stream.
+	\item \textbf{write()}: Inserisce uno o più byte/caratteri nello stream.
+	\item \textbf{close()}: Chiude lo stream.
+\end{itemize}
 
-\begin{comment}
-	--- Flussi di input/output
-	Le operazioni di I/O dipendono dall'astrazione data dagli stream, che tuttavia in questi caso sono differenti dall'interfaccia Stream.
-	Un flusso I/O può essere utilizzato con file statici sul disco, stdin, stdout, stderr, una connessione oppure un flusso di dati da oppure a dispositivi hardware. In ogni caso, i flussi operano allo stesso modo di quelli già affrontati.
-	
-	I flussi I/O sono contenuti nel pacchetto java.io, le cui relative eccezioni fanno parte di IOException. Fondamentalmente abbiamo due tipi di flussi che condividono la stessa interfaccia:
-	```Java
-	read()	// Ritorna uno o più byte/caratteri dallo stream
-	write()	// Inserisce uno o più byte/caratteri nello stream
-	close()	// Chiude lo stream
-	```
-	\begin{itemize}
-		\item \textbf{Orientati ai Byte}: Flusso di Byte gestito da classi astratte InputStream e OutputStream, spesso usato per la gestione di dati in binario come immagini, audio o bytecode. Oltre al costruttore, che apre lo stream, presentano i seguenti metodi:
-		Le implementazioni concrete sono specifiche del mezzo attraverso il quale si fa I/O e si utilizzano con le seguenti sottoclassi:
-		\begin{itemize}
-			\item BufferedInputStream/BufferedOutputStream: Legge/scrive dati con un buffer.
-			\item DataInputStream/DataOutputStream: Legge/scrive tipi primitivi di Java
-			\item FileInputStream/FileOutputStream: Legge/scrive un file.
-		\end{itemize}
-		\begin{lslisting}[language=Java]
-			// Esempio di gestione IO con file binario
-			public static void main (String args[]) throws IOException {
-				FileInputStreamfis = null;
-				FileOutputStreamfos = null;
-				try {
-					fis = new FileInputStream(args[0]);
-					fos = new FileOutputStream(args[1]);
-					int b;
-					while ((b = fis.read()) != −1) {			// throws IOException
-						fos.write(b);						// throws IOException
-					}
-				} catch (FileNotFoundException fnfe) {
-					System.out.println("File not found...");
-				} finally {
-					if (fis != null) fis.close();			// throws IOException
-					if (fos != null) fos.close();			// throws IOException
-				}
+\noindent\textbf{- Flussi orientati ai Byte}\par
+\noindent Flusso di Byte gestito dalle classi astratte \textbf{InputStream} e \textbf{OutputStream}, spesso usato per la gestione di dati in binario come immagini, audio o bytecode. Oltre al costruttore, che apre lo stream, presentano i seguenti metodi, le cui implementazioni concrete sono specifiche del mezzo attraverso il quale si fa I/O e si definiscono con le seguenti sottoclassi:
+\begin{itemize}
+	\item \textbf{BufferedInputStream/BufferedOutputStream}: Legge/scrive dati con buffer.
+	\item \textbf{DataInputStream/DataOutputStream}: Legge/scrive tipi primitivi di Java.
+	\item \textbf{FileInputStream/FileOutputStream}: Legge/scrive un file.
+\end{itemize}
+\begin{lstlisting}[language=Java]
+	// Esempio di gestione IO con file binario
+	public static void main (String args[]) throws IOException {
+		
+		FileInputStreamfis = null;
+		FileOutputStreamfos = null;
+		
+		try {
+			fis = new FileInputStream(args[0]);
+			fos = new FileOutputStream(args[1]);
+			int b;
+			while ((b = fis.read()) != -1) {		// lancia IOException
+				fos.write(b);						// lancia IOException
 			}
-		\end{lslisting}
-		\item \textbf{Orientati ai caratteri}: Flusso di caratteri Unicode a 16b gestito da classi astratte Reader e Writer, tendenzialmente usati per gestire dati testuali, come stringhe. Anche qui le implementazioni concrete dipendono dal mezzo e sono date dalle sottoclassi:
-		\begin{itemize}
-			\item BufferedReader/BufferedWriter: Leggi/Scrivi con un buffer
-			\item InputStreamReader/OutputStreamWriter: Wrapper per leggere/scrivere da/a un mezzo basato su byte.
-			\item StringReader/StringWriter: Wrapper per leggere/scrivere da/a una stringa.
-			\item FileReader/FileWriter: Legge/scrive da/su un file.
-		\end{itemize}
-		\begin{lslisting}[language=Java]
-			public static void main ( String args []) throws IOException
-			Buffe redReade r br = null ;
-			Buffe redWrite r bw = null ;
-			try {
-				br = new Buff eredRead er ( new FileReader ( " i . txt " ) ) ;
-				bw = new Buff eredWrit er ( new FileWriter ( " o . txt " ) ) ;
-				String line ;
-				while (( line = br . readLine () ) != null ) {	// throws IOException
-					bw . write ( line ) ;						// throws IOException
-				}
-			} catch ( F i l e N o t F o u n d E x c e p t i o n fnfe ) {
-				System . out . println ( " File ␣ not ␣ found ... " ) ;
-			} finally {
-				if ( br != null ) br . close () ;				// throws IOException
-				if ( bw != null ) bw . close () ;				// throws IOException
-			}
+		} catch (FileNotFoundException fnfe) {
+			System.out.println("File not found...");
+		} finally {
+			if (fis != null) fis.close();			// lancia IOException
+			if (fos != null) fos.close();			// lancia IOException
 		}
-	\end{lslisting}
-	\end{itemize}
-	\noindent Attenzione che gli stream da java 7 si chiudono automaticamente con la IOException, quindi nella gestione si può omettere il metodo close().
-	
-	--- Files e URL
-	In java.IO è presente anche la classe File, che permette la gestione di pathnames assolute e relative per la creazione di file e cartelle. Metodi utili:
-	```
-	create()
-	delete()
-	exists()
-	renameTo()
-	getParent()
-	mkdir()
-	getAbsolutePath()
-	isFile()
-	isDirectory()
-	listFiles()
-	```
-	
-	In sinergia, il pacchetto java.net porta la classe URL per la modellazione degli Uniform Resource Locator, che fungeranno da puntatori a risorse online.
-	Gli URL si compongono di:
-	\begin{itemize}
+	}
+\end{lstlisting}
+\noindent\textbf{- Flussi orientati ai caratteri}\par
+\noindent Flusso di caratteri Unicode a 16b gestito dalle classi astratte \textbf{Reader} e \textbf{Writer}, tendenzialmente usato per gestire dati testuali, come stringhe. Anche qui le implementazioni concrete dipendono dal mezzo e sono date dalle seguenti sottoclassi: \begin{itemize}
+	\item \textbf{BufferedReader/BufferedWriter}: Leggi/Scrivi con buffer.
+	\item \textbf{InputStreamReader/OutputStreamWriter}: Wrapper per leggere/scrivere da/a un mezzo basato su byte.
+	\item \textbf{StringReader/StringWriter}: Wrapper per leggere/scrivere da/a una stringa.
+	\item \textbf{FileReader/FileWriter}: Legge/scrive da/su un file.
+\end{itemize}
+\begin{lstlisting}[language=Java]
+	// Esempio di gestione IO con file testuale
+	public static void main (String[] args) throws IOException {
+		
+		BufferedReader br = null;
+		BufferedWriter bw = null;
+		
+		try {
+			br = new BufferedReader(new FileReader("i.txt"));
+			bw = new BufferedWriter(new FileWriter("o.txt"));
+			String line;
+			while ((line = br.readLine()) != null) {	// Lancia IOException
+				bw.write(line);							// Lancia IOException
+			}
+		} catch (FileNotFoundException fnfe) {
+			System.out.println("File not found");
+		} finally {
+			if (br != null) br.close();					// Lancia IOException
+			if (bw != null) bw.close();					// Lancia IOException
+		}
+	}
+\end{lstlisting}
+\noindent Attenzione: gli stream da Java 7 si chiudono automaticamente con la IOException, quindi nella gestione si può omettere il metodo close(). In qualunque altro caso, vanno manualmente chiusi.\par
+Naturalmente, è possibile istanziare degli oggetti di classe \textbf{File}, la quale ha metodi che permettono di gestire di pathnames assoluti e relativi per la creazione di file e cartelle:
+\begin{lstlisting}[language=Java]
+	boolean createNewFile()		// Crea un file vuoto con relativo pathname
+	boolean delete()			// Elimina un file con relativo pathname
+	boolean exists()			// Controlla se un file esiste nella directory
+	boolean renameTo(File dest)	// Rinomina un file col pathname di dest
+	String getParent()			// Ritorna la stringa di pathname del file
+	boolean mkdir()				// Crea una cartella con un dato pathname
+	String getAbsolutePath()	// Ritorna il path assoluto
+	boolean isFile()			// Controlla se l'oggetto e' un file
+	boolean isDirectory()		// Controlla se l'oggetto e' una cartella
+	File[] listFiles()			// Ritorna un array di pathnames astratti corrispondenti ai file
+\end{lstlisting}
+\noindent In perfetta sinergia, il pacchetto java.net porta la classe \textbf{URL} per la modellazione degli Uniform Resource Locator, che fungeranno da puntatori a risorse online.	Questi si compongono di:
+\begin{itemize}
 	\item protocollo: https://
 	\item dominio: www.google.com
 	\item port: :443
 	\item path: /search
-	\item parametri q=str&cr=countryIT
-	\end{itemize}
-	Il costruttore degli URL è deprecato, quindi vieve utilizzato il metodo .toURL().
-\end{comment}
+	\item parametri q=str\&cr=countryIT
+\end{itemize}
+\noindent Attenzione, il costruttore degli URL è deprecato, quindi nell'istanziazione di oggetti va utilizzato il metodo \textbf{toURL()}, come segue:
+\begin{lstlisting}[language=Java]
+	try {
+		URL www = new URI("http://info.cern.ch/index.html").toURL();
+		BufferedInputStream in = new BufferedInputStream(www.openStream());
+		byte[] dataBuffer = new byte [1024];
+		
+		while (in.read(dataBuffer, 0, 1024) != -1) {
+			System.out.println(new String(dataBuffer));
+		}
+	} catch (IOException | URISyntaxException e) throw new RuntimeException(e);
+\end{lstlisting}

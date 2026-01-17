@@ -1,163 +1,70 @@
 \section{Pressione e profondità}
 Fino ad ora abbiamo studiato i meccanismi della materia fisica. Con l'introduzione dei \textbf{fluidi} è necessario cambiare leggermente forma mentis, pur sempre ricordando che le Leggi di Newton regnano sovrane, e quindi introdurre nuovi concetti. Con fluido intendiamo un insieme di molecole disposte in modo casuale, le quali si possono anche allontanare fra di loro; sulle quali è ancora possibile applicare delle forze.\par
-Propriamente, non è presente forza di attrito fra i piani delle molecole, infatti una forza è applicabile esclusivamente in senso non parallelo alla superficie del fluido. Negli esercizi verrà poi utilizzato il \textbf{fluido ideale}, ovvero un liquido privo di qualunque forza di attrito, formalmente definito come privo di \textbf{viscosità}.\newline
-
-\noindent Notiamo come la superficie del liquido e le forze, grazie alla massa, su di essa esercitate sono strettamente legate. Ciò significa che all'aumentare della superficie del liquido, si dà la possibilità a più massa di esercitare la forza peso. Questa forza viene definita \textbf{pressione} $P$; è un valore scalare misurato in \textbf{Pascal} $[1Pa = 1N/m^2]$ ed è definito come il rapporto fra la forza esercitata $F$ e l'area $A$ del liquido selezionata: \[P = \frac{F}{A} \implies F = PA\]
-\noindent La pressione è un valore che dipende da quanta massa esercita un peso ad una determinata altezza; ciò significa che prendendo una sezione specifica all'interno del liquido, bisognerà considerare la somma delle forze esercitate fino a quel punto\footnote{Insieme, naturalmente, anche alla risultante}. Questa posizione è detta \textbf{profondità}.\par
-
-
-
-
-
-
-
-
-
-
-
-\begin{comment}
-	Concetto di viscosità, che è l'attrito fra le varie molecole. Qui si hanno delle forze dette di taglio, parallele alla superficie del liquido. La viscosità varia in base alla composizione del liquido.
-	
-	In un fluido ideale non ci sono forze di attrito.
-	Pressione: P = F/A [N/m^2 = 1Pascal]
-	F è forza, A è area o superficie.
-	
-	La pressione varia in base alla profondità dentro al liquido. Più profonda, tanto più il valore sarà alto.
-	Se prendiamo una fetta del liquido bisognerà considerare la forza peso esercitata, quelle di pressione e poi la risultante che mantiene la sezione in equilibrio. La sommatoria deve naturalmente dare 0.
-	
-	Insomma: P_0A + mg = PA \implies P = P_0 + \frac{m}{a}g
-	
-	La massa riscrivibile in termini di densità \rho = m/v, con v volume. Quindi m = \rho v
-	
-	P = P_0 + \frac{m}{a}g = P_0 + \frac{\rho v}{a}g = P_0 + \rho gh
-	Questa è detta anche Legge di Stevino, la pressione dipende solo dalla profondità.
-	
-	--- Vasi comunicanti
-	La legge di stevino dice che la pressione dipende solo dall'altezza; riempiendo i vasi di acqua comunicanti, dunque, si raggiunge la stessa altezza.
-	È probabile che venga inserita una valvola nel tubo che li fa comunicare; quando questa viene rimossa si tornerà sempre ad un'altezza uguale fra i due vasi. Se un contenitore è più piccolo dell'altro e l'altezza da raggiungere non è sostenuta, ovviamente, trasborda.
-	
-	Supponiamo ora di avere due vasi comunicanti, dove uno di questi ha un pistone sulla sua superficie A_1 e l'altro, più stretto, ha una piattaforma su A_2.
-	Il pistone, insieme alla forza peso, esercita una forza F_1, spingendo il liquido, rendendo la pressione P = F_1/A_1.
-	Dove di base la pressione alla stessa altezza è uguale, bisogna considerare che il secondo vaso ha superficie minore dell'altro e subisce una forza F_2 rivolta verso l'alto. La sua pressione qui è infatti P = F_2/A_2
-	
-	Per la legge di stevino possiamo dire che F_1/A_1 = F_2/A_2.
-	Semplice ricavare le singole forze così, no? posso anche decidere come modularizzarle. Ringrazia il principio delle leve idrauliche.
-	Per esempio, puoi avere un vaso più stretto ed esercitare poca forza, per averne una nettamente maggiore sull'altro vaso più grande.
-	Insomma, spingi nel piccolo, alzi il grande.
-	
-	--- Barometro di Torricelli
-	Prendiamo un liquido e mettiamolo in un recipiente. Inseriamo un secondo recipiente privo di aria nel primo. In assenza di aria, non c'è neanche pressione esercitata, quindi scendendo, il liquido inizia a salire, fino a quando non rispecchia perfettamente la forza risultante della pressione atmosferica.
-\end{comment}
+Propriamente, non è presente forza di attrito fra i piani delle molecole, infatti una forza è applicabile esclusivamente in senso non parallelo alla superficie del fluido. Negli esercizi verrà poi utilizzato il \textbf{fluido ideale}, ovvero un liquido con le seguenti caratteristiche: \begin{itemize}
+	\item \textbf{Non viscoso}, ovvero privo di qualunque forza di attrito.
+	\item \textbf{Stazionario}, quindi tutte le parti del fluido che passano in un punto hanno la stessa velocità.
+	\item \textbf{Incomprimibile}, dunque la sua densità è costante.
+	\item \textbf{Irrotazionale}, semplicemente non ha momento angolare e non rotea.
+\end{itemize}
+\noindent Notiamo come la superficie del liquido e le forze, grazie alla massa, su di essa esercitate sono strettamente legate. Ciò significa che all'aumentare della superficie del liquido, si dà la possibilità a più massa di esercitare la forza peso. Questa forza viene definita \textbf{pressione} $P$; è un valore scalare misurato in \textbf{Pascal} $[1Pa = 1N/m^2]$ ed è definito come il rapporto fra la forza esercitata $F$ e l'area o superficie $A$ del liquido selezionata: \[P = \frac{F}{A} \implies F = PA\]
+\noindent La pressione è un valore che dipende da quanta massa esercita un peso ad una determinata altezza; ciò significa che prendendo una sezione specifica all'interno del liquido, bisognerà considerare la somma delle forze esercitate fino a quel punto\footnote{Insieme, naturalmente, anche alla risultante}. Questa posizione è detta \textbf{profondità}; ne consegue che più scendiamo in profondità, maggiore sarà la pressione percepita.\par
+\noindent Ricapitolando, per avere un modello completo delle forze, considerando una sezione del liquido in un contenitore, bisogna conoscere: \begin{itemize}
+	\item La \textbf{profondità} $d+h$ della sezione del fluido, con $d$ \textbf{distanza} della sezione dalla superficie e $h$ \textbf{altezza} della forma sezionata.
+	\item La \textbf{forza peso} $-P_0A$ esercitata dalla superficie e tutto il liquido sopra la sezione.
+	\item La \textbf{forza peso} $-Mg$ esercitata dalla sezione, dove la massa $M = \rho V = \rho Ah$, con $\rho$ \textbf{densità}, $V$ \textbf{volume} e $h$ altezza.
+	\item La \textbf{forza risultante} $PA$ che mantiene in equilibrio la sezione.
+\end{itemize} 
+\noindent La sommatoria di queste forze in gioco deve essere sempre uguale a zero; la scrittura seguente che descrive questa relazione è inoltre utile per ricavare la pressione facilmente: \[PA - P_0A - Mg = 0\implies PA - P_0A - \rho Ahg = 0 \implies P = P_0 + \rho gh\]
+\noindent Quest'ultima formula per la pressione è infatti chiamata \textbf{Legge di Stevino}, la quale fa dipendere la pressione in base alla profondità. È grazie a questa considerazione che possiamo spiegare il comportamento dei fluidi in vasi comunicanti. Consideriamo infatti due recipienti collegati; riempiendone uno dei due il liquido si trasferirà anche all'altro, fin quando non raggiungeranno la stessa altezza.\par
+Se invece consideriamo due vasi comunicanti con aree diverse $A_1, A_2$, dove la prima è più grande della seconda e poniamo sulle superfici due pistoni che possono esercitare rispettivamente due forze $F_1, F_2$, avremo a che fare con due pressioni diverse, date da: $P_1 = \frac{F_1}{A_1}, P_2 = \frac{F_2}{A_2}$.\par
+Quando un pistone esercita una forza il liquido nel suo vaso scenderà ne eserciterà un'altra verso l'alto nel secondo recipiente, ragion per cui, per la Legge di Stevino possiamo dire: \[P = \frac{F_1}{A_1} = \frac{F_2}{A_2}\]
+\noindent Le leve idrauliche sfruttano proprio questa formula; esercitando forza da un vaso più piccolo è possibile muovere molto più peso dall'altro, perché cerca sempre di ribilanciare le altezze. Un altro esempio di utilizzo di questa legge è il \textbf{barometro di Torricelli}, che vede supposti due recipienti, il primo, più grande, è riempito di liquido, mentre il secondo, più piccolo e privo di aria, è inserito nell'altro.\par
+In assenza di aria, non è esercitata pressione atmosferica; quindi abbassando il recipiente in quello più grande possiamo osservare che il liquido inizia a salire a causa della forza risultante. Viene usato per misurare la pressione in Bar, ma continueremo ad usare il Pascal.
 
 %
 
 \section{Spinta di Archimede}
-
-
-
-\begin{comment}
-	--- Principio di Archimede
-	Supponiamo un recipiente con un liquido; prendiamone una sua sezione. Abbiamo detto che ci sono le forze di pressione che si ribilanciano. P = P_0 + \rho gh
-	
-	Abbiamo sempre le due forze date da:
-	- F_{prf} = PA
-	- F_{atm} = P_0A
-	
-	La forza risultante sarà naturalmente F_{prf} - F_{atm} = \rho ghA = m_{fluido}g
-	Le forze si sottraggono perché la pressione è diversa quando si è in più profondità.
-	
-	Il principio di archimede dice che un oggetto subisce una forza pari al peso del fluido che viene spostato dall'oggetto. // rivedere definizione
-	// Alleggerendoti subisci una spinta verso l'alto fino al bilanciamento.
-	
-	Come capire se un oggetto galleggia o affonda?
-	Guarda densità \rho_f del fluido e dell'oggetto \rho_o. 
-	
-	Spinta di archimede: B = \rho gV
-	F_{prf} = \rho_o gV
-	
-	Il prof dice anche
-	- F_{prf} = B
-	- \rho_{ogg}gV_{ogg} = \rho_{fld}gV_{fld} \implies \frac{\rho_{ogg}}{\rho_{fld}} = \frac{V_{fld}}{V_{ogg}}
-\end{comment}
+Se si prova a spingere un pallone sott'acqua, è normale vedere che questo pone resistenza e risale verso l'alto. Questo accade a causa del \textbf{principio di Archimede}, il quale afferma che ogni corpo immerso parzialmente o totalmente in un fluido viene \textbf{spinto} verso l'alto da una forza uguale al peso del fluido spostato dal corpo. È definita come: \[B = \rho_{fluido}\cdot gV \implies B = M_{fluido}\cdot g = F_{fluido}\]
+Con questo principio ci è possibile determinare se un corpo galleggerà o affonderà quando immerso in un liquido; basta guardare la densità di entrambi, se l'oggetto è meno denso sale, altrimenti scende. Più nello specifico: \begin{itemize}
+	\item \textbf{Corpo completamente immerso}: Il volume $V_{sp}$ spostato sarà uguale a quello del corpo immerso $V_{corpo}$ e l'intensità della spinta è data da: \[B = \rho_{fluido}\cdot gV_{corpo}\]
+	\noindent Inoltre, il corpo di massa $M$ e densità $\rho_{corpo}$ esercita una forza peso $F_{corpo} = Mg = \rho_{corpo}\cdot gV_{corpo}$, la cui risultante sarà: \[B - F_{corpo} = (\rho_{fluido} - \rho_{corpo})gV_{corpo}\]
+	\item \textbf{Corpo galleggiante}: Il corpo sposta un quantitativo di liquido pari alla sua massa immersa; in questi termini la risultante bilancia l'oggetto facendolo, appunto, galleggiare e possiamo dire quindi: \[F_{corpo} = B \implies \frac{V_{sp}}{V_{corpo}} = \frac{\rho_{corpo}}{\rho_{fluido}}\]
+\end{itemize}
 
 %
 
 \section{Dinamica dei fluidi}
+Finora abbiamo considerato i fluidi in uno stato di quiete, ma è possibile fare asserzioni anche quando questi sono in movimento ad una data velocità. Supponiamo un tubo le cui due estremità hanno dimensioni diverse; la prima, più piccola $A_1$, mentre la seconda, più grande e posta più in alto $A_2$. Dentro questo tubo scorre un fluido ideale e definiamo il movimento di una sua particella come \textbf{linea di corrente}.\par
+Noi sappiamo che in un certo intervallo di tempo si sposta una relativa quantità di fluido da $A_1$ ad $A_2$, ed essendo questo il medesimo concetto visto con le leggi del moto possiamo definire semplicemente l' \textbf{equazione di continuità dei fluidi}: \[A_1v_1 = A_2v_2 = const\]
+\noindent Questa espressione stabilisce che per un fluido ideale, in tutti i punti del tubo, è costante il prodotto fra l'area e la velocità del liquido. In particolare, per brevità, definiamo questo prodotto come \textbf{portata}.\newline
 
-
-
-\begin{comment}
-	--- Fluidodinamica
-	Guardiamo che succede quando il fluido si sta spostando ad una data velocità. Prenderemo un fluido non viscoso che scorre dentro un tubo. La sua densità è costante, rendendolo omogeneo. Il flusso deve essere poi stazionario, ovvero che in ogni punto la velocità è fissa.
-	Inoltre, il flusso deve essere irrotazionale, quindi non ruota. Il suo momento angolare è 0.
-	Queste erano le caratteristiche di un fluido ideale.
-	
-	Prendiamo un tubo con due sezioni diverse.
-	La prima, più piccola, A1, mentre la seconda, posta più in alto, A2, più grande. Abbiamo un fluido che passa nel tubo.
-	In un certo intervallo di tempo si sposta una quantità di fluido, quindi va da A1 a A2
-	
-	A_1 \frac{\delta x_1}{\Delta t} = A_2 \frac{\Delta x_2}{\Delta t} // Dato che il fluido è omogeneo
-	Ricordi cos'è x/t? Bravo, velocità. Diciamo quindi A_1v_1 = A_2v_2
-	Questa si chiama equiazione di continuità dei fluidi
-\end{comment}
-
-%
-
-\section{Equazione di Bernoulli e comportamento nei tubi}
-
-
-
-
-\begin{comment}
-	Adesso prendiamo un tubo e ragioniamo in termini di energia.
-	La prima estremità ha diametro minore della seconda. Come si trasforma l'energia?
-	Abbiamo naturalmente due pressioni P1, P2. Queste sono ottenute grazie a P=F/A. Ciò consente eventualmente di ricavare forza e superficie.
-	
-	Proviamo a calcolarne il lavoro sostituendo la definizione di forza nell'integrale apposito: \[L = \int F\cdot ds = F\cdot s \implies PA\cdot\Delta x\]
-	Applicandolo al tubo preso in esame, otteniamo due espressioni differenti:
-	- L = F_1s_1 = P_1A_1\Delta x_1
-	- L = -P_2A_2\Delta x_2		// Senso inverso perché la pressione che agisce sul tubo all'estremità 2 è contraria all'altra.
-	
-	Se voglio la variazione dell'energia totale, come al solito data da $E_{tot} = K + U = \frac{1}{2}mv^2 + mgh$, andrò ad osservare il comportamento alle estremità del tubo considerato.
-	E per trovare la variazione di energia \Delta E è necessario ricavare l'energia alle due estremità, date da:
-	- E_1 = \frac{1}{2}mv_1^2 + mgh		// Fluido che entra
-	- E_2 = \frac{1}{2}mv_2^2 + mgh		// Fluido che esce
-	
-	Molto semplicemente ora sottraiamo l'energia finale a quella iniziale: \[\Delta E = E_2-E_1 = \frac{1}{2}mv_2^2 + mgh - \frac{1}{2}mv_1^2 + mgh = (P_1 - P_2)v\]
-	
-	Da questa formula possiamo eguagliare le due parti tramite dei passaggi algebrici e dire: E_1 = E_2.
-	\begin{equation}
-		\begin{split}
-			P_1V + \frac{1}{2}mv_1^2 + mgh_1 &= P_2V + \frac{1}{2}mv_2^2 + mgh_2\\
-			P_1 + \frac{1}{2}(\frac{m}{V})v_1^2 + \frac{m}{V}gh_1 &= P_2 + \frac{1}{2}(\frac{m}{V})v_2^2 + \frac{m}{V}gh_2\\
-			P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 &= P_2 + \frac{1}{2}\rho v_2^2 + \rho gh_2
-		\end{split}
-	\end{equation}
-	
-	Siamo dunque arrivati al teorema di Bernoulli. L'energia si conserva quindi è uguale in entrambe le estremità. È fondamentalmente il bilanciamento fra fluido, pressione e altezza.
-	
-	Supponiamo un recipiente di altezza h, fino ad essa riempito d'acqua. Ha un foro alla sua base; velocità di uscita del liquido? Possiamo usare il teorema di Bernoulli perché sappiamo che la differenza di energia è costante per entrambi i punti, ovvero la superficie e il foro.
-	\begin{equation}
-		\begin{split}
-			P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 &= P_0 + \frac{1}{2}\rho v_0^2 + \rho gh_0\\
-			gh_1 &= v_0^2\\
-			v_0 = \sqrt{2gh_1}
-		\end{split}
-	\end{equation}
-	
-	La pressione è uguale da ambo le parti perché parliamo di un recipiente circondato dall'atmosfera. Quindi possiamo dire P_1=P_0, rendendoli intercambiabili e addirittura semplificabili.
-	Si può inoltre approssimare la velocità della superficie del recipiente a zero, perché è praticamente nulla.
-	gh_0 = 0, perché alla base del recipiente, preso come riferimento.
-	\rho rimossi grazie all'algebra
-\end{comment}
+\noindent Proviamo adesso a ragionare in termini energetici con la stessa situazione: come avviene la trasformazione dell'energia? Anzitutto possiamo ricavare forza esercitata e area grazie alle due pressioni, infatti: \[F = PA; A = \frac{F}{P}\]
+\noindent Come al solito, usiamo la definizione di lavoro e sostituiamo l'espressione della forza dentro all'integrale: \[L = \int F\cdot ds = PA\cdot s \implies PA\cdot\Delta x\]
+\noindent Se applichiamo l'integrale al tubo preso in esame, risultano le seguenti due espressioni: \[\begin{cases}
+	L = P_1A_1\cdot\Delta x_1\\
+	L = -P_2A_2\cdot\Delta x_2
+\end{cases}\]
+\noindent Il lavoro della seconda estremità è negativo perché la pressione che agisce da quel lato è contraria all'altra; in ogni caso, a noi interessa il calcolo della variazione dell'energia totale: \[E_{tot} = E_{cin} + E_{pot} \implies E_{tot} = \frac{1}{2}mv^2 + mgh\]
+\noindent E per ottenerlo bisogna osservare il comportamento del fluido alle estremità del tubo, ricavandone le relative energie: \[\begin{cases}
+	E_1 = \frac{1}{2}mv_1^2 + mgh\\
+	E_2 = \frac{1}{2}mv_2^2 + mgh
+\end{cases}\]
+\noindent Molto semplicemente, sottraiamo l'energia alla seconda estremità a quella della prima, lo stesso concetto di energia finale sottratta all'energia iniziale: \[\Delta E = E_2-E_1 = \frac{1}{2}mv_2^2 + mgh - \frac{1}{2}mv_1^2 + mgh = (P_1 - P_2)v\]
+\noindent Se eguagliamo le due energie, tramite alcuni passaggi algebrici otteniamo una forma che consente di bilanciare pressione, altezza e fluido:
+\begin{equation}
+	\begin{split}
+		P_1V + \frac{1}{2}mv_1^2 + mgh_1 &= P_2V + \frac{1}{2}mv_2^2 + mgh_2\\
+		P_1 + \frac{1}{2}\left(\frac{m}{V}\right)v_1^2 + \frac{m}{V}gh_1 &= P_2 + \frac{1}{2}\left(\frac{m}{V}\right)v_2^2 + \frac{m}{V}gh_2\\
+		P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 &= P_2 + \frac{1}{2}\rho v_2^2 + \rho gh_2
+	\end{split}
+\end{equation}
+\noindent Quest'ultima formula è infatti chiamata \textbf{equazione di Bernoulli}: \[P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 = P_2 + \frac{1}{2}\rho v_2^2 + \rho gh_2 = const\]
+\noindent Ci consente di fare ulteriori asserzioni; supponiamo ora infatti un recipiente di altezza $h$, fino ad essa riempito d'acqua. Presenta un foro alla sua base e bisogna calcolare la velocità di uscita del liquido. Qui possiamo usare l'equazione di Bernoulli perché abbiamo dimostrato che la differenza di energia è costante sia per la superficie che per il foro: \[P_1 + \frac{1}{2}\rho v_1^2 + \rho gh_1 = P_0 + \frac{1}{2}\rho v_0^2 + \rho gh_0 \implies gh_1 = v_0^2 \implies v_0 = \sqrt{2gh_1}\]
+\noindent La pressione è uguale da ambo le parti perché parliamo di un recipiente circondato dall'atmosfera. Quindi possiamo dire che $P_1=P_0$, rendendoli intercambiabili e semplificabili, stesso destino vale per le densità $\rho$. Si può inoltre approssimare la velocità della superficie del recipiente a zero, perché è praticamente nulla. Inoltre, $gh_0 = 0$, perché la base del recipiente è presa come riferimento nel modello.
 
 %
 
 \section{Esercizi svolti}
-
-
-
-
 
 \begin{comment}
 	```

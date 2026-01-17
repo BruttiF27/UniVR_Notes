@@ -1,67 +1,28 @@
 \section{Concetto di temperatura}
-Quando parliamo di termodinamica, stiamo considerando un concetto applicabile ai tre stati della materia, quindi solido, liquido e gassoso. Molto semplicemente analizzeremo quest'ultimo all'interno di appositi recipienti, dentro ai quali si espande fino a coprire tutta l'area interna.\par
-Ora che abbiamo la definizione per ogni stato della materia, possiamo definire il concetto di \textbf{temperatura}. Formalmente, è ciò che risulta dal movimento delle molecole in un oggetto; supponiamo infatti di avere una sbarra di metallo con una data lunghezza $L$
-
-
-
-
-
-% Definizione, dilatazione termica
+Quando parliamo di termodinamica, stiamo considerando un concetto applicabile ai tre stati della materia, quindi solido, liquido e gassoso. Analizzeremo quest'ultimo all'interno di appositi recipienti, dentro ai quali si espande fino a coprire tutta l'area interna.\par
+Ora che abbiamo la definizione per ogni stato della materia, possiamo definire il concetto di \textbf{temperatura}. Si tratta di un valore misurato in gradi \textbf{Celsius} o \textbf{Kelvin}, dove in particolare il valore minimo di temperatura ottenibile in assenza di energia, detto anche \textbf{Zero Assoluto}, è dato da $0K = -273.15^\circ C$.\par
+Formalmente, è ciò che risulta dal movimento delle molecole in un oggetto; supponiamo infatti di avere una sbarra di metallo con una data lunghezza $L$, muovendosi, le particelle dilatano il materiale che finisce per scaldarsi; quindi la variazione della lnghezza è proporzionale alla temperatura e si definisce come: \[\Delta L = \alpha L_i\Delta T \implies L_f = L_i(1+\alpha\Delta T)\]
+\noindent Dove $\alpha$ è il \textbf{coefficiente di dilatazione termica}, $L_i$ la lunghezza iniziale e $\Delta T$ la \textbf{variazione di temperatura}. In particolare, il coefficiente è un valore che dipende dalla composizione del materiale e si presenta in forma lineare e solida. In questi ultimi termini, infatti, si eleva tutto al cubo: \[L_f^3 = (L_i+\alpha\Delta T)^3\]
+\noindent In ogni caso, gli $\alpha$ sono numeri dal valore molto basso, abbastanza da poterli non considerare quando sono al quadrato o al cubo, rendendoli uguali a zero. Ciò ci permette di sviluppare il cubo come un binomio:
+\begin{equation}
+	\begin{split}
+		L_f^3 &= (L_i+\alpha\Delta T)^3\\
+		L_f^3 &= L_i^3 + 3L_i^2(\alpha\Delta T) + 3L_i(\alpha\Delta T)^2 + (\alpha\Delta T)^3\\
+		L_f^3 &= L_i^3 + 3\alpha L_i^2\Delta T + 3\alpha^2 L_i(\Delta T)^2 + \alpha^3(\Delta T)^3\\
+		L_f^3 &= L_i^3 + 3\alpha L_i^3\Delta T\\
+		L_f^3 &= L_i^3(1+3\alpha\Delta T)
+	\end{split}
+\end{equation}
+\noindent Quindi, fatta molto più semplicemente; il coefficiente di dilatazione termica cubica è \textbf{tre volte quello lineare}, mentre per la superficie parliamo di $2\alpha$.
 
 %
 
 \section{Legge di stato dei gas perfetti}
-
-%
-
-\section{Concetto di calore}
-definizione di calore, calore specifico,
-
-%
-
-\section{Statistica termodinamica, trasformazioni ed entropia}
-cenni di statistica termodinamica, trasformazioni termodinamiche, entropia.
+Iniziamo ora a discutere dei gas; nello studio e negli esercizi faremo uso del concetto di \textbf{gas perfetto}, uno stato in cui le molecole non interagiscono mai fra di loro. Sebbene questo sia poco realistico, nella vita vera potremmo rinchiudere il gas in un recipiente particolarmente grande ed ottenere questo risultato. Di conseguenza, in base al volume, vale la seguente \textbf{legge di stato dei gas perfetti}: \[PV = nRT\]
+\noindent Nella formula sono usate la \textbf{pressione} $P$, il \textbf{volume} $V$, il \textbf{numero di moli} $n$, la \textbf{costante universale dei gas} $R = 0.314[J/m]$ e la \textbf{temperatura} $T$.\par
+In alternativa si può scrivere anche $PV = NK_BT$, dove $K_B = 1.3806\cdot 10^{-23}[J/K]$ è la \textbf{costante di Boltzmann} ed $N$ il \textbf{numero di molecole}.
 
 \begin{comment}
-	Concetto di temperatura
-	La lunghezza di una sbarra di metallo aumenta quando è scaldata. \Delta L è proporzionale alla temperatura. La variazione è propriamente definita come \[\Delta L = \alpha L_i\delta T \implies L_f = L_i(1+\alpha\Delta T)\]
-	Dove:
-	- \alpha: Coefficiente di dilatazione termica (lineare in questo caso)
-	- L_i: lunghezza iniziale
-	- \Delta T: Variazione di temperatura [T_f - T_i]
-	
-	Si allunga perché il calore (quindi l'energia) esercitato sulle molecole le fa muovere (più è caldo, più si muovono); infatti il coefficiente di dilatazione dipende dal materiale.
-	La dilatazione data dalla temperatura non è esclusivamente lineare; infatti con i solidi bisogna parlare di volume; semplicemente si eleva tutto al cubo: \[L_f^3 = (L_i+\alpha\Delta T)^3\]
-	
-	I coefficienti di dilatazione termica tuttavia sono numeri molto bassi (non tanto quanto la gravitazione, ma insomma), abbastanza da poterli non considerare quando sono al quadrato o al cubo; rendendoli uguali a zero. Comodo, no? Possiamo quindi sviluppare il cubo di binomio:
-	\begin{equation}
-		\begin{split}
-			L_f^3 &= (L_i+\alpha\Delta T)^3\\
-			L_f^3 &= L_i^3 + 3L_i^2(\alpha\Delta T) + 3L_i(\alpha\Delta T)^2 + (\alpha\Delta T)^3\\
-			L_f^3 &= L_i^3 + 3\alpha L_i^2\Delta T + 3\alpha^2 L_i(\Delta T)^2 + \alpha^3(\Delta T)^3\\
-			L_f^3 &= L_i^3 + 3\alpha L_i^3\Delta T\\
-			L_f^3 = L_i^3(1+3\alpha\Delta T)
-		\end{split}
-	\end{equation}
-	
-	Quindi, fatta molto più semplicemente; il coefficiente di dilatazione termica cubica è tre volte quello lineare. Naturalmente per la superficie parliamo di 2\alpha.
-	La temperatura è misurata normalmente in celsius, ma esiste anche la Fahrenheit, sbagliata, e la scala Kelvin. 0K = -273.15°C. Numero corrispondente allo zero assoluto, il valore minimo di temperatura ottenibile in assenza totale di energia.
-	
-	--- Legge di stato dei gas perfetti
-	Nei gas perfetti le molecole non interagiscono mai fra di loro; vale specie quando abbiamo dei gas particolarmente diradati in un volume. Quindi in base al volume la legge è applicabile a qualunque gas
-	
-	PV = mRT
-	
-	P	pressione
-	V 	volume
-	m 	numero di moli
-	R		8.314Joule/m
-	T	temperatura
-	
-	Si può scrivere anche PV = NK_BT
-	K_B	Costante di Boltsmann (dice come si distribuiscono le molecole)
-	N 	Numero di molecole (che son diverse dalle moli)
-	
 	--- Teoria cinetica dei gas
 	Possiamo studiare il movimento del gas considerando le molecole come particelle (e usare quindi le leggi di Newton viste in precedenza).
 	Le molecole sono a miliardi, però, per questo si utilizza la statistica e le relative distribuzioni per darci una mano.
@@ -95,6 +56,13 @@ cenni di statistica termodinamica, trasformazioni termodinamiche, entropia.
 	\[PV = \frac{N}{3}\frac{1}{2}mv^2 \implies \frac{2N}{3}(\frac{1}{2}mv^2) = NK_BT \implies \frac{1}{2}mv^2 = \frac{3}{2}K_BT\]
 	Quindi la temperatura è un'espressione macroscopica dell'energia cinetica.
 \end{comment}
+
+%
+
+\section{Concetto di calore}
+definizione di calore, calore specifico,
+
+
 
 \begin{comment}
 	Lez21 - Fisica 1
@@ -153,6 +121,15 @@ cenni di statistica termodinamica, trasformazioni termodinamiche, entropia.
 	- Con pressione P costante, si dice isobara
 \end{comment}
 
+%
+
+\section{Statistica termodinamica, trasformazioni ed entropia}
+cenni di statistica termodinamica, trasformazioni termodinamiche, entropia.
+
+
+
+
+
 \begin{comment}
 	Lez22 - Fisica 1
 	
@@ -181,4 +158,59 @@ cenni di statistica termodinamica, trasformazioni termodinamiche, entropia.
 	- Trasformazione Adiabatica (Calore Q = 0)
 	L'oggetto è completamente isolato dall'esterno e non c'è scambio di energia con esso, quindi nessun calore. \Delta E = 0 + L. La variazione di energia corrisponderà esattamente al lavoro compiuto.
 	Vedremo poi che per questa trasformazione PV^\gamma = const, con \gamma = \frac{c_P}{c_V}
+\end{comment}
+
+\begin{comment}
+	Lez24 - Fisica 1
+	
+	Abbiamo già visto che il calore si indica con Q = mc\Delta T, con c calore specifico del materiale.
+	Per quanto riguarda i gas perfetti abbiamo due casi:
+	- Volume costante: Q = mC_v\Delta T
+	- Pressione costante Q = mC_p\Delta T
+	
+	Cerchiamo di capire cosa siano questi due calori specifici. Se voglio passare da una temperatura T_1 a una T_2 sarà necessario effettuare una trasformazione, la quale è esguibile mantenendo vostante il volume o la pressione. Dato PV = mRT e \Delta E = Q + L, vediamo i due casi:
+	
+	1. Volume costante: \Delta V = 0; \Delta E = Q + L = mC_v\Delta T
+	// Ricorda che il lavoro qua è 0 perché L=P\Delta V e non essendoci variazione di volume, si annulla tutto.
+	
+	Abbiamo che l'energia totale è data da:
+	\[E_{tot} = \frac{3}{2}NK_BT = \frac{3}{2}\frac{N}{N_A}RT = \frac{3}{2}mRT\]
+	\noindent Dove costante di Boltsmann K_B = R/N_A e numero di moli m = \frac{N}{N_A}
+	Essendo poi che la variazione dell'energia ha lavoro nullo, possiamo dire che la variazione dell'energia totale è data da \[\Delta E_{tot} = \frac{3}{2}mR\Delta T\]
+	\noindent Ora, siccome la variazione di energia si può scrivere nei due modi visti prima, è possibile eguagliare quanto ottenuto, ricavando finalmente il calore specifico per i gas perfetti a volume costante: \[mC_v\Delta T = \frac{3}{2}mR\Delta T \implies C_v = \frac{3}{2}R\]
+	
+	2. Pressione costante: P = const; \Delta E = Q+L
+	Sostituiamo alla formula della variazione di energia le definizioni delle sue componenti, ottenendo: \[\Delta E = Q+L \implies mC_v\Delta T = mC_p\Delta T - P\Delta V\]
+	\noindent Inoltre, con un ragionamento simile a quello di prima, se PV = mRT, allora P\Delta V = mR\Delta T. Ciò è comodo perché consente di effettuare semplificazioni per ricavare il calore specifico a pressione costante: \[mC_v\Delta T = mC_p\Delta T - mR\Delta T \implies C_v = C_p - R\]
+	\noindent Ora è semplice ottenere il calore specifico a pressione costante, no? \[C_p = C_v + R = \frac{3}{2}R + R = \frac{5}{2}R\]
+	
+	-- Trasformazione adiabatica: Q=0 // Boh qui ha fatto un casino, guarda il libro
+	Con calore nullo abbiamo: \[\Delta E = 0 + L \implies mC_v\Delta T = -P\Delta V\]
+	Attenzione però che la pressione qui non è costante, quindi non possiamo dire P\Delta V = mR\Delta T. Non sappiamo come cambiano pressione e volume, quindi si può passare alle derivate: \[d(PV) = d(mRT) \implies d(PV) + PdV = dT\cdot mR \implies PdV = mRdT - dPV\]
+	
+	Però sappi che alla fine devi raggiungere: \[\frac{dP}{P} = -\gamma\frac{dV}{V} = 0 \implies \log(P) + \gamma\log(V) = const \implies PV^\gamma = const\]
+	
+	Riassumendo, per l'adiabatica:
+	- \Delta E = Q+L = mC_v\Delta T
+	- PV = mRT
+	- C_v = 3/2R, C_p = 5/2R
+	- C_p - C_v = R
+	- \gamma = C_p/C_v
+	
+	Per l'isocora: V=const, L=0, \Delta E = Q = mC_v\Delta T
+	Per l'isoterma: T=const, \Delta E = 0, Q = -L, PV=mRT, P\Delta V = mRT, L = \int \frac{mRT}{V}dV
+	
+	--- Macchina termica
+	Generano energia grazie al calore, funzionano in base alle trasformazioni. la logica è muoversi e tornare alla posizione iniziale ripetutamente.
+	In queste condizioni cicliche e ricordando che l'energia è una variabile di stato, abbiamo che la variazione dell'energia interna è zero e Q=-L. Un esempio di questo evento sono i motori delle auto.
+	Possiamo tuttavia anche dare del lavoro e creare calore. Questa cosa avviene con i caloriferi.
+	
+	Attenzione che quando si parla di macchine termiche una parte del calore viene dissipata. Quindi il lavoro è dato da \[L = |Q_c| - |Q_f|\]
+	Ovvero la sottrazione fra il calore caldo e il calore freddo.
+	Tuttavia quanto calore viene trasformato in lavoro? In condizioni ideali tutto, ma non è verosimile; questo valore è dato da e = \frac{L}{Q_c} = \frac{|Q_c| - |Q_f|}{|Q_c|} = 1 - \frac{|Q_f|}{|Q_c|} ed è detto efficienza. I motori migliori dissipano meno energia.
+	Inoltre, togliendo i valori assoluti, possiamo ragionare sulla dinamica del calore totale in gioco, Dicendo: \[\frac{Q_f}{T_f} = - \frac{Q_c}{T_c} \implies \frac{Q_f}{T_f} + \frac{Q_c}{T_c} = 0\]
+	
+	La macchina termica migliore (non è realizzabile) è data dal ciclo di carnot, vede due trasformazioni adiabatiche e due trasformazioni isoterme. La sua particolarità è che l'efficienza è \[e = 1 - \frac{T_f}{T_c}\]
+	
+	La variazione del calore rispetto alla temperatura è detta Entropia e si indica con dS = \frac{dQ}{T}. In un processo reversibile rimane uguale a 0. Generalmente è comunque un valore sempre maggiore o uguale a zero.
 \end{comment}

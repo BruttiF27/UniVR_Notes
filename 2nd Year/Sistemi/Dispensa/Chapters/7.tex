@@ -1,0 +1,143 @@
+\section{Sistemi LTI a tempo discreto}
+
+\begin{comment}
+	Lez32 - Sistemi
+	
+	--- Sistemi a tempo discreto
+	Ciò che è stato studiato finora, per essere usato nella realtà, deve essere portato a tempo discreto.
+	Generalmente, un sistema completo vede, in quest'ordine da sinistra a destra:
+	- Entrata u(t)
+	- Blocco di elaborazione \Sigma
+	- Uscita v(t) (la quale verrà descritta in Bode)
+	- Campionatore (con necessario zero holder)
+	- Quantizzatore
+	- Uscita discretizzata v(k)
+	
+	Come analizziamo il comportamento di un sistema a tempo discreto? Useremo entrata e uscita a tempo discreto, rispettivamente u(k), v(k)
+	Un sistema così vede i suoi elementi descrittivi, ovvero entrate e uscite, come successioni numeriche a_k, k\in Z, quindi funzioni a variabile discreta.
+	
+	- Proprietà
+	1. Linearità
+	2. Tempo-invarianza: (se traslo il segnale di entrata nel tempo, pure l'uscita sarà traslata) u(k) \to v(k) \implies u(k-d) \to v(k-d)
+	3. Causalità: L'uscita di v(d) dipende escludivamente da u(k), con k \leq d.
+	3.1 Segnale inizialmente a riposo: dato un istante d sia l'ingresso che l'uscita sono nulli.
+	
+	Se valgono 1, 2, 3, il sistema è detto LTI discreto.
+	
+	4. Stabilità asintotica: \exists d \in Z t.c. u(k) = 0, \forall k \geq d \implies lim_{k\to\infty} v(k) = 0. Quindi il segnale va a scemare fino ad arrivare a zero.
+	5. BIBO-stabilità: \exists d\in Z \land \exists M_u > 0 t.c |u(k)| < M_u, \forall k \geq d \implies \exists M_v > 0 : |v(k)| < \forall k \geq d Se l'input è limitato in un intervallo di ampiezze, così sarà anche per l'uscita.
+	
+	-- Rappresentazione di un sistema LTI discreto
+	Usiamo un modello (ARMA - Auto regressivo media mobile) con equazioni alle differenze: \[\sum_{i=0}^n a_i v(k-i) = \sum_{j=0}^m b_i u(k-j)\]
+	Con k\in Z. I termini u(k-j) rappresentano la derivata del segnale nel tempo. L'ordine è ugualmente dato dal grado più alto.
+	
+	- Modello autoregressivo: Ogni sistema descritto da un'equazione alle differenze la cui parte degli ingressi ha m=0. Quindi l'uscita in ogni istante si determina, una volta noto l'ingresso, tramite regressione con gli N valori precedenti dell'uscita. Descritto come: \[\sum_{i=0}^n a_iv(k-i) = u(k)\]
+	
+	- Modello a Media mobile (moving average): Ogni sistema descritto dall'equazione vista di ordine 0. Ne rimane esclusivamente l'ingresso, dunque: \[v(k) = \sum_{j=0}^m b_j u(k-j)\]
+	\noindent L'uscita del sistema è descritta in ogni istante da una combinazione lineare degli N valori precedenti dell'ingresso.
+	
+	Anche qui per capire come si comportano questi sistemi bisogna porre delle condizioni di esistenza, perché da solo non produce una soluzione univocamente determinabile. Si scrivono: v(-1); v(-2); ...; v(-n).
+	
+	-- Risoluzione di sistema LTI discreto con condizioni iniziali
+	Esplicitiamo v(k): \[\sum_{i=0}^n a_i v(k-i) = \sum_{j=0}^m b_i u(k-j) \implies v(k) = \sum_{j=0}^m \frac{b_j}{a_0} u(k-j) - \sum_{i=0}^n \frac{a_i}{a_0} v(k-i)\]
+	
+	Riscriviamo il sistema per v(k-n): \[\sum_{j=0}^m \frac{b_j}{a_n}u(k-j) - \sum_{i=0}^{n-1}\frac{a_i}{a_n} v(k-i)\]
+	
+	--- Risoluzione di un sistema discreto con evoluzione libera e forzata.
+	Bisogna calcolare la risposta totale, data da v_t = v_l + v_f come già visto.
+	1. Equazione omogenea: \sum_{i=0}^n a_i v(k-i) = 0
+	2. Polinomio caratteristico: P(z) = \sum_{i=0}^n a_i z^{-i}, con r radici distinte, \lambda radici e \mu molteplicità algebrica.
+	2.1 La somma delle \mu deve essere uguale ad n. Sapendo questo otteniamo una nuova forma per il polinomio caratteristico: \[P(z) = \sum_{i=0}^n a_{n-i}z^i\]
+	
+	3. Risposta/evolzione libera in tempo discreto: v_l(k) = \sum_{i=1}^r\sum_{l=0}^{\mu_i-1} c_{i,l} \frac{k^l}{l!}\lambda_i^k
+	Dove \lambda_i è radice i-esima, \mu_i la sua molteplicità algebrica.
+	
+	4. modi elementari: m_i(k) = \frac{k^l}{l|}\lambda_i^k. Possiamo ora valutare la stabilità del sistema grazie ai modi elementari.
+	- Se tutti i modi elementari convergono, il sistema è asintoticamente stabile: lim_{k\to \infty} m_i(k) = 0 e necessariamente |\lambda < 1|
+	
+	5. Prodotto di convoluzione e risposta impulsiva
+	Siano u, v : Z\to R due successioni, definiamo PdC la successione, se esiste, come: \[[u*v](k) = \sum_{i=-\infty}^{+\infty}u(i)v(k-i) = \sum_{i=-\infty}^{+\infty}v(i)u(k-i)\]
+	
+	Definiamo ora u(k) = \delta_0(k) l'impulso e v(k) = h(k) la risposta impulsiva. Ha due forme: \[h(k) = \begin{cases}
+		\sum_{i=1}^r\sum_{l=0}^{\mu_i-1}d_{i,l}\frac{k^l}{l!}\lambda_i^k \delta_{-1}(k)\\
+		\sum_{i=0}^{m-n}d_i\delta(k-i) + \sum_{i=1}^r\sum_{l=1}^{m_i-1}d_{i,l}\frac{k^l}{l!}\lambda_i^k\delta_{-1}(k - (m-n + 1))
+	\end{cases}\]
+	La prima forma si ha quando n\neq 0 e n > m, mentre la seconda con n\neq 0 e n \leq m
+	
+	6. Risposta forzata
+	Prodotto di convoluzione fra segnale di ingresso e risposta impulsiva: \[v_f(k) = [u*h](k) = \sum_{i=-\infty}^{+\infty}u(i)h(k-i) = \sum_{i=-\infty}^{+\infty} h(i)u(k-i)\]
+	
+	7. Sommando risposta libera e forzata otteniamo quella totale.
+\end{comment}
+
+%
+
+\section{Trasformata Z}
+
+\begin{comment}
+	--- Trasformata Z
+	Sia v[k] una successione di valoi reali o complessi, definiamo trasformata Z come: \[\mathcal{Z}[v(k)](z) = \sum_{k=-\infty}^{+\infty} v(k)z^{-k} = V(z)\] con V:C1to C, z\in C. È definita per tutti i numeri complessi z per cui la serie è convergente.
+	
+	-- Proprietà di TZ
+	1. Linearità
+	2. Moltiplicazione per un esponenziale: z[\lambda^ku(k)](z) = U(\frac{z}{\lambda}), quindi si accorcia il tempo.
+	3. Moltiplicazione per un monomio: z[ku(k)](z) = -z\frac{dU(z)}{dz}
+	4. Ritardo temporale: z[v(k-d)](z) = z^{-d}V(z) + \sum_{i=-d}^{-1}v(i)z^{-d-i}
+	5. Convoluzione: Z[u*v](k) = U(z)\cdot V(z)
+	
+	-- Applicazione di trasformata Z a un sistema LTI a tempo discreto
+	Data l'equazione descrittiva del sistema e le varia condizioni iniziali, applichiamo la trasformata Z ad ambo le parti: \[Z[\sum_{i=0}^n a_i v(k-i)] = Z[\sum_{j=0}^m b_i u(k-j)] \implies \sum_{i=0}^n a_i Z[v(k-i)] = \sum_{j=0}^m b_i Z[u(k-j)]\]
+	Questa diventa: \[\sum_{i=0}^n a_i (z^{-i}V(z) + \sum_{d=-i}^{-1}z^{-i-d}v(d)) = \sum_{j=0}^m b_j(z^{-j}U(z) + \sum_{d=-j}^{-1}z^{-j-d}v(d))\]
+	\noindent Sapendo che le sommatorie all'interno delle tonde sono le condizioni di esistenza e in quanto il sistema è causale, possiamo annullare quella dell'entrata (dinamica uguale al tempo continuo): \[\sum_{d=-i}^{-1}z^{-i-d}v(d)) = \sum_{j=0}^m b_jz^{-j}U(z)\]
+	\noindent Sviluppando i polinomi otteniamo: \[\sum_{i=0}^n a_iz^{-i}V(z) + \sum_{i=0}^n a_i\sum_{d=-i}^{-1} z^{-i-d}v(d) = \sum_{j=0}b_jz^{-j}U(z)\]
+	\noindent Chiamiamo rispettivamente: \begin{itemize}
+		\item Polinomio caratteristico di uscita: d(z) = \sum_{i=0}^n a_iz^{-i}V(z)
+		\item Polinomio che dipende dalle CI dell'uscita: -P(z) = \sum_{i=0}^n a_i\sum_{d=-i}^{-1} z^{-i-d}v(d)
+		\item Polinomio caratteristico di entrata: n(z) = \sum_{j=0}b_jz^{-j}U(z)
+	\end{itemize}
+	\noindent Riscriviamo, per semplicità: V(z) = \frac{P(z)}{d(z)} + \frac{n(z)}{d(z)}U(z). Questa è la forma già vista in precedenza con Laplace, dove \begin{itemize}
+		\item V_l(z) = \frac{P(z)}{d(z)}
+		\item H(z) = \frac{n(z)}{d(z)}
+		\item V_f(z) = \frac{n(z)}{d(z)}U(z)
+	\end{itemize}
+	
+	Operazione necessaria per tornare alle trasformate notevoli: moltiplicare per z^n: \[\sum_{i=0}^n a_i z^{n-i} V(z) + \sum_{i=0}^n a_i\sum_{d=-i}^{-1}z^{n-i-d} v(d) = \sum_{j=0}^m d_b z^{n-j}U(z)\]
+	\noindent Con questa forma si può poi antitrasformare.
+\end{comment}
+
+%
+
+\section{Trasformate notevoli}
+
+\begin{comment}
+	-- Trasformate notevoli
+	- \delta di Kronecker, impulso unitario
+	Z[\delta(k)](z) = 1\cdot A
+	
+	- Impulso unitario ritardato
+	Z[\delta(k-d)](z) = z^{-d}
+	
+	- Gradino unitario
+	Z[\delta_{-1}(k)](z) = \frac{z}{z-1}
+	
+	- Successione esponenziale causale
+	Z[\lambda^k\delta_{-1}(k)](z) = \frac{z}{z-\lambda}
+	
+	- Successione esponenziale moltiplicata per un polinomio
+	Z[k^n\lambda^k\delta_{-1}](z) = \frac{z}{(z-\lambda)^{n+1}}
+\end{comment}
+
+%
+
+\section{Antitrasformata Z}
+
+\begin{comment}
+	-- Antitrasformata Z
+	Abbiamo quindi la forma V(z) = \frac{n(z)}{d(z)}, con n(z) polinomio al numeratore e d(z) quello al denominatore. L'ordine è: deg(n(z)) \leq deg(d(z)). Procediamo col definire \tilde{V} = V(z)/z, che consente di scrivere numeratore e denominatore nei loro singoli prodotti, per poi fare i fratti semplici. Quindi: \[\tilde{V} = \frac{V(z)}{z} = \frac{n(z)}{z(z-\alpha_i)^{\mu_1}\cdot ... \cdot (z-\alpha_r)^{\mu_r}}\]
+	\noindent Qui le \alpha sono le radici, mentre \mu le molteplicità algebriche.
+	
+	Possiamo ora riscrivere la forma separando le radici nulle da quelle reali: \[\sum_{i=0}^\zeta \frac{di}{z^{i+1}} + \sum_{i=1}^t\sum_{l=0}^{\mu_i-1}c_{i,l}\frac{1}{(z-\alpha_i)^{l+1}}\]
+	\noindent Questa forma rende semplice ritornare a V(z) poiché basta moltiplicare per z: \[V(z) = \sum_{i=0}^\zeta \frac{di}{z^i} + \sum_{i=1}^t\sum_{l=0}^{\mu_i-1}c_{i,l}\frac{1}{(z-\alpha_i)^{l+2}}\]
+	
+	\noindent A questa scrittura applichiamo l'antitrasformata (ti prego guarda la tabella) e saremo ritornati al dominio del tempo.
+\end{comment}

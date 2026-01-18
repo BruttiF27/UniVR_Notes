@@ -26,8 +26,12 @@
 \contentsline {section}{\numberline {5.4}Esercizi svolti}{50}{}%
 \contentsline {chapter}{\numberline {6}Serie e trasformata di Fourier}{51}{}%
 \contentsline {section}{\numberline {6.1}Serie di Fourier}{51}{}%
-\contentsline {section}{\numberline {6.2}Trasformata di Fourier}{51}{}%
-\contentsline {section}{\numberline {6.3}Trasformate notevoli e proprietà della TdF}{51}{}%
-\contentsline {section}{\numberline {6.4}Campionamento e replicazione}{51}{}%
-\contentsline {section}{\numberline {6.5}Esercizi svolti}{51}{}%
-\contentsline {chapter}{\numberline {7}Sistemi a tempo discreto}{52}{}%
+\contentsline {section}{\numberline {6.2}Trasformata di Fourier}{54}{}%
+\contentsline {section}{\numberline {6.3}Trasformate notevoli e proprietà della TdF}{55}{}%
+\contentsline {section}{\numberline {6.4}Campionamento e replicazione}{55}{}%
+\contentsline {section}{\numberline {6.5}Esercizi svolti}{55}{}%
+\contentsline {chapter}{\numberline {7}Sistemi a tempo discreto}{56}{}%
+\contentsline {section}{\numberline {7.1}Sistemi LTI a tempo discreto}{56}{}%
+\contentsline {section}{\numberline {7.2}Trasformata Z}{56}{}%
+\contentsline {section}{\numberline {7.3}Trasformate notevoli}{56}{}%
+\contentsline {section}{\numberline {7.4}Antitrasformata Z}{56}{}%

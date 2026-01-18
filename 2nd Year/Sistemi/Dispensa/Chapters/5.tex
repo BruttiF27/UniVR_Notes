@@ -73,7 +73,7 @@ In questo caso, dobbiamo lavorare esclusivamente sugli zeri, poiché sono gli un
 %
 
 \section{Grafici della risposta in frequenza}
-Come già menzionato, i diagrammi di Bode sono due, uno per l'ampiezza e l'altro per la fase. Questi possono rappresentare ogni singolo fattore nella relativa forma di Bode che si suppone ottenuta dalla funzione di trasferimento. Ciò significa che esistono diagrammi per rappresentare:
+Come già menzionato, i diagrammi di Bode sono due, uno per l'ampiezza e l'altro per la fase. Questi possono rappresentare ogni singolo fattore nella relativa forma di Bode che si suppone ottenuta dalla funzione di trasferimento tramite passaggi algebrici. Ciò significa che esistono diagrammi per rappresentare:
 \begin{itemize}
 	\item \textbf{Guadagno di Bode} $K_b$.
 	\item \textbf{Zeri/Poli nulli} come $s^\mu$, con molteplicità $\mu$.
@@ -82,7 +82,7 @@ Come già menzionato, i diagrammi di Bode sono due, uno per l'ampiezza e l'altro
 \end{itemize}
 \noindent Ognuno di loro ha una definizione particolare riguardo al disegno. Studiamoli uno per volta.\newline
 
-\noindent\textbf{Termine costante} $K_b = H(j\omega)$\par
+\noindent\textbf{Termine costante} $H(j\omega) = K_b$\par
 \noindent Il guadagno di Bode è un numero reale tale per cui $Im(K_b) = 0 \implies |H(j\omega)| = Re(K_b) = |K_b|$. Ciò significa che il modulo è in decibel e la funzione giace sull'asse dei reali. L'ampiezza $A(\omega)$ della funzione è data da: \[A(\omega) = \big|H(j\omega)\big|_{dB} = 20\log_{10}|K_b|\]
 \noindent Mentre la fase $\phi(\omega)$ è definita come:
 \begin{center}
@@ -100,7 +100,8 @@ Il fattore è rappresentato come una retta che cresce o decresce di $20dB$ ogni 
 	\includegraphics[width=0.6\linewidth]{Images/zeriPoliNulliGrafico.png}
 \end{figure}
 
-\noindent\textbf{Zeri/Poli reali}\newline
+\noindent\textbf{Zeri/Poli reali} $H(j\omega) = (1+j\omega\tau)^\mu$\newline
+
 
 \noindent\textbf{Zeri/Poli complessi e coniugati}\newline
 
@@ -111,7 +112,6 @@ Il fattore è rappresentato come una retta che cresce o decresce di $20dB$ ogni 
 
 
 \begin{comment}	
-	3. Zero/Polo reali (1+\tau s)^\mu
 	Polo: \frac{1}{1+\frac{s}{\omega_0}} = \frac{1}{1+\tau s} \implies \omega_0=\frac{1}{|\tau|}
 	
 	Scriveremo, razionalizzando: \frac{1-j\omega/\omega_0}{1+\omega^2/\omega_0^2}

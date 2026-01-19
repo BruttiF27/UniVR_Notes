@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  17 JAN 2026 17:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  19 JAN 2026 14:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -410,9 +410,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 38--40
 
 [32]) [33]
 Chapter 7.
-(./Chapters/7.tex [34
+(./Chapters/7.tex
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
-]) [35] (./main.aux)
+ []
+
+[34
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 23--25
+
+ []
+
+
+Overfull \hbox (7.34895pt too wide) in paragraph at lines 27--27
+[]\OT1/cmr/m/n/12 Consideriamo anz-i-tutto un gas con-tenuto in un re-cip-i-ent
+e cu-bico. Una sin-gola molecola,
+ []
+
+[35] [36] [37]
+Underfull \hbox (badness 10000) in paragraph at lines 60--62
+
+ []
+
+[38] [39]) [40] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -425,7 +446,7 @@ Here is how much of TeX's memory you used:
  25714 multiletter control sequences out of 15000+600000
  569638 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,16n,70p,688b,252s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,16n,70p,705b,252s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
@@ -445,10 +466,10 @@ e/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/
 cm-super/sfrm1200.pfb>
-Output written on main.pdf (36 pages, 319296 bytes).
+Output written on main.pdf (41 pages, 334088 bytes).
 PDF statistics:
- 221 PDF objects out of 1000 (max. 8388607)
- 141 compressed objects within 2 object streams
+ 239 PDF objects out of 1000 (max. 8388607)
+ 154 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

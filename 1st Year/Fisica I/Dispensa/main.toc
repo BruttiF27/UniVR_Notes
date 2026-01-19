@@ -27,5 +27,7 @@
 \contentsline {chapter}{\numberline {7}Termodinamica}{34}{}%
 \contentsline {section}{\numberline {7.1}Concetto di temperatura}{34}{}%
 \contentsline {section}{\numberline {7.2}Legge di stato dei gas perfetti}{35}{}%
-\contentsline {section}{\numberline {7.3}Concetto di calore}{35}{}%
-\contentsline {section}{\numberline {7.4}Statistica termodinamica, trasformazioni ed entropia}{35}{}%
+\contentsline {section}{\numberline {7.3}Concetto di calore}{36}{}%
+\contentsline {section}{\numberline {7.4}Trasformazioni termodinamiche}{37}{}%
+\contentsline {section}{\numberline {7.5}Applicazioni della termodinamica ed entropia}{40}{}%
+\contentsline {section}{\numberline {7.6}Esercizi svolti}{40}{}%

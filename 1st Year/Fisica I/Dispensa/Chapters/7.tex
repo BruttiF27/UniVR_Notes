@@ -1,8 +1,9 @@
 \section{Concetto di temperatura}
-Quando parliamo di termodinamica, stiamo considerando un concetto applicabile ai tre stati della materia, quindi solido, liquido e gassoso. Analizzeremo quest'ultimo all'interno di appositi recipienti, dentro ai quali si espande fino a coprire tutta l'area interna.\par
-Ora che abbiamo la definizione per ogni stato della materia, possiamo definire il concetto di \textbf{temperatura}. Si tratta di un valore misurato in gradi \textbf{Celsius} o \textbf{Kelvin}, dove in particolare il valore minimo di temperatura ottenibile in assenza di energia, detto anche \textbf{Zero Assoluto}, è dato da $0K = -273.15^\circ C$.\par
-Formalmente, è ciò che risulta dal movimento delle molecole in un oggetto; supponiamo infatti di avere una sbarra di metallo con una data lunghezza $L$, muovendosi, le particelle dilatano il materiale che finisce per scaldarsi; quindi la variazione della lnghezza è proporzionale alla temperatura e si definisce come: \[\Delta L = \alpha L_i\Delta T \implies L_f = L_i(1+\alpha\Delta T)\]
-\noindent Dove $\alpha$ è il \textbf{coefficiente di dilatazione termica}, $L_i$ la lunghezza iniziale e $\Delta T$ la \textbf{variazione di temperatura}. In particolare, il coefficiente è un valore che dipende dalla composizione del materiale e si presenta in forma lineare e solida. In questi ultimi termini, infatti, si eleva tutto al cubo: \[L_f^3 = (L_i+\alpha\Delta T)^3\]
+La termodinamica studia il comportamento dei sistemi macroscopici e le trasformazioni energetiche che avvengono nei diversi stati della materia: solido, liquido e gassoso. In particolare, nel caso dei gas, tendono ad occupare completamente il volume del recipiente che li contiene.\par
+Una delle grandezze fondamentali della termodinamica è la \textbf{temperatura}, la quale descrive lo stato energetico microscopico di un sistema. È legata all’energia cinetica media delle particelle che compongono la materia ed è misurata in gradi \textbf{Celsius} o \textbf{Kelvin}, dove in particolare il minimo teorico ottenibile, detto anche \textbf{Zero Assoluto}, è dato da $0K = -273.15^\circ C$.\newline
+
+\noindent Una conseguenza diretta della temperatura è la \textbf{dilatazione termica}, un fenomeno che vede i corpi allargarsi o restringersi in base al loro valore di temperatura. Supponiamo una sbarra di metallo con una data lunghezza $L$; scaldandolo, aumenta l'agitazione delle particelle, le quali dilatano il materiale. La variazione della lunghezza è dunque proporzionale alla variazione di temperatura e si definisce come: \[\Delta L = \alpha L_i\Delta T \implies L_f = L_i(1+\alpha\Delta T)\]
+\noindent Dove $\alpha$ è il \textbf{coefficiente di dilatazione termica}, $L_i$ la lunghezza iniziale e $\Delta T$ la \textbf{variazione di temperatura}. In particolare, il coefficiente è un valore che dipende dalla composizione del materiale e si presenta in forma lineare, superficiale e volumica per le tre rispettive dimensioni. In questi ultimi termini, infatti, si eleva tutto al cubo: \[L_f^3 = (L_i+\alpha\Delta T)^3\]
 \noindent In ogni caso, gli $\alpha$ sono numeri dal valore molto basso, abbastanza da poterli non considerare quando sono al quadrato o al cubo, rendendoli uguali a zero. Ciò ci permette di sviluppare il cubo come un binomio:
 \begin{equation}
 	\begin{split}
@@ -18,72 +19,94 @@ Formalmente, è ciò che risulta dal movimento delle molecole in un oggetto; sup
 %
 
 \section{Legge di stato dei gas perfetti}
-Iniziamo ora a discutere dei gas; nello studio e negli esercizi faremo uso del concetto di \textbf{gas perfetto}, uno stato in cui le molecole non interagiscono mai fra di loro. Sebbene questo sia poco realistico, nella vita vera potremmo rinchiudere il gas in un recipiente particolarmente grande ed ottenere questo risultato. Di conseguenza, in base al volume, vale la seguente \textbf{legge di stato dei gas perfetti}: \[PV = nRT\]
-\noindent Nella formula sono usate la \textbf{pressione} $P$, il \textbf{volume} $V$, il \textbf{numero di moli} $n$, la \textbf{costante universale dei gas} $R = 0.314[J/m]$ e la \textbf{temperatura} $T$.\par
-In alternativa si può scrivere anche $PV = NK_BT$, dove $K_B = 1.3806\cdot 10^{-23}[J/K]$ è la \textbf{costante di Boltzmann} ed $N$ il \textbf{numero di molecole}.
+Iniziamo ora a discutere dei gas; nello studio e negli esercizi faremo uso del concetto di \textbf{gas perfetto}, un modello ideale in cui le molecole non interagiscono tra loro se non tramite urti elastici. Sebbene questo modello non descriva esattamente i gas reali, a basse pressioni e alte temperature il loro comportamento si avvicina a quello ideale. In tali condizioni, le grandezze macroscopiche del gas sono legate dalla seguente \textbf{legge di stato dei gas perfetti}: \[PV = nRT\]
+\noindent Nella formula compaiono la \textbf{pressione} $P$, il \textbf{volume} $V$, il \textbf{numero di moli} $n$, la \textbf{costante universale dei gas} $R = 8.314[\frac{J}{mol\cdot K}]$ e la \textbf{temperatura assoluta} $T$. In alternativa, la legge di stato può essere scritta nella forma microscopica \[PV = Nk_BT\]
+\noindent dove $k_B = 1.3806\cdot 10^{-23}[J/K]$ è la \textbf{costante di Boltzmann} ed $N$ il \textbf{numero di molecole}.\newline
 
-\begin{comment}
-	--- Teoria cinetica dei gas
-	Possiamo studiare il movimento del gas considerando le molecole come particelle (e usare quindi le leggi di Newton viste in precedenza).
-	Le molecole sono a miliardi, però, per questo si utilizza la statistica e le relative distribuzioni per darci una mano.
-	
-	Supponiamo un cubo dentro al quale stanno molte molecole. Prendiamone una, la quale sbatte sulle pareti. Abbiamo tre velocità in quanto siamo in 3D.
-	La quantità di moto p=mv determina quella iniziale e finale:
-	- p_i = m_0v_{xi}
-	- p_f = -m_0v{xi}	// Sbatte e cambia direzione mantenendo stessa v
-	
-	Proviamo a vedere la variazione della quantità di moto
-	\Delta p = p_f - p_i = - m_0v_{xi} - m_0v_{xi} = -2m_0v_{xi}
-	
-	Ricordando che v=s/t; possiamo sostituire la distanza al posto dello spostamento per ottenere il valore scalare, ed eventualmente ricavare il tempo. \[v = s/t = 2d/\Delta t \implies \Delta t = \frac{2d}{v_{xi}}\]
-	
-	Ora voglio la forza F\Delta T = \Delta p. Cosa ne possiamo ottenere?
-	In base a quello che abbiamo appena ottenuta diciamo: F = \frac{\Delta p}{\Delta t} = -\frac{2m_0v_{xi}}{2d}v_{xi} = -\frac{m_0v_{xi}^2}{d}
-	Questa era la variazione della quantità di moto; se voglio invece la forza di azione e reazione data dalla parete basta invertire il segno. Grazie, Newton.
-	
-	Questa era però la forza di una singola molecola. Quindi bisogna fare la sommatoria di tutte le forze delle molecole.
-	
-	Velocità? More like velocità media: v_x^2 = \frac{\sim v_{xi}^2}{N}
-	Quindi per la velocità media delle tre direzioni bisogna sommarle tutte; è come sommare 1/3 per componente x, y e z.
-	Ragion per cui (per qualche motivo) è valido dire 3\overline{v_x} = \overline{v^2}
-	
-	Cosa cambia per la forza? Che si scrive: \[F = \frac{m_0}{d}\frac{N}{3}\overline{v^2}\]
-	
-	Questa formula ci fa ottenere le componenti per quella della pressione, dato che serve la forza e l'area. Con passaggi algebrici otteniamo \[P = \frac{N}{3V}m_0\overline{v^2} \implies PV = \frac{N}{3}m_0\overline{v^2}\]
-	
-	Please stay with me; che cosa succese dividendo per 2 m_0 e \overline{v^2}? Esatto, la formula dell'energia cinetica: 1/2mv^2. Quindi questa formula, isolando questa parte, consente di ottenere il valore di K per ogni singola molecola.
-	
-	\[PV = \frac{N}{3}\frac{1}{2}mv^2 \implies \frac{2N}{3}(\frac{1}{2}mv^2) = NK_BT \implies \frac{1}{2}mv^2 = \frac{3}{2}K_BT\]
-	Quindi la temperatura è un'espressione macroscopica dell'energia cinetica.
-\end{comment}
+\noindent Con ciò possiamo introdurre la \textbf{teoria cinetica dei gas}, la quale fornisce una descrizione microscopica del loro comportamento, modellando le molecole come particelle puntiformi che obbediscono alle leggi della meccanica classica e quindi alle leggi di Newton. Tuttavia, poiché un gas è costituito da un numero enorme di molecole, non è possibile descriverne il moto in modo deterministico, ragion per cui si ricorre a strumenti statistici e a grandezze medie.\par
+Consideriamo anzitutto un gas contenuto in un recipiente cubico. Una singola molecola, muovendosi all’interno del recipiente, urta le pareti. Analizzando l’urto con una parete perpendicolare all’asse $x$, la componente $v_x$ della velocità cambia segno, mentre il suo modulo resta invariato. La variazione della quantità di moto associata a un urto è quindi: \[\Delta p_x=-2mv_x\]
+\noindent Poiché la forza è definita come variazione della quantità di moto nel tempo $F\Delta t = \Delta p$, l’urto della molecola con la parete genera una forza. La pressione esercitata dal gas nasce dalla somma delle forze esercitate da tutte le molecole che urtano le pareti del recipiente. In tal merito, infatti, non conoscendo la velocità delle singole molecole e volendo rappresentare un modello completo, si introducono i valori medi. Per simmetria del moto, le tre componenti del vettore della velocità contribuiscono in modo equivalente, facendo valere la relazione: \[\overline{v^2} = 3\overline{v^2_x}\]
+\noindent Tenendo conto del numero totale di molecole $N$ e del volume $V$, si ottiene un’espressione per la pressione: \[P = \frac{N}{3V}m\overline{v^2} \implies PV = \frac{N}{3}m\overline{v^2}\]
+\noindent Ragionando poi in termini energetici con la velocità media, possiamo dire che l'energia cinetica media di una particella è espressa dalla formula $\frac{1}{2}m\overline{v^2}$. Riconduciamo a questa forma tramite alcuni passaggi algebrici: \[PV = \frac{N}{3}\cdot\frac{1}{2}m\overline{v^2} \implies \frac{2N}{3}\left(\frac{1}{2}m\overline{v^2}\right) = Nk_BT \implies \frac{1}{2}m\overline{v^2} = \frac{3}{2}k_BT\]
+\noindent Ne segue che la temperatura è direttamente proporzionale all’energia cinetica media delle molecole e rappresenta quindi una grandezza macroscopica che descrive lo stato energetico microscopico del gas.
 
 %
 
 \section{Concetto di calore}
-definizione di calore, calore specifico,
+Supponiamo adesso due corpi con rispettive temperature $T_1, T_2$. Quando questi sono messi a contatto scambiano energia fino a raggiungere una temperatura comune. Tale stato prende il nome di \textbf{equilibrio termico} ed è caratterizzato dall’assenza di ulteriori scambi energetici. Questo enunciato è detto \textbf{principio zero della termodinamica}.\par
+Definiamo lo scambio di energia fra i sistemi come \textbf{calore} $Q$, la cui unità di misura nel Sistema Internazionale è il \textbf{Joule}. Avviene quando sussiste una differenza di temperatura e fluisce spontaneamente da un corpo più caldo a uno più freddo. Si definisce con la relazione: \[Q = mc\Delta T\]
+\noindent Dove $m$ è la massa del corpo, $c$ il calore specifico del materiale e $\Delta T$ la variazione di temperatura. In particolare, il \textbf{calore specifico} è un valore che dipende dal materiale ed esprime la quantità di calore necessaria per aumentare di un grado la temperatura di un’unità di massa. In un sistema isolato, durante uno scambio di calore, vale il principio di conservazione dell’energia: \[Q_{ceduto} + Q_{assorbito} = 0\]
+\noindent Esistono più meccanismi fondamentali per il trasferimento del calore: \begin{itemize}
+	\item \textbf{Conduzione}: Trasferimento di calore attraverso due mezzi materiali senza modifiche alla materia.
+	\item \textbf{Convezione}: Trasferimento di calore associato al moto di un fluido.
+	\item \textbf{Irraggiamento}: Trasferimento di energia mediante onde elettromagnetiche, che non richiedono un mezzo materiale.
+\end{itemize}
+\noindent Diamo nome all'energia totale associata al moto e alle interazioni microscopiche delle particelle di un sistema: \textbf{Energia interna} $U$, la quale può variare sia tramite scambio di calore, sia tramite lavoro meccanico, come nel caso della compressione o espansione di un gas. In tal merito possiamo introdurre il \textbf{primo principio della termodinamica}, affermando che la variazione dell'energia interna è data dalla somma del calore con il lavoro eseguito: \[\Delta U = Q + L\]
+\noindent Dato un certo calore, è possibile andare a modificare lo stato fisico della materia. Chiamiamo questo evento \textbf{cambio di fase}, dove la temperatura resta costante, ed il calore scambiato modifica il corpo. In questo caso vale la relazione: \[Q = \Delta mL\]
+\noindent Dove $L$ è detto \textbf{calore latente} e può essere di fusione o evaporazione. Nella prossima sezione approfondiremo nel dettaglio le dinamiche delle seguenti trasformazioni termodinamiche: \begin{itemize}
+	\item \textbf{Isoterma}: A temperatura costante.
+	\item \textbf{Isocora}: A volume costante.
+	\item \textbf{Isobara}: A pressione costante.
+	\item \textbf{Adiabatica}: In assenza di scambio di calore.
+\end{itemize}
 
+%
 
+\section{Trasformazioni termodinamiche}
+Si definisce \textbf{trasformazione termodinamica} un processo mediante il quale un sistema passa da uno stato di equilibrio iniziale a uno stato di equilibrio finale, variando una o più grandezze di stato. Una trasformazione può essere reversibile o irreversibile, a seconda che il sistema possa essere riportato allo stato iniziale senza lasciare effetti sull’ambiente esterno.\par
+Nel caso dei gas perfetti, lo stato del sistema è descritto dalle grandezze di stato pressione $P$, volume $V$ e temperatura	$T$, legate dalla legge di stato. Inoltre, il valore del calore specifico $c$ dipende dal tipo di trasformazione effettuata; definiamo infatti $c_V$ e $c_P$ calore specifico a \textbf{volume costante} e \textbf{pressione costante} rispettivamente, per i quali valgono le relazioni: \[\begin{cases}
+	Q = nc_V\Delta T\\
+	Q = nc_P\Delta T
+\end{cases}\]
+\noindent Il diverso vincolo modifica il modo in cui l’energia fornita al sistema viene ripartita tra variazione dell'energia interna e lavoro meccanico, usando come base di definizione il primo principio della termodinamica. Infine, il tipo di trasformazione sarà rappresentato sul piano cartesiano, con la pressione in ordinata $y$ e il volume in ascissa $x$.\newline
 
+\noindent Come già menzionato, esistono quattro tipi di trasformazione termodinamica: \begin{itemize}
+	\item \textbf{Trasformazione isocora}\par
+	\noindent In una trasformazione isocora il volume rimane costante, mentre variano pressione e temperatura, quindi: \[P = \frac{mRT}{V}\]
+	\noindent Poiché non vi è variazione di volume, il lavoro compiuto dal gas è nullo e quindi, per il primo principio della termodinamica la variazione di energia interna è uguale al calore: \[\Delta U = Q\]
+	\noindent Per un gas perfetto monoatomico, l'energia interna è data da: \[U = \frac{3}{2}nRT \implies \Delta U = \frac{3}{2}nR\Delta T\]
+	\noindent Ed in quanto $\Delta U = Q = nc_V\Delta T$ possiamo uguagliare quanto ottenuto, ricavando il calore specifico a volume costante: \[nc_V\Delta T = \frac{3}{2}nR\Delta T \implies c_V = \frac{3}{2}R\]
+	\noindent Infine, nel piano cartesiano si rappresenta con una retta verticale.
+	\item \textbf{Trasformazione isobara}\par
+	\noindent In una trasformazione isobara la pressione del gas rimane costante. Dalla legge di stato dei gas perfetti segue: \[V = \frac{nRT}{P}\]
+	\noindent Dunque, volume e temperatura sono direttamente proporzionali, mentre gli altri fattori sono valori costanti. Il lavoro compiuto è infatti non nullo: \[L = -P\Delta V\]
+	\noindent Il primo principio della termodinamica assume la forma: \[\Delta U = Q+L \implies nc_V\Delta T = nc_P\Delta T - P\Delta V\]
+	\noindent Dalla legge dei gas perfetti abbiamo: \[PV = nRT \implies P\Delta V = nR\Delta T\]
+	\noindent Sostituendo, possiamo infine ricavare il calore specifico a pressione costante: \[nc_V\Delta T = nc_P\Delta T - nR\Delta T\implies c_P = c_V + R = \frac{5}{2}R\]
+	\noindent Nel piano cartesiano si rappresenta con una retta orizzontale.
+	\item \textbf{Trasformazione isoterma}\par
+	\noindent In una trasformazione isoterma la temperatura del gas rimane costante. Di conseguenza, dalla legge di stato: \[PV = \text{const}\]
+	\noindent Inoltre, poiché l’energia interna di un gas perfetto dipende solo dalla temperatura, in questa trasformazione si ha: \[\Delta U = 0\]
+	\noindent Dal primo principio della termodinamica segue quindi che il calore scambiato è uguale al lavoro compiuto: \[Q = L\]
+	\noindent Nel piano cartesiano si rappresenta tramite un'iperbole equilatera.
+	\item \textbf{Trasformazione adiabatica}\par
+	\noindent In una trasformazione adiabatica non vi è scambio di calore con l’ambiente esterno, dunque: \[Q = 0\]
+	\noindent Ed il primo principio della termodinamica pone la variazione dell'energia interna uguale al lavoro compiuto: \[\Delta U = L\]
+	\noindent Nei gas perfetti, una trasformazione adiabatica reversibile soddisfa la relazione: \[PV^\gamma = \text{const},\quad \gamma = \frac{c_P}{c_V}\]
+	Durante una trasformazione adiabatica una variazione di volume comporta una variazione di temperatura e nel piano cartesiano è rappresentata come una curva adiabatica definita dalla relazione appena vista.
+\end{itemize}
+
+%
+
+\section{Applicazioni della termodinamica ed entropia}
+Una prima applicazione della termodinamica è data dalle \textbf{macchine termiche}, dispositivi che trasformano calore in lavoro meccanico operando ciclicamente tramite trasformazioni termodinamiche. Poiché il sistema ritorna allo stato iniziale, la variazione di energia interna su un ciclo completo è nulla: \[\Delta U = 0 \implies Q = -L\]
+\noindent In particolare, durante un ciclo, il sistema: \begin{itemize}
+	\item Assorbe un calore $Q_c$ da una sorgente calda.
+	\item Cede un calore $Q_f$ a una sorgente fredda.
+	\item Produce un lavoro: $L = Q_c - |Q_f|$
+\end{itemize}
+\noindent Tuttavia non tutto il calore viene trasmesso; una parte viene infatti dissipata, ed in tal merito definiamo \textbf{efficienza} della macchina: \[e = \frac{L}{Q_c} = 1 - \frac{|Q_f|}{Q_c}\]
+\noindent La macchina termica ipoteticamente perfetta è data dal \textbf{ciclo di Carnot}, composto da due trasformazioni isoterme e due adiabatiche. Vede la sua efficienza dipendere esclusivamente dalle temperature delle sorgenti: \[e = 1 - \frac{T_f}{T_c}\]
+\noindent Infine, definiamo la variazione del calore rispetto alla temperatura come la grandezza fisica di \textbf{entropia}, espressa come: \[dS = \frac{dQ}{T}\]
+\noindent La quale, in particolare: \begin{itemize}
+	\item Nei processi reversibili: $\Delta S = 0$
+	\item Nei processi reali: $\Delta S \geq 0$
+\end{itemize}
+
+%
+
+\section{Esercizi svolti}
 \begin{comment}
-	Lez21 - Fisica 1
-	
-	Temperatura è l'aumentare della sbarra, con un determinato coefficiente, misurabile in celsius e kelvin.
-	La temperatura è strettamente collegata all'energia cinetica. All'aumentare della velocità delle molecole così fa anche la temperatura.
-	
-	--- Energia di un gas
-	Energia cinetica delle molecole, come detto il loro movimento è collegato alla temperatura. Infatti: \[\frac{3}{2}k_BT = \frac{1}{2}mv^2\]
-	La temperatura occhio che non è l'energia, bensì un side-effect.
-	
-	```Principio zero della termodinamica
-	Dati due oggetti con temperature T_1, T_2 rispettivamente, quando messi a contatto, c'è uno scambio di energia, detto calore, e si arriva ad una temperatura di equilibrio, detta equilibrio termico, uguale per entrambi.
-	```
-	
-	Il calore si indica con Q, e quando è presente si ha uno scambio di energia cinetica fra un oggetto più freddo e uno più caldo. Si misura in Joule, ma anche in Calorie. [1Cal = 4184J]. È definito come \[Q = mc\Delta T\]
-	m = massa che cambia la temperatura
-	c = calore specifico
-	\Delta T = differenza di temperatura
-	Dunque in base all'oggetto considerato, varia il calore specifico, misurato in [Joule/kg*°C]. La formula dice quanto calore serve per passare ad una certa temperatura.
-	
 	```Esempio di esercizio
 	Abbiamo un lingotto di metallo di m=0.05Kg ed è scaldato a T_m=200°C, per poi essere immerso in 0.04Kg di acqua, a temperatura T_a=20°C. La temperatura finale T_f = 22.4°C; trovare il calore specifico.
 	
@@ -96,121 +119,4 @@ definizione di calore, calore specifico,
 		\end{split}
 	\end{equtation}
 	```
-	
-	Ci sono più modi per scambiare calore, ognuno di questi lo traferisce con velocità diverse:
-	- Convezione: Nello scambio di calore un corpo perde la sua forma
-	- Conduzione: Scambio di calore da corpo caldo a corpo freddo per raggiungere equilibrio
-	- Irraggiamento: Trasferimento di energia mediante radiazioni (un'onda colpisce la materia e fa muovere le molecole aumentando la temperatura)
-	
-	Quindi:
-	- Q: Calore
-	- U: Energia interna
-	
-	Ragioniamo ancora in termini energetici e sostituiamo la forza (che è pressione per comodità, stiamo comunque lavorando con fluidi) nell'integrale apposito: \[\int Fdy \implies -\int PA dy\]
-	\noindent Questa cosa funziona perché supponendo un cilindro con un pistone che preme al suo interno, andiamo a modificare la sezione A del gas, creando inevitabilmente uno scambio di energia muovendo le molecole.
-	Quindi per trasferire energia abbiamo il calore oppure la compressione del gas in un contenitore. Con quest'ultima dinamica, definiamo il primo principio della termodinamica: \[\Delta U = Q + L\]
-	\noindent Ovvero che la variazione dell'energia interna è data dalla somma del calore con il lavoro eseguito.
-	
-	Esiste anche un altro tipo di calore, usato per ottenere il cambio di fase: \[Q = \Delta m L\]
-	L è il calore latente, dove può essere di fusione (solido->liquido) o evaporazione (liquido->gas)
-	
-	In tal merito, per le trasformazioni ne abbiamo di più tipi:
-	- Con temperatura T costante, è detta isoterma
-	- Con calore Q a 0 non c'è scambio di calore con l'esterno, simile all'esempio del pistone. Si dice adiabatica.
-	- Con Variazione di volume \Delta V = 0, si dice isocora
-	- Con pressione P costante, si dice isobara
-\end{comment}
-
-%
-
-\section{Statistica termodinamica, trasformazioni ed entropia}
-cenni di statistica termodinamica, trasformazioni termodinamiche, entropia.
-
-
-
-
-
-\begin{comment}
-	Lez22 - Fisica 1
-	
-	--- Applicazioni della termodinamica
-	Diciamo trasformazione quando si vanno a modificare le proprietà del liquido o gas con il quale stiamo lavorando. Queste possono essere reversibili o irreversibili. Quando una trasformazione avviene, si considera un calore specifico in base alla dinamica; ce n'è uno per il volume costante come anche per la pressione costante.
-	Per comodità le trasformazioni vengono indicate con un piano cartesiano, dove sulle y sta la pressione, mentre sulle x sta il volume.
-	
-	- Trasformazione Isobara (Pressione costante)
-	\[V = m\frac{RT}{P}\], le variabili rimangono solo V e T, mentre il resto son costanti.
-	Il grafico rappresenta una retta verticale che si può spostare solo sul piano delle x. Infatti si modifica solo il volume.
-	
-	- Trasformazione Isocora (volume costante)
-	\[P = m\frac{RT}{V}\]
-	\noindent No variazione di volume? Allora il Lavoro = 0. Di conseguenza, \Delta E = Q + 0.
-	Il grafico mostra una situazione uguale alla precedente, ma ad assi invertiti.
-	
-	Diciamo che \Delta E è una variabile di stato, quindi dipende esclusivamente dallo stato dell'energia iniziale e da quello della finale.
-	
-	- Trasformazione isoterma (Temperatura costante)
-	Quindi PV = mRT è tutto costante. Essendo poi la pressione espressa come \[P = \frac{const}{V} \implies y = \frac{const}{x}\]
-	\noindent Avremo un grafico di 1/x, che come ricorderai è un'iperbole, ma caghiamo solo il primo quadrante.
-	Quindi P e V cambiano, ma in tal modo che il loro prodotto rimanga costante.
-	Abbiamo visto prima, inoltre, che la variazione dell'energia dipende dalla variazione di temperatura: \[\Delta E = nc_V\Delta T\]
-	\noindent Essendo in questo caso la temperatura costante, non ha variazione e \Delta T = 0, rendendo nulla anche la variazione di energia.
-	
-	- Trasformazione Adiabatica (Calore Q = 0)
-	L'oggetto è completamente isolato dall'esterno e non c'è scambio di energia con esso, quindi nessun calore. \Delta E = 0 + L. La variazione di energia corrisponderà esattamente al lavoro compiuto.
-	Vedremo poi che per questa trasformazione PV^\gamma = const, con \gamma = \frac{c_P}{c_V}
-\end{comment}
-
-\begin{comment}
-	Lez24 - Fisica 1
-	
-	Abbiamo già visto che il calore si indica con Q = mc\Delta T, con c calore specifico del materiale.
-	Per quanto riguarda i gas perfetti abbiamo due casi:
-	- Volume costante: Q = mC_v\Delta T
-	- Pressione costante Q = mC_p\Delta T
-	
-	Cerchiamo di capire cosa siano questi due calori specifici. Se voglio passare da una temperatura T_1 a una T_2 sarà necessario effettuare una trasformazione, la quale è esguibile mantenendo vostante il volume o la pressione. Dato PV = mRT e \Delta E = Q + L, vediamo i due casi:
-	
-	1. Volume costante: \Delta V = 0; \Delta E = Q + L = mC_v\Delta T
-	// Ricorda che il lavoro qua è 0 perché L=P\Delta V e non essendoci variazione di volume, si annulla tutto.
-	
-	Abbiamo che l'energia totale è data da:
-	\[E_{tot} = \frac{3}{2}NK_BT = \frac{3}{2}\frac{N}{N_A}RT = \frac{3}{2}mRT\]
-	\noindent Dove costante di Boltsmann K_B = R/N_A e numero di moli m = \frac{N}{N_A}
-	Essendo poi che la variazione dell'energia ha lavoro nullo, possiamo dire che la variazione dell'energia totale è data da \[\Delta E_{tot} = \frac{3}{2}mR\Delta T\]
-	\noindent Ora, siccome la variazione di energia si può scrivere nei due modi visti prima, è possibile eguagliare quanto ottenuto, ricavando finalmente il calore specifico per i gas perfetti a volume costante: \[mC_v\Delta T = \frac{3}{2}mR\Delta T \implies C_v = \frac{3}{2}R\]
-	
-	2. Pressione costante: P = const; \Delta E = Q+L
-	Sostituiamo alla formula della variazione di energia le definizioni delle sue componenti, ottenendo: \[\Delta E = Q+L \implies mC_v\Delta T = mC_p\Delta T - P\Delta V\]
-	\noindent Inoltre, con un ragionamento simile a quello di prima, se PV = mRT, allora P\Delta V = mR\Delta T. Ciò è comodo perché consente di effettuare semplificazioni per ricavare il calore specifico a pressione costante: \[mC_v\Delta T = mC_p\Delta T - mR\Delta T \implies C_v = C_p - R\]
-	\noindent Ora è semplice ottenere il calore specifico a pressione costante, no? \[C_p = C_v + R = \frac{3}{2}R + R = \frac{5}{2}R\]
-	
-	-- Trasformazione adiabatica: Q=0 // Boh qui ha fatto un casino, guarda il libro
-	Con calore nullo abbiamo: \[\Delta E = 0 + L \implies mC_v\Delta T = -P\Delta V\]
-	Attenzione però che la pressione qui non è costante, quindi non possiamo dire P\Delta V = mR\Delta T. Non sappiamo come cambiano pressione e volume, quindi si può passare alle derivate: \[d(PV) = d(mRT) \implies d(PV) + PdV = dT\cdot mR \implies PdV = mRdT - dPV\]
-	
-	Però sappi che alla fine devi raggiungere: \[\frac{dP}{P} = -\gamma\frac{dV}{V} = 0 \implies \log(P) + \gamma\log(V) = const \implies PV^\gamma = const\]
-	
-	Riassumendo, per l'adiabatica:
-	- \Delta E = Q+L = mC_v\Delta T
-	- PV = mRT
-	- C_v = 3/2R, C_p = 5/2R
-	- C_p - C_v = R
-	- \gamma = C_p/C_v
-	
-	Per l'isocora: V=const, L=0, \Delta E = Q = mC_v\Delta T
-	Per l'isoterma: T=const, \Delta E = 0, Q = -L, PV=mRT, P\Delta V = mRT, L = \int \frac{mRT}{V}dV
-	
-	--- Macchina termica
-	Generano energia grazie al calore, funzionano in base alle trasformazioni. la logica è muoversi e tornare alla posizione iniziale ripetutamente.
-	In queste condizioni cicliche e ricordando che l'energia è una variabile di stato, abbiamo che la variazione dell'energia interna è zero e Q=-L. Un esempio di questo evento sono i motori delle auto.
-	Possiamo tuttavia anche dare del lavoro e creare calore. Questa cosa avviene con i caloriferi.
-	
-	Attenzione che quando si parla di macchine termiche una parte del calore viene dissipata. Quindi il lavoro è dato da \[L = |Q_c| - |Q_f|\]
-	Ovvero la sottrazione fra il calore caldo e il calore freddo.
-	Tuttavia quanto calore viene trasformato in lavoro? In condizioni ideali tutto, ma non è verosimile; questo valore è dato da e = \frac{L}{Q_c} = \frac{|Q_c| - |Q_f|}{|Q_c|} = 1 - \frac{|Q_f|}{|Q_c|} ed è detto efficienza. I motori migliori dissipano meno energia.
-	Inoltre, togliendo i valori assoluti, possiamo ragionare sulla dinamica del calore totale in gioco, Dicendo: \[\frac{Q_f}{T_f} = - \frac{Q_c}{T_c} \implies \frac{Q_f}{T_f} + \frac{Q_c}{T_c} = 0\]
-	
-	La macchina termica migliore (non è realizzabile) è data dal ciclo di carnot, vede due trasformazioni adiabatiche e due trasformazioni isoterme. La sua particolarità è che l'efficienza è \[e = 1 - \frac{T_f}{T_c}\]
-	
-	La variazione del calore rispetto alla temperatura è detta Entropia e si indica con dS = \frac{dQ}{T}. In un processo reversibile rimane uguale a 0. Generalmente è comunque un valore sempre maggiore o uguale a zero.
 \end{comment}

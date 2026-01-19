@@ -8,14 +8,14 @@ Status delle dispense:
   - Logica: È incompleta, da rivedere. Avendo passato l'esame non credo la riprenderò.
   - Programmazione 1: Ha roba a sufficienza ma non è completa.
   - Architettura degli elaboratori: Questa è pregna di contenuto scritto bene. Non è completa, però.
-  - Fisica 1: Attualmente in lavorazione
+  - Fisica 1: COMPLETA
   - Algebra lineare: Potrei riprenderla se necessario per analisi 2
   - Probabilità e statistica: Qua c'è tutto tranne R
 - Secondo anno:
   - Algoritmi: Da cominciare, sto esame lo do a giugno.
   - Analisi matematica 2: Ha contenuto, ma è da rivedere.
   - Fisica 2: Fatemi passare fisica 1 prima, per cortesia.
-  - Programmazione 2 e Ingegneria del software: Attualmente in lavorazione (solo java)
+  - Programmazione 2 e Ingegneria del software: Java COMPLETA
   - Reti di calcolatori: Da cominciare, sto esame lo do a giugno
   - Sistemi: Attualmente in lavorazione (fa tanto male)
   - Sistemi operativi: Devo seguirne il corso. L'hanno martoriato.

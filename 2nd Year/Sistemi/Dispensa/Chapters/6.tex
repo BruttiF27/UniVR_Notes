@@ -61,141 +61,77 @@ La \textbf{Trasformata di Fourier} consente di effettuare l'analisi in frequenza
 	\noindent Data una funzione $V:\mathbb{R}\to\mathbb{C}$, definiamo la relativa Anti-TdF: \[\mathcal{F}^{-1}[V(f)](t) = \int_{-\infty}^{\infty} V(f)e^{j2\pi ft}df = v(t)\]
 	\noindent $v:\mathbb{R}\to\mathbb{C}$, funzione della variabile reale $t$. Corrisponde all'equazione di sintesi.
 \end{definizione}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\begin{comment}
-	\subsection*{Trasformata di Fourier di un segnale periodico}
-	
-	Se il segnale $\tilde{v}(t)$ è periodico, la sua trasformata di Fourier non è continua, ma consiste in un \textbf{treno di impulsi}:
-	\[
-	\tilde{V}(\omega) = 2\pi \sum_{k=-\infty}^{\infty} a_k \delta(\omega - k \omega_0),
-	\]
-	dove $a_k$ sono i coefficienti della serie di Fourier.  
-	
-	In tal caso, la trasformata inversa si ricava come:
-	\[
-	\tilde{v}(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} \tilde{V}(\omega) e^{j \omega t} \, d\omega
-	= \sum_{k=-\infty}^{\infty} a_k e^{j k \omega_0 t}.
-	\]
-	
-	Questa formulazione mette in relazione i segnali **non periodici** (TdF continua) con quelli **periodici** (TdF discreta), mostrando come la serie di Fourier diventi la trasformata di Fourier nel limite $T_0 \to \infty$.
-	
-\end{comment}
-
-
-
-
-
-\begin{comment}	
-	--- TdF di un segnale periodico
-	\tilde{v}(t) \to a_k		// Coefficienti della serie di Fourier
-	\tilde{v}(t) \to \tilde{V}(\omega)	// Trasformata di Fourier
-	\tilde{V}(\omega) = \sum_{k=-\infty}^{+\infty} 2\pi a_k\delta(\omega - k\omega_0)		// L'elemento fra tonde è detto treno di impulsi.
-	
-	Con questo treno diciamo 
-	\tilde{v}(t) &= \frac{1}{2\pi}\int_{-\infty}^{+\infty} \tilde{V}(\omega)e^{j\omega t}d\omega\\
-	&= \frac{1}{2\pi}\sum_{-\infty}^{+\infty} 2\pi a_k\int_{-\infty}^{+\infty} \delta(\omega - \omega_0k)e^{-j\omega t}d\omega
-	
-	Col treno di impulsi stiamo eseguendo lo stesso segnale sugli impulsi. L'ultimo integrale inoltre mette in relazione i segnali non periodici con quelli periodici, perché effettivamnte è uguale a e^{-jk\omega_0}
-	
-	--- Come usare la TdF
-	1 caso. v(t) non periodico
-	- Costruisci segnale periodico \tilde{v}(t) in cui il singolo periodo è definito da v(t)
-	- \tilde{v}(t) in quanto periodico ha serie di Fourier
-	- All'aumentare del periodo \tilde{v}(t) tende a v(t) e la serie di Fourier di \tilde{v}(t) tende alla TdF di v(t)
-	
-	2 caso. \tilde{v}(t) è periodico, con v(t) che rappresenta il singolo periodo
-	- Calcolo i coefficienti della serie di fourier = 1/T_0 \cdot campioni della TdF di v(t)
-	
-	3 caso. \tilde{v}(t) è periodico
-	- TdF di \tilde{v}(t) è definita come treno di impulsi
-	- \tilde{V}(\omega) = \sum_{k=-\infty}^{+\infty} 2\pi a_k\delta(\omega - k\omega_0)
-\end{comment}
+\noindent Possiamo quindi mettere in relazione i segnali non periodici con quelli periodici, mostrando come la serie di Fourier diventi l'omonima trasformata nel limite $T_0\to \infty$. Infatti, se il segnale $\tilde{v}(t)$ è periodico, la sua TdF non è continua, bensì consiste in un \textbf{treno di impulsi}: \[\tilde{V}(\omega) = 2\pi \sum_{k=-\infty}^{\infty} a_k \delta(\omega - k \omega_0)\]
+\noindent Dove $a_k$ sono i coefficienti di fourier e l'elemento fra le tonde il treno di impulsi. In tal caso, l'antitrasformata si ricava come: \[\tilde{v}(t) = \frac{1}{2\pi}\int_{-\infty}^{+\infty} \tilde{V}(\omega)e^{j\omega t}d\omega = \frac{1}{2\pi}\sum_{-\infty}^{+\infty} 2\pi a_k\int_{-\infty}^{+\infty} \delta(\omega - \omega_0k)e^{j\omega t}d\omega\]
+\noindent Riassumendo, abbiamo i seguenti casi di studio possibili: \begin{itemize}
+	\item \textbf{Segnale non periodico} $v(t)$: Il segnale ammette una Trasformata di Fourier continua $V(\omega)$, che ne descrive il contenuto in frequenza: \[V(\omega) = \int_{-\infty}^{\infty} v(t) e^{-j\omega t} dt\]
+	\noindent La rappresentazione nel dominio del tempo si ottiene tramite l’antitrasformata: \[v(t) = \frac{1}{2\pi} \int_{-\infty}^{\infty} V(\omega) e^{j\omega t} d\omega\]
+	\item \textbf{Segnale periodico} $\tilde{v}(t)$ di periodo $T_0$: Il segnale è descritto tramite la serie di Fourier: \[\tilde{v}(t) = \sum_{k=-\infty}^{\infty} a_k e^{j k \omega_0 t}, \quad \omega_0 = \frac{2\pi}{T_0}\]
+	\noindent La sua Trasformata di Fourier non è continua, ma consiste in un \textbf{treno di impulsi}: \[\tilde{V}(\omega) = 2\pi \sum_{k=-\infty}^{\infty} a_k,\quad \delta(\omega - k\omega_0)\]
+	\item \textbf{Relazione tra segnali periodici e non periodici}: Se $v(t)$ rappresenta un singolo periodo di un segnale periodico $\tilde{v}(t)$, allora i coefficienti della serie di Fourier sono proporzionali ai campioni della TdF di $v(t)$: \[a_k = \frac{1}{T_0} V(k\omega_0)\]
+	\noindent Al crescere del periodo $T_0$, lo spettro discreto si infittisce e tende allo spettro continuo del segnale non periodico. Quindi si torna a tempo continuo facendo tendere $T_0\to \infty$.
+\end{itemize}
+\noindent La trasformata di Fourier è tuttavia soggetta a delle condizioni di esistenza. Sia $v(t)$, con $t\in \mathbb{R}$ un segnale a valori reali o complessi; se almeno una delle seguenti condizioni è vera, allora la funzione accetta la trasformata: \begin{enumerate}
+	\item $v(t)$ è sommabile e a variabile limitata su ogni intervallo finito di $\mathbb{R}$. Quindi è esprimibile come differenza di funzioni limitate non decrescenti. \[\int_{-\infty}^{+\infty} |v(t)|dt < \infty\]
+	\item $v(t)$ è un segnale di energia, ovvero che \[\int_{-\infty}^{+\infty} |v(t)|^2 dt < \infty\]
+	\item $v(t)$ è un segnale di potenza, con \[\lim_{t\to\infty} \frac{1}{2\pi}\int_{-\infty}^{+\infty} |v(t)|^2 dt < \infty\]
+	\noindent In questo caso bisognerà finestrare il segnale (moltiplicare il segnale per una finestra rettangolare), considerandolo in un intervallo (la finestra) ben preciso.
+\end{enumerate}
 
 %
 
 \section{Trasformate notevoli e proprietà della TdF}
+Segue la lista delle trasformate notevoli da usare nello svolgimento degli esercizi: \begin{itemize}
+	\item \textbf{Impulso}: \[\mathcal{F}[A\delta_0(t)](f) = A\]
+	\item \textbf{Esponenziale complesso causale}: Supponendo che $Re(\lambda) < 0 $ e siccome $\delta_{-1}=0$ per $t<0$, abbiamo: \[\mathcal{F}[Ae^{j\Phi}e^{\lambda t}\delta_{-1}(t)](f) = \frac{Ae^{j\Phi}}{j2\pi f - \lambda}\]
+	\item \textbf{Finestra rettangolare di altezza A e supporto T}: \[\mathcal{F}\left[A\Pi\left(\frac{t}{T}\right)\right](f) = ATsinc(fT)\]
+	\noindent Dove $sinc()$ è una funzione oscillante non periodica che all'aumentare/diminuire delle frequenze tende a convergere verso l'asse reale delle $x$. per supporto invece si intende la "larghezza" del segnale.
+	\item \textbf{Funzione costante}: Se $v(t)=A$, la sua versione finestrata è data da $v_T(t) = A\Pi(t/T)$, dunque: \[\mathcal{F}[v_T(t)](f) = \mathcal{F}\left[A\Pi\left(\frac{t}{T}\right)\right](f) = ATsinc(fT)\]
+	\noindent E allora: \[\mathcal{F}[v(t)](f) = A\delta(f)\]
+	\item \textbf{Funzione fasore}: Data $v(t) = Ae^{j2\pi f_0t}$, la moltiplichiamo per la finestra, ottenendo $v_T(t) = Ae^{j2\pi f_0t}\Pi(t/T)$. Quindi: \[\mathcal{F}[v_T(t)](f) = \mathcal{F}\left[Ae^{j2\pi f_0t}\Pi\left(\frac{t}{T}\right)\right](f) = ATsinc((f-f_0)T)\]
+	\noindent Inoltre: \[\mathcal{F}[v(t)](f) = A\delta(f-f_0)\]
+	\item \textbf{Funzione seno}: Sia $v(t) = A\sin(2\pi f_0t)$. Per la formula di Eulero otterremo due impulsi specchiati, rappresentabili nel piano immaginario. \[\mathcal{F}[v(t)](f) = \frac{A}{2j}(\delta(f-f_0) - \delta(f+f_0))\]
+	\item \textbf{Funzione coseno}: Sia $v(t) = A\cos(2\pi f_0t)$. Per la formula di Eulero otterremo due impulsi specchiati rappresentabili nel piano reale. \[\mathcal{F}[v(t)](f) = \frac{A}{2}(\delta(f-f_0) + \delta(f+f_0))\]
+\end{itemize}
+\noindent E qui la lista delle proprietà, non poco simili a quelle viste per Laplace: \begin{enumerate}
+	\item \textbf{Linearità}: \[av_1(t) + bv_2(t) \implies aV_1(f) + bV_2(f)\]
+	\item \textbf{Riflessione e coniugazione}: \[v(-t) \implies V(-f)\quad \overline{v(t)} \implies \overline{V(-f)}\quad \overline{v(-t)} \implies \overline{V(f)}\]
+	\item \textbf{Convoluzione nel dominio del tempo}: La convoluzione nel dominio del tempo diventa un prodotto in quello delle frequenze. \[[v_1 * v_2](t) \implies V_1(f)\cdot V_2(f)\]
+	\item \textbf{Traslazione nel dominio del tempo}: \[v(t-\tau) \implies e^{-j2\pi f\tau}V(f)\]
+	\item \textbf{Modulazione del segnale nel dominio del tempo}: \[v_1(t)\cdot v_2(t) \implies [V_1*V_2](f)\]
+	\item \textbf{Traslazione nel dominio delle frequenze}: \[e^{j2\pi f_0t}v(t) \implies V(f-f_0)\]
+\end{enumerate}
+
+%
+
+\section{Campionamento e replicazione}
+Il \textbf{campionamento} è l’operazione che consente di passare da un segnale a tempo continuo a una rappresentazione discreta nel tempo. Prima di introdurlo bisogna avere presenti alcuni concetti preliminari: supponiamo un segnale continuo $v(t)$, e sia $T_c > 0$ il relativo \textbf{periodo di campionamento}, con \textbf{frequenza di campionamento} $f_c = 1/T_c$; definiamo il \textbf{treno di impulsi}: \[\hat{\delta}_{T_c} = \sum_{k = -\infty}^{+\infty} \delta(t - kT_c)\]
+\noindent Ed è una sequenza infinita di impulsi traslati nel tempo ad intervalli $T_c$. In particolare, per Fourier, abbiamo le seguenti relazioni: \[\hat{\delta}_{T_c}(t) \implies \frac{1}{T_c}\sum_{k=-\infty}^{+\infty} \delta\left(f - \frac{k}{T_c}\right) \implies \frac{1}{T_c}\hat{\delta}_{\frac{1}{T_c}}(f)\]
+\noindent Possiamo concludere che la TdF del treno di impulsi ideale è sempre un treno di impulsi, ma in frequenza, dove gli impulsi hanno l’area $1/T$ e sono equispaziati alla frequenza $1/T$. In questi termini possiamo definire il segnale campionato.
+\begin{definizione}
+	\textbf{Campionamento}\par
+	\noindent Dato un segnale $v(t)$ con $t\in \mathbb{R}$, $0 < T_c\in \mathbb{R}$, definiamo campionamento del segnale $v(t)$ come: \[[samp_{T_c}v](t) = \sum_{k=-\infty}^{+\infty} v(kT_c)\]
+	\noindent Il quale, per proprietà del campionamento dell'impulso diventa: \[[samp_{T_c}v](t) = \sum_{k=-\infty}^{+\infty} v(t)\delta(t-kT_c) = v(t)\hat{\delta}_{T_c}(t)\]
+	\noindent Il risultato è dunque un segnale continuo costituito da impulsi separati in intervalli di $T_c$, le cui ampiezze sono uguali ai singoli campioni presi dall'originale.
+\end{definizione}
+\noindent Quando si lavora con segnali ripetuti periodicamente nel tempo allora si parla di \textbf{replicazione}, la quale è formalmente definita come:
+\begin{definizione}
+	\textbf{Replicazione}\par
+	\noindent Sia un segnale $v(t)$ con $t\in\mathbb{R}$ e periodo di campionamento $0 < T_c\in\mathbb{R}$; definiamo replicazione del segnale $v(t)$ come: \[[rep_{T_c}v](t) = \sum_{k=-\infty}^{\infty} v(t-kT_c) = \sum_{k=-\infty}^{+\infty} v(t) * \delta(t-kT_c) = [v * \hat{\delta}_{T_c}](t)\]
+\end{definizione}
+\noindent Queste due operazioni sono duali nel dominio delle frequenze, campionando nel tempo si otterrà una replicazione in frequenza: \[[samp_{T_c}v](t) \iff \frac{1}{T_c}[rep_{T_c}V](f)\]
+\noindent Mentre se si replica nel tempo si otterrà un campionamento in frequenza: \[[rep_{T_c}v](t) \iff \frac{1}{T_c}[samp_{T_c}V](f)\]
+\noindent Tuttavia, attenzione: non sempre è possibile revertire il segnale a quello originale dopo il processo di campionamento. La condizione che definisce questa dinamica è data dal \textbf{teorema del campionamento Shannon-Nyquist}, dove supponiamo un segnale $v_0(t)$ limitato in banda, ovvero $V_0(f) = 0$ per $|f| > B$. Se la frequenza di campionamento soddisfa: \[f_c > 2B\]
+\noindent Allora il segnale può essere riportato all'originale tramite un filtro di \textbf{ricostruzione} $H_r$, definito come: \[H_r(f) = T_c\Pi\left(\frac{f}{2f_L}\right) = \frac{1}{f_c}\Pi\left(\frac{f}{2f_L}\right)\]
+\noindent Con $B < f_L < f_c - B$. Quindi il segnale originale sarà uguale alla convoluzione fra il segnale campionato e l'antitrasformata del filtro: \[v_0(t) = [(samp_{T_c}v_0) * h_r](t)\]
+\noindent In caso di $f_c < 2B$, invece, si ha quello che è noto come \textbf{fenomeno di aliasing}, e non si ritornerà ad un segnale uguale all'originale.
+
+%
+
+\section{Esercizi svolti}
 
 \begin{comment}
-	Lez30 - Sistemi
-	
-	Già visto che la TdF consente di lavorare con segnali periodici e non periodici, semplicemente definita come:
-	Sia v(t), con t\in R segnale a valori reali o complessi, definiamo la TdF del segnale: \[F[v(t)](f) = \int_{-\infty}^{+\infty}v(t) e^{-j\omega_0t}dt = V(f)\]
-	V è una funzione che va dai reali ai complessi, con f\in R. Rappresenta l'equazione di sintesi
-	
-	L'antitrasformata invece: Data una funzione V_R\to C definiamo anti TdF: \[F^{-1}[V(f)](t) = \frac{1}{2\pi}\int_{-\infty}^{+\infty} V(f) e^{j\omega_0t}df = v(t)\]
-	v: R\to C, t\in R. Rappresenta l'equazione di analisi.
-	
-	--- Condizioni per l'esistenza della TdF
-	Sia v(t) con t\in R un segnale a valori reali o complessi. Sia almeno una delle seguenti condizioni vera, allora la funzione è trasformabile secondo Fourier.
-	
-	1. v(t) è sommabile e a variabile limitata su ogni intervallo finito di R. Quindi è esprimibile come differenza di funzioni limitate non decrescenti. quindi \[\int_{-\infty}^{+\infty} |v(t)|dt < \infty\]
-	2. v(t) è un segnale di energia, ovvero che \[\int_{-\infty}^{+\infty} |v(t)|^2 dt < \infty\]
-	3. v(t) è un segnale di potenza, ovvero che \[\lim_{t\to\infty} \frac{1}{2\pi}\int_{-\infty}^{+\infty} |v(t)|^2 dt < \infty\] In questo caso bisogna però finestrare il segnale (moltiplicare il segnale per una finestra rettangolare), considerandolo in un intervallo (appunto, la finestra) ben preciso.
-	
-	--- Trasformate notevoli
-	- Impulso
-	La TdF di un impulso è una funzione costante di altezza A.
-	\begin{equation}
-		\begin{split}
-			\mathcal{F}[A\delta_0(t)](f) &= A\int_{-\infty}^{+\infty} e^{-j2\pi ft}dt\\
-			&= A\int_{-\infty}^{+\infty} \delta_0(t) \cdot 1\dt\\
-			&= A
-		\end{split}
-	\end{equation}
-	
-	- Esponenziale causale
-	Ogni cosa che c'è prima di t=0 è nullo. Naturalmente abbiamo i due casi per i quali l'esponenziale è monotono crescente e monotono decrescente. A noi interessa quest'ultimo in particolare.
-	\[\mathcal{F}[Ae^{j\phi}e^{\lambda t}\delta_{-1}(t)](f) = \frac{Ae^{j\phi}}{j2\pi f - \lambda}\]
-	
-	- Finestra rettangolare di altezza A e supporto (quanto è largo) T
-	
-	\[\mathcal{F}[A\Pi(\frac{t}{T})](f) = A\int_{-\infty}^{+\infty}\Pi(\frac{t}{T})e^{-j2\pi ft}dt = A\int_{-\frac{T}{2}}^{\frac{T}{2}}e^{-j2\pi ft}dt = AT\\frac{sin(\pi fT)}{\pi fT} = AT\sinc(fT)\]
-	sinc è una funzione sinusoidale che all'aumentare/diminuire delle frequenze tende a convergere verso l'asse reale delle x.
-	
-	-- Segnali di potenza
-	- Funzione costante
-	Moltiplichiamo per un intervallo il segnale v(t) = A e otteniamo una "finestra" v_T(t) = A\pi(\frac{t}{T}). La TdF è la trasformata della finestra.
-	\[\mathcal{F}[v(t)\cdot \pi(\frac{t}{T})](f) = AT\sinc(fT)\]
-	
-	- Funzione fasore (esponenziale complesso)
-	Data v(t) = Ae^{j2\pi f_0t}, la moltiplichiamo per la finestra, ottenendo v_T(t) = Ae^{j2\pi f_0t}\Pi(\frac{t}{T}).
-	
-	\[\mathcal{F}[v_T(t)](f) = AT\sinc((f-f_0)T)\]
-	Spostandola di f_0 la otteniamo traslata a destra.
-	
-	- Funzione seno
-	v(t) = A\sin(2\pif_0t) \implies \mathcal{F}[v(t)](f) = \frac{A}{2j}(\delta(f-f_0) - \delta(f+f_0))
-	Quindi abbiamo due impulsi specchiati, uno che va a destra, l'altro a sinistra. Sono entrambi puramente immaginari.
-	
-	- Funzione coseno
-	v(t) = A\cos(2\pi f_0t) \implies \mathcal{F}[v(t)](f) = \frac{A}{2}(\delta(f-f_0) + \delta(f+f_0))
-	
-	// Salta le altre funzioni, non le ha dette.
-	
-	--- Proprietà della TdF (ovvero quelle della TdL, in questa salsa, cambia solo s che diventa j\omega)
-	
-	1. Linearità: av_1(t) + bv_2(t) \implies aV_1(f) + bV_2(f)
-	2. Riflessione e coniugazione: v(-t) \implies V(-f), \overline{v(t)} \implies \overline{V(-f)}, \overline{v(-t)} \implies \overline{V(f)}
-	3. Convoluzione nel dominio del tempo: Come in Laplace, la convoluzione nel dominio del tempo diventa un semplice prodotto in quello delle frequenze. [v_1 * v_2](t) \implies V_1(f)\cdot V_2(f)
-	4. Traslazione nel dominio del tempo: v(t-\tau) \implies e^{-j2\pi f\tau}V(f)
-	5. Modulazione (moltiplicazione) del segnale nel dominio del tempo: \[v_1(t)\cdot v_2(t) \implies [V_1*V_2](f)\]
-	6. Traslazione nel dominio delle frequenze (raramente usata): \[e^{j2\pi ft}v(t) \implies V(f-f_0)\]
-	
-	``` Esempio
+	``` Esempio - Lez29
 	Dato un sistema a blocchi vogliamo capire come viene alterato dagli operatori. Dovremo passare dal dominio del tempo a quello delle frequenze con la TdF. Allo schema a blocchi è aggiunto l'operatore di convoluzione.
 	
 	Abbiamo le funzioni:
@@ -220,63 +156,3 @@ La \textbf{Trasformata di Fourier} consente di effettuare l'analisi in frequenza
 	
 	```
 \end{comment}
-
-%
-
-\section{Campionamento e replicazione}
-
-\begin{comment}
-	Lez31 - Sistemi
-	
-	--- Campionamento e replicazione
-	L'operatore _/_ si dice campionatore. Si chiude a intervalli regolari dettati da T_c e "campiona il segnale". È necessario per passare da tempo continuo a discreto. T_c è la frequenza di campionamento ed è misurata in Hz.
-	Fondamentalmente la funzione del segnale a tempo continuo risulta essere l'envelop dopo il campionamento. Gli spazi fra le lineette, queste ultime compongono il segnale a tempo discreto, sono dati dalla frequenza T_c. Poi il segnale viene discretizzato grazie all'effetto dello zero holder.
-	
-	Si possono poi fare altre operazioni come la quantizzazione, ovvero vincolare i valori in base alle capacità del sistema (come per i bit).
-	L'ultima operazione è l'encoding, un passaggio irreversibile che codifica il segnale in base al sistema.
-	
-	--- Treno campionatore / impulsi
-	Noterai che l'effetto del campionatore è creare un treno di impulsi ad intervalli T_c. Infatti lo definiamo come: \[\hat{\delta}_{T_c} = \sum_{K = -\infty}^{+\infty} \delta(t - KT_c)\]
-	\noindent Parliamo quindi di una serie di impulsi traslati nel tempo. Frega niente dei passaggi algebrici, per Fourier corrisponde a: \[\frac{1}{T_c}\hat{\delta}_{\frac{1}{T}}(f) = \frac{1}{T_c}\sum_{K=-\infty}^{+\infty} \delta(f - \frac{K}{T_c})\]
-	
-	--- Definizione di campionamento
-	Dato v(t) con t\in R, 0 < T_c\in R, definiamo il campionamento come: \[[SAMP_{T_c}v](t) = \sum_{K=-\infty}^{+\infty} v(KT_c)\]
-	\noindent La quale, per proprietà del campionamento dell'impulso diventa: \[[SAMP_{T_c}v](t) = \sum_{K=-\infty}^{+\infty} v(t)\delta(t-KT) = v(t)\hat{\delta}_{T_c}(t)\]
-	
-	Insomma, dato un segnale, dopo il campionamento ottengo un nuovo segnale pari in ampiezza al precedente, diviso in intervalli di T_c
-	
-	--- Definizione di replicazione
-	Dato v(t), t\in R, 0 < T_c \in R
-	
-	[REP_{T_c}v](t) &= \sum_{K=-\infty}^{+\infty} v(t-KT_c)\\
-	&= \sum_{K=-\infty}^{+\infty} v(t) * \delta(t-KT_c)\\
-	&= [v * \hat{\delta}_{T_c}](t)
-	
-	Insomma, confluiamo il treno di impulsi nel tempo.
-	
-	Attenzione che replicazione e campionamento sono strettamente legati in termini di fourier. Infatti usando la TdF sul primo, andremo a ottenere una versione riscalata di 1/T_c del segnale campionato.
-	Dunque replicando nel tempo ottengo un campionamento nelle frequenze.
-	\[[REP_{T_c}v](t) \implies \frac{1}{T_c}[SAMP_{T_c}V](f)\]
-	
-	Se campiono nel tempo, inoltre, vado a replicare nelle frequenze:
-	\[[SAMP_{T_c}v](t) \implies \frac{1}{T_c}[REP_{T_c}V](f)\]
-	
-	Teorema (del campionamento ideale) di Shannon: Esiste uno sweet spot dell'intervallo di campionamento entro il quale è ancora possibile revertire il segnale all'originale, una volta superato, i segnali si sommano e le frequenze si sminchiano, rendendo irrevertibile il segnale.
-	
-	Formalmente: v_0(t), t\in R, campionato con frequenza f_c = \frac{1}{T_c}
-	Ottenendo v(k) segnale campionato = v_0(kT_c) = \sum_{K=-\infty}^{+\infty} v_0(t) \delta(t-kT_c) = [SAMP_{T_c}v_0](t)
-	
-	Se valgono:
-	1. v_0(t) è limitato in banda, ovvero esiste almeno un B > 0 t.c. V_0(f) = 0 per |f| > B, e B è il più piccolo valore per cui questo è vero. // [-B, B] è l'intervallo entro il quale si limita il segnale.
-	2. La frequenza di campionamento f_c è tale per cui f_c > 2B. Quest'ultimo valore detto frequenza di Nyquist.
-	
-	Allora v_0 è ricostruibile a partire dal segnale campionato [SAMP_{T_c}v_0](t) usando un filtro di ricostruzione H_r. Filtro definito come: \[Hr(f) = T_c\pi(\frac{f}{2f_L}) = \frac{1}{f_c}\pi(\frac{f}{2f_L})\]
-	
-	Sapendo \[B < f_l < f_c - B \implies v_0(t) = [(SAMP_{T_c}v_0) * h_t](t)\]
-	
-	Se invece f_c < 2B si presenta il fenomeno di aliasing.
-\end{comment}
-
-%
-
-\section{Esercizi svolti}

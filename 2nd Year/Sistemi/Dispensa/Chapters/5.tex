@@ -1,18 +1,18 @@
 \section{Grafici logaritmici}
 Abbiamo notato come ogni segnale può essere rappresentato come una somma di sinusoidi, e che ai sistemi LTI bibostabili, quando dato in input sinusoidale, ritorneranno un output della stessa forma e frequenza, ma con ampiezza e fase diverse.\par
-Quella di Bode è una rappresentazione grafica eseguita mediante \textbf{grafici logaritmici} che sfrutta proprio questa caratteristica, mostrando il comportamento dell'uscita di un segnale diviso per ampiezze e fasi senza conoscere la funzione del sistema al variare della frequenza.
+Quella di Bode è una rappresentazione grafica eseguita mediante \textbf{grafici logaritmici} che sfrutta proprio questa caratteristica, mostrando ampiezza e fase della funzione di trasferimento del sistema al variare della frequenza.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\linewidth]{Images/graficoLogaritmico_example.png}
 	\caption{Grafico logaritmico}
 \end{figure}
 
-\noindent Più precisamente, per i \textbf{diagrammi di Bode} vengono utilizzati due grafici semi-logaritmici, i quali presentano le pulsazioni $\omega[Hz = rad/s]$ sull'asse delle $x$, mentre sulle $y$ descrivono le ampiezze $A[dB = 20log_{10}(|A|)]$ o le fasi $\phi[deg]$, in due grafici diversi.\par
-Essendo i grafici in una scala logaritmica sull'asse delle $x$, avremo intervalli dati dalle potenze di $10$, chiamati \textbf{decadi}; quindi il minimo è dato da $-\infty$, il massimo è $+\infty$ e non si tocca mai lo zero. Gli intervalli di decadi sono graficamente definiti dallo spazio di $10$ quadrati del grafico.\par
+\noindent Più precisamente, per i \textbf{diagrammi di Bode} vengono utilizzati due grafici semi-logaritmici, i quali presentano le pulsazioni $\omega[rad/s]$ sull'asse delle $x$, mentre sulle $y$ descrivono le ampiezze $A[dB = 20log_{10}(|A|)]$ o le fasi $\phi[deg]$, in due grafici diversi.\par
+Essendo i grafici in una scala logaritmica sull'asse delle $x$, avremo intervalli dati dalle potenze di $10$, chiamati \textbf{decadi}; i valori coperti sono di frequenza arbitrariamente piccola o grande, ma non include mai lo zero. Gli intervalli di decadi sono graficamente definiti dallo spazio di $10$ quadrati del grafico.\par
 Stiamo ragionando in termini di risposta in frequenza, quindi partiamo da un sistema che divide l'input in due parti per andare in due blocchi diversi. Poi somma questi due output per ritornare l'uscita. Supponiamo che:
 \begin{itemize}
 	\item $u(t) = \sin(\frac{1}{2}t)$
-	\item $v(t) = 2.83\deg\cdot \sin(\frac{1}{2}t - 0.785\deg)$
+	\item $v(t) = 2.83\degree\cdot \sin(\frac{1}{2}t - 0.785\degree)$
 	\item $\omega = \frac{1}{2}$
 \end{itemize}
 \noindent Ora applicheremo la trasformata di Laplace passando al dominio dei complessi: \[\frac{V(s)}{U(s)} = \frac{2s + 1}{s} \implies \frac{2j\omega + 1}{j\omega} = 2 - \frac{1}{\omega}j\]
@@ -54,10 +54,10 @@ La soluzione più agevole vede la trasformazione della risposta nella \textbf{fo
 Chiariti i presupposti delle operazioni nel campo dei complessi, introduciamo la \textbf{Forma di Bode}. Si tratta di una scrittura che ha lo scopo di arrivare agli omonimi diagrammi senza dover sostituire il valore della frequenza per ogni singolo punto.\par
 Partiamo dalla funzione di trasferimento in laplace $H(s)$, in una forma dove sono espansi gli zeri e i poli. Ridefiniamo la costante $K$ come $K_b$, dove porteremo ogni singola costante dei fattori, facendoci ottenere:
 \[H(s) = K\frac{(s-z_1)(s-z_2) \cdot\cdot\cdot (s-z_m)}{(s-p_1)(s-p_2) \cdot\cdot\cdot (s-p_n)} = K_b\frac{\prod_i(1+s\tau_i')^{\mu_i'} \prod_k\left(1+2\zeta_k'\cdot \frac{s}{\omega_{n,k}'} + \frac{s^2}{(\omega_{n,k}')^2}\right)^{\mu_k'}}{(s^\nu)\prod_i(1+s\tau_i)^{\mu_i}\prod_k\left(1+2\zeta_k\cdot\frac{s}{\omega_{n,k}} + \frac{s^2}{(\omega_{n,k})^2}\right)^{\mu_k}}\]
-\noindent Questa forma si può sempre ottenere e presenta le seguenti componenti:
+\noindent Questa forma si può sempre ottenere con i sistemi LTI e presenta le seguenti componenti:
 \begin{itemize}
 	\item $K_b$: Detto \textbf{guadagno di Bode}, è il termine costante che racchiuderà tutte le altre costanti prese dai fattori.
-	\item $s^\nu$: Raggruppa tutte le radici nulle, per esempio $\frac{s^5}{s^4} = \frac{1}{s^{-1}}$
+	\item $s^\nu$: Raggruppa tutte le radici nulle, per esempio $\frac{s^5}{s^4} = s^1$
 	\item $(1+s\tau_i)^{\mu_i}$: Raggruppa una radice reale, come $(s+1)$
 	\item $\left(1+2\zeta_k \frac{s}{\omega_{n,k}} + \frac{s^2}{(\omega_{n,k})^2}\right)^{\mu_k}$: Raggruppa una radice complessa coniugata, ovvero quel trinomio che non si può scomporre.
 \end{itemize}
@@ -78,32 +78,66 @@ Come già menzionato, i diagrammi di Bode sono due, uno per l'ampiezza e l'altro
 	\item \textbf{Guadagno di Bode} $K_b$.
 	\item \textbf{Zeri/Poli nulli} come $s^\mu$, con molteplicità $\mu$.
 	\item \textbf{Zeri/Poli reali} come $(1+\tau s)^\mu$, con $\tau$ costante di tempo.
-	\item \textbf{Zeri/Poli complessi e coniugati} come $\left(1+2\zeta\frac{\omega}{\omega_n}+ \frac{\omega^2}{\omega_n^2}\right)^\mu$, dove $\zeta$ è detto \textbf{coefficiente di smorzamento} e $\omega$ la \textbf{pulsazione naturale}. 
+	\item \textbf{Zeri/Poli complessi e coniugati} come $\left(1+2\zeta\frac{s}{\omega_n}+ \frac{s^2}{\omega_n^2}\right)^\mu$, dove $\zeta$ è detto \textbf{coefficiente di smorzamento} e $\omega$ la \textbf{pulsazione naturale}. 
 \end{itemize}
-\noindent Ognuno di loro ha una definizione particolare riguardo al disegno. Studiamoli uno per volta.\newline
+\noindent Ognuno di loro ha una definizione particolare riguardo al disegno. Studiamoli uno per volta. \begin{itemize}
+	\item \textbf{Termine costante}: Il guadagno di Bode è un numero reale tale per cui la parte immaginaria è nulla e si denota come: \[|H(j\omega)| = |K_b|\]
+	\noindent Ciò significa che il modulo è in decibel e la funzione giace sull'asse dei reali. \begin{itemize}
+		\item \textbf{Ampiezza}: Retta orizzontale data da: \[A(\omega) = \big|H(j\omega)\big|_{dB} = 20\log_{10}|K_b|\]
+		\item \textbf{Fase}: Retta orizzontale posizionata in base a segno positivo o negativo: \[\phi(\omega) = 0\degree \lor \phi(\omega) = -180\degree\]
+	\end{itemize}
+	\item \textbf{Zeri/Poli nulli}: Fissato $\omega\in\mathbb{R}$, il polo/zero nullo è, a seconda della potenza $\nu\in\mathbb{Z}$, o un reale puro, positivo o negativo, o un immaginario puro, positivo o negativo. Viene annotato come: \[H(j\omega) = (j\omega)^\nu\]
+	\begin{itemize}
+		\item \textbf{Ampiezza}: Retta che cresce o decresce di $20dB$ ogni decade in base al valore della potenza $\nu$ a partire da dove il valore si annulla: \[A(\omega) = |H(j\omega)|_{dB} = 20log_{10}(\omega^\nu) = 20\nu log_{10}(\omega)\]
+		\item \textbf{Fase}: Retta orizzontale data da: \[\phi(\omega) = Arg(j\omega)^\nu = \nu Arg(j\omega) = \nu 90\degree\]
+	\end{itemize}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.60\linewidth]{Images/zeriPoliNulliGrafico.png}
+		\caption{Grafico di zeri/poli nulli}
+	\end{figure}
+	\item \textbf{Zeri/Poli reali}: Per agevolare la rappresentazione del termine binomio è consigliato approfondire il relativo comportamento asintotico, per poi rappresentarlo realmente. Si annota come: \[H(j\omega) = (1+j\omega\tau)^\mu \equiv H(s) = (1+s\tau)^\mu\]
+	\noindent Definiamo ora per studiare l'asintoticità, la \textbf{pulsazione di spezzata}: \[\omega_0 = \frac{1}{|\tau|}\]
+	\begin{itemize}
+		\item \textbf{Ampiezza}: Se zero reale hai $\mu>0$, la funzione cresce di $20dB/\text{decade}$, in alternativa, $\mu<0$ e la funzione decresce allo stesso valore. Descritta generalmente da: \[A(\omega) = 20\mu\log_{10}\sqrt{1+(\omega\tau)^2}\]
+		\noindent E per la quale possiamo avere i seguenti valori in base al comportamento asintotico:
+		% TODO Aggiungi grafici
+		\[\begin{cases}
+			\omega \ll \omega_0 \quad\implies\quad A(w) = 20log_{10}(1) = 0\\
+			\omega = \omega_0 \quad\implies\quad A(w) = 20log_{10}(\sqrt{2}) = \pm3dB\\
+			\omega \gg \omega_0 \quad\implies\quad A(w) = 20log_{10}(\frac{\omega}{\omega_0}) = \pm20dB/\text{decade}
+		\end{cases}\]
+		\item \textbf{Fase}: Descritta generalmente da: \[\phi(\omega) = atan2\left(-\frac{\omega}{\omega_0}\right)\]
+		\noindent L'asintoticità genera i seguenti valori: \[\begin{cases}
+			\omega \ll \omega_0 \quad\implies\quad \phi(w) = atan2(0) = 0\\
+			\omega = \omega_0 \quad\implies\quad \phi(w) = atan2(-1) = -45\degree\\
+			\omega \gg \omega_0 \quad\implies\quad \phi(w) = atan2(-\infty) = -90\degree
+		\end{cases}\]
+	\end{itemize}
+	\item \textbf{Zeri/Poli complessi e coniugati}: Anche per quanto riguarda il termine trinomio è consigliato studiare il suo comportamento asintotico. Questi si indicano come: \[H(s) = \left(1+2\zeta\frac{s}{\omega_n}+ \frac{s^2}{\omega_n^2}\right)^\mu\]
+	\noindent Dove $\omega_n$ è la pulsazione naturale, mentre $\zeta$ è il \textbf{coefficiente di smorzamento}.
+	\begin{itemize}
+		\item \textbf{Ampiezza}: Con uno zero, la funzione cresce di $40dB/\text{decade}$, in alternativa decresce dello stesso valore. Data la formula generale: \[A(\omega) = 20\mu\log_{10}(2\zeta)\]
+		\noindent L'asintoticità fa risultare: \[\begin{cases}
+			\omega \ll \omega_0 \quad\implies\quad A(\omega) = -20log_{10}(1) = 0\\
+			\omega \gg \omega_0 \quad\implies\quad A(\omega) = -20log_{10}(\frac{\omega}{\omega_0})^2 = -40\log_{10}(\frac{\omega}{\omega_0})
+		\end{cases}\]
+		\noindent in particolare, nel caso di $\omega = \omega_0$ abbiamo: \[\begin{cases}
+			\zeta = 0.5 \quad\implies\quad A(\omega) = 0\\
+			\zeta > 0.5 \quad\implies\quad \text{Nessuna risonanza, grafico passa per } \omega_0\\
+			\zeta < 0.5 \quad\implies\quad \text{Picco di risonanza: }\omega_r = 20\mu\log_{10}(2\zeta \sqrt{1-\zeta^2})\\
+			\zeta = 0 \quad\implies\quad \text{Discontinuità}
+		\end{cases}\]
+		\item \textbf{Fase}: Presenta i seguenti casi: \[\begin{cases}
+			\omega \ll \omega_0 \quad\implies\quad \phi(\omega) = atan2(0) = 0\degree\\
+			\omega = \omega_0 \quad\implies\quad \phi(\omega) = -90\degree\\
+			\omega \gg \omega_0 \quad\implies\quad \phi(\omega) = atan2(2\zeta \frac{\omega}{\omega_0}) = -180\degree
+		\end{cases}\]
+	\end{itemize}
+	
+	
+\end{itemize}
 
-\noindent\textbf{Termine costante} $H(j\omega) = K_b$\par
-\noindent Il guadagno di Bode è un numero reale tale per cui $Im(K_b) = 0 \implies |H(j\omega)| = Re(K_b) = |K_b|$. Ciò significa che il modulo è in decibel e la funzione giace sull'asse dei reali. L'ampiezza $A(\omega)$ della funzione è data da: \[A(\omega) = \big|H(j\omega)\big|_{dB} = 20\log_{10}|K_b|\]
-\noindent Mentre la fase $\phi(\omega)$ è definita come:
-\begin{center}
-	$\phi(\omega) = 0\degree$ oppure $\phi(\omega) = -180\degree$
-\end{center}
-\noindent A seconda del segno positivo e negativo rispettivamente.\newline
-
-\noindent\textbf{Zeri/Poli nulli} $H(j\omega) = (j\omega)^\nu$\newline
-\noindent Fissato $\omega\in\mathbb{R}$, il numero $H(j\omega) = (j\omega)^\nu$ è, a seconda della potenza $\nu\in\mathbb{Z}$ o un reale puro, positivo o negativo, oppure un immaginario puro, positivo o negativo.\par
-Il fattore è rappresentato come una retta che cresce o decresce di $20dB$ ogni decade in base al valore della potenza $\nu$ a partire da dove il valore si annulla. In particolare l'ampiezza è data da: \[A(\omega) = |H(j\omega)|_{dB} = 20log_{10}(\omega^\nu) = 20\nu log_{10}(\omega)\]
-\noindent Mentre la fase è una retta che non si stacca dall'asse immaginario ed è data da: \[\phi(\omega) = Arg(j\omega)^\nu = \nu Arg(j\omega) = \nu 90\degree\]
-\noindent Supponendo $\nu=1$, la retta dell'ampiezza crescerebbe di $20dB/dec$ e la fase sarebbe $90\degree$, mentre in presenza di $\nu=-1$, l'ampiezza decrescerebbe della stessa quantità, con una fase di $-90\degree$.
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.6\linewidth]{Images/zeriPoliNulliGrafico.png}
-\end{figure}
-
-\noindent\textbf{Zeri/Poli reali} $H(j\omega) = (1+j\omega\tau)^\mu$\newline
-
-
-\noindent\textbf{Zeri/Poli complessi e coniugati}\newline
 
 
 
@@ -111,80 +145,10 @@ Il fattore è rappresentato come una retta che cresce o decresce di $20dB$ ogni 
 
 
 
-\begin{comment}	
-	Polo: \frac{1}{1+\frac{s}{\omega_0}} = \frac{1}{1+\tau s} \implies \omega_0=\frac{1}{|\tau|}
-	
-	Scriveremo, razionalizzando: \frac{1-j\omega/\omega_0}{1+\omega^2/\omega_0^2}
-	Dove:
-	Re = \frac{1}{1+\omega^2/\omega_0}
-	Im = \frac{-\frac{\omega}{\omega_0}j}{\+\frac{\omega^2}{\omega_0^2}}
-	
-	La figata è poter dire:
-	- A(w) = -20log_{10}(\sqrt{Re^2 + Im^2}) = -20log_{10}(\sqrt{1+\frac{\omega^2}{\omega_0}})
-	- \phi(w) = atan2(Re + Im) = atan2(-\frac{\omega}{\omega_0})
-	
-	Possiamo avere alcune situazioni:
-	- Se \omega << \omega_0:
-	A(w) = -20log_{10}(1) = 0
-	\phi(w) = atan2(0) = 0
-	
-	- Se \omega = \omega_0
-	A(w) = -20log_{10}(\sqrt{2}) = -3dB
-	\phi(w) = atan2(-1) = -45°
-	
-	- Se \omega >> \omega_0
-	A(w) = -20log_{10}(\omega / \omega_0) = -20dB/decade
-	\phi(w) = atan2(-\infty) = -90°
-	
-	// Consigliato di vedere i grafici rilevanti. Non posso esattamente disegnarli per ora.
-	
-	Se consideriamo uno \omega >> 0:
-	A(w) &= 20log_{10}(\omega|\tau|)^\mu\\
-	&= 20\mu(log_{10}(\omega) + log_{10}(|\tau|))
-	
-	\phi(w) &= arg(\omega\tau)^\mu\\
-	&= \mu\cdot sgn(\tau)\cdot 90°
-	
-	// Con \mu > 0 abbiamo zero, mentre se mu < 0 abbiamo un polo.
-	
-	Se consideriamo \omega << 0
-	A(\omega) = 0
-	\phi(\omega) = 0
-	
-	4. Zeri/Poli complessi e coniugati (1+2\zeta\frac{\omega}{\omega_n}+ \frac{\omega^2}{\omega_n^2})^\mu
-	
-	Dunque stiamo considerando tutti quei punti che giacciono in qualunque altro punto rispetto agli altri appena visti.
-	Bisogna trovare la pulsazione naturale \omega_n ed il coefficiente di smorzamento \zeta.
-	
-	Per i poli (se vuoi gli zeri inverti il segno):
-	Parte reale: Re = \frac{1 - (\frac{\omega}{\omega_0})}{(1 - (\frac{\omega}{\omega_0})^2)^2 + (2\zeta\frac{\omega}{\omega_0})^2}
-	Parte immaginaria: = \frac{- 2j(\frac{\omega}{\omega_0})}{(1 - (\frac{\omega}{\omega_0})^2)^2 + (2\zeta\frac{\omega}{\omega_0})^2}
-	
-	Per \omega << \omega_0
-	A(\omega) = -20log_{10}(1) = 0
-	
-	\phi(\omega) = atan2(0) = 0°
-	
-	Per \omega >> \omega_0
-	A(\omega) &= -20log_{10}(\frac{\omega}{\omega_0})^2
-	&= -40log_{10}(\frac{\omega}{\omega_0})
-	
-	\phi(\omega) &= atan2(2\zeta \frac{\omega}{\omega_0})
-	&= -180°
-	
-	Per \omega = \omega_0 = \omega_n
-	A(\omega) = 20log_{10}(2\zeta)
-	Per \zeta = 0.5 \implies A = 0
-	Per \zeta > 0.5 \implies Il grafico passa per \omega_0
-	Per \zeta < 0.5 \implies Picco di risonanza \omega_r = \omega_n\sqrt{1-2\zeta^2}, con m_r = 20\mulog_{10}(2\zeta \sqrt{1-\zeta^2})
-	Per \zeta = 0 \implies Discontinuità
-	
-	\phi(\omega) = -90°
-	
-	Il picco di risonanza aumenta di altezza con il diminuire di \zeta.
-	
-	-----
-	
+
+
+
+\begin{comment}				
 	Lez25 - Sistemi
 	
 	--- Dalla funzione di trasferimento al diagramma di bode.
@@ -247,9 +211,15 @@ Il fattore è rappresentato come una retta che cresce o decresce di $20dB$ ogni 
 	
 	Per la fase, stessa roba prima di \omega_n, poi \phi=\mu*\sgn(\tau)*90° = 90°.
 	Prendendo una decade prima e dopo \omega_n, uniamo i puntini e otteniamo il comportamento asintotico.
-	
-	-----
-	
+\end{comment}
+
+%
+
+\section{Diagramma di Bode totale}
+
+
+
+\begin{comment}
 	Lez26 - Sistemi
 	
 	--- Diagramma di bode totale

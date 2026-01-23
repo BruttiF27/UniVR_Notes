@@ -1,0 +1,105 @@
+Lez29 - Sistemi
+
+--- Dalla serie alla trasformata di Fourier
+Il primo coefficiente dell'equazione di sintesi è anche il valor medio della funzione.
+
+Riprendiamo la prima scrittura della serie di fourier in forma sinusoidale o trigonometrica: \[x(t) = a_0 + \sum_{k=1}^{+\infty} 2|a_k|\cos(k\omega_0t + \arg(a_k)\]
+
+Noi andremo a vedere il comportamento della serie quando ci troviamo segnali simmetrici o asimmetrici. Il senso è per poter poi capire come vengono rappresentati.
+- Rappresentazione segnale periodico asimmetrico
+Consideriamo il grafico; per calcolare i coefficienti usiamo l'equazione di analisi:
+\begin{equation}
+	\begin{split}
+		a_k &= \frac{1}{T_0}\int_{-\frac{T_0}{2}}^0 v(t)e^{-jk\omega_0t}dt + \frac{1}{T_0}\int_0^{\frac{T_0}{2}} v(t)e^{-jk\omega_0t}dt\\
+		&= \frac{1}{T_0}\int_{-\frac{T_0}{2}}^0 (-1)e^{-jk\omega_0t}dt + \frac{1}{T_0}\int_0^{\frac{T_0}{2}} (1)e^{-jk\omega_0t}dt\\
+		a_k &= \frac{1}{j\pi k}{1 - (-1)^k}
+	\end{split}
+\end{equation}
+
+Qui le funzioni saranno armoniche dispari, i coefficienti a_k sono immaginari (sempre) e anche antisimmetrici. Queste tre caratteristiche rendono la serie di fourier una serie di seni e la scriveremo come: \[v(t) = a_0 + \sum_{k=1}^{\infty} 2ja_k\sin(k\omega_0t)\]
+\noindent La 2ja_k sta là puramente per avere termini reali.
+
+- Rappresentazione segnale periodico simmetrico
+Qui abbiamo che a_k = \begin{cases}
+	\frac{1}{2} for k=0\\
+	\frac{sin(\frac{\pi k}{2})}{\pi k} for k\neq 0
+\end{cases}
+
+Qui abbiamo che la funzione è armonica dispari, a_k è reale e simmetrico. La serie sarà puramente di coseni in quanto contenente soli valori reali.
+\[v(t) = a_0 + \sum_{k=1}^{+\infty} 2a_k\cos(k\omega_0t)\]
+
+--- Noi siamo realistici, non avremo mai somme infinite.
+Definiamo quindi la serie troncata di fourier per rappresentare i segnali con meno coefficienti.
+Sia N\in \mathbb{Z}; definiamo v_N(t) segnale v(t) rappresentato con N componenti nella serie di Fourier. \[v_L(t) = \frac{k=-N}{N}a_ke^{jk\omega_0t}\]
+\noindent Con a_k\in\mathbb{C}, \omega_0,t\in\mathbb{R} e k\in\mathbb{Z}
+Troncando, bisognerà tener conto di un errore. Viene in aiuto l'errore quadratico medio vista in statistica.
+\[MSE(v(t), v_N(t)) = \frac{1}{T_0}\int_{T_0} |v(t) - v_N(t)|^2 dt\]
+Questo misura quindi l'energia delle differenze fra due segnali.
+
+--- Cosa succede in discontinuità?
+Mentre un segnale periodico viene scomposto nelle componenti elementari attraverso la serie infinita di Fourier, l’approssimazione v_L(t), nonostante minimizzi l’energia dell’errore quadratico medio, genera delle oscillazioni intorno ai punti di discontinuità. Questo comportamento è detto Fenomeno di Gibbs.
+
+--- Che succede con segnali periodici?
+Potremmo creare un framework che ritorna uno stesso risultati per segnali periodici e non periodici.
+Ma intanto come passiamo dalla serie dalla TdF?
+	Se abbiamo un segnale non periodico che va da -T_1 a T_1, possiamo vedere questo intervallo di tempo come l'intero periodo e dire che è periodico in esso. Lmao.
+	In questi termini diciamo quindi che il segnale (normalmente non periodico) v(t) è uguale al segnale periodico \tilde{v}(t). Inoltre, se il periodo T_0 tende ad infinito, il segnale \tilde{v}(t) tenderà a quello non periodico v(t).
+	
+Fondamentalmente l'idea da mettere in pratica è usare fourier per rappresentare \tilde{v}(t) e poi far tendere a infinito il periodo per rappresentare il segnale non periodico originale v(t).
+
+Prendamo per esempio un grafico con un segnale non periodico ma ripetuto con periodo T_0. In questi termini diremo \tilde{v}(t) = v(t); |t| < \frac{T_0}{2}.
+	Siccome stiamo considerando un segnale periodico; possiamo applicare la serie di fourier al segnale \tilde{v}(t). Infatti otteniamo l'equazione di sintesi: \[\tilde{v}(t) = \sum_{k=+\infty}^{+\infty} a_ke^{jk\omega_ot}\]
+\noindent E l'equazione di analisi: \[a_k = \frac{1}{T_0}\int_{-\frac{T_0}{2}}^{\frac{T_0}{2}}\tilde{v}(t) e^{-jk\omega_0t}dt = \frac{1}{T_0}\int_{-\infty}^{\infty}v(t) e^{-jk\omega_0t}dt\]
+\noindent Ora ci serve una funzione per determinare k\omega_0; questa la definiamo come V(\omega) = \int_{-\infty}^{+\infty} v(t) e^{-j\omega t}dt.
+Con questo possiamo dire che T_0a_k = V(\omega)|_{\omega = k\omega_0}
+
+V(\omega) è chiamato inviluppo di T_0a_k; Da questo possiamo dire:
+\begin{equation}
+	\begin{split}
+		\tilde{v}(t) &= \sum_{k=-\infty}^{+\infty}a_ke^{j\omega kt}\\
+		&= \sum_{k=-\infty}^{+\infty} \frac{1}{T_0}V(k\omega_0)e^{jk\omega_0t}\\
+		&= \frac{1}{2\pi}\sum_{k=-\infty}^{+\infty} V(k\omega_0)e^{jk\omega_0t}\omega_0
+	\end{split}
+\end{equation}
+
+A partire da quest'ultima equazione ottenuta, facendo tendere il periodo ad infinito, abbiamo le seguenti conseguenze:
+\begin{itemize}
+	\item \omega_0 \to 0
+	\item \tilde{v}(t) \to v(t)
+	\item \omega_0 \to d\omega (stai considerando un infinitesimo, è come derivare)
+	\item \sum \to \int (A quanto pare l'infinitesimo della sommatoria è un integrale)
+\end{itemize}
+
+E molto semplicemente, facendo tendere il periodiìo ad infinito, l'equazione passa da: \[\tilde{v}(t) = \frac{1}{2\pi}\sum_{k=-\infty}^{+\infty} V(k\omega_0)e^{jk\omega_0t}\omega_0\]
+a: \[v(t) = \frac{1}{2\pi}\int_{-\infty}^{+\infty} V(\omega)e^{j\omega t}dt\]
+\noindent E proprio quest'ultima forma è la trasformata inversa di Fourier. Svolge la funzione di equazione di sintesi per un segnale non periodico.
+
+Sorpresa, l'envelop della serie è la TdF.
+Quindi V(\omega) = \int_{-\infty}^{+\infty} v(t) e^{-j\omega t}dt è la TdF, funge da equazione di analisi per un segnale non periodico.
+
+--- Sviluppo dei coefficienti di Fourier
+Insomma più il valore del periodo, più inviluppo presente. Infatti facendolo tendere ad infinitum avviamo la TdF.
+
+--- TdF di un segnale periodico
+\tilde{v}(t) \to a_k		// Coefficienti della serie di Fourier
+\tilde{v}(t) \to \tilde{V}(\omega)	// Trasformata di Fourier
+\tilde{V}(\omega) = \sum_{k=-\infty}^{+\infty} 2\pi a_k\delta(\omega - k\omega_0)		// L'elemento fra tonde è detto treno di impulsi.
+
+Con questo treno diciamo 
+\tilde{v}(t) &= \frac{1}{2\pi}\int_{-\infty}^{+\infty} \tilde{V}(\omega)e^{j\omega t}d\omega\\
+	&= \frac{1}{2\pi}\sum_{-\infty}^{+\infty} 2\pi a_k\int_{-\infty}^{+\infty} \delta(\omega - \omega_0k)e^{-j\omega t}d\omega
+	
+Col treno di impulsi stiamo eseguendo lo stesso segnale sugli impulsi. L'ultimo integrale inoltre mette in relazione i segnali non periodici con quelli periodici, perché effettivamnte è uguale a e^{-jk\omega_0}
+
+--- Come usare la TdL
+1 caso. v(t) non periodico
+	- Costruisci segnale periodico \tilde{v}(t) in cui il singolo periodo è definito da v(t)
+	- \tilde{v}(t) in quanto periodico ha serie di Fourier
+	- All'aumentare del periodo \tilde{v}(t) tende a v(t) e la serie di Fourier di \tilde{v}(t) tende alla TdF di v(t)
+	
+2 caso. \tilde{v}(t) è periodico, con v(t) che rappresenta il singolo periodo
+	- Calcolo i coefficienti della serie di fourier = 1/T_0 \cdot campioni della TdF di v(t)
+	
+3 caso. \tilde{v}(t) è periodico
+	- TdF di \tilde{v}(t) è definita come treno di impulsi
+	- \tilde{V}(\omega) = \sum_{k=-\infty}^{+\infty} 2\pi a_k\delta(\omega - k\omega_0)

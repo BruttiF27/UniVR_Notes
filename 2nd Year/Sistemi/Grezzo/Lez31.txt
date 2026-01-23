@@ -1,0 +1,49 @@
+Lez31 - Sistemi
+
+--- Campionamento e replicazione
+L'operatore _/_ si dice campionatore. Si chiude a intervalli regolari dettati da T_c e "campiona il segnale". È necessario per passare da tempo continuo a discreto. T_c è la frequenza di campionamento ed è misurata in Hz.
+	Fondamentalmente la funzione del segnale a tempo continuo risulta essere l'envelop dopo il campionamento. Gli spazi fra le lineette, queste ultime compongono il segnale a tempo discreto, sono dati dalla frequenza T_c. Poi il segnale viene discretizzato grazie all'effetto dello zero holder.
+	
+Si possono poi fare altre operazioni come la quantizzazione, ovvero vincolare i valori in base alle capacità del sistema (come per i bit).
+	L'ultima operazione è l'encoding, un passaggio irreversibile che codifica il segnale in base al sistema.
+	
+--- Treno campionatore / impulsi
+Noterai che l'effetto del campionatore è creare un treno di impulsi ad intervalli T_c. Infatti lo definiamo come: \[\hat{\delta}_{T_c} = \sum_{K = -\infty}^{+\infty} \delta(t - KT_c)\]
+\noindent Parliamo quindi di una serie di impulsi traslati nel tempo. Frega niente dei passaggi algebrici, per Fourier corrisponde a: \[\frac{1}{T_c}\hat{\delta}_{\frac{1}{T}}(f) = \frac{1}{T_c}\sum_{K=-\infty}^{+\infty} \delta(f - \frac{K}{T_c})\]
+
+--- Definizione di campionamento
+Dato v(t) con t\in R, 0 < T_c\in R, definiamo il campionamento come: \[[SAMP_{T_c}v](t) = \sum_{K=-\infty}^{+\infty} v(KT_c)\]
+\noindent La quale, per proprietà del campionamento dell'impulso diventa: \[[SAMP_{T_c}v](t) = \sum_{K=-\infty}^{+\infty} v(t)\delta(t-KT) = v(t)\hat{\delta}_{T_c}(t)\]
+
+Insomma, dato un segnale, dopo il campionamento ottengo un nuovo segnale pari in ampiezza al precedente, diviso in intervalli di T_c
+
+--- Definizione di replicazione
+Dato v(t), t\in R, 0 < T_c \in R
+
+[REP_{T_c}v](t) &= \sum_{K=-\infty}^{+\infty} v(t-KT_c)\\
+	&= \sum_{K=-\infty}^{+\infty} v(t) * \delta(t-KT_c)\\
+	&= [v * \hat{\delta}_{T_c}](t)
+	
+Insomma, confluiamo il treno di impulsi nel tempo.
+
+Attenzione che replicazione e campionamento sono strettamente legati in termini di fourier. Infatti usando la TdF sul primo, andremo a ottenere una versione riscalata di 1/T_c del segnale campionato.
+Dunque replicando nel tempo ottengo un campionamento nelle frequenze.
+\[[REP_{T_c}v](t) \implies \frac{1}{T_c}[SAMP_{T_c}V](f)\]
+
+Se campiono nel tempo, inoltre, vado a replicare nelle frequenze:
+\[[SAMP_{T_c}v](t) \implies \frac{1}{T_c}[REP_{T_c}V](f)\]
+
+Teorema (del campionamento ideale) di Shannon: Esiste uno sweet spot dell'intervallo di campionamento entro il quale è ancora possibile revertire il segnale all'originale, una volta superato, i segnali si sommano e le frequenze si sminchiano, rendendo irrevertibile il segnale.
+
+Formalmente: v_0(t), t\in R, campionato con frequenza f_c = \frac{1}{T_c}
+Ottenendo v(k) segnale campionato = v_0(kT_c) = \sum_{K=-\infty}^{+\infty} v_0(t) \delta(t-kT_c) = [SAMP_{T_c}v_0](t)
+
+Se valgono:
+	1. v_0(t) è limitato in banda, ovvero esiste almeno un B > 0 t.c. V_0(f) = 0 per |f| > B, e B è il più piccolo valore per cui questo è vero. // [-B, B] è l'intervallo entro il quale si limita il segnale.
+	2. La frequenza di campionamento f_c è tale per cui f_c > 2B. Quest'ultimo valore detto frequenza di Nyquist.
+	
+Allora v_0 è ricostruibile a partire dal segnale campionato [SAMP_{T_c}v_0](t) usando un filtro di ricostruzione H_r. Filtro definito come: \[Hr(f) = T_c\pi(\frac{f}{2f_L}) = \frac{1}{f_c}\pi(\frac{f}{2f_L})\]
+
+Sapendo \[B < f_l < f_c - B \implies v_0(t) = [(SAMP_{T_c}v_0) * h_t](t)\]
+
+Se invece f_c < 2B si presenta il fenomeno di aliasing.

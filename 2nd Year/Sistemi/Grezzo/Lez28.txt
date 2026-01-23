@@ -1,0 +1,82 @@
+Lez28 - Sistemi
+
+--- Serie di Fourier
+Stiamo sempre lavorando nel dominio delle frequenze, vogliamo rappresentare ogni segnale come somma di segnali elementari.
+	Possiamo avere segnali periodici e non periodici; nel primo caso useremo la Serie di Fourier, che ci consentirà di rappresentare il segnale come somma finita di funzioni elementari collegate fra di loro.
+	Nei segnali non periodici invece useremo la Trasformata di Fourier, che ci consente di rappresentare il segnale come somma di funzioni elementari non strettamente legate fra di loro. (Fingeremo che il segnale non periodico sia periodico, lo faremo ripetere tante volte, ritornando al caso della serie di Fourier)
+
+```
+# Occhio che questa parte l'ha detta la lezione dopo, ma è utile lasciarla qui per rielaborazione appunti.
+Per segnale periodico intendiamo per esempio una v(t) funzione di valori reali o complessi, con t\in R. Questa funzione periodica ha periodo T_0, frequenza f_0 e pulsazione \omega_0 = \frac{2\pi}{T_0} = 2\pi f_0.
+	Inoltre è generalmente continua (continua in un insieme finito di punti) come anche generalmente derivabile, con derivata prima generalmente continua. È anche generalmente limitata su [t_0, t_0+T_0].
+	In questi termini la funzione si dice quadrato sommabile sul suo periodo ed è sviluppabile in serie di Fourier.
+	
+Ovvero, \forall t per le quali la funzione è continua, valgono le seguenti equazioni di sintesi e analisi: \[v(t) = \sum_{k=-\infty}^{+\infty}a_ke^{jk\omega_0t}; a_k = \frac{1}{T_0}\int_{T_0} v(t) e^{-jk\omega_0t}dt\]
+
+Quadrato sommabile: \[\int_{T_0} |v(t)|^2 dt < \infty\]
+
+Nei punti in cui la funzione non è continua si usa: \[\frac{v(t^-) + v(t)^+}{2} = \sum_{k=-\infty}^{+\infty}a_ke^{jk\omega_0t}\]
+Rendendo possibile usare Fourier anche in caso di discontinuità.
+```
+
+Partiamo da un segnale che riteniamo essere periodico
+x(t) = x(t+T_0)		// T_0 è il periodo del segnale
+La pulsazione \omega_0 è data da \frac{2\pi}{T_0} e consente di ottenere la frequenza grazie alle proprietà dei segnali sinusoidali: \frac{2\pi}{T_0} =  2\pi f_0		// f_0 è la frequenza fondamentale, quindi.
+	
+Se noi passiamo alla rappresentazione in esponenziali complessi possiamo estrarre le stesse informazioni.
+Abbiamo quindi e^{j\omega_0 t} \implies T_0 = \frac{2\pi}{\omega_0}
+	Espandiamo il concetto; possiamo associare una famiglia di funzioni esponenziali complesse legate fra di loro. Aggiungiamo quindi un k all'esponente. Avremo quindi dei multipli della pulsazione fondamentale: \[e^{jk\omega_0 t} \implies T_0 = \frac{2\pi}{k\omega_0}\]
+\noindent Il segnale sarà sempre periodico, ma la pulsazione conterrà anche i multipli k.
+
+Sapendo che i due esponenziali complessi che compongono una famiglia di funzioni $e^{j\omega_0 t}$, $e^{jk\omega_0 t}$ sono armonicamente collegati, possiamo riscrivere x(t) come combinazione lineare di queste due funzioni, che per brevità indicheremo poi con \phi_k. \[x(t) = \sum_{-\infty}^{+\infty} a_ke^{jk\omega_0 t}\]
+\noindent Questa scrittura è detta \textbf{Serie di Fourier} e in questa forma riteniamo sempre T_0 oeriodo e \omega_0=\frac{2\pi}{T_0} = 2\pi f_0 frequenza fondamentale.
+	a_k sono i coefficienti della serie, devono essere calcolati per poter descrivere il nostro segnale.
+	
+Ricorda che l'esponenziale complesso (o fasore) si esprime in tre dimensioni: il piano reale, il piano immaginario, e nel tempo. Siccome si muove intorno ad una circonferenza unitaria, se consideriamo tutte e tre le dimensioni, si andrà a creare una spirale.
+	Dunque non ti preoccupare se escono frequenze negative, sono presenti puramente per riportare la funzione sul piano reale.
+	
+Inoltre, la forma della serie di fourier appena vista è detta canonica, ma ricorda che a_k\in\mathbb{C}. Ciò significa che è possibile usare le formule di Eulero per rappresentare il coefficiente come forma di seni e coseni.
+\[a_k = A_ke^{j\theta_k} \lor B_k + jC_k\]
+Quindi la rappresentiamo o in forma polare (prima scrittura) o come proiezione (seconda scrittura). Quindi:
+\begin{itemize}
+	\item Esponenziale complesso scritto con eulero: e^{jk\omega_0t} = \cos(k\omega_0t) + j\sin(k\omega_0t)
+	\item Prima rappresentazione di serie di fourier in forma trigonometrica: x(t) = a_0 + 2\sum_{k=1}^{+\infty} A_k\cos(k\omega_0t + \phi_k)
+	\item Seconda rappresentazione di serie di fourier in forma trigonometrica: x(t) = a_0 + 2\sum_{k=1}^{+\infty} [B_k\cos(k\omega_0t) - iC_k\sin(k\omega_0t)]
+\end{itemize}
+
+Usiamo la prima. Le due scritture sono identiche, ma ti prego usiamo la prima, se serve. Tendenzialmente si usa la forma canonica, però.
+
+Il problema principale della serie è calcolare i coefficienti singoli della sommatoria a_k. Come si fa?
+	Stiamo considerando funzioni periodiche. Se facciamo l'integrale dell'esponenziale complesso sul loro periodo T_0 possiamo avere due soluzioni. Il valore del periodo T_0 oppure 0. \[\int_{T_0} e^{jk\omega_0t}dt = \begin{cases}
+		T_0		for k=0\\
+		0		for k\neq 0
+	\end{cases}\]
+	
+In particolare, possiamo scrivere l'esponenziale complesso in forma di seno e coseno, trasformando l'integrale come segue: \[\int_{T_0} \cos(k\omega_0t)dt + j\int_{T_0}\sin(k\omega_0t)dt\]
+\noindent Noi sappiamo che per queste funzioni, quando k=0 il coseno ha il valore di T_0, mentre il seno ha 0; mentre se k\neq 0, entrambi gli integrali sono nulli.
+
+Bello tutto, ma quali sono le equazioni che useremo per trovare il singolo coefficiente e quella per rappresentarli tutti?
+Adesso arriviamo infatti alle equazioni di analisi e di sintesi.
+	Proviamo a fare l'integrale sul periodo T_0 di x(t) e verifichiamo che sia effettivamente uguale alla sommatoria:
+\begin{equation}
+	\begin{split}
+		\int_{T_0} x(t) dt &= \sum_{-\infty}^{+\infty} a_ke^{jk\omega_0t} dt\\
+		\int_{T_0} x(t)\cdot e^{-jN\omega_0t} dt &= \int_{T_0}e^{-jN\omega_0t} \sum_{-\infty}^{+\infty} a_ke^{jk\omega_0t} dt\\
+		&= \sum_{k = -\infty}^{+\infty} a_k \int_{T_0}e^{-j(k-N)\omega_0t}dt\\
+	\end{split}
+\end{equation}
+	
+Questo integrale a destra, come già detto, può assumere esclusivamente due valori: il periodo T_0 se k=N oppure 0 se k\neq N. 
+Quindi possiamo riscrivere quanto ottenuto come: \[\int_{T_0}x(t)\cdot e^{-jN\omega_0t} = a_nT_0\]
+\noindent Naturalmente possiamo ricavare la successione a_n: \[a_n = \frac{1}{T_0}\int_{T_0}x(t)\cdot e^{-jN\omega_0t}\]
+
+Ed è proprio quest'ultima formula (sostituendo k alla N, per generalizzare) quella che viene chiamata \textbf{equazione di analisi}, mentre la funzione x(t) è chiamata equazione di sintesi, poiché raggruppa tutta la famiglia.
+
+
+In short:
+
+// Consente di calcolare i singoli coefficienti da mettere nell'equazione di sintesi
+Funzione di analisi: \[a_k = \frac{1}{T_0}\int_{T_0}x(t)\cdot e^{-jk\omega_0t}\]
+
+// Consente di rappresentare qualsiasi segnale periodico come somma infinita di funzioni armonicamente correlate fra di loro (ovvero multipli della frequenza originale che stiamo utilizzando)
+Funzione di sintesi: \[x(t) = \sum_{-\infty}^{+\infty} a_ke^{jk\omega_0 t}\]

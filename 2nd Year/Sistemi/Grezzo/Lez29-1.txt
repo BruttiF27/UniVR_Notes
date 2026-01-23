@@ -1,0 +1,32 @@
+Qua dentro stanno tutti i calcoli del cazzo che il prof ha saltato.
+
+-- Rappresentazione di segnale periodico asimmetrico
+- Primo integrale
+\begin{equation}
+	\begin{split}
+		-\int_{-\frac{T_0}{2}}^0 e^{-jk\omega_0t} dt &= [\frac{e^{-jk\omega_0t}}{-jk\omega_0}]_{\frac{T_0}{2}}^0\\		// primitiva di a^x = \frac{a^x}{log(a)}
+		&= \frac{1}{jk\omega_0})(1-e^{jk\omega_0\frac{T_0}{2}})
+	\end{split}
+\end{equation}
+
+- Secondo integrale
+\begin{equation}
+	\begin{split}
+		\int_0^{\frac{T_0}{2}}e^{-jk\omega_0t}dt = \frac{1}{-jk\omega_0}(e^{-jk\omega_0\frac{T_0}{2}}-1)
+	\end{split}
+\end{equation}
+
+- Somma dei fattori:
+a_k = \frac{1}{T_0}(I_1 + I_2) \implies a_k = \frac{1}{T_0}\frac{1}{jk\omega_0}[(1-e^{jk\omega_0\frac{T_0}{2}}) - (e^{-jk\omega_0\frac{T_0}{2}}-1)] \implies a_k = \frac{1}{T_0}\frac{1}{jk\omega_0}[2-(e^{jk\omega_0\frac{T_0}{2}} + e^{-jk\omega_0\frac{T_0}{2}})]
+
+- Uso della formula di Eulero: e^{jx} + e^{-jx} = 2\cos(x), dato \pi = \omega_0\frac{T_0}{2}
+Quindi, sostituendo la frazione e \omega_0 al \pi:
+	
+[2-(e^{jk\omega_0\frac{T_0}{2}} + e^{-jk\omega_0\frac{T_0}{2}})] \implies	
+[2-(e^{jk\pi} + e^{-jk\pi})]	 = 2-[2cos(k\pi)] = 2-2(-1)^k = 2[1-(-1)^k]
+
+- Metti tutto insieme
+a_k &= \frac{1}{T_0}\frac{1}{jk\omega_0}2[-1(-1)^k]\\
+	&= \frac{1}{jk\pi}[1-(-1)^k]
+	
+Porcoddio che merda

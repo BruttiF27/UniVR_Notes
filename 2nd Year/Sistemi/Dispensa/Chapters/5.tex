@@ -100,12 +100,12 @@ Come già menzionato, i diagrammi di Bode sono due, uno per l'ampiezza e l'altro
 	\noindent Definiamo ora per studiare l'asintoticità, la \textbf{pulsazione di spezzata}: \[\omega_0 = \frac{1}{|\tau|}\]
 	\begin{itemize}
 		\item \textbf{Ampiezza}: Se zero reale hai $\mu>0$, la funzione cresce di $20dB/\text{decade}$, in alternativa, $\mu<0$ e la funzione decresce allo stesso valore. Descritta generalmente da: \[A(\omega) = 20\mu\log_{10}\sqrt{1+(\omega\tau)^2}\]
-		\noindent E per la quale possiamo avere i seguenti valori in base al comportamento asintotico:
+		\noindent E per la quale possiamo avere i seguenti valori in base al comportamento asintotico, con $\mu=1$:
 		% TODO Aggiungi grafici
 		\[\begin{cases}
-			\omega \ll \omega_0 \quad\implies\quad A(w) = 20log_{10}(1) = 0\\
-			\omega = \omega_0 \quad\implies\quad A(w) = 20log_{10}(\sqrt{2}) = \pm3dB\\
-			\omega \gg \omega_0 \quad\implies\quad A(w) = 20log_{10}(\frac{\omega}{\omega_0}) = \pm20dB/\text{decade}
+			\omega \ll \omega_0 \quad\implies\quad A(\omega) = 20\mu\log_{10}(1) = 0\\
+			\omega = \omega_0 \quad\implies\quad A(\omega) = 20\mu\log_{10}(\sqrt{2}) = \pm3dB\\
+			\omega \gg \omega_0 \quad\implies\quad A(\omega) = 20\mu\log_{10}(\frac{\omega}{\omega_0}) = \pm20dB/\text{decade}
 		\end{cases}\]
 		\item \textbf{Fase}: Descritta generalmente da: \[\phi(\omega) = atan2\left(-\frac{\omega}{\omega_0}\right)\]
 		\noindent L'asintoticità genera i seguenti valori: \[\begin{cases}
@@ -118,7 +118,9 @@ Come già menzionato, i diagrammi di Bode sono due, uno per l'ampiezza e l'altro
 	\noindent Dove $\omega_n$ è la pulsazione naturale, mentre $\zeta$ è il \textbf{coefficiente di smorzamento}.
 	\begin{itemize}
 		\item \textbf{Ampiezza}: Con uno zero, la funzione cresce di $40dB/\text{decade}$, in alternativa decresce dello stesso valore. Data la formula generale: \[A(\omega) = 20\mu\log_{10}(2\zeta)\]
-		\noindent L'asintoticità fa risultare: \[\begin{cases}
+		\noindent L'asintoticità fa risultare: 
+		% TODO Aggiungi grafici
+		\[\begin{cases}
 			\omega \ll \omega_0 \quad\implies\quad A(\omega) = -20log_{10}(1) = 0\\
 			\omega \gg \omega_0 \quad\implies\quad A(\omega) = -20log_{10}(\frac{\omega}{\omega_0})^2 = -40\log_{10}(\frac{\omega}{\omega_0})
 		\end{cases}\]
@@ -134,184 +136,127 @@ Come già menzionato, i diagrammi di Bode sono due, uno per l'ampiezza e l'altro
 			\omega \gg \omega_0 \quad\implies\quad \phi(\omega) = atan2(2\zeta \frac{\omega}{\omega_0}) = -180\degree
 		\end{cases}\]
 	\end{itemize}
-	
-	
 \end{itemize}
-
-
-
-
-
-
-
-
-
-
-
-\begin{comment}				
-	Lez25 - Sistemi
-	
-	--- Dalla funzione di trasferimento al diagramma di bode.
-	
-	Supponiamo H(s) = \frac{s^2(s+1)(s^2+3s+16)}{(2s-1)}
-	Passiamo alla forma di Bode:
-	\begin{equation}
-		\begin{split}
-			H(s) &= \frac{s^2(s+1)(s^2+3s+16)}{(2s-1)}\\
-			&= \frac{s^2(1)(1+\frac{s}{1})^1 \cdot 16(\frac{16}{16} + \frac{3}{16}s + \frac{s^2}{16})^2}{-1(1 - \frac{2}{1}s)^1}\\
-			&= -16 \frac{s^2(1+s)(1+ \frac{3}{16}s + \frac{s^2}{16})}{1 - 2s}
-		\end{split}
-	\end{equation}
-	
-	Ottenuta la forma di Bode possiamo andare a prendere le singole parti viste e disegnare i rispettivi diagrammi.
-	- Per K_b:
-	Calcoliamo ampiezza e fase:
-	A = 20log_{10}(|-16|) = 24
-	\phi = \begin{cases}
-		0° K_b > 0\\
-		-180° K_b < 0
-	\end{cases} \implies -180°, perché K_b = -16.
-	
-	- Per gli altri zeri:
-	- (s+1)
-	Calcoliamo molteplicità \mu e Termine moltiplicato per s \tau. In questo caso \mu=1, \tau=1.
-	Ciò significa che frequenza di taglio \omega = \frac{1}{|\tau|} = 1
-	
-	Dunque prima di \omega, l'ampiezza A=0, mentre dopo è data dalla formula A=20\mulog_{10}(\omega|\tau|). In questo caso cresce di 20dB ogni decade.
-	
-	Le fasi hanno un comportamento molto simile. Fino a \omega, \phi = 0, mentre dopo \phi=\museg(\tau)*90° = 90°. Unendo le rette una decade prima e dopo di \omega, abbiamo il comportamento asintotico del sistema.
-	
-	- s^2
-	\mu=2, perché è di grado 2. Nel diagramma avremo un punto in (10^0,0).
-	Ampiezza A=20\mu\log(\omega) = \frac{40dB}{dec}. Quindi molto semplicemente cresce di 40dB per decade.
-	Fase \phi=\mu*90° = 180°. Semplice retta posta su 180°.
-	
-	- Complesso coniugato (\+ 3/16s + s^2/16):
-	\mu=1, poi \frac{2\zeta}{\omega_n}=3/16 e \omega_n^2=16.
-	
-	Dunque:
-	\omega_n = \sqrt{16} = 4
-	\frac{2\zeta}{\omega_n}=3/16 \implies \zeta = \frac{3}{16}\cdot\frac{\omega_n}{2} = \frac{3}{8}
-	
-	Per disegnare, in quanto \omega_n=4, partiamo dalla decade 10^0 e andiamo al quarto quadratino. Là sta \omega_n.
-	
-	Prima di \omega_n A=0, mentre dopo è data da A=20\mu\log_{10}(\frac{\omega}{\omega_n}) = \frac{40dB}{dec}. Quindi il valore cresce di 40dB a decade. Occhio che non parti dalla prima linea della divisione del grafico, ma bisogna contare sempre 10 quadratini.
-	
-	\omega_r = \omega_n\sqrt{1-2\zeta^2}
-	M_r = 20\mu log_{10}(2\zeta\sqrt{1-\zeta^2})
-	
-	Le fasi hanno naturalmente un funzionamento simile. \phi=0° prima di \omega_n, mentre dopo è \phi=180\mu\sng(\zeta) = 180°. Quindi abbiamo una retta a 180°.
-	Prendi i punti una decade prima e dopo di \omega_n e poi connettili per il comportamento asintotico del sistema.
-	
-	- Polo 1/(1-2s)
-	Definitivamente un polo in quanto molteplicità negativa. Abbiamo dunque:
-	\mu=-1, \tau=-2 \implies \omega_n=\frac{1}{|\tau|} = \frac{1}{2} = 0.5.
-	
-	Dunque l'ampiezza A=0 prima di \omega_n, mentre dopo è data da A=20\mu \log_{10}(\omega|\tau|) = -20dB/dec. Quindi cala di 20dB ad ogni decade.
-	
-	Per la fase, stessa roba prima di \omega_n, poi \phi=\mu*\sgn(\tau)*90° = 90°.
-	Prendendo una decade prima e dopo \omega_n, uniamo i puntini e otteniamo il comportamento asintotico.
-\end{comment}
 
 %
 
 \section{Diagramma di Bode totale}
-
-
-
-\begin{comment}
-	Lez26 - Sistemi
-	
-	--- Diagramma di bode totale
-	Ottenuti i grafici, bisogna mostrare il comportamento totale di Bode. Fondamentalmente si sommano assieme.
-	Dovremo scrivere le frequenze \omega_n trovate finora per ogni elemento. Prendiamo come riferimento l'esercizio della Lez25
-	- Abbiamo una costante K_b che sta là. È sempre sulla stessa riga. Non influisce.
-	- Il primo termine (1+s) ha \omega_n=10^0
-	- Il secondo termine s^2 ha \omega_n=10^0, in quanto ha lo zero nullo.
-	- Il terzo termine ha \omega_n=4
-	- L'unico polo ha \omega_n=0.5
-	
-	Ora li confiniamo in una tabella dove gli estremi sono dati dalle decadi più vicine al loro valore. In questo caso:
-	
-	10^{-1} | 0.5 | 10^0 | 4 | 10^1
-	
-	Adesso calcoliamo il valore di ciascun termine nei valori trovati. Aggiungiamo gli estremi per capire meglio l'andamento.
-	- Per le ampiezze: Somma degli andamenti per decade per ogni intervallo (se lo vedi graficamente è più semplice, giuro)
-	Blocco antecedente a 10^{-1} = 40dB/dec
-	Blocco di 10^{-1} = 40dB/dec
-	Blocco di 0.5 = 20dB/dec
-	Blocco di 10^0 = 40dB/dec
-	Blocco di 4 = 80dB/dec
-	Blocco di 10^1 = 80dB/dec
-	
-	Tendenzialmente si fa con le tabelle sta cosa dell'andamento:
-	\begin{tabular}
-		\begin{table}[|c|c|c|c|c|c|]
-			\hline
-			& 10^{-1} & 0.5 & 10^0 & 4 & 10^1\\
-			\hline
-			K_b & 0 & 0 & 0 & 0 & 0\\
-			\hline
-			zeroR_1 & 0 & 0 & 0 & 20 & 20\\
-			\hline
-			zeroNul_1 & 40 & 40 & 40 & 40 & 40\\
-			\hline
-			zeroCC_1 & 0 & 0 & 0 & 0 & 40\\
-			\hline
-			poloR_1 & 0 & 0 & -20 & -20 & -20\\
-			\hline
-			& 40 & 40 & 20 & 40 & 80
-		\end{table}
+\noindent Il diagramma di Bode totale è la rappresentazione grafica, nella sua interezza, di tutti gli elementi nell'omonima forma, condensati in un singolo grafico. Useremo un esempio pratico; supponiamo la funzione di trasferimento: \[H(s) = \frac{s^2(s+1)(s^2+3s+16)}{2s-1}\]
+\noindent Seguiamo dunque i passaggi discussi nelle sezioni precedenti: \begin{enumerate}
+	\item \textbf{Passaggio alla forma di Bode}: Passaggi algebrici per raggruppare tutti i termini costanti sotto $k_B$
+	\begin{equation}
+		\begin{split}
+			H(s) &= \frac{s^2(s+1)(s^2+3s+16)}{2s-1}\\
+			&= \frac{s^2(1+s) \cdot 16(1 + \frac{3}{16}s + \frac{s^2}{16})^2}{-1(1 - 2s)}\\
+			&= -16 \frac{s^2(1+s)(1+ \frac{3}{16}s + \frac{s^2}{16})}{1 - 2s}
+		\end{split}
+	\end{equation}
+	\noindent Da cui abbiamo ricavato: \begin{itemize}
+		\item \textbf{Guadagno}: $k_B = -16$
+		\item \textbf{Zero nullo}: $s^2$
+		\item \textbf{Zero reale}: $(1+s)$
+		\item \textbf{Polo reale}: $(1-2s)$
+		\item \textbf{Zero complesso coniugato}: $(1+ \frac{3}{16}s + \frac{s^2}{16})$
+	\end{itemize}
+	%TODO Aggiungi grafico
+	\item \textbf{Diagramma del termine costante} \[A = 20\log_{10}|k_B| = 20log_{10}(16) = 24dB;\quad \phi = -180\degree\]
+	\noindent Dunque l'ampiezza è rappresentata da una retta orizzontale a 24dB, mentre la fase è di $-180\degree$ perché il guadagno è negativo.
+	%TODO Aggiungi grafico
+	\item \textbf{Diagramma dello zero nullo}\par
+	\noindent Ricordare che qua $\omega$ non influisce in quanto assente e notare la molteplicità $\mu = 2$. In tal caso:
+	\[A = 20\mu\log_{10}(\omega) = 40dB;\quad \phi = \mu\cdot90\degree = 180\degree\]
+	\noindent Dunque per l'ampiezza avremo una retta crescente di $40dB$ a decade che passa per $0dB$ a $\omega=1$, mentre la fase è una retta orizzontale posta a $180\degree$.
+	% TODO Aggiungi grafico
+	\item \textbf{Diagramma dello zero reale}\par
+	\noindent Dato $(s+1)$ notiamo molteplicità $\mu=1$ e il termine moltiplicato per la $s$: $\tau=1$, vedendo la frequenza di taglio: $\omega = \frac{1}{|\tau|} = 1$.\par
+	Prima del taglio, ovvero a $\omega \ll \omega_0$, l'ampiezza e la fase sono nulle, mentre dopo sono date da: \[\omega \gg \omega_0 \implies A=20\log_{10}(\omega|\tau|) = 20dB;\quad \phi=\mu\cdot seg(\tau)90\degree = 90\degree\]
+	\noindent Dunque il grafico dell'ampiezza sarà una retta orizzontale ad ampiezza nulla fino al taglio, per poi crescere di $20dB$ per decade, mentre la fase è rappresentata da una funzione segno, dove la parte a sinistra è posta a zero gradi e quella a destra a $90\degree$. Il collegamento fra queste due ultime rette avviene in un intervallo composto da due decadi.
+	% TODO Aggiungi grafico
+	\item \textbf{Diagramma del polo reale}\par
+	\noindent Stesso procedimento dello zero appena visto, abbiamo $\mu=-1$ e $\tau = -2$ con frequenza di taglio $\omega = \frac{1}{|\tau|} = \frac{1}{2}$. Risulta qunidi: \[A = 20\mu\log_{10}(\omega|\tau|) = -20dB;\quad \phi = \mu\cdot sgn(|\tau|)90\degree = -90\degree\]
+	\noindent Ampiezza e fase nulle prima del taglio $\omega$, mentre dopo vediamo l'ampiezza decrescere di $-20dB$ e la fase posizionata a $90\degree$.	
+	% TODO Aggiungi grafico
+	\item \textbf{Diagramma dello zero complesso e coniugato}\par
+	\noindent Dato $(1+ \frac{3}{16}s + \frac{s^2}{16})$ abbiamo $\mu=1$ e $\omega_n = \sqrt{16} = 4$, preso dal denominatore del coefficiente con $s^2$, con coefficiente di smorzamento $\frac{2\zeta}{\omega_n}=\frac{3}{16} \implies \zeta = \frac{3}{16}\cdot\frac{\omega_n}{2} = \frac{3}{8}$\par
+	Dopo il taglio, ampiezza e fase sono dati da: \[\omega \gg \omega_0 \implies A = 20\mu\log_{10}\left(\frac{\omega}{\omega_n}\right) = 40dB;\quad \phi = 180\mu\cdot sgn(\zeta) = 180\degree\]
+	\noindent Per disegnare l'ampiezza si usa come riferimento la posizione $10^0$ per convenzione e ci spostiamo al quarto quadratino dato $\omega_n=4$. Prima del taglio, ampiezza e fase sono nulle, mentre dopo l'ampiezza cresce di $40dB$ a decade, mentre la fase sarà posta a $180\degree$.
+\end{enumerate}
+\noindent Ottenuti i grafici, bisogna mostrare il comportamento totale del sistema in forma di Bode, sommando tutti i grafici. Bisognerà scrivere le frequenze $\omega_n$ trovate finora per ogni elemento, dunque abbiamo: \begin{itemize}
+	\item Guadagno $k_B$, ininfluente in questo caso.
+	\item Zero nullo, con $\omega_n = 10^0$
+	\item Zero reale, con $\omega_n = 10^0$
+	\item Zero complesso e coniugato, con $\omega_n = 4$
+	\item Polo reale, con $\omega_n = 0.5$
+\end{itemize}
+\noindent Questi dati vanno confinati in una tabella i cui estremi sono dati dalle decadi più vicine al loro valore; in questo caso avremo un intervallo completo diviso fra i seguenti membri: \[[10^{-1}, 0.5, 10^0, 4, 10^1]\]
+\noindent Calcoliamo ora l'andamento della funzione per ogni blocco di intervallo, coi valori espressi in $dB/\text{decade}$:
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		Decade & $10^{-1}$ & $0.5$ & $10^0$ & $4$ & $10^1$\\
+		\hline
+		Guadagno $K_b$ & $0$ & $0$ & $0$ & $0$ & $0$\\
+		\hline
+		Zero reale & $0$ & $0$ & $0$ & $20$ & $20$\\
+		\hline
+		Zero nullo & $40$ & $40$ & $40$ & $40$ & $40$\\
+		\hline
+		Zero complesso e coniugato & $0$ & $0$ & $0$ & $0$ & $40$\\
+		\hline
+		Polo reale & $0$ & $0$ & $-20$ & $-20$ & $-20$\\
+		\hline
+		Andamento in intervallo & $40$ & $40$ & $20$ & $40$ & $80$\\
+		\hline
 	\end{tabular}
-	
-	Dopo la tabella si fa il grafico delle ampiezze.
-	\begin{tabular}
-		\begin{table}[|c|c|c|c|c|c|]
-			\hline
-			& 10^{-1} & 0.5 & 10^0 & 4 & 10^1\\
-			\hline
-			K_b & 24 & 24 & 24 & 24 & 24\\
-			\hline
-			zeroR_1 & 0 & 0 & 0 & 12 & 20\\		[20log(\omega|\tau|)]
-			\hline
-			zeroNul_1 & -40 & -12 & 0 & 24 & +40\\	[20\mu log(\omega)]
-			\hline
-			zeroCC_1 & 0 & 0 & 0 & 0 & 15.9\\	[40\mu sng(\zeta)log(\frac{\omega}{\omega_n})]
-			\hline
-			poloR_1 & 0 & 0 & -6 & -18 & -26\\	[20log(\omega|\tau|)]
-			\hline
-			& -16 & 12 & 18 & 42 & 74\\
-			\hline
-		\end{table}
+	\caption{Tabella dell'andamento}
+\end{table}
+% TODO Aggiungi grafico
+\noindent Trovato l'andamento, facciamo la stessa cosa per i grafici delle ampiezze, coi valori espressi in $dB$:
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		Decade & $10^{-1}$ & $0.5$ & $10^0$ & $4$ & $10^1$\\
+		\hline
+		Guadagno $K_b$ & $24$ & $24$ & $24$ & $24$ & $24$\\
+		\hline
+		Zero reale & $0$ & $0$ & $0$ & $12$ & $20$\\
+		\hline
+		Zero nullo & $-40$ & $-12$ & $0$ & $24$ & $40$\\
+		\hline
+		Zero complesso e coniugato & $0$ & $0$ & $0$ & $0$ & $16$\\
+		\hline
+		Polo reale & $0$ & $0$ & $-6$ & $-18$ & $-26$\\
+		\hline
+		Ampiezza & $-16$ & $12$ & $18$ & $42$ & $74$\\
+		\hline
 	\end{tabular}
-	
-	Le formule utilizzate sono quelle viste per i quattro casi di costante, zeri reali, complessi e coniugati e simili. Meglio riprenderle da là piuttosto che trustare quelle scritte nelle [].
-	Questi risultati vanno riportati nel diagramma di bode totale. Segna anzitutt gli intervalli dati dalle \omega_n e poi segna i punti dati dai valori delle ampiezze. Per quanto riguarda la fase, segnare nell'intervallo di quanto cresce o decresce la funzione.
-	
-	Adesso bisogna fare il grafico delle fasi, che segue un ragionamento simile.
-	Andiamo a considerare naturalmente il solo valore asintotico.
-	
-	\begin{tabular}
-		\begin{table}[|c|c|c|c|c|c|]
-			\hline
-			& 10^{-1} & 0.5 & 10^0 & 4 & 10^1\\
-			\hline
-			K_b & -180 & -180 & -180 & -180 & -180\\
-			\hline
-			zeroR_1 & 0 & 0 & 0 & 90 & 90\\
-			\hline
-			zeroNul_1 & 180 & 180 & 180 & 180 & 180\\
-			\hline
-			zeroCC_1 & 0 & 0 & 0 & 0 & 180\\
-			\hline
-			poloR_1 & 0 & 0 & 90 & 90 & 90\\
-			\hline
-			& 0 & 0 & 90° & 180° & 360°
-		\end{table}
+	\caption{Tabella delle ampiezze}
+\end{table}
+% TODO Inserisci grafico
+\noindent Ora si considera la tabella delle fasi, con i valori espressi in gradi:
+\begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|}
+		\hline
+		Decade & $10^{-1}$ & $0.5$ & $10^0$ & $4$ & $10^1$\\
+		\hline
+		Guadagno $K_b$ & $-180$ & $-180$ & $-180$ & $-180$ & $-180$\\
+		\hline
+		Zero reale & $0$ & $0$ & $0$ & $90$ & $90$\\
+		\hline
+		Zero nullo & $180$ & $180$ & $180$ & $180$ & $180$\\
+		\hline
+		Zero complesso e coniugato & $0$ & $0$ & $0$ & $0$ & $180$\\
+		\hline
+		Polo reale & $0$ & $0$ & $90$ & $90$ & $90$\\
+		\hline
+		Fase & $0$ & $0$ & $180$ & $180$ & $360$\\
+		\hline
 	\end{tabular}
-	
-	E potremo disegnare il grafico in base ai valori ottenuti. Occhio a non disegnare spezzate oblique. Queste rette vanno disegnate come fosse campionamento, quindi perfettamente a 90° se cambiano direzione.
-\end{comment}
+	\caption{Tabella delle fasi}
+\end{table}
 
 %
 

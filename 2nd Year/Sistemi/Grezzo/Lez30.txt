@@ -1,0 +1,89 @@
+Lez30 - Sistemi
+
+Già visto che la TdF consente di lavorare con segnali periodici e non periodici, semplicemente definita come:
+	Sia v(t), con t\in R segnale a valori reali o complessi, definiamo la TdF del segnale: \[F[v(t)](f) = \int_{-\infty}^{+\infty}v(t) e^{-j\omega_0t}dt = V(f)\]
+V è una funzione che va dai reali ai complessi, con f\in R. Rappresenta l'equazione di sintesi
+
+L'antitrasformata invece: Data una funzione V_R\to C definiamo anti TdF: \[F^{-1}[V(f)](t) = \frac{1}{2\pi}\int_{-\infty}^{+\infty} V(f) e^{j\omega_0t}df = v(t)\]
+v: R\to C, t\in R. Rappresenta l'equazione di analisi.
+
+--- Condizioni per l'esistenza della TdF
+Sia v(t) con t\in R un segnale a valori reali o complessi. Sia almeno una delle seguenti condizioni vera, allora la funzione è trasformabile secondo Fourier.
+
+1. v(t) è sommabile e a variabile limitata su ogni intervallo finito di R. Quindi è esprimibile come differenza di funzioni limitate non decrescenti. quindi \[\int_{-\infty}^{+\infty} |v(t)|dt < \infty\]
+2. v(t) è un segnale di energia, ovvero che \[\int_{-\infty}^{+\infty} |v(t)|^2 dt < \infty\]
+3. v(t) è un segnale di potenza, ovvero che \[\lim_{t\to\infty} \frac{1}{2\pi}\int_{-\infty}^{+\infty} |v(t)|^2 dt < \infty\] In questo caso bisogna però finestrare il segnale (moltiplicare il segnale per una finestra rettangolare), considerandolo in un intervallo (appunto, la finestra) ben preciso.
+
+--- Trasformate notevoli
+- Impulso
+La TdF di un impulso è una funzione costante di altezza A.
+\begin{equation}
+	\begin{split}
+		\mathcal{F}[A\delta_0(t)](f) &= A\int_{-\infty}^{+\infty} e^{-j2\pi ft}dt\\
+			&= A\int_{-\infty}^{+\infty} \delta_0(t) \cdot 1\dt\\
+			&= A
+	\end{split}
+\end{equation}
+
+- Esponenziale causale
+Ogni cosa che c'è prima di t=0 è nullo. Naturalmente abbiamo i due casi per i quali l'esponenziale è monotono crescente e monotono decrescente. A noi interessa quest'ultimo in particolare.
+\[\mathcal{F}[Ae^{j\phi}e^{\lambda t}\delta_{-1}(t)](f) = \frac{Ae^{j\phi}}{j2\pi f - \lambda}\]
+
+- Finestra rettangolare di altezza A e supporto (quanto è largo) T
+
+\[\mathcal{F}[A\Pi(\frac{t}{T})](f) = A\int_{-\infty}^{+\infty}\Pi(\frac{t}{T})e^{-j2\pi ft}dt = A\int_{-\frac{T}{2}}^{\frac{T}{2}}e^{-j2\pi ft}dt = AT\\frac{sin(\pi fT)}{\pi fT} = AT\sinc(fT)\]
+	sinc è una funzione sinusoidale che all'aumentare/diminuire delle frequenze tende a convergere verso l'asse reale delle x.
+	
+-- Segnali di potenza
+- Funzione costante
+Moltiplichiamo per un intervallo il segnale v(t) = A e otteniamo una "finestra" v_T(t) = A\pi(\frac{t}{T}). La TdF è la trasformata della finestra.
+\[\mathcal{F}[v(t)\cdot \pi(\frac{t}{T})](f) = AT\sinc(fT)\]
+
+- Funzione fasore (esponenziale complesso)
+Data v(t) = Ae^{j2\pi f_0t}, la moltiplichiamo per la finestra, ottenendo v_T(t) = Ae^{j2\pi f_0t}\Pi(\frac{t}{T}).
+
+\[\mathcal{F}[v_T(t)](f) = AT\sinc((f-f_0)T)\]
+Spostandola di f_0 la otteniamo traslata a destra.
+
+- Funzione seno
+v(t) = A\sin(2\pif_0t) \implies \mathcal{F}[v(t)](f) = \frac{A}{2j}(\delta(f-f_0) - \delta(f+f_0))
+Quindi abbiamo due impulsi specchiati, uno che va a destra, l'altro a sinistra. Sono entrambi puramente immaginari.
+
+- Funzione coseno
+v(t) = A\cos(2\pi f_0t) \implies \mathcal{F}[v(t)](f) = \frac{A}{2}(\delta(f-f_0) + \delta(f+f_0))
+
+// Salta le altre funzioni, non le ha dette.
+
+--- Proprietà della TdF (ovvero quelle della TdL, in questa salsa, cambia solo s che diventa j\omega)
+
+1. Linearità: av_1(t) + bv_2(t) \implies aV_1(f) + bV_2(f)
+2. Riflessione e coniugazione: v(-t) \implies V(-f), \overline{v(t)} \implies \overline{V(-f)}, \overline{v(-t)} \implies \overline{V(f)}
+3. Convoluzione nel dominio del tempo: Come in Laplace, la convoluzione nel dominio del tempo diventa un semplice prodotto in quello delle frequenze. [v_1 * v_2](t) \implies V_1(f)\cdot V_2(f)
+4. Traslazione nel dominio del tempo: v(t-\tau) \implies e^{-j2\pi f\tau}V(f)
+5. Modulazione (moltiplicazione) del segnale nel dominio del tempo: \[v_1(t)\cdot v_2(t) \implies [V_1*V_2](f)\]
+6. Traslazione nel dominio delle frequenze (raramente usata): \[e^{j2\pi ft}v(t) \implies V(f-f_0)\]
+
+``` Esempio
+Dato un sistema a blocchi vogliamo capire come viene alterato dagli operatori. Dovremo passare dal dominio del tempo a quello delle frequenze con la TdF. Allo schema a blocchi è aggiunto l'operatore di convoluzione.
+
+Abbiamo le funzioni:
+	- u(t) = 3cos(6\pi t) + cos(2\pi t)
+	- w(t) = 2cos(4\pi t)
+	- h(t) = 4\sinc(4t)
+	- (output) b(t) = ?
+	
+1. Applichiamo le TdF per passare al dominio delle frequenze
+	A è l'ampiezza, f_0 è dato dalla formula Acos(2\pif_0t).
+	- U(f) = \frac{3}{2}(\delta(f - 3) + \delta(f + 3)) + \frac{1}{2}(\delta(f - 1) + \delta(f + 1))
+	- W(f) = \frac{2}{2}(\delta(f-2) + \delta(f+2))
+	
+	// ATsinc(tT) = A\Pi(\frac{f}{T})
+	- H(f) = 1\cdot \Pi(\frac{f}{4})
+	
+2. Disegnare grafici al posto di fare conti manuali (vedi foto da telefono)
+
+3. Effettua l'operazione di convoluzione fra U(f) e W(f) come mostrato nello schema a blocchi (Vedi foto da telefono)
+
+Ricorda che per fare convoluzione bisogna invertire un segnale e scorrerlo addosso all'altro.
+
+```

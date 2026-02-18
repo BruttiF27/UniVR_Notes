@@ -22,15 +22,15 @@ English translation? Why would you ever consider that?
   - Programmazione 1: Ha roba a sufficienza ma non è completa.
   - Algebra lineare: Potrei riprenderla se necessario per analisi 2
 - Secondo anno:
-  - Algoritmi: Da cominciare, sto esame lo do a giugno.
+  - Algoritmi: Attualmente in lavorazione.
+  - Ingegneria del software: Attualmente in lavorazione.
+  - Reti di calcolatori: Attualmente in lavorazione.
   - Analisi matematica 2: Ha contenuto, ma è da rivedere.
-  - Fisica 2: Fatemi passare fisica 1 prima, per cortesia.
-  - Ingegneria del software: Da seguire
-  - Reti di calcolatori: Da cominciare, sto esame lo do a giugno
+  - Fisica 2: Ci rivediamo dopo settembre 2026.
   - Sistemi operativi: Devo seguirne il corso. L'hanno martoriato.
 - Terzo anno:
   - Basi di dati: Non credo sia il momento di considerarla vista la vastità.
-  - Elaborazione di segnali e immagini: Potrei finirla per settembre o febbraio, forse.
+  - Elaborazione di segnali e immagini: Ci vediamo entro settembre 2026.
   - Fondamenti dell'informatica: Haha, no.
   - Linguaggi: Manco so di che parla sta materia, la spiegano al secondo semestre.
 - Corsi extra:

@@ -14,7 +14,7 @@ L'iter di lavoro generale per la descrizione della funzione di complessità segu
 	non sarà sempre possibile ottenere il caso perfetto, tuttavia se coincide con il limite inferiore della funzione, si dice che la stima è perfetta.
 \end{itemize}
 \begin{eg}
-	\textbf{Ricerca di un elemento in un array} $T(n) = c\times n$\par
+	\textbf{Ricerca di un elemento in un array} $T(n) = c*n$\par
 	\noindent Il tempo di esecuzione di questo algoritmo è direttamente proporzionale alla dimensione dell'array, poiché ad ogni elemento aggiunto bisognerà controllare anche quelli.
 	$c$ è un valore costante, mentre $n$ è la dimensione, rappresenta le operazioni da eseguire.\par
 	Noi sappiamo che la ricerca della lunghezza dell'array è fatta a tempo costante, perché è un'operazione uguale indipendentemente dalla mole di dati. Ogni assegnazione è un'operazione.
@@ -39,19 +39,17 @@ della prima. Formalmente: \[f\in O(g) \implies [(\exists c>0) \land (\exists\ove
 Ciò implica l'esistenza di una costante $c > 0$ e di un valore $\overline{n}$ tali per cui ogni altro $n$ è maggiore stretto di $\overline{n}$.
 Ne consegue che la funzione $f(n)$ crescerà più lentamente o allo stesso modo di $cg(n)$.
 \begin{eg}
-	Sia la funzione $T(n) = 2x \in O(5x+7)$.\par
-	\noindent Bisogna trovare una costante $c$ tale per cui valga la disequazione: $2x \leq c(5x+7)$. noterai che andrà bene ogni $c$.
+	Sia la funzione $T(n) = 2x \in O(5x+7)$. Bisogna trovare una costante $c$ tale per cui valga la disequazione: $2x \leq c(5x+7)$. noterai che andrà bene ogni $c$.
 \end{eg}
 \begin{eg}
-	Sia la funzione $T(n) = 5x+7 \in O(2x)$.\par
-	\noindent Bisogna trovare un $c$ tale per cui valga $5x+7 \leq c(2x)$.\par
+	Sia la funzione $T(n) = 5x+7 \in O(2x)$. Trovare un $c$ tale per cui valga $5x+7 \leq c(2x)$.\par
 	\noindent Stiamo lavorando con un'analisi asintotica, quindi possiamo rimuovere ogni costante, otterremo quindi: $5x \leq c(2x)$. Numero per superare $5$? Scegliamo $c=3$. Risolvendola, noterai
 	che la relazione risulta corretta, poiché $\overline{n} = 7$.
 \end{eg}
 Per la dimostrazione delle equazioni nei diversi ordini di grandezza è possibile usare il \textbf{metodo di sostituzione}, preso direttamente da logica matematica. Fondamentalmente bisogna arrivare
 alla tesi tramite passaggi logici.
 \begin{eg}
-	Supponiamo che la seguente formula sia vera: \[f_1 \in O(g_1), f_2 \in O(g_2) \implies f_1+f_2 \in O(g_1+g_2)\]
+	Supponiamo che la seguente formula sia vera: $f_1 \in O(g_1), f_2 \in O(g_2) \implies f_1+f_2 \in O(g_1+g_2)$\par
 	\noindent Visto e considerato che stiamo ragionando al netto di costanti, bisogna seguire i seguenti passaggi generali, applicati al caso in esame:
 	\begin{enumerate}
 		\item Scrivere i dati in base alla loro definizione, quindi: \[f_1 \leq c_1g_1(n); f_2 \leq c_2g_2(n)\]
@@ -71,56 +69,163 @@ diremo che una funzione $f\in \Omega(g)$, quindi che asintoticamente, al netto d
 \begin{eg}
 	Sia una funzione $f \in O(g) \iff g \in \Omega(f)$. Quindi bisogna dimostrare che $f$ sta sotto a $g$ se e solo se $g$ sta sopra $f$.
 	\begin{enumerate}
-		\item
-		\item
+		\item \textbf{Dimostra che vale $a\implies b$ e che $b\implies a$ scrivendo la definizione effettiva} \[\exists c\exists\overline{n} \forall n>\overline{n} f(n) \leq cg(n)\]
+		\item \textbf{Ora ci serve una funzione $g(n)\geq c'f(n)$}: \[cg(n) \geq f(n) \to g(n) \geq f(n)/c\]
+		\noindent Per rendere il tutto più leggibile, possiamo scrivere $c' = \frac{1}{c}$ e per renderlo vero diremo che $\overline{n'} = \overline{n}$.
 	\end{enumerate}
 \end{eg}
-
-
-
-
-% TODO RIPRENDI DA QUESTI PASSAGGI NUMERATI SOTTO
-
+\noindent Il succo del concetto è che per definire correttamente la complessità di un algoritmo, bisogna dimostrare sia il limite superiore, ovvero $O(n)$, che il limite inferiore $\Omega(n)$, con lo scopo di dare una visuale sul caso peggiore e migliore ottenibili.
+La scelta di quanto restringere la definizione è arbitraria e dipende dall'ideatore o dalla stupidità del richiedente. In ogni caso, va esposto con una funzione chiara e coincisa.
 
 \begin{comment}
-f \in O(g) \iff g \in \Omega(f)
-1. Dimostra che vale a\implies b e che b\implies a. Scrivi la definizione effettiva.
-\exists c\exists\overline{n} \forall n>\overline{n} f(n) \leq cg(n)
-
-2. Ci serve g(n) \geq c'f(n)
-cg(n) \geq f(n) \to g(n) \geq f(n)/c.
-Quindi, per renderlo leggibile: c' = 1/c
-E per rendere il tutto vero: \overline{n'} = \overline{n}
-
-f_1 \in O(g), f_2 \in O(g) \implies f_1+f_2 \in O(g)
-La somma non cambia l'ordine di grandezza, per fortuna, quindi è instant.
-\exists c_1\exists\overline{n_1} \forall n>\overline{n_1} f_1(n) \leq c_1g(n)
-\exists c_2\exists\overline{n_2} \forall n>\overline{n} f_2(n) \leq c_2g(n)
-
-n = max(\overline{n_1}, \overline{n_2}), dove max è il limite massimo delle variabili.
-
-f_1(n) + f_2(n) \leq c_1g(n) + c_2g(n) \implies f_1(n) + f_2(n) \leq (c_1+c_2)g(n) \implies f_1(n) + f_2(n) \leq cg(n)
-
-Ex per casa: f_1 \in O(f_2), f_2 \in O(f_3) \implies f_1 \in O(f_3)
-
-Sia algoritmo A. A \in O(f). Significa che la complessità è dominata da f.
-Stiamo cercando un limite superiore al tempo di esecuzione di questo algoritmo.
-
-Diciamo A \in O(n^3). Questa cosa è vera per proprietà transitiva. Infatti A\in O(n) \in O(n^3). Questo dimostra il caso ottimo.
-Diciamo ora A \in \Omega(f). Qui bisogna trovare uno schema di input per far sì che valga la relazione. Questo dimostra il caso pessimo.
-
-Se dimostri O ed \Omega hai caratterizzato correttamente l'algoritmo.
-
-Problema P, P \in O(f). Un problema è la richiesta data. Va usato il miglior algoritmo risolutivo con la minore complessità.
-P \in \Omega(f), \forall A.A\in \Omega(f). Non esistono algoritmi in grado di risolvere il problema in un tempo più basso di f.
+	
+	% TODO Questo snippet di script è utile per dare un altro esempio di dimostrazione; forse è preferibile metterlo in esercizi svolti piuttosto che qua.
+	
+	f_1 \in O(g), f_2 \in O(g) \implies f_1+f_2 \in O(g)
+	La somma non cambia l'ordine di grandezza, per fortuna, quindi è instant.
+	\exists c_1\exists\overline{n_1} \forall n>\overline{n_1} f_1(n) \leq c_1g(n)
+	\exists c_2\exists\overline{n_2} \forall n>\overline{n} f_2(n) \leq c_2g(n)
+	
+	n = max(\overline{n_1}, \overline{n_2}), dove max è il limite massimo delle variabili.
+	
+	f_1(n) + f_2(n) \leq c_1g(n) + c_2g(n) \implies f_1(n) + f_2(n) \leq (c_1+c_2)g(n) \implies f_1(n) + f_2(n) \leq cg(n)
+	
+	Ex per casa: f_1 \in O(f_2), f_2 \in O(f_3) \implies f_1 \in O(f_3)
+	
+	Sia algoritmo A. A \in O(f). Significa che la complessità è dominata da f.
+	Stiamo cercando un limite superiore al tempo di esecuzione di questo algoritmo.
+	
+	Diciamo A \in O(n^3). Questa cosa è vera per proprietà transitiva. Infatti A\in O(n) \in O(n^3). Questo dimostra il caso ottimo.
+	Diciamo ora A \in \Omega(f). Qui bisogna trovare uno schema di input per far sì che valga la relazione. Questo dimostra il caso pessimo.
+	
+	Se dimostri O ed \Omega hai caratterizzato correttamente l'algoritmo.
+	
+	Problema P, P \in O(f). Un problema è la richiesta data. Va usato il miglior algoritmo risolutivo con la minore complessità.
+	P \in \Omega(f), \forall A.A\in \Omega(f). Non esistono algoritmi in grado di risolvere il problema in un tempo più basso di f.
 \end{comment}
 
 %
 
 \section{Equazioni di ricorrenza}
+Come visto nel corso di programmazione, ci sono due modi per la costruzione di algoritmi; il metodo \textbf{iterativo} ed il metodo \textbf{ricorsivo}. Da un punto di vista analitico
+si tende a preferire una scrittura ricorsiva piuttosto che iterativa poiché la prima risulta più leggibile e meno complessa da scrivere.\par
+Ogni algoritmo è rappresentato con le \textbf{equazioni di ricorrenza}, le quali possono essere risolte con questi due paradigmi appena menzionati. Queste sono generalmente notate come:
+\[ T(n) = \begin{cases}
+	c;				n < \overline{n}
+	f(n-1, ..., 1);	n \geq \overline{n}
+\end{cases}
+\]
+\noindent Ci interessa esclusivamente l'ordine di grandezza, quindi prendiamo solo il caso ricorsivo al posto di quello base. Essendo inoltre $\overline{n}$ un valore arbitrario,
+possiamo rendere il caso base molto grande o piccolo, quindi abbiamo spazio di manovra. In ogni caso, trovata l'intersezione fra il limite superiore ed inferiore, indichiamo che
+abbiamo capito perfettamente l'ordine di grandezza ed è segnalato con $\theta(n) = O(n) \cap \Omega(n)$.
+\begin{eg}
+	\textbf{Metodo iterativo}\par
+	\noindent Sia la funzione $T(n) = 1+T(n-1)$. Si parte dalla $T(n)$ fino ad esaurire tutte le iterazioni in un certo indice $i$.
+	\begin{equation}
+		\begin{split}
+			T(n) &= 1+T(n-1)\\
+			&= 1+1+T(n-2)\\
+			&= 1+1+1+T(n-3)\\
+			&= 1+...+1+T(n-i)
+		\end{split}
+	\end{equation}
+	\noindent Dopo un certo numero di passaggi, sarai arrivato al caso base $T(1)$, dato da $1+...+1+T(n-n)$
+\end{eg}
+\begin{eg}
+	\textbf{Metodo di sostituzione}\par
+	\noindent Trattasi della sostituzione della tesi da dimostrare all'argomento della funzione nell'equazione. Supponiamo $T(n) = 2T(n/2)+n; T(n) \in O(nlogn)$. Nota: la base del
+	logaritmo normalmente è 2, ma non è un'informazione importante per la dimostrazione dell'equazione, è una costante moltiplicativa.\par
+	Dimostriamo la proprietà $T(n)\leq c(nlogn)$ per induzione; supponiamo che la tesi valga per tutti i numeri più piccoli di $n$ e mostriamo che vale per $n$. Come primo passaggio:
+	\[T(n) = 2T(n/2)+n; T(n) \in O(nlogn) \implies T(n) \leq 2c(n/2)log(n/2)+n\]
+	\noindent Abbiamo solamente sostituito all'interno dell'argomento della tesi la funzione $T(n)$. Semplice. Andiamo avanti:
+	\begin{equation}
+		\begin{split}
+			T(n) &\leq 2c(n/2)log(n/2)+n\\
+			&\leq cnlog(n/2)+n\\
+			&\leq cn(logn - log2)+n\\
+			&\leq cnlogn - cn + n\\ 
+			&\leq cnlogn - (c-1)n
+		\end{split}
+	\end{equation}
+	Quindi, quando è che $T(n) \leq cnlogn$? Bisogna vedere il valore di $c$ sottratto. $(c-1) \geq 0 \implies c \geq 1$.
+\end{eg}
+\noindent Le ipotesi in questi casi sono state supposte dall'esercizio, ma nella costruzione di un algoritmo non le varemo a disposizione; quindi il processo di scelta è basato sulle
+educated guesses. Si testano le tesi e si vede se funziona, in alternativa si cambia idea e si prova altro.\par
+Se l'algoritmo non è estremamente complesso, è anche possibile utilizzare gli \textbf{alberi di ricorrenza}, che mostrano ogni istanza della ricorsione, caso per caso. In questo caso:
+1. n
+2. n/2
+3. n/4 
+3. n/4
+2. n/2
+3. n/4
+3. n/4
+Si andrebbe avanti ad infinitum fino al raggiungimento del caso base. Notare che la somma di tutti i passi risulta 1; ne deduciamo che l'algoritmo si eseguirà n volte.
+
+%
+
+\section{Teorema dell'esperto}
+
+\begin{comment}
+	
+	% TODO Da rivedere col libro a casa
+	Il teorema dell'esperto è un metodo utile per imporre una dominazione stretta su una funzione $f(n)$ tramite un polinomio di mezzo, definito come $n^{\epsilon}$.
+	Sappiamo che se la funzione è dominata da un'altra più piccola di $n^{log_b a}$, sicuramente sarà dominata anche da quest'ultima e saremo di conseguenza nel suo ordine di grandezza.
+	Questo teorema vale come condizione sufficiente per le dimostrazioni, ma non necessaria, ed è utilizzabile in tre casi di studio:
+	\begin{teorema}
+		\textbf{Teorema dell'esperto}\par
+		\noindent Data una funzione $f(n)\in O(n^{log_b a-\epsilon})$ tale che $\epsilon > 0$, allora $T(n) = \Theta(n^{log_b a})$.
+	\end{teorema}
+	
+	
+	
+	
+	
+	
+	
+	
+	Teorema che vale come condizione sufficiente per le dimostrazioni, utilizzabile in queste tre istanze:
+	
+	- Se f(n) \in \Theta(n^{log_b a}), \implies  T(n) = \Theta(f(n)log n)							// La base di log n nella scrittura finale non frega a nessuno. Cambierebbe solo la costante.
+	- Se f(n) \in \Omega(n^{log_b a + \epsilon}) t.c. \epsilon > 0, \implies T(n) = \Theta(f(n))
+	// Vale solo se af(n/b) \leq cf(n) t.c. c<1, n>\overline{n}.
+	
+	L'uguale è un abuso di notazione lecito perché ci interessa solamente l'ordine di grandezza.
+	
+	- Esempi col teorema dell'esperto:		// Richiesto all'esame, garantito.
+	1. T(n) = 9T(n/3) + n		// a = 9, b = 3, f(n) = n, n^{log_b a} = n^2
+	
+	Proviamo a trovare l'\epsilon>0.		n \in O(n^{2-\epsilon}). Qualunque valore positivo di n va bene.
+	Con questo confermiamo che T(n) = \Theta(n^2)
+	
+	2. T(n) = T(2/3n) + 1		// a = 1, b = 3/2, f(n) = 1, n^{log_b a} = n^{log_{3/2} 1} = n^0 = 1 = c.
+	&= \Theta(log n)		// Ogni volta che si porta il problema ad una costante, qui le cose diventano logaritmiche. Somehow.
+	
+	3. T(n) = 3T(n/4) + nlog n	// a = 3, b = 4, f(n) = nlog n, n^{log_b a} = n^{log_4 3}.
+	// Evidente che siamo nel terzo caso, quindi nlog n \in \Omega(n^{log_4 3+\epsilon})
+	&= \Theta(nlog n)
+	
+	// Adesso bisogna verificare la condizione, però
+	3(n/4)log(n/4) \leq c*nlog n		// Prendo per esempio c = 3/4, si nota che è minore o uguale di c*nlog n
+	
+	4. T(n) = 2T(n/2) + nlog n		// a = 2, b = 2, f(n) = nlog n, n^{log_b a} = n^1 = n.
+	// Qui il teorema non è applicabile perché per qualunque epsilon si sarà sempre maggiori di nlog n. Sono battuti da qualsiasi polinomio.
+\end{comment}
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Esercizi svolti}
 
 \begin{comment}
 	ESERCIZIO SVOLTO 1
@@ -141,4 +246,64 @@ P \in \Omega(f), \forall A.A\in \Omega(f). Non esistono algoritmi in grado di ri
 	Quando hai cicli nidificati è preferibile iniziare da quello più interno
 	Se sei nel caso degenere, ovvero le matrici sono a 1dimensione e quindi vettori, la formula diventa c*m, perché i cicli da 1 a n o l si eseguono in un'operazione singola.
 	Nel caso di matrici quadrate, m, l, ed n hanno tutte lo stesso valore, quindi cn^3
+\end{comment}
+
+\begin{comment}
+	% TODO Da inserire come ESERCIZIO SVOLTO 2
+	
+	Sia l'equazione di ricorrenza $T(n) = T(n/2) + T(n/2) + 1 \in O(n)$, quindi, per definizione, minore o uguale di $cn$.
+	
+	T(n) \leq c*(n/2) + c*(n/2) + 1
+	&\leq c(n/2 + n/2) + 1
+	&\leq c*n+1
+	&\leq c*n.		// Applicazione scorretta della sostituzione, bisogna ottenere l'ipotesi. Bisogna eliminare 1. Supponiamo quindi una '-b' e vediamo cosa cambia
+	
+	T(n) \leq c*(n/2)-b + c*(n/2)-b + 1
+	&\leq c*n -b-b +1
+	&\leq c*n -b -(b-1)		// \leq c*n-b		vale se b-1 \geq 0 \implies b \geq 1.
+\end{comment}
+
+\begin{comment}
+	% TODO Questo è un esercizio svolto 3, riguarda il metodo iterativo.
+	
+	Ex. Metodo iterativo su T(n). Il valore della funzione n/4 è approx. per difetto.
+	T(n) = 3T(n/4) + n
+	&= n+3 (n/4 + 3T(n/4)/4)
+	&= n+3*n/4 + 3^2T(n/4^2)
+	&= n+3*n/4 + 3^2(n/4^2 + 3T(n/4^3))
+	&= n+3(n/4) + 3^2(n/4^2) + 3^3T(n/4^3)
+	&= ...
+	&= n+3(n/4) + 3^2(n/4^2) + ... + 3^{i-1}(n/4^{i-1}) + 3^iT(n/4^i)
+	
+	La formula generale che è quella con i sarebbe da dimostrare per induzione.
+	
+	Proviamo a rimuovere le approx per difetto. Quante iterazioni devo fare per arrivare al caso base?
+	T(n) = n+3(n/4) + 3^2(n/4^2) + ... + 3^{i-1}(n/4^{i-1}) + 3^iT(n/4^i)
+	
+	Se n/4^i \leq 1 sono arrivato al caso base e ne ho la certezza. 1 è un numero arbitrario, vediamo se il limite ci soddisfa.
+	n \leq 4^i
+	&= 4?i \geq n
+	&= i \geq log_4 n
+	
+	Sostituiamo la i ottenuta alla formula generale:
+	n+3/4n + ... + (3/4)^{log_4n-1}n + 3^{log_4n}T(1)c
+	
+	Lo scopo è fondamentalmente cercare di rimuovere la T. Se arrivi al caso base, quindi in questo caso 1, saprai che il tuo valore è costante.
+	
+	NB: \sum_{i=0}^{\infty} q^i = \frac{1}{1-q}.		// Sta serie è utilissima in sto corso, parrebbe.
+	
+	Raccogliamo i valori, otteniamo una serie geometrica di somma parziale. Dalla formula appena vista, abbiamo che: n(1- \frac{1}{1 - 3/4}) + 3^{log_4 n} = 4n + 3^{log_4 n}
+	Quindi abbiamo infine che: 
+	T(n) = 3T(n/4) + n
+	&= \Theta(n) + 3^{log_4 n}		// Quale elemento ha l'ordine di grandezza maggiore?
+	
+	3^{log_4 n} = n^{log_n(3^{log_4 n})}
+	&= n^{log_4 n * log_n 3}		// Necessario cambio di base del logaritmo. Non so la formula, ritrovarla.
+	&= n^{log_4 3}
+	
+	Con questo possiamo dire che:
+	T(n) = \Theta(n) + \Theta(n^{log_4 3})		// n è maggiore dell'altro argomento. L'ordine di grandezza è quindi \Theta(n).
+	
+	What if al posto di 3 e 4 avessimo variabili a e b?
+	T(n) = aT(n/b) + f(n)		// e' una generalizzazione dell'equazione di prima, la forma è identica.
 \end{comment}

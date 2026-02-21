@@ -1,42 +1,41 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {chapter}{\numberline {1}Complessità degli algoritmi}{4}{}%
-\contentsline {section}{\numberline {1.1}Concetto di complessità}{4}{}%
-\contentsline {section}{\numberline {1.2}Notazione asintotica}{5}{}%
-\contentsline {section}{\numberline {1.3}Equazioni di ricorrenza}{7}{}%
-\contentsline {section}{\numberline {1.4}Teorema dell'esperto}{8}{}%
-\contentsline {section}{\numberline {1.5}Esercizi svolti}{8}{}%
-\contentsline {chapter}{\numberline {2}Ordinamenti e selezioni}{9}{}%
-\contentsline {section}{\numberline {2.1}Insertion Sort}{9}{}%
-\contentsline {section}{\numberline {2.2}Merge Sort}{9}{}%
-\contentsline {section}{\numberline {2.3}Heap Sort}{9}{}%
-\contentsline {section}{\numberline {2.4}Quick Sort classico e probabilistico}{9}{}%
-\contentsline {section}{\numberline {2.5}Counting Sort}{9}{}%
-\contentsline {section}{\numberline {2.6}Radix Sort}{9}{}%
-\contentsline {section}{\numberline {2.7}Bucket Sort}{9}{}%
-\contentsline {section}{\numberline {2.8}Problema della selezione}{9}{}%
-\contentsline {chapter}{\numberline {3}Strutture dati}{10}{}%
-\contentsline {section}{\numberline {3.1}Heap}{10}{}%
-\contentsline {section}{\numberline {3.2}Alberi binari}{10}{}%
-\contentsline {subsection}{\numberline {3.2.1}RB-alberi}{10}{}%
-\contentsline {subsection}{\numberline {3.2.2}B-alberi binomiali}{10}{}%
-\contentsline {section}{\numberline {3.3}Tabelle hash}{10}{}%
-\contentsline {section}{\numberline {3.4}Code con priorità}{10}{}%
-\contentsline {section}{\numberline {3.5}Insiemi disgiunti}{10}{}%
-\contentsline {section}{\numberline {3.6}Estensione di strutture dati}{10}{}%
-\contentsline {section}{\numberline {3.7}Grafi}{10}{}%
-\contentsline {chapter}{\numberline {4}Progetto e analisi di algoritmi}{11}{}%
-\contentsline {section}{\numberline {4.1}Divide et impera}{11}{}%
-\contentsline {section}{\numberline {4.2}Programmazione greedy}{11}{}%
-\contentsline {section}{\numberline {4.3}Programmazione dinamica}{11}{}%
-\contentsline {section}{\numberline {4.4}Ricerca locale}{11}{}%
-\contentsline {section}{\numberline {4.5}Backtracking}{11}{}%
-\contentsline {section}{\numberline {4.6}Branch and bound}{11}{}%
-\contentsline {chapter}{\numberline {5}Algoritmi fondamentali}{12}{}%
-\contentsline {section}{\numberline {5.1}Alberi di copertura di costo minimo}{12}{}%
-\contentsline {section}{\numberline {5.2}Programmazione lineare}{12}{}%
-\contentsline {section}{\numberline {5.3}Cammini minimi}{12}{}%
-\contentsline {subsection}{\numberline {5.3.1}Sorgente singola}{12}{}%
-\contentsline {subsection}{\numberline {5.3.2}Sorgente multipla}{12}{}%
-\contentsline {section}{\numberline {5.4}Flusso massimo}{12}{}%
-\contentsline {section}{\numberline {5.5}Matching massimale su grafo bipartito}{12}{}%
+\contentsline {chapter}{\numberline {1}Fondamenti}{4}{}%
+\contentsline {section}{\numberline {1.1}Complessità e notazione asintotica}{4}{}%
+\contentsline {section}{\numberline {1.2}Equazioni di ricorrenza}{8}{}%
+\contentsline {section}{\numberline {1.3}Teorema dell'esperto}{11}{}%
+\contentsline {section}{\numberline {1.4}Esercizi svolti}{13}{}%
+\contentsline {chapter}{\numberline {2}Ordinamenti e selezioni}{14}{}%
+\contentsline {section}{\numberline {2.1}Insertion Sort}{14}{}%
+\contentsline {section}{\numberline {2.2}Merge Sort}{14}{}%
+\contentsline {section}{\numberline {2.3}Heap Sort}{14}{}%
+\contentsline {section}{\numberline {2.4}Quick Sort classico e probabilistico}{14}{}%
+\contentsline {section}{\numberline {2.5}Counting Sort}{14}{}%
+\contentsline {section}{\numberline {2.6}Radix Sort}{14}{}%
+\contentsline {section}{\numberline {2.7}Bucket Sort}{14}{}%
+\contentsline {section}{\numberline {2.8}Problema della selezione}{14}{}%
+\contentsline {chapter}{\numberline {3}Strutture dati}{15}{}%
+\contentsline {section}{\numberline {3.1}Heap}{15}{}%
+\contentsline {section}{\numberline {3.2}Alberi binari}{15}{}%
+\contentsline {subsection}{\numberline {3.2.1}RB-alberi}{15}{}%
+\contentsline {subsection}{\numberline {3.2.2}B-alberi binomiali}{15}{}%
+\contentsline {section}{\numberline {3.3}Tabelle hash}{15}{}%
+\contentsline {section}{\numberline {3.4}Code con priorità}{15}{}%
+\contentsline {section}{\numberline {3.5}Insiemi disgiunti}{15}{}%
+\contentsline {section}{\numberline {3.6}Estensione di strutture dati}{15}{}%
+\contentsline {section}{\numberline {3.7}Grafi}{15}{}%
+\contentsline {chapter}{\numberline {4}Progetto e analisi di algoritmi}{16}{}%
+\contentsline {section}{\numberline {4.1}Divide et impera}{16}{}%
+\contentsline {section}{\numberline {4.2}Programmazione greedy}{16}{}%
+\contentsline {section}{\numberline {4.3}Programmazione dinamica}{16}{}%
+\contentsline {section}{\numberline {4.4}Ricerca locale}{16}{}%
+\contentsline {section}{\numberline {4.5}Backtracking}{16}{}%
+\contentsline {section}{\numberline {4.6}Branch and bound}{16}{}%
+\contentsline {chapter}{\numberline {5}Algoritmi fondamentali}{17}{}%
+\contentsline {section}{\numberline {5.1}Alberi di copertura di costo minimo}{17}{}%
+\contentsline {section}{\numberline {5.2}Programmazione lineare}{17}{}%
+\contentsline {section}{\numberline {5.3}Cammini minimi}{17}{}%
+\contentsline {subsection}{\numberline {5.3.1}Sorgente singola}{17}{}%
+\contentsline {subsection}{\numberline {5.3.2}Sorgente multipla}{17}{}%
+\contentsline {section}{\numberline {5.4}Flusso massimo}{17}{}%
+\contentsline {section}{\numberline {5.5}Matching massimale su grafo bipartito}{17}{}%

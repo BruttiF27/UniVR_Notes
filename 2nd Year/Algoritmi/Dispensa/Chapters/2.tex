@@ -1,29 +1,619 @@
+\section{Problema dell'ordinamento}
+Il problema dell'ordinamento dei dati in una struttura è uno dei più comuni che si incontra nella pratica e consente di introdurre vari strumenti di analisi e tecniche di progettazione standard. Formalmente viene definito come: \begin{itemize}
+	\item \textbf{Input}: Sequenza di $n$ oggetti $\left<a_1, ..., a_n\right>$ sulla quale è definita una relazione di ordine totale.
+	\item \textbf{Output}: Permutazione $\left<a_1', ..., a_n'\right>$ della sequenza di input tale che $a_1' \leq ... \leq a_n'$.
+\end{itemize}
+\noindent In pratica, data per esempio una sequenza di numeri in input $\left<1, 4, 2, 7, 5, 3\right>$, l'algoritmo risolutivo ritornerà in output $\left<1, 2, 3, 4, 5, 7\right>$. La sequenza specifica in entrata è detta \textbf{istanza} del problema e per essere elaborata è necessario che appartenga al dominio per cui l'algoritmo è definito.\par
+Diciamo che un algoritmo è \textbf{corretto} se, per ogni istanza valida del problema, termina e produce un output conforme alla specifica e sebbene si tratti di un concetto intuitivamente semplice, esistono molti algoritmi adatti a questo compito, la cui scelta è determinata da alcuni fattori come la \textbf{dimensione} del numero di dati, il loro \textbf{ordinamento iniziale}, eventuali \textbf{vincoli} o anche limiti fisici dell'elaboratore. 
+
+%
+
 \section{Insertion Sort}
+Algoritmo efficiente per ordinare un piccolo numero di elementi, opera allo stesso modo in cui si ordinerebbe un mazzo di carte. Dato in input un array $A$, mantengo una parte ordinata ed una non ordinata; ad ogni iterazione si prende un elemento dalla seconda e lo si inserisce nella posizione corretta, trovata confrontando tutte le carte a partire dall'inizio. \begin{itemize}
+	\item \textbf{Caso pessimo}: $\Theta(n^2)$
+	\item \textbf{Caso ottimo}: $\Theta(n)$. Si ottiene quando l'array è già ordinato.
+	\item \textbf{Caso medio}: $\Theta(n^2)$
+	\item \textbf{Ordinamento in loco}: Sì
+	\item \textbf{Stabilità}: Sì
+\end{itemize}
+\begin{algorithm}[H]
+	\caption{InsertionSort(A,n)}
+	\begin{algorithmic}[1]
+		\Require $A$: Array, $n$: Dimensione array
+		\For{$i \gets 2 \textbf{ to } n$} \Comment{Scorre da startPos+1=2 fino a n dimensione}
+		\State $\text{key} \gets A[i]$
+		\State $j \gets i-1$ \Comment{L'indice j è usato per la sezione ordinata. Valori: [1,n]}
+		\State
+		\While{$j > 0 \textbf{ AND } A[j] > \text{ key}$} \Comment{Non sei all'inizio e key minore di A[i]}
+		\State $A[j+1] \gets A[j]$ \Comment{Sposta a destra di una posizione il valore maggiore di key}
+		\State $j \gets j-1$ \Comment{Spostati a sinistra di una posizione}
+		\EndWhile
+		\State $A[j+1] \gets key$ \Comment{Inserisci key nella posizione corretta}
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+\noindent La valutazione della complessità di questo algoritmo vede analizzati due elementi principali: il ciclo \textbf{for}, avente tre istruzioni (gli assegnamenti) di complessità costante, e il ciclo \textbf{while} interno al primo, il quale, potendo scorrere potenzialmente l'intero array ad ogni iterazione, aumenta notevolmente i tempi di esecuzione.\par
+Dove richiede un tempo di lavoro generalmente alto rispetto ad altri algoritmi, la sua potenzialità sta nel risparmio della memoria; infatti richiede solo tre variabili per essere eseguito e non richiede alcun supporto esterno per la gestione dell'array. Diciamo, per questa ragione, che l'algoritmo \textbf{opera in loco}. Un'altra sua caratteristica è che gli elementi uguali non vengono riordinati fra di loro poiché il confronto effettuato è stretto. In queste condizioni, diciamo che l'algoritmo è \textbf{stabile}.
 
 %
 
 \section{Merge Sort}
+Algoritmo basato sulla tecnica del \textbf{Divide et Impera}, ovvero nella suddivisione del problema in sottoproblemi della stessa natura di dimensione via via più piccola.\par
+Diviso l'array di partenza in due parti uguali, si ordinano entrambe applicando ricorsivamente l'algoritmo, per poi combinare queste due nuove sezioni con un sottoalgoritmo \textbf{merge} di supporto, prendendo volta per volta il valore più piccolo contenuto in entrambi, fino ad esaurire tutti i valori. \begin{itemize}
+	\item \textbf{Caso pessimo}: $\Theta(nlog(n))$
+	\item \textbf{Caso ottimo}: $\Theta(nlog(n))$
+	\item \textbf{Caso medio}: $\Theta(nlog(n))$
+	\item \textbf{Ordinamento in loco}: No, richiede memoria ausiliaria.
+	\item \textbf{Stabilità}: Sì
+\end{itemize}
+\begin{algorithm}[H]
+	\caption{merge(A, left, center, right)}
+	\begin{algorithmic}[1]
+		\Require A: Array, left: Posizione iniziale, center: Centro, right: Posizione finale
+		\State $i\gets \text{left}$
+		\State $j\gets \text{center}+1$
+		\State $k = 1$ \Comment{Indice dell'array di supporto}
+		\State $B[right-left+1]$ \Comment{Array di supporto di dimensione right-left+1}
+		\State
+		\While{$i \leq \text{center}$ \textbf{AND} $j\leq\text{right}$} \Comment{Fintanto che i sottarray non sono finiti}
+		\If{$A[i] \leq A[j]$} \Comment{Se l'elemento del primo è minore, copia quello e avanza}
+		\State $B[k]\gets A[i]$
+		\State $i\gets i+1$
+		\State $k\gets k+1$
+		\Else \Comment{Altrimenti procedimento analogo, ma per il secondo array}
+		\State $B[k]\gets A[j]$
+		\State $j\gets j+1$
+		\State $k\gets k+1$ 
+		\EndIf
+		\EndWhile
+		\While{$i \leq \text{center}$} \Comment{Copia il primo array ordinato}
+		\State $B[k]\gets A[i]$
+		\State $i\gets i+1$
+		\State $k\gets k+1$
+		\EndWhile
+		\While{$j\leq \text{right}$} \Comment{Copia il secondo array ordinato}
+		\State $B[k]\gets A[j]$
+		\State $j\gets j+1$
+		\State $k\gets k+1$
+		\EndWhile
+		\For{$k\gets \text{left to right}$} \Comment{Sovrascrivi l'array di base con quello ordinato}
+		\State $a[k]\gets b[k-\text{left}]$
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[H]
+	\caption{mergeSort(A, left, right)}
+	\begin{algorithmic}[1]
+		\Require A: Array, left: Posizione iniziale, right: Posizione finale
+		\If{left $<$ right}
+		\State center $=$ (left$+$right)$/2$
+		\State mergeSort(A, left, center) \Comment{Ordina la parte prima della metà}
+		\State mergeSort(A, center$+1$, right) \Comment{Ordina la parte dopo la metà}
+		\State merge(A, left, center, right) \Comment{Fondi i due sottoarray ordinati}
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+\noindent Diversamente rispetto ad Insertion Sort, per valutare la complessità di questo algoritmo bisogna considerare la ricorsione. Sapendo che ad ogni passo ricorsivo il problema è diviso in \textbf{due sottoproblemi} $(n/2)$, dove si effettuano \textbf{due chiamate ricorsive} $(2T)$, e che il merge scorre tutti gli elementi \textbf{almeno una volta} $\Theta(n)$, possiamo dire che Merge Sort è rappresentato da: \[T(n) = 2T(n/2) + \Theta(n)\]
+\noindent Possiamo usare il teorema dell'esperto per la dimostrazione. Convertendo la ricorrenza alla forma generale, otteniamo: \[a=2,\quad b=2,\quad f(n) = \Theta(n),\quad log_2(2)=1\implies n^1=n\]
+\noindent Confrontando $f(n)$ con la spartiacque, notiamo che appartengono allo stesso ordine di grandezza, facendoci trovare nel caso 2 del teorema, infatti: \[f(n) = \Theta\left(n^{log_b(a)}\right)\implies T(n) = \Theta(nlog(n))\]
 
 %
 
-\section{Heap Sort}
+\section{Struttura Heap e Heap Sort}
+Introduciamo ora la prima struttura di dati del corso. Nelle sezioni precedenti è stato menzionato il concetto di \textbf{albero binario}, una struttura composta in cima da un nodo, detto \textbf{radice}, il quale, in quanto binario, si dirama in due direzioni verso il basso attraverso \textbf{archi}, creando due nodi figli. In particolare, quando un nodo figlio è alla base dell'albero si dice \textbf{foglia}.\par
+Come è possibile intuire, gli alberi binari sono organizzati in livelli, i quali indicano la \textbf{profondità}, ovvero la distanza dalla radice. Quando un livello ha il numero massimo di nodi ivi ottenibili si dice \textbf{completo}. Tuttavia possono esistere alberi \textbf{semi-completi}, quando la base non è completa.\par
+Un vantaggio di questa struttura è la semplicità della ricerca dei nodi; infatti, la dinamica si dispiega in tre casi: \begin{itemize}
+	\item \textbf{Per figlio sinistro}: $\text{indice}\cdot 2+0$
+	\item \textbf{Per figlio destro}: $\text{indice}\cdot 2+1$
+	\item \textbf{Da figlio a padre}: $\text{indice}/2$
+\end{itemize}
+\begin{minipage}[H]{0.4\linewidth}
+	\begin{center}
+		\begin{tikzpicture}[
+			level distance=1.5cm,
+			level 1/.style={sibling distance=4cm},
+			level 2/.style={sibling distance=1.3cm}
+			]
+			
+			\node {$1$}
+			child {node {$2$}
+				child {node {$4$}}
+				child {node {$5$}}
+			}
+			child {node {$3$}
+				child {node {$6$}}
+				child {node {$7$}}
+			};
+		\end{tikzpicture}
+		Albero binario completo
+	\end{center}
+\end{minipage}
+\hspace{0.2\linewidth}
+\begin{minipage}[H]{0.4\linewidth}
+	\begin{center}
+		\begin{tikzpicture}[
+			level distance=1.5cm,
+			level 1/.style={sibling distance=4cm},
+			level 2/.style={sibling distance=1.3cm}
+			]
+			
+			\node {$1$}
+			child {node {$2$}
+				child {node {$4$}}
+				child {node {$5$}}
+			}
+			child {node {$3$}
+				child {node {$6$}}
+			};
+		\end{tikzpicture}
+		Albero binario semi-completo
+	\end{center}
+\end{minipage}
+\vspace{0.01\linewidth}
+
+\noindent Un \textbf{heap} è una struttura dati implementata tramite un array, considerata sotto forma di un albero binario semi-completo, i cui nodi rappresentano gli elementi al suo interno. Deve inoltre rispettare la proprietà che lo contraddistingue: in un \textbf{MAX-Heap} ogni nodo è maggiore o uguale ai propri figli. Analogamente, è possibile definire un \textbf{MIN-Heap} dove vale il contrario.
+\noindent Nella gestione di questa struttura dati, tuttavia, in necessità di inserimento nodi, non necessariamente si potrà rispettare sempre la proprietà, ragion per cui utilizziamo un algoritmo \textbf{heapify()} ad-hoc, con lo scopo di prendere questo problema locale e trasferirlo alle foglie, dove sarà risolto.
+\begin{algorithm}[H]
+	\caption{heapify(A, i)}
+	\begin{algorithmic}[1]
+		\Require $A$: Array, $i$: Indice
+		\State $l\gets left(i)$, $r\gets right(i)$ \Comment{l prende figlio-sx, r prende figlio-dx}
+		\State
+		\If{$l\leq A.heapSize$ \textbf{AND} $A[l] > A[i]$} \Comment{Se figlio-sx ha valore $>$ i, non è heap.}
+		\State largest $\gets l$
+		\Else 
+		\State largest $\gets i$ \Comment{Altrimenti segna che il più grande è i, come inteso.}
+		\EndIf
+		\State
+		\If{$r \leq \text{A.heapSize}$ \textbf{AND} $A[r] > A[\text{largest}]$} \Comment{Controllo figlio destro}
+		\State largest $\gets r$
+		\EndIf
+		\State
+		\If{largest $\neq i$} \Comment{Se la proprietà non è valida}
+		\State switch(A[i], A[largest]) \Comment{Scambia la posizione dei due nodi, largest è l'anomalia}
+		\State heapify(A, largest) \Comment{Sposta ricorsivamente largest finché non rispetta la regola}
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+\noindent La complessità di questo algoritmo è equivalente alla sua profondità, quindi il caso peggiore scende lungo l'altezza dell'albero fino alle foglie, dando come tempo di esecuzione $T(n) \in O(log(n))$.
+
+
+
+% TODO Riprendi da buildHeap, ma prima aggiungi la dimostrazione della ricorrenza a pag.149
+
+
+
+\begin{comment}	
+	-- è possibile passare da array a heap?
+	
+	buildHeap(A) {
+		A.heapSize = A.length;
+		
+		// Tutti i nodi con chiave maggiore di i sono a posto. Chiama heapify, se la proprietà della heap è ok, va bene, altrimenti la riordina come vista nell'algoritmi prima.
+		for (i = A.length/2; i > 0; i--) {
+			heapify(A, i);
+		}
+	}
+	
+	28-10-25 Algoritmi
+	
+	Formula per il totale dei nodi (somma totale elementi in una serie geometrica): \frac{1-2^{h+1}}{1-2} = 2^{h+1}-1
+	Al livello più basso abbiamo in totale n/2 nodi, con 0 operazioni. 		// n/2 perché consideri solo quel livello senza guardare i superiori, quindi non è n.
+	Al precedente, n/4, con 1 operazione.
+	Al precedente ancora, n/8, con 2 operazioni. e così via.
+	
+	Voglio una formula che dà la complessità dell'algoritmo
+	\sum_{i=0} i\frac{n}{2^{i+1}}		// i sono le operazioni fatte in quel livello, nel denominatore comporrà il totale dei nodi.
+	
+	\sum_{i=0} i\frac{n}{2^{i+1}} \leq n\sum_{i=0}^{+\infty} i(\frac{1}{2})^{i+1}.		// La sommatoria converge ad un numero finito, quindi è lineare.
+	
+	// Vediamo come converge
+	\sum_{i=0}^{\infty} iq^{i+1}		// Somiglia alla sommatoria delle derivate di una serie geometrica.
+	&= \sum_{i=1}^{\infty} iq^{i+1}
+	&= q^2 \sum_{i=1}^{\infty} iq^{i-1}		// Sommatoria delle derivate dei termini di una serie geometrica. Questa converge alla derivata della somma. E' un numero finito.
+	
+	Esce che la sommatoria è una costante e la funzione è lineare. Figo, hai le basi per fare un algoritmo di ordinamento basato sull'heap.
+	
+	--- HeapSort
+	HeapSort(A) {
+		buildHeap(A);		// Crea l'heap
+		
+		for (i = A.length; i > 1; i--) {
+			switch(A[1], A[i]);
+			A.heapSize--;					// Riduco la dimensione dell'heap
+			heapify(A,1);
+		}
+	}
+	
+	Perché funziona?
+	Prendi l'array già organizzato come heap. L'elemento più piccolo è la radice, quello più grande, in fondo.
+	Scambio l'elemento in fondo con il primo e poi decremento la dimensione. Prendo l'elemento più grande e lo metto in cima, poi con heapify ordina l'array fin quando non scorre tutti
+	gli elementi.
+	
+	- Complessità: buildHeap è lineare, switch è costante, heapify è logn. il corpo del ciclo for nel peggiore dei casi è nlogn.
+	limite superiore nlogn, il limite inferiore è log(n!) = \theta(logn^n) = \theta(nlogn)
+	- Ordina in loco, perché ogni operazione è fatta sullo stesso array
+	- è stabile? No. Prova a usare un array con tutti gli elementi uguali.
+	
+	RICORDARE n! = n^n.
+\end{comment}
 
 %
 
 \section{Quick Sort classico e probabilistico}
 
+
+
+
+
+\begin{comment}
+	--- QuickSort
+	Ha di base divide et impera come nel mergeSort.
+	Prendiamo l'array, lo divisiamo in due parti tali che tutti gli elementi della prima parte siano minori o uguali di quelli della seconda.
+	Poi ordino la parte di sinistra e dopo la parte di destra.
+	
+	QuickSort(A, P, r) {		// P è dove parte l'array, r è dove finisce l'array.
+		if (P < r) {
+			q = partition(A,P,r);	// Divido l'array secondo la logica su scritta. q è l'elemento perno, pivot.
+			QuickSort(A,P,q);		// Ordino la sinistra
+			QuickSort(A,q+1,r);		// Ordino la destra
+		}
+	}
+	
+	// Complessità: proporzionale agli spostamenti di i e j. è lineare.
+	partition(A, P, r) {
+		x = A[P];			// Prende il primo elemento e lo rende quello medio per spostare gli elementi.
+		i = P-1;
+		j = r+1;
+		
+		while (1) {
+			while (A[j] > x) {
+				j = j-1;
+			}
+			
+			while (A[i] < x) {
+				i = i+1;
+			}
+			
+			if (i < j) {
+				switch(a[i], A[j]);
+			} else {
+				return j;
+			}
+		}
+	}
+	
+	03-11-25 Algoritmi
+	
+	--- QuickSort (A,P,r)
+	
+	QuickSort (A,P,r) {
+		if (P<r) {
+			q = partition(A,P,r);
+			
+			QuickSort(A,P,q);
+			QuickSort(A,q+1,r);
+		}
+	}
+	
+	partition (A,P,r) {	// Complessità: n
+		x = A[P];
+		i = P-1;
+		k = r+1;
+		
+		while (1) {
+			while (A[j]<=x) {		// Sposta finché non vale più la regola
+				j--;
+			}
+			
+			while (A[i]>=x) {		// Sposta finché non vale più la regola
+				i++;
+			}
+			
+			if (i < j) {			// Sei qua solo se hai violato ambo i casi
+				switch(A[i], A[j]);	// Cambia di posizione
+			} else {
+				return j;			// Torna l'indice j.
+			}
+		}
+	}
+	
+	T(n) = \theta(n) + T(n-1) + T(1) \equiv \theta(n) + T(n-1)
+	&= n + (n-1) + T(n-2)
+	&= n + (n-1) + (n-2) + T(n-3)
+	&= \sum_{i=1}^n i = \frac{n(n+1)}{2}		// Il caso pessimo di QuickSort è quadratico, O(n^2).
+	
+	Per risolvere pseudo-completamente il problema del caso pessimo (array ordinato) si può scegliere un elemento perno a cazzo oppure mescolare
+	l'array in toto.
+	
+	randPartition (A,P,r) {
+		i = random(P,r);		// Scegli un numero a caso compreso fra P ed r.
+		switch(A[P], A[i]);
+		
+		return partition(A,P,r);
+	}
+	
+	Qua parliamo di caso medio perché c'è la probabilità in gioco. Infatti hai una prob 1/n di pescare un dato elemento perno.
+	Serva una funzione che associa ad ogni n una variabile aleatoria.
+	
+	Se vedo T(n) come la funzione di variabile aleatoria, abbiamo:
+	T(n) &= \theta(n) + 1/n(T(1) + T(n-1)) + 1/n(T(1) + T(n-1)) + 1/n(T(2) + T(n-2)) + ... + 1/n(T(n-1) + T(1))\\
+	&= \theta(n) + 1/n(T(1) + T(n-1)) + \sum_{i=1}^{n-1} 1/n(T(i) + T(n-1))
+	&= \theta(n) + \sum_{i=1}^{n-1} 1/n(T(i) + T(n-1)) // Questo perché T(1)è costante, fanculo. Poi il caso pessimo n^2, se moltiplicato a 1/n
+	// ci dona il valore n, che sta sotto \theta(n). Quindi si può rimuovere la componente
+	&= \theta(n) + 2/n \sum_{i=1}^{n-1} T(i)
+	
+	// TODO vedere dimostrazione con metodo di sostituzione, dimostra che il caso medio è nlogn
+	
+	// Question: Hai 12 sfere, tutte uguali. (ci puoi fare quel che vuoi). Fra d di loro ce ne potrebbe essere una con un peso diverso dalle altre.
+	// Abbiamo una bilancia coi due piatti. Hai tre pesate per dire se c'è una sfera diversa dalle altre e se pesa di più o meno.
+	
+	Esiste un criterio per dire se esiste un algoritmo per risolvere un determinato problema.
+	Con quello delle sfere appena visto, abbiamo tre possibili risultati; palla leggera, palla pesante, palle uguali.
+	Con tre pesate massimo per un tot di palle.
+	
+	La prima è obbligata. 4 palle vs 4 palle. 3pesate*3scenari = 9.
+	
+	// QuickSort iterativo
+	QuickSort (A,P,r) {
+		while (P<r) {
+			q = partition(A,P,r);
+			
+			QuickSort(A,P,q);
+			p = q+1;
+		}
+	}
+\end{comment}
+
 %
 
 \section{Counting Sort}
+
+
+
+
+
+\begin{comment}
+	04-11-25 Algoritmi
+	Soluzione palle:
+	Prima pesata: 4 palle per piatto. (1,2,3,4) - (5,6,7,8)
+	Se il piatto tilta, o c'è una palla che pesa di più o di meno, altrimenti dovrai prendere il terzo gruppo di palle restanti.
+	
+	Seconda pesata: (1,5,7) - (2,6,9)
+	Se il piatto tilta con sx più pesante possiamo avere che 5+ o 7+ o 2-.
+	Se il piatto tilta con dx più pesante possiamo avere che 1- o 6+.
+	Se i piatti sono uguali, possiamo avere 3- o 4- o 8+.
+	
+	Terza pesata:
+	
+	Possiamo vedere un algoritmo che lavora per confronti come un albero di decisione, che ha radice come il totale delle sue permutazioni [n!] e termina quando si 
+	ottiene la singola istanza, la foglia. La profondità è ugualmente data dal logaritmo. Nel nostro caso specifico: log(n!) = log(n^n) = nlogn.
+	Un algoritmo che lavora al meglio partiziona l'insieme delle soluzioni e non ci devono essere soluzioni ripetute. Non può fare meglio di così, ammesso che esista.
+	Questo è il limite inferiore.
+	Se esiste, possiamo provare il limite superiore, se non esiste abbiamo almeno questo limite inferiore teorico.
+	
+	--- Algoritmi di ordinamento lineari
+	Se avessimo un'informazione in più per l'ordinamento che consente di riordinare saltando dei passaggi? A questo punto potremmo scendere ulteriormente in execTime.
+	Quindi sotto nlogn.
+	
+	Supponiamo di avere un array di int, tutti compresi fra 1 e k, dove k è arbitrario. Posso usare questa k per ordinare più velocemente.
+	Contando gli elementi è in grado di capire la posizione degli elementi.
+	
+	// Vuole ordinare gli elementi di A, compresi fra 1 e K, per poi metterli in B.
+	CountingSort(A, B, K)				// Array A, Array B, int K.
+	for (i<-1 to K) C[i] <- 0		// Questa riga ha complessità K
+	for (j<-1 to length[A])			// length[A] è la lunghezza di A.	Questo ciclo ha compl. n
+	C[A[j]]++					// L'indice è visto come l'elemento A[j], il quale è incrementato.
+	for (i<- 2 to K)				// Questo for ha compl. K
+	C[i] <- C[i] + C[i-1]		// Elementi con chiave minore di i
+	for (j <- length[A] down to 1)	// Scorri l'array alla rovescia fino al primo elemento (non è 0 qui, in pseudo è 1.)	Il for qui ha compl. n.
+	B[C[A[j]]] <- A[j]
+	C[A[j]]--					// Questa linea garantisce stabilità. Decrementa l'indice dei numeri contati, sicché si possano inserire alla posizione
+	// antecedente in B.
+	
+	La complessità dell'algoritmo è n+k.
+	
+	A = {3, 6, 4, 1, 3, 4, 1, 4}
+	B = {1, 1, 3, 3, 4, 4, 4, 6}		// Questa è la risposta
+	// C al secondo for
+	C = {0, 0, 0, 0, 0, 0} \implies {0, 0, 1, 0, 0, 0} \implies {0, 0, 1, 0, 0, 1} \implies 0 0 1 1 0 1 \implies 1 0 1 1 0 1 \implies 1 0 2 1 0 1 \implies ...
+	// C dice quindi per ogni indice dice quanti elementi ci sono con quel valore. Finalmente, \implies {2, 0, 2, 3, 0, 1}
+	
+	// C al terzo for
+	C = {2, 2, 4, 7, 7, 8}
+	
+	Potrebbe ordinare anche elementi da 1 a n, basta mettere k=n.
+	Essendo che puoi porre k=n, il tempo di esecuzione dipende da n. Se è n^2 è quadratico, per esempio.
+	Qui le costanti hanno un impatto rilevante. Con un k molto grande, tipo 2^{63}, è impraticabile, ma teoricamente cresce sempre linearmente.
+\end{comment}
 
 %
 
 \section{Radix Sort}
 
+
+
+
+
+\begin{comment}
+	--- RadixSort
+	
+	329, 457, 657, 839, 436, 720, 355.
+	
+	Ordina a partire dalla cifra meno significativa tramite counting sort. Otteniamo al primo ciclo:
+	720, 355, 436, 457, 657, 329, 839.
+	
+	Al secondo, numeri ordinati per le due cifre meno significative:
+	720, 329, 436, 839, 355, 457, 657.
+	
+	Al terzo, numeri ordinati per le tre cifre meno significative, quindi tutte.:
+	329, 355, 436, 457, 657, 720, 839.
+	
+	n numero di elementi
+	k la base
+	l il numero di cifre
+	
+	Complessità: l(n+k).
+\end{comment}
+
 %
 
 \section{Bucket Sort}
 
+
+
+
+
+\begin{comment}
+	--- BucketSort
+	Prendi lo spazio degli elelìmenti e dividilo in n bucket equiprobabili.
+	Assegna i vari oggetti al bucket rilevante. Poi ordina i bucket e concatena i risultati.
+	
+	Ci si aspetta che in media ci sia un elemento per bucket.
+	In tempo lineare ordina i bucket, poi concatenando hai finito.
+	
+	
+	
+	10-11-25 Algoritmi
+	
+	// Ordinamento lessicografico - ordina caratteri di stringhe
+	BucketSort, assegna ogni elemento dell'array al suo bucket, ordina i singoli buckets e hai l'array ordinato.
+	
+	Definizione formale
+	Suppongo VA X_{ij} = \begin{cases}
+		1 se A[i]\in Bucket_j\\
+		0 altrimenti
+	\end{cases}. Capiamo che la VA è di Bernoulli. Un valore ha probabilità 1/n di essere in un bucket, in quanto sono equiprobabili. Le variabili sono anche indipendenti fra di loro.
+	Quindi P[x_{ij}= 1] = 1/n = p.
+	
+	X_{j} = \sum_i X_{ij}.		// Conta il numero di elementi che finiscono nel bucket j, quindi quelli che valgono 1.
+	
+	La complssità è data quindi da \sum_j X_j^2		// La complessità è quindi data dalla somma dei bucket j che hanno valore 1, gli altri non sono toccati.
+	La complessità media è invece data dal valore atteso: \sum_j E[X_j^2]
+	
+	E[X_{ij}] = 1/n
+	Var[X_{ij}] = p*q \implies 1/n(1 - 1/n)
+	E[X_j] = \sum_i E[X_{ij}] = n(1/n) = 1		// Mediamente in ogni bucket m'aspetto un elemento.
+	Var[X_j] = \sum_i Var[X_{ij}] = n(1/n)(1 - 1/n) = 1 - 1/n
+	E[X_j^2] = Var[X_j] + E^2[X_j] = 1 - 1/n + 1^2 = 2 - 1/n
+	
+	Dunque: \sum_j E[X_j^2] \implies n(2 - 1/n) = 2n - 1
+	
+	r = \sqrt(x^2 + y^2)
+	\theta = arctan(y/x)
+	
+	Elementi distribuiti uniformemente in un cerchio di raggio r. Ordinare gli elementi in fase da 0 a 2\pi.
+	Bucket = 2\pi / n oppure raguionando per angoli abbiamo \alpha_i = i * 2\pi/n
+	
+	E se volessi ordinare gli elementi per modulo crescente?
+	|r| = r*\sqrt(i/n)
+\end{comment}
+
 %
 
 \section{Problema della selezione}
+
+
+
+
+
+\begin{comment}
+	--- Problema della selezione
+	Dato un array di oggetti sulla quale è definita una relazione di ordinamento. Trovare il valore in posizione i.
+	
+	Interfaccia data da Select(A,i)
+	Meno di n-1 confronti non posso farne; ma in tal caso, se voglio un max o un min, avremo verosimilmente due valori vincitori.
+	\Omega(n)
+	
+	// Tip: divisione in tre parti dell'array, a mò di quickSort
+	
+	
+	
+	
+	
+	11-11-25 - Algoritmi
+	
+	Per trovare min e max, la complesità è 2n-2, perché esegui due volte uno stesso algoritmo di complessità n-1.
+	
+	-- Ricerca contemporanea di minimo e massimo
+	Dato un array, ogni elemento potrebbe essere potenziale min e potenziale Max, li segnamo rispettivamente come m e M.
+	Confrontando elementi possiamo escludere determinati elementi dalla loro potenzialità.
+	
+	Prendiamo la somma m+M, la quale deve essere uguale a 2 quando la ricerca è conclusa. Questo perché m ed M rappresentano ogni elemento dell'array che è potenzialmente min o max.
+	Con i confronti è probabile che:
+	- Il valore non diminuisca (Confronto inutile)
+	- Il valore diminuisca di 1 (Un valore perde la potenzialità in ambito di due confronti)
+	- Il valore diminuisca di 2 (Due valori perdono la potenzialità in ambito di due confronti)
+	
+	Generalmente, al'inizio: m+M = 2n.
+	Dopo x volte: m+M = 2n-2x
+	
+	Per n pari abbiamo che:
+	Per n/2 volte, calo di 2.
+	Per n-2 volte, calo di 1.
+	Tot: 3/2 n-2 e sotto questo numero di confronti non si può andare.
+	
+	Osservazione:
+	Dato una rray di lunghezza n, confronto ogni elemento a coppie di 2 a 2, per poi spostare in due gruppi rispettivamente i min e i max.
+	Poi si cerca il minimo in min ed il massimo in max.
+	Il problema è quando c'è un array dispari, una coppia sarà monca.
+	
+	-- Algoritmi per la ricerca del minimo
+	Possibilmente con una complessità minore di nlogn. Possiamo usarne uno casuale.
+	Supponiamo un array diviso in due parti [p-q], [q-r] t.c. gli alementi a sinistra siano <=, mentre a destra siano >=. Vogliamo l'indice i.
+	
+	Nel caso fortunato di un array diviso a metà avremo: T(n) = n + T(n/2). Per il teorema dell'esperto abbiamo che la parte nota vince sull'argomento, dunque la complessità è \Theta(n).
+	Questo è tuttavia un caso fortunato. L'array non necessariamente è diviso a metà.
+	Se tuttavia prendo a caso un elemento perno, verosimilmente, in media, avrò complessità lineare. E' una logica simile a randomized quicksort.
+	
+	RandSelect(A, p, r, i) {
+		if (p = r) return A[p];
+		
+		q <- RandPartition(A, p, r);				// Divido l'array in due parti con un perno casuale.
+		k <- q-p+1									// Quanti elementi stanno a sinistra del perno? (Quindi anche quanti stanno a dx)
+		
+		if (i <= k) return RandSelect(A,p,q,i);		// Seleziona l'iesimo elemento nell'array
+		else return RandSelect(A, q+1, r, i-k);		// Seleziona dalla parte [q+1, r] e cerca l'indice i-k perché così non sballa gli indici del sub-array.
+	}
+	
+	Complessità: T(n) = n + 1/n max(T(1), T(n-1)) + \sum_{i=1}^{n-1} max(T(i), T(n-i))
+	
+	Esiste anche un algoritmo deterministico per risolvre il problema delle selezioni in tempo lineare.
+	Problema è che dipende molto dalle costanti, a tal punto che a grandi numero va meglio nlogn. Quindi non si può ragionare in termini di analisi asintotica.
+	
+	L'idea è pensare di scegliere il perno in maniera più intelligente, con lo scopo di stare in una zona proporzionale.
+	Select del mediano non sarebbe male come idea, preferibilmente su un insieme più piccolo
+	
+	1: Dividi A in n/5 (approx per difetto) gruppi di 5 elementi più il gruppo con gli ultimi che restano.
+	Compl: 0
+	2: Calcolo il mediano di ogni singolo gruppo
+	Compl: 5n
+	3: Sia x il mediano dei mediani, calcolato ricorsivamente con select();
+	Compl: T(n/5), con n/5 approx per eccesso. Eccesso a causa del gruppo con gli ultimi elementi restanti.
+	4: Partiziona su x. Sia k il numero di elementi a sinistra. Quindi x è il perno usato.
+	Compl: n
+	5: Scelgo la parte interessata.
+	if (i<=k) select(left, i)
+	else select(right, i-k)
+	Compl: T(dimensione più grande) [*qui]
+	
+	Complessità: \Theta(n) + T(n/5) + T(7/10n + 6)
+	
+	5 elementi perché così il mediano è ben definito, ed è anche un numero sufficientemente basso per avere complessità lineare. Un compromesso.
+	
+	Per esempio, con un array ottenuto dall'elaborazione dei mediani, ottengo che ha lunghezza 9. Se prendo la parte più grande, avrò 4 mediani maggiori del perno.
+	Uno di questi mediani è in un insieme con possibilmente non 5 elementi. La cosa si mostra con:
+	
+	3 (\frac{n/5}{2} - 1 - 1) \\geq 3/10 n - 6		// Limite inferiore al numero di elementi che stanno a dx. Puoi farlo anche per la sx.
+	
+	Tutti gli elementi a destra meno uno esprimeranno 3 valori maggiori del mediano.
+	
+	n - (3/10 n -6) = 7/10n + 6. Questa formula è l'argomento da sostituire a "dimensione più grande"[*]
+	
+	L'equazione di ricorrenza \Theta(n) + T(n/5) + T(7/10n + 6) è sotto c(n). Usiamo la sostituzione
+	
+	T(n) \leq c'n + c(n/5) + c(7/10n + 6)		// Sostituzione applicabile solo se 7/10n + 6 è più piccolo di n.
+	\leq c'n + c(n/5 + 1 + 7/10n + 6)
+	= c'n + 7c + c9/10n					// Al prox passaggio procedo a tenere la mia ipotesi MENO all'espressione rimanente
+	\leq cn - (1/10cn - c'n -7c)		// Serve (1/10cn - c'n -7c) \geq 0 per avere questo valore \leq cn.
+\end{comment}

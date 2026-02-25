@@ -284,53 +284,57 @@ Avendo la probabilità $1/n$ di pescare un valore perno, possiamo definire la ri
 
 %
 
-\section{Counting Sort}
-
-
-
-
-
-\begin{comment}
-	Possiamo vedere un algoritmo che lavora per confronti come un albero di decisione, che ha radice come il totale delle sue permutazioni [n!] e termina quando si 
-	ottiene la singola istanza, la foglia. La profondità è ugualmente data dal logaritmo. Nel nostro caso specifico: log(n!) = log(n^n) = nlogn.
-	Un algoritmo che lavora al meglio partiziona l'insieme delle soluzioni e non ci devono essere soluzioni ripetute. Non può fare meglio di così, ammesso che esista.
-	Questo è il limite inferiore.
-	Se esiste, possiamo provare il limite superiore, se non esiste abbiamo almeno questo limite inferiore teorico.
-	
-	--- Algoritmi di ordinamento lineari
-	Se avessimo un'informazione in più per l'ordinamento che consente di riordinare saltando dei passaggi? A questo punto potremmo scendere ulteriormente in execTime.
-	Quindi sotto nlogn.
-	
-	Supponiamo di avere un array di int, tutti compresi fra 1 e k, dove k è arbitrario. Posso usare questa k per ordinare più velocemente.
-	Contando gli elementi è in grado di capire la posizione degli elementi.
-	
-	// Vuole ordinare gli elementi di A, compresi fra 1 e K, per poi metterli in B.
-	CountingSort(A, B, K)				// Array A, Array B, int K.
-	for (i<-1 to K) C[i] <- 0		// Questa riga ha complessità K
-	for (j<-1 to length[A])			// length[A] è la lunghezza di A.	Questo ciclo ha compl. n
-	C[A[j]]++					// L'indice è visto come l'elemento A[j], il quale è incrementato.
-	for (i<- 2 to K)				// Questo for ha compl. K
-	C[i] <- C[i] + C[i-1]		// Elementi con chiave minore di i
-	for (j <- length[A] down to 1)	// Scorri l'array alla rovescia fino al primo elemento (non è 0 qui, in pseudo è 1.)	Il for qui ha compl. n.
-	B[C[A[j]]] <- A[j]
-	C[A[j]]--					// Questa linea garantisce stabilità. Decrementa l'indice dei numeri contati, sicché si possano inserire alla posizione
-	// antecedente in B.
-	
-	La complessità dell'algoritmo è n+k.
-	
-	A = {3, 6, 4, 1, 3, 4, 1, 4}
-	B = {1, 1, 3, 3, 4, 4, 4, 6}		// Questa è la risposta
-	// C al secondo for
-	C = {0, 0, 0, 0, 0, 0} \implies {0, 0, 1, 0, 0, 0} \implies {0, 0, 1, 0, 0, 1} \implies 0 0 1 1 0 1 \implies 1 0 1 1 0 1 \implies 1 0 2 1 0 1 \implies ...
-	// C dice quindi per ogni indice dice quanti elementi ci sono con quel valore. Finalmente, \implies {2, 0, 2, 3, 0, 1}
-	
-	// C al terzo for
-	C = {2, 2, 4, 7, 7, 8}
-	
-	Potrebbe ordinare anche elementi da 1 a n, basta mettere k=n.
-	Essendo che puoi porre k=n, il tempo di esecuzione dipende da n. Se è n^2 è quadratico, per esempio.
-	Qui le costanti hanno un impatto rilevante. Con un k molto grande, tipo 2^{63}, è impraticabile, ma teoricamente cresce sempre linearmente.
-\end{comment}
+\section{Algoritmi di ordinamento lineari e Counting Sort}
+Finora sono stati trattati algoritmi di \textbf{ordinamento per confronti}, ovvero che operano secondo una logica esplicabile tramite un albero decisionale, ovvero un albero binario completo, dove i nodi interni sono visti come confronti e le foglie, in totale $n!$, come determinate permutazioni dell'input. Questo perché l'albero di altezza $h$ ha al massimo $2^h$ foglie, dunque vale $2^h \geq n!$.\par
+Essendo tuttavia l'altezza logaritmica, possiamo porre la seguente disuguaglianza, dimostrando il limite inferiore per questo tipo di algoritmo grazie alle proprietà dei logaritmi: \begin{equation}
+	\begin{split}
+		h &\geq log(n!)\\
+			&\geq log(n^n)\\
+			&\geq nlog(n)
+	\end{split}
+\end{equation}
+\noindent Quindi mergeSort() e heapSort() sono algoritmi di ordinamento per confronti asintoticamente ottimali. In queste condizioni. Perché è possibile raggiungere tempi ulteriormente inferiori aggiungendo delle informazioni di base prima di attuare la procedura.\par
+Per esempio, supponiamo di avere un array di numeri interi la cui lunghezza $k$ è arbitraria e conosciuta; possiamo contare gli elementi per ricavarne la loro posizione corretta. Questa è la logica dietro a \textbf{countingSort()}.
+\begin{itemize}
+	\item \textbf{Caso pessimo}: $\Theta(max(n,k))$
+	\item \textbf{Caso ottimo}: $\Theta(max(n,k))$
+	\item \textbf{Caso medio}: $\Theta(max(n,k))$
+	\item \textbf{Ordinamento in loco}: No, ritorna un array supplementare
+	\item \textbf{Stabilità}: Sì
+\end{itemize}
+\begin{algorithm}[H]
+	\caption{countingSort(A, n, k)}
+	\begin{algorithmic}[i]
+		\Require $A$: Array, $n$: Dimensione A, $k$ valore numero massimo
+		\For{$i\gets 0 \textbf{ to } k$} 
+		\State $C[i]\gets 0$ \Comment{Inizializza array C}\EndFor
+		\State
+		\For{$j\gets 1 \textbf{ to } n$} \Comment{Così $C[i]$ ha numero di elementi uguali ad i}
+		\State $C[A[j]]\gets C[A[j]]+1$\EndFor
+		\For{$i\gets 1 \textbf{ to } k$} \Comment{Così $C[i]$ ha numero di elementi minori o uguali ad i}
+		\State $C[i]\gets C[i] + C[i-1]$\EndFor
+		\State
+		\For{$j\gets n \textbf{ down to } 1$} \Comment{Copia A in B partendo dal fondo di A}
+		\State $B[C[A[j]]]\gets A[j]$
+		\State $C[A[j]]\gets C[A[j]]-1$ \Comment{Garanzia di stabilità, inserisce il numero in currPos-1}
+		\EndFor
+		\State $\textbf{return } B$
+	\end{algorithmic}
+\end{algorithm}
+\noindent Non è il più amichevole degli algoritmi sintatticamente parlando, quindi aggiungo anche un esempio intuitivo. Supponiamo di avere un array $A$ da ordinare e un array $B$, ritornato dalla procedura. Naturalmente, avremo che \[A = \{3, 6, 4, 1, 3, 4, 1, 4\},\quad B = \{1, 1, 3, 3, 4, 4, 4, 6\}\]
+\noindent Come prima operazione si inizializza l'array di supporto $C$, il quale avrà dimensione uguale al valore massimo presente in $A$: \[C = \{0, 0, 0, 0, 0, 0\}\]
+\noindent Dopodiché, si conteranno le occorrenze dei valori di $A$, incrementando il relativo totale di occorrenze salvato nell'indice corrispondente al loro valore. Per esempio, se si legge il valore $n=1$, incrementeremo il totale di $C[1]$, o meglio $C[n]$, ottenendo, a fine del secondo for: \[C = \{2, 0, 2, 3, 0, 1\}\]
+\noindent Al terzo ciclo for calcoliamo quanti elementi sono minori o uguali dell'indice corrente, sommando il valore dell'indice attuale con quello precedente. Otteniamo, dunque: \begin{equation}
+	\begin{split}
+		C[2] = C[2]+C[1] = 2+0 &\implies C = \{2, 2, 2, 3, 0, 1\}\\
+		C[3] = C[3]+C[2] = 2+2 &\implies C = \{2, 2, 4, 3, 0, 1\}\\
+		C[4] = C[4]+C[3] = 3+4 &\implies C = \{2, 2, 4, 7, 0, 1\}\\
+		C[5] = C[5]+C[4] = 0+7 &\implies C = \{2, 2, 4, 7, 7, 1\}\\
+		C[6] = C[6]+C[5] = 1+7 &\implies C = \{2, 2, 4, 7, 7, 8\}
+	\end{split}
+\end{equation}
+\noindent Infine si andrà a copiare l'array $A$ in $B$, sfruttando gli indici per $C$ dati dai valori di $A$, ottenendo, finalmente: \[B = \{1, 1, 3, 3, 4, 4, 4, 6\}\]
+\noindent Un dettaglio sottile a cui fare attenzione è che, essendo la dimensione di $C$ dipendente dal valore massimo contenuto in $A$, sarebbe possibile incappare in un'istanza con un valore particolarmente grande. In questo caso, essendo l'algoritmo in ordine di grandezza lineare, eseguirà tante operazioni quante questo valore, rendendolo estremamente inefficiente e quindi impraticabile.
 
 %
 

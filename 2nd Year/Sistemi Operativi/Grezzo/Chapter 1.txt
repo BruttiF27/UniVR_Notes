@@ -1,0 +1,79 @@
+Warning: Appunti presi dalle slide dell'AA 2024-2025
+
+---
+
+Algoritmi sequenziali: Insieme finito di istruzioni per le quali esiste una macchina capace di interpretare ed eseguire le suddette istruzioni, tale che:
+	- La macchina ha a disposizione una memoria illimitata per i risultati intermedi
+	- In un tempo finito, la macchina può effettuare al più un numero finito di passi di calcolo, quindi calcola in modo discreto.
+	- Il calcolo della macchina è deterministico
+	- La dimensione dei dati manipolabili dalla macchina è finita ma non limitata.
+	
+Gli algoritmi sono scritti in linguaggi di programmazione, ai quali è associata una macchina astratta in grado di eseguire i programmi. Questa si compone di:
+	- Memoria: Insieme infinito di celle per memorizzazione dati, tali che:
+		- Ogni cella ha un indirizzo
+		- L'associazione celle/indirizzi è biunivoca
+		- Ogni cella ha un valore memorizzato, ed ogni possibile associazione celle-valori memorizzati fornisce una configurazione particolare della memoria.
+	- Ambiente: Associazione fra un insieme finito di nomi, detti identificatori o variabili, e indirizzi di celle.
+	- Interprete: Decodifica e valuta istruzioni dei programmi, con lo scopo di eseguirli. Esegue il relativo ciclo:
+		1 Acquisizione prima istruzione
+		2 Decodifica istruzione
+		3 Acquisizione dati pertinenti all'istruzione
+		4 Esecuzione istruzione
+		5 Se è l'ultima istruzione stop, altrimenti prende la prossima e ritorna al punto 2.
+		
+Chiamiamo sistema operativo lo strato di software che gestisce le risorse di un elaboratore per i suoi utenti e applicativi. Si tratta quindi di un intermediario fra l'utente e l'hardware con lo scopo di eseguire i programmi e risolvere problemi in modo conveniente per l'utente ed efficiente in termini di uso delle risorse. È una delle quattro componenti che compongono la struttura degli elaboratori moderni, insieme all'hardware, gli applicativi e gli utenti.
+
+* Inserisci immagine 1
+
+Una parte importante del sistema operativo è il \textbf{kernel}, un applicativo la cui esecuzione in background è costantemente attiva per consentire il funzionamento dei processi. Qualunque altro programma è detto invece di \textbf{sistema}, se riguarda funzioni di base, oppure \textbf{programma applicativo}. Di questi tempi i sistemi operativi sono studiati per essere general purpose e molti aggiungono uno strato di framework detto \textbf{middleware}, che fornisce servizi aggiuntivi, per esempio come una basi di dati, programmi per le grafiche, etc.
+
+* Inserisci immagine 2
+
+Sebbene i vari sistemi operativi possano presentare alcune differenze, condividono tutti lo stesso scheletro esecutivo. Conseguente all'accensione di un elaboratore, per avviare l'OS, è necessaria la presenza di un programma iniziale detto \textbf{bootstrap}, il quale, salvato nel firmware della macchina, inizializza i componenti del sistema e ricerca nella memoria il kernel per poterlo caricare.\par
+Una volta caricato, quest'ultimo può fornire servizi al sistema e agli utenti. Quando questi sono forniti da programmi di sistema esterni al kernel, rimangono in esecuzione per tutto il tempo in cui quest'ultimo è attivo, in alternativa stiamo parlando di \textbf{startup applications}.\par
+Terminata questa fase il sistema risulta completamente inizializzato e rimane in attesa del verificarsi di un evento, quasi sempre segnalato da \textbf{interrupt} o eccezioni.\newline
+
+\noindent Fra le principali caratteristiche dei sistemi operativi moderni vi è inoltre la \textbf{multiprogrammazione}. Un singolo programma non può sempre occupare la CPU o le periferiche di input/output, per questa ragione si cerca di aumentare la percentuale di utilizzo della CPU, organizzando i processi in tal modo che rimanga in continua attività.\par 
+Fondamentalmente il sistema operativo salva temporaneamente in memoria centrale alcuni programmi, in questo caso detti \textbf{processi}, ne sceglie uno e lo esegue. Nel caso in cui si abbia l'attesa di un evento, la CPU passa ad un altro processo e lo esegue. Abbiamo quindi un costante switch di compiti per evitare che la CPU resti inattiva.
+
+* Inserisci immagine 3 come minipage su lato destro della pagina
+
+L'estensione logica della multiprogrammazione è il \textbf{multitasking}, ovvero un cambio processi ad una frequenza tale da dare l'impressione che siano eseguiti allo stesso tempo. La scelta del processo da eseguire è data dallo \textbf{scheduling della CPU} e la garanzia dei tempi di risposta accettabili è data dal meccanismo della \textbf{memoria virtuale}, che consente, tra l'altro, anche di eseguire processi non completamente salvati in memoria fisica.\par
+Essendo che le risorse hardware sono condivise, è necessario che il sistema operativo assicuri la corretta gestione di eventuali malfunzionamenti di programmi o del sistema stesso; a questo scopo bisogna distinguere fra l'esecuzione del codice di sistema (\textbf{modalità kernel}) e di quello dell'utente (\textbf{modalità utente}). La soluzione adottata dalla maggioranza dei sistemi è quella di fornire un supporto hardware per differenziare le modalità di esecuzione tramite un singolo bit, detto \textbf{bit di modalità}. Se è posto a $0$, siamo in modalità di sistema, altrimenti è il turno dell'utente.\par
+Questa gestione delle risorse si chiama \textbf{duplice modalità di funzionamento} e presenta un livello di protezione da azioni in malafede o errori degli utenti, ottenuto con la definizione di \textbf{istruzioni privilegiate}, direttive eseguibili esclusivamente in modalità kernel. Sebbene siano limitate solo al sistema operativo, l'utente può richiedergli di eseguirle tramite le \textbf{system calls}; il sistema tratterà l'evento come interrupt e, trovata l'istruzione nel vettore apposito e dopo aver messo il bit di modalità a $0$, la fa eseguire dalla CPU. Al termine, la palla torna nel campo dell'utente ed il bit sarà uguale ad $1$.\par
+Nel caso in cui siano letti parametri sbagliati o simile, l'hardware genererà un'eccezione, la quale cederà il controllo al sistema operativo per la relativa gestione e termine del programma in maniera anomala. Di norma il contenuto della memoria è pure rilasciato in un file testuale detto \textbf{memory dump}, sicché l'utente possa visionarlo e correggere il problema in vista di un nuovo utilizzo.\par
+Un altro strato di sicurezza è dato dai \textbf{timer}; sono dei contatori, i quali, raggiunto lo zero, generano un'eccezione. Il loro scopo è la gestione dei casi di cicli infiniti nei programmi utente oppure più in generale di eludere situazioni dove il controllo al sistema operativo non verrebbe più restituito.
+
+Per svolgere i propri compiti, un processo richiede alcune risorse, come memoria, file o tempo di CPU. Queste risorse possono essere assegnate alla sua creazione come anche in corso d'opera, e, naturalmente, al termine dell'esecuzione il sistema operativo riprende il controllo delle risorse. In particolare diciamo che i programmi sono entità passive, mentre i processi sono attivi; questi ultimi si dividono a loro volta in: \begin{itemize}
+	\item Processi a singolo thread: Hanno un solo program counter che punta all'istruzione successiva.
+	\item Processi multi thread: Hanno più program counter, i quali puntano all'istruzione successiva per quanto riguarda il rispettivo filo di esecuzione.
+\end{itemize}
+\noindent Tipicamente i sistemi attuano più processi allo concorrentemente; ciò si è ottenuto attraverso un circuito di multiplexing fra i vari fili e processi. Per quanto riguarda la gestione dei processi, i sistemi operativi sono responsabili della creazione/cancellazione dei processi utenti e di sistema, schedulazione di processi e thread sulle CPU, sospensione e ripristino dei processi, ed infine della fornitura di meccanismi per la loro sincronizzazione e comunicazione.
+
+Per eseguire un programma è necessario che almeno una parte delle sue istruzioni sia scritta nella memoria, come anche per i relativi dati. Durante la sua esecuzione, si accede ai dati ivi caricati, generando gli indirizzi assoluti. Terminato il programma, lo spazio che ha usato diventa disponibile per il successivo. Per quanto riguarda la gestione della memoria, il sistema operativo è responsabile di: \begin{itemize}
+	\item Tenere traccia di quali zone di memoria sono usate e da chi.
+	\item Assegnare e revocare lo spazio di memoria in base alle necessità.
+	\item Decidere quali processi e dati debbano essere caricati in memoria centrale o trasferiti in quella di massa.
+\end{itemize}
+
+Il sistema operativo fornisce un'interfaccia logica uniforme per la memorizzazione delle informazioni, detta \textbf{file}. Si tratta di un'unità di archiviazione associata a dispositivi fisici, ognuno con velocità, capacità, rapidità di trasferimento dati e metodi d'accesso specifici.\par
+I file sono quindi una raccolta di informazioni e possono prendere una forma libera, come i file testuali, oppure un determinato formato, come gli mp3. Sono generalmente organizzati in directories ed è anche possibile definire chi può accedervi e con quale modalità. Per quanto riguarda la gestione dei file, il sistema operativo è responsabile di: \begin{itemize}
+	\item Creazione e cancellazione di file e directory
+	\item Fornitura delle funzioni fondamentali per la gestione di file e directory
+	\item Associazione dei file ai dispositivi di memoria secondaria
+	\item Creazione di backup dei file su dispositivi di memorizzazione non volatili.
+\end{itemize}
+
+Essendo che i programmi si servono dei dischi rigidi come sorgente e destinazione per le elaborazioni dei dati, quindi è di fondamentale importanza che sia gestita correttamente e in modo efficiente. Per la memoria di massa, il sistema operativo gestisce: \begin{itemize}
+	\item Montare e smontare (mounting, unmounting) le unità di memoria
+	\item Assegnazione dello spazio e gestione dello spazio libero.
+	\item Scheduling del disco.
+	\item Partizionamento
+	\item Protezione
+\end{itemize}
+
+Come già detto, più utenti possono usare uno stesso calcolatore ed è quindi necessario gestire l'accesso ai dati mediante apposite regole. Ciò avviene con la \textbf{protezione}, i meccanismi di controllo dell'accesso alle risorse del PC da parte di processi o utenti. Ci sono varie strategie per attuarla, ma tutte devono fornire le specifiche dei controlli e gli strumenti utilizzati.\par
+Altro concetto molto importante, a causa del costante incremento di attacchi informatici, è la \textbf{sicurezza}: la difesa del sistema da attacchi volti al sistema operativo.\par
+Protezione e sicurezza presuppongono che si riesca a distinguere i propri utenti da quelli non autorizzati; generalmente ciò avviene grazie agli identificatori utente, che garantiscono loro unicità. Quando un utente si collega al sistema, la fase di autenticazione determina l'ID corretto. Questo concetto è applicabile anche ad un gruppo. Infine, se richiesto, è possibile cambiare l'ID effettivo tramite un comando, con lo scopo di ottenere privilegi.
+
+Come ultimo concetto presentiamo la \textbf{virtualizzazione}, una tecnica che permette di astrarre l'hardware di un singolo computer, quindi tutte le sue componenti, in diversi ambienti di esecuzione, creando l'illusione di avere più sistemi operativi attivi allo stesso momento, i quali sono capaci di interagire l'uno con l'altro. Otteniamo questa dinamica con le \textbf{macchine virtuali}, che consentono agli utenti di cambiare agevolmente il sistema operativo del quale ha necessità. Ciò introduce il concetto di \textbf{emulazione}, ovvero la simulazione di un hardware tramite il software; tecnica usata spesso quando il tipo di CPU della macchina è diverso da quello desiderato.

@@ -25,9 +25,9 @@ English translation? Why would you ever consider that?
   - Algoritmi: Attualmente in lavorazione.
   - Ingegneria del software: Attualmente in lavorazione.
   - Reti di calcolatori: Attualmente in lavorazione.
+  - Sistemi operativi: Attualmente in lavorazione. Mi fa molto male.
   - Analisi matematica 2: Ha contenuto, ma è da rivedere.
   - Fisica 2: Ci rivediamo dopo settembre 2026.
-  - Sistemi operativi: Devo seguirne il corso. L'hanno martoriato.
 - Terzo anno:
   - Basi di dati: Non credo sia il momento di considerarla vista la vastità.
   - Elaborazione di segnali e immagini: Ci vediamo entro settembre 2026.

@@ -13,30 +13,30 @@
 \contentsline {section}{\numberline {2.5}Quick Sort classico e probabilistico}{20}{}%
 \contentsline {section}{\numberline {2.6}Algoritmi di ordinamento lineari e Counting Sort}{23}{}%
 \contentsline {section}{\numberline {2.7}Radix Sort}{25}{}%
-\contentsline {section}{\numberline {2.8}Bucket Sort}{25}{}%
-\contentsline {section}{\numberline {2.9}Problema della selezione}{25}{}%
-\contentsline {chapter}{\numberline {3}Strutture dati}{26}{}%
-\contentsline {section}{\numberline {3.1}Pile}{26}{}%
-\contentsline {section}{\numberline {3.2}Alberi binari}{26}{}%
-\contentsline {subsection}{\numberline {3.2.1}RB-alberi}{26}{}%
-\contentsline {subsection}{\numberline {3.2.2}B-alberi binomiali}{26}{}%
-\contentsline {section}{\numberline {3.3}Tabelle hash}{26}{}%
-\contentsline {section}{\numberline {3.4}Code con priorità}{26}{}%
-\contentsline {section}{\numberline {3.5}Insiemi disgiunti}{26}{}%
-\contentsline {section}{\numberline {3.6}Estensione di strutture dati}{26}{}%
-\contentsline {section}{\numberline {3.7}Grafi}{26}{}%
-\contentsline {chapter}{\numberline {4}Progetto e analisi di algoritmi}{27}{}%
-\contentsline {section}{\numberline {4.1}Divide et impera}{27}{}%
-\contentsline {section}{\numberline {4.2}Programmazione greedy}{27}{}%
-\contentsline {section}{\numberline {4.3}Programmazione dinamica}{27}{}%
-\contentsline {section}{\numberline {4.4}Ricerca locale}{27}{}%
-\contentsline {section}{\numberline {4.5}Backtracking}{27}{}%
-\contentsline {section}{\numberline {4.6}Branch and bound}{27}{}%
-\contentsline {chapter}{\numberline {5}Algoritmi fondamentali}{28}{}%
-\contentsline {section}{\numberline {5.1}Alberi di copertura di costo minimo}{28}{}%
-\contentsline {section}{\numberline {5.2}Programmazione lineare}{28}{}%
-\contentsline {section}{\numberline {5.3}Cammini minimi}{28}{}%
-\contentsline {subsection}{\numberline {5.3.1}Sorgente singola}{28}{}%
-\contentsline {subsection}{\numberline {5.3.2}Sorgente multipla}{28}{}%
-\contentsline {section}{\numberline {5.4}Flusso massimo}{28}{}%
-\contentsline {section}{\numberline {5.5}Matching massimale su grafo bipartito}{28}{}%
+\contentsline {section}{\numberline {2.8}Bucket Sort}{26}{}%
+\contentsline {section}{\numberline {2.9}Problema della selezione}{27}{}%
+\contentsline {chapter}{\numberline {3}Strutture dati}{30}{}%
+\contentsline {section}{\numberline {3.1}Pile}{30}{}%
+\contentsline {section}{\numberline {3.2}Alberi binari}{30}{}%
+\contentsline {subsection}{\numberline {3.2.1}RB-alberi}{30}{}%
+\contentsline {subsection}{\numberline {3.2.2}B-alberi binomiali}{30}{}%
+\contentsline {section}{\numberline {3.3}Tabelle hash}{30}{}%
+\contentsline {section}{\numberline {3.4}Code con priorità}{30}{}%
+\contentsline {section}{\numberline {3.5}Insiemi disgiunti}{30}{}%
+\contentsline {section}{\numberline {3.6}Estensione di strutture dati}{30}{}%
+\contentsline {section}{\numberline {3.7}Grafi}{30}{}%
+\contentsline {chapter}{\numberline {4}Progetto e analisi di algoritmi}{31}{}%
+\contentsline {section}{\numberline {4.1}Divide et impera}{31}{}%
+\contentsline {section}{\numberline {4.2}Programmazione greedy}{31}{}%
+\contentsline {section}{\numberline {4.3}Programmazione dinamica}{31}{}%
+\contentsline {section}{\numberline {4.4}Ricerca locale}{31}{}%
+\contentsline {section}{\numberline {4.5}Backtracking}{31}{}%
+\contentsline {section}{\numberline {4.6}Branch and bound}{31}{}%
+\contentsline {chapter}{\numberline {5}Algoritmi fondamentali}{32}{}%
+\contentsline {section}{\numberline {5.1}Alberi di copertura di costo minimo}{32}{}%
+\contentsline {section}{\numberline {5.2}Programmazione lineare}{32}{}%
+\contentsline {section}{\numberline {5.3}Cammini minimi}{32}{}%
+\contentsline {subsection}{\numberline {5.3.1}Sorgente singola}{32}{}%
+\contentsline {subsection}{\numberline {5.3.2}Sorgente multipla}{32}{}%
+\contentsline {section}{\numberline {5.4}Flusso massimo}{32}{}%
+\contentsline {section}{\numberline {5.5}Matching massimale su grafo bipartito}{32}{}%

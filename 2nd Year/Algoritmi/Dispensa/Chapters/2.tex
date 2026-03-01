@@ -339,166 +339,131 @@ Per esempio, supponiamo di avere un array di numeri interi la cui lunghezza $k$ 
 %
 
 \section{Radix Sort}
-
-
-
-
-
-\begin{comment}
-	--- RadixSort
-	
-	329, 457, 657, 839, 436, 720, 355.
-	
-	Ordina a partire dalla cifra meno significativa tramite counting sort. Otteniamo al primo ciclo:
-	720, 355, 436, 457, 657, 329, 839.
-	
-	Al secondo, numeri ordinati per le due cifre meno significative:
-	720, 329, 436, 839, 355, 457, 657.
-	
-	Al terzo, numeri ordinati per le tre cifre meno significative, quindi tutte.:
-	329, 355, 436, 457, 657, 720, 839.
-	
-	n numero di elementi
-	k la base
-	l il numero di cifre
-	
-	Complessità: l(n+k).
-\end{comment}
+\textbf{RadixSort()} è un algoritmo di ordinamento usato spesso per gli ordinamenti di record con più campi chiave, come per esempio delle date. Intuitivamente, dato un array di numeri interi, ordina iterativamente l'intero vettore a partire dalla cifra meno significativa; ad ogni elaborazione dell'intero array si passa alla cifra precedente finché l'algoritmo non è ultimato. \begin{itemize}
+	\item \textbf{Caso pessimo}: $\Theta(d(n+k))$, con $d$ totale delle cifre e $k$ la base del numero.
+	\item \textbf{Caso ottimo}: $\Theta(d(n+k))$
+	\item \textbf{Caso medio}: $\Theta(d(n+k))$
+	\item \textbf{Ordinamento in loco}: Dipende dall'ordinamento usato.
+	\item \textbf{Stabilità}: Sì, se l'algoritmo interno è stabile.
+\end{itemize}
+\begin{algorithm}[h]
+	\caption{radixSort(A, n, d)}
+	\begin{algorithmic}[i]
+		\Require $A$: Array, $n$: Lunghezza array, $d$: Numero di cifre degli elementi
+		\For{$i = 1 \textbf{ to } d$}
+		\State Qualunque ordinamento stabile per ordinare $A[1:n]$
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+\noindent Dove è possibile scegliere l'algoritmo di ordinamento all'interno del ciclo for, generalmente è utilizzato countingSort(), poiché consente di rendere il processo più efficiente rispetto ad altri. Per visualizzarne il funzionamento, segue esempio: \begin{enumerate}
+	\item \textbf{Stato iniziale dell'array}: $[329, 457, 657, 839, 436, 720, 355]$
+	\item \textbf{Risultato della prima iterazione}: $[720, 355, 436, 457, 657, 329, 839]$
+	\item \textbf{Risultato della seconda iterazione}: $[720, 329, 436, 839, 355, 457, 657]$
+	\item \textbf{Risultato dell'ultima iterazione}: $[329, 355, 436, 457, 657, 720, 839]$
+\end{enumerate}
 
 %
 
 \section{Bucket Sort}
-
-
-
-
-
-\begin{comment}
-	--- BucketSort
-	Prendi lo spazio degli elelìmenti e dividilo in n bucket equiprobabili.
-	Assegna i vari oggetti al bucket rilevante. Poi ordina i bucket e concatena i risultati.
-	
-	Ci si aspetta che in media ci sia un elemento per bucket.
-	In tempo lineare ordina i bucket, poi concatenando hai finito.
-	
-	
-	
-	10-11-25 Algoritmi
-	
-	// Ordinamento lessicografico - ordina caratteri di stringhe
-	BucketSort, assegna ogni elemento dell'array al suo bucket, ordina i singoli buckets e hai l'array ordinato.
-	
-	Definizione formale
-	Suppongo VA X_{ij} = \begin{cases}
-		1 se A[i]\in Bucket_j\\
-		0 altrimenti
-	\end{cases}. Capiamo che la VA è di Bernoulli. Un valore ha probabilità 1/n di essere in un bucket, in quanto sono equiprobabili. Le variabili sono anche indipendenti fra di loro.
-	Quindi P[x_{ij}= 1] = 1/n = p.
-	
-	X_{j} = \sum_i X_{ij}.		// Conta il numero di elementi che finiscono nel bucket j, quindi quelli che valgono 1.
-	
-	La complssità è data quindi da \sum_j X_j^2		// La complessità è quindi data dalla somma dei bucket j che hanno valore 1, gli altri non sono toccati.
-	La complessità media è invece data dal valore atteso: \sum_j E[X_j^2]
-	
-	E[X_{ij}] = 1/n
-	Var[X_{ij}] = p*q \implies 1/n(1 - 1/n)
-	E[X_j] = \sum_i E[X_{ij}] = n(1/n) = 1		// Mediamente in ogni bucket m'aspetto un elemento.
-	Var[X_j] = \sum_i Var[X_{ij}] = n(1/n)(1 - 1/n) = 1 - 1/n
-	E[X_j^2] = Var[X_j] + E^2[X_j] = 1 - 1/n + 1^2 = 2 - 1/n
-	
-	Dunque: \sum_j E[X_j^2] \implies n(2 - 1/n) = 2n - 1
-	
-	r = \sqrt(x^2 + y^2)
-	\theta = arctan(y/x)
-	
-	Elementi distribuiti uniformemente in un cerchio di raggio r. Ordinare gli elementi in fase da 0 a 2\pi.
-	Bucket = 2\pi / n oppure raguionando per angoli abbiamo \alpha_i = i * 2\pi/n
-	
-	E se volessi ordinare gli elementi per modulo crescente?
-	|r| = r*\sqrt(i/n)
-\end{comment}
+Il \textbf{BucketSort()} è un algoritmo che presuppone un input generato da un processo casuale, distribuito uniformemente e indipendentemente nell'intervallo $[0,1)$. Intuitivamente divide l'intervallo in un totale di $n$ "secchi" equiprobabili, per poi associare i valori al rispettivo bucket. Dopodiché, si ordinano questi ultimi con un tempo lineare, per poi concatenarli e ottenere il risultato. È verosimile aspettarsi in media un elemento per secchio. In questi termini, è necessario ragionare con le variabili aleatorie di Bernoulli, definite come: \[X_{i,j} = \begin{cases}
+	1\quad A[i]\in \text{Bucket}_j\\
+	0
+\end{cases};\quad \mathbb{E}[X_{j}] = 1\]
+\noindent Indichiamo dunque il valore positivo quando l'elemento si trova nel rispettivo secchio. Insieme a questo, definiamo il numero di elmenti nel bucket a indice $j$, ovvero quelli dove la variabile aleatoria vale $1$ come: \[X_{j} = \sum_i X_{i,j};\quad P(X_{i,j} = 1) = \frac{1}{n}\]
+\noindent Questa sommatoria determina la complessità, mentre per determinare il caso medio si calcola il suo valore atteso. I bucket vuoti non sono sommati. \begin{itemize}
+	\item \textbf{Caso pessimo}: $\Theta(n^2)$
+	\item \textbf{Caso ottimo}: $\Theta(n)$
+	\item \textbf{Caso medio}: $\Theta(n)$
+	\item \textbf{Ordinamento in loco}: No, usa un array di supporto.
+	\item \textbf{Stabilità}: Dipende dall'algoritmo usato per ordinare i bucket.
+\end{itemize}
+\begin{algorithm}[h]
+	\caption{bucketSort(A, n)}
+	\begin{algorithmic}[i]
+		\Require $A$: Array, $n$: Dimensione array
+		\State $B[0:n-1]$ \Comment{Nuovo array vuoto con dim: [0:n-1]}
+		\State
+		\For{$i\gets 1\textbf{ to } n$} Inserisci $A[i]$ nell'array $B[\lfloor n\cdot A[i]\rfloor]$
+		\EndFor
+		\For{$i\gets 1\textbf{ to } n$} Ordina l'array B con un algoritmo di ordinamento
+		\EndFor
+		\State Concatena i bucket
+		\State \textbf{return} $B$
+	\end{algorithmic}
+\end{algorithm}
+\noindent Per l'analisi della complessità di questo algoritmo bisogna considerare che tutte le operazioni effettuate, eccezion fatta per l'ordinamento dei bucket, hanno costo $O(n)$ nel caso peggiore. Il tempo totale delle $n$ chiamate eseguite dall'algoritmo di ordinamento, tipicamente insertionSort(), è $O(n^2)$. Se indichiamo $X_j$ la variabile aleatoria dei bucket inseriti nell'array $B$, possiamo affermare che il tempo di esecuzione di bucketSort() è dato da: \[T(n) = \Theta(n) + \sum_{i=0}^{n-1} O(X_j^2)\]
+\noindent Come detto prima, per dimostrare il tempo di esecuzione medio, è necessario considerare il valore atteso della sommatoria dei bucket. Questo grazie alla proprietà di linearità del valore atteso, infatti: \begin{equation}
+	\begin{split}
+		\mathbb{E}[T(n)] &= \mathbb{E}\left[\Theta(n) + \sum_{j=0}^{n-1} O(X_j^2) \right]\\
+			&= \Theta(n) + \sum_{j=0}^{n-1} \mathbb{E}[O(X_j^2)]\\
+			&= \Theta(n) + \sum_{j=0}^{n-1} O(\mathbb{E}[X_j^2])\\
+	\end{split}
+\end{equation}
+\noindent Dove, sapendo che \[\mathbb{E}[X_j] = \sum_i E[X_{ij}] = n(1/n) = 1;\quad Var[X_j] = \sum_i Var[X_{ij}] = n(1/n)(1 - 1/n) = 1 - 1/n\]
+\noindent Possiamo affermare che: \[E[X_j^2] = Var[X_j] + E^2[X_j] = 1 - 1/n + 1^2 = 2 - 1/n;\quad \sum_j E[X_j^2] \implies n(2 - 1/n) = 2n - 1\]
+\noindent Dimostrando la sommatoria inserita nell'equazione iniziale, pertanto, sotto l’ipotesi di distribuzione uniforme e indipendente, il tempo medio di BucketSort è $\Theta(n)$, mentre nel caso pessimo è $\Theta(n^2)$.
 
 %
 
 \section{Problema della selezione}
+Dato un insieme di elementi $A$, definiamo formalmente il \textbf{problema della selezione}: \begin{itemize}
+	\item \textbf{Input}: Insieme $A$ di $n$ numeri diversi ed un intero $i$, con $1 \leq i \leq n$.
+	\item \textbf{Output}: L'elemento $x\in A$, maggiore di esattamente altri $i-1$ elementi di $A$.
+\end{itemize}
+\noindent In termini pratici, ci concentreremo sulla selezione del valore minimo, massimo e uno particolare dell'insieme. Per i primi due casi è evidente che non sia possibile fare meno di $n-1$ confronti, poiché per determinare un massimo o un minimo è necessario verificare la proprietà per ogni altro elemento dell'insieme. Ne deduciamo quindi che il problema della selezione di uno di questi due valori ha limite asintotico inferiore $\Omega(n)$.
+\begin{algorithm}[h]
+	\caption{findMin(A, n)}
+	\begin{algorithmic}[i]
+		\Require $A$: Insieme degli elementi, $n$ dimensione dell'insieme
+		\State $min\gets A[1]$
+		\For{$i\gets 2\textbf{ to } n$}
+		\If{$min > A[i]$}
+		\State $min\gets A[i]$
+		\EndIf
+		\EndFor
+		\State \textbf{return} $min$
+	\end{algorithmic}
+\end{algorithm}
 
+\noindent Se si volesse ricercare simultaneamente il minimo e il massimo sarebbe possibile eseguire questo algoritmo in istanze separate, ottenendo una complessità di $(n-1)+(n-1) = 2n-2\implies \Theta(n)$ confronti, asintoticamente ottimale. Tuttavia possiamo ridurre ulteriormente il valore dei termini costanti, eseguendo al più $3\lfloor n/2\rfloor$ confronti.\par
+Ciò si ottiene mantenendo aggiornati il minimo e il massimo con i valori dell'istante corrente. Inizialmente, si confrontano i valori di input, per poi confrontare il più piccolo col minimo corrente ed il più grande con il massimo corrente. Con questo procedimento eliminiamo quegli elementi che hanno "perso" il confronto. L'impostazione dei valori iniziali di massimo e minimo dipende dal numero totale di elementi, in particolare: \begin{itemize}
+	\item \textbf{Dimensione dispari}: Il valore del primo elemento è assegnato al minimo e massimo corrente. Gli altri elementi saranno esaminati a coppie.
+	\item \textbf{Dimensione pari}: Si effettua un confronto fra i primi due elementi, mentre i restanti saranno esaminati a coppie.
+\end{itemize}
+\noindent Analizzando il numero di confronti effettuati possiamo vedere che con dimensione dispari abbiamo $3\lfloor n/2\rfloor$ confronti, mentre se è pari, ne eseguiamo uno iniziale, seguito da $3(n-2)/2$ confronti, per un totale di $3n/2-2$. In entrambi i casi, dunque, il numero totale di confronti è: \[T(n) = 3\lfloor n/2\rfloor = \Theta(n)\]
+\noindent Il problema della selezione generico presenta il medesimo tempo di esecuzione asintotico: $\Theta(n)$. Una prima idea di algoritmo vede una rielaborazione del quickSort() in tal modo che, dato un elemento perno, l'algoritmo operi solo su un sottoarray della partizione. Ciò impatta drasticamente il tempo di esecuzione, che al posto di essere uguale al quickSort è ottimale, $\Theta(n)$, nell'ipotesi che gli elementi siano tutti diversi.
+\begin{algorithm}[h]
+	\caption{randSelect(A, p, r, i)}
+	\begin{algorithmic}[i]
+		\Require $A$: Array, $p$: Posizione iniziale, $r$: Posizione finale, $i$: Valore del pivot
+		\If{p == r} \textbf{return} A[p]
+		\EndIf
+		\State $q\gets$ randPartition($A, p, r$) \Comment{Divido l'array in due parti con un perno casuale}
+		\State $k\gets q-p+1$ \Comment{Numero elementi a sinistra del perno}
+		\If{$i == k$} \textbf{return} $A[q]$ \Comment{Valore del pivot è soluzione}
+		\ElsIf{$i < k$} \textbf{return} randSelect(A, p, q-1, i) \Comment{decrementa sezione bassa}
+		\Else \textbf{ return} randSelect(A, q+1, r, i-k) \Comment{Decrementa sezione alta}
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+\noindent Come visto nelle sezioni precedenti, si prende un pivot che prenderà la prima posizione del sottoarray della sezione alta. Esiste tuttavia anche un algoritmo deterministico per risolvre il problema delle selezioni in tempo lineare, ma in quanto il suo tempo di esecuzione ha una forte dipendenza dalla quantità delle costanti è difficile poterlo considerare in termini asintotici. In particolare, con grandi numeri è possibile che sia più efficiente un algoritmo nell'ordine di $nlog(n)$.\par
+Questo algoritmo è detto \textbf{mediana dei mediani} e si pone lo scopo di scegliere un perno buono deterministicamente, per rimanere in una zona proporzionale. Intuitivamente, segue questi passi: \begin{enumerate}
+	\item Dividi l'array in gruppi di 5 elementi. Complessità: 0.
+	\item Calcola il mediano di ogni gruppo. Complessità: $5n$.
+	\item Calcola ricorsivamente il mediano dei mediani $x$. Complessità: $T(n/5)$, con $n/5$ approssimato per eccesso. Eccesso a causa del gruppo con gli ultimi elementi restanti.
+	\item Partiziona rispetto a $x$, il perno. Complessità: $n$.
+	\item Ricorri sulla parte interessata.
+\end{enumerate}
 
+% TODO Riprendi da qua, sto distrutto oggi, non ce la fo.
 
-
-
-\begin{comment}
-	--- Problema della selezione
-	Dato un array di oggetti sulla quale è definita una relazione di ordinamento. Trovare il valore in posizione i.
-	
-	Interfaccia data da Select(A,i)
-	Meno di n-1 confronti non posso farne; ma in tal caso, se voglio un max o un min, avremo verosimilmente due valori vincitori.
-	\Omega(n)
-	
-	// Tip: divisione in tre parti dell'array, a mò di quickSort
-	
-	
-	
-	
-	
-	11-11-25 - Algoritmi
-	
-	Per trovare min e max, la complesità è 2n-2, perché esegui due volte uno stesso algoritmo di complessità n-1.
-	
-	-- Ricerca contemporanea di minimo e massimo
-	Dato un array, ogni elemento potrebbe essere potenziale min e potenziale Max, li segnamo rispettivamente come m e M.
-	Confrontando elementi possiamo escludere determinati elementi dalla loro potenzialità.
-	
-	Prendiamo la somma m+M, la quale deve essere uguale a 2 quando la ricerca è conclusa. Questo perché m ed M rappresentano ogni elemento dell'array che è potenzialmente min o max.
-	Con i confronti è probabile che:
-	- Il valore non diminuisca (Confronto inutile)
-	- Il valore diminuisca di 1 (Un valore perde la potenzialità in ambito di due confronti)
-	- Il valore diminuisca di 2 (Due valori perdono la potenzialità in ambito di due confronti)
-	
-	Generalmente, al'inizio: m+M = 2n.
-	Dopo x volte: m+M = 2n-2x
-	
-	Per n pari abbiamo che:
-	Per n/2 volte, calo di 2.
-	Per n-2 volte, calo di 1.
-	Tot: 3/2 n-2 e sotto questo numero di confronti non si può andare.
-	
-	Osservazione:
-	Dato una rray di lunghezza n, confronto ogni elemento a coppie di 2 a 2, per poi spostare in due gruppi rispettivamente i min e i max.
-	Poi si cerca il minimo in min ed il massimo in max.
-	Il problema è quando c'è un array dispari, una coppia sarà monca.
-	
-	-- Algoritmi per la ricerca del minimo
-	Possibilmente con una complessità minore di nlogn. Possiamo usarne uno casuale.
-	Supponiamo un array diviso in due parti [p-q], [q-r] t.c. gli alementi a sinistra siano <=, mentre a destra siano >=. Vogliamo l'indice i.
-	
-	Nel caso fortunato di un array diviso a metà avremo: T(n) = n + T(n/2). Per il teorema dell'esperto abbiamo che la parte nota vince sull'argomento, dunque la complessità è \Theta(n).
-	Questo è tuttavia un caso fortunato. L'array non necessariamente è diviso a metà.
-	Se tuttavia prendo a caso un elemento perno, verosimilmente, in media, avrò complessità lineare. E' una logica simile a randomized quicksort.
-	
-	RandSelect(A, p, r, i) {
-		if (p = r) return A[p];
-		
-		q <- RandPartition(A, p, r);				// Divido l'array in due parti con un perno casuale.
-		k <- q-p+1									// Quanti elementi stanno a sinistra del perno? (Quindi anche quanti stanno a dx)
-		
-		if (i <= k) return RandSelect(A,p,q,i);		// Seleziona l'iesimo elemento nell'array
-		else return RandSelect(A, q+1, r, i-k);		// Seleziona dalla parte [q+1, r] e cerca l'indice i-k perché così non sballa gli indici del sub-array.
-	}
-	
-	Complessità: T(n) = n + 1/n max(T(1), T(n-1)) + \sum_{i=1}^{n-1} max(T(i), T(n-i))
-	
-	Esiste anche un algoritmo deterministico per risolvre il problema delle selezioni in tempo lineare.
-	Problema è che dipende molto dalle costanti, a tal punto che a grandi numero va meglio nlogn. Quindi non si può ragionare in termini di analisi asintotica.
-	
-	L'idea è pensare di scegliere il perno in maniera più intelligente, con lo scopo di stare in una zona proporzionale.
-	Select del mediano non sarebbe male come idea, preferibilmente su un insieme più piccolo
-	
+\begin{comment}	
 	1: Dividi A in n/5 (approx per difetto) gruppi di 5 elementi più il gruppo con gli ultimi che restano.
 	Compl: 0
 	2: Calcolo il mediano di ogni singolo gruppo
 	Compl: 5n
 	3: Sia x il mediano dei mediani, calcolato ricorsivamente con select();
-	Compl: T(n/5), con n/5 approx per eccesso. Eccesso a causa del gruppo con gli ultimi elementi restanti.
+	Compl: $T(n/5)$, con $n/5$ approssimato per eccesso. Eccesso a causa del gruppo con gli ultimi elementi restanti.
 	4: Partiziona su x. Sia k il numero di elementi a sinistra. Quindi x è il perno usato.
 	Compl: n
 	5: Scelgo la parte interessata.

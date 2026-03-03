@@ -1,0 +1,50 @@
+03-03-26 - Algoritmi
+
+--- Grafi
+I grafi si disegnano con nodi (vertices) e archi (edges). Il percorso fra i nodi è detto cammino. Tendenzialmente si cerca il cammino ottimo e, in caso di costi uguali, si sceglie
+in modo non deterministico uno di quei cammini uguali.
+Lunghezza del cammino: numero di figli che passiamo. Ogni arco ha associato un valore matematico, tendenzialmente chiamato peso, costo o ricompensa.
+Parliamo di grafo pesato quando a degli archi sono associati valori, ed è possibile sommare il peso per calcolare il costo totale del cammino.
+
+Catene markoviane (Il costo del cammino è dato dal prodotto di tutti i valori degli archi)
+
+Certi percorsi si possono percorrere solo in un certo verso. Con questa proprietà parliamo di grafi orientati e aggiungiamo una direzione agli archi con una freccia.
+C'è quindi una sorgente ed una destinazione. In questi termini, un grafo non orientato si vede come un caso specifico dell'orientato, dove gli archi possono andare in entrambe
+le direzioni. E' possibile avere archi che ritornano sullo stesso nodo. In tal caso consideriamo un passo anche se si percorrono archi di questo tipo.
+
+Definizione formale di grafo: Un grafo G è definito come coppia (V,E), dove V è l'insieme dei nodi ed E è un sottoinsieme di V\times V. G = (V,E), con E \subseteq V\times V
+Ogni coppia identifica un arco. V\times V è una relazione, il sottoinsieme del prodotto cartesiano.
+Ne consegue che se conosco una relazione, posso costruirne un grafo e tutti i concetti e le dinamiche delle relazioni sono applicabili ai grafi e viceversa.
+
+Per esempio, un grafo è simmetrico quando sta una relazione simmetrica. Guarda caso è uguale a quello non orientato.
+Poi esistono anche i sottografi G' = (V', E') tale che V'\subseteq V \land E'\subseteq E
+Parlando di lunghezza del cammino possiamo intenderla come ditanza fra due nodi. Quindi pure punti.
+
+Definizione formale di cammino: Sequenza di vertici v_0, ..., v_n tali per cui \forall i < n & i\geq 0 (v_i, v_{i+1})\in E (ovvero tali per cui per ogni coppia di nodi c'è l'arco
+che li connette)
+
+Definiamo inoltre un cammino come ciclico quando ci sono nodi ripetuti, quindi ha cammini ciclici. Gli altri casi si chiamano aciclici, quindi no cammini ciclici.
+In particolare, se un grafo è ciclico avrà lunghezza maggiore del suo numero di nodi diversi. Lunghezza formalmente definita come numero di nodi-1.
+
+In un grafo aciclico esiste almeno un nodo che non ha alcun arco entrante.
+Consideriamo ora un grafico di lunghezza n+1. Questo potrebbe essere orientato ma è ciclico, perché un elemento fra gli n si ripete per forza.
+
+Grado uscente: Archi che escono dal nodo
+	OUT_DEG(u) = |{v | (u,v)\in E}|		// Cardinalità di insieme v tale per cui u,v appartiene ad E (tutti gli archi che escono dal nodo)
+
+Grado entrante: Archi che entrano nel nodo
+	IN_DEG(v) = |{u | (u,v)\in E}| 		// Cardinalità di insieme u tale per cui u,v appartiene ad E (tutti gli archi che entrano nel nodo)
+	
+Grado di un nodo: IN_DEG + OUT_DEG
+
+Diametro di un grafo: Arco di massima lunghezza del grafo. Eh... rivedere definizione di diametro di grafo.
+
+Rivededre definizone di grafo completo.
+
+Nel caso pessimo, un grafo di n nodi ha n^2 archi. Chiamiamo questo grafo "completo".
+Rivedere definizione di grafi sparsi (ovvero quelli che hanno pochi archi)
+
+I grafi si rappresentano con liste di adiacenza, ovvero la lista dei nodi che sono raggiungibili da quello considerato.
+Poi si crea una matrice di booleani dove si segnano i nodi adiacenti, detta matrice di adiacenza.
+
+Insomma grafi, relazioni e matrici son la stessa roba.

@@ -1,0 +1,36 @@
+03-03-26 - Reti di calcolatori
+
+Modalità d'esame: Scritto con 3 domande di teoria aperte e 3 esercizi. Ogni domanda vale 4pts. Max domande: 12, max esercizi: 21
+
+---
+
+Ip Address: codice numerico associato a una specifica istanza del dispositivo per identificarla nella rete. Ciò vale per i PC come anche per i router.
+
+-- Tematiche del corso
+Risolvere il problema della comunicazione tra due calcolatori.
+Per comunicazione intendiamo trasferimento di informazioni. Di base sono trasferiti sempre bits la cui forma dipende dalle applicazioni.
+	
+Sorgono due sottoproblemi:
+	1. Protocollo di comunicazione: Insieme di regole logiche che definiscono le modalità di comunicazione (eg: linguaggio, azioni da intraprendere) tra due entità.
+		Non dissimile dalle regole che usano le persone per capirsi fra di loro; italianToItalian, dumbassToDumbass, etc.
+	2. Trasporto fisico delle informazioni: Soluzione definita dall'architettura di rete, che è il mezzo tramite il quale si condividono le informazioni.
+
+*Immagine 1
+
+Esempio: invio di una lettera:
+	1. Scrivo foglio in linguaggio
+	2. Metto in busta con indirizzo di destinazione
+	3. Inserisco in buca lettere
+	4. PosteItaliane prende la lettera e la invia alla cassetta postale di dst.
+	5. L'utente 2 prende la lettera
+	6. L'utente 2 apre il foglio e può leggerlo.
+	
+E' un procedimento che funziona seguendo il protocollo ben preciso, perché con un indirizzo di destinazione sbagliato, la lettera non sarebbe fatta recapitare correttamente.
+
+Nella pratica, c'è una pipeline che prepara l'informazione da inviare ed un'altra che la spacchetta. Generalmente la si descrive in una forma verticale.
+	1. Scrivo messaggio
+	2. Do l'indirizzo ip di destinazione
+	3. Do il tutto alla scheda di rete, che invia a utente 2
+	4. L'utente 2 spacchetta e legge il messaggio.
+	
+L'approccio usato nella spiegazione del procedimento è top-down. Dall'astratto al particolare più basso.

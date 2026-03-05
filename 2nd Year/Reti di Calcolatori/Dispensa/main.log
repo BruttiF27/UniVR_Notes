@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  18 FEB 2026 10:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  5 MAR 2026 10:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -229,6 +229,10 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write3
+
+Excluding comment 'comment')
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2024/01/07 v24.1 The Babel package
 \babel@savecnt=\count286
@@ -344,30 +348,37 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [1] (./main.toc)
-\tf@toc=\write3
-\openout3 = `main.toc'.
+\tf@toc=\write4
+\openout4 = `main.toc'.
 
  [2
 
-]
+] [3]
 Capitolo 1.
-(./Chapters/1.tex) [3
+(./Chapters/1.tex [4
 
-]
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+<Images/EsempioComunicazione.png, id=26, 502.87875pt x 422.57875pt>
+File: Images/EsempioComunicazione.png Graphic file (type png)
+<use Images/EsempioComunicazione.png>
+Package pdftex.def Info: Images/EsempioComunicazione.png  used on input line 16
+.
+(pdftex.def)             Requested size: 314.99863pt x 264.69783pt.
+) [5 <./Images/EsempioComunicazione.png>]
 Capitolo 2.
-(./Chapters/2.tex) [4
+(./Chapters/2.tex) [6
 
 ]
 Capitolo 3.
-(./Chapters/3.tex) [5
+(./Chapters/3.tex) [7
 
 ]
 Capitolo 4.
-(./Chapters/4.tex) [6
+(./Chapters/4.tex) [8
 
 ]
 Capitolo 5.
-(./Chapters/5.tex) [7
+(./Chapters/5.tex) [9
 
 ] (./main.aux)
  ***********
@@ -376,23 +387,25 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6718 strings out of 474222
- 102504 string characters out of 5748733
+ 6793 strings out of 474222
+ 104055 string characters out of 5748733
  1932975 words of memory out of 5000000
- 28877 multiletter control sequences out of 15000+600000
- 566585 words of font info for 69 fonts, out of 8000000 for 9000
+ 28945 multiletter control sequences out of 15000+600000
+ 567274 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,5n,70p,248b,269s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,6n,70p,601b,269s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (8 pages, 79218 bytes).
+dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/c
+m-super/sfrm1200.pfb>
+Output written on main.pdf (10 pages, 106757 bytes).
 PDF statistics:
- 61 PDF objects out of 1000 (max. 8388607)
- 38 compressed objects within 1 object stream
+ 81 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

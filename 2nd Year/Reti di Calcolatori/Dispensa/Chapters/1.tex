@@ -1,3 +1,26 @@
+\section{Comunicazione tra elaboratori}
+Il corso di reti di calcolatori si pone come obiettivo quello di risolvere il problema della \textbf{comunicazione tra computer}, inteso come il trasferimento di informazioni tra due o più sistemi, studiato in questo corso con un approccio \textbf{top-down}, ovvero a partire da un alto livello per andare sempre più a basso livello. In particolare, si presentano i due problemi fondamentali della comunicazione: \begin{itemize}
+	\item \textbf{Protocollo di comunicazione}: Insieme di regole logiche che definiscono come le entità devono comunicare, nello specifico il \textbf{formato} dei messaggi, il loro \textbf{ordine} e le \textbf{azioni} da compiere alla loro ricezione.
+	\item \textbf{Trasporto delle informazioni}: Il trasferimento fisico di dati fra due dispositivi. Richiede un'infrastruttura di rete composta da mezzi trasmissivi, come cavi o fibra ottica, dispositivi di rete e, naturalmente, protocolli di trasmissione.
+\end{itemize}
+\noindent Possiamo paragonare lo scambio di informazioni tra elaboratori con l'invio di una lettera. Il mittente scrive il messaggio, inserisce il foglio in una busta, con scritto l'indirizzo del destinatario e la consegna all'ufficio postale. Quest'ultimo la trasporterà fino al destinatario descritto, il quale potrà aprire la busta e leggere il contenuto del messaggio. Affinché il processo funzioni correttamente, è necessario seguire regole precise (quindi seguire il protocollo), come scrivere correttamente l'indirizzo del destinatario.\par
+Nella pratica, la comunicazione tra due calcolatori avviene tramite una sequenza di livelli, spesso rappresentata come una pila verticale, dove ogni livello svolge una funzione specifica e prepara i dati per quello successivo. Intuitivamente: \begin{enumerate}
+	\item L'applicazione genera il messaggio.
+	\item Il messaggio è preparato per la trasmissione.
+	\item I dati vengono inviati tramite la rete.
+	\item Il destinatario riceve i dati.
+	\item I dati sono elaborati fino a raggiungere l'applicazione finale.
+\end{enumerate}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/EsempioComunicazione.png}
+	\caption{Esempio di comunicazione intuitivo}
+	\label{fig:commExample}
+\end{figure}
+\noindent Naturalmente, lo scambio di informazioni non è unidirezionale, infatti si dice che il processo di trasferimento informazioni è \textbf{simmetrico} tra mittente e destinatario.
+
+%
+
 \section{Classificazione delle reti}
 WAN, MAN, LAN
 

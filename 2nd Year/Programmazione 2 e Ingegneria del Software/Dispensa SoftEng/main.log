@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  18 FEB 2026 11:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  6 MAR 2026 15:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -229,6 +229,10 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
 )
+(/usr/share/texlive/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write3
+
+Excluding comment 'comment')
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2024/01/07 v24.1 The Babel package
 \babel@savecnt=\count286
@@ -346,40 +350,45 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [1] (./main.toc [2
 
 ])
-\tf@toc=\write3
-\openout3 = `main.toc'.
+\tf@toc=\write4
+\openout4 = `main.toc'.
 
  [3]
 Capitolo 1.
-(./Chapters/1.tex) [4
+(./Chapters/1.tex
+Underfull \hbox (badness 10000) in paragraph at lines 10--11
 
-]
+ []
+
+[4
+
+{/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [5]) [6]
 Capitolo 2.
-(./Chapters/2.tex) [5
+(./Chapters/2.tex) [7
 
 ]
 Capitolo 3.
-(./Chapters/3.tex) [6
+(./Chapters/3.tex) [8
 
 ]
 Capitolo 4.
-(./Chapters/4.tex) [7
+(./Chapters/4.tex) [9
 
 ]
 Capitolo 5.
-(./Chapters/5.tex) [8
+(./Chapters/5.tex) [10
 
 ]
 Capitolo 6.
-(./Chapters/6.tex) [9
+(./Chapters/6.tex) [11
 
 ]
 Capitolo 7.
-(./Chapters/7.tex) [10
+(./Chapters/7.tex) [12
 
 ]
 Capitolo 8.
-(./Chapters/8.tex) [11
+(./Chapters/8.tex) [13
 
 ] (./main.aux)
  ***********
@@ -388,24 +397,25 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6749 strings out of 474222
- 103024 string characters out of 5748733
+ 6810 strings out of 474222
+ 104179 string characters out of 5748733
  1932975 words of memory out of 5000000
- 28898 multiletter control sequences out of 15000+600000
- 567244 words of font info for 71 fonts, out of 8000000 for 9000
+ 28953 multiletter control sequences out of 15000+600000
+ 567581 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,5n,70p,248b,271s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,5n,70p,470b,269s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (12 pages, 89947 bytes).
+onts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/c
+m-super/sfrm1200.pfb>
+Output written on main.pdf (14 pages, 106285 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 91 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

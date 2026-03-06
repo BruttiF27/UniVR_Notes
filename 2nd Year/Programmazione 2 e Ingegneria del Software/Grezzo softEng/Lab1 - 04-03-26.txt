@@ -1,0 +1,21 @@
+04-04-26 - Lab softEng
+
+6 lezioni in totale what
+
+-- Inizio con qualche nozione di python (per machine learning, pare?)
+	- Python notebook, jupyter
+	- Sample
+	- Direttiva def, self (uguale a this di java)
+	- List, tuple, dict, set
+	- __hash__, __eq__, __repr__
+	- __call__
+	- frozenset
+	- tabular sample
+	- multiset: Set con ripetizioni
+	- Entropia: Minore è, meglio è. Riguarda machine learning e dice quanto è incasinato un dataset.
+	- UnivariateSample
+	- MultivariateSample
+	
+Qualsiasi cosa sia numerabile si può convertire in lista
+Aggiungi with as da qualche parte
+Lettura CSV con csv.reader()

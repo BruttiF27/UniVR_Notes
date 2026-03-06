@@ -1,0 +1,64 @@
+04-04-26 - softEng
+
+Progetto 2-3 persone
+Sbarramento scritto, orale con domande di teoria e presentazione progetto
+
+Lo sviluppo software ricopre un'attività complessa e tendenzialmente, nella programmazione in grande, abbiamo un team con un gran numero di persone, con una moltitudine di programmi
+relativi. Garantire una buona qualità richiede rigore e precisione.	Necessario che le persone che ci lavorano (e quelli che lavoreranno) si capiscano. Il codice deve quindi essere
+mantenibile e comprensibile.
+Questo discorso vale con ogni tipo di software (tranne i sistemi embedded) e il corso si concentrerà principalmente su sistemi informativi e gestionali.
+
+Problemi che si incontrano nello sviluppo software:
+	- Sforare il budget
+	- Sforare i tempi di consegana
+	- Funzionalità non complete
+	- Presenza di bug
+	
+Ciò può accadere per una scelta sbagliata del linguaggio o delle tecnologie per lo sviluppo del prodotto, ma tipicamente sono problemi di comunicazione tra gli interessati.
+Quindi perché gli utenti finali e i committenti sono dei coglioni ignoranti. Oppure anche problemi organizzativi interni al team, problemi all'interno del team in generale
+Come anche una difficoltà a comprendere il dominio del business, inteso come il contesto in cui il software opera, come per esempio in campo medico, amministrativo, etc.
+Oppure anche problemi di ignoranza su come dovrebbe funzionare.
+Esiste una persona terza per la verifica e validità dei requisiti, al di fuori del team.
+
+In origine il sw veniva sviluppato da artigiani. Notando che per progetti di grandi dimensioni si ottenevano prodotti di qualità scadente, si è pensato di formare una disciplina
+per risolvere il problema. Da allora si sono affinate le tecniche per lo sviluppo, insieme alle tecnologie in toto.
+
+Definizione di ingegneria del software
+Disciplina ingegneristica che si occupa di ogni aspetto relativo allo sviluppo del software. Composto da insieme di teorie, metodi, tecnihce e strumenti per sviluppare
+prodotti di qualità. Non dissimile dal costruire edifici.
+
+Dato l'obiettivo di ottenere software grandi funzionanti ed efficienti, si definiscono gli strumenti e le tecniche per raggiungerlo. I passi verso questa direzione stanno nella
+qualità del processo di sviluppo. Definiamo:
+	- Processo la sequenza di attività e fasi da seguire. Finito un passo si fornisce il deliverable e si passa alla prossima fase.
+		Prende il nome di processo waterfall. Requisiti->design->implementazione->verifica->mantenimento
+		
+Ci sono tre macro categorie di modelli di processo:
+	- agili:
+	- plan-driven: Codice deriva dal design e...
+	- Metodi formali (dimostrato tramite la matematica, rigorosamente)
+	
+Fasi del modello a cascata:
+	1. Definizione di funzionalità, vincoli e prestazioni che il sistema dovrà soddisfare.
+		Raccolta delle richieste del cliente, definire cosa va fatto e come, e correzione di errori preliminari. Un errore qui (quindi errori di comunicazione con il committente) 
+		garantisce il fallimento del progetto. Il deliverable qui è il documento dei requisiti, che fornisce i dettagli riguardo cosa il programma deve fare. Può avere
+		definizioni, specifiche o anche visualizzazioni grafiche. Naturalmente deve essere il meno ambiguo possibile.
+	2. Fase di design del software
+		La progettazione è condotta su due livelli, prima ad alto e poi a basso livello. Il deliverable è la specifica del design con un linguaggio UML, unified model language.
+	3. Implementazione del codice: La scrittura effettiva di codice.
+		Più precisione determina un minore spazio di manovra. Alternativamente, si vedano i metodi agili. Il deliverable è il codice del sistema.
+		Per approfondire, il ModelDrivenDevelopment è un paradigma di sviluppo dove si fa leggere l'UML ad un macchinario e poi il team dovrà ottimizzare e migliorare il codice.
+	4. Verifica del codice
+		Banalmente il testing. Fare di tutto per evitare che ci siano errori e che il funzionamento sia allineato con i requisiti. Il deliverable è il test plan con i report.
+	5. Mantenimento del codice
+		Il software viene consegnato al cliente in una relativa versione. La manutenzione si occupa del costante mantenimento operativo del codice. Si parla di correzione errori
+		Migliorie del sistema, come aggiunta di feature o ottimizzazioni, oppure di adattare il software alle nuove tecnologie.
+		
+Ci sono vari ruoli che le persone possono coprire, quindi si hanno posizioni specifiche nelle varie aziende:
+	- Analist: Definisce i requisiti
+	- Designer: Design ad alto e basso livello
+	- Programmatore: Scrive il codice
+	- Tester: Autoesplicativo
+	- Mantenitore: Consegna il codice e lo mantiene per mantenerlo competitivo.
+Al di sopra di questi poveri cristi sta il PM. Il responsabile della valitazione, pianificazione e controllo di un progetto. Gestiscve il personale, stima i costi e cerca di
+far rispettare il budget e i tempi.
+Fun fact: costa più l'evoluzione del sistema rispetto allo sviluppo iniziale. Più longevo è il software, più costerà l'evoluzione.

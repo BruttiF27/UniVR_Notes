@@ -1,0 +1,75 @@
+24-11-25 Algoritmi
+
+--- Albero RB
+Se voglio fare le cose con tempo logaritmico, ho bisogno di una profondità dell'albero logaritmica.
+Posso mantenere le operazioni di inserimento e ricerca in tempo logaritmico? Non siamo in grado di inserire un nodo in tempo logaritmico mantenendo l'albero bilanciato.
+Potremmo tuttavia permettere uno sbilanciamento, purché la profondità rimanga logaritmica.
+
+Il senso è costruire alberi binari di ricerca sbilanciati con profondità logaritmica. Vengono posti vincoli sui nodi dell'albero in termini locali e globali; sicché quando andiamo a inserire/ricercare, verosimilmente violeremo la regola e risolveremo l'anomalia spingendola alla radice.
+
+Prop globale: valida per l'intera struttura
+Prop locale: verificabile su ogni singolo punto della struttura vedendo un suo intorno ristretto
+
+Preferibile ragionare su proprietà locali perché non devi andare a scorrere l'intera struttura dati.
+
+Un RB albero è un albero binario di ricerca con le proprietà:
+	- Ogni nodo é rosso o nero (hai un campo aggiuntivo su tutti i nodi che assegna loro il colore, tendenzialmente un boolean)
+	- Ogni foglia é nera (Le foglie con elemento nullo in fondo sono considerate nere)
+	- I figli di un nodo rosso sono sempre neri ed un nodo rosso può essere circondato solo da nodi neri.
+	- Ogni cammino radice-foglia contiene lo stesso numero di nodi neri (proprietà globale)
+		Quindi l'RB albero non è bilanciato, ma se ti restringi ai nodi neri, il cammino avrà sempre un loro numero costante.
+
+Grazie alla proprietà 3 abbiamo che negli RB alberi avremo al peggio un cammino radice-foglia con alternazioni di nero-rosso fino alla eventuale foglia nera, mentre il cammino ottimo avrà esclusivamente nodi neri. Ciò significa che se il meglio è 1, il peggio sarà il suo doppio, 2. Manterremo quindi una profondità logaritmica.
+
+Esempio: pag. 300 figura a
+
+RB ha profondità logaritmica e che la ricerca di un elemento specifico, elemento minimo e massimo é logaritmica. Costruzione albero RB non puó essere fatta in meno di nlogn.
+'Altezza Nera' BH di un nodo X: Numero di nodi neri incontrati in un cammino da nodo X ad una foglia escludendo X
+I nodi foglia all'estremo con elemento null sono sprecati; consigliato usare il metodo delle sentinelle. Nel caso in cui serva invocare il parent di questo nodo nullo, nell'algoritmo invocato bisognerá assegnare al nodo nullo il parent corretto
+
+In generale meglio assumere che la radice sia nera
+Se non lo è la si puó modificare senza alterare nessuna proprietà
+
+Dimostrazione che la profondità è logaritmica.
+Lemma: un RB albero con n nodi interni ha altezza al più 2log(n+1). Un nodo interno è tale se non è una foglia; l'altezza è il cammino peggiore.
+Sottolemma: Il sottoalbero radicato in un nodo x contiene almeno 2^{bh(x)}-1 nodi interni. Quindi prendo un nodo x dell'albero e la considero come radice del sottoalbero.
+
+Dimostrato per induzione sull'altezza del nodo x
+	Caso base: altezza 0
+		Necessariamente la radice del sottoalbero è una foglia. La sua altezza nera è quindi 0. bh(x)=0. Nodi interni=0. 2^{bh(x)}-1 = 0
+	Caso induttivo: altezza h+1
+		Abbiamo radice e almeno due sottoalberi; il sottolemma vale per induzione. Tutti i nodi nel sottoalbero di x avranno altezza h.
+		Sappiamo poi che per costruzione del RB albero:
+			bh(left(x)) >= bh(x)-1; bh(right(x)) >= bh(x)-1
+			Interni(x) = interni(left(x)) + interni(right(x)) + 1		// Giustamente il numero di nodi interni comprende gli interi due sottoalberi.
+			Interni(x) >= 2^{bh(x)-1}-1 + 2^{bh(x)-1}-1 + 1 = 2^{bh(x)}-1	// Dimostrazione funzionante.
+			
+Se l'albero ha profondità h e quindi la radice x ha altezza h, allora sappiamo che l'altezza nera è almeno la metà, quindi bh(x) >= h/2
+Dunque abbiamo detto che la relazione fra il numero di nodi n e le altezze è: n >= 2^{bh(x)}-1 >= 2^{h/2}-1
+Da questo possiamo ricavare: n+1 >= 2^{h/2} \implies log(n+1) >= h/2 \implies h = 2log(n+1). La dimostrazione è vera.
+
+Quindi l'altezza di un rb albero con n nodi è al più il doppio di log(n). La profondità è logaritmica.
+
+--- Come inserire un nodo mantenendo profondità logaritmica?
+Partiamo dal presupposto che si segue la logica di inserimento di un qualunque albero binario di ricerca. Quindi si sposterà a destra o sinistra in base alle regole di definizione.
+Di che colore facciamo il nodo? Se lo facciamo rosso e siamo una foglia, viola la definizione, mentre se lo facciamo nero sminchia la profondità logaritmica.
+Quindi lo facciamo rosso a prescindere lmao
+Abbiamo un rb albero con l'anomalia sul nodo appena inserito. Bisogna eliminarla.
+Facciamo delle trasformazioni locali portando l'anomalia verso la radice. Oppure la eliminiamo prima, dipende quale vien prima. Se questo problema si presenta alla radice, non è un problema. È valido.
+
+Domande:
+	- Possiamo assumere che la radice sia sempre nera? Sì, perché se la radice fosse rossa potremmo colorarla di nero senza eludere la definizione.
+	- Concetto di rotazione: nell'operarci cambieremo e ruoteremo i nodi dell'albero.
+		Ruotare nel senso scambiare il babbo col figlio. Si può fare a dx e a sx
+
+--- Algoritmo di ribilanciamento; rotazione
+
+Pseudo codice
+P sta per parent
+Inoltre assumi che la radice sia Nera
+
+L'ultimo Else é di if(color(P[x])== red)
+
+Il caso 1 propaga verso l'alto
+
+Mentre il caso 3 é concatenato al 2 e termina il processo

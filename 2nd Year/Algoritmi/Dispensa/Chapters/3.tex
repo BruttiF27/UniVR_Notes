@@ -27,3 +27,82 @@
 %
 
 \section{Grafi}
+Un \textbf{grafo} è una struttura usata per rappresentare relazioni tra oggetti, i quali sono rappresentati da \textbf{nodi} (vertices), mentre le relazioni tra di essi sono rappresentate da \textbf{archi} (edges). È un concetto versatile abbastanza da poter rappresentare qualunque cosa possa essere messa in relazione, come per esempio una rete stradale che collega le città oppure gli stati di una FSM.\par
+Diciamo inoltre \textbf{cammino} una sequenza di nodi collegati dagli archi e spesso i problemi trattano la ricerca del cammino \textbf{ottimo}, la cui definizione varia in base alla richiesta. Ciò implica la presenza di un qualche tipo di misura; chiamiamo intuitivamente \textbf{lunghezza} di un cammino il numero di archi attraversati in un percorso. Ci sono inoltre più tipi di grafo: \begin{itemize}
+	\item \textbf{Grafo orientato}: Grafo i cui cammini sono orientati in una direzione. Presenta un nodo \textbf{sorgente} ed uno di \textbf{destinazione}. È possibile inoltre avere archi che ritornano sullo stesso nodo, ed in tal caso vale come passo.
+	\item \textbf{Grafo non orientato}: Caso speciale del tipo precedente, i cammini possono andare in ambo le direzioni.
+	\item \textbf{Grafo pesato}: Grafo i cui archi hanno associato un valore matematico, detto \textbf{peso}. Il costo totale è dato dalla somma dei valori degli archi attraversati.
+\end{itemize}
+\noindent Queste erano tutte definizioni intuitive, ma è necessario garantire formalità per poter lavorare con queste rappresentazioni. Definiamo formalmente un grafo come la coppia: \[G = (V,E)\]
+\noindent Dove $V$ è l'\textbf{insieme dei nodi} ed $E$ rappresenta quello degli \textbf{archi}. In particolare, per i grafi orientati, quest'ultimo è una coppia ordinata di vertici: $E \subseteq V\times V$. In questo senso un grafo può essere visto anche come una relazione binaria sull’insieme dei vertici, connettendo la struttura con le relazioni e alle matrici. Per esempio, potremmo definire un grafo simmetrico grazie al concetto di relazione simmetrica e otterremmo la dimostrazione di un grafo non orientato.\par
+Definiamo ora formalmente il concetto di cammino: una sequenza di nodi tali per cui per ogni coppia di nodi ci sia un arco che li connette, quindi: \[v_0, ..., v_n \text{ tale che } \forall i < n \land i\geq 0 (v_i, v_{i+1})\in E\]
+\noindent In questi termini possiamo intendere la lunghezza di un cammino come la distanza fra due nodi, definita come il numero totale di nodi meno $1$. Un cammino può contenere nodi ripetuti; in particolare, se inizia e termina nello stesso nodo si parla di \textbf{ciclo}. Un grafo che contiene almeno un ciclo è detto \textbf{ciclico}, altrimenti è \textbf{aciclico}.\par
+Generalmente, vale la regola che se un grafo ha lunghezza maggiore del suo numero di nodi distinti, avrà sicuramente almeno un cammino ciclico. Parliamo adesso di \textbf{grado} dei nodi; ne esistono due tipi: \begin{itemize}
+	\item \textbf{Grado uscente}: Numero di archi che escono dal nodo, formalmente la cardinalità di insieme $v$ tale per cui la coppia $(u,v)$ appartiene ad $E$: \[outDeg(u) = |\{v | (u,v)\in E\}|\]
+	\item \textbf{Grado entrante}: Numero di archi che entrano nel nodo, formalmente la cardinalità di insieme $u$ tale per cui la coppia $(u,v)$ appartiene ad $E$: \[inDeg(v) = |\{u | (u,v)\in E\}|\]
+	\item \textbf{Grado totale}: Somma dei due valori precedenti: \[inDeg + outDeg\]
+\end{itemize}
+\noindent Altri concetti importanti sono il \textbf{diametro} di un grafo, che indica la massima distanza del cammino minimo tra due nodi, definita come: \[diam(G) = max(dst(u,v))\]
+\noindent I \textbf{sottografi}, intuitivamente un insieme di nodi più piccolo o uguale ottenuto a partire da un altro grafo, definiti come: \[G' = (V', E') \text{ tale che } V'\subseteq V \land E'\subseteq E\]
+\noindent I \textbf{grafi completi} vedono invece ogni coppia di nodi collegata da un arco, la cui definizione differisce in base all'orientazione: \[\text{Non orientato: } \frac{n(n-1)}{2}\quad\text{ Orientato: }n(n-1)\]
+\begin{figure}[h]
+	\centering
+	\subcaptionbox{Grafo orientato}{\includegraphics[width=0.3\linewidth]{Images/graphOriented.png}}
+	\hfill
+	\subcaptionbox{Grafo non orientato}{\includegraphics[width=0.3\linewidth]{Images/graphNoOrientation.png}}
+	\hfill
+	\subcaptionbox{Grafo pesato}{\includegraphics[width=0.3\linewidth]{Images/graphWeighted.png}}
+\end{figure}
+\noindent Esistono due tecniche principali per rappresentare i grafi in memoria: le \textbf{liste di adiacenza} e le \textbf{matrici di adiacenza}. Le prime utilizzano un array indicizzato sui nodi, dove ogni posizione contiene la lista dei nodi adiacenti, formalmente: \[Adj[u] = \{v|(u,v)\in E\}\]
+\noindent La rappresentazione memorizza esclusivamente gli archi presenti nel grafo, risultando particolarmente efficiente in caso di grafi sparsi. Richiede uno spazio proporzionale alla somma di nodi e archi: \[\Theta(|V| + |E|), \text{ con abuso di notazione: } \Theta(V+E)\]
+\noindent Nel caso di grafi pesati, ogni elemento della lista ha un campo per contenere il peso dell'arco.\par
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/adjList.png}
+	\caption{Lista di adiacenza}
+\end{figure}
+Le matrici di adiacenza, invece, utilizzano una matrice di dimensione $V\times V$ con valori booleani per segnalare le adiacenze per ogni nodo. Formalmente: \[G[i,j] = \begin{cases}
+	1 & \text{Se esiste l'arco }(i,j)\\
+	0 & \text{altrimenti}
+\end{cases}\]
+\noindent Nei grafi non orientati la matrice risulta \textbf{simmetrica} e lo spazio richiesto è $\Theta(V^2)$. È una rappresentazione inefficiente per grafi \textbf{sparsi} ($|E|$ è molto più piccolo di $|V|^2$), mentre per quelli completi risulta molto comoda. Per i grafi pesati, invece, al posto di valori booleani si utilizza direttamente il peso degli archi e l'assenza di un arco è segnalata con un valore sentinella, un infinito, oppure direttamente un NULL.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/adjMatrix.png}
+	\caption{Matrice di adiacenza}
+\end{figure}
+\noindent Facciamo ora un confronto fra le due rappresentazioni analizzando le modalità di calcolo del grado uscente. Con le liste bisogna contare ogni arco; nel caso pessimo abbiamo una complessità $\Theta(V)$, perché può essere che un nodo sia collegato a tutti gli altri. Alternativamente sarebbe possibile estendere la struttura dati con un campo size, garantendo un accesso a tempo costante.
+\begin{algorithm}[h]
+	\caption{outDeg((v,e), u)}
+	\begin{algorithmic}[i]
+		\Require $(v,e)$: coppia nodi-archi, $u$: Nodo il cui grado è calcolato
+		\State $r\gets 0$
+		\ForAll{$v\in Adj[u]$} \Comment{Per ogni nodo adiacente a u}
+		\State $r\gets r+1$ \Comment{Aumenta il counter dei nodi adiacenti}
+		\EndFor
+		\State \textbf{return} $r$
+	\end{algorithmic}
+\end{algorithm}
+\noindent Per il grado entrante bisogna scorrere l'intero grafo, oppure si può calcolare l'outDeg del grafo trasposto, ma costererebbe il doppio della memoria. Per le matrici di adiacenza invece si effettua la sommatoria della riga per il grado uscente e la sommatoria della colonna per quello entrante: \[outDeg = \sum_{j=1}^n G[i,j]\quad inDeg = \sum_{i=1}^n G[i,j]\]
+
+%
+
+\section{Esplorazione dei grafi}
+
+
+
+
+
+
+\begin{comment}	
+	--- Esplorazione dei grafi
+	Com'è fatto? Aggiungere dati? Qual è il cammino migliore? Sono in grado di andare in un nodo a partire da una data posizione?
+	Per poter rispondere a queste domande ci serviremo della stack.
+	Per visitare i grafi ci sono una sbrega di nodi, ma ne vedremo due in particolare, definiti per grafi generici:
+	- BreadthFirstSearch: Voglio esplorare un grafo finito e mi trovo al nodo di partenza s. Vado a vedere tutti i nodi adiacenti. Una volta identificati, prendo uno alla volta
+	e procedo a vedere i suoi adiacenti che non ho già raggiunto prima. Continua fino all'esplorazione totale del grafo.
+	- DepthFirstSearch: Partiamo dalla sorgente s, vediamo il suo vicino e si controlla se questo ha altri vicini. Arriva fino all'ultimo e poi si torna indietro di un'unità di
+	altezza e ripetere i controlli fino alla fine. Continuare fino alla totale esplorazione del grafo.
+	
+	Un caso speciale è avere nodi infiniti ma adiacenze finite. E' chiaro che il DFS andrebbe avanti all'infinito e non funzionerebbe. Conviene usare l'altro.
+\end{comment}

@@ -1,0 +1,96 @@
+15-12-25 Algoritmi
+
+Voglio una struttura dati dove si può fare inserimento, estrazione, ricerca e unione in tempo logaritmico.
+Ha stile heap. Si chiama Heap binomiale, ed è un insieme di alberi binomiali, definiti per induzione, ognuno caratterizzato da una data dimensione.
+
+-- Albero binomiale
+B_0 = un singolo nodo
+B_{i+1} = faccio diventare figlio della radice del primo albero l'intero secondo albero.
+
+Hanno alcune proprietà:
+- In un albero binomiale di dimensione k ci sono 2^k nodi, quindi il numero di nodi dell'albero cresce esponenzialmente con la dimensione.
+2^i+2^i = 2*2^i = 2^{i+1}
+	
+- L'altezza ha valore k, quindi esattamente pari alla dimensione.
+Quasi ovvia la dimostrazione, basta prendere il percorso più profondo.
+
+- Alla profondità i ci sono (k\\i) nodi.
+E' un triangolo di tartaglia stampato come un array che aumenta di 1dim ogni iterazione:
+1
+11
+121
+1331
+14641 etc.
+k=riga, i=colonna
+	
+k=0 + i=0 \implies nodi=1 ok
+k=1 + i=1 \implies nodi=2 ok
+k=k+1 + i=i \implies nodi nell'albero binomiale figlio  traslati di i-1 rispetto alla i dell'albero genitore.
+	Quindi (k+1\\i) = (k\\i-1) + (k\\i), grazie alla proprietà triangolo di tartaglia.
+	
+- I figli della radice da sx a dx sono B_{k-1} ... B_0. I figli di un albero binomiale sono tutti gli alberi di dimensioni minori.
+
+Un heap binomiale è una lista di alberi binomiali tali che:
+	- per ogni dimensione esiste al più un albero.
+	- I nodi contengono chiavi che soddisfano le proprietà di un heap.
+	
+L'elemento minimo è in una delle radici degli alberi. La complessità della ricerca del minimo è lineare nel numero degli alberi.
+
+Esempio:
+-> 5 -> 9 -> 17
+		|	|  |
+		11	18 18
+			|
+			21
+			
+-> 7 -> 4 -> 27 -> 25
+		|	 /\	   /\
+		10	 B_4   B_5				// B_4 e B_5 sono due alberi binomiali di dimensione rispettiva 4 e 5.
+		
+Perché non ci possono essere più di logn radici distinte? Qualunque grado dell'albero io prenda deve avere 2^k \leq n. Dunque il grado massimo che si può prendere è k \leq log_2n
+E no, non posso andare oltre perché posso inserire al più l'albero binomiale della dimensione più tutte le dimensioni precedenti.
+	Dato n converti il suo valore in binario e otterrai facilmente le posizioni degli alberi binari.
+La ricerca del minimo sarà quindi in realtà logaritmica, perché scorri ogni radice.
+
+--- Unione di due heap binomiali
+Somma di due numeri binari; facciamo il merge delle due liste:
+	-> 5 -> 7 -> 9 -> 4 -> 17 -> 27 -> 25
+				 |	  |	   /\    /\    /\
+				 11	  10   B_2   B_4   B_5
+
+	-> 5 -> 9 -> 4 -> 17 -> 27 -> 25		// Fuso 5, 7 in un albero di grado superiore
+	   |	|	  |	   /\    /\    /\
+	   7	11	  10   B_2   B_4   B_5
+	   
+	-> 5 -> 4 -> 17 -> 27 -> 25				// Fuso 4, 9 in un albero di grado superiore
+	   |   / \	 /\    /\    /\
+	   7  9  10	 B_2   B_4   B_5
+		  |
+		  11
+		  
+	-> 5 ->  4 	-> 27 -> 25					// Fuso 4, 17 in un albero di grado superiore. Tutte le dimensioni diverse. Finito.
+	   |   / /\	   /\    /\
+	   7  17 9 10  B_4   B_5
+		  /\  |
+		  B_2 11
+				 
+000111 + 110011 = 111010
+
+L'algoritmo ha un pointer in un nodo, il suo successore ed il successore del successore.
+Va a guardare i gradi dei nodi x, del successore e del successore del successore. Se nota gradi uguali, fa una fusione fra i due, altrimenti passa ai prossimi.
+
+La complessità dell'unione è logn.
+Per calcolare la dimensione puoi estendere la struttura dandogli un campo size, così la complessità diventa costante.
+
+-- Inserimento
+Prendi l'elemento, vedilo come un heap binomiale con un singolo nodo. Fai l'unione seguendo le regole appena viste.
+
+-- Estrazione
+Per la proprietà 4, se rimuovi la radice di un heap binomiale, rimane quello della sua dimensione-1. Fai una unione e la struttura è nuovamente corretta.
+
+-- ReduceKey; voglio un nodo e cambiargli la chiave con un nodo più piccolo
+// Sta roba ha senso farla perché la useremo per eliminare ogni elemento arbitrario di un albero.
+ReduceKey(x, y)
+
+// Riduce il valore di un dato nodo, per poi fare heapify per rimuovere l'anomalia. Sta cosa ha complessità logn.
+// Arriverai che questo nodo sarà la nuova radice con una chiamata ricorsiva a reducekey, per poi rimuoverlo facilmente.

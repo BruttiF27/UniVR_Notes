@@ -1,0 +1,59 @@
+05-03-26 - Algoritmi
+
+Ogni coppia di nodi rappresenta un arco, si indica con (u,v) e si indica tendenzialmente con u->v
+Liste di adiacenza e matrici di adiacenza sono due modi per rappresentare i grafi a computer.
+
+* ref immagine 1
+
+Altrimenti si può fare un array con i vari campi i vari nodi. In questo array poi teniamo un puntatore ai nodi adiacenti. Per esempio dal nodo 1 si punterà a 2 e a 5
+Dal nodo 2 si punterà al 4 e al 3, etc, etc.
+Naturalmente nel grafo bisognerà vedere se esiste un arco, eventualmente aggiungerne, ci sono svariate operazioni. Tuttavia, più è ristretta la rappresentazione, più difficile sarà
+l'implementazione.
+Lo spazio di rappresentazione del grafo è proporzionale dalla somma dei nodi con gli archi. V+E (Abuso di notazione, qua si intende la cardinalità degli insiemi).
+Quindi ne consegue che \Theta(V+E) è l'ordine di grandezza.
+Tendenzialmente si implementano con le tabelle hash ma non è l'unica soluzione.
+In presenza di un grafo pesato, la sua implementazione vedrebbe un campo aggiuntivo che indica il valore del peso.
+
+Tutti gli algoritmi da qua in avanti funzioneranno per tutte le strutture dati per le quali funzionano operazioni con la proprietà associativa. Capirai che ti risparmia tantissimo
+lavoro. Conviene conoscere bene la teoria degli insiemi.
+
+Un'altra tecnica di rappresentazione dei grafi è quella delle matrici di adiacenza. Proviamo a vedere con un grafo non orientato.
+E' abbastanza importante poter indicizzare i nodi in qualche modo qui. Dunque non si usano tabelle hash, bensì enumerazioni.
+Notare che la matrice è simmetrica. Si chiama di adiacenza perché segnala con i booleani quali nodi sono adiacenti. Ha una complessità \Theta(V^2). Questa rappresentazione funziona
+male con i grafi sparsi, mentre se sono completi è molto utile.
+
+Una particolarità: puoi confrontare i due modi di rappresentazione, e sarebbe corretto dire che E=V, concludendo che la complessità in termini di spazio è V^2.
+Tuttavia ciò non consentirebbe di distinguere come la prima rappresentazione sia più efficiente in base al numero di archi.
+Per rappresentare un grafo pesato con le matrici di adiacenza semplicemente al posto degli 1 si indica il relativo peso. Per indicare l'assenza è meglio usare un NULL oppure un
+valore al quale il programma non può arrivare come \infinity inteso come sentinella.
+
+Esempio: Programma che trova il grado uscente di un nodo, rappresentato con liste e matrici di adiacenza
+Con le liste standard bisogna contare ogni arco, ha nel caso pessimo una complessità \Theta(V), perché può essere che un nodo sia collegato a tutti gli altri.
+Oppure puoi aggiuhngere un campo size e farlo in tempo costante, lmao.
+Per le matrici di adiacenza invece si fa la somma dei booleani di una data riga. Si calcola con una complessità V.
+
+// Per liste di adiacenza
+outDeg((v,e), u)
+	r \gets 0
+	\forall v \in Adj[u]	// Per ogni v appartenente alla lista di adiacenza di u
+		r\gets r+1			// Incrementa il counter
+	return r				// Ritorna il grado
+	
+(Per il grado entrante sono costretto a scorrere l'intero grafo. In alternativa si può calcolare l'outDeg del trasposto, ma costererebbe più memoria)
+	
+Notazioni: G = grafo; V[G] = Insieme dei nodi del grafo; E[G] = Insieme degli archi del grafo
+
+// Per matrici di adiacenza (per il grado entrante sommatoria della colonna)
+outDeg(G, i)
+	ret \sum_{j=1}^n G[i,j]	// La sommatoria della riga, insomma.
+	
+--- Esplorazione dei grafi
+Com'è fatto? Aggiungere dati? Qual è il cammino migliore? Sono in grado di andare in un nodo a partire da una data posizione?
+Per poter rispondere a queste domande ci serviremo della stack.
+Per visitare i grafi ci sono una sbrega di nodi, ma ne vedremo due in particolare, definiti per grafi generici:
+	- BreadthFirstSearch: Voglio esplorare un grafo finito e mi trovo al nodo di partenza s. Vado a vedere tutti i nodi adiacenti. Una volta identificati, prendo uno alla volta
+		e procedo a vedere i suoi adiacenti che non ho già raggiunto prima. Continua fino all'esplorazione totale del grafo.
+	- DepthFirstSearch: Partiamo dalla sorgente s, vediamo il suo vicino e si controlla se questo ha altri vicini. Arriva fino all'ultimo e poi si torna indietro di un'unità di
+		altezza e ripetere i controlli fino alla fine. Continuare fino alla totale esplorazione del grafo.
+		
+Un caso speciale è avere nodi infiniti ma adiacenze finite. E' chiaro che il DFS andrebbe avanti all'infinito e non funzionerebbe. Conviene usare l'altro.

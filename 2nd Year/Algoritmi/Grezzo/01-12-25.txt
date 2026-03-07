@@ -1,0 +1,71 @@
+Algoritmi - 01/12/25
+
+Inserimento estrazione e ricerca in tempo logaritmico se si usa un RB albero
+Inserimento, con eventuale anomalia, la quale viene eliminata o propagata verso l'alto
+Gli algoritmi per le rotazioni hanno complessità costante. L'unico caso con complessità maggiore è quello dove si spinge l'anomalia verso la radice, ma è di massimo logn
+
+E' possibile anche unire due RB-alberi che contiene gli elementi di entrambia? Sì, ma in minimo tempo lineare, prima con una buildtree e poi un merge.
+
+Ex. Dato un nodo x, trovare il suo successore (quello che nell'ordinamento occuperebbe la posizione successiva)
+Se esiste il figlio destro, prendo il minimo del figlio destro, mentre in loro assenza, si guarda agli antenati destri.
+
+next(x) {
+	if (right(x) != NIL && x != NIL)
+		ret min(right(x))
+	else {
+		while (x == right(p(x)) && p(x) != NIL) {
+			x <- p(x)
+		}
+		if (x != root) return p(x)
+		else return NIL
+	}
+}		// Complessità nlogn, non supero la profondità dell'albero.
+Le next hanno complessità lineare, tranne nel caso pessimo che è nlogn, dove deve scorrere l'intero albero.
+
+Giustamente puoi farci anche la select. Il minimo e il massimo son banali, alle estremità sinistra e destra.
+Tuttavia considera il mediano ed un albero sbilanciato. Per un tempo logaritmico bisogna seguire un singolo cammino. Ciò si può ottenere aggiungendo un campo "rank" ad ogni nodo.
+Questo consentirebbe di capire la direzione istantaneamente, usando un singolo cammino.
+However; se vado ad inserire un nuovo minimo, toccherà cambiare il rank di tutto l'albero, e ciò ha una complessità lineare. non sufficiente.
+
+Al posto di rank diciamo invece un campo size, che dirà quanti nodi ci sono nell'albero radicato in x.
+Vediamo come size possa essere mantenibile per inserimento ed estrazione:
+	- insert: il size aumenta esclusivamente nei nodi toccati dal percorso.
+	- extract: Stessa cosa; rimuovendo il nodo in un cammino, verrà modificato solo il size dei nodi del percorso.
+		- Occhio che nelle rotazioni il size cambia, sebbene la loro somma rimanga uguale.
+Togo, il campo size quindi non va ad influire sulla complessità delle operazioni elementari, facendole rimanere tutte a complessità logn.
+Also, capiamo: size[x] = size[left(x)] + size[right[x]] + 1
+
+// select logaritmica con il campo size
+select (x, i) {
+	if (i >= 1 && i <= max) {
+		r <- size[left(x)]+1
+		
+		if (r == i) ret x;
+		else {
+			if (i > r) ret select(left(x), i);
+			else if (i < r) ret select(right(x), i-r);		// i-r perché nel subtree destro, gli elementi di r non ci sono più.
+		}
+	}
+}
+
+Se volessimo una posizione specifica in senso di rank, tuttavia, questa cosa funzionerebbe solo per la radice, quindi bisogna trovare un modo per generalizzarlo
+
+rank (x) {
+	r <- size[left(x)]+1;
+	y <- z;
+	
+	while (y != root) {
+		if (y == right(P(y)) {
+			r += size[left(P(y))]+1;
+		}
+		y <- p(y);
+	}
+	ret r;
+}
+
+Dovessi aggiungere un campo ai nodi dell'rb albero, è necessario dover dimostrare che mantenga la complessità logaritmica per le operazioni.
+What if esistesse un modo per determinarlo senza volersi ammazzare? Lmao esistone il teorema, basta attenersi alle sue regole.
+
+Sia F[x] un campo aggiuntivo. Se esiste una funzione f(x) tale che:
+	F(x) = f(key(x), F(left(x)), F(right(x)), key(left(x)), key(right(x)))
+allora F è mantenibile. La potenza del teorema cresce in base a quante operazioni ha.

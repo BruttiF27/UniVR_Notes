@@ -1,0 +1,53 @@
+02-12-25 - Algoritmi
+
+--- Estensione di strutture dati
+Prendere per esempio un RB albero ed aggiungerci campi comodi per poter eseguire più facilmente gli ordinamenti. In questo caso specifico la cosa più importante è non andare
+a considerare il nodo parent negli argomenti di F(x).
+I campi, infatti, cambiano esclusivamente se viene inserito/rimosso un nodo sullo specifico cammino; gli altri rimangono intonsi. E si fa pure in logn sta cosa.
+
+Per le operazioni di risistemazione dell'albero:
+	- i colori non cambiano, non è un argomento di F(x).
+	- Nelle rotazioni, i nodi ruotati x,y possono avere i loro campi cambiati; quindi costa logn, perché devo propagare verso l'alto il campo.
+	
+Dove quest'ultima sfaccettatura è un problema, l'algoritmo rimane ugualmente logaritmico nonostante la rotazione non sia più di costo costante.
+Più precisamente, di base:
+	- inserimento: logn + 2rot, nel caso esteso preso in esame 2rot=2logn
+	- estrazione: logn + 3rot, " 3rot=3logn
+Ma complessivamente rimaniamo sempre su logn.
+
+// Esempio: agenda con appuntamenti, caratterizzati da un intervallo di tempo, l'obiettivo è ins/ext e trovare conflitti, tutto in tempo logaritmico
+// Serve un modo per decidere istantaneamente se andare a sx o dx. Ordiniamoli in base al tempo e aggiungiamo il massimo tempo di fine visita come campo aggiuntivo.
+
+search (x, I)		// I intervallo, tempo di inizio e fine dell'appuntamento. x è la radice.
+while (x != NIL && I \cap int(x) == \void) {			// int è intervallo di x.
+	if (left(x) != NIL && max[left(x)] > low[I])		// max è massimo estremo destro del sottoalbero sx, low è l'estremo inferiore di I.
+		x <- left[x]
+	else 
+		x <- right[x]
+}
+ret x;
+
+Supponiamo di avere un determinato intervallo in root. Sappiamo che se non troviamo nulla a sinistra, allora sicuramente non c'è nulla nemmeno a destra.
+Se un subintervallo left ha massimo nel mezzo dell'intervallo root, sappiamo che a destra esisterà un altro intervallo che sarà anche dentro questo max. Dunque c'è un conflitto.
+Se non ci sono conflitti a sinistra, allora non ce ne saranno neanche a dx.
+
+// Esempio 2: Abbiamo lanciato una missione su marte, dove vengono raccolti vari campioni di suolo. Sono catalogati in un database, ordinato in base ad una chiave, la frequenza
+// spettrale dominante. Il misuratore ha una tolleranza \epsilon; rendendo la frequenza [f+\epsilon, f-\epsilon]. Come memorizzare i dati sicché il db restituisca, se esiste un
+// campione corrispondente a quello letto?
+// Può essere che ci siano più frequenze candidate, bisogna trovarne la frequenza più vicina.
+
+search (x, f)		// f è la frequenza.
+	if (x == NIL) ret NIL;
+	if (f < x.freq) y <- search (left(x), f);
+	else y <- search (right(x), f);
+	
+	if (y == NIL || mod(f-x.freq) < mod(f-y.freq)) return x;		// mod è modulus, il valore assoluto.
+	else return y;
+	
+bestCompatible(x, f, \epsilon)
+	y = search (x, f)
+	
+	if (y != NIL && mod(y.freq - f) < \epsilon*2)
+		ret y
+	else
+		ret NIL

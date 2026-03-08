@@ -1,4 +1,8 @@
-\section{Servizi e interfaccia del sistema operativo}
+Warning: Appunti presi dalle slide dell'AA 2024-2025
+
+---
+
+-- Servizi di un sistema operativo
 I sistemi operativi garantiscono un ambiente in cui eseguire i programmi e fornire servizi, con lo scopo di facilitare l'interazione con i programmatori di applicazioni. Un primo insieme di servizi riguarda funzionalità utili per gli utenti: \begin{itemize}
 	\item \textbf{Interfaccia con l'utente}: Meccanismo di interazione fra utente e sistema, si divide in \textbf{interfaccia grafica utente} GUI, \textbf{interfaccia a linea di comando} CLI, e per i dispositivi mobile, \textbf{interfaccia touch-screen}.
 	\item \textbf{Esecuzione programmi}: La possibilità di caricare un programma in memoria, eseguirlo e terminarlo.
@@ -12,37 +16,14 @@ I sistemi operativi garantiscono un ambiente in cui eseguire i programmi e forni
 	\item \textbf{Accounting}: Mantenere traccia dei programmi usati e quante risorse impiegano.
 	\item \textbf{Protezione e sicurezza}: Il sistema operativo evita che i processi interferiscano fra di loro e il sistema stesso e verifica gli utenti tramite richieste di autenticazione.
 \end{itemize}
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1\linewidth]{Images/OS_services.png}
-	\caption{Panoramica dei servizi del sistema operativo}
-	\label{fig:OS_services}
-\end{figure}
 
-\noindent Esistono poi due modi fondamentali per gli utenti di comunicare con il sistema operativo: tramite l'\textbf{interprete dei comandi} (CLI), implementata da un programma detto \textbf{shell}, che permette agli utenti di inserire direttamente le istruzioni da eseguire, e le \textbf{interfacce grafiche con l'utente} (GUI), che serve da tramite tra utente e sistema.\par
-Nella maggior parte dei sistemi operativi l'interprete dei comandi è un programma speciale che si attiva all'avvio di un job o al log-in di un utente. La sua funzione principale è raccogliere ed eseguire il comando impartito dall'utente, implementandoli in due modi possibili: \begin{itemize}
-	\item Se l'interprete contiene il codice per l'esecuzione del comando, come nei casi di gestione file system, salta alla sezione apposita ed invoca le opportune chiamate senza ricorrere a programmi esterni.
+--- Interfacce utente
+Esistono due modi fondamentali per gli utenti di comunicare con il sistema operativo: tramite l'\textbf{interprete dei comandi} (CLI) o \textbf{shell}, che permette agli utenti di inserire direttamente le istruzioni da eseguire, e le \textbf{interfacce grafiche con l'utente} (GUI), che serve da tramite tra utente e sistema.\par
+Nella maggior parte dei sistemi operativi l'interprete dei comandi è un programma speciale che si attiva all'avvio di un job o al log-on di un utente. La sua funzione principale è raccogliere ed eseguire il comando impartito dall'utente, implementandoli in due modi possibili: \begin{itemize}
+	\item Se l'interprete contiene il codice per l'esecuzione del comando, come nei casi di gestione file system, salta alla sezione apposita ed invoca le opportune chiamate senza appellarsi ad altre fonti.
 	\item Se non contiene il codice, l'interprete implementa il comando per mezzo di programmi di sistema; non conosce il significato del comando ma si limita ad impiegare il nome per identificare un file da caricare in memoria ed eseguirlo.
 \end{itemize}
 \noindent Il metodo più utilizzato è il secondo, perché consente la scrittura di nuovi comandi per l'interprete creando nuovi file con un nome appropriato, senza modificare il suo codice.\par
 Per quanto riguarda le interfacce grafiche con l'utente, abbiamo un ambiente nettamente più user-friendly, costituito da una o più finestre con i relativi menu entro cui muoversi con il puntatore del mouse. Usa la metafora della scrivania, il \textbf{desktop}, per rendere intuitivi i concetti. Qui si possono trovare le varie \textbf{icone}, le quali rappresentano programmi, file, directory (chiamate \textbf{cartelle}) e funzioni del sistema. Si tratta del metodo di interazione con l'utente più utilizzato in generale, sebbene i moderni sistemi operativi diano l'opzione per utilizzare entrambi.
 
-%
-
-\section{Chiamate di sistema}
-
-%
-
-\section{Servizi di sistema}
-
-%
-
-\section{Linker e loader}
-
-%
-
-\section{Struttura del sistema operativo}
-
-%
-
-\section{Generare e avviare un sistema operativo}
+--- Continua da system calls

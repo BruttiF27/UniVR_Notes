@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  26 FEB 2026 18:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  8 MAR 2026 12:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -372,34 +372,56 @@ Package pdftex.def Info: Images/ModernPCDynamic.png  used on input line 33.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5 <./Images/AbstractComponents.png>] Excluding 'comment' comment.
-Excluding 'comment' comment.) [6 <./Images/ModernPCDynamic.png>] [7]
+[5 <./Images/AbstractComponents.png>]
+<Images/MemConf_multiprogrammedOS.png, id=33, 141.52875pt x 221.82875pt>
+File: Images/MemConf_multiprogrammedOS.png Graphic file (type png)
+<use Images/MemConf_multiprogrammedOS.png>
+Package pdftex.def Info: Images/MemConf_multiprogrammedOS.png  used on input li
+ne 47.
+(pdftex.def)             Requested size: 89.99863pt x 141.06615pt.
+ [6 <./Images/ModernPCDynamic.png>]
+[7 <./Images/MemConf_multiprogrammedOS.png>] [8]
+Underfull \hbox (badness 10000) in paragraph at lines 88--89
+
+ []
+
+) [9] [10]
 Capitolo 2.
-(./Chapters/2.tex) [8
+(./Chapters/2.tex [11
 
 ]
+<Images/OS_services.png, id=55, 583.17876pt x 392.46625pt>
+File: Images/OS_services.png Graphic file (type png)
+<use Images/OS_services.png>
+Package pdftex.def Info: Images/OS_services.png  used on input line 17.
+(pdftex.def)             Requested size: 450.0pt x 302.8467pt.
+) [12 <./Images/OS_services.png>] [13]
 Capitolo 3.
-(./Chapters/3.tex) [9
+(./Chapters/3.tex) [14
 
 ]
 Capitolo 4.
-(./Chapters/4.tex) [10
+(./Chapters/4.tex) [15
 
 ]
 Capitolo 5.
-(./Chapters/5.tex) [11
+(./Chapters/5.tex) [16
 
 ]
 Capitolo 6.
-(./Chapters/6.tex) [12
+(./Chapters/6.tex) [17
 
 ]
 Capitolo 7.
-(./Chapters/7.tex) [13
+(./Chapters/7.tex) [18
 
 ]
 Capitolo 8.
-(./Chapters/8.tex) [14
+(./Chapters/8.tex) [19
+
+]
+Capitolo 9.
+(./Chapters/9.tex) [20
 
 ] (./main.aux)
  ***********
@@ -408,13 +430,13 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6825 strings out of 474222
- 104726 string characters out of 5748733
+ 6849 strings out of 474222
+ 105357 string characters out of 5748733
  1933975 words of memory out of 5000000
- 28968 multiletter control sequences out of 15000+600000
+ 28989 multiletter control sequences out of 15000+600000
  567274 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,7n,70p,739b,269s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 64i,7n,70p,822b,271s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
@@ -423,10 +445,10 @@ xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive
 dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/c
 m-super/sfrm1200.pfb>
-Output written on main.pdf (15 pages, 129066 bytes).
+Output written on main.pdf (21 pages, 164411 bytes).
 PDF statistics:
- 99 PDF objects out of 1000 (max. 8388607)
- 61 compressed objects within 1 object stream
+ 122 PDF objects out of 1000 (max. 8388607)
+ 74 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

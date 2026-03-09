@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  5 MAR 2026 10:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  9 MAR 2026 17:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -233,21 +233,48 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
 \CommentStream=\write3
 
 Excluding comment 'comment')
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen166
+\captionmargin=\dimen167
+\caption@leftmargin=\dimen168
+\caption@rightmargin=\dimen169
+\caption@width=\dimen170
+\caption@indent=\dimen171
+\caption@parindent=\dimen172
+\caption@hangindent=\dimen173
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count286
+\c@continuedfloat=\count287
+Package caption Info: listings package is loaded.
+)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count288
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count289
+)
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2024/01/07 v24.1 The Babel package
-\babel@savecnt=\count286
-\U@D=\dimen166
+\babel@savecnt=\count290
+\U@D=\dimen174
 \l@unhyphenated=\language89
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
-\bbl@dirlevel=\count287
+\bbl@dirlevel=\count291
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel-italian/italian.ldf
 Language: italian 2024/01/03 v.1.5.00 Italian support for the babel system
-\it@lettering=\count288
-\it@doublequoteactive=\count289
-\it@ISOcompliance=\count290
+\it@lettering=\count292
+\it@doublequoteactive=\count293
+\it@ISOcompliance=\count294
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/babel/locale/it/babel-italian.tex
 Package babel Info: Importing font and identification data for italian
@@ -255,17 +282,17 @@ Package babel Info: Importing font and identification data for italian
 )
 (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count291
+\etb@tempcnta=\count295
 ))
 
 LaTeX Warning: \include should only be used after \begin{document} on input lin
 e 4.
 
 (./Configs/boxes.tex
-\c@theorem=\count292
-\c@definition=\count293
+\c@theorem=\count296
+\c@definition=\count297
 )
-\c@eg=\count294
+\c@eg=\count298
 
 
 LaTeX Warning: \include should only be used after \begin{document} on input lin
@@ -274,7 +301,7 @@ e 5.
 (./Configs/formats.tex)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count295
+\l__color_backend_stack_int=\count299
 \l__pdf_internal_box=\box56
 )
 (./main.aux)
@@ -296,16 +323,16 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count296
-\scratchdimen=\dimen167
+\scratchcounter=\count300
+\scratchdimen=\dimen175
 \scratchbox=\box57
-\nofMPsegments=\count297
-\nofMParguments=\count298
+\nofMPsegments=\count301
+\nofMParguments=\count302
 \everyMPshowfont=\toks30
-\MPscratchCnt=\count299
-\MPscratchDim=\dimen168
-\MPnumerator=\count300
-\makeMPintoPDFobject=\count301
+\MPscratchCnt=\count303
+\MPscratchDim=\dimen176
+\MPnumerator=\count304
+\makeMPintoPDFobject=\count305
 \everyMPtoPDFconversion=\toks31
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -316,7 +343,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count302
+\c@lstlisting=\count306
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 LaTeX Info: Redefining \it@ocap on input line 9.
 LaTeX Info: Redefining \it@ccap on input line 9.
 
@@ -353,32 +382,73 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
  [2
 
-] [3]
+]
 Capitolo 1.
-(./Chapters/1.tex [4
+(./Chapters/1.tex [3
 
 {/usr/share/texmf/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<Images/EsempioComunicazione.png, id=26, 502.87875pt x 422.57875pt>
+<Images/EsempioComunicazione.png, id=22, 502.87875pt x 422.57875pt>
 File: Images/EsempioComunicazione.png Graphic file (type png)
 <use Images/EsempioComunicazione.png>
 Package pdftex.def Info: Images/EsempioComunicazione.png  used on input line 16
 .
 (pdftex.def)             Requested size: 314.99863pt x 264.69783pt.
-) [5 <./Images/EsempioComunicazione.png>]
+ [4 <./Images/EsempioComunicazione.png>]
+<Images/LAN-Internet connection.png, id=29, 423.5825pt x 292.09125pt>
+File: Images/LAN-Internet connection.png Graphic file (type png)
+<use Images/LAN-Internet connection.png>
+Package pdftex.def Info: Images/LAN-Internet connection.png  used on input line
+ 29.
+(pdftex.def)             Requested size: 360.00137pt x 248.25642pt.
+ [5 <./Images/LAN-Internet connection.png>]
+<Images/circuitComm.png, id=34, 384.43625pt x 132.495pt>
+File: Images/circuitComm.png Graphic file (type png)
+<use Images/circuitComm.png>
+Package pdftex.def Info: Images/circuitComm.png  used on input line 47.
+(pdftex.def)             Requested size: 202.49863pt x 69.79138pt.
+<Images/circuitCommGraph.png, id=35, 434.62375pt x 262.9825pt>
+File: Images/circuitCommGraph.png Graphic file (type png)
+<use Images/circuitCommGraph.png>
+Package pdftex.def Info: Images/circuitCommGraph.png  used on input line 49.
+(pdftex.def)             Requested size: 225.0pt x 136.14574pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
+
+ []
+
+<Images/packageComm.png, id=36, 513.92pt x 177.66376pt>
+File: Images/packageComm.png Graphic file (type png)
+<use Images/packageComm.png>
+Package pdftex.def Info: Images/packageComm.png  used on input line 58.
+(pdftex.def)             Requested size: 202.49863pt x 70.00426pt.
+<Images/packageCommGraph.png, id=37, 451.6875pt x 242.9075pt>
+File: Images/packageCommGraph.png Graphic file (type png)
+<use Images/packageCommGraph.png>
+Package pdftex.def Info: Images/packageCommGraph.png  used on input line 60.
+(pdftex.def)             Requested size: 225.0pt x 121.00125pt.
+<Images/packageCommDivision.png, id=38, 342.27875pt x 171.64125pt>
+File: Images/packageCommDivision.png Graphic file (type png)
+<use Images/packageCommDivision.png>
+Package pdftex.def Info: Images/packageCommDivision.png  used on input line 62.
+
+(pdftex.def)             Requested size: 225.0pt x 112.83308pt.
+[6 <./Images/circuitComm.png> <./Images/circuitCommGraph.png>] [7 <./Images/pac
+kageComm.png> <./Images/packageCommGraph.png> <./Images/packageCommDivision.png
+>]) [8]
 Capitolo 2.
-(./Chapters/2.tex) [6
+(./Chapters/2.tex) [9
 
 ]
 Capitolo 3.
-(./Chapters/3.tex) [7
+(./Chapters/3.tex) [10
 
 ]
 Capitolo 4.
-(./Chapters/4.tex) [8
+(./Chapters/4.tex) [11
 
 ]
 Capitolo 5.
-(./Chapters/5.tex) [9
+(./Chapters/5.tex) [12
 
 ] (./main.aux)
  ***********
@@ -387,25 +457,30 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6793 strings out of 474222
- 104055 string characters out of 5748733
- 1932975 words of memory out of 5000000
- 28945 multiletter control sequences out of 15000+600000
- 567274 words of font info for 71 fonts, out of 8000000 for 9000
+ 8302 strings out of 474222
+ 133573 string characters out of 5748733
+ 1933975 words of memory out of 5000000
+ 30441 multiletter control sequences out of 15000+600000
+ 569291 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,6n,70p,601b,269s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,9n,82p,795b,504s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/c
-m-super/sfrm1200.pfb>
-Output written on main.pdf (10 pages, 106757 bytes).
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><
+/usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on main.pdf (13 pages, 221371 bytes).
 PDF statistics:
- 81 PDF objects out of 1000 (max. 8388607)
- 50 compressed objects within 1 object stream
+ 133 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,74 @@
+06-03-26 - Reti di calcolatori
+
+Scambio di comunicazioni a distanza indefinita. Abbiamo detto che bisogna risolvere il problema del protocollo di comunicazione e del trasferimento fisico delle informazioni tramite l'architettura di rete.
+Ora parliamo dell'architettura di rete per capire quali sono i suoi elementi fondamentali.
+
+-- Architetture di rete
+Un esempio di architettura di rete è banalmente internet, rappresenta uno dei più complessi e completi. Gli elementi di base sono:
+	- Chi invia/riceve informazioni: i calcolatori, detti anche "end host"
+	- Apparati di rete: come i router o switch access point.
+	- Collegamenti
+	
+Un altro esempio di rete sono le reti locali LAN - Local Area Network
+Rappresentiamo le LAN come un'area che contiene alcuni elementi, e ha il bordo che comunica col router.
+* Vedere immagine 1
+Contiene una serie di calcolatori, quindi gli end-host. Per connettersi, esiste un access point al quale gli end host possono accedervi.
+Lo switch è invece quell'oggetto che con dei cavi di rete porta la connettività fisica. Di norma è connesso all'access point (ce ne possono essere vari e lui può collegarsi ad ognuno di loro), ma può essere collegato direttamente anche ad un server.
+
+Insomma lo switch può connettere diverse interfacce e con un singolo collegamento con il router (router di bordo), le connette tutte alla rete.
+Nelle reti domestiche router e switch sono fusi in un singolo apparato.
+
+Il router di bordo è collegato naturalmente alla rete inseternet, ed è collegato ad altri router. Questa sezione è detta backbone e si estende per tutto il pianeta.
+Se vediamo internet in modo più astratto vediamo un insieme (con router interni) dove il bordo ha i router di bordo che consentono di connettere le reti lan.
+Gli end-host si trovano naturalmente nelle lan e per comunicare con altri end-host si sfrutta internet con questi collegamenti ai router.
+Insomma dalla lan si passa al router, che tramite internet lo fa arrivare all'altro router di bordo per spacchettarlo nella seconda rete lan.
+
+Com'è organizzato più precisamente il backbone?
+Ci sono diversi operatori di rete che offrono una connettività: gli ISP, internet service provider (oppure AS, autonomous systems), entità amministrative autonome. Ce ne sono comunque di diversi.
+
+ISP di livello 1: Coprono aree internazionali
+ISP di livello 2: Coprono aree nazionali (Si allacciano ai primi se serve. Altrimenti su territorio nazionale si fanno collegamenti diretti)
+ISP di livello 3: Coprono aree locali (tendenzialmente servizi offerti ad aziende, come quello che fa Kernet in hotel, si allacciano ai primi necessariamente)
+
+Con questa struttura possiamo definire internet come la rete delle reti, la mother of mothers.
+
+Ma come può essere trasferita l'informazione in questa rete?
+	- Reti a commutazione di circuito (storicamente usata per le chiamate vocali, è dismessa):
+		Il percorso tra la sorgente e la destinazione è allocato staticamente per la durata dello scambio dell'informazione. Le risorse di trasmissione sono quindi dedicate alla comunicazione. Ma in quanto queste sono limitate, il numero di utenti che possono essere contempraneamente attivi sarà limitato.
+		Si può vedere questo limite già dall'immagine che mostrano gli ISP. Ci sono solo un numero n di router di bordo connessi ad altri ISP. Se ogni utente volesse connettersi all'altra rete, non ci sarebbero risorse sufficienti per consentirlo.
+		Per gestione delle risorse si usava il TimeDivisionMultiplex. Ovvero si dividono le risorse in slot da dare ai vari utenti.
+		Altrimenti c'è il FrequencyDivisionMultiplex, ovvero una divisione in frequenze, seguendo la logica della radio. Lo slot è dato dalla frequenza e non dà problemi alle altre.
+		
+		I pro di questo sistema sono anzitutto che le risorse sono dedicate a ciascun utente, si ha dunque una comunicazione continua senza interruzioni.
+		Poi c'è anche un ritardo deterministico (si invia un messaggio di instaurazion canale che passa nelle varie centrali e viene accettato dall'altro end-host, per poi trasferire direttamente il contenuto. Abbiamo ritardo di instaurazione e ritardo di trasmissione, ma in quanto il canale è a me dedicato posso trasferire le informazioni direttamente.)
+		I contro invece sono il numero di utenti limitato e avere un potenziale di risorse sprecate. Questo perché nel canale, quando non si trasferisce nulla, non ferma il costo di mantenimento del canale.
+	- Reti a commutazione di pacchetto
+		L'informazione è suddivisa in pacchetti indipendenti, i quali hanno un'intestazione che contiene l'header, contenente l'indirizzo di sorgente e di destinazione dell'informazione. Nei router c'è un buffer che mette in coda tutti i pacchetti in attesa di essere trasmessi tra i router passando per un bottleneck. È possibile ricevere n flussi di dati da m utenti. Sebbene è possibile gestire un numero di utenti infinito, più ce ne sono, più lento sarà il servizio. Non dissimile da una cassa vuota o intasata quando c'è troppa clientela.
+		
+		Pro: Utilizzo più efficiente delle risorse. Se un utente smette di fare richieste, non hanno slot temporali per lui, bensì si userà lo spazio del buffer solo per gli altri. Quindi non si hanno spazi interamente dedicati a specifici utenti.
+		Contro: Introduzione dei ritardi (non c'entra, ma annoto che la posizione dell'header dei dati determina la direzione nella quale sono letti i bits dei dati) Si può trsferire il pacchetto solo quando ha ricevuto ogni singolo suo bit. Questa modalità di trasferimento è detta store & forward.
+		Il ritardo iniziale è dato dal numero di apparati attraversati. Smaltito questo primo ritardo, si avrà quello di trasmissione.
+		Un altro contro è la potenziale perdita di pacchetti. Questo accade perché i buffer sono limitati.
+		
+È possibile quantificare i ritardi?
+	- Valutare le cause di ritardo in ciascun "hop", ovvero fra ogni router.
+		1. Ritardo di elaborazione: Legato all'architettura del router (tempo impiegato per elaborare il pacchetto di ingresso e trasferirlo all'uscita per il successivo hop)
+		2. Ritardo di accodamento: Legato al buffer del link di uscita, in attesa che i dati siano trasmessi.
+		3. Ritardo di trasmissione: Legato alla dimensione del pacchetto diviso la velocità di trasmissione: packDim/transmSpeed
+		4. Ritardo di propagazione: Legato alla distanza da percorrere
+		
+Quale componente del ritardo incide di più? (Ritardo di accodamento)
+
+Intuitivamente è quello dato dalla coda del buffer, perché ogni pacchetto prima deve essere trasmesso.
+
+Qual è l'ordine di grandezza dei ritardi su internet?
+bisogna distinguere alcuni casi
+1. Comunicazione con utente a livello locale (o stesso ISP): Si hanno ritardi inferiori a 10ms. Più l'utente è vicino, meno apparati si attraversano, naturalmente. Non è una relazione lineare, ma influisce.
+2. Comunicazione a livello internazionale, ma stesso continente: tra 10-50ms
+3. Intercontinentale: sopra i 100ms
+
+Come misurare i ritardi sul campo?
+Abbiamo strumenti appositi, come il ping.
+Ping seguito dall'host del quale voglio misurare il ritardo, permette di misurare il roundtrip time.
+
+Quando mando un ping, viene inviato un messaggio all'host, il quale manda una risposta. Il tempo di andata e ritorno di un messaggio di ping è detto rountrip time.

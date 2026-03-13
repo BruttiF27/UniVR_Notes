@@ -1,0 +1,39 @@
+11-03-26 - Lab softEng
+
+# Oggi lavoriamo coi grafi, pare.
+
+--- Reti di petri
+Poniamoci il problema di rappresentare matrici/liste di adiacenza a computer. E' un problema di geometria computazionale risolvibile coi seguenti tool.
+Il linguaggio DOT è utile per disegnare i grafi secondo determinate specifiche.
+
+La rete di petri è un formalismo matematico per modellare sistemi concorrenti, distribuiti e paralleli. Ha grande potenziale espressivo, pare. Si tratta di un grafo bipartito
+orientato (Grafo bipartito non può avere cicli dispari, rivedere la definizione), composto da: posti, transizioni, archi e token.
+Un arco connette posti con transizioni e transizioni con posti. Non si può connettere posto-posto trans-trans.
+I token sono le risorse presenti nella rete, quindi le condizioni vere. Definiscono inoltre lo stato della rete.
+
+Regola di abilitazione: ogni per ogni posto entrante devo avere almeno un token (devo avere le precondizioni per lanciare una transizione)
+Regola di scatto: Quando lancio una transizione consumo un token per ogni posto e produco un token in ogni posto uscente.
+
+--- Graphviz DOT
+Linguaggio dichiarayivo per la descrizione di gtavi. Il compilatore dot trasforma il src testuale in un'immagine o pdf.
+Si importa il framework su python per poterlo usare.
+
+*vedi ex1
+*vedi ex2 per il marking
+
+-- Citazione ottenuta: Chiederò al tutor di venire incontro alla mia demenza senile. Pietro S.
+
+A quanto pare esistono le annotazioni? Mi ha scritto @property. Sembra essere un override. Si chiama decoratore in python.
+
+```
+@property
+def places(self)
+	return set(self.marking.keys())
+```
+
+Python usa ._ per i campi privati. Si può evitare perché non controlla public/private, ma che schifo.
+
+Occhio che nei notebook è possibile importare funzioni provenienti da altre celle di codice, staccate da quella presa in esame. Se qualcosa non sembra aver senso, guarda il
+codice precedente, magari la funzione è scritta là.
+
+Poi ci sono due esercizi che riguardano la rete di petri e l'implementazione dello scatto. Vederli dal notebook è meglio. Stanno pure gli hint.

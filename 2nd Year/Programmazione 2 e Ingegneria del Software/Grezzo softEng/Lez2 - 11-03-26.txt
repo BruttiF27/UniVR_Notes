@@ -1,0 +1,138 @@
+Lez2 - SoftEng
+
+--- Modelli di processo di sviluppo software
+- Il senso
+Consideriamo il sftw come un prodotto, la cui qualità è data dal processo creativo. I modelli sono utili per dare uno standard lavorativo in ambito dell'ingegneria del software
+Il processo non può essere laciato alla sola esperienza dello sviluppatore, poiché è variabile e non garantisce almeno un determinato livello di qualità.
+	Modellare il processo serve anzitutto a dare ordine, controllo e ripetibilità. Consente agli sviluppatori di essere produttivi e garantire, appunto, uno standard minimo
+del prodotto.
+
+Parliamo quindi di una visione iniziale astratta del processo; ce ne sono vari:
+	- Adattivi (Scrum, Kanban)
+	- Prescrittivi (RUP, XP)
+Alcuni esempi di modelli veri sono quello waterfall, a spirale, incrementale, gli agili e tant'altri. Sceglierlo è dominio del project manager, ha un grosso impatto sullo sviluppo
+del software in toto. Cspita tuttavia che la scelta sia presa dall'organizzazione.
+
+- Code&fix
+Privo di fasi di analisi e progettazioni, si arriva al codice finale per tntativi. Usato per progetti piccoli. Inadatto per progetti grossi.
+	1. Capisci le richieste
+	2. Scrivi codice da zero, esegui e testa.
+	3. è ok?
+		3.Y: Consegna il codice.
+		3.N: Correggi, riesegui e testa.
+		
+E' la sofferenza questo metodo. Fa cagare. Non è un processo vero e proprio.
+
+- Waterfall
+Il primo modello del processo per lo sviluppo software, il processo è spezzato in attività intermedie in cascata. Con questo modello si arriva alla produzione industriale
+di software.
+
+Pregi: Enfasi sull'analisi dei requisiti ed il progetto di sistema., pospone l'iomplementazione dopo aver capito i bisogni del cliente, introduce pianificazione concreta ed è
+applicabile se i requisiti sono chiari e stabili.
+Difetti: E' un modello lineare, rigido e monolitico (è tutto fissato, poco flessibile nel cambiare idee e fasi). La consegna del prodotto avviene pure dopo anni, ma magari
+i requisiti cambiano o si chiariscono, si finisce per consegnare un software obsoleto. Si producono inoltre molti documenti poco chiari. Esisterebbe un modello che implementa
+feedback e iterazioni, ma rimane comunque duro e rigido alla base.
+
+Fasi del modello:
+	1. Fattibilità: Si valuta la fattibilità e convenienza in base a tempo e risorse disponibili. Stima inoltre il ROI - return of investment.
+	2. Il resto è visto nella scorsa lezione.
+	
+Una versione rivista del modello a cascata è quella che implementa il feedback, rendendo possibile risalire la cascata nel caso in cui i requisiti non siano soddisfacenti.
+Si presenta un prototipo, si valuta ed eventualmente consegna il prodotto per passare alla fase successiva.
+Un'altra variante del waterfall è il V-model, che dà molta enfasi al testing. Evnidenziacome le attività di testing sono collegate a quelle di analisi e progettazione.
+Ogni controllo che non ha esito positivo porta a un rifacimento o modifica della fase associata:
+	1. req analysis 			<-> 			7. acceptance testing
+	2. high-level design 		<-> 		6. system testing
+	3. detailed design 			<-> 	5. unit&integration testing
+							4. coding
+Fondamentalmente se si trovano problemi nelle fasi diverse dal coding, si rivede la parte parallela ed il processo, ciclando, potrà ricominciare da là.
+Questi modelli rimangono ugualmente rigidi e non ci si può aspettare che il committente sappia perfettamente quello che vuole. Ci vuole troppo tempo e gli errori in fase
+iniziale causa problemi devastanti.
+
+-- Approcci diversi
+Cerchiamo quindi di sviluppare un'implementazione iniziale, esporla agli utenti e raffinarla release dpopo release, fino ad arrivare alla lista completa di funzionalità.
+Ognuna di queste release può essere utilizzata. Ottimo per potersi gestire con i feedback e correggere problemi con la successiva patch.
+
+- Modelli a prototyping
+Realizza un prototipo funzionante del sistema sul quale validare i requisiti. Se va bene si prosegue, altrimenti lo si rielabora. Il pototipo è ridotto perché ha meno funzionalità
+ed è meno efficiente in termini di prestazioni. Spesso è sviluppato in un linguaggio di alto livello perché accorcia i tempi di lavoro, potendo ottenere feedback quanto prima.
+
+Vantaggi: >Permette di raffinare i requisiti definiti all'inizio e si rilevano velocemente errori di interpretaione.
+Svantaggi: Spesso il prototipo è da buttare, è un problema economico e di stress. Il rischio è di non farlo e così scelte non ideali diventano parte integrante del sistema.
+
+Quindi si protitpizzano le funzionalità su cui il cliente non sembra avere le idee chiare.
+
+- Modelli iterativi-incrementali
+Prevedono di sviluppare più release di cui solo l'ultima è completa. Chiedono di individuare le features per ogni release; dopo la prima si procede in parallelo.
+Nel senso, hai una prima release con le feature base, le successive avranno le funzionalità aggiuntive richieste, distribuendo versioni del software sempre più coplete.
+Sinergia col feedback palese.
+
+Per esempio, per birdArchive:
+	- Possibilità di leggere/salvare un archivio
+	- Feature per inserimento da CLI
+	- Feature per modifica da CLI
+
+Tendenzialmente si implementano prima i requisiti che danno maggior valore al committente, quindi quelle più a lui utili, per le quali ha richiesto il software.
+Un altro approccio potrebbe essere invece di dare tutte e features in una volta, ma parzialmente. Dai parte per parte con ogni release fino al prodotto completo.
+
+Vantaggi: Release sviluppate in base al feedback ed è più semplice prevedere le risorse necessarie allo sviluppo, in quanto più piccole. I problemi vengono anche individuati rpesto
+e c'è anche una risposta rapida al mercato. E' veramente solo usando ill software che si capisce cosa si vuole.
+
+-- Modello a spirale
+Approccio più realistico per sistemi di grandi dimensioni, si evolve insieme alle interazioni continue fra cliente e devs. E' un modello guidato dal rischio.
+Per rischio intendiamo una circostanza potenzialmente avversa in grado di attaccare lo sviluppo e la qualità del sw.
+Ogni scelta, come gli investimenti, comporta un rischio, già la scelta di una tecnologia ne comporta. Prima di scegliere bisogna valutare:
+	- gravità delle conseguenze
+	- probabilità del verificarsi della circostanza.
+	
+Questo modello prevede quattro fasi dove ci continua ad iterare fra loro fino ad arrivare al prodotto definitivo:
+	- Planning: determinazione di obiettivi, alternative e vincoli
+	- risk analysis: analisi di alternative e identificazione/risoluzione rischi
+	- engineering: Sviluppo del prodotto di successivp lovello
+	- customer evaluation Revisione dei risultati da parte del committente.
+	
+Vantaggi: Adatto a sistemi complessi, ed è un modello guidato dal rischio.
+Svantaggi: Non è universale, necessita poi grandi competenze di valutazione rischi. Richiede un'opportina personalizzazione ed esperienza di utilizzo. Se un rischio rilevante non
+è scoperto o gestito, c'è la possibilità di dover ricominciare da capo. Dipende da quanto è grave la conseguenza.
+
+- Unified Process
+Sviluppo di sistemi a oggetti con notazioni UML per tutto il processo. E' gyuidato dagli use case e incorpora mote idee dal modello a spirale, come lo sviluppo a fase, rilasci
+multipli, con enfasi su ustomer evaluation.
+Ci sono 4 iterazioni con 5 sottofasi per ognuna di loro (nelle slide, è stato troppo veloce):
+	- inception: Studio di fattibilità, requisiti essenziali
+	- elaboration. comprensione del dominio del problema e definizione architettura
+	- construction: design codicfica e testing
+	- transition: Messa in esercizio del sistema.
+
+- Component based softEng
+Cerca di minimizzare la scrittura di nuovo codice cercando di riutilizzare componenti già a disposizione piuttosto che scriverne di nuove.
+Esiste uno store o marketplace dei componenti e lo sviluppo inizia con la loro identificazione.
+Fasi: requirements specs -> component analysis -> requirements modifications -> system design with reuse -> dev and integration -> system validation
+Si vanno a controllare le componenti che possono rispondere alle richieste, eventualmente le si cambiano se non è così, poi si fa design e sviluppo, per poi validarlo.
+
+Vantaggi: Scrivo meno codice perché mi affido a roba già scritta. Riduce costi totali e rischi.
+Svantaggi: Inevitabili compromessi perché le componenti non le hai scritte tu, la soluzione sarebbe modificare i requisiti, ma il cliente può essere cagacazzo. Non è sempre facike
+integrare il coice e spesso i componenti usati sono fatti evolvere dalla ditta produttrice senza controllo di chi li usa.
+
+-- Modello trasformazionale
+Guidato da una specifica si arriva all'implementazione. Si tratta di un modello rigoroso e matematico;  si analizzano i requisiti, formalizzarli e li si trasforma per step
+in codice effettivo. Comodo perché posso dimostrare il funzionamento del codice matematicamente.
+
+- Metodi agili
+Prevede di avere meno attenzione sulla documentazione per garantire una migliore flessibilità nell'implementazione del codice. Risulta più importante soddisfare il cliente
+piuttosto che seguire il piano. Ci sono delle fasi abbastanza rapide e brevi:
+	- ciclo rapido/consegne frequenti: Ogni ciclo ffronta un solo pezzo e si deve concludere in fretta
+	- progettazione semplice: Keep it short and simple, implementa solo le cose necessarie e in modo semplice
+	- refactoring: Ristrutturazione continua del codice per renderlo più chiaro
+	- meeting di riflessione: Frequenti, giornalieri.
+	- tacit/implicit knowledge: Conoscenza nella testa di chi lavora piuttosto che nei documenti (ahimè)
+	- Co-location (customer on site): Gli sviluppatori devono lavorare insieme agli utenti, i quali devono essere presenti e disponibili (idealmente).
+	
+Approcci molto agili, ma i problemi che portano sono gestionali, legali e di manuytenzione.
+Se perdi un componente del team la knowledge implicita è persa. Gli utenti potrebbero non eessere sempre disponibili.
+Non si sa quando lo sviluppo termina, il contratto non è stipulato, non è scritto da nessuna parte.
+La documentazione è scarsa e a causa di ciò lo sviluppo può evolvere in modo casuale. Disgustosamente casuale.
+
+Generalmente la scelta del metodo:
+	- plan-driven se è grosso o critico
+	- agile se è una roba più piccolina.

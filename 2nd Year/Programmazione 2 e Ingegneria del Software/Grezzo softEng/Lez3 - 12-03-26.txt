@@ -1,0 +1,37 @@
+12-03-26 - softEng
+
+--- Ingegneria dei requisiti
+Si tratta del primo passo da eseguire per lo sviluppo del software. Chiamiamo requisito ciò che il sistema deve fare o un vincolo a cui deve sottostare. Può essere descritto in modo molto astratto o dettagliato matematicamente. Mi raccomando non dice il come. Quello sarà da decidersi durante la progettazione. L'incompletezza dei requisiti si tratta di una delle maggiori cause del fallimento di un progetto, da qui la sua importanza. Questo anche perché il costo di rimozione dei difetti in fase di testing, o peggio, mantenimento (quindi con del codice già bello che scritto), è notevolmente più grande in termini di risorse rispetto che alla fase di design.
+
+- Req utente e di sistema
+	- Utente: Descrizione in linguaggio naturale delle funzionalità che il sistema dovrà fornire. Quindi i desideri del cliente. Scritti per e con il cliente.
+	- Di sistema: Specificati con la stesura di un documento che descrive dettagliatamente le funzionalità del sistema. Quindi ciò che farà il sistema. Scritti per e con il team operativo.
+	
+I primi sono indicati tendenzialmente in modo chiaro per tutti, spesso con un grafico, nei secondi vanno sempre indicate le motivazioni per aver scelto una determinata tecnologia o algoritmo, insieme ai requisiti di sistema (questo specie per il mantenimento).
+Non scriverli equivale al code&fix. Per scriverli si usano gli UML, testi strutturati o anche use cases. Altrimenti per gli agili si usano le user stories.
+
+- req. funzionali e non funzionali
+Descrivono le funzionalità e i servizi forniti dal sistema, quindi quello che deve fare. Sono indipendenti dall'implementazione di una soluzione, come già detto prima. Per esempio un sistema bancario deve consentire la consultazione del saldo.
+Quelli non funzionali, descrivono necessità e requisiti del sistema che non sono funzionabili. Definiscono quindi i vincoli, riguardano la scelta di linguaggi, piattaforme, tecnologie, e altro. Per esempio, in un programma di editing i video vanno esportati in mp4 e non in pdf.
+Alcuni requisiti sono normativi, questo è un controllo spesso visto per i sistemi critici.
+
+Insomma l'ingegneria dei requisiti è quel termine usato per descrivere le attività necessarie per raccogliere e documentare le richieste che il prodotto deve esaudire.
+Lo scopo primario è la definizione di un requirement decument, che definisca funzionalità e servizi offerti dal sistema da realizzare. Non è una tantum.
+Poi si passa alla definizione rigorosa, usando anche un tool di gestione dei requisiti, di solito.
+
+Si cerca di tirar fuori con le catene ogni requisito possibile dai committenti tramite le interviste. Queste son fatte con questionari, analizzando le offerte dei competitor (e soppiantarli) oppure facendo dei workshops.
+Ottenute le informazioni, passiamo alla descrizione formale, quindi all'analisi per mettere in ordine le idee. Stabiliamo correttezza e fattibilità e cerchiamo di colmare le lacune, intese come requisiti mancanti. Si stabilisce anche la priorità.
+
+Quando tuttavia capita di trovare requisiti in conflitto, si cerca di ricontrttare con lo stakeholder
+
+- proprietà dei requisiti
+Cosa tagliare se non tutto può essere realizzato. Strategia moscow, ovvero must, should, could. Poi si validano mediante peer reviewing, test cases e prototipi
+Dopo aver capito il fattibile, si definiscono formalmente, per il cliente e per gli sviluppatori. Siamo allo starting point del progetto.
+
+(Rivedere ordine, è davvero confuso)
+
+In ogni caso, post-validazione il documento è scritto e finito. Però rimane da gestire i requisiti perché possono cambiare nel tempo o si possono trovare incongruenze ulteriori. In tal caso si chiede una revisione dei requisiti con il cliente. Nel senso, si negozia.
+
+Insomma, per le proprietà bisogna vedere validità-correttezza, consistenza, completezza (tutti gli aspetti del programma richiesti) e realismo.
+Bisogna evitare le ambiguità come la peste, è necessario che i requisiti siano inequivocabili, verificabili e tracciabili. Ci sono standard per la strutturazione dei contenuti di un documento dei requisiti.
+	La responsabilità di condrre le responsabilità dei requisiti è l'analista del software. Conduce le interviste, analizza i requisiti, scrive il documento e parla direttamente con gli sviluppatori e stakeholder.

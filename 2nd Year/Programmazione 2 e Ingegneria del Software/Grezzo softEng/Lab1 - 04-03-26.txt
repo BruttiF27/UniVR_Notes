@@ -3,11 +3,7 @@
 6 lezioni in totale what
 
 -- Inizio con qualche nozione di python (per machine learning, pare?)
-	- Python notebook, jupyter
-	- Sample
-	- Direttiva def, self (uguale a this di java)
-	- List, tuple, dict, set
-	- __hash__, __eq__, __repr__
+
 	- __call__
 	- frozenset
 	- tabular sample
@@ -19,3 +15,78 @@
 Qualsiasi cosa sia numerabile si può convertire in lista
 Aggiungi with as da qualche parte
 Lettura CSV con csv.reader()
+
+--- Sample
+Singola osservazione su cui operiamo, in ambito di machine learning è:
+	- hashable: possiamo inserirlo in set e usare gli oggetti come chiavi di dict (ovvero dictionary)
+	- etichetta opzionale: Nell'inferenza npn conosciamo la classe del sample, dunque l'etichetta può essere qualunque oggetto sia hashable
+
+--- Fondamenti python
+	- List: Sequenza ordinata e mutevole di elementi. Supporta duplicati e accesso per indice.
+	```
+		numeri = [1,2,3]
+		numeri[0] # Ritorna 1
+		numeri.append(9) # Intuibile
+	```
+	- Tuple: Sequenza ordinata immutabile. In quanto tale è hashable e verrà utilizzata come chiave di dict o elemento di set
+	- Dict: è la mappa di Java. Collezione di coppie chiave-valore; le chiavi devono essere hashable e uniche, il loro accesso è O(1)
+	```
+		persona = {"nome": "Ada", "eta": 36}
+		persona["nome"] #ritorna il nome, duh
+		persona["cognome"] = "L" # Aggiunge la coppia cognome al dict persona
+	```
+	- Set: Collezione di elementi unici e hashable
+	```
+		numeri = {1,2,3}
+		numeri.add(4)
+		2 in numeri #boolean, torna true se è dentro. Uguale a contains()
+	```
+	
+Per definire un oggetto in un set o in un dict è necessario che questo sia anche hashable, e, come in java, è necessario definirne il metodo, che qua si chiama __hash__
+Banalmente va definito anche __eq__, corrispettivo di equals()
+```
+# Definizione di classe
+class Punto:
+    """Punto 2D immutabile, hashable."""
+	
+	# Costrutture della classe, non ha return type, ovviamente
+    def __init__(self, x: float, y: float):
+        self.x = x
+        self.y = y
+
+	# Corrispettivo di equals()
+    def __eq__(self, other):
+        return isinstance(other, Punto) and (self.x, self.y) == (other.x, other.y)
+
+	# per rendere hashable l'oggetto
+    def __hash__(self):
+        return hash((self.x, self.y))
+
+	# Corrispettivo di toString()
+    def __repr__(self):
+        return f"Punto({self.x}, {self.y})"
+```
+
+--- __call__
+Definendo questa direttiva le istanze della classe saranno invocabili come funzioni. Utile quando un oggetto deve comportarsi come una funzione ma mantenere uno stato interno.
+```
+class Moltiplicatore:
+    """Oggetto callable: moltiplica l'argomento per un fattore fisso."""
+
+    def __init__(self, fattore: float):
+        self.fattore = fattore
+
+    def __call__(self, x: float) -> float:
+        return x * self.fattore
+
+
+doppio = Moltiplicatore(2)
+triplo = Moltiplicatore(3)
+
+print(f"doppio(5) = {doppio(5)}")   # 10
+print(f"triplo(5) = {triplo(5)}")   # 15
+print(f"callable(doppio)? {callable(doppio)}")  # True
+```
+
+--- frozenset
+Versione immutabile di set. Quindi abbiamo una struttura senza duplicati e pure hashable. Spesso utile a rendere hashable una coppia chiave-valore con frozenset(struttura.items())

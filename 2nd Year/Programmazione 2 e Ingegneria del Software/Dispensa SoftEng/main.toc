@@ -1,41 +1,44 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
 \contentsline {chapter}{\numberline {1}Introduzione}{4}{}%
-\contentsline {section}{\numberline {1.1}Panoramica generale}{4}{}%
-\contentsline {section}{\numberline {1.2}Tipi di software}{6}{}%
-\contentsline {section}{\numberline {1.3}Caratteristiche dei software}{6}{}%
-\contentsline {section}{\numberline {1.4}Aspetti etici}{6}{}%
-\contentsline {chapter}{\numberline {2}Processi Software e sviluppo agile}{7}{}%
-\contentsline {section}{\numberline {2.1}Modelli dei processi software}{7}{}%
-\contentsline {section}{\numberline {2.2}Attività dei processi}{7}{}%
-\contentsline {section}{\numberline {2.3}Gestione dei cambiamenti}{7}{}%
-\contentsline {section}{\numberline {2.4}Metodi agili}{7}{}%
-\contentsline {section}{\numberline {2.5}Metodologia SCRUM e relative applicazioni}{7}{}%
-\contentsline {chapter}{\numberline {3}Ingegneria dei requisiti}{8}{}%
-\contentsline {section}{\numberline {3.1}Requisiti funzionali e non funzionali}{8}{}%
-\contentsline {section}{\numberline {3.2}Processi di ingegneria dei requisiti}{8}{}%
-\contentsline {section}{\numberline {3.3}Caso di utilizzo UML}{8}{}%
-\contentsline {chapter}{\numberline {4}Progettazione orientata agli oggetti}{9}{}%
-\contentsline {section}{\numberline {4.1}Modellazione di sistemi OO con UML}{9}{}%
-\contentsline {section}{\numberline {4.2}Fasi della progettazione}{9}{}%
-\contentsline {chapter}{\numberline {5}Pattern di progettazione}{10}{}%
-\contentsline {section}{\numberline {5.1}Pattern architetturali}{10}{}%
-\contentsline {section}{\numberline {5.2}Pattern di design}{10}{}%
-\contentsline {chapter}{\numberline {6}Verifica e Validazione}{11}{}%
-\contentsline {section}{\numberline {6.1}Ispezione e test}{11}{}%
-\contentsline {section}{\numberline {6.2}Unit testing}{11}{}%
-\contentsline {section}{\numberline {6.3}Integration testing}{11}{}%
-\contentsline {section}{\numberline {6.4}User acceptance testing}{11}{}%
-\contentsline {section}{\numberline {6.5}Sviluppo guidato dal testing}{11}{}%
-\contentsline {chapter}{\numberline {7}Evoluzione e mantenimento software}{12}{}%
-\contentsline {section}{\numberline {7.1}Gestione del cambiamento}{12}{}%
-\contentsline {section}{\numberline {7.2}Sistemi legacy}{12}{}%
-\contentsline {section}{\numberline {7.3}Manutenzione del software}{12}{}%
-\contentsline {chapter}{\numberline {8}Strumenti e framework utili}{13}{}%
-\contentsline {section}{\numberline {8.1}Introduzione a Python}{13}{}%
-\contentsline {section}{\numberline {8.2}Visualizzazione di dati - Plotly}{13}{}%
-\contentsline {section}{\numberline {8.3}Manipolazione e analisi di dati - Pandas}{13}{}%
-\contentsline {section}{\numberline {8.4}Costruzione di applicazioni analitiche}{13}{}%
-\contentsline {subsection}{\numberline {8.4.1}Dash}{13}{}%
-\contentsline {subsection}{\numberline {8.4.2}Pony ORM}{13}{}%
-\contentsline {section}{\numberline {8.5}Applicazioni web complesse}{13}{}%
+\contentsline {chapter}{\numberline {2}Modelli di processo di sviluppo software}{6}{}%
+\contentsline {section}{\numberline {2.1}Studio dei processi}{6}{}%
+\contentsline {section}{\numberline {2.2}Modelli a cascata}{6}{}%
+\contentsline {section}{\numberline {2.3}Modelli evolutivi}{8}{}%
+\contentsline {subsection}{\numberline {2.3.1}Modelli di prototipizzazione}{8}{}%
+\contentsline {subsection}{\numberline {2.3.2}Modelli iterativi-incrementali}{8}{}%
+\contentsline {section}{\numberline {2.4}Modello a spirale}{8}{}%
+\contentsline {section}{\numberline {2.5}Processo unificato}{8}{}%
+\contentsline {section}{\numberline {2.6}Sviluppo basato sui componenti}{8}{}%
+\contentsline {section}{\numberline {2.7}Modello trasformazionale}{8}{}%
+\contentsline {section}{\numberline {2.8}Metodi agili}{8}{}%
+\contentsline {chapter}{\numberline {3}Ingegneria dei requisiti}{9}{}%
+\contentsline {section}{\numberline {3.1}Definizione e impatto dei requisiti}{9}{}%
+\contentsline {section}{\numberline {3.2}Requisiti utente e di sistema}{9}{}%
+\contentsline {section}{\numberline {3.3}Requisiti funzionali e non funzionali}{9}{}%
+\contentsline {section}{\numberline {3.4}Processi di ingegneria dei requisiti}{9}{}%
+\contentsline {section}{\numberline {3.5}Proprietà dei requisiti}{9}{}%
+\contentsline {chapter}{\numberline {4}Progettazione orientata agli oggetti}{10}{}%
+\contentsline {section}{\numberline {4.1}Modellazione di sistemi OO con UML}{10}{}%
+\contentsline {section}{\numberline {4.2}Fasi della progettazione}{10}{}%
+\contentsline {chapter}{\numberline {5}Pattern di progettazione}{11}{}%
+\contentsline {section}{\numberline {5.1}Pattern architetturali}{11}{}%
+\contentsline {section}{\numberline {5.2}Pattern di design}{11}{}%
+\contentsline {chapter}{\numberline {6}Verifica e Validazione}{12}{}%
+\contentsline {section}{\numberline {6.1}Ispezione e test}{12}{}%
+\contentsline {section}{\numberline {6.2}Unit testing}{12}{}%
+\contentsline {section}{\numberline {6.3}Integration testing}{12}{}%
+\contentsline {section}{\numberline {6.4}User acceptance testing}{12}{}%
+\contentsline {section}{\numberline {6.5}Sviluppo guidato dal testing}{12}{}%
+\contentsline {chapter}{\numberline {7}Evoluzione e mantenimento software}{13}{}%
+\contentsline {section}{\numberline {7.1}Gestione del cambiamento}{13}{}%
+\contentsline {section}{\numberline {7.2}Sistemi legacy}{13}{}%
+\contentsline {section}{\numberline {7.3}Manutenzione del software}{13}{}%
+\contentsline {chapter}{\numberline {8}Strumenti e framework utili}{14}{}%
+\contentsline {section}{\numberline {8.1}Introduzione a Python}{14}{}%
+\contentsline {section}{\numberline {8.2}Visualizzazione di dati - Plotly}{14}{}%
+\contentsline {section}{\numberline {8.3}Manipolazione e analisi di dati - Pandas}{14}{}%
+\contentsline {section}{\numberline {8.4}Costruzione di applicazioni analitiche}{14}{}%
+\contentsline {subsection}{\numberline {8.4.1}Dash}{14}{}%
+\contentsline {subsection}{\numberline {8.4.2}Pony ORM}{14}{}%
+\contentsline {section}{\numberline {8.5}Applicazioni web complesse}{14}{}%

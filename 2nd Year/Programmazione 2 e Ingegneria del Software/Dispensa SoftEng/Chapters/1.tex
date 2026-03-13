@@ -1,26 +1,17 @@
-\section{Panoramica generale}
-L'\textbf{ingegneria del software} è una disciplina ingegneristica che si occupa di ogni aspetto relativo allo sviluppo del software professionale. Include tecniche per la definizione di specifiche, progettazione ed evoluzione dei programmi. Si tratta di un'attività atta al garantire software di grandi dimensioni e buona qualità, la quale richiede rigore, precisione, ma soprattutto chiarezza.\par
-In particolare, il corso si concentrerà su sistemi informatici e gestionali, sebbene la disciplina si applichi a qualunque tipo di software. In ambito pratico, i problemi più comuni ai quali si va incontro sono: \begin{itemize}
-	\item Andare oltre il budget
-	\item Sforare i tempi di consegna
-	\item Fornire un software con funzionalità non complete
-	\item Fornire un software con bug ed errori
+L'\textbf{ingegneria del software} è una disciplina ingegneristica riguardante ogni aspetto relativo allo sviluppo del software professionale, dalla specifica del sistema fino alla manutenzione dopo che è entrato in uso. Aiuta a ottenere prodotti con la qualità richiesta entro i limiti di tempo e costo, accettando anche compromessi. Si tratta di un approccio sistematico e organizzato, orientato in base al caso di studio.\par 
+Esistono infatti degli insiemi di attività, detti \textbf{processi di sviluppo}, atti alla creazione di un prodotto software. Si dividono in due macrocategorie: \textbf{plan-driven}, dove lo sviluppo è pianificato in modo dettagliato e le fasi sono seguite secondo un piano prestabilito, e \textbf{processi agili}, che garantiscono un notevole adattamento ai cambiamenti tramite un frequente confronto con il cliente. Nonostante la diversità, i processi di sviluppo condividono quattro attività fondamentali: \begin{itemize}
+	\item \textbf{Specifiche del software}: Clienti e ingegneri definiscono funzionalità e vincoli del software.
+	\item \textbf{Sviluppo del software}: Progettazione e implementazione del sistema.
+	\item \textbf{Convalida del software}: Testing del software per garantire che rispetti le richieste del cliente.
+	\item \textbf{Evoluzione del software}: Il prodotto viene modificato per soddisfare eventuali cambiamenti dei requisiti del cliente e del mercato.
 \end{itemize}
-\noindent Queste situazioni possono accadere per svariati motivi, come per esempio una scelta non adatta del linguaggio usato o delle tecnologie per lo sviluppo del prodotto, ma tipicamente hanno luogo a causa di problemi umani, nello specifico di \textbf{comunicazione} fra gli interessati, difficoltà nel comprendere il dominio applicativo oppure da problemi organizzativi nel team.\par
-In situazioni normali, i requisiti vengono verificati e validati insieme agli stakeholder per assicurarsi che rappresentino correttamente le esigenze del cliente e per casi speciali dove è richiesto un livello critico di sicurezza, come per software di macchinari in ambito medico, esiste un ente di certificazione terzo.\newline
-
-\noindent Dato l'obiettivo di ottenere software funzionanti ed efficienti, si definiscono gli strumenti e le tecniche per raggiungerlo, ma soprattutto il \textbf{processo di sviluppo}, il quale è determinante per ottenere un programma di qualità. In generale ne esistono due macro-categorie: \begin{itemize}
-	\item \textbf{Processi agili}: Modelli di sviluppo iterativi e incrementali che privilegiano flessibilità e adattamento ai cambiamenti, con rilasci frequenti di software e collaborazione continua con il cliente.
-	\item \textbf{Processi plan-driven}: Modelli di sviluppo in cui il progetto viene pianificato in modo dettagliato fin dall’inizio e le varie fasi (requisiti, progettazione, implementazione, verifica) vengono svolte seguendo un piano prestabilito.
+\noindent Non esiste il processo perfetto e universalmente applicabile ad ogni caso di studio, ragion per cui nei prossimi capitoli studieremo diverse tecniche, le quali si potranno scegliere in base ai quattro aspetti più influenti per lo sviluppo: \begin{itemize}
+	\item \textbf{Diversità}: Necessità che il software si adatti a diverse piattaforme o tecnologie.
+	\item \textbf{Variabilità}: È verosimile che con il cambiare del mercato, i committenti modifichino a loro volta i requisiti. La sfida della variabilità consiste nell'essere agili abbastanza da sviluppare e modificare il software per adattarlo a queste casistiche.
+	\item \textbf{Fiducia e protezione}: Essendo il software radicato in ogni aspetto della vita è necessario che funzioni correttamente e non sia vulnerabile ad attacchi di malintenzionati.
+	\item \textbf{Scala}: Il software deve essere sviluppato per sistemi di dimensioni molto diverse, dai piccoli dispositivi fino a grandi sistemi distribuiti e servizi cloud.
 \end{itemize}
-\noindent In alcuni contesti si utilizzano anche metodi formali, basati su modelli matematici per specificare e verificare il software. Un esempio di processo di sviluppo plan-driven è il \textbf{waterfall}, in cui il lavoro è diviso in varie fasi dove in ognuna è prodotto un \textbf{deliverable}, che fornirà la base sulla quale iniziare la fase successiva, fino al termine del processo: \begin{enumerate}
-	\item \textbf{Definizione e analisi dei requisiti}: Raccolta delle richieste del cliente. Il deliverable è il \textbf{documento dei requisiti}, il quale fornisce i dettagli in merito alle funzionalità del programma. Può avere definizioni, specifiche o visualizzazioni grafiche.
-	\item \textbf{Design del software}: La definizione delle componenti del sistema con le relative relazioni (\textbf{high-level design}) oppure la definizione interna di ogni componente (\textbf{low-level design}). Il deliverable è in ogni caso la specifica del design mediante un \textbf{linguaggio di modellazione unificato}, UML.
-	\item \textbf{Implementazione del codice}: La scrittura effettiva del codice insieme al mandatorio unit testing. Ci sono diversi paradigmi di sviluppo, ma il deliverable rimane sempre il codice completo del programma.
-	\item \textbf{Verifica del codice}: Il testing del codice con l'eventuale integrazione di soluzioni ai problemi. Il deliverable fornisce i dettagli sui test effettuati insieme ad un report.
-	\item \textbf{Mantenimento del codice}: La costante manutenzione del software finché è mantenuto in vita, come l'aggiunta di nuove feature, ottimizzazioni o di adattare il codice alle nuove tecnologie, come l'ultima versione di un sistema operativo.
-\end{enumerate}
-\noindent Come ci si può aspettare, lo sviluppo di software professionale di grandi dimensioni è infattibile da un singolo individuo: per questa ragione, in condizioni ideali, le aziende creano una task-force per la gestione del lavoro. Si compone delle seguenti figure: \begin{itemize}
+\noindent Come ci si può aspettare, lo sviluppo di software professionale di grandi dimensioni è infattibile da un singolo individuo: per questa ragione, in condizioni ideali, le aziende creano una task-force per la gestione del lavoro, composta dalle seguenti figure: \begin{itemize}
 	\item \textbf{Analista}: Definisce i requisiti decisi insieme al committente.
 	\item \textbf{Designer}: Si occupa della strutturazione di design ad alto e basso livello.
 	\item \textbf{Programmatore}: Scrive il codice.
@@ -28,13 +19,5 @@ In situazioni normali, i requisiti vengono verificati e validati insieme agli st
 	\item \textbf{Mantenitore}: Si occupa della manutenzione del software dopo il rilascio, correggendo errori, migliorando il sistema e adattandolo a nuovi requisiti o tecnologie.
 	\item \textbf{Project Manager}: Responsabile della pianificazione e controllo di un progetto. Gestisce inoltre il personale, stima i costi e cerca di far rispettare budget e tempi. Idealmente saprebbe giostrarsi bene in ognuno dei campi precedenti.
 \end{itemize}
-
-\section{Tipi di software}
-
-%
-
-\section{Caratteristiche dei software}
-
-%
-
-\section{Aspetti etici}
+\noindent Non sempre lo sviluppo del software va come pianificato; possono presentarsi problemi di vario tipo, come per esempio sforare il budget iniziale o i tempi di consegna. Ciò può accadere per una moltitudine di motivi, ma da vari report emerge che le cause principali derivano da una comunicazione non esaustiva tra \textbf{stakeholder} e team operativo, dalla difficoltà nel comprendere il dominio di lavoro, oppure da problemi organizzativi nel team.\par
+Come vedremo nei seguenti capitoli, sarà di fondamentale importanza definire appropriatamente i requisiti e useremo vari sottoprocessi per "estrarre" quante più richieste possibile dai committenti. In sistemi normali, la loro validazione avviene tra analista e stakeholder, ma esistono software il cui funzionamento è fondamentale che sia garantito. Parliamo in questo caso di \textbf{sistemi critici}, come macchinari utilizzati in ambito medico, per i quali il software deve rispettare standard rigorosi ed essere certificato da enti di validazione indipendenti.

@@ -1,0 +1,91 @@
+Algoritmi - 10-03-26
+
+--- Algoritmo BFS
+Bianco: Non visitato
+Grigio: Visitato, non ho fatto niente
+Nero: Visitato e ho fatto elaborazioni
+
+BFS(G, s) \Comment{s nodo iniziale, G grafo}
+	\forall u\in V[G]	\Comment{Per ogni nodo del grafo}
+		color[u]\gets white	\Comment{Inizializza il nodo con bianco, quindi non visitato}
+		d[u]\gets \infty \Comment{Dimensione infinita, potenzialmente}
+		\Pi[u]\gets NIL	\Comment{\Pi sta per predecessore}
+	color[s]\gets gray \Comment{Abbiamo visitato ma non fatto nulla nel nodo iniziale}
+	d[s]\gets 0 \Comment{Distanza=0 quando non ci si sposta}
+	Q\gets {s} \Comment{Q queue fifo, coda degli elementi già esplorati ma non lavorati}
+	
+	while Q \neq NIL \Comment{Finché la coda non è vuota}
+		u\gets head[Q] \Comment{Non toglie ancora il nodo}
+		\forall v\in Adj[u] \Comment{tutti gli elementi della lista di adiacenza di u}
+			if color[v] = white \Comment{Controlla se ho nodi non esplorati (nella sola lista di adiacenza del nodo considerato)}
+				color[v]\gets gray // Segna che il nodo è visto ma non lavorato
+				d[v]\gets d[u]+1 // Segnati la posizione più l'arco u-v
+				\Pi[v]\gets u // Salva il predecessore, descrive i cammini
+				enqueue(Q, v) // Aggiungi quindi il nodo alla coda di nodi da elaborare.
+		dequeue(Q) // Rimuovi l'ultimo nodo dalla lista Q
+		color[u]\gets black // Segnati che ci hai lavorato
+		
+printPath(u)
+	if u \neq NIL
+		printPath(\Pi[u])
+		print(u)
+		
+Il grafo risultante dal BFS è detto Albero BFS, sul quale si possono usare gli algoritmi visti in precedenza. Dimostriamo che funziona.
+Sia \delta(s,v) la distanza minima tra i nodi s,v.
+	- Lemma 1: \forall(u,v)\in E, \delta(s,v)\leq \delta(s,u)+1 // Per ogni coppia di nodi, il cammino minimo è quello più piccolo di quello che già conosciamo
+	- Lemma 2: Al termine di BFS, \forall u d[u]\geq \delta(d,u) // Al termine della visita, la distanza è sicuramente maggiore o uguale del cammino minimo.
+		// Si tratta di un'invariante. Si dimostra facendo vedere che vale per ogni passo dell'algoritmo, indipendentemente da dove si sta.
+		// L'unico possibile problema si presenta con l'assegnamento della distanza, ma: d[v] = d[u]+1, che per lemma 2: d[u]+1 \geq \delta(s,u)+1, che è \geq di \delta(s,v) per lemma1
+	- Lemma 3: La coda Q è sempre ordinata per d non decrescente e contiene al più due valori.
+		Quindi se abbiamo una coda di elementi v_1, ..., v_n, abbiamo d[v_1]\leq d[v_2]\leq d[v_3]\leq ... \leq d[v_n]\leq d[v_1]+1
+		Ciò è dimostrato per induzione sui passi dell'algoritmo. A passo 0 è valida.
+		Dequeue è semplice perché basta rimuovere l'ultimo elemento della coda e questa rimane praticamente invariata.
+		Per enqueue rivedere.
+		
+Teorema: d[v]= \delta(s,v) \forall v (L'algoritmo calcola i cammini minimi)
+	Sia V_k l'insieme dei nodi a distanza k. Per induzione su k dimostro che \forall v\in V_k \exists un momento in cui:
+		- v è grigio
+		- k è assegnato a d[v]
+		- se v\neq s \Pi[v] = u\in V_{k-1}
+		- v inserito in coda
+		
+Insomma, l'algoritmo calcola cammini minimi e risolve il problema della raggiungibilità. Produce un albero radicato nel nodo s. Se ci sono nodi non raggiunti, rimangono a distanza
+infinita e non faranno parte dell'albero BFS.
+In quanto i nodi non connessi all'albero sono bianchi, nulla mi vieta di prenderne uno bianco casuale per creare un altro BFS-tree. Ciò consente di creare un insieme di alberi
+che viene chiamato foresta.
+
+// Algoritmo per inizializzare ogni nodo come bianco, effettua BFS per ogni singolo nodo bianco, anche se non esiste solo un albero.
+init(G)
+	\forall v\in V[G]
+		color[v]\gets white
+		\Pi[v]\gets NIL
+		d[v]\gets \infty
+		
+	\forall v\in V[G]
+		if color[v] = white
+			BFS(G,v)
+			
+--- DepthFirstSearch
+// Notare che la coda è lifo per questo algoritmo. Il ruolo è coperto dalla stack di attivazione
+
+DFS(G,s)
+	\forall v\in V[G]
+		color[v]\gets white
+		\Pi[v]\gets NIL
+	
+	time\gets 0 \Comment{Misuratore del tempo, diamo un ordine agli eventi che succedono}
+		
+	\forall u\in V[G]
+		if color = white
+			DFS_Visit(G,u)
+			
+DFS_Visit(G,u)
+	color[u]\gets gray
+	d[u]\gets time\gets time+1
+	\forall v\in Adj[u]
+		if color[v] = white
+			\Pi[v]\gets u
+			DFS_Visit(G,v) \Comment{Se scopri un arco uscente, continua ad andare avanti}
+			
+	color[u]\gets black
+	f[u]\gets time\gets time+1 \Comment{f è tempo di fine visita}

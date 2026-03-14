@@ -1,0 +1,87 @@
+12-03-26 - Algoritmi
+
+--- DepthFirstSearch
+Gli algoritmi bfs e dfs funzionano sia su grafi orientati che non orientati, sebbene quest'ultimo si tenda a usare per le bfs.
+
+// Continua a vedere se hai nodi adiacenti. Quando non ne vedi più, torna indietro.
+DFS(G) // G grafo
+	// Inizializzazione
+	\forall u\in v[G]
+		color[t]\gets white	// Nodo non ancora visto
+		\Pi[u]\gets NIL
+	
+	// Notare time come variabile globale
+	time\gets 0	// F,D registreranno tempi. Ad ogni operazione registriamo in time (misura il tempo, serve per dare ordine) quando è eseguita.
+	
+	\forall u\in v[G] // Per ogni nodo del grafo (Questo ciclo determina il numero di alberi della dfs)
+		if color[u] = white // Se non è raggiunto
+			DFS_VISIT(u) // Inizia una nuova visita in profondità.
+			
+			
+DFS_VISIT(u)
+	color[u]\gets gray
+	d[u]\gets time\gets time+1 // Prima time++, il risultato è dato a d[u]. Questo è il tempo di inizio visita
+	
+	\forall v\in Adj[u]
+		if color[v] = white // Nodo adiacente non esplorato
+			\Pi[v]\gets u // Salva il nodo al quale siamo arrivati
+			DFS_VISIT(v) // Notare che visitiamo i vicini ricorsivamente
+		
+	color[u]\gets black // Segna nodo esplorato e operato
+	f[u]\gets time\gets time+1 // Segna il tempo dell'operazione
+	
+Il ruolo della coda è preso dalla stack di attivazione, è quindi una coda Lifo, dalla quale si riprenderanno all'inverso i nodi ivi inseriti. Generalmente ad ogni ricorsione è implicitamente presente la stack che agisce come coda.
+
+* Immagine 1 presa da nico, è la prima foto. I numeri nei nodi sono in forma [visitTime/operationTime]. Le \Pi indicano i passi fatti per tornare indietro in assenza di nodi adiacenti non esplorati. Se fatto correttamente abbiamo una foresta di due alberi, uno radicato in s e l'altro in t.
+
+Il tempo di elaborazione del nodo finale corrisponde esattamente al doppio del numero di nodi totali del grafo.
+Questo accade perché per ogni nodo misuriamo due eventi. Dunque se il valore che associamo al nodo è l'ordine temporale in cui l'evento è avvenuto, avremo per forza un totale di valori corrispondenti al doppio dei nodi totali, mostrato dall'ultimo nodo elaborato.
+
+Se fossimo partiti da t avremmo potuto ottenere un solo albero. Il numero di alberi creati tuttavia per ora ci ineressa poco.
+
+--- Proprietà della DFS
+Cosa si può dedurre da una dfs?
+
+* Inserire immagine 2, da nico è quella con i numeri alla base e i rettangoli che fanno vedere intervalli dei nodi.
+
+Presi due intervalli temporali, questi sono totalmente disgiunti oppure sottointervalli di uno più grande. Gli intervalli qui sono le liste di adiacenza; per esempio la lista di adiacenza del nodo y è composta da x, suo sottointervallo.
+Se nella foresta dfs un nodo è discendente di un altro, possiamo osservare che è anche completamente contenuto nell'intervallo padre.
+
+- Teorema
+Per ogni coppia di nodi u,v gli intervalli sono disgiunti oppure uno sottointervallo dell'altro.
+Dim: Prendi la coppia u,v, abbiamo, senza perdita di generalità che valga la prima relazione tra: d[u] < d[v] oppure d[v] < d[u]
+	Distinguiamo due casi:	
+		A. f[u] < d[v] // Intervalli disgiunti, d[u] ed f[u] sono uno, d[v] è un altro
+		B. d[v] < f[u] // Qui c'è un intersezione, ma siamo all'interno della chiamata di dfs_visit di u. Non torneremo mai al chiamante finché non sono stati esplorate tutte le adiacenze, ma allora ci troviamo in un sottointervallo i cui estremi sono d[u] e f[u]
+Quindi ci troviamo sempre in uno dei due casi e come corollario se sei in un sottointervallo, stai discendendo.
+
+- Teorema 2 (Come fai a sapere se v è discendente di u?)
+In una foresta dfs di un grafo G un nodo v discende da u se e solo se al tempo d[v] v è raggiungibile da u con un cammino di soli nodi bianchi.
+Dim: Supponiamo che v discenda da u e sia w un nodo nel cammino da u a v nella foresta dfs. (Se è bianco hai dimosrato il teorema)
+	w discende da v, quindi l'intervallo di w è sottointervallo di v. Ciò significa che inizio a visitare w dopo aver iniziato a visitare u.
+	Ma se inizio dopo, w allora è ancora bianco, perché l'unico modo per inizializzare d[w] è invocare dfs_visit, ma ciò avviene esclusivamente se questo è bianco e non avendo ancora inizializzato d[u], il nodo w è bianco. Dunque al tempo d[u] esiste un cammino di nodi bianchi che comprende w.
+	
+Supponiamo ora che al tempo d[u] esiste un cammino da u a v fatto di soli nodi bianchi. Supponiamo per assurdo che v non discenda da u.
+Prendiamo quindi il predecessore di v, w. Assumiamo senza perdita di generalità che w discende da u. Abbiamo dunque d[u] < d[w] < f[w] < f[u]
+Al tempo d[w] sto visitando i nodi della sua lista di adiacenza, ma in questa sua lista è presente pure v, il quale diventa necessariamente discendente di u.
+
+---
+Adesso diciamo che ogni arco che collega un intervallo con un suo discendente è arco dell'albero e lo chiamiamo T. Il verso inverso è detto Backward B. Quelli che collegano invece un intervallo con un discendente non diretto sono detti Forward F. È possibile avere anche archi che collegano due intervalli disgiunti, chiamati Crossing C.
+Durante la visita è possbile riconoscere i backwards. Se questi sono grigi durante una visita, lo sono. Se sono neri, sono di crossing o forward
+
+- Teorema
+Un grafo è aciclico sse la dfs non trova archi backwards, un grafo è ciclico sse la bfs trova archi backwards.
+Dim: Supponiamo che dfs trova un arco u,v backward. v sarà di colore grigio e u è discendente di v nella foresta dfs. Esiste quindi un cammino da v a u. Dunque G è ciclico.
+Supponiamo ora che G sia ciclico e prendiamo un ciclo qualsiasi. Sia u il primo nodo del ciclo visitato da bfs. Sia v il predecessore di u nel ciclo. Al tempo d[v] tutti i nodi del ciclo tranne u sono bianchi, quindi al tempo d[v] il nodo v è raggiungibile da u con un cammino di soli nodi bianchi.
+	Se così è, per il teorema precedente, v discende da u nella foresta dfs e sarà visitato quando u è ancora grigio. Ma durante la visita di v si analizzerà l'arco v,u, il quale sarà classificato come backward.
+	
+- Complessità di verifica ciclicità di grafi
+Non peggio della complessità di una dfs, sicuramente. È il suo limite superiore. 
+	- Inizializzazione: v
+	- ciclo per controllare se colore è bianco: v
+	- dfs_visit: Invocata al più una volta, solo per i nodi bianchi.
+		- Le assegnazioni sono costanti, mentre il for ha complessità che dipende dalla lista di adiacenza. Sarebbe E volte.
+		
+Formula esatta: V+V + \sum_{j\in V(G)} 1 + |Adj[u]| = V + \sum_0^V 1 + \sum_0 |Adj[u]| = V+E \in O(V^2)
+		
+Compl. totale: \Theta(V+E). Se il grafo è completo, è quadratica. Se è sparso, è lineare.

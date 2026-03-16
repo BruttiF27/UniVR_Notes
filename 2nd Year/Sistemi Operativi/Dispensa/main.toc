@@ -8,45 +8,44 @@
 \contentsline {chapter}{\numberline {2}Strutture dei sistemi operativi}{11}{}%
 \contentsline {section}{\numberline {2.1}Servizi e interfaccia del sistema operativo}{11}{}%
 \contentsline {section}{\numberline {2.2}Chiamate di sistema}{13}{}%
-\contentsline {section}{\numberline {2.3}Servizi di sistema}{13}{}%
-\contentsline {section}{\numberline {2.4}Linker e loader}{13}{}%
-\contentsline {section}{\numberline {2.5}Struttura del sistema operativo}{13}{}%
-\contentsline {section}{\numberline {2.6}Generare e avviare un sistema operativo}{13}{}%
-\contentsline {chapter}{\numberline {3}Processi}{14}{}%
-\contentsline {section}{\numberline {3.1}Scheduling e operazioni sui processi}{14}{}%
-\contentsline {section}{\numberline {3.2}Comunicazione tra processi}{14}{}%
-\contentsline {section}{\numberline {3.3}Architettura client-server}{14}{}%
-\contentsline {chapter}{\numberline {4}Thread e concorrenza}{15}{}%
-\contentsline {section}{\numberline {4.1}Programmazione multicore}{15}{}%
-\contentsline {section}{\numberline {4.2}Multithreading}{15}{}%
-\contentsline {section}{\numberline {4.3}Librerie utili}{15}{}%
-\contentsline {chapter}{\numberline {5}Scheduling della CPU}{16}{}%
-\contentsline {section}{\numberline {5.1}Concetti e algoritmi di scheduling}{16}{}%
-\contentsline {section}{\numberline {5.2}Scheduling dei thread}{16}{}%
-\contentsline {section}{\numberline {5.3}Scheduling per sistemi multiprocessore}{16}{}%
-\contentsline {section}{\numberline {5.4}Scheduling real-time}{16}{}%
-\contentsline {section}{\numberline {5.5}Valutazione algoritmi}{16}{}%
-\contentsline {chapter}{\numberline {6}Sincronizzazione dei processi}{17}{}%
-\contentsline {section}{\numberline {6.1}Sezioni critiche}{17}{}%
-\contentsline {section}{\numberline {6.2}Algoritmo di Peterson}{17}{}%
-\contentsline {section}{\numberline {6.3}Supporto hardware}{17}{}%
-\contentsline {section}{\numberline {6.4}Lock/Unlock}{17}{}%
-\contentsline {section}{\numberline {6.5}Semafori}{17}{}%
-\contentsline {section}{\numberline {6.6}Monitor}{17}{}%
-\contentsline {section}{\numberline {6.7}Liveness}{17}{}%
-\contentsline {chapter}{\numberline {7}Stallo dei processi}{18}{}%
-\contentsline {section}{\numberline {7.1}Stallo e multithread}{18}{}%
-\contentsline {section}{\numberline {7.2}Caratterizzazioni di stallo}{18}{}%
-\contentsline {section}{\numberline {7.3}Metodi di gestione e prevenzione}{18}{}%
-\contentsline {section}{\numberline {7.4}Elusione e rilevamento stallo}{18}{}%
-\contentsline {section}{\numberline {7.5}Ripristino}{18}{}%
-\contentsline {chapter}{\numberline {8}Bash}{19}{}%
-\contentsline {section}{\numberline {8.1}Programmazione Bash}{19}{}%
-\contentsline {chapter}{\numberline {9}API Posix}{20}{}%
-\contentsline {section}{\numberline {9.1}Gestione dei file}{20}{}%
-\contentsline {section}{\numberline {9.2}Gestione dei diritti}{20}{}%
-\contentsline {section}{\numberline {9.3}Lettura/scrittura}{20}{}%
-\contentsline {section}{\numberline {9.4}Gestione dei processi}{20}{}%
-\contentsline {section}{\numberline {9.5}Segnali}{20}{}%
-\contentsline {section}{\numberline {9.6}Comunicazione tra processi tramite PIPE}{20}{}%
-\contentsline {section}{\numberline {9.7}Pthread}{20}{}%
+\contentsline {section}{\numberline {2.3}Servizi di sistema, linker e loader}{15}{}%
+\contentsline {section}{\numberline {2.4}Struttura del sistema operativo}{17}{}%
+\contentsline {section}{\numberline {2.5}Generare e avviare un sistema operativo}{17}{}%
+\contentsline {chapter}{\numberline {3}Processi}{18}{}%
+\contentsline {section}{\numberline {3.1}Scheduling e operazioni sui processi}{18}{}%
+\contentsline {section}{\numberline {3.2}Comunicazione tra processi}{18}{}%
+\contentsline {section}{\numberline {3.3}Architettura client-server}{18}{}%
+\contentsline {chapter}{\numberline {4}Thread e concorrenza}{19}{}%
+\contentsline {section}{\numberline {4.1}Programmazione multicore}{19}{}%
+\contentsline {section}{\numberline {4.2}Multithreading}{19}{}%
+\contentsline {section}{\numberline {4.3}Librerie utili}{19}{}%
+\contentsline {chapter}{\numberline {5}Scheduling della CPU}{20}{}%
+\contentsline {section}{\numberline {5.1}Concetti e algoritmi di scheduling}{20}{}%
+\contentsline {section}{\numberline {5.2}Scheduling dei thread}{20}{}%
+\contentsline {section}{\numberline {5.3}Scheduling per sistemi multiprocessore}{20}{}%
+\contentsline {section}{\numberline {5.4}Scheduling real-time}{20}{}%
+\contentsline {section}{\numberline {5.5}Valutazione algoritmi}{20}{}%
+\contentsline {chapter}{\numberline {6}Sincronizzazione dei processi}{21}{}%
+\contentsline {section}{\numberline {6.1}Sezioni critiche}{21}{}%
+\contentsline {section}{\numberline {6.2}Algoritmo di Peterson}{21}{}%
+\contentsline {section}{\numberline {6.3}Supporto hardware}{21}{}%
+\contentsline {section}{\numberline {6.4}Lock/Unlock}{21}{}%
+\contentsline {section}{\numberline {6.5}Semafori}{21}{}%
+\contentsline {section}{\numberline {6.6}Monitor}{21}{}%
+\contentsline {section}{\numberline {6.7}Liveness}{21}{}%
+\contentsline {chapter}{\numberline {7}Stallo dei processi}{22}{}%
+\contentsline {section}{\numberline {7.1}Stallo e multithread}{22}{}%
+\contentsline {section}{\numberline {7.2}Caratterizzazioni di stallo}{22}{}%
+\contentsline {section}{\numberline {7.3}Metodi di gestione e prevenzione}{22}{}%
+\contentsline {section}{\numberline {7.4}Elusione e rilevamento stallo}{22}{}%
+\contentsline {section}{\numberline {7.5}Ripristino}{22}{}%
+\contentsline {chapter}{\numberline {8}Bash}{23}{}%
+\contentsline {section}{\numberline {8.1}Programmazione Bash}{23}{}%
+\contentsline {chapter}{\numberline {9}API Posix}{24}{}%
+\contentsline {section}{\numberline {9.1}Gestione dei file}{24}{}%
+\contentsline {section}{\numberline {9.2}Gestione dei diritti}{24}{}%
+\contentsline {section}{\numberline {9.3}Lettura/scrittura}{24}{}%
+\contentsline {section}{\numberline {9.4}Gestione dei processi}{24}{}%
+\contentsline {section}{\numberline {9.5}Segnali}{24}{}%
+\contentsline {section}{\numberline {9.6}Comunicazione tra processi tramite PIPE}{24}{}%
+\contentsline {section}{\numberline {9.7}Pthread}{24}{}%

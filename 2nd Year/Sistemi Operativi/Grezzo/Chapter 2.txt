@@ -26,4 +26,59 @@ Nella maggior parte dei sistemi operativi l'interprete dei comandi è un program
 \noindent Il metodo più utilizzato è il secondo, perché consente la scrittura di nuovi comandi per l'interprete creando nuovi file con un nome appropriato, senza modificare il suo codice.\par
 Per quanto riguarda le interfacce grafiche con l'utente, abbiamo un ambiente nettamente più user-friendly, costituito da una o più finestre con i relativi menu entro cui muoversi con il puntatore del mouse. Usa la metafora della scrivania, il \textbf{desktop}, per rendere intuitivi i concetti. Qui si possono trovare le varie \textbf{icone}, le quali rappresentano programmi, file, directory (chiamate \textbf{cartelle}) e funzioni del sistema. Si tratta del metodo di interazione con l'utente più utilizzato in generale, sebbene i moderni sistemi operativi diano l'opzione per utilizzare entrambi.
 
---- Continua da system calls
+--- system calls
+Le chiamate di sistema costiutiscono un'interfaccia per i servizi resi disponibili dal sistema operativo. Gli sviluppatori di applicazioni usano interfacce per la programmazione di applicazioni, API; specificano un'insieme di funzioni capaci di comunicare con il sistema operativo, con i relativi parametri. Le API più diffuse sono quella di Windows, POSIX, per i sistemi Unix, e la API di Java, per il JRE. Si ha accesso ad un'API con una libreria digitale specifica.
+	Altro fattore importante è l'ambiente di esecuzione al run-time; una suite di programmi che consente di eseguire programmi scritti in un determinato linguaggio. Si compone di compilatori/interpreti e altri software come librerie e loader. Fornisce un'interfaccia alle chiamate di sistema, collegandole al linguaggio usato.
+	
+Ogni chiamata è codificata da un numero, salvato nella tabella delle chiamate, mantenuta dall'interfaccia alle system calls. Quest'ultima invoca la chiamata richiesta, restituendone lo stato. Le system calls si possono presentare in modi diversi, dipendentemente dal sistema operativo può essere necessario fornire più informazioni come parametri. Per far ciò ci sono tre metodi generali: \begin{itemize}
+	\item Passaggio a registro del singolo parametro
+	\item Passaggio a registro di un indirizzo di blocco di memoria
+	\item Spingere sulla stack
+\end{itemize}
+Ci sono 6 tipi principali di chiamate di sistema: controllo processi, gestione file, gestione dispositivi, gestione informazioni, comunicazione e protezione.
+
+- Controllo dei processi
+Un programma deve potersi fermare in modo normale end() o anomalo abort(). Se accade quest'ultima istanza, spesso viene generato un memory dump, il quale può essere analizzato con uno strumento chiamato debugger. In ogni caso, il sistema operativo deve dare il controllo a questo interprete, sicché il programmatore possa controllare e correggere i problemi.
+	Un processo che esegue un programma può richiedere di caricare load() ed eseguire execute() altri programmi. Ciò si ottiene con una specifica richiesta data da comando utente, clic del mouse o un comando batch. Se al termine del nuovo programma il controllo torna nel chiamante è necessario salvare una sua immagine della memoria; se invece continuano l'esecuzione in contemporanea si è creato un nuovo processo in multiprogrammazione create_process(). È necessario poterne mantenere il controllo e quindi pote determinare e reimpostare i suoi attributi get_process_attributes(), set_process_attributes(), come anche terminarlo terminate_process().
+	La terminazione può dipendere dal verificarsi di un certo evento wait_event() oppure dopo aver aspettato tot tempo wait_time(), ma in entrambi i casi bisogna segnalare l'evento signal_event(). Capita spesso inoltre che i processi possano condividere dati, ma è necessario assicurarne l'integrità ed evitare che vengano acceduti o elaborati da più processi allo stesso tempo acquire_lock(), release_lock().
+	
+- Gestione file
+È necessario poter creare create() e cancellare delete() file. Una volta creati si possono aprire open(), leggere read(), scrivere write(), riposizionare reposition() o chiudere close(). Ciò vale anche per le directories. È necessario inoltre poter determinare i valori degli attributi di file e directory, come nome, tipo, codici di protezione, etc. get_file_attributes(), set_file_attributes(). Si possono usare delle API apposite.
+
+- Gestione dispositivi
+Per essere eseguito, un processo richiede alcune risorse, come spazio in memoria, su disco, accesso a file, etc. Se sono disponibili, si possono concedere ed il controllo potrà ritornare al processo utente. Altrimenti deve attendere fin quando non se ne avranno a sufficienza.
+	In caso di utenti multipli, il sistema operativo potrebbe fare una request() del dispositivo per assicurarne l'uso esclusivo, per poi darne il release() una volta terminato l'utilizzo. Sui dispositivi è possibile, come per i file, leggere, scrivere e riposizionare, (se in ambiente unix) usando le stesse chiamate a sistema. Infatti è uno dei sistemi operativi dove dispositivi e file sono combinati in un'unica struttura.
+
+- Gestione informazioni
+Chiamate di sistema il ui scopo è il trasferimento di informazioni tra programmi utente e sistema operativo. Alcuni esempi sono l'ottenimento di data e ora, oppure la richiesta di effettuare un memory dump dump(). Il sistema operativo contiene informazioni su tutti i suoi processi, ottenibili cpn get_process_attributes() e set_process_attributes().
+
+- Comunicazione
+Parliamo quindi di scambio di informazioni. Esistono due modelli principali:
+	- Modello a scambio di messaggi: Processi comunicanti scambiano informazioni tramite una mailbox comune. Si apre un collegamento fra due comunicanti il cui nome deve essere noto ed identificato con nome di macchina get_hostid() e nome di processo get_processid(). Questi identificatori sono passati alle systemcalls per aprire e chiudere il collegamento.
+		Per poter comunicare è richiesto all'altro elemento di accettare la connessione accept_connection(). Spesso i processi che gestiscono la comunicazione sono demoni specifici. L'origine è detta client e il ricevente è il server. Si servono delle chiamate read_message() e write_message() per lo scambio e close_connection() per terminare la comunicazione.
+	- Modello a memoria condivisa: Si crea un'area di memoria condivisa da più processi per l'interscambio di informazioni shared_memory_create(), shared_memory_attach(). Questo spazio non è gestito dal sistema operativo ed è necessario che i processi si accordino per non andare in conflitto. Uno scambio di informazioni su uno stesso elaboratore permette di lavorare alla velocità della memoria e rende il processo più semplice, ma presenta problemi riguardo la protezione e la sincronizzazione dei processi con memoria condivisa.
+
+- Protezione
+Il meccanismo di controllo per l'accesso alle risorse del calcolatore. Si possono modificare i permessi di accesso set_permission(), get_permission() a risorse come file e dischi, come anche gestire i permessi di utenti specifici allow_user(), deny_user().
+
+--- Servizi di sistema
+I servizi di sistema o utilità di sistema offrono un ambiente per lo sviluppo e l'esecuzione dei programmi. Si classificano nelle seguenti categorie: \begin{itemize}
+	\item \textbf{Gestione dei file}: Compiono operazioni su file e directory come la loro creazione o cancellazione. 
+	\item \textbf{Informazioni di stato}: Programmi per riportare informazioni sui processi. Ne esistono semplici, per riportare data e ora, come anche dei complessi, che riportano le prestazioni dettagliate o accessi a sistema.
+	\item \textbf{Modifica dei file}: Programmi per la modifica del contenuto dei file; gli editor di testo.
+	\item \textbf{Ambienti di supporto per la programmazione}: Compilatori, assemblatori o interpreti. Disponibili out-of-the-box oppure tramite download.
+	\item \textbf{Caricamento ed esecuzione dei programmi}: Assemblato il programma, deve essere caricato in memoria. Questi programmi sono detti caricatori.
+	\item \textbf{Comunicazioni}: Programmi che forniscono meccanismi per creare collegamenti virtuali tra processi, utenti e calcolatori diversi. Inviano messaggi e consentono di navigare il web.
+	\item \textbf{Servizi in background}: I processi di sistema costantemente in esecuzione, i quali terminano il lavoro all'arresto del sistema. Un esempio è il demone per la rilevazione delle reti internet.
+\end{itemize}
+\noindent Oltre a tutti questi servizi di sistema, con il sistema operativo sono forniti ulteriori programmi per la risoluzione di problemi comuni: browser web, editor di testo e simili.
+
+--- Linker e loader
+Generalmente i programmi risiedono su disco in forma di file binario o eseguibile e per essere eseguito dalla CPU è necessario che venga caricato in memoria e associato a un processo. Non è un processo istantaneo, quindi analizziamo fase per fase.\par
+Anzitutto, i \textbf{file sorgenti} vengono compilati in \textbf{file oggetto rilocabili}, progettati per essere caricati in una qualsiasi posizione della memoria fisica. Il \textbf{linker} combinerà ogni file oggetto ed eventuali librerie necessarie in un singolo \textbf{binario} eseguibile. Questo è caricato in memoria tramite un \textbf{loader} e, allo stesso tempo, avviene la \textbf{rilocazione}, che assegna gli indirizzi definitivi alle componenti del programma e riaggiusta il codice e i dati nel programma in base a essi, per garantirne un corretto funzionamento.\newline
+
+\noindent Prendiamo ora come esempio l'ambiente UNIX. Per eseguire un programma è necessario dare il relativo comando alla shell. Qui il sistema operativo crea un nuovo processo con la chiamata $fork()$ e richiama il loader con $exec()$, passando il nome del file eseguibile. Viene quindi caricato il programma in memoria usando lo spazio di indirizzamento del processo appena creato. File oggetto ed eseguibili seguono un formato standard che dipende dal sistema operativo di riferimento: \begin{itemize}
+	\item \textbf{UNIX}: Formato Executable and Linkable Format (ELF)
+	\item \textbf{Windows}: Portable Executable (PE)
+	\item \textbf{MacOS}: Mach-O
+\end{itemize}

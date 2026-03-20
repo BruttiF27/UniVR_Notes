@@ -1,29 +1,30 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {chapter}{\numberline {1}Introduzione alle reti}{3}{}%
-\contentsline {section}{\numberline {1.1}Comunicazione tra elaboratori}{3}{}%
-\contentsline {section}{\numberline {1.2}Commutazione di circuito e di pacchetto}{6}{}%
-\contentsline {section}{\numberline {1.3}Modello di riferimento ISO-OSI e TCP/IP}{8}{}%
-\contentsline {chapter}{\numberline {2}Livello applicazione}{9}{}%
-\contentsline {section}{\numberline {2.1}Il modello client/server}{9}{}%
-\contentsline {section}{\numberline {2.2}World Wide Web - HTTP}{9}{}%
-\contentsline {section}{\numberline {2.3}File Transfer Protocol - FTP}{9}{}%
-\contentsline {section}{\numberline {2.4}Posta elettronica - SMTP, POP3 e IMAP}{9}{}%
-\contentsline {section}{\numberline {2.5}Domain Name Service - DNS}{9}{}%
-\contentsline {chapter}{\numberline {3}Livello trasporto}{10}{}%
-\contentsline {section}{\numberline {3.1}Scopi e servizi}{10}{}%
-\contentsline {section}{\numberline {3.2}Protocollo TCP}{10}{}%
-\contentsline {section}{\numberline {3.3}Protocollo UDP}{10}{}%
-\contentsline {chapter}{\numberline {4}Livello network}{11}{}%
-\contentsline {section}{\numberline {4.1}Protocollo IP}{11}{}%
-\contentsline {section}{\numberline {4.2}Protocollo di configurazione DHCP}{11}{}%
-\contentsline {section}{\numberline {4.3}Protocollo ICMP}{11}{}%
-\contentsline {section}{\numberline {4.4}Protocolli di routing}{11}{}%
-\contentsline {section}{\numberline {4.5}IPv6}{11}{}%
-\contentsline {section}{\numberline {4.6}Network Address Translation - NAT}{11}{}%
-\contentsline {chapter}{\numberline {5}Livello data-link}{12}{}%
-\contentsline {section}{\numberline {5.1}Framing}{12}{}%
-\contentsline {section}{\numberline {5.2}Accesso al canale condiviso}{12}{}%
-\contentsline {section}{\numberline {5.3}Sottolivello MAC}{12}{}%
-\contentsline {section}{\numberline {5.4}Bridge, switch e LAN}{12}{}%
-\contentsline {section}{\numberline {5.5}Wireless LAN}{12}{}%
+\contentsline {chapter}{\numberline {1}Introduzione alle reti}{4}{}%
+\contentsline {section}{\numberline {1.1}Comunicazione tra elaboratori}{4}{}%
+\contentsline {section}{\numberline {1.2}Commutazione di circuito e di pacchetto}{7}{}%
+\contentsline {section}{\numberline {1.3}Classificazione e misura dei ritardi}{8}{}%
+\contentsline {section}{\numberline {1.4}Modelli di riferimento ISO-OSI e TCP/IP}{11}{}%
+\contentsline {chapter}{\numberline {2}Livello applicazione}{16}{}%
+\contentsline {section}{\numberline {2.1}Il modello client/server}{16}{}%
+\contentsline {section}{\numberline {2.2}World Wide Web - HTTP}{16}{}%
+\contentsline {section}{\numberline {2.3}File Transfer Protocol - FTP}{16}{}%
+\contentsline {section}{\numberline {2.4}Posta elettronica - SMTP, POP3 e IMAP}{16}{}%
+\contentsline {section}{\numberline {2.5}Domain Name Service - DNS}{16}{}%
+\contentsline {chapter}{\numberline {3}Livello trasporto}{17}{}%
+\contentsline {section}{\numberline {3.1}Scopi e servizi}{17}{}%
+\contentsline {section}{\numberline {3.2}Protocollo TCP}{17}{}%
+\contentsline {section}{\numberline {3.3}Protocollo UDP}{17}{}%
+\contentsline {chapter}{\numberline {4}Livello network}{18}{}%
+\contentsline {section}{\numberline {4.1}Protocollo IP}{18}{}%
+\contentsline {section}{\numberline {4.2}Protocollo di configurazione DHCP}{18}{}%
+\contentsline {section}{\numberline {4.3}Protocollo ICMP}{18}{}%
+\contentsline {section}{\numberline {4.4}Protocolli di routing}{18}{}%
+\contentsline {section}{\numberline {4.5}IPv6}{18}{}%
+\contentsline {section}{\numberline {4.6}Network Address Translation - NAT}{18}{}%
+\contentsline {chapter}{\numberline {5}Livello data-link}{19}{}%
+\contentsline {section}{\numberline {5.1}Framing}{19}{}%
+\contentsline {section}{\numberline {5.2}Accesso al canale condiviso}{19}{}%
+\contentsline {section}{\numberline {5.3}Sottolivello MAC}{19}{}%
+\contentsline {section}{\numberline {5.4}Bridge, switch e LAN}{19}{}%
+\contentsline {section}{\numberline {5.5}Wireless LAN}{19}{}%

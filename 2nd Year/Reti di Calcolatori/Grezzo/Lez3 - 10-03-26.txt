@@ -1,0 +1,92 @@
+10-03-26 - Reti di calcolatori
+
+Il nome dei siti tipo www.google.it è un nome logico usato per essere più leggibile dalle persone rispetto a quello effettivo, che è un codice numerico che identifica univocamente
+un'interfaccia di un calcolatore, detto indirizzo IP. Una sequenza di 4 numeri separati da quattro punti. Ogni apparato di rete ha un IP diverso.
+L'indirizzo è tradotto per poi inviare il messaggio.
+Traceroute: Verifica connettività e ritardi dell'end-host e di tutti i passi intermedi (quindi i router) che dovrà attraversare. Manda una sequenza di messaggi. Uno per ogni passo.
+Ripete l'operazione per tutti gli hop intermedi, fino ad arrivare all'end-host finale, specificato dal comando.
+
+Invero, il comando invia tre messaggi per ogni hop (ok, rivedere, me lo son perso)
+
+```
+ping www.google.it // comando bash che ritorna indirizzo IP dell'host, minimo, media, massimo e devStd del roundtripTime
+traceroute www.google.it // Indica tre tempi di ritardo per ogni router attraversato. Se trovi asterischi, sono dati nascosti dagli admin di rete.
+```
+
+Dal nome logico è possibile dedurre anche la posizione.
+Col traceroute capita escano per uno stesso step più indirizzi IP con ritardi diversi. Questo accade perché all'interno di un ISP, la topologia dei riuter e il modo in cui sono
+collegati, formano un grafo, il quale per raggiungere una destinazione ci possono essere cammini alternativi equivalenti.
+Per questioni di bilanciamento del carico, in termini di costo, si mostrano i cammini equivalenti in termini di passi, ma con i rispettivi costi.
+
+Poniamoci la domanda "Quanto tempo serve per trasferire l'informazione?"
+Sul singolo link, dipende dall'ampiezza di banda che abbiamo a disposizione (ricorda che riguarda esclusivamente la trasmissione, implica che sia già stato forwardato).
+La banda è misurata in bit/s.
+In caso di più link, psarliamo di throughput. La velocità di trasferimento end-to-end, ovvero da src a dst è determinata dal link più lento, ovvero dal bottleneck.
+
+--- Come organizziamo logicamente il trasferimento delle informazioni?
+Introduciamo il modello a strati. Dobbiamo risolvere il problema della comunicazione tra due entità, la quale ha parte logica e fisica (com'è strutturata la rete in sé).
+La prima è gestita con un approccio Divide et Impera. Abbiamo delle entità divise in livelli, ai quali è associata una rappresentazione specifica dell'informazione.
+
+Nell'header dei pacchetti potremmo aggiungere anche il numero di sequenza del pacchetto, ovvero dove si posiziona rispetto al messaggio originario. Poi anche la dst/src.
+I pacchetti sono inviati tramite il canale e ricevuti dall'altro end-host, il quale verificherà le informazioni date negli header livello per livello, per rimuovere gli header
+controllati.
+Quindi, invio:
+	- Messaggio
+	- seqNum+messaggio // Aggiungo l'header seqNum
+	- src/dst+seqNum+messaggio // Aggiungo l'header con src/dst
+	
+Ricezione da canale:
+	- src/dst controllato e rimosso
+	- seqNum controllato e rimosso
+	- Messaggio ricevuto
+	
+Ci possono essere un numero indefinito di livelli e l'utente è all'oscuro di questa pipeline. Se gli header sbagliati invadessero gli altri livelli il messaggio non sarebbe
+compreso, per questo ad ogni livello è elaborata parzialmente (ovvero solo la parte di interesse) l'informazione per la trasmissione.
+Ogni livello (o strato) segue un determinato protocollo di comunicazione e l'insieme dei protocolli è detto stack protocollare.
+
+Quali sono le funzionalità associate e svolte nei vari livelli (strati), quindi?
+Abbiamo il modello ISO/OSI, proposto da ISO (international organization for standardization), OSI (Open system interconnection).
+E' un documento usato come riferimento per descrivere che cosa dovrebbe fare ogni livello. Dove q1uesto è il modello storicamente proposto, nella pratica esiste un secondo modello
+più snellito.
+
+Nel primo vengono identificate due entità: end-system (il calcolatore) e intermediate system (il router).
+Entrambe condivisono i primi tre livelli a partire dalla base: fisico (gestione dei bit), collegamento dati e livello di rete (responsabile dell'instradamento).
+Gli end system hanno 4 livellio aggiuntivi: trasporto, sessione, presentazione e applicazione.
+*IM4
+
+Nella pratica si usa invece il modello TCP/IP. Il nome deriva dai due principali protocolli usati nei due principali livelli. Gli int.sys sono uguali al modello precedente, ma
+nell'end-sys si aggiungono solo i livelli di trasporto e applicazioni, perché hanno fuso in applicazioni quelli indicati in ISO/OSI.
+L'applicazione genera i messaggi. Il trasporto introduce una serie di informazioni per pacchettare. TCP (transfer control protocol), mentre per la rete si usa IP (internetProtocol)
+
+Definiamo le entità coinvolte nella comunicazione: Preciso processo attivo su un calcolatore. Su internet i processi sono identificati mediante l'indirizzo del calcolatore, dato
+dall'indirizzo IP, e dal codice identificativo del processo definito a livello di trasporto (interfacciandosi con le applicazioni è capace di capire le istanze), chiamato porta.
+Un flusso di comunicazione è identificato univocamente dalla tupla (IP_A, IP_B, porta_A, porta_B).
+
+Dove troviamo IP e porta? Beh, l'applicazione genera il messaggio, il trasporto spezza il messaggio in pacchetti assegnando l'header con la porta e il numero di sequenza.
+Poi abbiamo il livello di rete che al payload (il prodotto del livello precedente) aggiunge un header con l'indirizzo IP.
+
+// Bonus tip: In un router il ritardo di accodamento alla porta i cresce se più porte di ingresso hanno carico per una stessa porta di uscita.
+
+--- Indirizzi IP
+Identificativi univoci di un'interfaccia di rete di un host o router all'interno della rete Internet.
+Siccome gli host hanno tipicamente a livello hardware una sola scheda di rete attiva, molto spesso si associa l'IP all'host spesso. Ma non accade sempre.
+Dentro all'header dei pacchetti abbiamo srcIP e dstIP, in particolare vengono dedicati 32b per ciascuno di questi campi.
+
+Ex. di IP: 1001 1101 0001 1011 0001 0011 0111 1011 // Notare che per leggibilità si staccano in pezzi da 4b. Altrimenti si usa la notazione decimale puntata.
+Per questa notzione considero blocchi di 8b. Traduco da binario a decimale e separo ogni blocco con i punti.
+	- 1001 1101 -> 157.
+	- 0001 1011 -> 27.
+	- 0001 0011 -> 19.
+	- 0111 1011 -> 123
+
+Ma i bits dell'IP hanno tutti stesso peso e importanza? Banalmente no, ma facciamo un esempio con i numeri telefonici tradizionali, per le reti fisse.
++39 045 802 7059 - 0039 identifica l'area geografica internazionale, 045 è la provincia di verona, 802 identifica un'organizzazione specifica (tutti i numeri telefonici
+fissi di un'organizzazione) infine, 7059 è il suffisso.
+
+Generalmente il prefisso sono i primi tre blocchi ed è identificativo di una rete specifica. La stessa cosa vale per la rete internet.
+L'ultimo blocco è il suffisso e indica l'interfaccia dell'host.
+Quindi ogni LAN è identificata da un prefisso, ed ogni host ivi presente avrà un suffisso per identificarlo. Quest'ultimo è necessario per inviare messaggi all'host nella rete.
+
+Ma cosa determina la fine e l'inizio di un prefisso? Capita di avere stronzi che scrivono i numeri tutti attaccati. Possiamo identificare i bit appartenenti ai due pezzi.
+Banalmente usiamo una barra per separarli.
+Ex. 045/7552555, per gli IP: 157.27.19.123/16 // Indica che dei primi 32b, l'interfaccia è la n.16, il suffisso.

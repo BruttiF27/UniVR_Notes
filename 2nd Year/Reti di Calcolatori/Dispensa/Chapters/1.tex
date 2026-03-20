@@ -61,20 +61,92 @@ Il contro di questa modalità di commutazione è invece l'introduzione dei ritar
 	\hfill
 	\subcaptionbox{Divisione in pacchetti}{\includegraphics[width=0.5\linewidth]{Images/packageCommDivision.png}}
 \end{figure}
-\noindent Possiamo inoltre classificare i vari tipi di ritardo, valutando le cause fra ogni salto da un router all'altro: \begin{itemize}
-	\item \textbf{Ritardo di elaborazione}: Legato all'architettura del router, è il tempo impiegato per l'elaborazione e invio del pacchetto.
-	\item \textbf{Ritardo di accodamento}: Legato al buffer del link di uscita, in attesa che i dati siano trasmessi.
-	\item \textbf{Ritardo di trasmissione}: Legato alla dimensione del pacchetto diviso la velocità di trasmissione: $d_{trans} = L/R$ Con $L$ dimensione del pacchetto in bit e $R$ velocità di trasmissione in bit al secondo.
-	\item \textbf{Ritardo di propagazione}: Legato alla distanza da percorrere.
+
+%
+
+\section{Classificazione e misura dei ritardi}
+Le reti di calcolatori sono caratterizzate da un \textbf{throughput} limitato, inteso come la quantità di dati al secondo che può essere trasferita tra due sistemi; introducono ritardi e si possono perdere anche pacchetti. Sebbene questo non sia uno scenario ideale, possiamo analizzare i diversi tipi di ritardo e cercare di usare gli strumenti a disposizione per affrontare il problema. Generalmente, le prestazioni delle applicazioni per internet sono pesantemente influenzate dai ritardi di rete, somma dei ritardi introdotti in ciascun nodo, dati da ogni hop di router e composti da: \begin{itemize}
+	\item \textbf{Ritardo di elaborazione}: Legato all'architettura del router, è il tempo impiegato per esaminare l'intestazione del pacchetto e determinare dove dirigerlo. In questo intervallo di tempo si possono anche controllare errori a livello di bit avvenuti nella trasmissione. Dopo l'elaborazione, si invia il pacchetto verso la coda che precede il collegamento al prossimo router.
+	\item \textbf{Ritardo di accodamento}: Inserito in coda, il pacchetto deve attendere la trasmissione sul collegamento. Il tempo di attesa è legato al numero di pacchetti precedentemente arrivati. Infatti, nelle politiche first-come-first-served, comunemente in uso nelle reti a commutazione di pacchetto, il pacchetto può essere trasferito solamente dopo la trasmissione di tutti quelli che lo precedono nell'arrivo. Normalmente è il ritardo che incide più di tutti.
+	\item \textbf{Ritardo di trasmissione}: Riguarda il tempo necessario per immettere tutti i bit del pacchetto nel canale di trasmissione. È un valore che dipende dalla sua dimensione e dalla velocità di trasmissione del router. In particolare: \[d_{trans} = L/R\]
+	\noindent Con $L$ dimensione del pacchetto in bit e $R$ velocità di trasmissione in bit al secondo.
+	\item \textbf{Ritardo di propagazione}: Immesso nel collegamento, questo è il tempo utilizzato per la propagazione di un bit fino al prossimo router. È quindi un valore legato dal mezzo fisico per la trasmissione e la distanza fra i due router. In particolare: \[d_{prop} = d/v\]
+	\noindent Con $d$ distanza tra i due router e $v$ la velocità di propagazione nel collegamento.
 \end{itemize}
-\noindent Normalmente il ritardo che incide di più è il secondo, perché può diventare dominante in caso di congestione. Inoltre possiamo considerare gli ordini di grandezza dei ritardi in base alla distanza. Generalmente valgono: \begin{itemize}
+\noindent Nella pratica, il ritardo complessivo dipende anche dal contesto geografico. Generalmente, valgono i seguenti valori: \begin{itemize}
 	\item \textbf{Comunicazione su stessa LAN}: $<1ms$
 	\item \textbf{Comunicazione con stesso ISP}: $5-20ms$
 	\item \textbf{Comunicazione su stesso continente}: $20-50ms$
 	\item \textbf{Comunicazione intercontinentale}: $100-200ms$
 \end{itemize}
-\noindent Per ottenere il valore effettivo si usa il \textbf{ping}, il quale permette di misurare il \textbf{Round Trip Time}, ovvero il tempo di andata e ritorno di un messaggio fra due elaboratori.
+\noindent Abbiamo poi a disposizione alcuni strumenti per la misurazione dei ritardi; il primo è il \textbf{ping}, un tool a CLI che permette di misurare il \textbf{Round Trip Time}, ovvero il tempo di andata e ritorno di un messaggio fra due elaboratori. Prende in input il nome logico utilizzato dal sito, come "www.google.com", e stampa a video indirizzo IP dell'host (approfondito in sezioni successive), minimo, media, massimo e deviazione standard del roundtrip time.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/ping_example.png}
+	\caption{Esempio di ping}
+\end{figure}
+
+\noindent Un altro strumento è il \textbf{traceroute}, il quale prende in input il nome dell'host come per il ping. Questo comando consente di vedere il percorso intrapreso dai pacchetti (tracciare il percorso, difatti) e determinare i ritardi di andata e ritorno per ogni singolo hop effettuato. In particolare, il sistema dell'utente invia un certo numero di pacchetti verso la destinazione e ad ogni router attraversato, questi rimandano un messaggio all'origine contenente il loro nome e indirizzo IP. Può capitare inoltre: \begin{itemize}
+	\item \textbf{Router nascosto}: Se l'hop è indicato con tre asterischi, gli amministratori di rete hanno celato le sue informazioni.
+	\item \textbf{Cammini equivalenti}: Se più indirizzi IP sono indicati nel passo, significa che gli hop sono equivalenti per raggiungere una stessa destinazione.
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/traceroute.jpg}
+	\caption{Visualizzazione di traceroute}
+\end{figure}
+
+\noindent Un'altra misura importante per le prestazioni di una rete è il \textbf{throughput end-to-end}. Si tratta, in ogni istante di tempo, della velocità alla quale un'entità sta ricevendo un determinato insieme di informazioni, come per esempio un file. Si tratta di un valore misurato in $bps$ (bit per second). Generalmente si misura anche il \textbf{throughput medio}, dato dal rapporto fra il numero di bit $F$ e il tempo $T$ impiegato per la loro intera ricezione: $\overline{R} = F/T$.\par
+Capiamo dunque che è un valore dipendente dalla velocità di trasmissione. Non a caso, essendo i link collegati tramite dei \textbf{bottleneck}, la velocità di trasferimento è determinata dal link con capacità minima, risultando anche quello più lento.
 
 %
 
-\section{Modello di riferimento ISO-OSI e TCP/IP}
+\section{Modelli di riferimento ISO-OSI e TCP/IP}
+La modalità di trasferimento delle informazioni è organizzata in base al \textbf{modello a strati}. Il problema della comunicazione fra due elaboratori ha una parte che riguarda la logica, quindi la gestione delle informazioni, e una che riguarda la fisica, ovvero la strutturazione dell'architettura di rete. L'approccio utilizzato per la risoluzione del primo problema è dato dal \textbf{Divide et Impera}: intuitivamente, date due entità comunicanti, la prima "impacchetta" il messaggio aggiungendo un header per ogni strato, e la seconda lo "spacchetta" rimuovendone uno per livello per poterlo leggere.\par
+In un modello simile potremmo aggiungere un numero indefinito di livelli il cui insieme è detto \textbf{stack protocollare} ed è imperativo che vengano eseguiti con un ordine specifico, perché se così non fosse, il messaggio potrebbe non essere compreso.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{Images/model_layered.jpg}
+	\caption{Modello a strati}
+\end{figure}
+
+\noindent Per esempio, se un calcolatore volesse inviare un messaggio, si potrebbe aggiungere prima un header per salvare il numero di sequenza del pacchetto. Essendo questi inviati non necessariamente con un ordine fisso, risulterebbe utile conoscere l'ordine per ricomporli. In uno strato inferiore poi si potrebbero aggiungere i dati per indicare l'origine e la destinazione del messaggio. Inviando questo prodotto al secondo calcolatore, inizierebbe col rimuovere l'intestazione degli indirizzi, poi quella dei numeri di sequenza, per poi leggere il messaggio ordinato.\newline
+
+\noindent Un primo modello che utilizza questa struttura è l'\textbf{ISO/OSI}; proposto dalla International Organization for Standardization, per la Open System Interconnection. Si tratta del primo riferimento per la descrizione delle operazioni eseguite in ogni livello.\par
+Il modello identifica due entità: gli \textbf{end-system}, i calcolatori, e gli \textbf{intermediate-systems}, i router. Entrambe condividono i primi tre livelli a partire dalla base: quello \textbf{fisico} per la gestione dei bit, quello di \textbf{collegamento dati} per determinare la destinazione e quello di \textbf{rete}, responsabile dell'instradamento. Gli end-system hanno inoltre quattro livelli aggiuntivi: \textbf{trasporto}, \textbf{sessione}, \textbf{presentazione} e \textbf{applicazione}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/model_ISO-OSI.jpg}
+	\caption{Modello ISO/OSI}
+\end{figure}
+
+\noindent Nella pratica si usa un modello che usa questo come base, ma presenta solo i livelli aggiuntivi di trasporto e applicazione. Si chiama \textbf{modello TCP/IP} ed il nome deriva dai due principali protocolli usati in questi due livelli: \textbf{Transmission Control Protocol} e \textbf{Internet Protocol}. Analizziamone ogni strato: \begin{itemize}
+	\item \textbf{Livello di applicazione}: Sede delle applicazioni di rete e dei relativi protocolli come HTTP (scambio documenti web), SMTP (scambio mail), FTP (scambio file tra due sistemi remoti). Generalmente scambia pacchetti di informazioni, i \textbf{messaggi}, con l'applicazione in un altro sistema periferico.
+	\item \textbf{Livello di trasporto}: Si occupa del trasferimento dei messaggi tra punti periferici gestiti dalle applicazioni. Si usa il protocollo \textbf{TCP}, che fornisce un servizio orientato alla connessione, quindi che permette di stabilirla, usarla e rilasciarla. Include inoltre la garanzia di consegna dei messaggi a livello applicazione e un controllo di flusso, ottenuto frazionando i messaggi lunghi in più \textbf{segmenti}.
+	\item \textbf{Livello di rete}: Si occupa di trasferire i pacchetti a livello di rete, detti \textbf{datagrammi}, da un host a un altro. Mette a disposizione il servizio di consegna segmento al livello di trasporto nell'host ricettivo. Comprende in primo luogo il protocollo \textbf{IP}, che definisce i campi dei datagrammi e come i sistemi agiscono su di essi. In secondo luogo ha vari protocolli di instradamento che determinano i percorsi da intraprendere.
+	\item \textbf{Livello di collegamento}: Fornisce servizi per il trasferimento dei datagrammi fra i nodi del percorso, i quali dipendono dal protocollo utilizzato. È verosimile che questi vengano gestiti da protocolli diversi come Wi-Fi o Ethernet. A questo livello i pacchetti sono chiamati \textbf{frame}.
+	\item \textbf{Livello fisico}: Si occupa del trasporto dei singoli bit dei frame da un nodo a quello successivo. Le modalità dipendono dal protocollo attuato, ma anche dal mezzo trasmissivo, come fibra ottica o doppino.
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/model_TCP-IP.jpg}
+	\caption{Modello TCP/IP}
+\end{figure}
+
+\noindent Questo processo che attraversa ogni strato è detto \textbf{incapsulamento}. Ora che conosciamo il senso degli strati, procediamo a definire le entità coinvolte nella comunicazione: a livello applicativo, questa avviene tra processi in esecuzione sugli end-host. Affinché due processi possano comunicare, è necessario identificarli univocamente.\par
+Un processo è identificato tramite un \textbf{numero di porta}, definito a livello di trasporto, mentre l'host sul quale è in esecuzione si identifica con un \textbf{indirizzo IP}. L'insieme di indirizzo IP e numero di porta costituisce un \textbf{endpoint di comunicazione}. Formalmente, una comunicazione tra due processi è identificata dalla seguente tupla: \[(\text{IP}_A, \text{IP}_B, \text{porta}_A, \text{porta}_B)\]
+\noindent Gli \textbf{indirizzi IP}, o indirizzi di protocollo internet, sono invece identificativi univoci di un'interfaccia di rete di un host o router all'interno della rete Internet. Sebbene si tenda ad associare questo codice di quattro numeri ad una sola macchina, è possibile, tramite alcune strategie, usarne uno diverso.\par
+Naturalmente, i siti web non sono letti con sequenze di numeri dalle persone, ragion per cui presentano un grado di astrazione dato dal \textbf{nome di dominio}, come per esempio "www.google.com", al quale è associato l'indirizzo IP. La traduzione fra i due avviene a livello di applicazione tramite il \textbf{sistema DNS} (Domain Name System), il cui prodotto sarà usato a livello rete per aggiungere un'intestazione contenente l'indirizzo di sorgente e quello di destinazione. In base alla versione del protocollo abbiamo diversi bit totali per contenerli: $32b$ per \textbf{IPv4} e $128b$ per \textbf{IPv6}.\newline
+
+Gli indirizzi IP sono letti come sequenze di numeri in base binaria. Per esempio, con protocollo IPv4, il sistema potrebbe leggere: \[1001\text{ } 1101\text{ } 0001\text{ } 1011\text{ } 0001\text{ } 0011\text{ } 0111\text{ } 1011\]
+\noindent Per una scrittura più contratta si utilizza la \textbf{notazione decimale puntata}, dove si considerano blocchi di $8b$ e si fa il cambio di base in decimale. Usando i numeri appena visti otteniamo: \begin{equation}
+	\begin{split}
+		10011101 &= 157\\
+		00011011 &= 27\\
+		00010011 &= 19\\
+		01111011 &= 123
+	\end{split}
+\end{equation}
+\noindent Dunque il nostro indirizzo IP si annoterà con $157.27.19.123$. Da questi valori è possibile inoltre ricavare alcune utili informazioni. Non dissimilmente dai numeri telefonici per le reti fisse, ogni numero ha un significato. Prendendo come esempio $+39$ $045$ $802$ $7059$, sappiamo che $+39$ indica l'area geografica internazionale, $045$ la provincia di Verona, $802$ l'organizzazione specifica alla quale è associato il numero, e $7059$ il suffisso, che indica il numero di interfaccia in uso.\par
+La stessa logica vale per gli indirizzi IP: in questo esempio i primi tre blocchi sono l'identificativo di una rete specifica e il loro insieme è noto come \textbf{prefisso}, mentre l'ultimo blocco è detto \textbf{suffisso} e indica l'interfaccia dell'host. Ciò significa che possiamo ricondurci ad un dispositivo preciso in base al suo IP.\par
+Nella notazione puntata, è possibile che un'organizzazione abbia un elevato numero di dispositivi, rendendo fuorviante la comprensione del suffisso. Per eludere questo problema, si indica il numero di bit che compongono il prefisso con una barra: $157.27.19.123/16$

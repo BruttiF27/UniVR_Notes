@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  13 MAR 2026 14:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  21 MAR 2026 15:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -411,34 +411,55 @@ Package pdftex.def Info: Images/V-Model.png  used on input line 25.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-Excluding 'comment' comment.) [7]
-Overfull \vbox (56.59378pt too high) has occurred while \output is active []
+[7]
+<Images/model_prototyping.png, id=40, 543.02875pt x 181.67876pt>
+File: Images/model_prototyping.png Graphic file (type png)
+<use Images/model_prototyping.png>
+Package pdftex.def Info: Images/model_prototyping.png  used on input line 36.
+(pdftex.def)             Requested size: 360.00137pt x 120.44891pt.
+ [8 <./Images/WaterfallModel.png> <./Images/WaterfallIterationModel.png> <./Ima
+ges/V-Model.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 42--43
 
+ []
 
-[8 <./Images/WaterfallModel.png> <./Images/WaterfallIterationModel.png> <./Imag
-es/V-Model.png>]
+[9 <./Images/model_prototyping.png>]
+<Images/model_spiral.png, id=52, 503.8825pt x 317.185pt>
+File: Images/model_spiral.png Graphic file (type png)
+<use Images/model_spiral.png>
+Package pdftex.def Info: Images/model_spiral.png  used on input line 54.
+(pdftex.def)             Requested size: 360.00137pt x 226.61613pt.
+ [10 <./Images/model_spiral.png>]
+<Images/model_UP.png, id=57, 526.96875pt x 253.94875pt>
+File: Images/model_UP.png Graphic file (type png)
+<use Images/model_UP.png>
+Package pdftex.def Info: Images/model_UP.png  used on input line 70.
+(pdftex.def)             Requested size: 450.0pt x 216.8688pt.
+ [11 <./Images/model_UP.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
+
+ []
+
+) [12] [13]
 Capitolo 3.
-(./Chapters/3.tex) [9
+(./Chapters/3.tex Excluding 'comment' comment.) [14
 
 ]
 Capitolo 4.
-(./Chapters/4.tex) [10
+(./Chapters/4.tex Excluding 'comment' comment. Excluding 'comment' comment.)
+[15
 
 ]
 Capitolo 5.
-(./Chapters/5.tex) [11
+(./Chapters/5.tex) [16
 
 ]
 Capitolo 6.
-(./Chapters/6.tex) [12
+(./Chapters/6.tex) [17
 
 ]
 Capitolo 7.
-(./Chapters/7.tex) [13
-
-]
-Capitolo 8.
-(./Chapters/8.tex) [14
+(./Chapters/7.tex) [18
 
 ] (./main.aux)
  ***********
@@ -447,10 +468,10 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8284 strings out of 474222
- 132829 string characters out of 5748733
- 1934975 words of memory out of 5000000
- 30418 multiletter control sequences out of 15000+600000
+ 8300 strings out of 474222
+ 133367 string characters out of 5748733
+ 1933975 words of memory out of 5000000
+ 30437 multiletter control sequences out of 15000+600000
  567581 words of font info for 72 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  74i,9n,82p,884b,504s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -463,10 +484,10 @@ dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/cm-super
 /sfrm1200.pfb>
-Output written on main.pdf (15 pages, 150128 bytes).
+Output written on main.pdf (19 pages, 199443 bytes).
 PDF statistics:
- 106 PDF objects out of 1000 (max. 8388607)
- 64 compressed objects within 1 object stream
+ 125 PDF objects out of 1000 (max. 8388607)
+ 73 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

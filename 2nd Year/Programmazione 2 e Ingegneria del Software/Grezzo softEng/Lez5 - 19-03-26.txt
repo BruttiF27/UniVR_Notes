@@ -1,0 +1,104 @@
+19-03-26 - SoftEng
+
+--- Design architetturale
+Stiamo ora assumendfo che il documento dei requisiti sia completo e disponibile. Lo useremo per creare il design del software. Quindi non cosa fa, bensì come lo fa.
+
+Per software design intendiamo un processo di trasformazione di un problema in una soluzione.
+Definiamo la struttura della soluzione; sta all'implementazione il realizzarla, rendendola utilizzabile.
+
+Ci sono vari livelli di design:
+	- Design di alto livello; la decisione dei macrocomponenti sui quali il sistema verrà architettato
+	- Design di basso livello; I dettagli delle singole componenti, specificando maggiormente la soluzione.
+	
+Una prima scvelta che si può prendere è decidere se rendere il software indipendente da una piattaforma o meno; ciò influenzerebbe l'architettura in toto.
+Il design è un processo creativo, migliorabile guardando altri esempi buoni (ma dai?). La maggioranza del lavoro di design è l'adattamento di architetture già conosciute al
+caso in esame. Tra i diversi livelli di riuso abbiamo:
+	- clonazione: una copia, tale tale del codice con qualche aggiustamento.
+	- Design pattern: Una buona soluzione a un problema ricorrente
+	- Stili architetturali: Architettura generica che suggerisce come decomporre il sistema.
+	
+L''idea del design architetturale ha lo scopo di definire le macrocomponenti del aistema in modo astratto, non definito, come anche il framework per il controllo e la comunicazione
+tra componenti. Il deliverable è una descrizione dell'architettura del software.
+	Avere un'architettura software ha i seguenti pregi:
+	- Guida sviluppo e aiuta la comprensione del sistema
+	- Supporta decisioni manageriali (eg; se fattorizzare o meno il sistema)
+	- facilita l'analisi di alcune proprietà
+	- Su larga scala consente iol siuso, perché l'architettura potrebbe essere riusata su altri sistemi
+	- Aiuta a ragionare sull'evoluzione del sistema (chi dovrà mantenere il software avrà una visione chiara delle componenti)
+	- Documenta il sistema, spiegando le dièpendenze tra componenti.
+	
+L'architettura è annotata com un diagramma a blocchi, che rappresenta un overview della struttura. Sono rettangoli collegati con archi. Questi rappresentano le relazioni tra
+i vari componenti. Esistono linguaggi formali di specifica architetturale come Darwin o ADSl. Esiste pure UML.
+Naturalmente, prima si fa design architetturale high-level, poi si passa a quello delle componenti, le quali si possono dividere in task.
+Qua è possibile già farsi un'idea dei costi in termini di risorse e tempo, definendo quindi un budget più realistico.
+
+Il design architetturale impatta principalmente:
+	- performance: come il tempo di risposta
+	- security un'architettura a livelli con le risorse critiche in quelli più interni
+	- safety: localizzare le caratterisrtiche safety-critical in pochi sottosistemi
+	- disponibilità: includere componenti ridondanti e meccabnismi per fault tolerannce
+	- mantenibilità: Usare componenti fine-grain facilmente rimpiazzabili, quindi con poche dipendenze.
+	
+Attenzione, alcuni concetti qua possono andare in conflitto: per esempio delle componenti large-grain migliorano performance ma riducono la mantenibilità a causa delle dipendenze.
+Quindi si cerca tendenzialmente un compromesso per dare un buon livello con tutte quelle caratteristiche del software.
+Unless... deutschbett; zwei Decken. Nel senso, più sistemi? Maybe? Vielleicht?
+
+L'architettura di un sistema può conformarsi a uno stile architetturale, un modello generico con caratteristiche specifiche che può essere adattato.
+Conoscere stili architetturali è molto importante per semplificare il lavoro di design e non reinventare la ruota. La maggioranza dei grandi sistemi sono eterogenei e non
+ne usano uno singolo. Dipende dal caso; scegli quello che credi risolva il problema al meglio.
+Uno schema di design architetturale è definito da:
+	- componenti arch. di base: come procedure, livelli/strati, sevrizi, lassi etc.
+	- dipendenze??? Sta sulla slide, riguardalo.
+	
+Ci sono quindi diversi stili: layered, repository, client/server, P2P, Pipe&filter, etc.
+
+- Stratificato (layered)
+Organizza il sistema in un insieme di livelli. Poggia su dei servizi core nascosti al cliente, sui quali sono stratificati servizi superiori. Ogni livello usa i servizi di quello
+inferiore. La comunicazione fra i layer avviene di norma tramite chiamata a funzione.
+Generalmente è un'architettura usata per i sistemi operativi. Un primo vantaggio si ha che se cambia l'interfaccia di un livello, si influenza solo il livello adiacente.
+Differenti implementazioni dello stesso livello possono essere usate in modo intercambiabile.
+Tuttavia, è artificiale strutturare il sistema in questo modo e può anche risultare inefficiente a causa dell'alto numero di chiamate fra i livelli.
+Questo tendenzialmente porta a delle shortcut fra livelli, ma ciò comporta la perdita dei vantaggi strutturali dell'architettura.
+
+- Modello repository
+Prevede un componente centralizzato contenente la memoria dei dati e componenti periferici che leggono/scrivono dati in questa memoria. Le periferiche non interagiscono tra loro
+e parlano esclusivamente con la componente centrale. E' adatto ad applicazioni in cui i dati sonbo prodotti da un subsystem e usati da un altro, come i case tool.
+Strumenti che aiutano l'ingegneria del software durante il ciclo di vita del software.
+Si tratta di un modo efficiente di condividere grandi quantità di dati e si ha una gestione centralizzata del backup e della sicurezza.
+Tuttavia i sottosistemi devono accordarsi sulla struttura dei dati per il repo. L'evoluzione di questo schema di dati è quindi difficile e costosa, e rendere il software
+distribuito in maniera efficiente è molto difficile. Nel senso, c'è un nodo critico, che se cade quello, cade tutto.
+
+- Client/server
+Simile al precedente, ma le informazioni viaggiano unidirezionalmente dal server principale. Esiste una rete che permette ai client di accedere ai server.
+>Le periferiche son date da altri server che svolgono appositi job a loro dedicati. E' un modello tipicamente usato dalle interfacce web browser.
+I vantaggi riguardano il miglioreamento della performance spostando la computazione tra i vari server; supporta il riuso, è scalabile perché si possono aggiungere altri server
+ed è pure semplice aggiungerci ste componenti.
+Tuttavia è un sistema distribuito; c'è una mancanza di un modello dei dati condiviso e lo scambio dei dati può essere inefficienze.
+Possono presentarsi anche ridondanze con questo e i server potrebbero anche essere di proprietà di altre organizzazioni, come per il cloud. Non semplice gestire tutto.
+
+- Client/server a due livelli
+Presenta due strati: strato client e strato server. Ci sono tre componenti software:
+	- UI - presentation logic
+	- Gestione dei processi e lofica
+	- Gestione del Db
+Le componenti sono distribuite negli strati (non necessariamente in modo uniforme) di client (chi richiede) e server (chi fornisce).
+
+- Client/server a tre livelli
+Ciè uno strato di presentazione, uno di logica, ed un terzo per i dati. Sono tutti separati ed il client usa solo l'interfaccia utente. Parliamo di application server e DB server.
+
+- Modello peer to peer
+Ogni componente esegue il suo processo e gioca allo stesso tempo il ruolo di client e server. Ogni elemento ha una interfaccia che specifica i servizi offerti e richiesto.
+Si comunica richiedendo e offrendo servizi. Questi sistemi scalano bene e sono fault-tolerant, il sistema non dipende quindi da un solo perno.
+Esempi sono bittorrent o bitcoin.
+
+- Pipe&filter
+Abbiamo dei pipe connettori che trasmettono dati tra i filtri, e dei filter cje effettuano trasformazioni per elaborare i loro input, producendo output.
+Un esempio è pipe Unix.
+	cat input.txt | grep "Palle" | sort > output.txt
+	Nel comando, | è pipe, le istruzioni i filters.
+I vantaggi sono il supporto del riuso delle trasformazioni, è molto intuitivo; aggiungere trasformazioni è semplice, infatti da implementare, pure. Supporta inoltre l'esecuzione in
+parallelo. Tuttavia non è adatto a sistemi interattivi e infatti solitamente porta allo sviluppo di sistemi batch. C'è inoltre del lavoro extra per dover fare parsing/unparsing
+dei dati nei vari filtri. Se sono tanti dati, la pipeline risulta inefficiente.
+
+--- Stili di controllo
+Nella prox. lezione

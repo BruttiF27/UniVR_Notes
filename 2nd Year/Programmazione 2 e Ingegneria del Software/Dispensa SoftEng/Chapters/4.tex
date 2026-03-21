@@ -4,3 +4,200 @@ class diagram, use case diagram, activity diagram, sequence diagram
 %
 
 \section{Fasi della progettazione}
+
+\begin{comment}
+	--- Use case
+	Tecnica per esprimere requisiti funzionali di un sistema e descrivere dal punto di vista dell'utente. In particolare:
+	- organizzativo complesso
+	- Software/hardware da sviluppare
+	- Una componente o sottosistema
+	
+	È puro testo ed il sistema è visto come una black box, si mostra puramente l'interazione (scambio di messaggi) tra utente e sistema. Per esempio, un'ATM.
+	1. L'utente seleziona l'importo da prelevare e conferma la cifra
+	2. Il sistema eroga la cifra
+	
+	-- Requisiti e use case
+	Il requisito descrive una funzionalità dal punto di vista del sistema, il caso d'uso da quella dell'utente, chiamato attore. In questi ultimi, si presenta la seguente struttura:
+	- ID caso
+	- Nome caso
+	- breve descrizione
+	- attore
+	- workflow principale
+	1. ...
+	2. ...
+	- workflow alternativo
+	
+	Gli use case servono principalmente per documentare le scelte prese per rispettare i requisiti e documentare il risultato delle interviste con gli stakeholder. Gli use case saranno èassati al team che progetterà l'applicativo. Gli use case saranno confrontati con il primo prototipo creato per valutarne la qualità e il rispetto delle richieste.
+	
+	--- Componenti degli use case
+	Attori: ruoli assunti dalle entità che interagiscono col sistema
+	Use case: Ciò che gli attori possono fare con il sistema
+	Relazioni: tra gli attori e gli use case
+	Confini del sistema: un rettangolo disegnato intorno agli use case per indicare i confini del sistema.
+	
+	Definire i confini del sistema è molto importante, perché il posizionamento del confine ha un grosso impatto sui requisiti funzinoali: molti progetti sono falliti priprio per una sbagliata definizione dei confini.
+	
+	Attori hanno un ruolo che un'entità esterna recita interagendo col sistema. Non necessariamente è un utente, può essere anche una componente del software o hardware. È un ruolo. Non la persona stessa. Ce ne sono due categorie:
+	- primari: ha delle mire sul sistema e ci guadagnano dal sistema
+	eg: cliente che vuole ordinare un prodotto
+	- secondari: il sistema ha delle mire su di essi e produce un qualcosa per il sistema.
+	eg: sistema esterno per la gestione dei pagamenti
+	
+	Scenario è una sequenza ordinata di interazioni tra un sistema e gli attori; è una particolare istanza di uno use case e rappresenta un loro singolo cammino. Sono utili perché partire con scenari concreti è più comodo che generalizzare e possono essere anche usati per il testing. Uno scenario è un'istanza, quindi un test case ne comprende anche un loro insieme, se questi hanno lo stesso fine.
+	
+	--- Descrizione di use case
+	Gli use case sono dati come testo strutturato i cui passi sono facili da capire ed è usato il vocabolario del dominio applicativo. È necessario avere descrizioni chiare, precise, generali e indipendenti dalle tecnologie.
+	- Scenario principale: quello ideale
+	- Scenario secondario: Casistiche con eventuali condizioni di errore e casi particolari.
+	
+	Per la descrizione ci sono dei template, pattern standardizzati. Si mostrano in quest'ordine:
+	- Nome dello use case: goal del case, breve frase verbale attiva in camelcase
+	- Identificatore: Numero progressivo
+	- Breve descrizione: paragrafo che indica il goal del case
+	- Attori primari e secondari
+	- Precondizioni: vincoli sullo stato corrnte del sistema
+	- Scenario principale: Passi che costituiscono lo use case senza problemi
+	- Postcondizioni: condizioni che devono essere vere quando il case termina con successo
+	- Scenari alternativi: elenco di alternative allo scenario principale.
+	
+	- Passi di uno scenario
+	Scenario è un elenco di passi coincisi, numerati e ordinati temporalmente. Da questo scenario principale ci sono le deviazioni (scenari secondari). Le semplici ritornano nel flusso principale, le complesse vanno da tutt'altra parte.
+	
+	- Gerarchie di attori usate per la gestione delle relazioni con il sistema.
+	- Generico
+	- Specializzato
+	
+	Relazioni tra use case:
+	- inclusione, per decomporre un case complicato, quindi un comportamento comune a più cases.
+	Ricorda il concetto di chiamata a funzione. Il case principale esegue i passi fino al punto di inclusione, dove il conrollo passa a quello incluso.
+	Si rappresenta nella descrizione con la dicitura ".include(caseName)"
+	- Estensione, un comportamento opzionale
+	Si definisce un punto di estensione ma non si conosce il suo comportamento. In qanto opzionale, è lecito.
+	- Generalizzazione o specializzazione, per specializzare uno use case; tipo più cases usano un pagamento, quindi la funzione di pagamento.
+	C'è un case genitore dal quale derivano dei figli, sue varianti più specifiche. Questi possono ereditare i passi del genitore, aggiungerne di nuovi o anche ridefinire i passi ereditati. Ricorda non poco un'estensione di classe in Java.
+	
+	È quasi come se stessimo definendo un linguaggio apposito, ma attenzione a non perdere chiarezza: devono comunque leggerlo gli stakeholders.
+	Una cosa utile sono gli screen mockups, ovvero degli schizzi dell'interfaccia utente per chiarirne il comportamnto; sono utili per la negoziazione con il cliente, per lo sviluppatore e per specificare la UI. Si possono fare su carta oppure usando un tool specifico, detto per la GUI prototyping. Un esempio è pencil tool.
+	
+	Generalmente, è bene mantenere i case brevi e semplici, con un buon compromesso fra astrazione e dettaglio. Non bisogna usarli per descrivere le funzionalità interne di un sistema, bensì il solo comportamento.
+	I meccanismi di extend e generalizzazione sono da usare solo quando rendono il modello più semplice o chiaro, e cerca di mantenere una coerenza con il livello di astrazione adattato.
+	
+	Gli use case sono un buon mezzo per esprimere i requisiti funzionali di un sistema e sono anche molto usati in ambito lavorativo. Ne esistono diversi template, ma sono tutti pressoché equivalenti. Risultano poco utili in sistemi dominati da requisiti non funzionali o con algoritmi complessi e privi di GUI.
+\end{comment}
+
+%
+
+\section{Pattern architetturali}
+MVC, repository, client server, pipe and filter
+
+\begin{comment}
+	19-03-26 - SoftEng
+	
+	--- Design architetturale
+	Stiamo ora assumendfo che il documento dei requisiti sia completo e disponibile. Lo useremo per creare il design del software. Quindi non cosa fa, bensì come lo fa.
+	
+	Per software design intendiamo un processo di trasformazione di un problema in una soluzione.
+	Definiamo la struttura della soluzione; sta all'implementazione il realizzarla, rendendola utilizzabile.
+	
+	Ci sono vari livelli di design:
+	- Design di alto livello; la decisione dei macrocomponenti sui quali il sistema verrà architettato
+	- Design di basso livello; I dettagli delle singole componenti, specificando maggiormente la soluzione.
+	
+	Una prima scvelta che si può prendere è decidere se rendere il software indipendente da una piattaforma o meno; ciò influenzerebbe l'architettura in toto.
+	Il design è un processo creativo, migliorabile guardando altri esempi buoni (ma dai?). La maggioranza del lavoro di design è l'adattamento di architetture già conosciute al
+	caso in esame. Tra i diversi livelli di riuso abbiamo:
+	- clonazione: una copia, tale tale del codice con qualche aggiustamento.
+	- Design pattern: Una buona soluzione a un problema ricorrente
+	- Stili architetturali: Architettura generica che suggerisce come decomporre il sistema.
+	
+	L''idea del design architetturale ha lo scopo di definire le macrocomponenti del aistema in modo astratto, non definito, come anche il framework per il controllo e la comunicazione
+	tra componenti. Il deliverable è una descrizione dell'architettura del software.
+	Avere un'architettura software ha i seguenti pregi:
+	- Guida sviluppo e aiuta la comprensione del sistema
+	- Supporta decisioni manageriali (eg; se fattorizzare o meno il sistema)
+	- facilita l'analisi di alcune proprietà
+	- Su larga scala consente iol siuso, perché l'architettura potrebbe essere riusata su altri sistemi
+	- Aiuta a ragionare sull'evoluzione del sistema (chi dovrà mantenere il software avrà una visione chiara delle componenti)
+	- Documenta il sistema, spiegando le dièpendenze tra componenti.
+	
+	L'architettura è annotata com un diagramma a blocchi, che rappresenta un overview della struttura. Sono rettangoli collegati con archi. Questi rappresentano le relazioni tra
+	i vari componenti. Esistono linguaggi formali di specifica architetturale come Darwin o ADSl. Esiste pure UML.
+	Naturalmente, prima si fa design architetturale high-level, poi si passa a quello delle componenti, le quali si possono dividere in task.
+	Qua è possibile già farsi un'idea dei costi in termini di risorse e tempo, definendo quindi un budget più realistico.
+	
+	Il design architetturale impatta principalmente:
+	- performance: come il tempo di risposta
+	- security un'architettura a livelli con le risorse critiche in quelli più interni
+	- safety: localizzare le caratterisrtiche safety-critical in pochi sottosistemi
+	- disponibilità: includere componenti ridondanti e meccabnismi per fault tolerannce
+	- mantenibilità: Usare componenti fine-grain facilmente rimpiazzabili, quindi con poche dipendenze.
+	
+	Attenzione, alcuni concetti qua possono andare in conflitto: per esempio delle componenti large-grain migliorano performance ma riducono la mantenibilità a causa delle dipendenze.
+	Quindi si cerca tendenzialmente un compromesso per dare un buon livello con tutte quelle caratteristiche del software.
+	Unless... deutschbett; zwei Decken. Nel senso, più sistemi? Maybe? Vielleicht?
+	
+	L'architettura di un sistema può conformarsi a uno stile architetturale, un modello generico con caratteristiche specifiche che può essere adattato.
+	Conoscere stili architetturali è molto importante per semplificare il lavoro di design e non reinventare la ruota. La maggioranza dei grandi sistemi sono eterogenei e non
+	ne usano uno singolo. Dipende dal caso; scegli quello che credi risolva il problema al meglio.
+	Uno schema di design architetturale è definito da:
+	- componenti arch. di base: come procedure, livelli/strati, sevrizi, lassi etc.
+	- dipendenze??? Sta sulla slide, riguardalo.
+	
+	Ci sono quindi diversi stili: layered, repository, client/server, P2P, Pipe&filter, etc.
+	
+	- Stratificato (layered)
+	Organizza il sistema in un insieme di livelli. Poggia su dei servizi core nascosti al cliente, sui quali sono stratificati servizi superiori. Ogni livello usa i servizi di quello
+	inferiore. La comunicazione fra i layer avviene di norma tramite chiamata a funzione.
+	Generalmente è un'architettura usata per i sistemi operativi. Un primo vantaggio si ha che se cambia l'interfaccia di un livello, si influenza solo il livello adiacente.
+	Differenti implementazioni dello stesso livello possono essere usate in modo intercambiabile.
+	Tuttavia, è artificiale strutturare il sistema in questo modo e può anche risultare inefficiente a causa dell'alto numero di chiamate fra i livelli.
+	Questo tendenzialmente porta a delle shortcut fra livelli, ma ciò comporta la perdita dei vantaggi strutturali dell'architettura.
+	
+	- Modello repository
+	Prevede un componente centralizzato contenente la memoria dei dati e componenti periferici che leggono/scrivono dati in questa memoria. Le periferiche non interagiscono tra loro
+	e parlano esclusivamente con la componente centrale. E' adatto ad applicazioni in cui i dati sonbo prodotti da un subsystem e usati da un altro, come i case tool.
+	Strumenti che aiutano l'ingegneria del software durante il ciclo di vita del software.
+	Si tratta di un modo efficiente di condividere grandi quantità di dati e si ha una gestione centralizzata del backup e della sicurezza.
+	Tuttavia i sottosistemi devono accordarsi sulla struttura dei dati per il repo. L'evoluzione di questo schema di dati è quindi difficile e costosa, e rendere il software
+	distribuito in maniera efficiente è molto difficile. Nel senso, c'è un nodo critico, che se cade quello, cade tutto.
+	
+	- Client/server
+	Simile al precedente, ma le informazioni viaggiano unidirezionalmente dal server principale. Esiste una rete che permette ai client di accedere ai server.
+	>Le periferiche son date da altri server che svolgono appositi job a loro dedicati. E' un modello tipicamente usato dalle interfacce web browser.
+	I vantaggi riguardano il miglioreamento della performance spostando la computazione tra i vari server; supporta il riuso, è scalabile perché si possono aggiungere altri server
+	ed è pure semplice aggiungerci ste componenti.
+	Tuttavia è un sistema distribuito; c'è una mancanza di un modello dei dati condiviso e lo scambio dei dati può essere inefficienze.
+	Possono presentarsi anche ridondanze con questo e i server potrebbero anche essere di proprietà di altre organizzazioni, come per il cloud. Non semplice gestire tutto.
+	
+	- Client/server a due livelli
+	Presenta due strati: strato client e strato server. Ci sono tre componenti software:
+	- UI - presentation logic
+	- Gestione dei processi e lofica
+	- Gestione del Db
+	Le componenti sono distribuite negli strati (non necessariamente in modo uniforme) di client (chi richiede) e server (chi fornisce).
+	
+	- Client/server a tre livelli
+	Ciè uno strato di presentazione, uno di logica, ed un terzo per i dati. Sono tutti separati ed il client usa solo l'interfaccia utente. Parliamo di application server e DB server.
+	
+	- Modello peer to peer
+	Ogni componente esegue il suo processo e gioca allo stesso tempo il ruolo di client e server. Ogni elemento ha una interfaccia che specifica i servizi offerti e richiesto.
+	Si comunica richiedendo e offrendo servizi. Questi sistemi scalano bene e sono fault-tolerant, il sistema non dipende quindi da un solo perno.
+	Esempi sono bittorrent o bitcoin.
+	
+	- Pipe&filter
+	Abbiamo dei pipe connettori che trasmettono dati tra i filtri, e dei filter cje effettuano trasformazioni per elaborare i loro input, producendo output.
+	Un esempio è pipe Unix.
+	cat input.txt | grep "Palle" | sort > output.txt
+	Nel comando, | è pipe, le istruzioni i filters.
+	I vantaggi sono il supporto del riuso delle trasformazioni, è molto intuitivo; aggiungere trasformazioni è semplice, infatti da implementare, pure. Supporta inoltre l'esecuzione in
+	parallelo. Tuttavia non è adatto a sistemi interattivi e infatti solitamente porta allo sviluppo di sistemi batch. C'è inoltre del lavoro extra per dover fare parsing/unparsing
+	dei dati nei vari filtri. Se sono tanti dati, la pipeline risulta inefficiente.
+	
+	--- Stili di controllo
+	Nella prox. lezione
+\end{comment}
+
+%
+
+\section{Pattern di design}
+singleton, observer, template, iterator, factory, abstract factory, proxy, façade, decorator

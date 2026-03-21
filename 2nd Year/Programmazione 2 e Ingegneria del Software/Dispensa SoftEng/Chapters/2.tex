@@ -28,105 +28,66 @@ Sebbene questi due modelli abbiano apportato migliorie al waterfall, è evidente
 %
 
 \section{Modelli evolutivi}
+I \textbf{modelli evolutivi} si basano sull'idea di sviluppare una versione iniziale del software, incompleta ma funzionante, da sottoporre agli utenti e raffinare progressivamente tramite feedback, fino al raggiungimento delle funzionalità richieste.\par
+Un primo esempio è dato dai \textbf{modelli di prototipizzazione}, la cui implementazione è data da prototipi del sistema, sui quali validare i requisiti. Se questo soddisfa le richieste degli utenti, può essere evoluto nel sistema finale; in alternativa, può essere scartato dopo aver chiarito i requisiti. Essendo spesso un artefatto temporaneo, il prototipo non viene sviluppato con particolare attenzione all'efficienza o alla qualità del codice; infatti sono usati strumenti e tecnologie per una rapida realizzazione.\par
+Questo modello di sviluppo consente di raffinare al meglio i requisiti definiti dagli stakeholder e permette di rilevare errori di interpretazione molto facilmente. Tuttavia, si tratta di un processo dispendioso in termini di risorse fisiche e psichiche. In particolare, esiste il rischio di considerare il prototipo come prodotto finale, compromettendo la qualità del sistema e annullando i benefici della prototipizzazione. Per questa ragione i prototipi riguardano tendenzialmente funzionalità su cui il cliente ha fornito requisiti ambigui.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/model_prototyping.png}
+	\caption{Modello di prototipizzazione}
+\end{figure}
 
+\noindent Due altri modelli che consentono una rapida risposta alle richieste degli stakeholder e del mercato sono quelli \textbf{incrementali} e \textbf{iterativi}, che prevedono lo sviluppo di più release utilizzabili di cui solo l'ultima è completa. In particolare, per il primo si richiede di individuare le funzionalità fondamentali del software per il primo rilascio (qui si implementano tipicamente i requisiti a maggior valore per gli utenti), al quale saranno aggiunte altre funzioni con l'avvento delle successive release, fornendo versioni del software sempre più complete.\par
+Per i modelli \textbf{iterativi}, invece, si sviluppa una versione iniziale del sistema che viene progressivamente migliorata e raffinata a ogni iterazione, sia in termini di funzionalità sia di qualità. Per esempio, si potrebbe sviluppare un word processor funzionante con una CLI, per poi fare una seconda release con una GUI.\par
+I vantaggi di questi modelli risiedono nella possibilità di ottenere rapidamente versioni funzionanti del software, raccogliere feedback dagli stakeholder e adattare lo sviluppo di conseguenza, riducendo il rischio di errori nei requisiti e migliorando progressivamente il prodotto.\newline
 
+\noindent Il principale modello di sviluppo evolutivo è il \textbf{modello a spirale}: si tratta di un approccio realistico per sistemi di grandi dimensioni, il quale si evolve insieme alle interazioni continue tra stakeholder e team operativo. È un workflow guidato dal rischio, inteso come una circostanza potenzialmente avversa in grado di compromettere lo sviluppo e la qualità del software.\par
+Nel lavoro è necessario fare delle scelte, e, come per gli investimenti, comportano un rischio. Per questa ragione, bisogna valutare la gravità delle conseguenze e la probabilità che la circostanza si verifichi. Il modello presenta quattro fasi entro le quali si itera fino al raggiungimento del prodotto definitivo: \begin{itemize}
+	\item \textbf{Pianificazione}: Determinazione degli obiettivi, alternative e vincoli da rispettare.
+	\item \textbf{Analisi dei rischi}: Identificazione dei rischi, alternative ed eventuali risoluzioni.
+	\item \textbf{Sviluppo del software}: Sviluppo del prodotto.
+	\item \textbf{Convalida del cliente}: Revisione dei risultati da parte del committente.
+\end{itemize}
+\noindent I principali vantaggi risiedono nella grande flessibilità ai problemi, ma non è una soluzione universale e richiede una buona competenza nella valutazione dei rischi, perché in base alle conseguenze, potrebbe essere necessaria una significativa revisione del prodotto.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/model_spiral.png}
+	\caption{Modello a spirale}
+\end{figure}
 
-\subsection{Modelli di prototipizzazione}
-\subsection{Modelli iterativi-incrementali}
+%
 
-\section{Modello a spirale}
-\section{Processo unificato}
-\section{Sviluppo basato sui componenti}
-\section{Modello trasformazionale}
+\section{Ulteriori approcci}
+I modelli di sviluppo non si limitano solo ad essere guidati da un piano oppure dal feedback del cliente, bensì possono integrare idee di entrambi, come per l'\textbf{unified process}: un approccio per lo sviluppo di sistemi a oggetti con notazioni UML. È guidato dagli \textbf{use case} e incorpora alcune idee del modello a spirale, come i rilasci multipli dopo ogni fase e una forte enfasi sulla convalida del cliente, mantenendo però una struttura plan-driven. Il modello presenta quattro fasi: \begin{itemize}
+	\item \textbf{Concezione}: Studio di fattibilità e definizione dei requisiti essenziali.
+	\item \textbf{Elaborazione}: Studio del dominio applicativo e definizione dell'architettura del software.
+	\item \textbf{Costruzione}: Design del prodotto, codifica e testing.
+	\item \textbf{Transizione}: Utilizzo del software nel contesto applicativo da parte di utenti fidati.
+\end{itemize}
+\noindent Ognuna di queste fasi presenta cinque workflow: \textbf{Requisiti}, \textbf{Analisi}, \textbf{Design}, \textbf{Codifica} e \textbf{Testing}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/model_UP.png}
+\end{figure}
 
-\section{Metodi agili}
+\noindent Un altro approccio con una diversa filosofia è dato dallo \textbf{sviluppo basato sui componenti}, la cui idea fondamentale è la minimizzazione di riscrittura di nuovo codice, riutilizzando componenti già a disposizione, piuttosto che scriverne di nuovi. Idee come questa sono supportate dalla presenza di un mercato degli asset, dal quale si attinge. Presenta le seguenti fasi: \begin{itemize}
+	\item \textbf{Specifica dei requisiti}
+	\item \textbf{Analisi dei componenti}
+	\item \textbf{Modifica delle richieste}
+	\item \textbf{Design orientato al riutilizzo}
+	\item \textbf{Sviluppo e integrazione}
+	\item \textbf{Convalida del sistema}
+\end{itemize}
+\noindent Lo sviluppo inizia dunque dalla ricerca dei componenti in base alle richieste del cliente; questi sono forniti dal marketplace, aziende terze o da progetti open-source. Eventualmente, se non rispettano i requisiti, è possibile ridefinirli con il committente oppure cercare di sostituirli; dopodiché si procede con l'implementazione ed infine la validazione.\par
+Il vantaggio principale è il risparmio di tempo: affidandoci a prodotti già scritti e funzionanti si riducono costi totali e rischi. Tuttavia, non è sempre facile allineare i desideri del committente con le componenti a disposizione, spesso non modificabili. Inoltre, essendo dipendenti da terzi, le parti utilizzate potrebbero venire aggiornate al di fuori dal controllo del team.\par
+Esistono infine modelli basati su metodi formali, dove si richiede che venga tutto definito in modo rigoroso e con prove matematiche, come il \textbf{modello trasformazionale}. La specifica viene formalizzata e guida lo sviluppo fino ad arrivare all'implementazione. Risulta vantaggioso perché ci consente di provare con (quasi) assoluta certezza il funzionamento del codice grazie alle relative dimostrazioni.\newline
 
-\begin{comment}		
-	-- Approcci diversi
-	Cerchiamo quindi di sviluppare un'implementazione iniziale, esporla agli utenti e raffinarla release dpopo release, fino ad arrivare alla lista completa di funzionalità.
-	Ognuna di queste release può essere utilizzata. Ottimo per potersi gestire con i feedback e correggere problemi con la successiva patch.
-	
-	- Modelli a prototyping
-	Realizza un prototipo funzionante del sistema sul quale validare i requisiti. Se va bene si prosegue, altrimenti lo si rielabora. Il pototipo è ridotto perché ha meno funzionalità
-	ed è meno efficiente in termini di prestazioni. Spesso è sviluppato in un linguaggio di alto livello perché accorcia i tempi di lavoro, potendo ottenere feedback quanto prima.
-	
-	Vantaggi: >Permette di raffinare i requisiti definiti all'inizio e si rilevano velocemente errori di interpretaione.
-	Svantaggi: Spesso il prototipo è da buttare, è un problema economico e di stress. Il rischio è di non farlo e così scelte non ideali diventano parte integrante del sistema.
-	
-	Quindi si protitpizzano le funzionalità su cui il cliente non sembra avere le idee chiare.
-	
-	- Modelli iterativi-incrementali
-	Prevedono di sviluppare più release di cui solo l'ultima è completa. Chiedono di individuare le features per ogni release; dopo la prima si procede in parallelo.
-	Nel senso, hai una prima release con le feature base, le successive avranno le funzionalità aggiuntive richieste, distribuendo versioni del software sempre più coplete.
-	Sinergia col feedback palese.
-	
-	Per esempio, per birdArchive:
-	- Possibilità di leggere/salvare un archivio
-	- Feature per inserimento da CLI
-	- Feature per modifica da CLI
-	
-	Tendenzialmente si implementano prima i requisiti che danno maggior valore al committente, quindi quelle più a lui utili, per le quali ha richiesto il software.
-	Un altro approccio potrebbe essere invece di dare tutte e features in una volta, ma parzialmente. Dai parte per parte con ogni release fino al prodotto completo.
-	
-	Vantaggi: Release sviluppate in base al feedback ed è più semplice prevedere le risorse necessarie allo sviluppo, in quanto più piccole. I problemi vengono anche individuati rpesto
-	e c'è anche una risposta rapida al mercato. E' veramente solo usando ill software che si capisce cosa si vuole.
-	
-	-- Modello a spirale
-	Approccio più realistico per sistemi di grandi dimensioni, si evolve insieme alle interazioni continue fra cliente e devs. E' un modello guidato dal rischio.
-	Per rischio intendiamo una circostanza potenzialmente avversa in grado di attaccare lo sviluppo e la qualità del sw.
-	Ogni scelta, come gli investimenti, comporta un rischio, già la scelta di una tecnologia ne comporta. Prima di scegliere bisogna valutare:
-	- gravità delle conseguenze
-	- probabilità del verificarsi della circostanza.
-	
-	Questo modello prevede quattro fasi dove ci continua ad iterare fra loro fino ad arrivare al prodotto definitivo:
-	- Planning: determinazione di obiettivi, alternative e vincoli
-	- risk analysis: analisi di alternative e identificazione/risoluzione rischi
-	- engineering: Sviluppo del prodotto di successivp lovello
-	- customer evaluation Revisione dei risultati da parte del committente.
-	
-	Vantaggi: Adatto a sistemi complessi, ed è un modello guidato dal rischio.
-	Svantaggi: Non è universale, necessita poi grandi competenze di valutazione rischi. Richiede un'opportina personalizzazione ed esperienza di utilizzo. Se un rischio rilevante non
-	è scoperto o gestito, c'è la possibilità di dover ricominciare da capo. Dipende da quanto è grave la conseguenza.
-	
-	- Unified Process
-	Sviluppo di sistemi a oggetti con notazioni UML per tutto il processo. E' gyuidato dagli use case e incorpora mote idee dal modello a spirale, come lo sviluppo a fase, rilasci
-	multipli, con enfasi su ustomer evaluation.
-	Ci sono 4 iterazioni con 5 sottofasi per ognuna di loro (nelle slide, è stato troppo veloce):
-	- inception: Studio di fattibilità, requisiti essenziali
-	- elaboration. comprensione del dominio del problema e definizione architettura
-	- construction: design codicfica e testing
-	- transition: Messa in esercizio del sistema.
-	
-	- Component based softEng
-	Cerca di minimizzare la scrittura di nuovo codice cercando di riutilizzare componenti già a disposizione piuttosto che scriverne di nuove.
-	Esiste uno store o marketplace dei componenti e lo sviluppo inizia con la loro identificazione.
-	Fasi: requirements specs -> component analysis -> requirements modifications -> system design with reuse -> dev and integration -> system validation
-	Si vanno a controllare le componenti che possono rispondere alle richieste, eventualmente le si cambiano se non è così, poi si fa design e sviluppo, per poi validarlo.
-	
-	Vantaggi: Scrivo meno codice perché mi affido a roba già scritta. Riduce costi totali e rischi.
-	Svantaggi: Inevitabili compromessi perché le componenti non le hai scritte tu, la soluzione sarebbe modificare i requisiti, ma il cliente può essere cagacazzo. Non è sempre facike
-	integrare il coice e spesso i componenti usati sono fatti evolvere dalla ditta produttrice senza controllo di chi li usa.
-	
-	-- Modello trasformazionale
-	Guidato da una specifica si arriva all'implementazione. Si tratta di un modello rigoroso e matematico;  si analizzano i requisiti, formalizzarli e li si trasforma per step
-	in codice effettivo. Comodo perché posso dimostrare il funzionamento del codice matematicamente.
-	
-	- Metodi agili
-	Prevede di avere meno attenzione sulla documentazione per garantire una migliore flessibilità nell'implementazione del codice. Risulta più importante soddisfare il cliente
-	piuttosto che seguire il piano. Ci sono delle fasi abbastanza rapide e brevi:
-	- ciclo rapido/consegne frequenti: Ogni ciclo ffronta un solo pezzo e si deve concludere in fretta
-	- progettazione semplice: Keep it short and simple, implementa solo le cose necessarie e in modo semplice
-	- refactoring: Ristrutturazione continua del codice per renderlo più chiaro
-	- meeting di riflessione: Frequenti, giornalieri.
-	- tacit/implicit knowledge: Conoscenza nella testa di chi lavora piuttosto che nei documenti (ahimè)
-	- Co-location (customer on site): Gli sviluppatori devono lavorare insieme agli utenti, i quali devono essere presenti e disponibili (idealmente).
-	
-	Approcci molto agili, ma i problemi che portano sono gestionali, legali e di manuytenzione.
-	Se perdi un componente del team la knowledge implicita è persa. Gli utenti potrebbero non eessere sempre disponibili.
-	Non si sa quando lo sviluppo termina, il contratto non è stipulato, non è scritto da nessuna parte.
-	La documentazione è scarsa e a causa di ciò lo sviluppo può evolvere in modo casuale. Disgustosamente casuale.
-	
-	Generalmente la scelta del metodo:
-	- plan-driven se è grosso o critico
-	- agile se è una roba più piccolina.
-\end{comment}
+\noindent Presentiamo qualche cenno sul workflow più utilizzato in ambito lavorativo odierno: i \textbf{metodi agili}. Qui si pone meno enfasi sulla documentazione formale, privilegiando la comunicazione diretta e la produzione di software funzionante per garantire una maggiore flessibilità ai cambi repentini del mercato e degli stakeholder. La filosofia di questi modelli pone la soddisfazione del cliente come obiettivo più importante, rispetto a seguire un piano. Presentano le seguenti caratteristiche: \begin{itemize}
+	\item \textbf{Ciclo rapido e consegne frequenti}: Ogni iterazione produce un incremento funzionante del software, rilasciato in tempi brevi.
+	\item \textbf{Progettazione semplice}: Sviluppo orientato alla realizzazione delle funzionalità essenziali, evitando complessità non necessarie.
+	\item \textbf{Refactoring}: Il codice è costantemente ristrutturato per renderlo quanto più chiaro possibile. Il codice dovrebbe quindi "commentarsi da solo".
+	\item \textbf{Meeting di riflessione}: Incontri periodici per pianificare il lavoro, monitorare l'avanzamento e riflettere sui miglioramenti del processo.
+	\item \textbf{Conoscenza tacita e implicita}: Si privilegia lo scambio di informazioni tra i membri del team rispetto a documentazione formale eccessiva. (Pratica dubbia, ma efficiente sul breve termine).
+	\item \textbf{Co-Location}: Stretta interazione con gli stakeholder, idealmente con una presenza costante o facilmente accessibile.
+\end{itemize}
+\noindent È evidente che questi metodi presentano alcune criticità, tra cui una maggiore dipendenza dalla collaborazione tra i membri del team, difficoltà nella manutenzione in caso di documentazione insufficiente e da un punto di vista legale, data la flessibilità (e quindi ambiguità) del contratto.

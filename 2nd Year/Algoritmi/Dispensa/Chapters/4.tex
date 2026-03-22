@@ -1,21 +1,511 @@
-\section{Divide et impera}
+\section{Grafi}
+Un \textbf{grafo} è una struttura usata per rappresentare relazioni tra oggetti, i quali sono rappresentati da \textbf{nodi} (vertices), mentre le relazioni tra di essi sono rappresentate da \textbf{archi} (edges). È un concetto versatile abbastanza da poter rappresentare qualunque cosa possa essere messa in relazione, come per esempio una rete stradale che collega le città oppure gli stati di una FSM.\par
+Diciamo inoltre \textbf{cammino} una sequenza di nodi collegati dagli archi e spesso i problemi trattano la ricerca del cammino \textbf{ottimo}, la cui definizione varia in base alla richiesta. Ciò implica la presenza di un qualche tipo di misura; chiamiamo intuitivamente \textbf{lunghezza} di un cammino il numero di archi attraversati in un percorso. Ci sono inoltre più tipi di grafo: \begin{itemize}
+	\item \textbf{Grafo orientato}: Grafo i cui cammini sono orientati in una direzione. Presenta un nodo \textbf{sorgente} ed uno di \textbf{destinazione}. È possibile inoltre avere archi che ritornano sullo stesso nodo, ed in tal caso vale come passo.
+	\item \textbf{Grafo non orientato}: Caso speciale del tipo precedente, i cammini possono andare in ambo le direzioni.
+	\item \textbf{Grafo pesato}: Grafo i cui archi hanno associato un valore matematico, detto \textbf{peso}. Il costo totale è dato dalla somma dei valori degli archi attraversati.
+\end{itemize}
+\noindent Queste erano tutte definizioni intuitive, ma è necessario garantire formalità per poter lavorare con queste rappresentazioni. Definiamo formalmente un grafo come la coppia: \[G = (V,E)\]
+\noindent Dove $V$ è l'\textbf{insieme dei nodi} ed $E$ rappresenta quello degli \textbf{archi}. In particolare, per i grafi orientati, quest'ultimo è una coppia ordinata di vertici: $E \subseteq V\times V$. In questo senso un grafo può essere visto anche come una relazione binaria sull’insieme dei vertici, connettendo la struttura con le relazioni e alle matrici. Per esempio, potremmo definire un grafo simmetrico grazie al concetto di relazione simmetrica e otterremmo la dimostrazione di un grafo non orientato.\par
+Definiamo ora formalmente il concetto di cammino: una sequenza di nodi tali per cui per ogni coppia di nodi ci sia un arco che li connette, quindi: \[v_0, ..., v_n \text{ tale che } \forall i < n \land i\geq 0 (v_i, v_{i+1})\in E\]
+\noindent In questi termini possiamo intendere la lunghezza di un cammino come la distanza fra due nodi, definita come il numero totale di nodi meno $1$. Un cammino può contenere nodi ripetuti; in particolare, se inizia e termina nello stesso nodo si parla di \textbf{ciclo}. Un grafo che contiene almeno un ciclo è detto \textbf{ciclico}, altrimenti è \textbf{aciclico}.\par
+Generalmente, vale la regola che se un grafo ha lunghezza maggiore del suo numero di nodi distinti, avrà sicuramente almeno un cammino ciclico. Parliamo adesso di \textbf{grado} dei nodi; ne esistono due tipi: \begin{itemize}
+	\item \textbf{Grado uscente}: Numero di archi che escono dal nodo, formalmente la cardinalità di insieme $v$ tale per cui la coppia $(u,v)$ appartiene ad $E$: \[outDeg(u) = |\{v | (u,v)\in E\}|\]
+	\item \textbf{Grado entrante}: Numero di archi che entrano nel nodo, formalmente la cardinalità di insieme $u$ tale per cui la coppia $(u,v)$ appartiene ad $E$: \[inDeg(v) = |\{u | (u,v)\in E\}|\]
+	\item \textbf{Grado totale}: Somma dei due valori precedenti: \[inDeg + outDeg\]
+\end{itemize}
+\noindent Altri concetti importanti sono il \textbf{diametro} di un grafo, che indica la massima distanza del cammino minimo tra due nodi, definita come: \[diam(G) = max(dst(u,v))\]
+\noindent I \textbf{sottografi}, intuitivamente un insieme di nodi più piccolo o uguale ottenuto a partire da un altro grafo, definiti come: \[G' = (V', E') \text{ tale che } V'\subseteq V \land E'\subseteq E\]
+\noindent I \textbf{grafi completi} vedono invece ogni coppia di nodi collegata da un arco, la cui definizione differisce in base all'orientazione: \[\text{Non orientato: } \frac{n(n-1)}{2}\quad\text{ Orientato: }n(n-1)\]
+\begin{figure}[h]
+	\centering
+	\subcaptionbox{Grafo orientato}{\includegraphics[width=0.3\linewidth]{Images/graphOriented.png}}
+	\hfill
+	\subcaptionbox{Grafo non orientato}{\includegraphics[width=0.3\linewidth]{Images/graphNoOrientation.png}}
+	\hfill
+	\subcaptionbox{Grafo pesato}{\includegraphics[width=0.3\linewidth]{Images/graphWeighted.png}}
+\end{figure}
+\noindent Esistono due tecniche principali per rappresentare i grafi in memoria: le \textbf{liste di adiacenza} e le \textbf{matrici di adiacenza}. Le prime utilizzano un array indicizzato sui nodi, dove ogni posizione contiene la lista dei nodi adiacenti, formalmente: \[Adj[u] = \{v|(u,v)\in E\}\]
+\noindent La rappresentazione memorizza esclusivamente gli archi presenti nel grafo, risultando particolarmente efficiente in caso di grafi sparsi. Richiede uno spazio proporzionale alla somma di nodi e archi: \[\Theta(|V| + |E|), \text{ con abuso di notazione: } \Theta(V+E)\]
+\noindent Nel caso di grafi pesati, ogni elemento della lista ha un campo per contenere il peso dell'arco.\par
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/adjList.png}
+	\caption{Lista di adiacenza}
+\end{figure}
+Le matrici di adiacenza, invece, utilizzano una matrice di dimensione $V\times V$ con valori booleani per segnalare le adiacenze per ogni nodo. Formalmente: \[G[i,j] = \begin{cases}
+	1 & \text{Se esiste l'arco }(i,j)\\
+	0 & \text{altrimenti}
+\end{cases}\]
+\noindent Nei grafi non orientati la matrice risulta \textbf{simmetrica} e lo spazio richiesto è $\Theta(V^2)$. È una rappresentazione inefficiente per grafi \textbf{sparsi} ($|E|$ è molto più piccolo di $|V|^2$), mentre per quelli completi risulta molto comoda. Per i grafi pesati, invece, al posto di valori booleani si utilizza direttamente il peso degli archi e l'assenza di un arco è segnalata con un valore sentinella, un infinito, oppure direttamente un NULL.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/adjMatrix.png}
+	\caption{Matrice di adiacenza}
+\end{figure}
+\noindent Facciamo ora un confronto fra le due rappresentazioni analizzando le modalità di calcolo del grado uscente. Con le liste bisogna contare ogni arco; nel caso pessimo abbiamo una complessità $\Theta(V)$, perché può essere che un nodo sia collegato a tutti gli altri. Alternativamente sarebbe possibile estendere la struttura dati con un campo size, garantendo un accesso a tempo costante.
+\begin{algorithm}[h]
+	\caption{outDeg((v,e), u)}
+	\begin{algorithmic}[i]
+		\Require $(v,e)$: coppia nodi-archi, $u$: Nodo il cui grado è calcolato
+		\State $r\gets 0$
+		\ForAll{$v\in Adj[u]$} \Comment{Per ogni nodo adiacente a u}
+		\State $r\gets r+1$ \Comment{Aumenta il counter dei nodi adiacenti}
+		\EndFor
+		\State \textbf{return} $r$
+	\end{algorithmic}
+\end{algorithm}
+\noindent Per il grado entrante bisogna scorrere l'intero grafo, oppure si può calcolare l'outDeg del grafo trasposto, ma costererebbe il doppio della memoria. Per le matrici di adiacenza invece si effettua la sommatoria della riga per il grado uscente e la sommatoria della colonna per quello entrante: \[outDeg = \sum_{j=1}^n G[i,j]\quad inDeg = \sum_{i=1}^n G[i,j]\]
 
 %
 
-\section{Programmazione greedy}
+\section{Visita in ampiezza}
+Esistono molti algoritmi per l'esplorazione dei grafi; studieremo i due più utilizzati: la \textbf{visita in ampiezza} (BreadthFirstSearch o BFS) e la \textbf{visita in profondità} (DepthSearchFirst o DFS), cercando di rispondere a domande riguardo la struttura dei grafi, il cammino minimo e la raggiungibilità. Ci serviremo di un'importante campo per determinare lo stato dei singoli nodi. Diciamo che un nodo è: \begin{itemize}
+	\item \textbf{Bianco} se non è stato esplorato.
+	\item \textbf{Grigio} se è stato esplorato, ma non vi è stata effettuata alcuna operazione.
+	\item \textbf{Nero} se è stato esplorato e sono state effettuate operazioni.
+\end{itemize}
+\noindent L'algoritmo BFS è uno dei più semplici per esplorare i grafi e viene utilizzato anche come base per procedure più complesse. Dato un grafo $G=(V,E)$ ed un nodo \textbf{sorgente} $s$, si esplorano gli archi del grafico per scoprire tutti i vertici raggiungibili da $s$.\par
+Calcola inoltre la distanza fra di esso e ciascun nodo raggiungibile, dove la \textbf{distanza} da un vertice $v$ alla sorgente corrisponde al \textbf{cammino minimo} fra i due. Nella sua esecuzione genera un albero, detto \textbf{Albero BFS} (oppure BF-Tree) e funziona per grafi orientati e non orientati.
+\begin{itemize}
+	\item \textbf{Caso pessimo}: Temporale: $\Theta(|V|+|E|)$, Spaziale: $\Theta(|V|)$
+	\item \textbf{Caso ottimo}: Temporale: $\Theta(|V|)$
+	\item \textbf{Caso medio}: Temporale: $\Theta(|V|+|E|)$
+\end{itemize}
+\noindent Intuitivamente, una visita in ampiezza espande la frontiera dei vertici scoperti in maniera uniforme; partendo dalla sorgente $s$, scopre i suoi vicini a distanza $1$, poi a distanza $2$, e così via finché non trova tutti i vertici raggiungibili dalla sorgente.
+\begin{algorithm}[h]
+	\caption{BFS(G,s)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo, $s$ Nodo sorgente
+		\ForAll{$u\in V[G]$} \Comment{Per ogni nodo del grafo}
+		\State $color[u]\gets white$ \Comment{Inizializza il nodo come non visitato}
+		\State $d[u]\gets \infty$ \Comment{Distanza dalla sorgente del nodo}
+		\State $\pi[u]\gets NIL$ \Comment{Predecessore nel BF-Tree}
+		\EndFor
+		\State
+		\State $color[s]\gets gray$ \Comment{Nodo sorgente esplorato}
+		\State $d[s]\gets 0$ \Comment{La distanza fra $s$ ed $s$ è $0$}
+		\State $\pi[s]\gets NIL$ \Comment{La sorgente non ha predecessori}
+		\State $Q\gets NIL$ \Comment{Coda fifo dei nodi grigi}
+		\State enqueue($Q,s$)
+		\State
+		\While{$Q\neq NIL$} \Comment{Finché ci sono nodi grigi}
+		\State $u\gets$ dequeue($Q$) \Comment{Prendi l'ultimo nodo della coda}
+		\ForAll{$v\in Adj[u]$} \Comment{Ogni nodo in lista di adiacenza di u}
+		\If{$color[v] = white$} \Comment{Nodo non esplorato?}
+		\State $color[v]\gets gray$ \Comment{Nodo ora esplorato}
+		\State $d[v]\gets d[u]+1$ \Comment{La cui distanza è quella del precedente nodo ($u$) più uno}
+		\State $\pi[v]\gets u$ \Comment{Predecessore è $u$}
+		\State enqueue($Q,v$) \Comment{Nodo ora nella lista di quelli da elaborare}
+		\EndIf
+		\EndFor
+		\State $color[u]\gets black$ \Comment{Il nodo è stato elaborato}
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent In necessità di ricavare i vertici di un cammino minimo da $s$ a $v$, supponendo sia già stata eseguita la BFS, è possibile utilizzare l'algoritmo \textbf{printPath} indicato alla pagina seguente.
+\begin{algorithm}[h]
+	\caption{printPath(G,s,v)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo, $s,v$: Due nodi
+		\If{$v = s$}
+		\State print($s$)
+		\ElsIf{$\pi[v] = NIL$}
+		\State print(Nessun cammino da $s$ a $v$)
+		\Else  
+		\State printPath($G, s, \pi[v]$)
+		\State print($v$)
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+Analizziamo ora le varie sezioni dell'algoritmo per ricavarne il tempo di esecuzione. In primo luogo, i vertici sono colorati di bianco esclusivamente nell'inizializzazione e mai più dopo. La verifica di questo colore per ogni nodo nella lista di adiacenza garantisce che ogni nodo sia inserito e rimosso dalla coda al più una volta. Le operazioni di inserimento e cancellazione si eseguono in tempo costante, per un totale di $O(V)$.\par 
+La somma delle lunghezze di tutte le liste di adiacenza è data da $\Theta(E)$, ed il tempo per visitarle tutte è pari a $O(V+E)$. In quanto il costo di inizializzazione è entro questo ordine di grandezza, possiamo concludere che il \textbf{tempo totale di esecuzione} per l'algoritmo BFS è di $O(V+E)$. Per la dimostrazione del funzionamento dell'algoritmo è necessario definire i seguenti lemmi: \begin{lemma}
+	Sia il grafo $G=(V,E)$ e $s\in V$ un nodo arbitrario. Allora, per qualsiasi arco $(u,v)\in E$ si ha: \[\delta(s,v) \leq \delta(s,u)+1\]
+\end{lemma}
+\noindent Dunque per ogni coppia di nodi, il cammino minimo fra i nodi $s,v$ annotato come $\delta(s,v)$ non può essere più lungo di quello da $s$ ad $u$, seguito dall'arco $u,v$. Se $u$ non è raggiungibile, la distanza è infinita, mantenendo la validità della disuguaglianza. \begin{lemma}
+	Sia $G=(V+E)$ un grafo e supponiamo che venga eseguita BFS a partire da un sorgente $s\in V$. Allora per ogni vertice $v\in V$, il valore di distanza $d[v]$ calcolato dall'algoritmo soddisfa sempre la seguente relazione, anche al termine della procedura: \[d[v] \geq \delta(s,v)\]
+\end{lemma}
+\noindent Intuitivamente, è possibile notare che il lemma è vero, poiché ogni valore assegnato a $d[v]$ è uguale al numero di archi di qualche cammino da $s$ a $v$. Per dimostrarlo formalmente, invece, è necessario ragionare per induzione sui passi eseguiti dalla funzione enqueue. Supponendo come ipotesi induttiva la relazione del lemma, abbiamo: \begin{itemize}
+	\item \textbf{Caso base}: Inserimento della sorgente nella coda. L'ipotesi è vera, perché: \[d[s]=0=\delta(s,s);\quad d[v]=\infty\geq \delta(s,v)\quad\forall v\in V - \{s\}\]
+	\item \textbf{Caso induttivo}: Consideriamo un vertice bianco $v$, scoperto nella visita a partire da un nodo $u$. L'ipotesi induttiva implica che $d[u]\geq \delta(s,u)$ e grazie al lemma precedente otteniamo: \begin{equation}
+		\begin{split}
+			d[v] &= d[u]+1\\
+			&\geq \delta(s,u)+1\\
+			&\geq \delta(s,v)
+		\end{split}
+	\end{equation}
+\end{itemize}
+\noindent Per dimostrare quest'ultima relazione è necessario capire meglio come opera la coda durante l'esecuzione della BFS. Il terzo lemma dice che in qualunque istante, la coda è sempre ordinata per una distanza non decrescente e contiene al più due valori: \begin{lemma}
+	Supponiamo l'esecuzione di una BFS su un grafo $G=(V,E)$, con la coda $Q$ contenente i vertici $\left<v_1, v_2, ..., v_r \right>$, dove $v_1$ è il primo elemento della coda e $v_r$ l'ultimo. Allora: \[d[v_r]\leq d[v_1]+1 \text{ e } d[v_i]\leq d[v_{i+1}] \text{, con } i=1,2,...r-1\] 
+\end{lemma}
+\noindent Anche la dimostrazione di questo lemma avviene tramite induzione, ma questa volta sul numero di operazioni eseguite sulla coda. Inizialmente, quando questa contiene solo la sorgente, il lemma è banalmente valido, mentre per il passo induttivo è necessario provare che è valido dopo inserimento ed eliminazione di un nodo nella coda.
+
+% TODO Manca il passo induttivo. Abbi pietà, sto sfatto e questa roba NON È SEMPLICE in termini matematici.
+
+
+% teorema totale
+\begin{comment}
+	Teorema: d[v]= \delta(s,v) \forall v (L'algoritmo calcola i cammini minimi)
+	Sia V_k l'insieme dei nodi a distanza k. Per induzione su k dimostro che \forall v\in V_k \exists un momento in cui:
+	- v è grigio
+	- k è assegnato a d[v]
+	- se v\neq s \Pi[v] = u\in V_{k-1}
+	- v inserito in coda
+	
+	Insomma, l'algoritmo calcola cammini minimi e risolve il problema della raggiungibilità. Produce un albero radicato nel nodo s. Se ci sono nodi non raggiunti, rimangono a distanza infinita e non faranno parte dell'albero BFS.
+	In quanto i nodi non connessi all'albero sono bianchi, nulla mi vieta di prenderne uno bianco casuale per creare un altro BFS-tree. Ciò consente di creare un insieme di alberi che viene chiamato foresta.
+\end{comment}
 
 %
 
-\section{Programmazione dinamica}
+\section{Visita in profondità}
+
+
+
+
+
+% Voglio una descrizione intuitiva dei due algorimi e per cosa si usano
+% Voglio La complessità di entrambi
+% Voglio lo pseudocodice
+% Voglio i teoremi, i lemmi e le dimostrazioni
+
+\begin{comment}
+	- DepthFirstSearch: Partiamo dalla sorgente s, vediamo il suo vicino e si controlla se questo ha altri vicini. Arriva fino all'ultimo e poi si torna indietro di un'unità di altezza e ripetere i controlli fino alla fine. Continuare fino alla totale esplorazione del grafo.
+\end{comment}
+
+\begin{comment}	
+	--- DepthFirstSearch
+	// Notare che la coda è lifo per questo algoritmo. Il ruolo è coperto dalla stack di attivazione
+	
+	DFS(G,s)
+	\forall v\in V[G]
+	color[v]\gets white
+	\Pi[v]\gets NIL
+	
+	time\gets 0 \Comment{Misuratore del tempo, diamo un ordine agli eventi che succedono}
+	
+	\forall u\in V[G]
+	if color = white
+	DFS_Visit(G,u)
+	
+	DFS_Visit(G,u)
+	color[u]\gets gray
+	d[u]\gets time\gets time+1
+	\forall v\in Adj[u]
+	if color[v] = white
+	\Pi[v]\gets u
+	DFS_Visit(G,v) \Comment{Se scopri un arco uscente, continua ad andare avanti}
+	
+	color[u]\gets black
+	f[u]\gets time\gets time+1 \Comment{f è tempo di fine visita}
+\end{comment}
+
+\begin{comment}
+	12-03-26 - Algoritmi
+	
+	--- DepthFirstSearch
+	Gli algoritmi bfs e dfs funzionano sia su grafi orientati che non orientati, sebbene quest'ultimo si tenda a usare per le bfs.
+	
+	// Continua a vedere se hai nodi adiacenti. Quando non ne vedi più, torna indietro.
+	DFS(G) // G grafo
+	// Inizializzazione
+	\forall u\in v[G]
+	color[t]\gets white	// Nodo non ancora visto
+	\Pi[u]\gets NIL
+	
+	// Notare time come variabile globale
+	time\gets 0	// F,D registreranno tempi. Ad ogni operazione registriamo in time (misura il tempo, serve per dare ordine) quando è eseguita.
+	
+	\forall u\in v[G] // Per ogni nodo del grafo (Questo ciclo determina il numero di alberi della dfs)
+	if color[u] = white // Se non è raggiunto
+	DFS_VISIT(u) // Inizia una nuova visita in profondità.
+	
+	
+	DFS_VISIT(u)
+	color[u]\gets gray
+	d[u]\gets time\gets time+1 // Prima time++, il risultato è dato a d[u]. Questo è il tempo di inizio visita
+	
+	\forall v\in Adj[u]
+	if color[v] = white // Nodo adiacente non esplorato
+	\Pi[v]\gets u // Salva il nodo al quale siamo arrivati
+	DFS_VISIT(v) // Notare che visitiamo i vicini ricorsivamente
+	
+	color[u]\gets black // Segna nodo esplorato e operato
+	f[u]\gets time\gets time+1 // Segna il tempo dell'operazione
+	
+	Il ruolo della coda è preso dalla stack di attivazione, è quindi una coda Lifo, dalla quale si riprenderanno all'inverso i nodi ivi inseriti. Generalmente ad ogni ricorsione è implicitamente presente la stack che agisce come coda.
+	
+	* Immagine 1 presa da nico, è la prima foto. I numeri nei nodi sono in forma [visitTime/operationTime]. Le \Pi indicano i passi fatti per tornare indietro in assenza di nodi adiacenti non esplorati. Se fatto correttamente abbiamo una foresta di due alberi, uno radicato in s e l'altro in t.
+	
+	Il tempo di elaborazione del nodo finale corrisponde esattamente al doppio del numero di nodi totali del grafo.
+	Questo accade perché per ogni nodo misuriamo due eventi. Dunque se il valore che associamo al nodo è l'ordine temporale in cui l'evento è avvenuto, avremo per forza un totale di valori corrispondenti al doppio dei nodi totali, mostrato dall'ultimo nodo elaborato.
+	
+	Se fossimo partiti da t avremmo potuto ottenere un solo albero. Il numero di alberi creati tuttavia per ora ci ineressa poco.
+	
+	--- Proprietà della DFS
+	Cosa si può dedurre da una dfs?
+	
+	* Inserire immagine 2, da nico è quella con i numeri alla base e i rettangoli che fanno vedere intervalli dei nodi.
+	
+	Presi due intervalli temporali, questi sono totalmente disgiunti oppure sottointervalli di uno più grande. Gli intervalli qui sono le liste di adiacenza; per esempio la lista di adiacenza del nodo y è composta da x, suo sottointervallo.
+	Se nella foresta dfs un nodo è discendente di un altro, possiamo osservare che è anche completamente contenuto nell'intervallo padre.
+	
+	- Teorema
+	Per ogni coppia di nodi u,v gli intervalli sono disgiunti oppure uno sottointervallo dell'altro.
+	Dim: Prendi la coppia u,v, abbiamo, senza perdita di generalità che valga la prima relazione tra: d[u] < d[v] oppure d[v] < d[u]
+	Distinguiamo due casi:	
+	A. f[u] < d[v] // Intervalli disgiunti, d[u] ed f[u] sono uno, d[v] è un altro
+	B. d[v] < f[u] // Qui c'è un intersezione, ma siamo all'interno della chiamata di dfs_visit di u. Non torneremo mai al chiamante finché non sono stati esplorate tutte le adiacenze, ma allora ci troviamo in un sottointervallo i cui estremi sono d[u] e f[u]
+	Quindi ci troviamo sempre in uno dei due casi e come corollario se sei in un sottointervallo, stai discendendo.
+	
+	- Teorema 2 (Come fai a sapere se v è discendente di u?)
+	In una foresta dfs di un grafo G un nodo v discende da u se e solo se al tempo d[v] v è raggiungibile da u con un cammino di soli nodi bianchi.
+	Dim: Supponiamo che v discenda da u e sia w un nodo nel cammino da u a v nella foresta dfs. (Se è bianco hai dimosrato il teorema)
+	w discende da v, quindi l'intervallo di w è sottointervallo di v. Ciò significa che inizio a visitare w dopo aver iniziato a visitare u.
+	Ma se inizio dopo, w allora è ancora bianco, perché l'unico modo per inizializzare d[w] è invocare dfs_visit, ma ciò avviene esclusivamente se questo è bianco e non avendo ancora inizializzato d[u], il nodo w è bianco. Dunque al tempo d[u] esiste un cammino di nodi bianchi che comprende w.
+	
+	Supponiamo ora che al tempo d[u] esiste un cammino da u a v fatto di soli nodi bianchi. Supponiamo per assurdo che v non discenda da u.
+	Prendiamo quindi il predecessore di v, w. Assumiamo senza perdita di generalità che w discende da u. Abbiamo dunque d[u] < d[w] < f[w] < f[u]
+	Al tempo d[w] sto visitando i nodi della sua lista di adiacenza, ma in questa sua lista è presente pure v, il quale diventa necessariamente discendente di u.
+	
+	---
+	Adesso diciamo che ogni arco che collega un intervallo con un suo discendente è arco dell'albero e lo chiamiamo T. Il verso inverso è detto Backward B. Quelli che collegano invece un intervallo con un discendente non diretto sono detti Forward F. È possibile avere anche archi che collegano due intervalli disgiunti, chiamati Crossing C.
+	Durante la visita è possbile riconoscere i backwards. Se questi sono grigi durante una visita, lo sono. Se sono neri, sono di crossing o forward
+	
+	- Teorema
+	Un grafo è aciclico sse la dfs non trova archi backwards, un grafo è ciclico sse la bfs trova archi backwards.
+	Dim: Supponiamo che dfs trova un arco u,v backward. v sarà di colore grigio e u è discendente di v nella foresta dfs. Esiste quindi un cammino da v a u. Dunque G è ciclico.
+	Supponiamo ora che G sia ciclico e prendiamo un ciclo qualsiasi. Sia u il primo nodo del ciclo visitato da bfs. Sia v il predecessore di u nel ciclo. Al tempo d[v] tutti i nodi del ciclo tranne u sono bianchi, quindi al tempo d[v] il nodo v è raggiungibile da u con un cammino di soli nodi bianchi.
+	Se così è, per il teorema precedente, v discende da u nella foresta dfs e sarà visitato quando u è ancora grigio. Ma durante la visita di v si analizzerà l'arco v,u, il quale sarà classificato come backward.
+	
+	- Complessità di verifica ciclicità di grafi
+	Non peggio della complessità di una dfs, sicuramente. È il suo limite superiore. 
+	- Inizializzazione: v
+	- ciclo per controllare se colore è bianco: v
+	- dfs_visit: Invocata al più una volta, solo per i nodi bianchi.
+	- Le assegnazioni sono costanti, mentre il for ha complessità che dipende dalla lista di adiacenza. Sarebbe E volte.
+	
+	Formula esatta: V+V + \sum_{j\in V(G)} 1 + |Adj[u]| = V + \sum_0^V 1 + \sum_0 |Adj[u]| = V+E \in O(V^2)
+	
+	Compl. totale: \Theta(V+E). Se il grafo è completo, è quadratica. Se è sparso, è lineare.
+\end{comment}
 
 %
 
-\section{Ricerca locale}
+\section{Ordinamento topologico}
+
+
+
+\begin{comment}
+	17-03-25 Algoritmi
+	
+	--- Esempio di problema: ordine con cui vestirsi
+	- Come rappresentare i problemi?
+	Usiamo un grafo i cui nodi sono i vestiti. Dovendo dare un ordine, sarà orientato. *Immagine 1
+	Bisogna trovare un ordine che rispetti i vari vincoli dati dagli archi.
+	
+	Disegnamo quindi un grafo dove ho un ordinamento totale, estensione del precedente.
+	Questo problema è detto ordinamento topologico. Dato un grafo, trovare un ordinamento totale che sia estensione del precedente. Non può essere ciclico perché abbiamo solo archi
+	che vanno a dx. Il grafico, per essere corretto, deve quindi essere aciclico.
+	
+	Per risolvere il problema potremmo usare un DFS, sarebbe possibile ottenere una complessità O(V+E), ma bisogna lavorarci un pò.
+	In alternativa, definiamo:
+	
+	// Ordinamento topologico. Complessità O(VlogV + E)
+	OrdTop(G)
+	f \gets DFS(G) // Modifichiamo leggermente l'algoritmo per pushare sulla stack ogni nodo letto
+	return nodi per f decrescente. // Fai pop dei nodi e ritornali
+	
+	---
+	camicia 1
+	cravatta 2
+	giacca 3/4		// Giacca in stack
+	cravatta 2/5	// Cravatta in stack
+	Cintura 6/7		// Cintura in stack
+	Camicia 1/8		// Camicia in stack
+	Orologio 9/10	// Orologio in stack
+	Slip 11
+	Pantaloni 12
+	Scarpe 13/14	// Scarpe in stack
+	Pantaloni 12/15	// Pantaloni in stack
+	Slip 11/16		// Slip in stack
+	Calzini 17/18	// Calzini in stack
+	
+	Poppando i nodi dalla stack noterai che l'ordine rispetta i vincoli ed è un'istanza valida per la risoluzione del problema.
+	
+	--- Dimostrazione
+	\forall (u,v)\in E . f(v) < f(u) // Gli archi vanno sempre da un nodo con f grande a un nodo con f piccolo (Per ogni coppia, il nodo dst ha f minore del nodo src)
+	
+	Per dimostrarlo, prendiamo il momento in cui (u,v) viene esplorato in DFS. Casi possibili:
+	- v bianco: v è discendente di u, sicuramente. L'intervallo di v sta dentro quello di u, quindi f(v) < f(u). OK.
+	- v grigio: Impossibile, perché avremmo un arco all'indietro. Non varrebbe l'ordinamento topologico, vale solo per i grafi aciclici.
+	- v nero: f(v) < f(u)
+	
+	--- Se volessi sapere se due nodi sono mutualmente raggiungibili? (sono nella stessa componente?)
+	Voglio decorare i nodi di un grafo per poter rispondere a questa domanda in tempo costante. Usando una dfs per esplorare un grafo non orientato, possiamo capire quali nodi sono
+	discendenti dagli altri e quindi affermare se sono raggiungibili.
+	
+	- Altra idea
+	
+	// Ogni volta che si trovano insiemi separati con componenti mutualmente raggiungibili, si fa l'unione di questi insiemi.
+	ConnectedComponents(G)
+	\forall v\in V[G]
+	makeSet(v)
+	
+	\forall(u,v)\in E[G]
+	union(u,v)
+	
+	Sarebbe una complessità V+E ma è approssimativamente in tempo lineare.
+	
+	- Altra idea 2
+	Prendi bfs o dfs con un ciclo esterno. Oltre a time usiamo un counter, che inizia a 0. Quando trova un nodo bianco fa la visita passando anche il counter.
+	Questo valore sarà dato al nodo in un campo apposito
+	
+	--- DFS adattato per verificare nodi mutualmente raggiungibili. Se lo sono hanno un count dello stesso valore.
+	DFS(G)
+	\forall v\in V[G]
+	color[v]\gets white
+	\pi[v]\gets NIL
+	time\gets 0
+	count\gets 0
+	
+	\forall u\in V[G]
+	if color[u] == white
+	count\gets count+1
+	DFS_visit(D, u, count)
+	
+	DFS_Visit(G, u, count)
+	color[u]\gets gray
+	d[u]\gets time\gets time+1
+	
+	\forall u\in Adj[u]
+	if color[u] == white
+	\pi[v]\gets u
+	DFS_Visit(G, u, count)
+	
+	color[u]\gets black
+	c[u]\gets count
+	f[u]\gets time\gets time+1
+	
+	--- Problema dei nodi mutualmente connessi con grafo orientato *IM3
+	SCC(G)
+	f\gets DFS(G)
+	calcola DFS(G) trasposto scorrendo nodi 
+	per f decrescente
+	
+	Gli alberi della forestaDFS
+	sono le SCC // (stronglyConnectedComponents)
+	
+	-- Dimostrazione
+	Nodi fortemente connessi sono discendenti e raggiungibili quindi da un cammino bianco.
+	Ogni albero della foresta può contenere (sempre interamente) componenti fortememnte connesse. Non possiamo trovare archi di queste componenti che vanno al di fuori dell'albero 
+	o anche al di fuori delle componenti stesse.
+	
+	Per ogni SCC chiamiamo un nodo detto avo, e si nota che non è possibile collegarlo ad avi di altre SCC.
+	Il grafo delle SCC è sempre aciclico, perché le componenti fortemente connesse sono unite il più possibile.
+\end{comment}
 
 %
 
-\section{Backtracking}
+\section{Alberi di copertura di costo minimo}
+Prim, Kruskal
+
+
+
+\begin{comment}
+	19-03-26 - Algoritmi
+	
+	Son crollati tutti i punti di venezia. Per ripararli hai:
+	Tuta blu gialla verde in ordine di costo max-min
+	Garantire che i cittadini possano spostarsi su qualunque punto via terra spendendo meno soldi possibili.
+	
+	Request: Lista dei ponti da riparare?
+	
+	Facciamo un grafo dove i nodi sono le varie zone di venezia isolate. Gli archi sono i ponti e hanno pesi che rappresentano il costo di riparazione.
+	Vogliamo un grafo come risultato che ha il numero minimo di archi tali per cui continua ad essere connesso.
+	
+	Aree isolate: V; Ponti: V-1
+	
+	Il risultato è detto albero di copertura (minimum spannning tree), vogliamo quello che costa meno di tutti. Rivedi definizione (Albero che copre l'intero grafo)
+	In questo caso abbiamo solo pesi positivi, ma se fossero nulli o negativi allora non avremmo come soluzione un albero. Per risolvere sta cosa basta imporre che la soluzione sia
+	un albero. Gli algoritmi funzionano ugualmente.
+	
+	--- Dimosrazione algoritmo MinimumSpanningTree
+	Effettuiamo un taglio nel grafo (bipartizione dell'insieme dei nodi) e noteremo che alcuni archi oltrepassano la propria parte. Li chiamiamo archi del taglio.
+	Arco sicuro per un taglio: L'arco del taglio con peso minore. Non necessariamente è unico.
+	
+	Sia ora (u,v) un arco sicuro per in taglio (U,V).
+	Allora esiste un MST che contiene (u,v)
+	
+	Quindi abbiamo un taglio U,V. Anche se presenti una soluzione che non è l'arco sicuro, il grafo sarà ugualmente connesso. L'albero è comunque di copertura.
+	Possiamo trovare quindi un'altra soluzione u',v' con un costo c'. c\leq c'.
+	Data iuna qualunque soluzione che non è u,v posso trovarne un'altra che è uguale o meno costosa. Dimostrato mostrando una soluzione nuova con proprietà equivalente a quella ideale
+	
+	Se prendo l'arco sicuro e cerco di ricondurmi ad un problema di dimensione minore, prima o poi arriverò a quello che mi serve, perché abbiamo dimostrato che la soluzione esiste.
+	
+	---
+	// Con grafo pesato G si dà in input w che è la matrice dei pesi, la quale è una funzione che ad ogni arco associa il relativo peso.
+	kruskal(G, w)
+	A\gets NIL
+	\forall v\in V[G] makeset(v)
+	ordina E[G] in modo non decrescente // quindi ordine per minore o uguale	
+	\forall (u,v)\in E[G] preso in ordine // Prende gli archi del grafo dal più piccolo al più grande
+	if findSet(u) \neq findSet(v) // Se l'arco non è nell'insieme
+	A\gets A \cup {(u,v)} // Unisci l'arco nell'insieme
+	union(u,v) // Aggiungilo all'insieme
+	
+	return A
+	
+	Quando analizzo un arco, quelli più piccoli sono già stati analizzati (preso in ordine, infatti), e gli archi sicuri sicuramente non stanno nell'insieme, ma verranno aggiunti.
+	Basta sapere che il taglio esiste. L'algoritmo non lo crea. kruskal consente di trovare un arco sicuramente sicuro per qualche taglio.
+	L'insieme ordinato è l'albero di copertura di costo minimo.
+	
+	Complessità: Facciamo V makeset(), E findSet(), V union(). Il resto del lavoro è costante. Dunque O(V+E).
+	Qua però stiamo ordinando. log(E). Complessità totale: O(V+ElogE).
+	Per grafo sparso:
+	Per grafo completo:
+	Con possibilità di ordinare in tempo lineare:
+	
+	--- Esiste un algoritmo migliore?
+	prim(G, w, r)
+	Q\gets V[G] // Q priority queue. Ha tutti i nodi non elaborati. Li teniamo ordinati
+	\forall u\in V[G] key[u]\gets \infty
+	key[r]\gets 0
+	\pi[r]\gets NIL
+	
+	while Q\neq NIL
+	u\gets extractMin(Q) // Rimuovi il nodo dalla frontiera Q.
+	\forall v\in Adj[u]
+	if v\in Q AND w(u,v) < key[v] // Prendo un arco che attraversa la barriera. Da questo raggiungo v in modo migliore?
+	\pi[v]\gets u
+	key[v]\gets w(u,v)
+	
+	Prendi tutti i nodi con archi sicuri e salva quello col peso minore, il quale sarà inserito nella coda.
+	L'elemento minimo della coda è quel nodo raggiungibile con un arco sicuro. Fra tutti i nodi della coda vado a prendere quello migliore.
+	
+	Complessità: inizializzazione: V; il while è eseguito una volta per ogni nodo. Là dentro sta extractMin, stesso valore; poi nel \forall la complessità è data dalla reduceKey
+	che è implicita con l'assegnamento dell'arco alla chiave. Qua dipende dalla struttura dati.
+	Per liste ordinate: V+EV
+	Per lista non ordinata: V^2 + E
+	Per heap: (V+E)logV
+	Per heap di fibonacci: VlogV + E
+\end{comment}
 
 %
 
-\section{Branch and bound}
+\section{Cammini minimi}
+\subsection{Sorgente singola}
+Dijkstra, Bellman-Ford
+\subsection{Sorgente multipla}
+Floyd-Warshall, Johnson
+
+%
+
+\section{Flusso massimo}
+Ford-Fulkerson, Karp
+
+%
+
+\section{Matching massimale su grafo bipartito}

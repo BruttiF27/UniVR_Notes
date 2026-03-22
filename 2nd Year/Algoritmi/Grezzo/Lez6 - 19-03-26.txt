@@ -1,0 +1,76 @@
+19-03-26 - Algoritmi
+
+Son crollati tutti i punti di venezia. Per ripararli hai:
+Tuta blu gialla verde in ordine di costo max-min
+Garantire che i cittadini possano spostarsi su qualunque punto via terra spendendo meno soldi possibili.
+
+Request: Lista dei ponti da riparare?
+
+Facciamo un grafo dove i nodi sono le varie zone di venezia isolate. Gli archi sono i ponti e hanno pesi che rappresentano il costo di riparazione.
+Vogliamo un grafo come risultato che ha il numero minimo di archi tali per cui continua ad essere connesso.
+
+Aree isolate: V; Ponti: V-1
+
+Il risultato è detto albero di copertura (minimum spannning tree), vogliamo quello che costa meno di tutti. Rivedi definizione (Albero che copre l'intero grafo)
+In questo caso abbiamo solo pesi positivi, ma se fossero nulli o negativi allora non avremmo come soluzione un albero. Per risolvere sta cosa basta imporre che la soluzione sia
+un albero. Gli algoritmi funzionano ugualmente.
+
+--- Dimosrazione algoritmo MinimumSpanningTree
+Effettuiamo un taglio nel grafo (bipartizione dell'insieme dei nodi) e noteremo che alcuni archi oltrepassano la propria parte. Li chiamiamo archi del taglio.
+Arco sicuro per un taglio: L'arco del taglio con peso minore. Non necessariamente è unico.
+
+Sia ora (u,v) un arco sicuro per in taglio (U,V).
+Allora esiste un MST che contiene (u,v)
+
+Quindi abbiamo un taglio U,V. Anche se presenti una soluzione che non è l'arco sicuro, il grafo sarà ugualmente connesso. L'albero è comunque di copertura.
+Possiamo trovare quindi un'altra soluzione u',v' con un costo c'. c\leq c'.
+Data iuna qualunque soluzione che non è u,v posso trovarne un'altra che è uguale o meno costosa. Dimostrato mostrando una soluzione nuova con proprietà equivalente a quella ideale
+
+Se prendo l'arco sicuro e cerco di ricondurmi ad un problema di dimensione minore, prima o poi arriverò a quello che mi serve, perché abbiamo dimostrato che la soluzione esiste.
+
+---
+// Con grafo pesato G si dà in input w che è la matrice dei pesi, la quale è una funzione che ad ogni arco associa il relativo peso.
+kruskal(G, w)
+	A\gets NIL
+	\forall v\in V[G] makeset(v)
+	ordina E[G] in modo non decrescente // quindi ordine per minore o uguale	
+	\forall (u,v)\in E[G] preso in ordine // Prende gli archi del grafo dal più piccolo al più grande
+		if findSet(u) \neq findSet(v) // Se l'arco non è nell'insieme
+			A\gets A \cup {(u,v)} // Unisci l'arco nell'insieme
+			union(u,v) // Aggiungilo all'insieme
+	
+	return A
+	
+Quando analizzo un arco, quelli più piccoli sono già stati analizzati (preso in ordine, infatti), e gli archi sicuri sicuramente non stanno nell'insieme, ma verranno aggiunti.
+Basta sapere che il taglio esiste. L'algoritmo non lo crea. kruskal consente di trovare un arco sicuramente sicuro per qualche taglio.
+L'insieme ordinato è l'albero di copertura di costo minimo.
+
+Complessità: Facciamo V makeset(), E findSet(), V union(). Il resto del lavoro è costante. Dunque O(V+E).
+Qua però stiamo ordinando. log(E). Complessità totale: O(V+ElogE).
+Per grafo sparso:
+Per grafo completo:
+Con possibilità di ordinare in tempo lineare:
+
+--- Esiste un algoritmo migliore?
+prim(G, w, r)
+	Q\gets V[G] // Q priority queue. Ha tutti i nodi non elaborati. Li teniamo ordinati
+	\forall u\in V[G] key[u]\gets \infty
+	key[r]\gets 0
+	\pi[r]\gets NIL
+	
+	while Q\neq NIL
+		u\gets extractMin(Q) // Rimuovi il nodo dalla frontiera Q.
+		\forall v\in Adj[u]
+			if v\in Q AND w(u,v) < key[v] // Prendo un arco che attraversa la barriera. Da questo raggiungo v in modo migliore?
+				\pi[v]\gets u
+				key[v]\gets w(u,v)
+	
+Prendi tutti i nodi con archi sicuri e salva quello col peso minore, il quale sarà inserito nella coda.
+L'elemento minimo della coda è quel nodo raggiungibile con un arco sicuro. Fra tutti i nodi della coda vado a prendere quello migliore.
+
+Complessità: inizializzazione: V; il while è eseguito una volta per ogni nodo. Là dentro sta extractMin, stesso valore; poi nel \forall la complessità è data dalla reduceKey
+che è implicita con l'assegnamento dell'arco alla chiave. Qua dipende dalla struttura dati.
+Per liste ordinate: V+EV
+Per lista non ordinata: V^2 + E
+Per heap: (V+E)logV
+Per heap di fibonacci: VlogV + E

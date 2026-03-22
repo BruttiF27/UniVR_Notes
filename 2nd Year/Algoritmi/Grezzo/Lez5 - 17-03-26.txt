@@ -1,0 +1,106 @@
+17-03-25 Algoritmi
+
+--- Esempio di problema: ordine con cui vestirsi
+- Come rappresentare i problemi?
+Usiamo un grafo i cui nodi sono i vestiti. Dovendo dare un ordine, sarà orientato. *Immagine 1
+Bisogna trovare un ordine che rispetti i vari vincoli dati dagli archi.
+	
+Disegnamo quindi un grafo dove ho un ordinamento totale, estensione del precedente.
+Questo problema è detto ordinamento topologico. Dato un grafo, trovare un ordinamento totale che sia estensione del precedente. Non può essere ciclico perché abbiamo solo archi
+che vanno a dx. Il grafico, per essere corretto, deve quindi essere aciclico.
+
+Per risolvere il problema potremmo usare un DFS, sarebbe possibile ottenere una complessità O(V+E), ma bisogna lavorarci un pò.
+In alternativa, definiamo:
+
+// Ordinamento topologico. Complessità O(VlogV + E)
+OrdTop(G)
+	f \gets DFS(G) // Modifichiamo leggermente l'algoritmo per pushare sulla stack ogni nodo letto
+	return nodi per f decrescente. // Fai pop dei nodi e ritornali
+
+---
+camicia 1
+cravatta 2
+giacca 3/4		// Giacca in stack
+cravatta 2/5	// Cravatta in stack
+Cintura 6/7		// Cintura in stack
+Camicia 1/8		// Camicia in stack
+Orologio 9/10	// Orologio in stack
+Slip 11
+Pantaloni 12
+Scarpe 13/14	// Scarpe in stack
+Pantaloni 12/15	// Pantaloni in stack
+Slip 11/16		// Slip in stack
+Calzini 17/18	// Calzini in stack
+
+Poppando i nodi dalla stack noterai che l'ordine rispetta i vincoli ed è un'istanza valida per la risoluzione del problema.
+
+--- Dimostrazione
+\forall (u,v)\in E . f(v) < f(u) // Gli archi vanno sempre da un nodo con f grande a un nodo con f piccolo (Per ogni coppia, il nodo dst ha f minore del nodo src)
+
+Per dimostrarlo, prendiamo il momento in cui (u,v) viene esplorato in DFS. Casi possibili:
+	- v bianco: v è discendente di u, sicuramente. L'intervallo di v sta dentro quello di u, quindi f(v) < f(u). OK.
+	- v grigio: Impossibile, perché avremmo un arco all'indietro. Non varrebbe l'ordinamento topologico, vale solo per i grafi aciclici.
+	- v nero: f(v) < f(u)
+	
+--- Se volessi sapere se due nodi sono mutualmente raggiungibili? (sono nella stessa componente?)
+Voglio decorare i nodi di un grafo per poter rispondere a questa domanda in tempo costante. Usando una dfs per esplorare un grafo non orientato, possiamo capire quali nodi sono
+discendenti dagli altri e quindi affermare se sono raggiungibili.
+
+- Altra idea
+
+// Ogni volta che si trovano insiemi separati con componenti mutualmente raggiungibili, si fa l'unione di questi insiemi.
+ConnectedComponents(G)
+	\forall v\in V[G]
+		makeSet(v)
+		
+	\forall(u,v)\in E[G]
+		union(u,v)
+		
+Sarebbe una complessità V+E ma è approssimativamente in tempo lineare.
+
+- Altra idea 2
+Prendi bfs o dfs con un ciclo esterno. Oltre a time usiamo un counter, che inizia a 0. Quando trova un nodo bianco fa la visita passando anche il counter.
+Questo valore sarà dato al nodo in un campo apposito
+
+--- DFS adattato per verificare nodi mutualmente raggiungibili. Se lo sono hanno un count dello stesso valore.
+DFS(G)
+	\forall v\in V[G]
+		color[v]\gets white
+		\pi[v]\gets NIL
+		time\gets 0
+		count\gets 0
+	
+	\forall u\in V[G]
+		if color[u] == white
+			count\gets count+1
+			DFS_visit(D, u, count)
+			
+DFS_Visit(G, u, count)
+	color[u]\gets gray
+	d[u]\gets time\gets time+1
+	
+	\forall u\in Adj[u]
+		if color[u] == white
+			\pi[v]\gets u
+			DFS_Visit(G, u, count)
+			
+	color[u]\gets black
+	c[u]\gets count
+	f[u]\gets time\gets time+1
+	
+--- Problema dei nodi mutualmente connessi con grafo orientato *IM3
+SCC(G)
+	f\gets DFS(G)
+	calcola DFS(G) trasposto scorrendo nodi 
+		per f decrescente
+		
+	Gli alberi della forestaDFS
+		sono le SCC // (stronglyConnectedComponents)
+		
+-- Dimostrazione
+Nodi fortemente connessi sono discendenti e raggiungibili quindi da un cammino bianco.
+Ogni albero della foresta può contenere (sempre interamente) componenti fortememnte connesse. Non possiamo trovare archi di queste componenti che vanno al di fuori dell'albero 
+o anche al di fuori delle componenti stesse.
+
+Per ogni SCC chiamiamo un nodo detto avo, e si nota che non è possibile collegarlo ad avi di altre SCC.
+Il grafo delle SCC è sempre aciclico, perché le componenti fortemente connesse sono unite il più possibile.

@@ -1,20 +1,495 @@
-% TODO - SEZIONE INIZIA DA 17-11-25 COMPRESO
-
 \section{Pile}
-
-%
-
-\section{Alberi binari}
-\subsection{RB-alberi}
-\subsection{B-alberi binomiali}
-
-%
-
-\section{Tabelle hash}
+Le \textbf{pile}, o stack, sono insiemi dinamici dove la posizione di un elemento inserito o rimosso è predeterminata. In particolare, questa struttura dati implementa la logica \textbf{LIFO}: Last-in, First-out.\par
+L'operazione di inserimento è chiamata \textbf{push()} e pone un elemento in cima alla pila; quella di rimozione è invece detta \textbf{pop()} e rimuove l'elemento inserito più recentemente. Si presentano inoltre i campi \textit{S.top}, l'indice della cima, e \textit{S.size}, la dimensione della pila. È possibile implementare questa struttura dati su un array di dimensione $S[1:S.top]$.\par
+Se la stack è vuota, verificabile con la procedura \textbf{isEmpty()}, allora \textit{S.size = 0} e se si cerca di estrarne un elemento, si avrà un \textbf{underflow}, mentre se si cerca di inserire un elemento in una pila piena, quindi \textit{S.top = S.size}, si avrà un \textbf{overflow}. Inoltre, la logica LIFO può essere descritta tramite sequenze di push tranne per i casi in cui si presenta un errore. Infatti, definendo un'operazione \textbf{top()} per recuperare l'elemento in cima alla pila abbiamo: \[Pop(Push(S,x)) = S,\quad Top(Push(S,x)) = x\] \[Top(Empty(S)) = ERR,\quad Pop(Empty(S)) = ERR\]
+\noindent In ogni caso, ognuna delle tre operazioni è eseguita in tempo costante $O(1)$.
+\begin{algorithm}[h]
+	\caption{isEmpty(S)}
+	\begin{algorithmic}[i]
+		\Require $S$: La pila
+		\If{S.top = 0}
+		\State return TRUE
+		\EndIf
+		\State return FALSE
+	\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[h]
+	\caption{push(S,x)}
+	\begin{algorithmic}[i]
+		\Require $S$: La pila, $x$: Elemento da inserire
+		\If{S.top = S.size}
+		\State error "overflow"
+		\Else S.top $\gets$ S.top+1
+		\State $\text{S[S.top]}\gets x$
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[h]
+	\caption{pop(S)}
+	\begin{algorithmic}[i]
+		\Require $S$: La pila
+		\If{isEmpty(S)}
+		\State error "underflow"
+		\Else S.top $\gets$ S.top-1
+		\State return S[S.top+1]
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
 
 %
 
 \section{Code con priorità}
+Le \textbf{code}, come le pile, sono un insieme dinamico di elementi con posizioni predeterminate. La differenza principale è l'implementazione della logica \textbf{FIFO}, First-in, First-out. Ciò significa che gli oggetti sono inseriti nella struttura all'ultima posizione con \textbf{enqueue()} e prelevati a partire dalla cima con \textbf{dequeue()}. Si possono implementare con un array $Q[1:n]$, il quale avrà gli attributi $Q.size$ per la dimensione, mentre $Q.head$ e $Q.tail$ sono usati per puntare al primo e all'ultimo elemento rispettivamente.\par
+All'inizio, con la coda vuota, i campi di testa e coda sono uguali; provando a usare dequeue() si avrà un errore di underflow, mentre se si presenta una di queste due istanze: \[Q.head = Q.tail+1 \quad\lor\quad (Q.head=1\land Q.tail=Q.size)\]
+\noindent La coda sarà piena, e invocando enqueue() si avrà un errore di overflow. Inoltre, come per le pile, le seguenti operazioni hanno tempo di esecuzione costante $O(1)$:
+\begin{algorithm}[h]
+	\caption{enqueue(Q, x)}
+	\begin{algorithmic}[i]
+		\Require $Q$: La coda, $x$: L'elemento da incodare
+		\If{Q.head = Q.tail+1 \textbf{OR} (Q.head = 1 \textbf{AND} Q.tail = Q.size)}
+		\State error "overflow"
+		\EndIf
+		\State Q[Q.tail] $\gets$ x \Comment{x è ora l'elemento in ultima posizione}
+		\If{Q.tail = Q.size}
+		\State Q.tail $\gets$ 1
+		\Else Q.tail $\gets$ Q.tail+1
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[h]
+	\caption{dequeue(Q)}
+	\begin{algorithmic}[i]
+		\Require $Q$: La coda
+		\If{Q.head = Q.tail}
+		\State error "underflow"
+		\EndIf
+		\State x $\gets$ Q[Q.head] \Comment{Prendi l'elemento in cima}
+		\If{Q.head = Q.size}
+		\State Q.head $\gets$ 1
+		\Else Q.head $\gets$ Q.head+1
+		\EndIf
+		\State return x
+	\end{algorithmic}
+\end{algorithm}
+
+%
+
+\section{Liste concatenate}
+
+
+\begin{comment}		
+	Lista doppiamente concatenata vede l'esistenza del campo next, ma anche del prev.
+	
+	// x è un ptr ad un nodo. Rimuovi x
+	Remove(x)
+	if (prev != NULL) prev(succ(x)) = prev(x);
+	if (next != NULL) succ(prev(x)) = next(x);
+	
+	Problema di edge cases. Meglio codice pulito e non comprendente ogni edge case oppure un codice complesso e sporco ma solido e completamente funzionale?
+	Dipende da quanto viene invocata.
+	
+	--- Tecnica delle sentinelle
+	Al posto di usare NULL si andrebbe ad utilizzare uno pseudooggetto per evitare errori negli edge cases.
+	Rende il codice molto più semplice, nel caso specifico precedente rimuoverebbe gli if, dando per scontato che ci siano queste sentinelle per garantire sicurezza.
+\end{comment}
+
+%
+
+\section{Alberi binari}
+
+
+\begin{comment}
+	18-11-25 - Algoritmi
+	
+	--- Albero binario di ricerca
+	Si rappresentano tramite appositi nodi, i quali posseggono:
+	- una chiave (la quale può essere qualunuque oggetto). In questo caso hanno una relazione di ordinamento.
+	Preso un qualunque nodo, i nodi figli sx devono avere chiave <= del parent, mentre quelli di dx devono avere chiave >= del parent.
+	- ptr p
+	- ptr Left: Punta al figlio sx
+	- ptr Right: Punta al figlio dx
+	
+	La ricerca avviene spostandosi dai parent ai children di dx o sx con una complessità lineare in un albero sbilanciato, mentre se è (sufficientemente) bilanciato possiamo avere anche
+	tempi logaritmici. Per sufficientemente si intende avere una profondità logaritmica.
+	
+	Possiamo costruire un albero binario per far sì che la ricerca e l'inserimento siano entrambe logn e che rimanga bilanciato?
+	Supponiamo di avere un albero bilanciato tranne per un buco all'estrema destra. Se devo inserire un nodo più piccolo rispetto a tutti gli altri, lo sbilancerò per forza.
+	Verrà inserito il nodo alla base sinistra e dovrò riordinare tutto in tempo lineare.
+	Esistono tuttavia delle tecniche per avere alberi sufficientemente bilanciati per garantirci tempi logn per inserimento estrazione e ricerca.
+	
+	-- Tre modi principali per visitare i nodi di un albero binario:
+	Ovvero per ogni nodo di un albero effettuo un'operazione in un determinato modo.
+	
+	1. 
+	PreVisit(x)		// x è un nodo.
+	if (x != NIL) {
+		Visit(x)		// Vedo la radice prima e poi vedo i due figli prima di spostarmi
+		PreVisit(left(x))
+		PreVisit(right(x))
+	}	
+	2.
+	InVisit(x)
+	if (x != NIL) {
+		InVisit(left(x))
+		Visit(x)
+		InVisit(right(x))
+	}
+	
+	3.
+	PostVisit (x)
+	if (x != NIL)
+	PostVisit(left(x))
+	PostVisit(right(x))
+	Visit(x)
+	
+	Con il seguente albero:
+	7
+	3				10
+	1				9		12
+	
+	PreVisit = 7, 3, 1, 10, 9, 12
+	InVisit = 1, 3, 7, 9, 10, 12		// Guarda un pò, è ordinato. Grazie alla logica del binary search tree è possibile dimostrare per induzione che l'albero ordina.
+	PostVisit = 1, 3, 9, 12, 10, 7
+	
+	Essendo che scorro l'intero albero abbiamo che la complessità è lineare.
+	Per la costruzione di un albero da un array qualsiasi tuttavia la complessità è nlogn. In questo tempo possiamo costruire alberi bilanciati e sbilanciati.
+	Per il bilanciato bisogna ordinare l'array, prendere il suo mediano e poi inserisci ricorsivamente tutti i nodi secondo la logica dell'albero.
+	
+	BT (A, p, r) {
+		n = r-p+1;					// n è la cardinalità del sottoarray.
+		
+		if (n < 1) return NIL;		// Controlla se l'array è vuoto
+		
+		m = (p+r)/2;
+		Node x = new Node(A[m]);
+		x.left = BT(A, p, m-1);
+		x.right = BT(A, m+1, r);
+		
+		return x;
+	}
+	
+\end{comment}
+
+\subsection{Alberi di ricerca}
+\subsection{RB-alberi}
+
+\begin{comment}
+	24-11-25 Algoritmi
+	
+	--- Albero RB
+	Se voglio fare le cose con tempo logaritmico, ho bisogno di una profondità dell'albero logaritmica.
+	Posso mantenere le operazioni di inserimento e ricerca in tempo logaritmico? Non siamo in grado di inserire un nodo in tempo logaritmico mantenendo l'albero bilanciato.
+	Potremmo tuttavia permettere uno sbilanciamento, purché la profondità rimanga logaritmica.
+	
+	Il senso è costruire alberi binari di ricerca sbilanciati con profondità logaritmica. Vengono posti vincoli sui nodi dell'albero in termini locali e globali; sicché quando andiamo a inserire/ricercare, verosimilmente violeremo la regola e risolveremo l'anomalia spingendola alla radice.
+	
+	Prop globale: valida per l'intera struttura
+	Prop locale: verificabile su ogni singolo punto della struttura vedendo un suo intorno ristretto
+	
+	Preferibile ragionare su proprietà locali perché non devi andare a scorrere l'intera struttura dati.
+	
+	Un RB albero è un albero binario di ricerca con le proprietà:
+	- Ogni nodo é rosso o nero (hai un campo aggiuntivo su tutti i nodi che assegna loro il colore, tendenzialmente un boolean)
+	- Ogni foglia é nera (Le foglie con elemento nullo in fondo sono considerate nere)
+	- I figli di un nodo rosso sono sempre neri ed un nodo rosso può essere circondato solo da nodi neri.
+	- Ogni cammino radice-foglia contiene lo stesso numero di nodi neri (proprietà globale)
+	Quindi l'RB albero non è bilanciato, ma se ti restringi ai nodi neri, il cammino avrà sempre un loro numero costante.
+	
+	Grazie alla proprietà 3 abbiamo che negli RB alberi avremo al peggio un cammino radice-foglia con alternazioni di nero-rosso fino alla eventuale foglia nera, mentre il cammino ottimo avrà esclusivamente nodi neri. Ciò significa che se il meglio è 1, il peggio sarà il suo doppio, 2. Manterremo quindi una profondità logaritmica.
+	
+	Esempio: pag. 300 figura a
+	
+	RB ha profondità logaritmica e che la ricerca di un elemento specifico, elemento minimo e massimo é logaritmica. Costruzione albero RB non puó essere fatta in meno di nlogn.
+	'Altezza Nera' BH di un nodo X: Numero di nodi neri incontrati in un cammino da nodo X ad una foglia escludendo X
+	I nodi foglia all'estremo con elemento null sono sprecati; consigliato usare il metodo delle sentinelle. Nel caso in cui serva invocare il parent di questo nodo nullo, nell'algoritmo invocato bisognerá assegnare al nodo nullo il parent corretto
+	
+	In generale meglio assumere che la radice sia nera
+	Se non lo è la si puó modificare senza alterare nessuna proprietà
+	
+	Dimostrazione che la profondità è logaritmica.
+	Lemma: un RB albero con n nodi interni ha altezza al più 2log(n+1). Un nodo interno è tale se non è una foglia; l'altezza è il cammino peggiore.
+	Sottolemma: Il sottoalbero radicato in un nodo x contiene almeno 2^{bh(x)}-1 nodi interni. Quindi prendo un nodo x dell'albero e la considero come radice del sottoalbero.
+	
+	Dimostrato per induzione sull'altezza del nodo x
+	Caso base: altezza 0
+	Necessariamente la radice del sottoalbero è una foglia. La sua altezza nera è quindi 0. bh(x)=0. Nodi interni=0. 2^{bh(x)}-1 = 0
+	Caso induttivo: altezza h+1
+	Abbiamo radice e almeno due sottoalberi; il sottolemma vale per induzione. Tutti i nodi nel sottoalbero di x avranno altezza h.
+	Sappiamo poi che per costruzione del RB albero:
+	bh(left(x)) >= bh(x)-1; bh(right(x)) >= bh(x)-1
+	Interni(x) = interni(left(x)) + interni(right(x)) + 1		// Giustamente il numero di nodi interni comprende gli interi due sottoalberi.
+	Interni(x) >= 2^{bh(x)-1}-1 + 2^{bh(x)-1}-1 + 1 = 2^{bh(x)}-1	// Dimostrazione funzionante.
+	
+	Se l'albero ha profondità h e quindi la radice x ha altezza h, allora sappiamo che l'altezza nera è almeno la metà, quindi bh(x) >= h/2
+	Dunque abbiamo detto che la relazione fra il numero di nodi n e le altezze è: n >= 2^{bh(x)}-1 >= 2^{h/2}-1
+	Da questo possiamo ricavare: n+1 >= 2^{h/2} \implies log(n+1) >= h/2 \implies h = 2log(n+1). La dimostrazione è vera.
+	
+	Quindi l'altezza di un rb albero con n nodi è al più il doppio di log(n). La profondità è logaritmica.
+	
+	--- Come inserire un nodo mantenendo profondità logaritmica?
+	Partiamo dal presupposto che si segue la logica di inserimento di un qualunque albero binario di ricerca. Quindi si sposterà a destra o sinistra in base alle regole di definizione.
+	Di che colore facciamo il nodo? Se lo facciamo rosso e siamo una foglia, viola la definizione, mentre se lo facciamo nero sminchia la profondità logaritmica.
+	Quindi lo facciamo rosso a prescindere lmao
+	Abbiamo un rb albero con l'anomalia sul nodo appena inserito. Bisogna eliminarla.
+	Facciamo delle trasformazioni locali portando l'anomalia verso la radice. Oppure la eliminiamo prima, dipende quale vien prima. Se questo problema si presenta alla radice, non è un problema. È valido.
+	
+	Domande:
+	- Possiamo assumere che la radice sia sempre nera? Sì, perché se la radice fosse rossa potremmo colorarla di nero senza eludere la definizione.
+	- Concetto di rotazione: nell'operarci cambieremo e ruoteremo i nodi dell'albero.
+	Ruotare nel senso scambiare il babbo col figlio. Si può fare a dx e a sx
+	
+	--- Algoritmo di ribilanciamento; rotazione
+	
+	Pseudo codice
+	P sta per parent
+	Inoltre assumi che la radice sia Nera
+	
+	L'ultimo Else é di if(color(P[x])== red)
+	
+	Il caso 1 propaga verso l'alto
+	
+	Mentre il caso 3 é concatenato al 2 e termina il processo
+\end{comment}
+
+\begin{comment}
+	Algoritmi - 01/12/25
+	
+	Inserimento estrazione e ricerca in tempo logaritmico se si usa un RB albero
+	Inserimento, con eventuale anomalia, la quale viene eliminata o propagata verso l'alto
+	Gli algoritmi per le rotazioni hanno complessità costante. L'unico caso con complessità maggiore è quello dove si spinge l'anomalia verso la radice, ma è di massimo logn
+	
+	E' possibile anche unire due RB-alberi che contiene gli elementi di entrambia? Sì, ma in minimo tempo lineare, prima con una buildtree e poi un merge.
+	
+	Ex. Dato un nodo x, trovare il suo successore (quello che nell'ordinamento occuperebbe la posizione successiva)
+	Se esiste il figlio destro, prendo il minimo del figlio destro, mentre in loro assenza, si guarda agli antenati destri.
+	
+	next(x) {
+		if (right(x) != NIL && x != NIL)
+		ret min(right(x))
+		else {
+			while (x == right(p(x)) && p(x) != NIL) {
+				x <- p(x)
+			}
+			if (x != root) return p(x)
+			else return NIL
+		}
+	}		// Complessità nlogn, non supero la profondità dell'albero.
+	Le next hanno complessità lineare, tranne nel caso pessimo che è nlogn, dove deve scorrere l'intero albero.
+	
+	Giustamente puoi farci anche la select. Il minimo e il massimo son banali, alle estremità sinistra e destra.
+	Tuttavia considera il mediano ed un albero sbilanciato. Per un tempo logaritmico bisogna seguire un singolo cammino. Ciò si può ottenere aggiungendo un campo "rank" ad ogni nodo.
+	Questo consentirebbe di capire la direzione istantaneamente, usando un singolo cammino.
+	However; se vado ad inserire un nuovo minimo, toccherà cambiare il rank di tutto l'albero, e ciò ha una complessità lineare. non sufficiente.
+	
+	Al posto di rank diciamo invece un campo size, che dirà quanti nodi ci sono nell'albero radicato in x.
+	Vediamo come size possa essere mantenibile per inserimento ed estrazione:
+	- insert: il size aumenta esclusivamente nei nodi toccati dal percorso.
+	- extract: Stessa cosa; rimuovendo il nodo in un cammino, verrà modificato solo il size dei nodi del percorso.
+	- Occhio che nelle rotazioni il size cambia, sebbene la loro somma rimanga uguale.
+	Togo, il campo size quindi non va ad influire sulla complessità delle operazioni elementari, facendole rimanere tutte a complessità logn.
+	Also, capiamo: size[x] = size[left(x)] + size[right[x]] + 1
+	
+	// select logaritmica con il campo size
+	select (x, i) {
+		if (i >= 1 && i <= max) {
+			r <- size[left(x)]+1
+			
+			if (r == i) ret x;
+			else {
+				if (i > r) ret select(left(x), i);
+				else if (i < r) ret select(right(x), i-r);		// i-r perché nel subtree destro, gli elementi di r non ci sono più.
+			}
+		}
+	}
+	
+	Se volessimo una posizione specifica in senso di rank, tuttavia, questa cosa funzionerebbe solo per la radice, quindi bisogna trovare un modo per generalizzarlo
+	
+	rank (x) {
+		r <- size[left(x)]+1;
+		y <- z;
+		
+		while (y != root) {
+			if (y == right(P(y)) {
+				r += size[left(P(y))]+1;
+			}
+			y <- p(y);
+		}
+		ret r;
+	}
+	
+	Dovessi aggiungere un campo ai nodi dell'rb albero, è necessario dover dimostrare che mantenga la complessità logaritmica per le operazioni.
+	What if esistesse un modo per determinarlo senza volersi ammazzare? Lmao esistone il teorema, basta attenersi alle sue regole.
+	
+	Sia F[x] un campo aggiuntivo. Se esiste una funzione f(x) tale che:
+	F(x) = f(key(x), F(left(x)), F(right(x)), key(left(x)), key(right(x)))
+	allora F è mantenibile. La potenza del teorema cresce in base a quante operazioni ha.
+\end{comment}
+
+
+\subsection{B-alberi binomiali}
+
+%
+
+\section{Estensione di strutture dati}
+
+\begin{comment}
+	02-12-25 - Algoritmi
+	
+	--- Estensione di strutture dati
+	Prendere per esempio un RB albero ed aggiungerci campi comodi per poter eseguire più facilmente gli ordinamenti. In questo caso specifico la cosa più importante è non andare
+	a considerare il nodo parent negli argomenti di F(x).
+	I campi, infatti, cambiano esclusivamente se viene inserito/rimosso un nodo sullo specifico cammino; gli altri rimangono intonsi. E si fa pure in logn sta cosa.
+	
+	Per le operazioni di risistemazione dell'albero:
+	- i colori non cambiano, non è un argomento di F(x).
+	- Nelle rotazioni, i nodi ruotati x,y possono avere i loro campi cambiati; quindi costa logn, perché devo propagare verso l'alto il campo.
+	
+	Dove quest'ultima sfaccettatura è un problema, l'algoritmo rimane ugualmente logaritmico nonostante la rotazione non sia più di costo costante.
+	Più precisamente, di base:
+	- inserimento: logn + 2rot, nel caso esteso preso in esame 2rot=2logn
+	- estrazione: logn + 3rot, " 3rot=3logn
+	Ma complessivamente rimaniamo sempre su logn.
+	
+	// Esempio: agenda con appuntamenti, caratterizzati da un intervallo di tempo, l'obiettivo è ins/ext e trovare conflitti, tutto in tempo logaritmico
+	// Serve un modo per decidere istantaneamente se andare a sx o dx. Ordiniamoli in base al tempo e aggiungiamo il massimo tempo di fine visita come campo aggiuntivo.
+	
+	search (x, I)		// I intervallo, tempo di inizio e fine dell'appuntamento. x è la radice.
+	while (x != NIL && I \cap int(x) == \void) {			// int è intervallo di x.
+		if (left(x) != NIL && max[left(x)] > low[I])		// max è massimo estremo destro del sottoalbero sx, low è l'estremo inferiore di I.
+		x <- left[x]
+		else 
+		x <- right[x]
+	}
+	ret x;
+	
+	Supponiamo di avere un determinato intervallo in root. Sappiamo che se non troviamo nulla a sinistra, allora sicuramente non c'è nulla nemmeno a destra.
+	Se un subintervallo left ha massimo nel mezzo dell'intervallo root, sappiamo che a destra esisterà un altro intervallo che sarà anche dentro questo max. Dunque c'è un conflitto.
+	Se non ci sono conflitti a sinistra, allora non ce ne saranno neanche a dx.
+	
+	// Esempio 2: Abbiamo lanciato una missione su marte, dove vengono raccolti vari campioni di suolo. Sono catalogati in un database, ordinato in base ad una chiave, la frequenza
+	// spettrale dominante. Il misuratore ha una tolleranza \epsilon; rendendo la frequenza [f+\epsilon, f-\epsilon]. Come memorizzare i dati sicché il db restituisca, se esiste un
+	// campione corrispondente a quello letto?
+	// Può essere che ci siano più frequenze candidate, bisogna trovarne la frequenza più vicina.
+	
+	search (x, f)		// f è la frequenza.
+	if (x == NIL) ret NIL;
+	if (f < x.freq) y <- search (left(x), f);
+	else y <- search (right(x), f);
+	
+	if (y == NIL || mod(f-x.freq) < mod(f-y.freq)) return x;		// mod è modulus, il valore assoluto.
+	else return y;
+	
+	bestCompatible(x, f, \epsilon)
+	y = search (x, f)
+	
+	if (y != NIL && mod(y.freq - f) < \epsilon*2)
+	ret y
+	else
+	ret NIL
+\end{comment}
+
+%
+
+\section{Heap binomiali}
+
+\begin{comment}
+	15-12-25 Algoritmi
+	
+	Voglio una struttura dati dove si può fare inserimento, estrazione, ricerca e unione in tempo logaritmico.
+	Ha stile heap. Si chiama Heap binomiale, ed è un insieme di alberi binomiali, definiti per induzione, ognuno caratterizzato da una data dimensione.
+	
+	-- Albero binomiale
+	B_0 = un singolo nodo
+	B_{i+1} = faccio diventare figlio della radice del primo albero l'intero secondo albero.
+	
+	Hanno alcune proprietà:
+	- In un albero binomiale di dimensione k ci sono 2^k nodi, quindi il numero di nodi dell'albero cresce esponenzialmente con la dimensione.
+	2^i+2^i = 2*2^i = 2^{i+1}
+	
+	- L'altezza ha valore k, quindi esattamente pari alla dimensione.
+	Quasi ovvia la dimostrazione, basta prendere il percorso più profondo.
+	
+	- Alla profondità i ci sono (k\\i) nodi.
+	E' un triangolo di tartaglia stampato come un array che aumenta di 1dim ogni iterazione:
+	1
+	11
+	121
+	1331
+	14641 etc.
+	k=riga, i=colonna
+	
+	k=0 + i=0 \implies nodi=1 ok
+	k=1 + i=1 \implies nodi=2 ok
+	k=k+1 + i=i \implies nodi nell'albero binomiale figlio  traslati di i-1 rispetto alla i dell'albero genitore.
+	Quindi (k+1\\i) = (k\\i-1) + (k\\i), grazie alla proprietà triangolo di tartaglia.
+	
+	- I figli della radice da sx a dx sono B_{k-1} ... B_0. I figli di un albero binomiale sono tutti gli alberi di dimensioni minori.
+	
+	Un heap binomiale è una lista di alberi binomiali tali che:
+	- per ogni dimensione esiste al più un albero.
+	- I nodi contengono chiavi che soddisfano le proprietà di un heap.
+	
+	L'elemento minimo è in una delle radici degli alberi. La complessità della ricerca del minimo è lineare nel numero degli alberi.
+	
+	Esempio:
+	-> 5 -> 9 -> 17
+	|	|  |
+	11	18 18
+	|
+	21
+	
+	-> 7 -> 4 -> 27 -> 25
+	|	 /\	   /\
+	10	 B_4   B_5				// B_4 e B_5 sono due alberi binomiali di dimensione rispettiva 4 e 5.
+	
+	Perché non ci possono essere più di logn radici distinte? Qualunque grado dell'albero io prenda deve avere 2^k \leq n. Dunque il grado massimo che si può prendere è k \leq log_2n
+	E no, non posso andare oltre perché posso inserire al più l'albero binomiale della dimensione più tutte le dimensioni precedenti.
+	Dato n converti il suo valore in binario e otterrai facilmente le posizioni degli alberi binari.
+	La ricerca del minimo sarà quindi in realtà logaritmica, perché scorri ogni radice.
+	
+	--- Unione di due heap binomiali
+	Somma di due numeri binari; facciamo il merge delle due liste:
+	-> 5 -> 7 -> 9 -> 4 -> 17 -> 27 -> 25
+	|	  |	   /\    /\    /\
+	11	  10   B_2   B_4   B_5
+	
+	-> 5 -> 9 -> 4 -> 17 -> 27 -> 25		// Fuso 5, 7 in un albero di grado superiore
+	|	|	  |	   /\    /\    /\
+	7	11	  10   B_2   B_4   B_5
+	
+	-> 5 -> 4 -> 17 -> 27 -> 25				// Fuso 4, 9 in un albero di grado superiore
+	|   / \	 /\    /\    /\
+	7  9  10	 B_2   B_4   B_5
+	|
+	11
+	
+	-> 5 ->  4 	-> 27 -> 25					// Fuso 4, 17 in un albero di grado superiore. Tutte le dimensioni diverse. Finito.
+	|   / /\	   /\    /\
+	7  17 9 10  B_4   B_5
+	/\  |
+	B_2 11
+	
+	000111 + 110011 = 111010
+	
+	L'algoritmo ha un pointer in un nodo, il suo successore ed il successore del successore.
+	Va a guardare i gradi dei nodi x, del successore e del successore del successore. Se nota gradi uguali, fa una fusione fra i due, altrimenti passa ai prossimi.
+	
+	La complessità dell'unione è logn.
+	Per calcolare la dimensione puoi estendere la struttura dandogli un campo size, così la complessità diventa costante.
+	
+	-- Inserimento
+	Prendi l'elemento, vedilo come un heap binomiale con un singolo nodo. Fai l'unione seguendo le regole appena viste.
+	
+	-- Estrazione
+	Per la proprietà 4, se rimuovi la radice di un heap binomiale, rimane quello della sua dimensione-1. Fai una unione e la struttura è nuovamente corretta.
+	
+	-- ReduceKey; voglio un nodo e cambiargli la chiave con un nodo più piccolo
+	// Sta roba ha senso farla perché la useremo per eliminare ogni elemento arbitrario di un albero.
+	ReduceKey(x, y)
+	
+	// Riduce il valore di un dato nodo, per poi fare heapify per rimuovere l'anomalia. Sta cosa ha complessità logn.
+	// Arriverai che questo nodo sarà la nuova radice con una chiamata ricorsiva a reducekey, per poi rimuoverlo facilmente.
+\end{comment}
 
 %
 
@@ -22,293 +497,4 @@
 
 %
 
-\section{Estensione di strutture dati}
-
-%
-
-\section{Grafi}
-Un \textbf{grafo} è una struttura usata per rappresentare relazioni tra oggetti, i quali sono rappresentati da \textbf{nodi} (vertices), mentre le relazioni tra di essi sono rappresentate da \textbf{archi} (edges). È un concetto versatile abbastanza da poter rappresentare qualunque cosa possa essere messa in relazione, come per esempio una rete stradale che collega le città oppure gli stati di una FSM.\par
-Diciamo inoltre \textbf{cammino} una sequenza di nodi collegati dagli archi e spesso i problemi trattano la ricerca del cammino \textbf{ottimo}, la cui definizione varia in base alla richiesta. Ciò implica la presenza di un qualche tipo di misura; chiamiamo intuitivamente \textbf{lunghezza} di un cammino il numero di archi attraversati in un percorso. Ci sono inoltre più tipi di grafo: \begin{itemize}
-	\item \textbf{Grafo orientato}: Grafo i cui cammini sono orientati in una direzione. Presenta un nodo \textbf{sorgente} ed uno di \textbf{destinazione}. È possibile inoltre avere archi che ritornano sullo stesso nodo, ed in tal caso vale come passo.
-	\item \textbf{Grafo non orientato}: Caso speciale del tipo precedente, i cammini possono andare in ambo le direzioni.
-	\item \textbf{Grafo pesato}: Grafo i cui archi hanno associato un valore matematico, detto \textbf{peso}. Il costo totale è dato dalla somma dei valori degli archi attraversati.
-\end{itemize}
-\noindent Queste erano tutte definizioni intuitive, ma è necessario garantire formalità per poter lavorare con queste rappresentazioni. Definiamo formalmente un grafo come la coppia: \[G = (V,E)\]
-\noindent Dove $V$ è l'\textbf{insieme dei nodi} ed $E$ rappresenta quello degli \textbf{archi}. In particolare, per i grafi orientati, quest'ultimo è una coppia ordinata di vertici: $E \subseteq V\times V$. In questo senso un grafo può essere visto anche come una relazione binaria sull’insieme dei vertici, connettendo la struttura con le relazioni e alle matrici. Per esempio, potremmo definire un grafo simmetrico grazie al concetto di relazione simmetrica e otterremmo la dimostrazione di un grafo non orientato.\par
-Definiamo ora formalmente il concetto di cammino: una sequenza di nodi tali per cui per ogni coppia di nodi ci sia un arco che li connette, quindi: \[v_0, ..., v_n \text{ tale che } \forall i < n \land i\geq 0 (v_i, v_{i+1})\in E\]
-\noindent In questi termini possiamo intendere la lunghezza di un cammino come la distanza fra due nodi, definita come il numero totale di nodi meno $1$. Un cammino può contenere nodi ripetuti; in particolare, se inizia e termina nello stesso nodo si parla di \textbf{ciclo}. Un grafo che contiene almeno un ciclo è detto \textbf{ciclico}, altrimenti è \textbf{aciclico}.\par
-Generalmente, vale la regola che se un grafo ha lunghezza maggiore del suo numero di nodi distinti, avrà sicuramente almeno un cammino ciclico. Parliamo adesso di \textbf{grado} dei nodi; ne esistono due tipi: \begin{itemize}
-	\item \textbf{Grado uscente}: Numero di archi che escono dal nodo, formalmente la cardinalità di insieme $v$ tale per cui la coppia $(u,v)$ appartiene ad $E$: \[outDeg(u) = |\{v | (u,v)\in E\}|\]
-	\item \textbf{Grado entrante}: Numero di archi che entrano nel nodo, formalmente la cardinalità di insieme $u$ tale per cui la coppia $(u,v)$ appartiene ad $E$: \[inDeg(v) = |\{u | (u,v)\in E\}|\]
-	\item \textbf{Grado totale}: Somma dei due valori precedenti: \[inDeg + outDeg\]
-\end{itemize}
-\noindent Altri concetti importanti sono il \textbf{diametro} di un grafo, che indica la massima distanza del cammino minimo tra due nodi, definita come: \[diam(G) = max(dst(u,v))\]
-\noindent I \textbf{sottografi}, intuitivamente un insieme di nodi più piccolo o uguale ottenuto a partire da un altro grafo, definiti come: \[G' = (V', E') \text{ tale che } V'\subseteq V \land E'\subseteq E\]
-\noindent I \textbf{grafi completi} vedono invece ogni coppia di nodi collegata da un arco, la cui definizione differisce in base all'orientazione: \[\text{Non orientato: } \frac{n(n-1)}{2}\quad\text{ Orientato: }n(n-1)\]
-\begin{figure}[h]
-	\centering
-	\subcaptionbox{Grafo orientato}{\includegraphics[width=0.3\linewidth]{Images/graphOriented.png}}
-	\hfill
-	\subcaptionbox{Grafo non orientato}{\includegraphics[width=0.3\linewidth]{Images/graphNoOrientation.png}}
-	\hfill
-	\subcaptionbox{Grafo pesato}{\includegraphics[width=0.3\linewidth]{Images/graphWeighted.png}}
-\end{figure}
-\noindent Esistono due tecniche principali per rappresentare i grafi in memoria: le \textbf{liste di adiacenza} e le \textbf{matrici di adiacenza}. Le prime utilizzano un array indicizzato sui nodi, dove ogni posizione contiene la lista dei nodi adiacenti, formalmente: \[Adj[u] = \{v|(u,v)\in E\}\]
-\noindent La rappresentazione memorizza esclusivamente gli archi presenti nel grafo, risultando particolarmente efficiente in caso di grafi sparsi. Richiede uno spazio proporzionale alla somma di nodi e archi: \[\Theta(|V| + |E|), \text{ con abuso di notazione: } \Theta(V+E)\]
-\noindent Nel caso di grafi pesati, ogni elemento della lista ha un campo per contenere il peso dell'arco.\par
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=1\linewidth]{Images/adjList.png}
-	\caption{Lista di adiacenza}
-\end{figure}
-Le matrici di adiacenza, invece, utilizzano una matrice di dimensione $V\times V$ con valori booleani per segnalare le adiacenze per ogni nodo. Formalmente: \[G[i,j] = \begin{cases}
-	1 & \text{Se esiste l'arco }(i,j)\\
-	0 & \text{altrimenti}
-\end{cases}\]
-\noindent Nei grafi non orientati la matrice risulta \textbf{simmetrica} e lo spazio richiesto è $\Theta(V^2)$. È una rappresentazione inefficiente per grafi \textbf{sparsi} ($|E|$ è molto più piccolo di $|V|^2$), mentre per quelli completi risulta molto comoda. Per i grafi pesati, invece, al posto di valori booleani si utilizza direttamente il peso degli archi e l'assenza di un arco è segnalata con un valore sentinella, un infinito, oppure direttamente un NULL.
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=0.8\linewidth]{Images/adjMatrix.png}
-	\caption{Matrice di adiacenza}
-\end{figure}
-\noindent Facciamo ora un confronto fra le due rappresentazioni analizzando le modalità di calcolo del grado uscente. Con le liste bisogna contare ogni arco; nel caso pessimo abbiamo una complessità $\Theta(V)$, perché può essere che un nodo sia collegato a tutti gli altri. Alternativamente sarebbe possibile estendere la struttura dati con un campo size, garantendo un accesso a tempo costante.
-\begin{algorithm}[h]
-	\caption{outDeg((v,e), u)}
-	\begin{algorithmic}[i]
-		\Require $(v,e)$: coppia nodi-archi, $u$: Nodo il cui grado è calcolato
-		\State $r\gets 0$
-		\ForAll{$v\in Adj[u]$} \Comment{Per ogni nodo adiacente a u}
-		\State $r\gets r+1$ \Comment{Aumenta il counter dei nodi adiacenti}
-		\EndFor
-		\State \textbf{return} $r$
-	\end{algorithmic}
-\end{algorithm}
-\noindent Per il grado entrante bisogna scorrere l'intero grafo, oppure si può calcolare l'outDeg del grafo trasposto, ma costererebbe il doppio della memoria. Per le matrici di adiacenza invece si effettua la sommatoria della riga per il grado uscente e la sommatoria della colonna per quello entrante: \[outDeg = \sum_{j=1}^n G[i,j]\quad inDeg = \sum_{i=1}^n G[i,j]\]
-
-%
-
-\section{Esplorazione dei grafi}
-Esistono molti algoritmi per l'esplorazione dei grafi; studieremo i due più utilizzati: la \textbf{visita in ampiezza} (BreadthFirstSearch o BFS) e la \textbf{visita in profondità} (DepthSearchFirst o DFS), cercando di rispondere a domande riguardo la struttura dei grafi, il cammino minimo e la raggiungibilità. Ci serviremo di un'importante campo per determinare lo stato dei singoli nodi. Diciamo che un nodo è: \begin{itemize}
-	\item \textbf{Bianco} se non è stato esplorato.
-	\item \textbf{Grigio} se è stato esplorato, ma non vi è stata effettuata alcuna operazione.
-	\item \textbf{Nero} se è stato esplorato e sono state effettuate operazioni.
-\end{itemize}
-\noindent L'algoritmo BFS è uno dei più semplici per esplorare i grafi e viene utilizzato anche come base per procedure più complesse. Dato un grafo $G=(V,E)$ ed un nodo \textbf{sorgente} $s$, si esplorano gli archi del grafico per scoprire tutti i vertici raggiungibili da $s$.\par
-Calcola inoltre la distanza fra di esso e ciascun nodo raggiungibile, dove la \textbf{distanza} da un vertice $v$ alla sorgente corrisponde al \textbf{cammino minimo} fra i due. Nella sua esecuzione genera un albero, detto \textbf{Albero BFS} (oppure BF-Tree) e funziona per grafi orientati e non orientati.
-\begin{itemize}
-	\item \textbf{Caso pessimo}: Temporale: $\Theta(|V|+|E|)$, Spaziale: $\Theta(|V|)$
-	\item \textbf{Caso ottimo}: Temporale: $\Theta(|V|)$
-	\item \textbf{Caso medio}: Temporale: $\Theta(|V|+|E|)$
-\end{itemize}
-\noindent Intuitivamente, una visita in ampiezza espande la frontiera dei vertici scoperti in maniera uniforme; partendo dalla sorgente $s$, scopre i suoi vicini a distanza $1$, poi a distanza $2$, e così via finché non trova tutti i vertici raggiungibili dalla sorgente.
-\begin{algorithm}[h]
-	\caption{BFS(G,s)}
-	\begin{algorithmic}[i]
-		\Require $G$: Grafo, $s$ Nodo sorgente
-		\ForAll{$u\in V[G]$} \Comment{Per ogni nodo del grafo}
-		\State $color[u]\gets white$ \Comment{Inizializza il nodo come non visitato}
-		\State $d[u]\gets \infty$ \Comment{Distanza dalla sorgente del nodo}
-		\State $\pi[u]\gets NIL$ \Comment{Predecessore nel BF-Tree}
-		\EndFor
-		\State
-		\State $color[s]\gets gray$ \Comment{Nodo sorgente esplorato}
-		\State $d[s]\gets 0$ \Comment{La distanza fra $s$ ed $s$ è $0$}
-		\State $\pi[s]\gets NIL$ \Comment{La sorgente non ha predecessori}
-		\State $Q\gets NIL$ \Comment{Coda fifo dei nodi grigi}
-		\State enqueue($Q,s$)
-		\State
-		\While{$Q\neq NIL$} \Comment{Finché ci sono nodi grigi}
-		\State $u\gets$ dequeue($Q$) \Comment{Prendi l'ultimo nodo della coda}
-		\ForAll{$v\in Adj[u]$} \Comment{Ogni nodo in lista di adiacenza di u}
-		\If{$color[v] = white$} \Comment{Nodo non esplorato?}
-		\State $color[v]\gets gray$ \Comment{Nodo ora esplorato}
-		\State $d[v]\gets d[u]+1$ \Comment{La cui distanza è quella del precedente nodo ($u$) più uno}
-		\State $\pi[v]\gets u$ \Comment{Predecessore è $u$}
-		\State enqueue($Q,v$) \Comment{Nodo ora nella lista di quelli da elaborare}
-		\EndIf
-		\EndFor
-		\State $color[u]\gets black$ \Comment{Il nodo è stato elaborato}
-		\EndWhile
-	\end{algorithmic}
-\end{algorithm}
-
-\noindent In necessità di ricavare i vertici di un cammino minimo da $s$ a $v$, supponendo sia già stata eseguita la BFS, è possibile utilizzare l'algoritmo \textbf{printPath} indicato alla pagina seguente.
-\begin{algorithm}[h]
-	\caption{printPath(G,s,v)}
-	\begin{algorithmic}[i]
-		\Require $G$: Grafo, $s,v$: Due nodi
-		\If{$v = s$}
-		\State print($s$)
-		\ElsIf{$\pi[v] = NIL$}
-		\State print(Nessun cammino da $s$ a $v$)
-		\Else  
-		\State printPath($G, s, \pi[v]$)
-		\State print($v$)
-		\EndIf
-	\end{algorithmic}
-\end{algorithm}
-
-Analizziamo ora le varie sezioni dell'algoritmo per ricavarne il tempo di esecuzione. In primo luogo, i vertici sono colorati di bianco esclusivamente nell'inizializzazione e mai più dopo. La verifica di questo colore per ogni nodo nella lista di adiacenza garantisce che ogni nodo sia inserito e rimosso dalla coda al più una volta. Le operazioni di inserimento e cancellazione si eseguono in tempo costante, per un totale di $O(V)$.\par 
-La somma delle lunghezze di tutte le liste di adiacenza è data da $\Theta(E)$, ed il tempo per visitarle tutte è pari a $O(V+E)$. In quanto il costo di inizializzazione è entro questo ordine di grandezza, possiamo concludere che il \textbf{tempo totale di esecuzione} per l'algoritmo BFS è di $O(V+E)$. Per la dimostrazione del funzionamento dell'algoritmo è necessario definire i seguenti lemmi: \begin{lemma}
-	Sia il grafo $G=(V,E)$ e $s\in V$ un nodo arbitrario. Allora, per qualsiasi arco $(u,v)\in E$ si ha: \[\delta(s,v) \leq \delta(s,u)+1\]
-\end{lemma}
-\noindent Dunque per ogni coppia di nodi, il cammino minimo fra i nodi $s,v$ annotato come $\delta(s,v)$ non può essere più lungo di quello da $s$ ad $u$, seguito dall'arco $u,v$. Se $u$ non è raggiungibile, la distanza è infinita, mantenendo la validità della disuguaglianza. \begin{lemma}
-	Sia $G=(V+E)$ un grafo e supponiamo che venga eseguita BFS a partire da un sorgente $s\in V$. Allora per ogni vertice $v\in V$, il valore di distanza $d[v]$ calcolato dall'algoritmo soddisfa sempre la seguente relazione, anche al termine della procedura: \[d[v] \geq \delta(s,v)\]
-\end{lemma}
-\noindent Intuitivamente, è possibile notare che il lemma è vero, poiché ogni valore assegnato a $d[v]$ è uguale al numero di archi di qualche cammino da $s$ a $v$. Per dimostrarlo formalmente, invece, è necessario ragionare per induzione sui passi eseguiti dalla funzione enqueue. Supponendo come ipotesi induttiva la relazione del lemma, abbiamo: \begin{itemize}
-	\item \textbf{Caso base}: Inserimento della sorgente nella coda. L'ipotesi è vera, perché: \[d[s]=0=\delta(s,s);\quad d[v]=\infty\geq \delta(s,v)\quad\forall v\in V - \{s\}\]
-	\item \textbf{Caso induttivo}: Consideriamo un vertice bianco $v$, scoperto nella visita a partire da un nodo $u$. L'ipotesi induttiva implica che $d[u]\geq \delta(s,u)$ e grazie al lemma precedente otteniamo: \begin{equation}
-		\begin{split}
-			d[v] &= d[u]+1\\
-				&\geq \delta(s,u)+1\\
-				&\geq \delta(s,v)
-		\end{split}
-	\end{equation}
-\end{itemize}
-\noindent Per dimostrare quest'ultima relazione è necessario capire meglio come opera la coda durante l'esecuzione della BFS. Il terzo lemma dice che in qualunque istante, la coda è sempre ordinata per una distanza non decrescente e contiene al più due valori: \begin{lemma}
-	Supponiamo l'esecuzione di una BFS su un grafo $G=(V,E)$, con la coda $Q$ contenente i vertici $\left<v_1, v_2, ..., v_r \right>$, dove $v_1$ è il primo elemento della coda e $v_r$ l'ultimo. Allora: \[d[v_r]\leq d[v_1]+1 \text{ e } d[v_i]\leq d[v_{i+1}] \text{, con } i=1,2,...r-1\] 
-\end{lemma}
-\noindent Anche la dimostrazione di questo lemma avviene tramite induzione, ma questa volta sul numero di operazioni eseguite sulla coda. Inizialmente, quando questa contiene solo la sorgente, il lemma è banalmente valido, mentre per il passo induttivo è necessario provare che è valido dopo inserimento ed eliminazione di un nodo nella coda.
-
-% TODO Manca il passo induttivo. Abbi pietà, sto sfatto e questa roba NON È SEMPLICE in termini matematici.
-
-
-% teorema totale
-\begin{comment}
-	Teorema: d[v]= \delta(s,v) \forall v (L'algoritmo calcola i cammini minimi)
-	Sia V_k l'insieme dei nodi a distanza k. Per induzione su k dimostro che \forall v\in V_k \exists un momento in cui:
-	- v è grigio
-	- k è assegnato a d[v]
-	- se v\neq s \Pi[v] = u\in V_{k-1}
-	- v inserito in coda
-	
-	Insomma, l'algoritmo calcola cammini minimi e risolve il problema della raggiungibilità. Produce un albero radicato nel nodo s. Se ci sono nodi non raggiunti, rimangono a distanza infinita e non faranno parte dell'albero BFS.
-	In quanto i nodi non connessi all'albero sono bianchi, nulla mi vieta di prenderne uno bianco casuale per creare un altro BFS-tree. Ciò consente di creare un insieme di alberi che viene chiamato foresta.
-\end{comment}
-
-
-% Voglio una descrizione intuitiva dei due algorimi e per cosa si usano
-% Voglio La complessità di entrambi
-% Voglio lo pseudocodice
-% Voglio i teoremi, i lemmi e le dimostrazioni
-
-\begin{comment}
-	- DepthFirstSearch: Partiamo dalla sorgente s, vediamo il suo vicino e si controlla se questo ha altri vicini. Arriva fino all'ultimo e poi si torna indietro di un'unità di altezza e ripetere i controlli fino alla fine. Continuare fino alla totale esplorazione del grafo.
-\end{comment}
-
-\begin{comment}	
-	--- DepthFirstSearch
-	// Notare che la coda è lifo per questo algoritmo. Il ruolo è coperto dalla stack di attivazione
-	
-	DFS(G,s)
-	\forall v\in V[G]
-	color[v]\gets white
-	\Pi[v]\gets NIL
-	
-	time\gets 0 \Comment{Misuratore del tempo, diamo un ordine agli eventi che succedono}
-	
-	\forall u\in V[G]
-	if color = white
-	DFS_Visit(G,u)
-	
-	DFS_Visit(G,u)
-	color[u]\gets gray
-	d[u]\gets time\gets time+1
-	\forall v\in Adj[u]
-	if color[v] = white
-	\Pi[v]\gets u
-	DFS_Visit(G,v) \Comment{Se scopri un arco uscente, continua ad andare avanti}
-	
-	color[u]\gets black
-	f[u]\gets time\gets time+1 \Comment{f è tempo di fine visita}
-\end{comment}
-
-\begin{comment}
-	12-03-26 - Algoritmi
-	
-	--- DepthFirstSearch
-	Gli algoritmi bfs e dfs funzionano sia su grafi orientati che non orientati, sebbene quest'ultimo si tenda a usare per le bfs.
-	
-	// Continua a vedere se hai nodi adiacenti. Quando non ne vedi più, torna indietro.
-	DFS(G) // G grafo
-	// Inizializzazione
-	\forall u\in v[G]
-	color[t]\gets white	// Nodo non ancora visto
-	\Pi[u]\gets NIL
-	
-	// Notare time come variabile globale
-	time\gets 0	// F,D registreranno tempi. Ad ogni operazione registriamo in time (misura il tempo, serve per dare ordine) quando è eseguita.
-	
-	\forall u\in v[G] // Per ogni nodo del grafo (Questo ciclo determina il numero di alberi della dfs)
-	if color[u] = white // Se non è raggiunto
-	DFS_VISIT(u) // Inizia una nuova visita in profondità.
-	
-	
-	DFS_VISIT(u)
-	color[u]\gets gray
-	d[u]\gets time\gets time+1 // Prima time++, il risultato è dato a d[u]. Questo è il tempo di inizio visita
-	
-	\forall v\in Adj[u]
-	if color[v] = white // Nodo adiacente non esplorato
-	\Pi[v]\gets u // Salva il nodo al quale siamo arrivati
-	DFS_VISIT(v) // Notare che visitiamo i vicini ricorsivamente
-	
-	color[u]\gets black // Segna nodo esplorato e operato
-	f[u]\gets time\gets time+1 // Segna il tempo dell'operazione
-	
-	Il ruolo della coda è preso dalla stack di attivazione, è quindi una coda Lifo, dalla quale si riprenderanno all'inverso i nodi ivi inseriti. Generalmente ad ogni ricorsione è implicitamente presente la stack che agisce come coda.
-	
-	* Immagine 1 presa da nico, è la prima foto. I numeri nei nodi sono in forma [visitTime/operationTime]. Le \Pi indicano i passi fatti per tornare indietro in assenza di nodi adiacenti non esplorati. Se fatto correttamente abbiamo una foresta di due alberi, uno radicato in s e l'altro in t.
-	
-	Il tempo di elaborazione del nodo finale corrisponde esattamente al doppio del numero di nodi totali del grafo.
-	Questo accade perché per ogni nodo misuriamo due eventi. Dunque se il valore che associamo al nodo è l'ordine temporale in cui l'evento è avvenuto, avremo per forza un totale di valori corrispondenti al doppio dei nodi totali, mostrato dall'ultimo nodo elaborato.
-	
-	Se fossimo partiti da t avremmo potuto ottenere un solo albero. Il numero di alberi creati tuttavia per ora ci ineressa poco.
-	
-	--- Proprietà della DFS
-	Cosa si può dedurre da una dfs?
-	
-	* Inserire immagine 2, da nico è quella con i numeri alla base e i rettangoli che fanno vedere intervalli dei nodi.
-	
-	Presi due intervalli temporali, questi sono totalmente disgiunti oppure sottointervalli di uno più grande. Gli intervalli qui sono le liste di adiacenza; per esempio la lista di adiacenza del nodo y è composta da x, suo sottointervallo.
-	Se nella foresta dfs un nodo è discendente di un altro, possiamo osservare che è anche completamente contenuto nell'intervallo padre.
-	
-	- Teorema
-	Per ogni coppia di nodi u,v gli intervalli sono disgiunti oppure uno sottointervallo dell'altro.
-	Dim: Prendi la coppia u,v, abbiamo, senza perdita di generalità che valga la prima relazione tra: d[u] < d[v] oppure d[v] < d[u]
-	Distinguiamo due casi:	
-	A. f[u] < d[v] // Intervalli disgiunti, d[u] ed f[u] sono uno, d[v] è un altro
-	B. d[v] < f[u] // Qui c'è un intersezione, ma siamo all'interno della chiamata di dfs_visit di u. Non torneremo mai al chiamante finché non sono stati esplorate tutte le adiacenze, ma allora ci troviamo in un sottointervallo i cui estremi sono d[u] e f[u]
-	Quindi ci troviamo sempre in uno dei due casi e come corollario se sei in un sottointervallo, stai discendendo.
-	
-	- Teorema 2 (Come fai a sapere se v è discendente di u?)
-	In una foresta dfs di un grafo G un nodo v discende da u se e solo se al tempo d[v] v è raggiungibile da u con un cammino di soli nodi bianchi.
-	Dim: Supponiamo che v discenda da u e sia w un nodo nel cammino da u a v nella foresta dfs. (Se è bianco hai dimosrato il teorema)
-	w discende da v, quindi l'intervallo di w è sottointervallo di v. Ciò significa che inizio a visitare w dopo aver iniziato a visitare u.
-	Ma se inizio dopo, w allora è ancora bianco, perché l'unico modo per inizializzare d[w] è invocare dfs_visit, ma ciò avviene esclusivamente se questo è bianco e non avendo ancora inizializzato d[u], il nodo w è bianco. Dunque al tempo d[u] esiste un cammino di nodi bianchi che comprende w.
-	
-	Supponiamo ora che al tempo d[u] esiste un cammino da u a v fatto di soli nodi bianchi. Supponiamo per assurdo che v non discenda da u.
-	Prendiamo quindi il predecessore di v, w. Assumiamo senza perdita di generalità che w discende da u. Abbiamo dunque d[u] < d[w] < f[w] < f[u]
-	Al tempo d[w] sto visitando i nodi della sua lista di adiacenza, ma in questa sua lista è presente pure v, il quale diventa necessariamente discendente di u.
-	
-	---
-	Adesso diciamo che ogni arco che collega un intervallo con un suo discendente è arco dell'albero e lo chiamiamo T. Il verso inverso è detto Backward B. Quelli che collegano invece un intervallo con un discendente non diretto sono detti Forward F. È possibile avere anche archi che collegano due intervalli disgiunti, chiamati Crossing C.
-	Durante la visita è possbile riconoscere i backwards. Se questi sono grigi durante una visita, lo sono. Se sono neri, sono di crossing o forward
-	
-	- Teorema
-	Un grafo è aciclico sse la dfs non trova archi backwards, un grafo è ciclico sse la bfs trova archi backwards.
-	Dim: Supponiamo che dfs trova un arco u,v backward. v sarà di colore grigio e u è discendente di v nella foresta dfs. Esiste quindi un cammino da v a u. Dunque G è ciclico.
-	Supponiamo ora che G sia ciclico e prendiamo un ciclo qualsiasi. Sia u il primo nodo del ciclo visitato da bfs. Sia v il predecessore di u nel ciclo. Al tempo d[v] tutti i nodi del ciclo tranne u sono bianchi, quindi al tempo d[v] il nodo v è raggiungibile da u con un cammino di soli nodi bianchi.
-	Se così è, per il teorema precedente, v discende da u nella foresta dfs e sarà visitato quando u è ancora grigio. Ma durante la visita di v si analizzerà l'arco v,u, il quale sarà classificato come backward.
-	
-	- Complessità di verifica ciclicità di grafi
-	Non peggio della complessità di una dfs, sicuramente. È il suo limite superiore. 
-	- Inizializzazione: v
-	- ciclo per controllare se colore è bianco: v
-	- dfs_visit: Invocata al più una volta, solo per i nodi bianchi.
-	- Le assegnazioni sono costanti, mentre il for ha complessità che dipende dalla lista di adiacenza. Sarebbe E volte.
-	
-	Formula esatta: V+V + \sum_{j\in V(G)} 1 + |Adj[u]| = V + \sum_0^V 1 + \sum_0 |Adj[u]| = V+E \in O(V^2)
-	
-	Compl. totale: \Theta(V+E). Se il grafo è completo, è quadratica. Se è sparso, è lineare.
-\end{comment}
+\section{Tabelle hash}

@@ -5,7 +5,7 @@
 \contentsline {section}{\numberline {1.2}Equazioni di ricorrenza}{8}{}%
 \contentsline {section}{\numberline {1.3}Teorema dell'esperto}{11}{}%
 \contentsline {section}{\numberline {1.4}Esercizi svolti}{13}{}%
-\contentsline {chapter}{\numberline {2}Ordinamenti e selezioni}{14}{}%
+\contentsline {chapter}{\numberline {2}Ordinamento e selezione}{14}{}%
 \contentsline {section}{\numberline {2.1}Problema dell'ordinamento}{14}{}%
 \contentsline {section}{\numberline {2.2}Insertion Sort}{14}{}%
 \contentsline {section}{\numberline {2.3}Merge Sort}{15}{}%
@@ -17,27 +17,28 @@
 \contentsline {section}{\numberline {2.9}Problema della selezione}{28}{}%
 \contentsline {chapter}{\numberline {3}Strutture dati}{31}{}%
 \contentsline {section}{\numberline {3.1}Pile}{31}{}%
-\contentsline {section}{\numberline {3.2}Alberi binari}{31}{}%
-\contentsline {subsection}{\numberline {3.2.1}RB-alberi}{31}{}%
-\contentsline {subsection}{\numberline {3.2.2}B-alberi binomiali}{31}{}%
-\contentsline {section}{\numberline {3.3}Tabelle hash}{31}{}%
-\contentsline {section}{\numberline {3.4}Code con priorità}{31}{}%
-\contentsline {section}{\numberline {3.5}Insiemi disgiunti}{31}{}%
-\contentsline {section}{\numberline {3.6}Estensione di strutture dati}{31}{}%
-\contentsline {section}{\numberline {3.7}Grafi}{31}{}%
-\contentsline {section}{\numberline {3.8}Esplorazione dei grafi}{35}{}%
-\contentsline {chapter}{\numberline {4}Progetto e analisi di algoritmi}{39}{}%
-\contentsline {section}{\numberline {4.1}Divide et impera}{39}{}%
-\contentsline {section}{\numberline {4.2}Programmazione greedy}{39}{}%
-\contentsline {section}{\numberline {4.3}Programmazione dinamica}{39}{}%
-\contentsline {section}{\numberline {4.4}Ricerca locale}{39}{}%
-\contentsline {section}{\numberline {4.5}Backtracking}{39}{}%
-\contentsline {section}{\numberline {4.6}Branch and bound}{39}{}%
-\contentsline {chapter}{\numberline {5}Algoritmi fondamentali}{40}{}%
-\contentsline {section}{\numberline {5.1}Alberi di copertura di costo minimo}{40}{}%
-\contentsline {section}{\numberline {5.2}Programmazione lineare}{40}{}%
-\contentsline {section}{\numberline {5.3}Cammini minimi}{40}{}%
-\contentsline {subsection}{\numberline {5.3.1}Sorgente singola}{40}{}%
-\contentsline {subsection}{\numberline {5.3.2}Sorgente multipla}{40}{}%
-\contentsline {section}{\numberline {5.4}Flusso massimo}{40}{}%
-\contentsline {section}{\numberline {5.5}Matching massimale su grafo bipartito}{40}{}%
+\contentsline {section}{\numberline {3.2}Code con priorità}{32}{}%
+\contentsline {section}{\numberline {3.3}Liste concatenate}{33}{}%
+\contentsline {section}{\numberline {3.4}Alberi binari}{33}{}%
+\contentsline {subsection}{\numberline {3.4.1}Alberi di ricerca}{33}{}%
+\contentsline {subsection}{\numberline {3.4.2}RB-alberi}{33}{}%
+\contentsline {subsection}{\numberline {3.4.3}B-alberi binomiali}{33}{}%
+\contentsline {section}{\numberline {3.5}Estensione di strutture dati}{33}{}%
+\contentsline {section}{\numberline {3.6}Heap binomiali}{33}{}%
+\contentsline {section}{\numberline {3.7}Insiemi disgiunti}{33}{}%
+\contentsline {section}{\numberline {3.8}Tabelle hash}{33}{}%
+\contentsline {chapter}{\numberline {4}Algoritmi per grafi}{34}{}%
+\contentsline {section}{\numberline {4.1}Grafi}{34}{}%
+\contentsline {section}{\numberline {4.2}Visita in ampiezza}{38}{}%
+\contentsline {section}{\numberline {4.3}Visita in profondità}{41}{}%
+\contentsline {section}{\numberline {4.4}Ordinamento topologico}{41}{}%
+\contentsline {section}{\numberline {4.5}Alberi di copertura di costo minimo}{41}{}%
+\contentsline {section}{\numberline {4.6}Cammini minimi}{41}{}%
+\contentsline {subsection}{\numberline {4.6.1}Sorgente singola}{41}{}%
+\contentsline {subsection}{\numberline {4.6.2}Sorgente multipla}{41}{}%
+\contentsline {section}{\numberline {4.7}Flusso massimo}{41}{}%
+\contentsline {section}{\numberline {4.8}Matching massimale su grafo bipartito}{41}{}%
+\contentsline {chapter}{\numberline {5}Progettazione e analisi di algoritmi}{42}{}%
+\contentsline {section}{\numberline {5.1}Programmazione dinamica}{42}{}%
+\contentsline {section}{\numberline {5.2}Programmazione greedy}{42}{}%
+\contentsline {section}{\numberline {5.3}Programmazione lineare}{42}{}%

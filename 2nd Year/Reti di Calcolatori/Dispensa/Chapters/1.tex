@@ -135,7 +135,11 @@ Il modello identifica due entità: gli \textbf{end-system}, i calcolatori, e gli
 
 \noindent Questo processo che attraversa ogni strato è detto \textbf{incapsulamento}. Ora che conosciamo il senso degli strati, procediamo a definire le entità coinvolte nella comunicazione: a livello applicativo, questa avviene tra processi in esecuzione sugli end-host. Affinché due processi possano comunicare, è necessario identificarli univocamente.\par
 Un processo è identificato tramite un \textbf{numero di porta}, definito a livello di trasporto, mentre l'host sul quale è in esecuzione si identifica con un \textbf{indirizzo IP}. L'insieme di indirizzo IP e numero di porta costituisce un \textbf{endpoint di comunicazione}. Formalmente, una comunicazione tra due processi è identificata dalla seguente tupla: \[(\text{IP}_A, \text{IP}_B, \text{porta}_A, \text{porta}_B)\]
-\noindent Gli \textbf{indirizzi IP}, o indirizzi di protocollo internet, sono invece identificativi univoci di un'interfaccia di rete di un host o router all'interno della rete Internet. Sebbene si tenda ad associare questo codice di quattro numeri ad una sola macchina, è possibile, tramite alcune strategie, usarne uno diverso.\par
+
+%
+
+\section{Indirizzi IP e subnetting}
+\noindent Gli \textbf{indirizzi IP}, o indirizzi di protocollo internet, sono identificativi univoci di un'interfaccia di rete di un host o router all'interno della rete Internet. Sebbene si tenda ad associare questo codice di quattro numeri ad una sola macchina, è possibile, tramite alcune strategie, usarne uno diverso.\par
 Naturalmente, i siti web non sono letti con sequenze di numeri dalle persone, ragion per cui presentano un grado di astrazione dato dal \textbf{nome di dominio}, come per esempio "www.google.com", al quale è associato l'indirizzo IP. La traduzione fra i due avviene a livello di applicazione tramite il \textbf{sistema DNS} (Domain Name System), il cui prodotto sarà usato a livello rete per aggiungere un'intestazione contenente l'indirizzo di sorgente e quello di destinazione. In base alla versione del protocollo abbiamo diversi bit totali per contenerli: $32b$ per \textbf{IPv4} e $128b$ per \textbf{IPv6}.\newline
 
 Gli indirizzi IP sono letti come sequenze di numeri in base binaria. Per esempio, con protocollo IPv4, il sistema potrebbe leggere: \[1001\text{ } 1101\text{ } 0001\text{ } 1011\text{ } 0001\text{ } 0011\text{ } 0111\text{ } 1011\]
@@ -149,4 +153,28 @@ Gli indirizzi IP sono letti come sequenze di numeri in base binaria. Per esempio
 \end{equation}
 \noindent Dunque il nostro indirizzo IP si annoterà con $157.27.19.123$. Da questi valori è possibile inoltre ricavare alcune utili informazioni. Non dissimilmente dai numeri telefonici per le reti fisse, ogni numero ha un significato. Prendendo come esempio $+39$ $045$ $802$ $7059$, sappiamo che $+39$ indica l'area geografica internazionale, $045$ la provincia di Verona, $802$ l'organizzazione specifica alla quale è associato il numero, e $7059$ il suffisso, che indica il numero di interfaccia in uso.\par
 La stessa logica vale per gli indirizzi IP: in questo esempio i primi tre blocchi sono l'identificativo di una rete specifica e il loro insieme è noto come \textbf{prefisso}, mentre l'ultimo blocco è detto \textbf{suffisso} e indica l'interfaccia dell'host. Ciò significa che possiamo ricondurci ad un dispositivo preciso in base al suo IP.\par
-Nella notazione puntata, è possibile che un'organizzazione abbia un elevato numero di dispositivi, rendendo fuorviante la comprensione del suffisso. Per eludere questo problema, si indica il numero di bit che compongono il prefisso con una barra: $157.27.19.123/16$
+Nella notazione puntata, è possibile che un'organizzazione abbia un elevato numero di dispositivi, rendendo fuorviante la comprensione del suffisso. Per eludere questo problema, si indica il numero di bit che compongono il prefisso con una barra: $157.27.19.123/16$. In particolare, esistono dei valori particolari riservati ad utilizzi specifici e non per l'identificazione dell'host: \begin{itemize}
+	\item \textbf{This Host}: Un indirizzo in cui ogni bit è posto a zero, ovvero 0.0.0.0. Può essere anche usato per gli indirizzi non assegnati.
+	\item \textbf{Local Broadcast}: Un indirizzo in cui ogni bit è posto a uno. Per il protocollo IPv4 vale 255.255.255.255.
+	\item \textbf{Indirizzo di rete}: Un indirizzo il cui suffisso ha tutti i bit posti a zero, mentre la rete è indicata dal prefisso, come 127.27.0.0.
+	\item \textbf{Directed Broadcast}: Un indirizzo in cui il suffisso ha tutti i bit posti a uno, mentre la rete è indicata dal prefisso, come 127.27.255.255.
+\end{itemize}
+\noindent Per identificare gli host disponibili in una determinata rete, i calcolatori utilizzano la \textbf{netmask}; una sequenza di $32b$ associata ad un indirizzo IP in cui i bit del prefisso sono posti a uno, mentre gli altri a zero. Possiamo annotarla, come già visto, in notazione decimale puntata o esadecimale. Sulla maschera, i calcolatori effettuano un'operazione di AND bit a bit con l'indirizzo IP, ottenendo l'indirizzo di rete.\par
+È possibile verificare i valori di indirizzo IP e netmask con un comando a linea da terminale; per i sistemi UNIX è chiamato \textbf{ifconfig}\footnote{Il comando è stato deprecato di recente. Consigliabile usare \textbf{ip addr}.}, ma se si vuole andare più a fondo, usando il comando \textbf{whois} seguito da un indirizzo IP, è possibile ottenere informazioni sull'assegnazione degli indirizzi, il nome della rete e anche l'ISP al quale è allacciata.\par
+Tra l'altro, questi due comandi possono presentare valori il cui prefisso ha un numero di bit diverso; ciò può accadere a causa della scelta architetturale di \textbf{subnetting}: la suddivisione di una rete principale in varie sottoreti, le quali avranno indirizzi ad esse collegate. Supponiamo infatti di voler dividere una rete principale di indirizzo $157.27.0.0/16$ in due sottoreti di dimensione equivalente. Si ritiene necessario avere un modo per distinguere a quale delle due siamo connessi. A partire dall'indirizzo IP, attacchiamo un bit del suffisso al prefisso per usarlo come discriminante. Ciò ci fa ottenere:
+\begin{itemize}
+	\item subNet1: prefisso(1011 1101 0001 1011 0), suffisso(000 0000 0000), notazione decimale: 157.27.0.0/17 
+	\item subNet2: prefisso(1101 1101 0001 1011 1), suffisso(000 0000 0000), notazione decimale: 157.27.128.0/17
+\end{itemize}
+\noindent Questa scelta riduce il numero di host disponibili per ciascuna sottorete, ma consente una gestione più efficiente della rete. Inoltre, questa struttura è impercettibile dall'esterno, in quanto i router di bordo delle sottoreti si connettono a quello della rete intera.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/subnetting.png}
+	\caption{Subnetting}
+\end{figure}
+
+\noindent I blocchi di indirizzi sono detti \textbf{CIDR}: Classless Inter-Domain Router, sui quali è necessario aprire una parentesi storica. In precedenza, infatti, si chiamavano Classful ed essendo al tempo un servizio non ancora utilizzato su larga scala, ci si poteva permettere di "sprecare" disponibilità. Il numero di bit dedicati al prefisso era infatti predeterminato e codificato nello stesso; veniva usato per distinguere le diverse classi. In particolare: \begin{itemize}
+	\item \textbf{Classe A}: L'indirizzo ha 0 come prima cifra e il prefisso ha $8b$ di dimensione. Numero di reti: $2^7$. Numero di host per rete massimi: $2^{24}$.
+	\item \textbf{Classe B}: L'indirizzo ha 10 come prime due cifre e il prefisso ha $16b$ di dimensione. Numero di reti: $2^{14}$. Numero di host per rete massimi: $2^{16}$.
+	\item \textbf{Classe C}: L'indirizzo ha 110 come prime tre cifre ed il prefisso ha $24b$ di dimensione. Numero di reti: $2^{21}$. Numero di host per rete massimi: $2^8$.
+\end{itemize}

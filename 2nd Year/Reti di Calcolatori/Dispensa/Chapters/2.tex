@@ -1,3 +1,20 @@
+\begin{comment}	
+	--- Il livello applicativo
+	Al livello applicativo sono generati i messaggi da scambiare tra i calcolatori, come per esempio richieste e risposte HTTP (protocollo associato ai browser web), e-mail o porzioni
+	di video. I messaggi sono segmentati e ad ognuno di questi segmenti è associata un'intestazione contenente numero di sequenza (TODO verificare questa informazione).
+	Le sezioni devono poi selezionare il servizio del livello di trasporto, tra: \begin{itemize}
+		\item \textbf{Protocollo TCP}: Servizio orientato alla connessione il quale garantisce la consegna dell'informazione.
+		\item \textbf{Protocollo YDP}: Servizio non orientato alla connessione il quale non garantisce la consegna dell'informazione.
+	\end{itemize}
+	\noindent Applicazioni diverse hanno necessità di servizi diversi. Per esempio, un client di posta elettronica richiede che ogni informazione sia consegnata al destinatario; di
+	conseguenza userà un protocollo che garantisce l'invio della totalità dei dati, chiamato \textbf{SMTP}, il quale utilizza il TCP.\par
+	Invece, un sito web come Twitch fornisce un contenuto "Tollerante alle perdite", quindi se non ogni dato è consegnato non necessariamente l'esperienza sarà danneggiata. Per esempio
+	durante una livestream è richiesto di mantenere una connessione in tempo reale, non lasciando spazio a recuperare eventuali pacchetti perduti. Capita infatti di osservare del lag
+	oppure dei ricaricamenti.
+\end{comment}
+
+
+
 \section{Il modello client/server}
 
 %

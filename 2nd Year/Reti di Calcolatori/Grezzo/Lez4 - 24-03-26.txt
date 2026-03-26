@@ -1,0 +1,89 @@
+Lez4 24-03-26 - Reti di calcolatori
+
+Quanti indirizzi per gli host contiene una rete che ha un determinato prefisso? Per esempio /12?
+	- IP identificato da 32b con IPv4, il cui prefisso sono i primi 12b, come indicato dalla barra. I restanti sono il suffisso.
+	- Con 20b possiamo identificare 2^20 indirizzi
+	
+Analogamente, un /24 vedrà 32b - 24b = 8b, quindi 2^8 indirizzi totali.
+
+Esistono alcuni indirizzi che sono riservati per utilizzi specifici e quindi non usati per l'identificazione dell'host:
+	1. This host: un indirizzo in cui ogni cifra è 0, ovvero 0.0.0.0
+	2. Local broadcast (o limited broadcast): Il duale del precedente. Tutti i bit sono posti a 1. Quindi 255.255.255.255
+	3. Indirizzo di rete: La parte di suffisso ha i bit tutti a 0. Il prefisso può essere qualunque altra cosa.
+	4. Directed broadcast: Duale del precedente, ha i bit tutti a 1. Il prefisso può essere qualunque cosa.
+	
+Come conosco il mio indirizzo ip e la dimensione del mio prefisso di rete a cui sto collegato?
+Se ti connetti a reti diverse ti cambia l'IP address. Dunque dipende dalla rete alla quale ti colleghi.
+Spesso per conoscere l'ip il comando da terminale è ifconfig. Per identificare i bit del prefisso, i calcolatori usano una sequenza di 32b in cui i bit associati al prefisso sono
+posti ad 1, mentre gli altri sono a 0. Per esempio /8 -> 1111 1111 0000 0000 0000 0000 0000 0000
+Chiamiamo questa sequenza di bit "netmask" ed è abbinata all'indirizzo ip.
+
+Fondamentalmente i calcolatori effettuando un bitwise AND. (IP & netMask), ottenendo l'indirizzo di rete (opzione 3 della lista puntata di prima) e quindi il valore del prefisso.
+
+Anche per la maschera tendenzialmente si traduce in notazione decimale puntata oppure in notazione esadecimale.
+Per l'esadecimale, con gruppi di 4b abbiamo 2^4=16 configurazioni. A ciascuna di esse è assegnato un simbolo, da 0 a 9 e poi dalle lettere da a a f.
+
+Per esempio, con la maschera 0xffffe000:
+	- Sappiamo che è in HEX perché inizia con 0x
+	- ffff e000 sono 8 simboli. 8x4 = 32b
+	- Traduzione in binario: f=11111111 f=11111111 e=11111110 e poi gli zeri: 00000000 00000000 00000000
+		Con questa netmask capiamo che siamo connessi a una rete il cui prefisso è dato da 19b, quindi /19.
+
+--- Esercizi di traduzione indirizzi IP da binario a decimale
+- Da binario a decimale
+	1. 1110 0111 1101 1011 1000 1011 0110 1111
+		231.219.139.111
+		
+- Da decimale a binario: 231
+	231 - 128 = 103		1
+	103 - 64 = 39		1
+	39 - 32 = 7			1
+	NO 16				0
+	No 8				0
+	7 - 4 = 3			1
+	3 - 2 = 1			1
+	1 - 1 = 0			1
+	
+Dato un IP address si possono ottenere altre informazioni con il comando "whois <IP_ADDR>". Fun fact: Più piccolo è il prefisso, più grande sarà la rete.
+Per esempio, con /16, dal numero di bit abbiamo 2^{32-16} = 16 indirizzi possibili.
+
+Ifconfig e whois possono riportare valori il cui prefisso non è uguale. Why?
+Beh, mask e ip address si collegano tramite subnetting, una suddivisione di una rete in sottoreti, i quali avranno indirizzi ad essi collegati.
+
+Come ottenere delle sottoreti partendo da un blocco di indirizzi assegnato? Prendiamo per esempio 157.27.0.0/16
+	- Traduciamo l'indirizzo in binario: 1001 1101 0001 1011 0000 0000 0000 0000
+	- Partendo da questo blocco vogliamo fare due sottoreti di pari dimensione.
+		- Idea: Scorporare il primo bit di suffisso per agganciarlo al prefisso, sicché si distinguano le due subnets. Dunque:
+			Sub1. Pref(1011 1101 0001 1011 0), suff(000 0000 0000) = 157.27.0.0/17 
+			Sub2. pref(1011 1101 0001 1011 1), suff(000 0000 0000) = 157.27.128.0/17
+			
+			Si può vedere come il prefisso ha un numero in più e il suffisso uno in meno. Dall'esterno questa coaa è impercettibile, perché risulta sempre la stessa identica rete.
+			
+I blocchi di indirizzi sono detti CIDR: Classless Inter Domain Router.
+Storicamente è classfull e il numero di bit dedicati al prefisso era predeterminato e codificato nel prefisso stessi. Quindi i primi bit del prefisso servivano per distinguere
+I diversi casi. Ad oggi non ci sono più classfull.
+	In particolare, se  l'indirizzo iniziava con 0, il prefisso era di 8b. Questi appartenevano alla classe A.
+	Altrimenti il primo bit era a 1 si guardava il secondo.
+		Se il secondo è a 0, il prefisso era di 16b. Qeusti appartenevano alla classe B.
+		Altrimenti se il secondo è a 1, si guardava il terzo.
+			Se il terzo è a 0, il prefisso era di 24b. Questi appartenevano alla classe C.
+			
+C'erano anche altri casi, ma per ogni classe possiamo dire qual era la dimensione del blocco (il totale degli indirizzi) e quante di queste reti io potevo creare.
+	A: Reti max: 2^7, dim blocco: 2^24
+	B: Reti max: 2^14, dim blocco: 2^16
+	C: Reti max: 2^21, dim blocco: 2^8
+	
+--- Il livello applicativo
+Il livello al quale sono generati i messaggi da scambiare, come richieste e risposte http (protocollo associato al browser web), e-mail, porzione di video.
+I messaggi sono segmentati, ad ogni segmento è aggiunta un'intestazione. I segmenti devono scegliere quale servizio del livello di trasporto utilizzare.
+Ad ogni servizio corrisponde un protocollo diverso. I livelli possono avere quindi più protocolli.
+
+In quello di trasporto abbiamo:
+	- Servizio connection-oriented affidabile: TCP (Messaggio consegnato e la sorgente riceve un riscontro dell'avvenuta consegna)
+	- Servizio connectionless non affidabile: UDP (Messaggio consegnato senza garantire status della consegna)
+	
+Esempi di applicazioni con relativi protocolli di trasporto scelti>
+	- Web usa HTTP, che richiede il TCP.
+	- Posta elettronica, che usa SMTP, che richiede anch'esso il TCP.
+	- Streaming audio o video, che usano il proprio di solito, richiedonpo in ogni caso l'UDP. Si dicono quindi tolleranti alle perdinte.
+		Banalmente in una live su twitch non c'è il tempo materiale di riprendere i pacchetti persi. E' una cosa contemplata. Le perdite sono comunque minime.

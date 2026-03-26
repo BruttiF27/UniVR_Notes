@@ -71,12 +71,17 @@ Anzitutto, i \textbf{file sorgenti} vengono compilati in \textbf{file oggetto ri
 	\item \textbf{Windows}: Portable Executable (PE)
 	\item \textbf{MacOS}: Mach-O
 \end{itemize}
-
-% TODO Riprendi da pag.85, sezione 2.6
+\noindent Bisogna ricordare che le applicazioni compilate su un sistema operativo non sono generalmente compatibili con altri. Infatti, ogni sistema fornisce un insieme univoco di chiamate a sistema e una specifica \textbf{interfaccia binaria} (ABI), il quale è diversa in altri ambienti. Nonostante ciò, esistono tre modi per rendere disponibili le applicazioni su più sistemi: \begin{itemize}
+	\item \textbf{Uso di un linguaggio interpretato}: I linguaggi come Python o Ruby funzionano grazie ad un interprete; questo legge le righe del codice ed esegue istruzioni equivalenti all'insieme di istruzioni nativo, invocando le chiamate del sistema operativo di riferimento. Dato questo passaggio di traduzione, le prestazioni risultano inferiori rispetto ad applicazioni compilate.
+	\item \textbf{Uso di un linguaggio che si serve di macchina virtuale}: Linguaggi come Java utilizzano una macchina virtuale per fornire un ambiente di esecuzione applicazioni indipendentemente dal sistema operativo.
+	\item \textbf{Uso di un linguaggio o API standard}: Scrivendo applicazioni che utilizzano interfacce standard come POSIX, è possibile ricompilarle su sistemi diversi con modifiche minime. Sebbene ciò garantisca prestazioni ottimali, il porting può richiedere molto tempo poiché è necessaria una ricompilazione e un adattamento al sistema di destinazione per ogni nuova versione del software.
+\end{itemize}
 
 %
 
 \section{Struttura del sistema operativo}
+
+% TODO Riprendi da pag.89, realizzazione
 
 %
 

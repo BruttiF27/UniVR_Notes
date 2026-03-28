@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  26 MAR 2026 16:17
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  28 MAR 2026 11:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -233,21 +233,48 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
 \CommentStream=\write3
 
 Excluding comment 'comment')
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen166
+\captionmargin=\dimen167
+\caption@leftmargin=\dimen168
+\caption@rightmargin=\dimen169
+\caption@width=\dimen170
+\caption@indent=\dimen171
+\caption@parindent=\dimen172
+\caption@hangindent=\dimen173
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count286
+\c@continuedfloat=\count287
+Package caption Info: listings package is loaded.
+)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count288
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count289
+)
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2024/01/07 v24.1 The Babel package
-\babel@savecnt=\count286
-\U@D=\dimen166
+\babel@savecnt=\count290
+\U@D=\dimen174
 \l@unhyphenated=\language89
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
-\bbl@dirlevel=\count287
+\bbl@dirlevel=\count291
 
 (/usr/share/texlive/texmf-dist/tex/generic/babel-italian/italian.ldf
 Language: italian 2024/01/03 v.1.5.00 Italian support for the babel system
-\it@lettering=\count288
-\it@doublequoteactive=\count289
-\it@ISOcompliance=\count290
+\it@lettering=\count292
+\it@doublequoteactive=\count293
+\it@ISOcompliance=\count294
 ))
 (/usr/share/texlive/texmf-dist/tex/generic/babel/locale/it/babel-italian.tex
 Package babel Info: Importing font and identification data for italian
@@ -255,17 +282,17 @@ Package babel Info: Importing font and identification data for italian
 )
 (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count291
+\etb@tempcnta=\count295
 ))
 
 LaTeX Warning: \include should only be used after \begin{document} on input lin
 e 4.
 
 (./Configs/boxes.tex
-\c@theorem=\count292
-\c@definition=\count293
+\c@theorem=\count296
+\c@definition=\count297
 )
-\c@eg=\count294
+\c@eg=\count298
 
 
 LaTeX Warning: \include should only be used after \begin{document} on input lin
@@ -274,7 +301,7 @@ e 5.
 (./Configs/formats.tex)
 (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count295
+\l__color_backend_stack_int=\count299
 \l__pdf_internal_box=\box56
 )
 (./main.aux)
@@ -296,16 +323,16 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count296
-\scratchdimen=\dimen167
+\scratchcounter=\count300
+\scratchdimen=\dimen175
 \scratchbox=\box57
-\nofMPsegments=\count297
-\nofMParguments=\count298
+\nofMPsegments=\count301
+\nofMParguments=\count302
 \everyMPshowfont=\toks30
-\MPscratchCnt=\count299
-\MPscratchDim=\dimen168
-\MPnumerator=\count300
-\makeMPintoPDFobject=\count301
+\MPscratchCnt=\count303
+\MPscratchDim=\dimen176
+\MPnumerator=\count304
+\makeMPintoPDFobject=\count305
 \everyMPtoPDFconversion=\toks31
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -316,7 +343,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count302
+\c@lstlisting=\count306
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 LaTeX Info: Redefining \it@ocap on input line 9.
 LaTeX Info: Redefining \it@ccap on input line 9.
 
@@ -385,55 +414,88 @@ Underfull \hbox (badness 10000) in paragraph at lines 88--89
 
  []
 
-) [9] [10]
+) [9]
 Capitolo 2.
-(./Chapters/2.tex [11
+(./Chapters/2.tex [10
 
 ]
-<Images/OS_services.png, id=55, 583.17876pt x 392.46625pt>
+<Images/OS_services.png, id=52, 583.17876pt x 392.46625pt>
 File: Images/OS_services.png Graphic file (type png)
 <use Images/OS_services.png>
 Package pdftex.def Info: Images/OS_services.png  used on input line 17.
 (pdftex.def)             Requested size: 450.0pt x 302.8467pt.
- [12 <./Images/OS_services.png>] [13]
+ [11 <./Images/OS_services.png>] [12]
 Overfull \hbox (0.30476pt too wide) in paragraph at lines 44--45
 \OT1/cmr/m/n/12 co-me no-me, ti-po o co-di-ci di pro-te-zio-ne $(\OML/cmm/m/it/
 12 get[]file[]attributes\OT1/cmr/m/n/12 ()\OML/cmm/m/it/12 ; set[]file[]attribu
 tes\OT1/cmr/m/n/12 ())$.
  []
 
-[14] [15]
+[13] [14]
 Underfull \hbox (badness 10000) in paragraph at lines 67--68
 
  []
 
-[16]) [17]
+[15]
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+
+ []
+
+<Images/Structure_UNIX.png, id=72, 477.785pt x 302.12875pt>
+File: Images/Structure_UNIX.png Graphic file (type png)
+<use Images/Structure_UNIX.png>
+Package pdftex.def Info: Images/Structure_UNIX.png  used on input line 90.
+(pdftex.def)             Requested size: 247.50137pt x 156.50853pt.
+<Images/Structure_Linux.png, id=73, 422.57875pt x 462.72874pt>
+File: Images/Structure_Linux.png Graphic file (type png)
+<use Images/Structure_Linux.png>
+Package pdftex.def Info: Images/Structure_Linux.png  used on input line 92.
+(pdftex.def)             Requested size: 179.99725pt x 197.10547pt.
+[16]
+<Images/Structure_leveled.png, id=77, 342.27875pt x 342.27875pt>
+File: Images/Structure_leveled.png Graphic file (type png)
+<use Images/Structure_leveled.png>
+Package pdftex.def Info: Images/Structure_leveled.png  used on input line 99.
+(pdftex.def)             Requested size: 202.49863pt x 202.50153pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[17 <./Images/Structure_UNIX.png> <./Images/Structure_Linux.png>]
+<Images/Structure_microkernel.png, id=84, 517.935pt x 302.12875pt>
+File: Images/Structure_microkernel.png Graphic file (type png)
+<use Images/Structure_microkernel.png>
+Package pdftex.def Info: Images/Structure_microkernel.png  used on input line 1
+07.
+(pdftex.def)             Requested size: 270.00275pt x 157.50893pt.
+ [18 <./Images/Structure_leveled.png> <./Images/Structure_microkernel.png>]) [1
+9]
 Capitolo 3.
-(./Chapters/3.tex) [18
+(./Chapters/3.tex) [20
 
 ]
 Capitolo 4.
-(./Chapters/4.tex) [19
+(./Chapters/4.tex) [21
 
 ]
 Capitolo 5.
-(./Chapters/5.tex) [20
+(./Chapters/5.tex) [22
 
 ]
 Capitolo 6.
-(./Chapters/6.tex) [21
+(./Chapters/6.tex) [23
 
 ]
 Capitolo 7.
-(./Chapters/7.tex) [22
+(./Chapters/7.tex) [24
 
 ]
 Capitolo 8.
-(./Chapters/8.tex) [23
+(./Chapters/8.tex) [25
 
 ]
 Capitolo 9.
-(./Chapters/9.tex) [24
+(./Chapters/9.tex) [26
 
 ] (./main.aux)
  ***********
@@ -442,27 +504,28 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6851 strings out of 474222
- 105383 string characters out of 5748733
+ 8330 strings out of 474222
+ 134287 string characters out of 5748733
  1934975 words of memory out of 5000000
- 28991 multiletter control sequences out of 15000+600000
+ 30461 multiletter control sequences out of 15000+600000
  567274 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 64i,7n,70p,894b,272s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 74i,9n,82p,1050b,500s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1
-200.pfb>
-Output written on main.pdf (25 pages, 202811 bytes).
+onts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmtt12.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb
+>
+Output written on main.pdf (27 pages, 292770 bytes).
 PDF statistics:
- 145 PDF objects out of 1000 (max. 8388607)
- 89 compressed objects within 1 object stream
+ 164 PDF objects out of 1000 (max. 8388607)
+ 96 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

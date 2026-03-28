@@ -82,3 +82,40 @@ Anzitutto, i \textbf{file sorgenti} vengono compilati in \textbf{file oggetto ri
 	\item \textbf{Windows}: Portable Executable (PE)
 	\item \textbf{MacOS}: Mach-O
 \end{itemize}
+
+---
+
+Le applicazioni compilate su un sistema operativo non sono compatibili con altri. Ogni sistema fornisce un insieme di chiamate a sistema, il quale può variare in altri ambienti. Nonostante ciò, esistono tre modi per rendere disponibili le applicazioni su più sistemi: \begin{itemize}
+	\item \textbf{Uso di un linguaggio interpretato}: I linguaggi come Python o Ruby funzionano grazie ad un interprete; questo legge le righe del codice ed esegue istruzioni equivalenti all'insieme di istruzioni nativo, invocando le chiamate del sistema operativo. Inevitabilmente, le prestazioni risultano inferiori rispetto ad applicazioni compilate.
+	\item \textbf{Uso di un linguaggio che si serve di macchina virtuale}: Linguaggi come Java utilizzano una macchina virtuale (JVM) per fornire un ambiente runtime per il funzionamento delle applicazioni (JRE), utilizzabile su ogni sistema operativo.
+	\item \textbf{Uso di un linguaggio o API standard}: Il compilatore di questi linguaggi genera binari nel linguaggio specifico del sistema e della macchina. Sebbene garantisca prestazioni ottimali, il porting può richiedere molto tempo e deve essere fatto per ogni nuova versione del software.
+\end{itemize}
+
+---
+
+La realizzazione di un sistema operativo vede storicamente protagonista il linguaggio Assembly, ma ad oggi vengono normalmente usati linguaggi più ad alto livello, come C e C++. Ciò comporta dei vantaggi diretti, come l'avere un codice più compatto, leggibile e più facilmente adattabile ad altre architetture. Gli svantaggi di questo approccio riguardano una minore velocità di esecuzione e un maggiore utilizzo di spazio di memoria; problemi ignorabili grazie alla prestanza delle componenti architetturali odierne e l'utilizzo di strutture dati e algoritmi migliori.\par
+Appurato il corretto funzionamento del sistema, è possibile individuare i colli di bottiglia che impattano le prestazioni e migliorarli. Normalmente, le procedure critiche in questi termini sono il gestore degli interrupt, dell'I/O, della memoria e lo scheduler della CPU.
+
+- Struttura degli OS
+Affinché un sistema operativo possa funzionare ed essere facilmente modificato, è possibile suddividerlo in sottocomponenti, dette moduli, le quali costituiscono parti ben definite del sistema.
+
+- Struttura monolitica
+La struttura più semplice dei sistemi operativi: scrivere tutte le funzionalità del kernel su un singolo file binario, eseguito in un unico spazio di indirizzamento. Esempi di questa architettura sono UNIX originale, consistente di due parti separate: kernel e programmi di sistema, oppure Linux, basato su di esso, che presenta un kernel monolitico dalla struttura modulare che consente di modificarlo durante l'esecuzione.
+	I vantaggi di questo approccio risiedono nella velocità di comunicazione all'interno del kernel e nell'overhead ridotto dell'interfaccia alle chiamate di sistema. *Immagine OS UNIX e Linux
+	
+- Struttura stratificata
+È possibile progettare un sistema debolmente accoppiato, ovvero suddiviso in componenti separati il cui insieme compone il kernel. Il vantaggio principale risiede nel mantenimento: le modifiche su una componente non influiscono sulle altre, rendendo semplice il debugging e consentendo una maggiore libertà nella creazione e modifica del codice.
+	Un'idea che applica questo concetto è l'approccio stratificato, il quale vede il sistema suddiviso in livelli, dove quello più basso rappresenta l'hardware e quello più alto l'interfaccia con l'utente. Ogni strato è composto da strutture dati e un insieme di routine richiamabili dallo strato superiore. La progettazione stessa del sistema operativo sarà guidata da questa struttura: infatti, si passa agli strati successivi solamente quando tutte le funzionalità dei livelli successivi funzionano correttamente.
+	Sebbene sia decisamente una struttura sicura, in termini di prestazioni risulta scarsa a causa dell'overhead dovuto dall'attraversamento di più strati. Quindi non è l'unica idea fondante i sistemi operativi odierni. Si tende, tuttavia, ad applicare una parziale stratificazione: è presente un numero minore di livelli, ognuno con più funzioni, evitando i problemi connessi alla definizione dell'interazione fra gli strati.
+*Immagine struttura a strati
+
+- Microkernel
+L'architettura orientata a microkernel vede tutti i componenti non essenziali rimossi dal kernel e realizzati come programmi di livello utente e di sistema. Ciò che rimane del kernel di dimensioni ridotte sono i servizi minimi di gestione processi, memoria e comunicazione.\par
+Lo scopo principale è infatti quest'ultimo: fornire funzioni di comunicazione tramite scambio di messaggi. Tra il client e il server, il kernel è l'intermediario che permette ai due di comunicare. I principali vantaggi risiedono nella facilità di estensione del sistema operativo e le modifiche minime al kernel quando deve essere aggiornato o modificato. Tuttavia è possibile che presenti cali di prestazioni a causa dell'aumento dell'overhead. Esempi di questo approccio sono Darwin, il componente microkernel per macOS e iOS.
+
+- Moduli
+L'approccio più comunemente in uso è quello basato sui moduli del kernel caricati dinamicamente. Il kernel fornisce insiemi di componenti di base, integrati da funzionalità aggiunte dinamicamente quando il kernel è in esecuzione. Viene usato per le implementazioni moderne di Linux, Windows e macOS. Ricorda un sistema stratificato più flessibile con idee di microkernel, perché ogni modulo può chiamare qualsiasi altro modulo e il kernel è ridotto alle funzioni minime.
+Per esempio, nella pratica, Linux utilizza i moduli del kernel caricabili (LKM), i quali sono caricati quando necessario per supportare i driver dei dispositivi e i file system. Ciò consente di avere un kernel modulare e dinamico, mantenendo allo stesso tempo le prestazioni di un sistema monolitico.
+
+- Sistemi ibridi
+I sistemi operativi odierni, come is può intuire da quanto scritto prima, non adattano una sola idea architetturale, bensì ne applicano più alla volta. Linux, per esempio, utilizza di base un approccio monolitico, ma è allo stesso tempo modulare poiché consente di caricare componenti al kernel dinamicamente. Anche Windows presenta una struttura simile, applicando tuttavia idee orientate ai microkernel, come per esempio il supporto a sottosistemi separati.

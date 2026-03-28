@@ -80,9 +80,33 @@ Anzitutto, i \textbf{file sorgenti} vengono compilati in \textbf{file oggetto ri
 %
 
 \section{Struttura del sistema operativo}
+La realizzazione di un sistema operativo vede storicamente protagonista il linguaggio Assembly, ma ad oggi ne vengono normalmente usati di più ad alto livello, come C e C++. Ciò comporta dei vantaggi diretti, come l'avere un codice più compatto, leggibile e più facilmente adattabile ad altre architetture, ma anche svantaggi, come una minore velocità di esecuzione e maggiore utilizzo di spazio di memoria. Tuttavia, grazie alle prestazioni dell'hardware moderno e all'utilizzo di algoritmi e strutture dati migliori, si tratta di problemi ignorabili.\par
+In ogni caso, è necessario prima verificare il corretto funzionamento del sistema operativo, per poi procedere con il miglioramento delle prestazioni, individuando i colli di bottiglia che aumentano i tempi di esecuzione, normalmente le procedure come il gestore degli interrupt, dell'I/O, della memoria e lo scheduler della CPU.\newline
 
-% TODO Riprendi da pag.89, realizzazione
+\noindent Affinché un sistema operativo possa funzionare ed essere facilmente modificato, sono stati ideati diversi modelli per definirne delle strutture ben precise. Un primo esempio è dato dalla \textbf{struttura monolitica}: l'assenza di struttura. Vede tutte le funzionalità del sistema implementate all'interno del kernel, le quali operano nello stesso spazio di indirizzamento.\par
+I vantaggi di questo approccio risiedono nella velocità di comunicazione all'interno del kernel e di un overhead ridotto dell'interfaccia alle chiamate di sistema. Si tratta di una struttura utilizzata dallo UNIX originale e da Linux, il quale vedremo presenta anche una struttura \textbf{modulare}, quindi con delle sottocomponenti che definiscono le parti del sistema.
+\begin{figure}[h]
+	\centering
+	\subcaptionbox{Struttura di UNIX}{\includegraphics[width=0.55\linewidth]{Images/Structure_UNIX.png}}
+	\hfill
+	\subcaptionbox{Struttura di Linux}{\includegraphics[width=0.4\linewidth]{Images/Structure_Linux.png}}
+\end{figure}
 
-%
+\noindent La struttura monolitica è caratterizzata da componenti \textbf{fortemente accoppiate}, perché tutto è descritto in un solo insieme. Tuttavia è possibile ideare una struttura dai moduli separati, quindi \textbf{debolmente accoppiata}, il cui loro insieme compone il kernel. Il vantaggio principale risiede nel mantenimento: le modifiche su una componente non influiscono sulle altre, rendendo notevolmente più semplice il debugging e consentendo una maggiore libertà nella creazione e modifica del codice.\par
+Un'idea che applica questo concetto è l'\textbf{approccio stratificato}, il quale vede il sistema operativo diviso in livelli, dove quello più basso rappresenta l'hardware e quello più alto l'interfaccia con l'utente. Ogni strato è composto da strutture dati e un insieme di routine richiamabili dallo strato superiore. La progettazione stessa del sistema operativo sarà guidata da questa struttura; infatti, si passa agli strati superiori solamente quando tutte le funzionalità dei livelli inferiori funzionano correttamente. Sebbene sia decisamente una struttura sicura, in termini di prestazioni risulta scarsa a causa dell'overhead dovuto dall'attraversamento di più strati e per questa ragione non è l'unica idea fondante i sistemi operativi odierni. Tuttavia, si tende ad applicare una parziale stratificazione dove è presente un numero minore di livelli, ognuno con più funzioni. Ciò consente di evitare i problemi connessi alla definizione dell'interazione fra gli strati.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\linewidth]{Images/Structure_leveled.png}
+	\caption{Approccio a strati}
+\end{figure}
 
-\section{Generare e avviare un sistema operativo}
+Un altro approccio è quello orientato a \textbf{microkernel}: tutti i componenti non essenziali vengono rimossi dal kernel e sono realizzati come programmi di livello utente e di sistema. Ciò che rimane nel kernel di dimensioni ridotte sono i servizi minimi di comunicazione, scheduling e gestione della memoria. Lo scopo principale è quello di fornire funzioni di comunicazione tramite scambio di messaggi. Infatti, tra il client e il server, il kernel prende il ruolo dell'intermediario che permette ai due di comunicare.\par
+I principali vantaggi risiedono nella facilità di estensione del sistema operativo e le modifiche minime al kernel quando deve essere aggiornato o modificato. Tuttavia è possibile che presenti cali di prestazioni a causa dell'aumento dell'overhead. Esempi pratici di questo approccio sono sistemi come macOS basati su \textbf{Darwin}.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/Structure_microkernel.png}
+	\caption{Architettura a microkernel}
+\end{figure}
+
+\noindent L'approccio attualmente più utilizzato è sicuramente quello basato sui \textbf{moduli} del kernel caricati dinamicamente. Il kernel fornisce insiemi di componenti di base integrati da funzionalità aggiunte dinamicamente quando è in esecuzione. Ricorda un sistema stratificato più flessibile con idee di microkernel, perché ogni modulo può chiamarne qualsiasi altro e il kernel è ridotto alle funzioni minime. Si tratta di un approccio usato per le implementazioni moderne di Linux, Windows e macOS. Per esempio, Linux utilizza \textbf{moduli del kernel caricabili} (LKM), i quali sono aggiunti quando necessario per supportare i driver dei dispositivi e i file system. Ciò consente di avere un kernel modulare e dinamico, mantenendo allo stesso tempo le prestazioni di un sistema monolitico.\par
+I sistemi operativi odierni non adattano una sola idea architetturale, bensì ne applicano più alla volta. Per esempio, come menzionato prima, Linux utilizza di base un approccio monolitico, ma è allo stesso tempo modulare poiché consente di caricare componenti al kernel dinamicamente. Anche Windows presenta una struttura simile, applicando tuttavia idee orientate ai microkernel, come per esempio il supporto a sottosistemi separati.

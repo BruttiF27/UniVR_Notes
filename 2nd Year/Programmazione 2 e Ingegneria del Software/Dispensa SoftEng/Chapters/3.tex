@@ -1,55 +1,145 @@
 \section{Definizione e impatto dei requisiti}
+I \textbf{requisiti} di un sistema sono la descrizione dei suoi servizi e vincoli operativi; il processo della loro ricerca, analisi, documentazione e verifica è detto \textbf{ingegneria dei requisiti}. Queste caratteristiche riflettono le richieste del cliente e sono quindi orientate alla risoluzione dei suoi problemi.\par
+Si tratta di una fase fondamentale del processo lavorativo, perché l'incompletezza o ambiguità dei requisiti è uno dei fattori maggiori che portano al fallimento di un progetto oppure alla sua rielaborazione, specie se in fasi avanzate dello sviluppo, con costi molto elevati. In ogni caso, definiamo due tipologie di requisiti: \begin{itemize}
+	\item \textbf{Utente}: Descrizione in linguaggio naturale dei vincoli operativi e servizi forniti dal sistema. Spesso accompagnati da diagrammi per aumentarne la comprensibilità.
+	\item \textbf{Di sistema}: Descrizione dettagliata e formale\footnote{Si indicano il nome della funzione, una sua descrizione, gli input, la sorgente, gli output, la destinazione, i parametri, pre-condizioni, post-condizioni, effetti collaterali e il link al requisito utente.} di funzioni, servizi e vincoli del sistema. Compone il \textbf{documento dei requisiti}, il quale specifica esattamente che cosa deve essere implementato. La sua scrittura può essere parte del contratto tra stakeholder e azienda.
+\end{itemize}
+\noindent È buona prassi scrivere i requisiti in più livelli di dettaglio, poiché diversi tipi di lettori li usano in modo differente. Per esempio, un receptionist che si occupa del concierge in hotel avrà bisogni differenti rispetto al manager.\par
+Per scrivere un documento dei requisiti si possono usare strumenti come diagrammi UML, testi strutturati e use case. Nei metodi agili, invece, si fa spesso uso delle user stories.\newline
 
-%
+\begin{esempio}
+	\textbf{Requisiti utente}\par
+	\noindent La seguente lista puntata indica i requisiti di un software in linguaggio naturale e comprensibile per tutti:\newline
+	
+	\textbf{Aggiungere nodi a un design} \begin{enumerate}
+		\item L'editor fornisce un mezzo per aggiungere nodi di un tipo specifico al design.
+		\item La sequenza di azioni per aggiungere un nodo deve essere: \begin{enumerate}
+			\item L'utente seleziona il tipo di nodo da aggiungere.
+			\item L'utente muove il cursore sulla posizione del nodo approssimata nel diagramma e indicare che il simbolo del nodo dovrebbe essere aggiunto a quel punto.
+			\item L'utente trascina il simbolo del nodo alla posizione finale.
+		\end{enumerate}
+	\end{enumerate}
+\end{esempio}
 
-\section{Requisiti utente e di sistema}
+\noindent I requisiti dei sistemi software sono spesso divisi anche in queste due categorie: \begin{itemize}
+	\item \textbf{Requisiti funzionali}: Definizioni di servizi che il sistema deve fornire; indicano come reagisce a determinati input e come dovrebbe comportarsi nelle varie situazioni.
+	\item \textbf{Requisiti non funzionali}: Vincoli su funzioni e servizi del sistema, come prestazioni, sicurezza, affidabilità o vincoli tecnologici. Includono inoltre limitazioni su tempo, processo di sviluppo e quelle richieste dagli standard. Di norma si applicano al sistema in toto e non a singole funzioni.
+\end{itemize}
+\begin{esempio}
+	\textbf{Requisiti funzionali e non funzionali}\par
+	\noindent Si consideri un sistema bancomat. I requisiti non funzionali indicano richieste indipendenti dalle funzionalità: \begin{itemize}
+		\item Il sistema deve essere facilmente espandibile e adattabile alle future esigenze bancarie.
+		\item Il sistema deve essere disponibile a persone portatori di Handicap, deve garantire un tempo di risposta inferiore al minuto e deve essere sviluppato su architettura X86 con sistema	operativo compatibile con quello della banca.
+	\end{itemize}
+	\noindent Mentre i requisiti funzionali riguardano i servizi, anche se scritti in maniera generale: \begin{itemize}
+		\item Il sistema deve mettere a disposizione le funzioni di prelievo, saldo, estratto conto.
+		\item Le operazioni di prelievo devono richiedere autenticazione tramite un codice segreto memorizzato sulla carta.
+	\end{itemize}
+\end{esempio}
 
-%
 
-\section{Requisiti funzionali e non funzionali}
 
 %
 
 \section{Processi di ingegneria dei requisiti}
+Come già menzionato, il fine ultimo dell'ingegneria dei requisiti è il documento relativo alle funzionalità e servizi offerti dal sistema. L'attività è divisa in quattro fasi chiave: \begin{itemize}
+	\item \textbf{Elicitazione dei requisiti}: Ingegneri e stakeholder lavorano insieme per studiare il dominio applicativo e definire le funzioni del sistema.\par
+	Si utilizzano diverse tecniche, come le interviste, i questionari, i workshop, oppure approcci più diretti come l'osservazione sul posto di lavoro o l'analisi dei prodotti dei competitor.
+	\item \textbf{Analisi dei requisiti}: Si raffinano i requisiti raccolti e si stabilisce la loro priorità\footnote{Discussione dei requisiti in termini di \textbf{must}, \textbf{could} e \textbf{should}, quindi secondo la scala MoSCow}, fattibilità e correttezza. In presenza di lacune o ambiguità, si cerca di colmarle ricavando altri requisiti o chiedendo ulteriori spiegazioni agli stakeholder.\par
+	Può capitare inoltre di avere conflitti tra i requisiti; la risoluzione risiede nella negoziazione con i committenti per una modifica o rimozione della richiesta.
+	\item \textbf{Specifica dei requisiti}: Processo di scrittura dei requisiti utente e di sistema in due documenti; il primo è redatto per i clienti e costituisce un contratto fra le parti, mentre il secondo è scritto per gli sviluppatori in un linguaggio tecnico e formale. Quest'ultimo rappresenta il punto di partenza per la fase di design del software.
+	\item \textbf{Convalida dei requisiti}: Processo di verifica sui requisiti, per assicurarsi che descrivano il software realmente voluto dal cliente. Si cerca di sanare ogni ambiguità e confermare di avere un insieme completo per rispettare le richieste.\par
+	Normalmente la convalida avviene mediante revisioni tra pari, mirando ad identificare aree di sviluppo o miglioramento. Alternativamente è possibile usare dei test case oppure sviluppare un prototipo.
+\end{itemize}
+\noindent Naturalmente, nelle prime fasi del lavoro si spenderanno più sforzi sulla definizione dei requisiti non funzionali, sicché siano coerenti con i desideri degli stakeholder, mentre nelle ultime fasi, appurata la loro correttezza, si potrà dare più importanza ai requisiti funzionali, per guidare al meglio il lavoro di scrittura del codice.\par
+Creato e validato il documento dei requisiti, è necessario mantenere una loro gestione, in quanto questi possono cambiare per dinamiche lavorative e di mercato; quando succede, è necessario richiedere una revisione dei requisiti con gli stakeholder.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/requirementsEngineering.png}
+	\caption{Processi dell'ingegneria dei requisiti}
+\end{figure}
 
 %
 
-\section{Proprietà dei requisiti}
+\section{Use case}
 
 \begin{comment}
-	--- Ingegneria dei requisiti
-	Si tratta del primo passo da eseguire per lo sviluppo del software. Chiamiamo requisito ciò che il sistema deve fare o un vincolo a cui deve sottostare. Può essere descritto in modo molto astratto o dettagliato matematicamente. Mi raccomando non dice il come. Quello sarà da decidersi durante la progettazione. L'incompletezza dei requisiti si tratta di una delle maggiori cause del fallimento di un progetto, da qui la sua importanza. Questo anche perché il costo di rimozione dei difetti in fase di testing, o peggio, mantenimento (quindi con del codice già bello che scritto), è notevolmente più grande in termini di risorse rispetto che alla fase di design.
+	--- Use case
+	Tecnica per esprimere requisiti funzionali di un sistema e descrivere dal punto di vista dell'utente. In particolare:
+	- organizzativo complesso
+	- Software/hardware da sviluppare
+	- Una componente o sottosistema
 	
-	- Req utente e di sistema
-	- Utente: Descrizione in linguaggio naturale delle funzionalità che il sistema dovrà fornire. Quindi i desideri del cliente. Scritti per e con il cliente.
-	- Di sistema: Specificati con la stesura di un documento che descrive dettagliatamente le funzionalità del sistema. Quindi ciò che farà il sistema. Scritti per e con il team operativo.
+	È puro testo ed il sistema è visto come una black box, si mostra puramente l'interazione (scambio di messaggi) tra utente e sistema. Per esempio, un'ATM.
+	1. L'utente seleziona l'importo da prelevare e conferma la cifra
+	2. Il sistema eroga la cifra
 	
-	I primi sono indicati tendenzialmente in modo chiaro per tutti, spesso con un grafico, nei secondi vanno sempre indicate le motivazioni per aver scelto una determinata tecnologia o algoritmo, insieme ai requisiti di sistema (questo specie per il mantenimento).
-	Non scriverli equivale al code&fix. Per scriverli si usano gli UML, testi strutturati o anche use cases. Altrimenti per gli agili si usano le user stories.
+	-- Requisiti e use case
+	Il requisito descrive una funzionalità dal punto di vista del sistema, il caso d'uso da quella dell'utente, chiamato attore. In questi ultimi, si presenta la seguente struttura:
+	- ID caso
+	- Nome caso
+	- breve descrizione
+	- attore
+	- workflow principale
+	1. ...
+	2. ...
+	- workflow alternativo
 	
-	- req. funzionali e non funzionali
-	Descrivono le funzionalità e i servizi forniti dal sistema, quindi quello che deve fare. Sono indipendenti dall'implementazione di una soluzione, come già detto prima. Per esempio un sistema bancario deve consentire la consultazione del saldo.
-	Quelli non funzionali, descrivono necessità e requisiti del sistema che non sono funzionabili. Definiscono quindi i vincoli, riguardano la scelta di linguaggi, piattaforme, tecnologie, e altro. Per esempio, in un programma di editing i video vanno esportati in mp4 e non in pdf.
-	Alcuni requisiti sono normativi, questo è un controllo spesso visto per i sistemi critici.
+	Gli use case servono principalmente per documentare le scelte prese per rispettare i requisiti e documentare il risultato delle interviste con gli stakeholder. Gli use case saranno èassati al team che progetterà l'applicativo. Gli use case saranno confrontati con il primo prototipo creato per valutarne la qualità e il rispetto delle richieste.
 	
-	Insomma l'ingegneria dei requisiti è quel termine usato per descrivere le attività necessarie per raccogliere e documentare le richieste che il prodotto deve esaudire.
-	Lo scopo primario è la definizione di un requirement decument, che definisca funzionalità e servizi offerti dal sistema da realizzare. Non è una tantum.
-	Poi si passa alla definizione rigorosa, usando anche un tool di gestione dei requisiti, di solito.
+	--- Componenti degli use case
+	Attori: ruoli assunti dalle entità che interagiscono col sistema
+	Use case: Ciò che gli attori possono fare con il sistema
+	Relazioni: tra gli attori e gli use case
+	Confini del sistema: un rettangolo disegnato intorno agli use case per indicare i confini del sistema.
 	
-	Si cerca di tirar fuori con le catene ogni requisito possibile dai committenti tramite le interviste. Queste son fatte con questionari, analizzando le offerte dei competitor (e soppiantarli) oppure facendo dei workshops.
-	Ottenute le informazioni, passiamo alla descrizione formale, quindi all'analisi per mettere in ordine le idee. Stabiliamo correttezza e fattibilità e cerchiamo di colmare le lacune, intese come requisiti mancanti. Si stabilisce anche la priorità.
+	Definire i confini del sistema è molto importante, perché il posizionamento del confine ha un grosso impatto sui requisiti funzinoali: molti progetti sono falliti priprio per una sbagliata definizione dei confini.
 	
-	Quando tuttavia capita di trovare requisiti in conflitto, si cerca di ricontrttare con lo stakeholder
+	Attori hanno un ruolo che un'entità esterna recita interagendo col sistema. Non necessariamente è un utente, può essere anche una componente del software o hardware. È un ruolo. Non la persona stessa. Ce ne sono due categorie:
+	- primari: ha delle mire sul sistema e ci guadagnano dal sistema
+	eg: cliente che vuole ordinare un prodotto
+	- secondari: il sistema ha delle mire su di essi e produce un qualcosa per il sistema.
+	eg: sistema esterno per la gestione dei pagamenti
 	
-	- proprietà dei requisiti
-	Cosa tagliare se non tutto può essere realizzato. Strategia moscow, ovvero must, should, could. Poi si validano mediante peer reviewing, test cases e prototipi
-	Dopo aver capito il fattibile, si definiscono formalmente, per il cliente e per gli sviluppatori. Siamo allo starting point del progetto.
+	Scenario è una sequenza ordinata di interazioni tra un sistema e gli attori; è una particolare istanza di uno use case e rappresenta un loro singolo cammino. Sono utili perché partire con scenari concreti è più comodo che generalizzare e possono essere anche usati per il testing. Uno scenario è un'istanza, quindi un test case ne comprende anche un loro insieme, se questi hanno lo stesso fine.
 	
-	(Rivedere ordine, è davvero confuso)
+	--- Descrizione di use case
+	Gli use case sono dati come testo strutturato i cui passi sono facili da capire ed è usato il vocabolario del dominio applicativo. È necessario avere descrizioni chiare, precise, generali e indipendenti dalle tecnologie.
+	- Scenario principale: quello ideale
+	- Scenario secondario: Casistiche con eventuali condizioni di errore e casi particolari.
 	
-	In ogni caso, post-validazione il documento è scritto e finito. Però rimane da gestire i requisiti perché possono cambiare nel tempo o si possono trovare incongruenze ulteriori. In tal caso si chiede una revisione dei requisiti con il cliente. Nel senso, si negozia.
+	Per la descrizione ci sono dei template, pattern standardizzati. Si mostrano in quest'ordine:
+	- Nome dello use case: goal del case, breve frase verbale attiva in camelcase
+	- Identificatore: Numero progressivo
+	- Breve descrizione: paragrafo che indica il goal del case
+	- Attori primari e secondari
+	- Precondizioni: vincoli sullo stato corrnte del sistema
+	- Scenario principale: Passi che costituiscono lo use case senza problemi
+	- Postcondizioni: condizioni che devono essere vere quando il case termina con successo
+	- Scenari alternativi: elenco di alternative allo scenario principale.
 	
-	Insomma, per le proprietà bisogna vedere validità-correttezza, consistenza, completezza (tutti gli aspetti del programma richiesti) e realismo.
-	Bisogna evitare le ambiguità come la peste, è necessario che i requisiti siano inequivocabili, verificabili e tracciabili. Ci sono standard per la strutturazione dei contenuti di un documento dei requisiti.
-	La responsabilità di condrre le responsabilità dei requisiti è l'analista del software. Conduce le interviste, analizza i requisiti, scrive il documento e parla direttamente con gli sviluppatori e stakeholder.
+	- Passi di uno scenario
+	Scenario è un elenco di passi coincisi, numerati e ordinati temporalmente. Da questo scenario principale ci sono le deviazioni (scenari secondari). Le semplici ritornano nel flusso principale, le complesse vanno da tutt'altra parte.
+	
+	- Gerarchie di attori usate per la gestione delle relazioni con il sistema.
+	- Generico
+	- Specializzato
+	
+	Relazioni tra use case:
+	- inclusione, per decomporre un case complicato, quindi un comportamento comune a più cases.
+	Ricorda il concetto di chiamata a funzione. Il case principale esegue i passi fino al punto di inclusione, dove il conrollo passa a quello incluso.
+	Si rappresenta nella descrizione con la dicitura ".include(caseName)"
+	- Estensione, un comportamento opzionale
+	Si definisce un punto di estensione ma non si conosce il suo comportamento. In qanto opzionale, è lecito.
+	- Generalizzazione o specializzazione, per specializzare uno use case; tipo più cases usano un pagamento, quindi la funzione di pagamento.
+	C'è un case genitore dal quale derivano dei figli, sue varianti più specifiche. Questi possono ereditare i passi del genitore, aggiungerne di nuovi o anche ridefinire i passi ereditati. Ricorda non poco un'estensione di classe in Java.
+	
+	È quasi come se stessimo definendo un linguaggio apposito, ma attenzione a non perdere chiarezza: devono comunque leggerlo gli stakeholders.
+	Una cosa utile sono gli screen mockups, ovvero degli schizzi dell'interfaccia utente per chiarirne il comportamnto; sono utili per la negoziazione con il cliente, per lo sviluppatore e per specificare la UI. Si possono fare su carta oppure usando un tool specifico, detto per la GUI prototyping. Un esempio è pencil tool.
+	
+	Generalmente, è bene mantenere i case brevi e semplici, con un buon compromesso fra astrazione e dettaglio. Non bisogna usarli per descrivere le funzionalità interne di un sistema, bensì il solo comportamento.
+	I meccanismi di extend e generalizzazione sono da usare solo quando rendono il modello più semplice o chiaro, e cerca di mantenere una coerenza con il livello di astrazione adattato.
+	
+	Gli use case sono un buon mezzo per esprimere i requisiti funzionali di un sistema e sono anche molto usati in ambito lavorativo. Ne esistono diversi template, ma sono tutti pressoché equivalenti. Risultano poco utili in sistemi dominati da requisiti non funzionali o con algoritmi complessi e privi di GUI.
 \end{comment}

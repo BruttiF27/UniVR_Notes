@@ -69,7 +69,7 @@ Esistono molti algoritmi per l'esplorazione dei grafi; studieremo i due più uti
 Calcola inoltre la distanza fra di esso e ciascun nodo raggiungibile, dove la \textbf{distanza} da un vertice $v$ alla sorgente corrisponde al \textbf{cammino minimo} fra i due. Nella sua esecuzione genera un albero, detto \textbf{Albero BFS} (oppure BF-Tree) e funziona per grafi orientati e non orientati.
 \begin{itemize}
 	\item \textbf{Caso pessimo}: Temporale: $\Theta(|V|+|E|)$, Spaziale: $\Theta(|V|)$
-	\item \textbf{Caso ottimo}: Temporale: $\Theta(|V|)$
+	\item \textbf{Caso ottimo}: Temporale: $\Theta(|V|+|E|)$
 	\item \textbf{Caso medio}: Temporale: $\Theta(|V|+|E|)$
 \end{itemize}
 \noindent Intuitivamente, una visita in ampiezza espande la frontiera dei vertici scoperti in maniera uniforme; partendo dalla sorgente $s$, scopre i suoi vicini a distanza $1$, poi a distanza $2$, e così via finché non trova tutti i vertici raggiungibili dalla sorgente.
@@ -90,7 +90,7 @@ Calcola inoltre la distanza fra di esso e ciascun nodo raggiungibile, dove la \t
 		\State enqueue($Q,s$)
 		\State
 		\While{$Q\neq NIL$} \Comment{Finché ci sono nodi grigi}
-		\State $u\gets$ dequeue($Q$) \Comment{Prendi l'ultimo nodo della coda}
+		\State $u\gets$ dequeue($Q$) \Comment{Prendi il primo nodo della coda}
 		\ForAll{$v\in Adj[u]$} \Comment{Ogni nodo in lista di adiacenza di u}
 		\If{$color[v] = white$} \Comment{Nodo non esplorato?}
 		\State $color[v]\gets gray$ \Comment{Nodo ora esplorato}
@@ -125,7 +125,7 @@ La somma delle lunghezze di tutte le liste di adiacenza è data da $\Theta(E)$, 
 	Sia il grafo $G=(V,E)$ e $s\in V$ un nodo arbitrario. Allora, per qualsiasi arco $(u,v)\in E$ si ha: \[\delta(s,v) \leq \delta(s,u)+1\]
 \end{lemma}
 \noindent Dunque per ogni coppia di nodi, il cammino minimo fra i nodi $s,v$ annotato come $\delta(s,v)$ non può essere più lungo di quello da $s$ ad $u$, seguito dall'arco $u,v$. Se $u$ non è raggiungibile, la distanza è infinita, mantenendo la validità della disuguaglianza. \begin{lemma}
-	Sia $G=(V+E)$ un grafo e supponiamo che venga eseguita BFS a partire da un sorgente $s\in V$. Allora per ogni vertice $v\in V$, il valore di distanza $d[v]$ calcolato dall'algoritmo soddisfa sempre la seguente relazione, anche al termine della procedura: \[d[v] \geq \delta(s,v)\]
+	Sia $G=(V,E)$ un grafo e supponiamo che venga eseguita BFS a partire da un sorgente $s\in V$. Allora per ogni vertice $v\in V$, il valore di distanza $d[v]$ calcolato dall'algoritmo soddisfa sempre la seguente relazione, anche al termine della procedura: \[d[v] \geq \delta(s,v)\]
 \end{lemma}
 \noindent Intuitivamente, è possibile notare che il lemma è vero, poiché ogni valore assegnato a $d[v]$ è uguale al numero di archi di qualche cammino da $s$ a $v$. Per dimostrarlo formalmente, invece, è necessario ragionare per induzione sui passi eseguiti dalla funzione enqueue. Supponendo come ipotesi induttiva la relazione del lemma, abbiamo: \begin{itemize}
 	\item \textbf{Caso base}: Inserimento della sorgente nella coda. L'ipotesi è vera, perché: \[d[s]=0=\delta(s,s);\quad d[v]=\infty\geq \delta(s,v)\quad\forall v\in V - \{s\}\]
@@ -140,157 +140,122 @@ La somma delle lunghezze di tutte le liste di adiacenza è data da $\Theta(E)$, 
 \noindent Per dimostrare quest'ultima relazione è necessario capire meglio come opera la coda durante l'esecuzione della BFS. Il terzo lemma dice che in qualunque istante, la coda è sempre ordinata per una distanza non decrescente e contiene al più due valori: \begin{lemma}
 	Supponiamo l'esecuzione di una BFS su un grafo $G=(V,E)$, con la coda $Q$ contenente i vertici $\left<v_1, v_2, ..., v_r \right>$, dove $v_1$ è il primo elemento della coda e $v_r$ l'ultimo. Allora: \[d[v_r]\leq d[v_1]+1 \text{ e } d[v_i]\leq d[v_{i+1}] \text{, con } i=1,2,...r-1\] 
 \end{lemma}
-\noindent Anche la dimostrazione di questo lemma avviene tramite induzione, ma questa volta sul numero di operazioni eseguite sulla coda. Inizialmente, quando questa contiene solo la sorgente, il lemma è banalmente valido, mentre per il passo induttivo è necessario provare che è valido dopo inserimento ed eliminazione di un nodo nella coda.
+\noindent Anche la dimostrazione di questo lemma avviene tramite induzione, ma questa volta sul numero di operazioni eseguite sulla coda. Inizialmente, quando questa contiene solo la sorgente, il lemma è banalmente valido, mentre per il passo induttivo è necessario provare che è valido dopo inserimento ed eliminazione di un nodo nella coda.\par
+Per l'eliminazione di un nodo, quando la cima $v_1$ è eliminata, il successivo nodo $v_2$ diventa la nuova testa\footnote{Se $v_1$ era l'unico nodo, il lemma è banalmente valido.} e per ipotesi induttiva abbiamo: \[d[v_1] \leq d[v_2] \implies d[v_r]\leq d[v_1]+1\leq d[v_2]+1\]
+\noindent Dunque rimuovere il primo elemento non rompe l'ordine e le restanti disuguaglianze rimangono inalterate. Il lemma è dimostrato con $v_2$ in cima alla coda.\par
+Per l'inserimento di un nodo, invece, consideriamo la riga dove è invocato il metodo enqueue(); quando si inserisce il nodo in una coda, questo diventa $v_{r+1}$\footnote{Se la coda era vuota e questo è il primo nodo inserito, $r=1$ ed il lemma è vero banalmente.}. Attualmente il nodo in cima alla coda è $u = v_1$ e vale l'ipotesi per cui: \[d[u] \leq d[v_2];\quad d[v_r] \leq d[u]+1\]
+\noindent Con una coda non vuota, gli si rimuove $u$ per elaborare la sua lista di adiacenza, ma così facendo, il nodo $v_2$ diventa la nuova cima $v_1$ della coda, facendo valere: \[d[u]\leq d[v_1] \implies d[v_{r+1}] = d[v] = d[u]+1\leq d[v_1]+1\]
+\noindent Siccome $d[v_r]\leq d[u]+1$, abbiamo che $d[v_r]\leq d[u]+1 = d[v] = d[v_{r+1}]$ e le restanti disuguaglianze restano inalterate, facendo valere il lemma per l'inserimento di un nodo $v$.\newline
 
-% TODO Manca il passo induttivo. Abbi pietà, sto sfatto e questa roba NON È SEMPLICE in termini matematici.
+\noindent Adesso possiamo confermare la correttezza della visita in ampiezza. L'algoritmo calcola i cammini minimi e risolve il problema della raggiungibilità con il seguente teorema completo: \begin{teorema}
+	\textbf{Correttezza della visita in ampiezza}\par
+	\noindent Sia $G=(V,E)$ un grafo orientato o non orientato e supponiamo venga attuata una BFS a partire dal suo nodo sorgente $s\in V$. Allora, durante la sua esecuzione, BFS scopre tutti i nodi $v\in V$ raggiungibili dalla sorgente e, alla termine della sua esecuzione, viene calcolato il cammino minimo da $s$ a $v$ per ogni nodo del grafo. \[d[v]= \delta(s,v)\quad \forall v\in V\]
+	\noindent Inoltre, per qualsiasi altro nodo $v \neq s$ raggiungibile da quest'ultimo, uno dei cammini minimi da $s$ a $v$ è un cammino minimo da $s$ a $\pi[v]$, seguito dall'arco $(\pi[v], v)$.
+\end{teorema}
+\noindent Per dimostrarlo, dividiamo i nodi per la distanza reale, definendo $V_k$ come l'insieme dei nodi a distanza $k$: \[V_k = \{v | \delta(s,v) = k\}\]
+\noindent Dunque $V_0 = \{s\}$, $V_1 = $ nodi a livello $1$, e così via. Facendo induzione su $k$, dimostriamo che tutti nodi a questa distanza sono scoperti correttamente dalla BFS, dunque livello per livello. Per ogni nodo $v\in V_k$, esiste infatti un momento in cui: \begin{itemize}
+	\item Il nodo $v$ è grigio.
+	\item La distanza $k$ è assegnata a $d[v]$.
+	\item Se il nodo corrente $v$ è diverso dalla sorgente $s$, il predecessore è $\pi[v] = u\in V_{k-1}$, quindi il nodo di livello superiore rimosso da dequeue().
+	\item Il nodo $v$ è inserito in coda con enqueue().
+\end{itemize}
+\noindent Come passo base consideriamo $k=0$, quindi $V_0$, il livello della sorgente. In questo caso: \begin{itemize}
+	\item $d[s] = 0 = k$, corretto.
+	\item $s$ è grigio in quanto sta venendo elaborato, corretto.
+	\item $s$ è attualmente in coda, corretto.
+\end{itemize}
+\noindent Come passo induttivo supponiamo vera l'ipotesi per $k-1$ prendendo un nodo $v\in V_k$. Per definizione di distanza minima, esiste un nodo a livello superiore $u\in V_{k-1}$ tale che esista un arco fra i due: $(u,v)\in E$. Per ipotesi induttiva: \begin{itemize}
+	\item $u$ è scoperto correttamente.
+	\item $d[u] = k-1$.
+	\item $u$ è inserito in coda.
+\end{itemize}
+\noindent Quando $u$ è rimosso dalla coda per l'analisi della sua lista di adiacenza, scopro anche il nodo $v$ supposto all'inizio del passo, ottenendo $d[v] = d[u]+1 = k$, $\pi[v] = u$ e $v$ ottiene il colore grigio, dimostrando il teorema.\par
+Inoltre, per l'ultimo lemma enunciato, possiamo confermare che $v$ non è stato precedentemente scoperto, perché avrebbe una distanza minore di $k$. Questo è impossibile perché $k$ è già il cammino minimo (quindi la distanza) tra la sorgente e il nodo.\newline
 
-
-% teorema totale
-\begin{comment}
-	Teorema: d[v]= \delta(s,v) \forall v (L'algoritmo calcola i cammini minimi)
-	Sia V_k l'insieme dei nodi a distanza k. Per induzione su k dimostro che \forall v\in V_k \exists un momento in cui:
-	- v è grigio
-	- k è assegnato a d[v]
-	- se v\neq s \Pi[v] = u\in V_{k-1}
-	- v inserito in coda
-	
-	Insomma, l'algoritmo calcola cammini minimi e risolve il problema della raggiungibilità. Produce un albero radicato nel nodo s. Se ci sono nodi non raggiunti, rimangono a distanza infinita e non faranno parte dell'albero BFS.
-	In quanto i nodi non connessi all'albero sono bianchi, nulla mi vieta di prenderne uno bianco casuale per creare un altro BFS-tree. Ciò consente di creare un insieme di alberi che viene chiamato foresta.
-\end{comment}
+\noindent Il risultato di una BFS è un albero radicato nel nodo $s$ e se ci sono nodi non raggiunti, questi avranno distanza infinita da esso e non saranno parte dell'albero. Tuttavia, nulla vieta di eseguire un'altra procedura uguale sui nodi bianchi, creando nuovi alberi. Ciò consente di creare una \textbf{foresta} di alberi BFS.
 
 %
 
 \section{Visita in profondità}
+L'algoritmo di \textbf{Visita in profondità} (DFS, Depth First Search) esplora gli archi uscenti dal vertice $v$ scoperto più recentemente e che ha ancora nodi non esplorati. La procedura continua finché non sono scoperti tutti i vertici raggiungibili da $v$. Fatto ciò, l'algoritmo sale di un livello per controllare eventuali altri nodi bianchi. Ripete il procedimento fino alla totale esplorazione del grafo. \begin{center}
+	Caso pessimo temporale: $\Theta(|V| + |E|)$, caso pessimo spaziale: $\Theta(|V|)$
+\end{center}
+\noindent L'algoritmo forma un \textbf{sottografo dei predecessori} $G_\pi$ che può essere formato da più alberi, in quanto la visita può essere ripetuta da più sorgenti. Comprende sempre tutti i vertici e lo definiamo, insieme agli \textbf{archi d'albero}, come: \[G_\pi = (V, E_\pi);\quad E_\pi = \{(\pi[v], v) | v\in V \text{ e } \pi[v]\neq NIL\}\]
+\noindent Oltre a creare la foresta, la DFS si serve di due \textbf{marcatempo}, per segnare il momento in cui un nodo viene scoperto $d[v]$ e l'istante in cui la visita completa l'ispezione della lista di adiacenze del nodo $f[v]$. Agevolano l'analisi del comportamento dell'algoritmo.
+\begin{algorithm}[h]
+	\caption{DFS(G)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo
+		\ForAll{$u\in V[G]$} \Comment{Inizializzazione del grafo}
+		\State $color[u]\gets white,\quad \pi[u]\gets NIL$
+		\EndFor
+		\State $time\gets 0$ \Comment{Marcatempo globale per assegnare d[v], f[v]}
+		\State
+		\ForAll{$u\in V[G]$} \Comment{Visita ogni nodo bianco del grafo}
+		\If{$color[u] = white$} \Comment{Se non è raggiunto, inizia una nuova visita DFS}
+		\State $DFS\_Visit(G, u)$
+		\EndIf
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[h]
+	\caption{DFS\_Visit(G, u)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo, $u$: Nodo preso come sorgente
+		\State $time\gets time+1$ \Comment{Aggiorno marcatempo}
+		\State $d[u]\gets time,\quad color[u]\gets gray$ \Comment{Tempo in cui il nodo è scoperto}
+		\State
+		\ForAll{$v\in Adj[u]$} \Comment{Controlla tutti i suoi nodi figli}
+		\If{$color[v] = white$} \Comment{Se non è esplorato, continua ad andare giù}
+		\State $\pi[v]\gets u$
+		\State $DFS\_Visit(G, v)$ \Comment{Ricorsione fa usare la stack per salvare i nodi}
+		\EndIf
+		\EndFor
+		\State
+		\State $time\gets time+1$
+		\State $f[u]\gets time,\quad color[u]\gets black$ \Comment{Tempo in cui la visita è finita}
+	\end{algorithmic}
+\end{algorithm}
 
+\noindent Prendiamo come esempio un grafo orientato di otto nodi. Scegliamo di invocare la procedura DFS considerando il nodo $s$ come la sorgente. Allora si controllerà ogni nodo nella sua lista di adiacenza fin quando non saranno stati esplorati tutti, segnando tempo di scoperta e tempo di conclusione esplorazione. Al termine della procedura avremo come risultato una foresta di due alberi; uno radicato in $s$ e l'altro in $t$.\par
+La misura temporale dei nodi è molto importante, perché il tempo di elaborazione del nodo finale corrisponde esattamente al doppio del numero di nodi del grafo. Ciò accade perché si assegnano due misure temporali per nodo.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/graph_DFS-example.png}
+	\caption{Esempio di procedura DFS}
+\end{figure}
 
+\noindent Analizziamo ora la complessità dell'algoritmo: i primi due cicli for nel primo algoritmo usano un tempo $\Theta(V)$, poiché sono effettuati sull'intero insieme di nodi del grafo, escludendo la DFS\_Visit. Questa è invece chiamata una sola volta per ogni nodo bianco nelle liste di adiacenza, quindi $|Adj[v]|$ volte.\par
+Siccome l'insieme delle liste di adiacenza compone quello degli archi e la visita è chiamata una sola volta per ogni nodo, confermiamo che DFS\_Visit ha complessità $\Theta(V+E)$; il tempo di esecuzione totale dell'algoritmo DFS è quindi $\Theta(V+E)$. Enunciamo ora alcuni teoremi importanti per questo algoritmo: \begin{teorema}
+	\textbf{Teorema delle parentesi}\par
+	\noindent In una qualsiasi visita in profondità di un grafo $G$ orientato o non orientato, per ogni coppia di vertici $u,v$ è soddisfatta esclusivamente una delle seguenti due condizioni: \begin{itemize}
+		\item Gli intervalli $[d[u], f[u]]$ e $d[v], f[v]$ sono completamente disgiunti. I nodi non discendono l'uno dell'altro.
+		\item L'intervallo $[d[u], f[u]]$ o $d[v], f[v]$ è interamente contenuto nell'altro, rendendo il primo nodo discendente del secondo.
+	\end{itemize}
+\end{teorema}
+\noindent Per dimostrarlo, prendiamo la coppia di nodi $u,v$ e assumiamo, senza perdita di generalità, che valga la seconda relazione. Abbiamo quindi $d[u] < d[v]$ oppure $d[v] < d[u]$. Qui possiamo distinguere due casi: \begin{itemize}
+	\item Se $f[u] < d[v]$ abbiamo due intervalli disgiunti, dimostrando la prima condizione del teorema.
+	\item Se $d[v] < f[u]$ abbiamo un'intersezione tra gli insiemi, stando dentro la chiamata DFS\_Visit del nodo $u$. Ci troviamo quindi necessariamente in un sottointervallo i cui estremi sono $d[u], f[u]$, dimostrando che è interamente contenuto nel sovraintervallo.
+\end{itemize}
+\noindent Un'altra questione molto importante riguarda la possibilità di conoscere i discendenti a partire da un nodo sorgente. L'algoritmo DFS è capace di rispondere a questa domanda, servendosi del concetto dei nodi bianchi: \begin{teorema}
+	\textbf{Teorema del cammino bianco}\par
+	\noindent In una foresta di visita in profondità di un grafo $G$, orientato o non orientato, il vertice $v$ è discendente dal nodo $u$ se e solo se al tempo $d[u]$ in cui viene scoperto, il vertice $v$ può essere raggiunto dall'altro lungo un cammino formato esclusivamente da nodi bianchi.
+\end{teorema}
+\noindent Supponiamo infatti due nodi $u,v\in V$, di cui il secondo è discentente dal primo. Sia ora un terzo nodo $w$ nel cammino fra i due nella foresta. Se è bianco, il teorema è banalmente dimostrato perché l'intervallo di $w$ è interamente contenuto in quello di $u$.\par
+In quanto discendente, il nodo $w$ è necessariamente visitato dopo il padre e sarà per forza bianco, perché l'unico modo per inizializzare il valore $d[w]$ è invocare DFS\_Visit, cosa che avviene solamente se il nodo è bianco. Difatti, prima di inizializzare $d[u]$, il nodo $w$ è bianco, e al tempo $d[u]$ esiste un cammino di nodi bianchi che comprende $w$.\par
+Potremmo assumere ora per assurdo che $v$ non discenda da $u$ ma che abbia come predecessore $w$, discendente di $u$. Ne risulta la disuguaglianza: \[d[u] < d[w] < f[w] < f[u]\]
+\noindent Allora al tempo $d[w]$ sto visitando i nodi della lista di adiacenza di $w$, nella quale è presente pure $v$, che inevitabilmente diventa discendente di $u$, dimostrando il teorema. Di nuovo.\newline
 
+\noindent Durante una visita in profondità possono apparire diversi tipi di archi. Il loro studio consente di ottenere alcune importanti informazioni: \begin{itemize}
+	\item \textbf{Archi d'albero} \textbf{T}: Archi che collegano un intervallo con un suo discendente.
+	\item \textbf{Archi all'indietro} \textbf{B}: Archi che collegano un nodo al suo antenato.
+	\item \textbf{Archi in avanti} \textbf{F}: Archi che collegano un intervallo con un discendente non diretto.
+	\item \textbf{Archi trasversali} \textbf{C}: Archi che collegano due intervalli disgiunti.
+\end{itemize}
+\noindent In particolare, durante una visita in profondità è possibile riconoscere il tipo di arco in base al colore dei nodi: il bianco indica un arco d'albero, il grigio uno all'indietro, mentre il nero un arco in avanti o trasversale. Inoltre, se un grafo presenta archi all'indietro è sicuramente \textbf{ciclico}, perché, supponendo che la visita in profondità ne trovi uno, $v$ avrà colore grigio e $u$ sarà suo discendente. Esisterà di conseguenza un cammino tra i due nodi.\par
+Supponiamo ora un grafo ciclico e prendiamo in esame un suo ciclo qualsiasi. Sia $u$ il suo primo nodo visitato in profondità e $v$ il predecessore di $u$ nel ciclo. Allora al tempo $d[v]$ tutti i nodi del ciclo tranne $u$ sono bianchi, rendendo il nodo $v$ raggiungibile a partire dall'altro con un cammino di soli nodi bianchi. In quanto tale, possiamo dire per il teorema del cammino bianco che $v$ discende da $u$ nella foresta e sarà visitato quando $u$ è grigio, dimostrando l'arco all'indietro.\newline
 
-
-% Voglio una descrizione intuitiva dei due algorimi e per cosa si usano
-% Voglio La complessità di entrambi
-% Voglio lo pseudocodice
-% Voglio i teoremi, i lemmi e le dimostrazioni
-
-\begin{comment}
-	- DepthFirstSearch: Partiamo dalla sorgente s, vediamo il suo vicino e si controlla se questo ha altri vicini. Arriva fino all'ultimo e poi si torna indietro di un'unità di altezza e ripetere i controlli fino alla fine. Continuare fino alla totale esplorazione del grafo.
-\end{comment}
-
-\begin{comment}	
-	--- DepthFirstSearch
-	// Notare che la coda è lifo per questo algoritmo. Il ruolo è coperto dalla stack di attivazione
-	
-	DFS(G,s)
-	\forall v\in V[G]
-	color[v]\gets white
-	\Pi[v]\gets NIL
-	
-	time\gets 0 \Comment{Misuratore del tempo, diamo un ordine agli eventi che succedono}
-	
-	\forall u\in V[G]
-	if color = white
-	DFS_Visit(G,u)
-	
-	DFS_Visit(G,u)
-	color[u]\gets gray
-	d[u]\gets time\gets time+1
-	\forall v\in Adj[u]
-	if color[v] = white
-	\Pi[v]\gets u
-	DFS_Visit(G,v) \Comment{Se scopri un arco uscente, continua ad andare avanti}
-	
-	color[u]\gets black
-	f[u]\gets time\gets time+1 \Comment{f è tempo di fine visita}
-\end{comment}
-
-\begin{comment}
-	12-03-26 - Algoritmi
-	
-	--- DepthFirstSearch
-	Gli algoritmi bfs e dfs funzionano sia su grafi orientati che non orientati, sebbene quest'ultimo si tenda a usare per le bfs.
-	
-	// Continua a vedere se hai nodi adiacenti. Quando non ne vedi più, torna indietro.
-	DFS(G) // G grafo
-	// Inizializzazione
-	\forall u\in v[G]
-	color[t]\gets white	// Nodo non ancora visto
-	\Pi[u]\gets NIL
-	
-	// Notare time come variabile globale
-	time\gets 0	// F,D registreranno tempi. Ad ogni operazione registriamo in time (misura il tempo, serve per dare ordine) quando è eseguita.
-	
-	\forall u\in v[G] // Per ogni nodo del grafo (Questo ciclo determina il numero di alberi della dfs)
-	if color[u] = white // Se non è raggiunto
-	DFS_VISIT(u) // Inizia una nuova visita in profondità.
-	
-	
-	DFS_VISIT(u)
-	color[u]\gets gray
-	d[u]\gets time\gets time+1 // Prima time++, il risultato è dato a d[u]. Questo è il tempo di inizio visita
-	
-	\forall v\in Adj[u]
-	if color[v] = white // Nodo adiacente non esplorato
-	\Pi[v]\gets u // Salva il nodo al quale siamo arrivati
-	DFS_VISIT(v) // Notare che visitiamo i vicini ricorsivamente
-	
-	color[u]\gets black // Segna nodo esplorato e operato
-	f[u]\gets time\gets time+1 // Segna il tempo dell'operazione
-	
-	Il ruolo della coda è preso dalla stack di attivazione, è quindi una coda Lifo, dalla quale si riprenderanno all'inverso i nodi ivi inseriti. Generalmente ad ogni ricorsione è implicitamente presente la stack che agisce come coda.
-	
-	* Immagine 1 presa da nico, è la prima foto. I numeri nei nodi sono in forma [visitTime/operationTime]. Le \Pi indicano i passi fatti per tornare indietro in assenza di nodi adiacenti non esplorati. Se fatto correttamente abbiamo una foresta di due alberi, uno radicato in s e l'altro in t.
-	
-	Il tempo di elaborazione del nodo finale corrisponde esattamente al doppio del numero di nodi totali del grafo.
-	Questo accade perché per ogni nodo misuriamo due eventi. Dunque se il valore che associamo al nodo è l'ordine temporale in cui l'evento è avvenuto, avremo per forza un totale di valori corrispondenti al doppio dei nodi totali, mostrato dall'ultimo nodo elaborato.
-	
-	Se fossimo partiti da t avremmo potuto ottenere un solo albero. Il numero di alberi creati tuttavia per ora ci ineressa poco.
-	
-	--- Proprietà della DFS
-	Cosa si può dedurre da una dfs?
-	
-	* Inserire immagine 2, da nico è quella con i numeri alla base e i rettangoli che fanno vedere intervalli dei nodi.
-	
-	Presi due intervalli temporali, questi sono totalmente disgiunti oppure sottointervalli di uno più grande. Gli intervalli qui sono le liste di adiacenza; per esempio la lista di adiacenza del nodo y è composta da x, suo sottointervallo.
-	Se nella foresta dfs un nodo è discendente di un altro, possiamo osservare che è anche completamente contenuto nell'intervallo padre.
-	
-	- Teorema
-	Per ogni coppia di nodi u,v gli intervalli sono disgiunti oppure uno sottointervallo dell'altro.
-	Dim: Prendi la coppia u,v, abbiamo, senza perdita di generalità che valga la prima relazione tra: d[u] < d[v] oppure d[v] < d[u]
-	Distinguiamo due casi:	
-	A. f[u] < d[v] // Intervalli disgiunti, d[u] ed f[u] sono uno, d[v] è un altro
-	B. d[v] < f[u] // Qui c'è un intersezione, ma siamo all'interno della chiamata di dfs_visit di u. Non torneremo mai al chiamante finché non sono stati esplorate tutte le adiacenze, ma allora ci troviamo in un sottointervallo i cui estremi sono d[u] e f[u]
-	Quindi ci troviamo sempre in uno dei due casi e come corollario se sei in un sottointervallo, stai discendendo.
-	
-	- Teorema 2 (Come fai a sapere se v è discendente di u?)
-	In una foresta dfs di un grafo G un nodo v discende da u se e solo se al tempo d[v] v è raggiungibile da u con un cammino di soli nodi bianchi.
-	Dim: Supponiamo che v discenda da u e sia w un nodo nel cammino da u a v nella foresta dfs. (Se è bianco hai dimosrato il teorema)
-	w discende da v, quindi l'intervallo di w è sottointervallo di v. Ciò significa che inizio a visitare w dopo aver iniziato a visitare u.
-	Ma se inizio dopo, w allora è ancora bianco, perché l'unico modo per inizializzare d[w] è invocare dfs_visit, ma ciò avviene esclusivamente se questo è bianco e non avendo ancora inizializzato d[u], il nodo w è bianco. Dunque al tempo d[u] esiste un cammino di nodi bianchi che comprende w.
-	
-	Supponiamo ora che al tempo d[u] esiste un cammino da u a v fatto di soli nodi bianchi. Supponiamo per assurdo che v non discenda da u.
-	Prendiamo quindi il predecessore di v, w. Assumiamo senza perdita di generalità che w discende da u. Abbiamo dunque d[u] < d[w] < f[w] < f[u]
-	Al tempo d[w] sto visitando i nodi della sua lista di adiacenza, ma in questa sua lista è presente pure v, il quale diventa necessariamente discendente di u.
-	
-	---
-	Adesso diciamo che ogni arco che collega un intervallo con un suo discendente è arco dell'albero e lo chiamiamo T. Il verso inverso è detto Backward B. Quelli che collegano invece un intervallo con un discendente non diretto sono detti Forward F. È possibile avere anche archi che collegano due intervalli disgiunti, chiamati Crossing C.
-	Durante la visita è possbile riconoscere i backwards. Se questi sono grigi durante una visita, lo sono. Se sono neri, sono di crossing o forward
-	
-	- Teorema
-	Un grafo è aciclico sse la dfs non trova archi backwards, un grafo è ciclico sse la bfs trova archi backwards.
-	Dim: Supponiamo che dfs trova un arco u,v backward. v sarà di colore grigio e u è discendente di v nella foresta dfs. Esiste quindi un cammino da v a u. Dunque G è ciclico.
-	Supponiamo ora che G sia ciclico e prendiamo un ciclo qualsiasi. Sia u il primo nodo del ciclo visitato da bfs. Sia v il predecessore di u nel ciclo. Al tempo d[v] tutti i nodi del ciclo tranne u sono bianchi, quindi al tempo d[v] il nodo v è raggiungibile da u con un cammino di soli nodi bianchi.
-	Se così è, per il teorema precedente, v discende da u nella foresta dfs e sarà visitato quando u è ancora grigio. Ma durante la visita di v si analizzerà l'arco v,u, il quale sarà classificato come backward.
-	
-	- Complessità di verifica ciclicità di grafi
-	Non peggio della complessità di una dfs, sicuramente. È il suo limite superiore. 
-	- Inizializzazione: v
-	- ciclo per controllare se colore è bianco: v
-	- dfs_visit: Invocata al più una volta, solo per i nodi bianchi.
-	- Le assegnazioni sono costanti, mentre il for ha complessità che dipende dalla lista di adiacenza. Sarebbe E volte.
-	
-	Formula esatta: V+V + \sum_{j\in V(G)} 1 + |Adj[u]| = V + \sum_0^V 1 + \sum_0 |Adj[u]| = V+E \in O(V^2)
-	
-	Compl. totale: \Theta(V+E). Se il grafo è completo, è quadratica. Se è sparso, è lineare.
-\end{comment}
+\noindent Se volessimo verificare l'aciclicità o ciclicità di un grafo basterebbe implementare qualche semplice modifica all'algoritmo DFS, dunque si avrà una complessità ad essa uguale. In particolare, se il grafo è completo, è quadratica, mentre se è sparso è lineare. Generalmente, vale: $\Theta(V+E)$.
 
 %
 
@@ -495,10 +460,135 @@ Prim, Kruskal
 
 %
 
-\section{Cammini minimi}
-\subsection{Sorgente singola}
+\section{Cammini minimi a sorgente singola}
 Dijkstra, Bellman-Ford
-\subsection{Sorgente multipla}
+
+\begin{comment}
+	Lez7 - 24-03-26 - Algoritmi
+	
+	Prossima lezione: 14 aprile. Giovedì non fa più lezione.
+	
+	--- Cammini minimi
+	Dati grafo pesato (G,w) e nodo s, voglio la descrizione di un cammino da s a u che abbia il costo minimo fra tutti quelli possibili.
+	Problema risolvibile solo se esiste almeno un cammino da u a s. Se in un grafo orientato hai cammini con valori negativi, il problema può non avere soluzione.
+	
+	Illimitato: Dimensione finita e arbitraria
+	Infinito: Dimensione senza confini, non finita.
+	
+	Che modi si possono usare per rappresentare il problema dei cammini minimi?
+	- Lemma
+	Sia s \tilde> u -> v un cammino di costo minimo tra s e v (s\tilde> u significa cammino, -> è un arco diretto).
+	Allora s\tilde u è un cammino di costo minimo tra s e u.
+	
+	Dimostrazione per assurdo. Se [s u_1 u_2 ... u_n \cup v] non è un cammino di costo minimo, allora esisterà comunque un cammino di costo minore.
+	Come diretta conseguenza sto determinando il cammino minimo per ogni singolo nodo attraversato.
+	Posso rappresentare la soluzione come un albero. La soluzione è un insieme dei cammini. (Attenzione, non tutti i cammini minimi sono rappresentabili con alberi).
+	Bisogna dire che l'output è necessariamente un albero. La soluzione deve garantire che tutti i nodi siano raggiungibili e che non ci siano cicli negativi.
+	
+	Gli algoritmoi per la risoluzione di questo problema usano tutti una singol idea di base: Fai un'inizializzazione e continua a rilassare i cammini. Se non ne trovi più di relaxable
+	allora hai il cammino minimo.
+	
+	// Inizializzazione della struttura
+	init(G,s)
+	\forall v\in V[G]
+	d[u]\gets \infty 	// stima del costo minimo del cammino da s a u all'inizio. E' l'elemento neutro per il minimo.
+	\pi[u]\gets NIL		// Predecessore inesistente se sei all'inizio
+	
+	d[s]\gets 0				// s è tuttavia a distanza 0.
+	
+	// Data la distanza da s a v, è possibile arrivare da s a u ed arrivare a v con un costo minore?
+	relax(u, v, w)
+	if d[v] > d[u] + w(u,v) 		// Se la risposta è sì, aggiorno le informazioni e otteniamo quindi il nuovo cammino minimo.
+	d[v]\gets d[u] + w(u,w)		// Somma i nuovi valori di distanza minori rispetto al precedente
+	\pi[v] u					// Segnati il predecessore
+	
+	Se non esistono archi rilassabili, abbiamo il cammino minimo.
+	
+	--- Dijkstra
+	Guardiamo il caso in cui non ci sono pesi negativi. Tutti gli archi hanno pesi positivi. Voglio rendere massimo il prodotto del peso degli alberi.
+	(Oppure la somma dei logaritmi. E' uguale. Il minimo è ottenibile facendo *(-1))
+	
+	dijkstra(G, w, s)
+	init(G,s)
+	Q\gets v[G] // Queue ordinata sulla distanza d. La inizializziamo a tutti i nodi del grafo
+	
+	while Q\neq NIL
+	u\gets extract_min(Q) 	// Prendi il nodo più vicino ad s che trovi e rimuovilo dalla coda
+	\forall v\in Adj[u]		// Controlla ogni nodo nella lista di adiacenza di quello estratto
+	relax(u, v, w)		// Rilassa gli archi per trovare il costo minimo
+	
+	Prendi come esempio il grafo IM2. Per prima cosa la extract min rimuove s dalla coda. Questo perché ha distanza minima da se stesso: 0. Qualunque rilassamento che faccia, non
+	abbasserà mai quel valore. Si partirà quindi sempre da qua.
+	Vede la distanza da s ad a. 5 < \infty, quindi segno distanza 5 ed s come predecessore.
+	Ogni arco, siccome ne si estrae solamente un nodo, viene rilassato solamente una volta.
+	
+	Init: V, creazione coda Q: V, extract_min: V, relax: E.
+	Su extract_min stiamo facendo una reduce key. Per valutare la complessità di dijkstra bisogna valutare la complessità di extract_min e reduce_key.
+	- Per gli heap: extract_min costa log(n), reduce_key costa log(n) \implies (V+E)log(n)		(Miglior opzione grafo sparso)
+	- per liste ordinate: extract_min costa 1, reduce_key costa V \implies V + VE
+	- Per liste non ordinate: extract_min costa V, reduce_key costa E \implies V^2+E			(Miglior opzione grafo completo)
+	
+	NB: Dijkstra può non funzionare con un grafo pesato con valori anche negativi. Questo perché troverebbe nei negativi il minimo, ma essendo che si rimuove il nodo dalla coda non
+	si può tornare indietro.
+	
+	Possiamo fare qualcosa per cicli negativi? Bellman-Ford
+	
+	// Se esiste, la soluzione la trovi anche con archi negativi
+	// Continua a rilassare fin quando non trovi (o non trovi) la soluzione. Sa dire se esiste o meno una soluzione, quindi.
+	bellmanFord(G, w, s)
+	init(G,s)
+	
+	for V-1 times
+	\forall (u,v)\in E[G]
+	relax(u,v,w)
+	
+	\forall (u,v)\in E // Controlla se rimangono archi rilassabili
+	if d[v] > d[u] + w(u,v) // Se sì, non ha soluzione
+	ret false
+	
+	// Altrimenti la soluzione esiste
+	ret true
+	
+	- Lemma di BF
+	Dopo i iterazioni tutti i cammini minimi composti da al più i archi sono stati trovati.
+	
+	Si dimostra per induzione su i. Per i=0 è vera, la distanza da s a s è 0. Vale.
+	Prendiamo ora un cammino di costo minimo s u_1 ... u_i u_{i+1}. Se si arriva a u_{i+1} si arriva sicuramente ad u_i. Scopriamo quindi il cammino minimo.
+	Anzi, troviamo praticamente tutti i cammini minimi dopo V-1 iterazioni.
+	
+	Supponiamo ora di avere cicli negativi e che il test di bellmanFord abbia successo. u_0 u_1 ... u_n u_0
+	Quindi:
+	d[u_1] \leq d[u_0] + w(u_0, u_1)
+	d[u_2] \leq d[u_1] + w(u_1, u_2)
+	...
+	d[u_n] \leq d[u_{n-1}] + w(u_n, u_{n+1})
+	d[u_0] \leq d[u_n] + w(u_n, u_0)
+	
+	Il costo del ciclo è quindi: \sum_u_n d[u_i] \leq \sum_{u_i} d[u_i] + \sum_{u_i, u_{i+1}} w(u_i, u_{i+1})
+	
+	La complessità di bellmanFord è V*E.
+	
+	---
+	// Se il grafo non ha cicli, puoi usare questo per calcolare cammino minimo. Ref: IM3
+	dagSP (G, w, s)
+	init(G,s)
+	ord_top(G)
+	
+	// Praticamente come dijkstra, ma al posto di prendere da una coda, li prende da un ordine topologico.
+	\forall u in ordinamento topologico
+	\forall v\in Adj[u]
+	relax(u,v,w)
+	
+	Quindi archi già rilassati, non ci sono più quelli da rilassare in futuro perché il grafo è aciclico
+	Ord_top: V+E
+	Rilassamenti: E
+	
+	Compl. totale: V+E
+\end{comment}
+
+%
+
+\section{Cammini minimi a sorgente multipla}
 Floyd-Warshall, Johnson
 
 %

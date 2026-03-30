@@ -1,0 +1,120 @@
+Lez7 - 24-03-26 - Algoritmi
+
+Prossima lezione: 14 aprile. Giovedì non fa più lezione.
+
+--- Cammini minimi
+Dati grafo pesato (G,w) e nodo s, voglio la descrizione di un cammino da s a u che abbia il costo minimo fra tutti quelli possibili.
+Problema risolvibile solo se esiste almeno un cammino da u a s. Se in un grafo orientato hai cammini con valori negativi, il problema può non avere soluzione.
+
+Illimitato: Dimensione finita e arbitraria
+Infinito: Dimensione senza confini, non finita.
+
+Che modi si possono usare per rappresentare il problema dei cammini minimi?
+- Lemma
+Sia s \tilde> u -> v un cammino di costo minimo tra s e v (s\tilde> u significa cammino, -> è un arco diretto).
+Allora s\tilde u è un cammino di costo minimo tra s e u.
+
+Dimostrazione per assurdo. Se [s u_1 u_2 ... u_n \cup v] non è un cammino di costo minimo, allora esisterà comunque un cammino di costo minore.
+Come diretta conseguenza sto determinando il cammino minimo per ogni singolo nodo attraversato.
+Posso rappresentare la soluzione come un albero. La soluzione è un insieme dei cammini. (Attenzione, non tutti i cammini minimi sono rappresentabili con alberi).
+Bisogna dire che l'output è necessariamente un albero. La soluzione deve garantire che tutti i nodi siano raggiungibili e che non ci siano cicli negativi.
+
+Gli algoritmoi per la risoluzione di questo problema usano tutti una singol idea di base: Fai un'inizializzazione e continua a rilassare i cammini. Se non ne trovi più di relaxable
+allora hai il cammino minimo.
+
+// Inizializzazione della struttura
+init(G,s)
+	\forall v\in V[G]
+		d[u]\gets \infty 	// stima del costo minimo del cammino da s a u all'inizio. E' l'elemento neutro per il minimo.
+		\pi[u]\gets NIL		// Predecessore inesistente se sei all'inizio
+		
+	d[s]\gets 0				// s è tuttavia a distanza 0.
+	
+// Data la distanza da s a v, è possibile arrivare da s a u ed arrivare a v con un costo minore?
+relax(u, v, w)
+	if d[v] > d[u] + w(u,v) 		// Se la risposta è sì, aggiorno le informazioni e otteniamo quindi il nuovo cammino minimo.
+		d[v]\gets d[u] + w(u,w)		// Somma i nuovi valori di distanza minori rispetto al precedente
+		\pi[v] u					// Segnati il predecessore
+		
+Se non esistono archi rilassabili, abbiamo il cammino minimo.
+
+--- Dijkstra
+Guardiamo il caso in cui non ci sono pesi negativi. Tutti gli archi hanno pesi positivi. Voglio rendere massimo il prodotto del peso degli alberi.
+(Oppure la somma dei logaritmi. E' uguale. Il minimo è ottenibile facendo *(-1))
+
+dijkstra(G, w, s)
+	init(G,s)
+	Q\gets v[G] // Queue ordinata sulla distanza d. La inizializziamo a tutti i nodi del grafo
+	
+	while Q\neq NIL
+		u\gets extract_min(Q) 	// Prendi il nodo più vicino ad s che trovi e rimuovilo dalla coda
+		\forall v\in Adj[u]		// Controlla ogni nodo nella lista di adiacenza di quello estratto
+			relax(u, v, w)		// Rilassa gli archi per trovare il costo minimo
+			
+Prendi come esempio il grafo IM2. Per prima cosa la extract min rimuove s dalla coda. Questo perché ha distanza minima da se stesso: 0. Qualunque rilassamento che faccia, non
+abbasserà mai quel valore. Si partirà quindi sempre da qua.
+Vede la distanza da s ad a. 5 < \infty, quindi segno distanza 5 ed s come predecessore.
+Ogni arco, siccome ne si estrae solamente un nodo, viene rilassato solamente una volta.
+
+Init: V, creazione coda Q: V, extract_min: V, relax: E.
+Su extract_min stiamo facendo una reduce key. Per valutare la complessità di dijkstra bisogna valutare la complessità di extract_min e reduce_key.
+	- Per gli heap: extract_min costa log(n), reduce_key costa log(n) \implies (V+E)log(n)		(Miglior opzione grafo sparso)
+	- per liste ordinate: extract_min costa 1, reduce_key costa V \implies V + VE
+	- Per liste non ordinate: extract_min costa V, reduce_key costa E \implies V^2+E			(Miglior opzione grafo completo)
+	
+NB: Dijkstra può non funzionare con un grafo pesato con valori anche negativi. Questo perché troverebbe nei negativi il minimo, ma essendo che si rimuove il nodo dalla coda non
+si può tornare indietro.
+
+Possiamo fare qualcosa per cicli negativi? Bellman-Ford
+
+// Se esiste, la soluzione la trovi anche con archi negativi
+// Continua a rilassare fin quando non trovi (o non trovi) la soluzione. Sa dire se esiste o meno una soluzione, quindi.
+bellmanFord(G, w, s)
+	init(G,s)
+	
+	for V-1 times
+		\forall (u,v)\in E[G]
+			relax(u,v,w)
+			
+	\forall (u,v)\in E // Controlla se rimangono archi rilassabili
+		if d[v] > d[u] + w(u,v) // Se sì, non ha soluzione
+			ret false
+			
+	// Altrimenti la soluzione esiste
+	ret true
+	
+- Lemma di BF
+Dopo i iterazioni tutti i cammini minimi composti da al più i archi sono stati trovati.
+
+Si dimostra per induzione su i. Per i=0 è vera, la distanza da s a s è 0. Vale.
+Prendiamo ora un cammino di costo minimo s u_1 ... u_i u_{i+1}. Se si arriva a u_{i+1} si arriva sicuramente ad u_i. Scopriamo quindi il cammino minimo.
+Anzi, troviamo praticamente tutti i cammini minimi dopo V-1 iterazioni.
+
+Supponiamo ora di avere cicli negativi e che il test di bellmanFord abbia successo. u_0 u_1 ... u_n u_0
+Quindi:
+d[u_1] \leq d[u_0] + w(u_0, u_1)
+d[u_2] \leq d[u_1] + w(u_1, u_2)
+...
+d[u_n] \leq d[u_{n-1}] + w(u_n, u_{n+1})
+d[u_0] \leq d[u_n] + w(u_n, u_0)
+
+Il costo del ciclo è quindi: \sum_u_n d[u_i] \leq \sum_{u_i} d[u_i] + \sum_{u_i, u_{i+1}} w(u_i, u_{i+1})
+
+La complessità di bellmanFord è V*E.
+
+---
+// Se il grafo non ha cicli, puoi usare questo per calcolare cammino minimo. Ref: IM3
+dagSP (G, w, s)
+	init(G,s)
+	ord_top(G)
+	
+	// Praticamente come dijkstra, ma al posto di prendere da una coda, li prende da un ordine topologico.
+	\forall u in ordinamento topologico
+		\forall v\in Adj[u]
+			relax(u,v,w)
+			
+Quindi archi già rilassati, non ci sono più quelli da rilassare in futuro perché il grafo è aciclico
+Ord_top: V+E
+Rilassamenti: E
+
+Compl. totale: V+E

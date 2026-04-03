@@ -1,0 +1,89 @@
+Slide bash 1
+
+--- Base ottale ed esadecimale
+- ottale a binario:
+0 = 000
+1 = 001
+2 = 010
+3 = 011
+4 = 100
+5 = 101
+6 = 110
+7 = 111
+
+Bin to Ott:
+	1. Parti da destra e raggruppa le cifre binari in gruppi di 3 cifre
+	2. Sostituisci a ogni gruppo la cifra in Ott.
+	
+Ott to Bin:
+	1. Parti da dx e sostituisci ogni cifra Ott con la corrispondente codifica binaria
+
+- hex a binario
+0 = 0000
+1 = 0001
+2 = 0010
+3 = 0011
+4 = 0100
+5 = 0101
+6 = 0110
+7 = 0111
+8 = 1000
+9 = 1001
+a = 1010
+b = 1011
+c = 1100
+d = 1101
+e = 1110
+f = 1111
+
+Bin to Hex:
+	1. Parti da destra e raggruppa le cifre binari in gruppi di 4 cifre
+	2. Sostituisci a ogni gruppo la cifra in hex.
+	
+Hex to Bin:
+	1. Parti da dx e sostituisci ogni cifra hex con la corrispondente codifica binaria
+	
+--- Definisce gli OS, spiega le CLI
+
+Per interagire con la macchina, l'utente apre un terminale virtuale, una zona nello schermo dove è possibile digitare comandi per iniziare un dialogo.
+Si digita un comando e il sistema operativo esegue delle azioni in risposta. È possibile continuare il dialogo come porne il termine.
+Il terminale che useremo è la shell Bash. Per informazioni su un comando: "man <cmdName>".
+
+In unix e linux i file sono contenitori di dati. Si dividono in:
+	- regolare: File utente come i binari o in ascii
+	- directory: Informazioni relative ad altri file
+	- Pipe: Comunicazioni tra processi
+	- Link: Alias
+	- Socket: Comunicazioni tra processi
+	- Speciali: Per i dispositivi
+	
+Tutti i file sono organizzati in un albero detto File system, composto dalla radice e dai suoi figli (i file), i nodi. La struttura è:
+	- /
+		- /usr
+			- /local
+				- /bin
+		- /bin
+		- /Users
+			- /F27
+			- /tuMà
+			
+In ogni momento dell'esecuzione della shell esiste una sola working directory, ovvero la directory nella quale ci troviamo. Ogni percorso radice-nodo del file system è detto pathName assoluto. Per esempio, /usr/local/bin è un path name assoluto.
+	Per visualizzare su stdout la working directory della shell, digitare il comando "pwd" (print working directory)
+	
+--- Sintassi e semantica della shell
+Descriveremo la sintassi della shell con la grammatica BNF. Una descrizione BNF è data da un insieme di regole della forma: <categoria-sintattica>::= N_{1,1} ... N_{1,n_1} | ... | N_{k,1} ... N_{k, n_k}
+Dove ogni N è una categoria sintattica oppure una parola del lessico. Le sequenze di simboli facenti parti del lessico sono dette parole, il simbolo "::=" corrisponde a "è" in italiano, ogni stringa chiusa tra <> è una categoria sintattica, ogni entità sopralineata è opzionale, il simbolo "|" corrisponde a "oppure".
+
+Per esempio: <frase>::= <soggetto> <verbo> \overline{<complemento oggetto>}
+	<soggetto>::= Franco|Monica
+	
+--- Comandi principali della bash
+- ls (List directory contents)
+<comando ls>::= ls \overline{<opzioni>} \overline{<nomi_file>}
+Elenca informazioni riguardo ai file nella working directory in ordine alfabetico (di default).
+Opzioni:
+	- -a: Elenca tutti i file nelle directory, inclusi quelli che iniziano con '.'.
+	- -d: Elenca le directory come se fossero file, invece di elencarne il contenuto
+	- -l: Oltre al nome di ogni file, stampa il relativo tipo, permessi, collegamenti fisici, nome proprietario, gruppo, dimensione in byte e timestamp.
+	- 
+

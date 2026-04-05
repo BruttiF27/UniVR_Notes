@@ -1,0 +1,79 @@
+02-04-26 - softEng
+
+--- Progettazione degli algoritmi
+Si suppone di aver ben definito come le componenti si comportano tra di loro. Si tratta dell'attività più vicina alla codifica, tendenzialmente lasciata in gran parte agli sviluppatori. Ha le seguenti fasi:
+	- Analizza descrizione di design della classe target
+	- Selezione o definizione dell'algoritmo con relativa notazione
+	- Svilkuppo dell'algoritmo usando la nozione di stepwise refinement (algoritmo raffinato per passi)
+	- Uso dei metodi formali per provare la correttezza dell'algoritmo (dipende dal workflow questo, onestamente)
+	
+- Notazioni per la rappresentazione degli algoritmi
+Ne abbiamo di visuali, come diagrammi di attività di UML, flowchart e simili, oppure testuali, come lo pseudocodice o program design languages.
+
+Esempio di stepwise refinement
+Dati tre numeri interi calcolare la differenza tra il più grande e il più piccolo
+	1. Leggere i valori
+	2. Calcolare max
+	3. Calcolare min
+	4. Calcola differenza
+	5. Ritorna il risultato
+	
+	var A, B, C, Max, Min, Res
+	Max <- calc_max(A, B, C)
+	Min <- calc_min(A, B, C)
+	Res <- Max-Min
+	
+	E poi definisci gli pseudo delle singole funzioni
+	
+--- Principi di progettazione
+Astrazione, decomposizione, modularità, information hiding, per la produzione di un software mantenibile, comprensibile e chiaro.
+
+- Modulo
+Entità software identificata da un nome che contiene fornisce servizi. Contiene istruzioni, strutture dati e controllo. Puà essere incluso in altri moduli e può usarne a sua volta. Degli esempi sono una macro, un programma, una funzione, uno script, etc.
+
+- Astrazione
+Permette di concentrarsi su un problema ad un livello determinato di astrazione, senza perdersi in dettagli degli altri livello. Riduce complessità e permette di descrivere il comportamento di un modulo più facilmente. Nasconde anche informazioni che a quel livello non servono.
+	Ci sono diverse forme di astrazione:
+	- Funzionale: Definisce una funzionalità indipendentemente dall'algoritmo che la implementa
+	- Di dati: Definizione di un tipo di dato in base alle operazioni che su di esso senza definire una struttura concreta.
+	- Di controllo: Definizione di un meccanismo di controllo senza indicarne i dettagli interni
+	
+- Decomposizione
+Scomposizione di un problema complesso in più parti: divide et impera, banalmente. Ricorda però che separare in pezzi più piccoli implica il dover spendere tempo per l'integrazione di ogni modulo creato. Non è indifferente.
+
+- Modularità
+Conseguenza del proncipio di decomposizione: I sottoproblemi sono gestiti dai moduli. La modularità dona iun criterio per la divisione del software con la logica separation of concerns: il tenere separati gli aspetti unrelated di un software.
+	Una valida linea guida è tenere separati il sw di generazione dati dal sw necessario alla presentazione, quindi backend da frontend. Permette di cambiare la rappresentazione dello schermo senza modificare il sistema di calcolo.
+
+Criteri di modularizzazione:
+	- Massimizzare coesione e minimizzare l'accoppiamento e dipendenze. Ogni modulo esegue un singolo compito e bisogna minimizzare il numero e la complessità delle interazioni fra i moduli. Consigliato usare delle metriche per vedere quanta complessità è tollerabile in una singola classe.
+	
+	- Concetto di coesione
+	Un modulo coeso svolge un unico compito richiedendo poche interazioni con altri componenti. Usa gli elementi al suo interno lasciando fuori il resto. Permette di comprendere e modificare meglio ogni singolo modulo.
+	Ci sono più tipi di coesione: funzionale, di livello, comunicazionale, e altro. L'importante è che seguano la regola di usare le proprie risorse minimizzando il contatto con l'esterno.
+	
+	- Conceto di accoppiamento
+	Ogni modulo non deve dipendere da troppi altri moduli, né dipendervi in modo troppo forte. L'accoppiamento misura il grado di dipendenza di un modulo dali altri. Se ci sono, spesso si richiedono modifiche in più moduli, è difficile capire come un modulo singolo possa lavorare e non si può riutilizzare senza gli altri. È un pò nammerda.
+	Capiamo, avere moduli perfettamente indipendenti è irrealistico. Avresti programmi a sé, non un software che li comprende tutti. Allo stesso tempo, non è possibile scrivere dipendenze per tutti i modulo, è disgustosamente difficile da lavorarci. Trova quindi un giusto compromesso, rendendo il software funzionale con il minor numero di dipendenze possibili.
+	
+	Ci sono diversi tipi di accoppiamento per darci un criterio su quali siano meglio e quali no:
+		- Buono: Chiamata di routine, metodo, funzione di altro modulo. Si tratta di una chiamata inevitabile.
+			Un altro accoppiamento buono è magari istanziare oggetti di altre classi rendendoli privati e utilizzabili sulla singola classe chiamante (private).
+			Anche l'importazione dei componenti non è male.
+		- Cattivo: Accoppiamento di contenuto (come componente1 modifica il valore di componente2. I dati dovrebbero essere gestiti da componente2)
+
+- Information hiding
+Moduli dovrebbero essere specificati e progettati sicché le informazioni siano nascoste agli altri moduli ai quali non serve sapere queste informazioni.
+Ogni modulo incapsula una decisione di design separata che potrebbe essere modificata in futuro; le interfacce vengono usate per descrivere ogni modulo in termini delle sue proprietà visibili esternamente.
+	Il primo vantaggio di questa strategia è far risultare i moduli debolmente accoppiati grazie alla definizione delle interfacce.
+	
+- Alto fan-in, basso fan-out
+Possibile ricostruire il grafo degli usi o dipendenze in cui gli archi rappresentano la relazione di dipendenza. Fan-in sono dipendenze entranti, fan-out sono quelle uscenti. Tanti fan-in indica un buon riuso, mentre tanti fanout indicano eccessiva dipendenza e il modulo dovrebbe essere decomposto.
+
+- Generalità
+Proprietà di design che impatta maggiormente il riuso di un modulo in progetti futuri. Lo scopo è rendere i moduli i più generali possibili per renderlo utilizzabile anche in altri contesti. Per esempio, un algoritmo di ordinamento si usa in molti programmi; generalizzare la procedura per far sì che possa ordinare qualunque parametro non sarebbe male. Rende il codice meno semplice, ma hey, per procedure iperutilizzate va bene.
+
+- Semplicità (DRY KISS, duh)
+
+Esistono delle metriche del software che ci permettono di misurare l'aderenza ai principi visti, come lo IEEE Std 610.12-1990, che è una misura quantitativa del grado di possesso di uno specifico attributo da parte di un sistema, componente o processo.
+Dei tool possono implementarlo, come Stan4J, che funziona a livello di codice.

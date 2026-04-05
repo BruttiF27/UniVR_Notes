@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  29 MAR 2026 16:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  5 APR 2026 13:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -462,21 +462,46 @@ Package pdftex.def Info: Images/requirementsEngineering.png  used on input line
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-Excluding 'comment' comment.) [16] [17 <./Images/requirementsEngineering.png>]
+[16] [17 <./Images/requirementsEngineering.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 71--72
+
+ []
+
+<Images/useCaseDiagram.png, id=86, 518.93875pt x 287.0725pt>
+File: Images/useCaseDiagram.png Graphic file (type png)
+<use Images/useCaseDiagram.png>
+Package pdftex.def Info: Images/useCaseDiagram.png  used on input line 86.
+(pdftex.def)             Requested size: 314.99863pt x 174.26418pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[18]
+Overfull \hbox (7.54472pt too wide) in paragraph at lines 98--99
+[]\OT1/cmr/m/n/12 Inoltre, per la de-scri-zio-ne de-gli sce-na-ri ^^Re ne-ces-s
+a-rio spe-ci-fi-ca-re an-che le \OT1/cmr/bx/n/12 pre-condizioni\OT1/cmr/m/n/12 
+,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
+
+ []
+
+[19 <./Images/useCaseDiagram.png>]) [20]
 Capitolo 4.
-(./Chapters/4.tex Excluding 'comment' comment.) [18
+(./Chapters/4.tex Excluding 'comment' comment.) [21
 
 ]
 Capitolo 5.
-(./Chapters/5.tex) [19
+(./Chapters/5.tex) [22
 
 ]
 Capitolo 6.
-(./Chapters/6.tex) [20
+(./Chapters/6.tex) [23
 
 ]
 Capitolo 7.
-(./Chapters/7.tex) [21
+(./Chapters/7.tex) [24
 
 ] (./main.aux)
  ***********
@@ -485,10 +510,10 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8317 strings out of 474222
- 133864 string characters out of 5748733
+ 8324 strings out of 474222
+ 134087 string characters out of 5748733
  1933975 words of memory out of 5000000
- 30449 multiletter control sequences out of 15000+600000
+ 30456 multiletter control sequences out of 15000+600000
  570253 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  74i,9n,82p,884b,504s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -496,17 +521,18 @@ Here is how much of TeX's memory you used:
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmtt12.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (22 pages, 276240 bytes).
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt1
+2.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on main.pdf (25 pages, 311700 bytes).
 PDF statistics:
- 151 PDF objects out of 1000 (max. 8388607)
- 88 compressed objects within 1 object stream
+ 168 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

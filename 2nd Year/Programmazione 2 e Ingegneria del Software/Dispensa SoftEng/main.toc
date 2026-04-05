@@ -9,27 +9,27 @@
 \contentsline {chapter}{\numberline {3}Ingegneria dei requisiti}{14}{}%
 \contentsline {section}{\numberline {3.1}Definizione e impatto dei requisiti}{14}{}%
 \contentsline {section}{\numberline {3.2}Processi di ingegneria dei requisiti}{16}{}%
-\contentsline {section}{\numberline {3.3}Use case}{16}{}%
-\contentsline {chapter}{\numberline {4}Progettazione del software}{18}{}%
-\contentsline {section}{\numberline {4.1}Modellazione di sistemi OO con UML}{18}{}%
-\contentsline {section}{\numberline {4.2}Fasi della progettazione}{18}{}%
-\contentsline {section}{\numberline {4.3}Pattern architetturali}{18}{}%
-\contentsline {section}{\numberline {4.4}Pattern di design}{18}{}%
-\contentsline {chapter}{\numberline {5}Verifica e Validazione}{19}{}%
-\contentsline {section}{\numberline {5.1}Ispezione e test}{19}{}%
-\contentsline {section}{\numberline {5.2}Unit testing}{19}{}%
-\contentsline {section}{\numberline {5.3}Integration testing}{19}{}%
-\contentsline {section}{\numberline {5.4}User acceptance testing}{19}{}%
-\contentsline {section}{\numberline {5.5}Sviluppo guidato dal testing}{19}{}%
-\contentsline {chapter}{\numberline {6}Evoluzione e mantenimento software}{20}{}%
-\contentsline {section}{\numberline {6.1}Gestione del cambiamento}{20}{}%
-\contentsline {section}{\numberline {6.2}Sistemi legacy}{20}{}%
-\contentsline {section}{\numberline {6.3}Manutenzione del software}{20}{}%
-\contentsline {chapter}{\numberline {7}Strumenti e framework utili}{21}{}%
-\contentsline {section}{\numberline {7.1}Introduzione a Python}{21}{}%
-\contentsline {section}{\numberline {7.2}Visualizzazione di dati - Plotly}{21}{}%
-\contentsline {section}{\numberline {7.3}Manipolazione e analisi di dati - Pandas}{21}{}%
-\contentsline {section}{\numberline {7.4}Costruzione di applicazioni analitiche}{21}{}%
-\contentsline {subsection}{\numberline {7.4.1}Dash}{21}{}%
-\contentsline {subsection}{\numberline {7.4.2}Pony ORM}{21}{}%
-\contentsline {section}{\numberline {7.5}Applicazioni web complesse}{21}{}%
+\contentsline {section}{\numberline {3.3}Use case}{17}{}%
+\contentsline {chapter}{\numberline {4}Progettazione del software}{21}{}%
+\contentsline {section}{\numberline {4.1}Modellazione di sistemi OO con UML}{21}{}%
+\contentsline {section}{\numberline {4.2}Fasi della progettazione}{21}{}%
+\contentsline {section}{\numberline {4.3}Pattern architetturali}{21}{}%
+\contentsline {section}{\numberline {4.4}Pattern di design}{21}{}%
+\contentsline {chapter}{\numberline {5}Verifica e Validazione}{22}{}%
+\contentsline {section}{\numberline {5.1}Ispezione e test}{22}{}%
+\contentsline {section}{\numberline {5.2}Unit testing}{22}{}%
+\contentsline {section}{\numberline {5.3}Integration testing}{22}{}%
+\contentsline {section}{\numberline {5.4}User acceptance testing}{22}{}%
+\contentsline {section}{\numberline {5.5}Sviluppo guidato dal testing}{22}{}%
+\contentsline {chapter}{\numberline {6}Evoluzione e mantenimento software}{23}{}%
+\contentsline {section}{\numberline {6.1}Gestione del cambiamento}{23}{}%
+\contentsline {section}{\numberline {6.2}Sistemi legacy}{23}{}%
+\contentsline {section}{\numberline {6.3}Manutenzione del software}{23}{}%
+\contentsline {chapter}{\numberline {7}Strumenti e framework utili}{24}{}%
+\contentsline {section}{\numberline {7.1}Introduzione a Python}{24}{}%
+\contentsline {section}{\numberline {7.2}Visualizzazione di dati - Plotly}{24}{}%
+\contentsline {section}{\numberline {7.3}Manipolazione e analisi di dati - Pandas}{24}{}%
+\contentsline {section}{\numberline {7.4}Costruzione di applicazioni analitiche}{24}{}%
+\contentsline {subsection}{\numberline {7.4.1}Dash}{24}{}%
+\contentsline {subsection}{\numberline {7.4.2}Pony ORM}{24}{}%
+\contentsline {section}{\numberline {7.5}Applicazioni web complesse}{24}{}%

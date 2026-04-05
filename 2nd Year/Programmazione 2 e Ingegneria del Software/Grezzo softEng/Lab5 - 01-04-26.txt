@@ -1,0 +1,30 @@
+Lab5 - 01-04-26 softEng
+
+--- Dash
+Dashboard, mi par di capire sia un framework python per la creazione di applicativi web front-end. Si integra bene con Plotly perché è fatto dalla stessa azienda.
+Si appoggia su React. Permette un controllo discreto del comportamento del software rimanendo sempre in contesto python.
+I pezzi scritti possono essere testati all'interno di notebook, come abbiamo visto in precedenza.
+
+L'architettura è fatta a blocchi organizzati all'interno di un layout, i quali richiamano componenti html e quelle core di Dash stesso.
+    Workflow: utente -> Callback Python -> aggiornamento componente
+    Struttura minima indicata sul notebook
+
+Viene usato il decoratore @callback. Indica il comportamento da attuare ad aggiornamenti ricevuti? Come per l'api di telegram?
+In ogni caso, senza il callback non è possibile far tradurre in html e il software svolgerebbe tutto in backend senza far vedere niente.
+// Tip: lo scope delle variabili di python non è limitato alle sole funzioni. Se non trova la variabile nel metodo, se la va a cercare in altri punti. What the hell is wrong with it?
+
+Esiste (per grazia di dio) la documentazione delle componenti e nel notebook sono scritti i metodi base per la scrittura del front-end.
+
+Fare debugging delle componenti grafiche non è semplice, ma potendo testarle una per volta, quantomeno il lavoro è meno pesante.
+Altra cosa figa è poter sincronizzare le callback, sì da coordinare le componenti varie.
+
+--- Callback
+I callbacks sono il cuore di dash; collehgano le azioni dell'utente alle modifiche dell'interfaccia.
+Per usarlo bisogna importare: from dash import callback, Input, Output, State
+Bisogna giustamente definire gli input, gli output e uno state, quest'ultimo un valore letto che non attiva il callback; sono i valori delle componenti al momento in cui è dato
+l'input. E' possibile avere anche più stati e output, i quali sono mappati in maniera posizionale.
+
+---
+
+Generalmente mi par di capire la lezione riguardi l'utilizzo del framework dash per la creazione di un applicativo front-end modulare, capace di gestire più input, più output
+e anche stati opzionali per la definizione dei valori dati in input.

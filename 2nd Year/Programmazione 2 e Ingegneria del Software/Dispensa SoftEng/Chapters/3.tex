@@ -63,83 +63,44 @@ Creato e validato il documento dei requisiti, è necessario mantenere una loro g
 %
 
 \section{Use case}
+L'utilizzo di \textbf{use case} è una tecnica non visuale per l'espressione dei requisiti funzionali di un sistema e la descrizione del sistema dal punto di vista dell'utenze, senza che questo sia cosciente degli eventi che avvengono al suo interno. Il software viene infatti visto come una black box della quale si descrive esclusivamente lo scambio di messaggi tra il sistema e le entità attive, dette \textbf{attori}. Il caso d'uso può presentare una "storia" che descrive una modalità di utilizzo da parte dell'utente. Per esempio, il programma di un ATM può essere descritto in due passaggi: \begin{enumerate}
+	\item L'utente seleziona l'importo da prelevare e conferma la cifra.
+	\item Il sistema eroga la cifra.
+\end{enumerate}
+\noindent Formalmente, gli use case hanno una struttura specifica; un insieme di campi che comprendono in primo luogo l'\textbf{ID del caso}, il \textbf{nome del caso}, una breve \textbf{descrizione dell'obiettivo} e gli \textbf{attori}. In una sezione sottostante è poi spiegato in termini semplici il \textbf{workflow principale}, ovvero l'istanza di utilizzo del software ideale, insieme ai \textbf{workflow secondari}, che mostrano il comportamento del sistema quando si devia dall'interazione ideale.\par
+Principalmente, gli use case sono utili a documentare le scelte prese per rispettare i requisiti e presentare chiaramente il risultato agli stakeholder. Sono inoltre passati al team di sviluppo che progetterà l'applicativo, i quali potranno usarli come base per valutare la qualità del software.\newline
 
-\begin{comment}
-	--- Use case
-	Tecnica per esprimere requisiti funzionali di un sistema e descrivere dal punto di vista dell'utente. In particolare:
-	- organizzativo complesso
-	- Software/hardware da sviluppare
-	- Una componente o sottosistema
-	
-	È puro testo ed il sistema è visto come una black box, si mostra puramente l'interazione (scambio di messaggi) tra utente e sistema. Per esempio, un'ATM.
-	1. L'utente seleziona l'importo da prelevare e conferma la cifra
-	2. Il sistema eroga la cifra
-	
-	-- Requisiti e use case
-	Il requisito descrive una funzionalità dal punto di vista del sistema, il caso d'uso da quella dell'utente, chiamato attore. In questi ultimi, si presenta la seguente struttura:
-	- ID caso
-	- Nome caso
-	- breve descrizione
-	- attore
-	- workflow principale
-	1. ...
-	2. ...
-	- workflow alternativo
-	
-	Gli use case servono principalmente per documentare le scelte prese per rispettare i requisiti e documentare il risultato delle interviste con gli stakeholder. Gli use case saranno èassati al team che progetterà l'applicativo. Gli use case saranno confrontati con il primo prototipo creato per valutarne la qualità e il rispetto delle richieste.
-	
-	--- Componenti degli use case
-	Attori: ruoli assunti dalle entità che interagiscono col sistema
-	Use case: Ciò che gli attori possono fare con il sistema
-	Relazioni: tra gli attori e gli use case
-	Confini del sistema: un rettangolo disegnato intorno agli use case per indicare i confini del sistema.
-	
-	Definire i confini del sistema è molto importante, perché il posizionamento del confine ha un grosso impatto sui requisiti funzinoali: molti progetti sono falliti priprio per una sbagliata definizione dei confini.
-	
-	Attori hanno un ruolo che un'entità esterna recita interagendo col sistema. Non necessariamente è un utente, può essere anche una componente del software o hardware. È un ruolo. Non la persona stessa. Ce ne sono due categorie:
-	- primari: ha delle mire sul sistema e ci guadagnano dal sistema
-	eg: cliente che vuole ordinare un prodotto
-	- secondari: il sistema ha delle mire su di essi e produce un qualcosa per il sistema.
-	eg: sistema esterno per la gestione dei pagamenti
-	
-	Scenario è una sequenza ordinata di interazioni tra un sistema e gli attori; è una particolare istanza di uno use case e rappresenta un loro singolo cammino. Sono utili perché partire con scenari concreti è più comodo che generalizzare e possono essere anche usati per il testing. Uno scenario è un'istanza, quindi un test case ne comprende anche un loro insieme, se questi hanno lo stesso fine.
-	
-	--- Descrizione di use case
-	Gli use case sono dati come testo strutturato i cui passi sono facili da capire ed è usato il vocabolario del dominio applicativo. È necessario avere descrizioni chiare, precise, generali e indipendenti dalle tecnologie.
-	- Scenario principale: quello ideale
-	- Scenario secondario: Casistiche con eventuali condizioni di errore e casi particolari.
-	
-	Per la descrizione ci sono dei template, pattern standardizzati. Si mostrano in quest'ordine:
-	- Nome dello use case: goal del case, breve frase verbale attiva in camelcase
-	- Identificatore: Numero progressivo
-	- Breve descrizione: paragrafo che indica il goal del case
-	- Attori primari e secondari
-	- Precondizioni: vincoli sullo stato corrnte del sistema
-	- Scenario principale: Passi che costituiscono lo use case senza problemi
-	- Postcondizioni: condizioni che devono essere vere quando il case termina con successo
-	- Scenari alternativi: elenco di alternative allo scenario principale.
-	
-	- Passi di uno scenario
-	Scenario è un elenco di passi coincisi, numerati e ordinati temporalmente. Da questo scenario principale ci sono le deviazioni (scenari secondari). Le semplici ritornano nel flusso principale, le complesse vanno da tutt'altra parte.
-	
-	- Gerarchie di attori usate per la gestione delle relazioni con il sistema.
-	- Generico
-	- Specializzato
-	
-	Relazioni tra use case:
-	- inclusione, per decomporre un case complicato, quindi un comportamento comune a più cases.
-	Ricorda il concetto di chiamata a funzione. Il case principale esegue i passi fino al punto di inclusione, dove il conrollo passa a quello incluso.
-	Si rappresenta nella descrizione con la dicitura ".include(caseName)"
-	- Estensione, un comportamento opzionale
-	Si definisce un punto di estensione ma non si conosce il suo comportamento. In qanto opzionale, è lecito.
-	- Generalizzazione o specializzazione, per specializzare uno use case; tipo più cases usano un pagamento, quindi la funzione di pagamento.
-	C'è un case genitore dal quale derivano dei figli, sue varianti più specifiche. Questi possono ereditare i passi del genitore, aggiungerne di nuovi o anche ridefinire i passi ereditati. Ricorda non poco un'estensione di classe in Java.
-	
-	È quasi come se stessimo definendo un linguaggio apposito, ma attenzione a non perdere chiarezza: devono comunque leggerlo gli stakeholders.
-	Una cosa utile sono gli screen mockups, ovvero degli schizzi dell'interfaccia utente per chiarirne il comportamnto; sono utili per la negoziazione con il cliente, per lo sviluppatore e per specificare la UI. Si possono fare su carta oppure usando un tool specifico, detto per la GUI prototyping. Un esempio è pencil tool.
-	
-	Generalmente, è bene mantenere i case brevi e semplici, con un buon compromesso fra astrazione e dettaglio. Non bisogna usarli per descrivere le funzionalità interne di un sistema, bensì il solo comportamento.
-	I meccanismi di extend e generalizzazione sono da usare solo quando rendono il modello più semplice o chiaro, e cerca di mantenere una coerenza con il livello di astrazione adattato.
-	
-	Gli use case sono un buon mezzo per esprimere i requisiti funzionali di un sistema e sono anche molto usati in ambito lavorativo. Ne esistono diversi template, ma sono tutti pressoché equivalenti. Risultano poco utili in sistemi dominati da requisiti non funzionali o con algoritmi complessi e privi di GUI.
-\end{comment}
+\noindent Per dare una visione ulteriormente chiara degli use case, è possibile ricondursi ad una forma grafica: gli \textbf{use case diagram}, composti da: \begin{itemize}
+	\item \textbf{Attori}: Ruoli assunti dalle entità che interagiscono con il sistema. Si dividono a loro volta in \begin{itemize}
+		\item \textbf{Primari}: Entità che hanno uno scopo raggiungibile grazie al sistema, come un utente che vuole comprare un prodotto su un sito di e-commerce.
+		\item \textbf{Secondari}: Entità che producono qualcosa per il sistema, come il circuito di pagamento per l'elaborazione delle transazioni.
+	\end{itemize}
+	\noindent Possono essere anche organizzati in gerarchie e se trattano utenti sono rappresentati da stickmen.
+	\item \textbf{Use case}: Ciò che gli attori possono eseguire con il sistema. Rappresentati da ellissi.
+	\item \textbf{Relazioni}: Legami tra attori e use case. Rappresentate da archi tra le ellissi.
+	\item \textbf{Confini del sistema}: Definisce l'insieme delle operazioni che il sistema può effettuare. Rappresentati da un rettangolo che contiene gli elementi precedenti.
+\end{itemize}
+\noindent La definizione dei confini del sistema è in particolar modo importante, poiché ha un grosso impatto sui requisiti funzionali; molti progetti sono falliti esattamente per questo problema.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/useCaseDiagram.png}
+	\caption{Esempio di use case diagram}
+\end{figure}
+
+\noindent Altro concetto importante è quello di \textbf{scenario}; una sequenza ordinata di interazioni tra un sistema e gli attori che rappresenta una particolare istanza, e quindi un singolo cammino, di uno use case. Lavorare con degli scenari concreti è particolarmente utile perché possono essere utilizzati per il testing del codice. Naturalmente, un caso d'uso contiene più scenari e in questi termini possiamo formalmente definirli come insiemi di scenari che hanno in comune lo scopo finale dell'utente.\par
+Prendiamo nuovamente in considerazione l'esempio dell'ATM; lo scenario ideale comprenderebbe: \begin{enumerate}
+	\item L'utente esegue un tentativo di autenticazione.
+	\item Il sistema verifica la correttezza dei dati e conferma l'accesso.
+	\item L'utente inserisce l'importo da prelevare e conferma la cifra selezionata.
+	\item Il sistema controlla che l'importo sia disponibile, ed in tal caso eroga il contante. 
+\end{enumerate}
+\noindent Tuttavia, è possibile che si verifichino altri scenari secondari, come l'inserimento di un pin errato, oppure la richiesta di prelevare più soldi di quanti sono disponibili sul conto. Queste istanze sono dette \textbf{deviazioni} e devono essere appropriatamente gestite e documentate. Quando ritornano nel workflow principale sono dette \textbf{semplici}, altrimenti si dicono \textbf{complesse}.\par
+Inoltre, per la descrizione degli scenari è necessario specificare anche le \textbf{pre-condizioni}, i vincoli sullo stato corrente del sistema, e le \textbf{post-condizioni}, le condizioni che devono risultare vere quando lo use case termina con successo.\newline
+
+\noindent Definiamo ora le possibili relazioni tra gli use case: \begin{itemize}
+	\item \textbf{Inclusione}: Usato per associare un comportamento a più use case. Nella descrizione testuale si indica con $.include(caseName)$, mentre in quella grafica si scrive sopra l'arco $<<include>>$.
+	\item \textbf{Estensione}: Usato per indicare un comportamento opzionale. Indicato via testo con $.extends(caseName)$ e $<<extends>>$ via grafica.
+	\item \textbf{Generalizzazione}: Usato per la generalizzazione di più use case. Per esempio, se dei casi usano una stessa funzione di pagamento, si raggrupperanno in un altro use case più generale. Viceversa, si possono vedere i casi raggruppati come istanze più specifiche.
+\end{itemize}
+\noindent A supporto dei diagrammi degli use case è possibile usare dei tool appositi per fare degli \textbf{screen mockup}, ovvero degli schizzi dell'interfaccia utente per chiarirne il comportamento. Sono utili per aumentare la comprensibilità delle funzioni e a guidare lo svilippo del software dando un'idea di come dovrebbe risultare. Un esempio di questi tool sono quelli per la \textbf{GUI prototyping}.\par
+Riassumendo, è bene scrivere use case brevi e semplici, con un buon compromesso fra astrazione e dettagli per la descrizione del comportamento di un sistema. Ne esistono diversi template equivalenti e sono molto utilizzati in ambito lavorativo. L'ambito in cui possono risultare meno utili è quello di sistemi dominati da requisiti non funzionali o con algoritmi complessi il cui funzionamento non necessita accoppiamento con interfaccia grafica.

@@ -253,116 +253,79 @@ Potremmo assumere ora per assurdo che $v$ non discenda da $u$ ma che abbia come 
 	\item \textbf{Archi trasversali} \textbf{C}: Archi che collegano due intervalli disgiunti.
 \end{itemize}
 \noindent In particolare, durante una visita in profondità è possibile riconoscere il tipo di arco in base al colore dei nodi: il bianco indica un arco d'albero, il grigio uno all'indietro, mentre il nero un arco in avanti o trasversale. Inoltre, se un grafo presenta archi all'indietro è sicuramente \textbf{ciclico}, perché, supponendo che la visita in profondità ne trovi uno, $v$ avrà colore grigio e $u$ sarà suo discendente. Esisterà di conseguenza un cammino tra i due nodi.\par
-Supponiamo ora un grafo ciclico e prendiamo in esame un suo ciclo qualsiasi. Sia $u$ il suo primo nodo visitato in profondità e $v$ il predecessore di $u$ nel ciclo. Allora al tempo $d[v]$ tutti i nodi del ciclo tranne $u$ sono bianchi, rendendo il nodo $v$ raggiungibile a partire dall'altro con un cammino di soli nodi bianchi. In quanto tale, possiamo dire per il teorema del cammino bianco che $v$ discende da $u$ nella foresta e sarà visitato quando $u$ è grigio, dimostrando l'arco all'indietro.\newline
-
-\noindent Se volessimo verificare l'aciclicità o ciclicità di un grafo basterebbe implementare qualche semplice modifica all'algoritmo DFS, dunque si avrà una complessità ad essa uguale. In particolare, se il grafo è completo, è quadratica, mentre se è sparso è lineare. Generalmente, vale: $\Theta(V+E)$.
+Supponiamo ora un grafo ciclico e prendiamo in esame un suo ciclo qualsiasi. Sia $u$ il suo primo nodo visitato in profondità e $v$ il predecessore di $u$ nel ciclo. Allora al tempo $d[v]$ tutti i nodi del ciclo tranne $u$ sono bianchi, rendendo il nodo $v$ raggiungibile a partire dall'altro con un cammino di soli nodi bianchi. In quanto tale, possiamo dire per il teorema del cammino bianco che $v$ discende da $u$ nella foresta e sarà visitato quando $u$ è grigio, dimostrando l'arco all'indietro.
 
 %
 
 \section{Ordinamento topologico}
+Definiamo un \textbf{ordinamento topologico} di un grafo orientato aciclico (DAG) un ordinamento totale di tutti i suoi nodi, tale che, se $G$ contiene un arco $(u,v)$, allora $u$ appare prima di $v$. Possiamo immaginarlo come una distensione dei vertici lungo una linea orizzontale, in modo che tutti gli archi siano direzionati da sinistra a destra; con questi presupposti, non è un concetto applicabile a grafi ciclici. Intuitivamente, l'algoritmo sfrutta la visita in profondità e la stack di attivazione per salvare su di essa ogni nodo quando è colorato di nero. Eseguendo operazioni di pop, è possibile ottenere il grafo ordinato topologicamente.
+\begin{algorithm}[h]
+	\caption{topologicalSort(G)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo orientato aciclico.
+		\State Chiama $DFS(G)$ per calcolare $f[v]$ di ogni nodo del grafo
+		\State Completata la visita di un nodo, esegui $push(v)$
+		\State Elaborati tutti i nodi, esegui $pop()$ per ogni nodo in stack
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent È immediato capire che è possibile inserire i nodi ordinati in una qualunque struttura dati come una lista concatenata; basta semplicemente eseguire l'operazione di inserimento sul nodo rimosso dalla stack.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/topologicalSort.png}
+	\caption{Visualizzazione ordinamento topologico}
+\end{figure}
+
+\noindent L'algoritmo richiede un tempo $\Theta(V+E)$, perché è quello richiesto dalla visita in profondità. Inoltre, occorre un tempo costante $O(1)$ per rimuovere un totale di $|V|$ nodi dalla stack di attivazione. Per dimostrarlo, è in primo luogo necessario assicurarsi che il grafo passato per parametro sia aciclico grazie al seguente lemma: \begin{lemma}
+	\textbf{Aciclicità di un grafo}\par
+	\noindent Un grafo orientato $G$ è aciclico se e solo se in una sua visita in profondità non sono prodotti archi all'indietro.	
+\end{lemma}
+\noindent Supponiamo che eseguendo una DFS si produca un arco all'indietro $(u,v)$. Inevitabilmente, il nodo $v$ sarà un antenato di $u$ nella foresta DFS. Esisterà quindi un cammino nel grafo che va da $u$ a $v$ e l'arco all'indietro $(u,v)$ completa un ciclo. Potendo distinguere i tipi di grafo, possiamo enunciare il teorema: \begin{teorema}
+	\textbf{Ordinamento topologico}\par
+	\noindent L'algoritmo topologicalSort() produce un ordinamento topologico del grafo orientato aciclico che gli viene fornito in input.
+\end{teorema}
+\noindent Sappiamo che in questo algoritmo è invocata una visita in profondità su un grafo $G$ per calcolare il tempo di elaborazione di ogni suo nodo. Per dimostrare il teorema, è sufficiente provare che per una qualunque coppia di vertici distinti $u,v\in V$, se esiste un arco del grafo che va da $u$ a $v$, allora vale $f[v] < f[u]$.\par
+Consideriamo quindi un arco qualsiasi; quando è visitato il vertice $v$ non può essere grigio, perché sarebbe antenato di $u$ e costituirebbe un arco all'indietro, rompendo il lemma precedente. Quindi, per qualunque arco, ci troviamo sicuramente in uno di questi due casi: \begin{itemize}
+	\item Il nodo $v$ è bianco: $v$ è discendente di $u$ e vale $f[v] < f[u]$
+	\item Il nodo $v$ è nero: la visita di $v$ è già stata completata e ha il valore $f[v]$ già impostato prima di $f[u]$. Dunque, certamente minore.
+\end{itemize}
+\noindent Un'altra comune applicazione della visita in profondità è la \textbf{scomposizione} di un grafo orientato nelle sue \textbf{componenti fortemente connesse} (SCC), il cui insieme è definito come il numero massimale di vertici $C\subseteq V$ tale che per ogni coppia di nodi $u,v\in C$, si ha che questi sono mutualmente raggiungibili.\par
+In presenza di un grafo non orientato si potrebbe eseguire l'unione di tutti gli insiemi separati con componenti mutualmente raggiungibili, con il seguente algoritmo: \begin{algorithm}[h]
+	\caption{ConnectedComponents(G)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo aciclico non orientato
+		\ForAll{$v\in V[G]$}
+		\State makeSet(v)
+		\EndFor
+		\ForAll{$(u,v)\in E[G]$}
+		\State union(u,v)
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent Richiede un tempo lineare per l'esecuzione: $\Theta(V+E)$, tuttavia non è utilizzabile con grafi orientati, per i quali è richiesta una raggiungibilità \textbf{bidirezionale}. L'algoritmo per le componenti fortemente connesse, infatti, utilizza due visite in profondità; la prima per calcolare il tempo di elaborazione dei nodi del grafo, la seconda fa lo stesso, ma sul grafo trasposto $G^T$, definito come $G^T = (V,E^T)$, dove $E^T = \{(u,v):(v,u)\in E\}$, quindi con ogni arco inverso rispetto a quelli del principale grafo.\par
+$G$ e $G^T$ hanno esattamente le stesse componenti fortemente connesse: due nodi sono raggiungibili l'uno dall'altro nel primo grafo se e solo se ciò vale anche nel trasposto. L'idea alla base dell'algoritmo deriva da una proprietà fondamentale del \textbf{grafo delle componenti} $SCC = (V^{SCC}, E^{SCC})$: supponiamo che un grafo abbia componenti fortemente connesse $C_1, ..., C_k$ e che l'insieme dei vertici $V^{SCC} = \{v_1, ..., v_k\}$ contiene un vertice $v_i$ per ogni $C_i$ del grafo. Esiste poi un arco $(v_i,v_j)\in E^{SCC}$ se $G$ contiene un arco orientato $(x,y)$ per qualche $x\in C_i$ e qualche $y\in C_j$.\par
+Insomma, contraendo tutti gli archi i cui vertici incidenti sono all'interno della stessa componente fortemente connessa del grafo sicché rimanga un solo vertice, si ottiene il grafo $G^{SCC}$. Banalmente, raccogli le componenti mutualmente raggiungibili in un sottoinsieme e lo consideri componente fortemente connessa $C$. \begin{algorithm}[h]
+	\caption{SCC(G)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo aciclico orientato
+		\State Chiama DFS(G) per calcolare $f[u]$ di ogni nodo $u$ del grafo
+		\State Crea il grafo trasposto $G^T$
+		\State Chiama DFS($G^T$) considerando i nodi in ordine decrescente rispetto a $f[u]$
+		\State Ritorna i nodi di ogni albero della foresta DFS come una singola SCC
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent La procedura richiede un tempo lineare per il calcolo delle SCC, quindi $\Theta(V+E)$ e per dimostrarla è necessario enunciare i seguenti lemmi: \begin{lemma}
+	\textbf{Distinzione delle componenti}\par
+	\noindent Siano $C, C'$ due componenti fortemente connesse distinte in un grafo orientato $G$. Se $u,v\in C$ e $u',v'\in C'$, e supponendo ci sia un cammino che collega $u$ e $u'$, allora non può esistere anche un cammino da $v'$ a $v$ nello stesso grafo.
+\end{lemma}
+\noindent Il lemma è valido per la distinzione delle componenti, perché se esiste un cammino $v'\rightsquigarrow v$ nel grafo, allora esistono i cammini $u\rightsquigarrow u'\rightsquigarrow v'$ e $v'\rightsquigarrow v\rightsquigarrow u$, rendendo $u$ e $v$ raggiungibili mutualmente, contraddicendo l'ipotesi che $C$ e $C'$ siano SCC distinte.
+
+% TODO Non hai finito. Riprendi la dimostrazione del secondo lemma e termina con la dimostrazione del teorema intero.
 
 
-
-\begin{comment}
-	17-03-25 Algoritmi
-	
-	--- Esempio di problema: ordine con cui vestirsi
-	- Come rappresentare i problemi?
-	Usiamo un grafo i cui nodi sono i vestiti. Dovendo dare un ordine, sarà orientato. *Immagine 1
-	Bisogna trovare un ordine che rispetti i vari vincoli dati dagli archi.
-	
-	Disegnamo quindi un grafo dove ho un ordinamento totale, estensione del precedente.
-	Questo problema è detto ordinamento topologico. Dato un grafo, trovare un ordinamento totale che sia estensione del precedente. Non può essere ciclico perché abbiamo solo archi
-	che vanno a dx. Il grafico, per essere corretto, deve quindi essere aciclico.
-	
-	Per risolvere il problema potremmo usare un DFS, sarebbe possibile ottenere una complessità O(V+E), ma bisogna lavorarci un pò.
-	In alternativa, definiamo:
-	
-	// Ordinamento topologico. Complessità O(VlogV + E)
-	OrdTop(G)
-	f \gets DFS(G) // Modifichiamo leggermente l'algoritmo per pushare sulla stack ogni nodo letto
-	return nodi per f decrescente. // Fai pop dei nodi e ritornali
-	
-	---
-	camicia 1
-	cravatta 2
-	giacca 3/4		// Giacca in stack
-	cravatta 2/5	// Cravatta in stack
-	Cintura 6/7		// Cintura in stack
-	Camicia 1/8		// Camicia in stack
-	Orologio 9/10	// Orologio in stack
-	Slip 11
-	Pantaloni 12
-	Scarpe 13/14	// Scarpe in stack
-	Pantaloni 12/15	// Pantaloni in stack
-	Slip 11/16		// Slip in stack
-	Calzini 17/18	// Calzini in stack
-	
-	Poppando i nodi dalla stack noterai che l'ordine rispetta i vincoli ed è un'istanza valida per la risoluzione del problema.
-	
-	--- Dimostrazione
-	\forall (u,v)\in E . f(v) < f(u) // Gli archi vanno sempre da un nodo con f grande a un nodo con f piccolo (Per ogni coppia, il nodo dst ha f minore del nodo src)
-	
-	Per dimostrarlo, prendiamo il momento in cui (u,v) viene esplorato in DFS. Casi possibili:
-	- v bianco: v è discendente di u, sicuramente. L'intervallo di v sta dentro quello di u, quindi f(v) < f(u). OK.
-	- v grigio: Impossibile, perché avremmo un arco all'indietro. Non varrebbe l'ordinamento topologico, vale solo per i grafi aciclici.
-	- v nero: f(v) < f(u)
-	
-	--- Se volessi sapere se due nodi sono mutualmente raggiungibili? (sono nella stessa componente?)
-	Voglio decorare i nodi di un grafo per poter rispondere a questa domanda in tempo costante. Usando una dfs per esplorare un grafo non orientato, possiamo capire quali nodi sono
-	discendenti dagli altri e quindi affermare se sono raggiungibili.
-	
-	- Altra idea
-	
-	// Ogni volta che si trovano insiemi separati con componenti mutualmente raggiungibili, si fa l'unione di questi insiemi.
-	ConnectedComponents(G)
-	\forall v\in V[G]
-	makeSet(v)
-	
-	\forall(u,v)\in E[G]
-	union(u,v)
-	
-	Sarebbe una complessità V+E ma è approssimativamente in tempo lineare.
-	
-	- Altra idea 2
-	Prendi bfs o dfs con un ciclo esterno. Oltre a time usiamo un counter, che inizia a 0. Quando trova un nodo bianco fa la visita passando anche il counter.
-	Questo valore sarà dato al nodo in un campo apposito
-	
-	--- DFS adattato per verificare nodi mutualmente raggiungibili. Se lo sono hanno un count dello stesso valore.
-	DFS(G)
-	\forall v\in V[G]
-	color[v]\gets white
-	\pi[v]\gets NIL
-	time\gets 0
-	count\gets 0
-	
-	\forall u\in V[G]
-	if color[u] == white
-	count\gets count+1
-	DFS_visit(D, u, count)
-	
-	DFS_Visit(G, u, count)
-	color[u]\gets gray
-	d[u]\gets time\gets time+1
-	
-	\forall u\in Adj[u]
-	if color[u] == white
-	\pi[v]\gets u
-	DFS_Visit(G, u, count)
-	
-	color[u]\gets black
-	c[u]\gets count
-	f[u]\gets time\gets time+1
-	
-	--- Problema dei nodi mutualmente connessi con grafo orientato *IM3
-	SCC(G)
-	f\gets DFS(G)
-	calcola DFS(G) trasposto scorrendo nodi 
-	per f decrescente
-	
-	Gli alberi della forestaDFS
-	sono le SCC // (stronglyConnectedComponents)
-	
+\begin{comment}		
 	-- Dimostrazione
 	Nodi fortemente connessi sono discendenti e raggiungibili quindi da un cammino bianco.
 	Ogni albero della foresta può contenere (sempre interamente) componenti fortememnte connesse. Non possiamo trovare archi di queste componenti che vanno al di fuori dell'albero 

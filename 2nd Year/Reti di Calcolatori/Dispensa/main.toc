@@ -8,24 +8,23 @@
 \contentsline {section}{\numberline {1.5}Indirizzi IP e subnetting}{14}{}%
 \contentsline {chapter}{\numberline {2}Livello applicazione}{17}{}%
 \contentsline {section}{\numberline {2.1}Il modello client/server}{17}{}%
-\contentsline {section}{\numberline {2.2}World Wide Web - HTTP}{17}{}%
-\contentsline {section}{\numberline {2.3}File Transfer Protocol - FTP}{17}{}%
-\contentsline {section}{\numberline {2.4}Posta elettronica - SMTP, POP3 e IMAP}{17}{}%
-\contentsline {section}{\numberline {2.5}Domain Name Service - DNS}{17}{}%
-\contentsline {chapter}{\numberline {3}Livello trasporto}{18}{}%
-\contentsline {section}{\numberline {3.1}Scopi e servizi}{18}{}%
-\contentsline {section}{\numberline {3.2}Protocollo TCP}{18}{}%
-\contentsline {section}{\numberline {3.3}Protocollo UDP}{18}{}%
-\contentsline {chapter}{\numberline {4}Livello network}{19}{}%
-\contentsline {section}{\numberline {4.1}Protocollo IP}{19}{}%
-\contentsline {section}{\numberline {4.2}Protocollo di configurazione DHCP}{19}{}%
-\contentsline {section}{\numberline {4.3}Protocollo ICMP}{19}{}%
-\contentsline {section}{\numberline {4.4}Protocolli di routing}{19}{}%
-\contentsline {section}{\numberline {4.5}IPv6}{19}{}%
-\contentsline {section}{\numberline {4.6}Network Address Translation - NAT}{19}{}%
-\contentsline {chapter}{\numberline {5}Livello data-link}{20}{}%
-\contentsline {section}{\numberline {5.1}Framing}{20}{}%
-\contentsline {section}{\numberline {5.2}Accesso al canale condiviso}{20}{}%
-\contentsline {section}{\numberline {5.3}Sottolivello MAC}{20}{}%
-\contentsline {section}{\numberline {5.4}Bridge, switch e LAN}{20}{}%
-\contentsline {section}{\numberline {5.5}Wireless LAN}{20}{}%
+\contentsline {section}{\numberline {2.2}Hyper Text Transfer Protocol - HTTP}{18}{}%
+\contentsline {section}{\numberline {2.3}Domain Name Service - DNS}{22}{}%
+\contentsline {section}{\numberline {2.4}Posta elettronica - SMTP, POP3 e IMAP}{22}{}%
+\contentsline {chapter}{\numberline {3}Livello trasporto}{23}{}%
+\contentsline {section}{\numberline {3.1}Scopi e servizi}{23}{}%
+\contentsline {section}{\numberline {3.2}Protocollo TCP}{23}{}%
+\contentsline {section}{\numberline {3.3}Protocollo UDP}{23}{}%
+\contentsline {chapter}{\numberline {4}Livello network}{24}{}%
+\contentsline {section}{\numberline {4.1}Protocollo IP}{24}{}%
+\contentsline {section}{\numberline {4.2}Protocollo di configurazione DHCP}{24}{}%
+\contentsline {section}{\numberline {4.3}Protocollo ICMP}{24}{}%
+\contentsline {section}{\numberline {4.4}Protocolli di routing}{24}{}%
+\contentsline {section}{\numberline {4.5}IPv6}{24}{}%
+\contentsline {section}{\numberline {4.6}Network Address Translation - NAT}{24}{}%
+\contentsline {chapter}{\numberline {5}Livello data-link}{25}{}%
+\contentsline {section}{\numberline {5.1}Framing}{25}{}%
+\contentsline {section}{\numberline {5.2}Accesso al canale condiviso}{25}{}%
+\contentsline {section}{\numberline {5.3}Sottolivello MAC}{25}{}%
+\contentsline {section}{\numberline {5.4}Bridge, switch e LAN}{25}{}%
+\contentsline {section}{\numberline {5.5}Wireless LAN}{25}{}%

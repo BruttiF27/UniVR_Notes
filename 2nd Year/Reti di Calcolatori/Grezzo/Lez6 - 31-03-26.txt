@@ -1,0 +1,97 @@
+31-03-26 - Reti di calcolatori
+
+--- Livello applicativo 2 e protocollo HTTP
+Quando si apre un socket, in HTTP possono essere persistenti oppure non persistenti. I non persistenti vedono il socket chiuso dopo la prima interazione (dopo la risposta il server dice al client di chiudere la connessione), mentre nelle persistenti il socket è usato per lo scambio di più messaggi ().
+
+- Funz. persistenti
+per una pagina web, si apre il socket e si inviano i get. Il socket è aperto fin quando non sono ottenuti tutti i dati della pagina. Ottenuti quelli, si invia la richiesta di chiusura
+
+- Funz non persistenti
+Si aprono più socket in parallelo, distinti dalla porta sorgente generata dal client. Il primo è usato per recuperare la struttura, gli altri sono per gli altri oggetti della pagina. Non esiste la soluzione perfetta, è una scelta progettuale perché sono entrambe valide.
+
+---
+
+In http possiamo impostare dei cookie, per semplificare l'interazione client-server. È una cosa opzionale e si basa su righe di intestazione.
+Elemento di architettura di rete che coinvolge anche il protocollo è il caching. Serve a diminuire il ritardo di accesso alle risorse usate più frequentemente. Ciò vale anche per una cache di rete. Diminuisce inoltre il ritardo nella consegna dei messaggi e globalmente diminuisce il carico di rete come conseguenza diretta.
+	Generalmente più utenti in una rete richedono una stessa risorsa, più si sperimenterà un ritardo, senza cache. Con caching, oltre al server, aggiungiamo un server di cache: nella prima iterazione il primo client invia la richiesta ed è intercettata dalla cache; se non ha il contenuto, lo richiede alla sorgente che glielo passa, ed il server di cache riporterà il content al client. Se un secondo client della stessa rete dovesse richiedere la stessa risorsa, questa sarebbe in cache e può restituirlo direttamente senza appellarsi al server originale.
+	
+Generalmente le cache riescono a soddisfare il 70-80% delle richieste. Ma che cosa succede se il contenuto sul server di origine non è allineato a quello della cache? La soluzione adottata è dentro al protocollo HTTP, perché prevede una serie di meccanismi come il metodo GET condizionale.
+	È presente una riga di intestazione: if_modified_since: <data> (indica quando è stata modificata una risorsa)
+	Quando il client manda una get su una risorsa, la cache invia get condizionato. Se non è modificato, la cache può inviare il contenuto, altrimenti il content è ripreso dal server originale.
+	
+--- Esercizi su indirizzamento
+1. Dato un indirizzo IP, trovare l'indirizzo di rete (ind. rete è il prefisso, il suffisso a tutti 0)
+	IP: 140.120.84.20/20
+	- Passaggio in binario: 10001100.01111000.0101 0000.00010100
+		Indirizzo di rete: pref(10001100.01111000.0101) suff(0000.00000000)
+		
+	- Ritorno in decimale puntato: 140.120.80.0/20		(Il terzo blocco va considerato tale anche se separato tra suff e pref)
+	
+2. Scrivere la maschera con notazione decimale puntata di una rete con tre lan; all'insieme delle 3 lan è stato assegnato il blocco 165.5.1.0/24
+	Creare tre sottoreti per le tre lan sicché abbiano tutte lo stesso numero di indirizzi
+	
+	Per subnettare bisogna sacrificare bit del suffisso per distinguere le subnets. Se devo avere 3 subnets, userò 2b per rete.
+	
+	- IP binario: pref(10100101.00000101.00000001) suff(00000000)
+	- Uso 2b del suffisso per distinguere al più 3 reti, ottenendo: pref(10100101.00000101.00000001.00), suff(000000)
+		La prima rete avrà pref(10100101.00000101.00000001.00), suff(000000)
+		La seconda pref(10100101.00000101.00000001.01), suff(000000)
+		La terza pref(10100101.00000101.00000001.10), suff(000000)
+		Avresti anche un quarto indirizzo con pref(10100101.00000101.00000001.11), suff(000000) libero.
+		
+	- Ritorno a decimale puntata:
+		Prima rete: 165.5.1.0/26
+		Seconda rete: 165.5.1.64/26
+		Terza rete: 165.5.1.128/26
+		Quarta rete libera: 165.5.1.192/26
+		
+Possiamo visualizzare il subnetting con un grafico a torta, sarebbe carino.
+Una variante del problema consiste nella suddivisione con un numero indirizzi non uguali tra le subnets. Per esempio, se LAN1 richiede un numero di indirizzi doppio rispetto alle altre due reti. In tal caso:
+	Lan1: pref(10100101.00000101.00000001.0), suff(0000000) e pref(10100101.00000101.00000001.1), suff(0000000), quindi /25 bit di prefisso
+		Dec: 165.5.1.0/25
+	Lan2: pref(10100101.00000101.00000001.10), suff(000000), quindi /26 bit di prefisso
+		Dec: 165.5.1.128/26
+	Lan3: pref(10100101.00000101.00000001.11), suff(000000), quindi /26 bit di prefisso
+		Dec: 165.5.1.192/26
+	
+Otteniamo quindi due blocchi di /25, il primo per LAN1 e il secondo usato per ottenere altri due blocchi /26 per LAN2 e LAN3 rispettivamente.
+
+--- DNS: Domain Name System
+
+Scopo del DNS è tradurre il nome di dominio come www.google.it in indirizzo IP per far sì che siano leggibili dai calcolatori.
+Si tratta di un servizio gestito da un server, tipicamente locale, se non specificato in altri modi.
+
+Srivendo un indirizzo logico, si contatta il server dns con una dns query. All'interno di questo server, per ogni dominio è salvato l'IP corrispondente; controlla l'IP corrispondente e risponde al client con un DNS reply. Questo scambio di messaggi avviene a livello applicativo con protocollo UDP.
+	Ottenuto l'IP, è possibile aprire il socket e iniziare lo scambio di messaggi.
+	
+Bisogna risolvere alcuni problemi:
+	1. Dove sta il server DNS? Necessitiamo di sapere l'indirizzo di questa macchina
+	2. La tabella dei domini potrebbe essere molto grande. Mantenerla sovraccaricherebbe il server.
+	3. Gli indirizzi ip potrebbero anche cambiare, rendendo sbagliata l'associazione tra dominio e IP.
+	
+1. Come fa il client a conoscere l'indirizzo IP del server DNS?
+Inserirlo manualmente tra le configurazioni è una soluzione. È la stessa cosa che si fa per accedere ai server privati di nintendo mantenuti dai fan. Di base, tuttavia, è fornito dalla rete stessa quando un utente si connette a una rete e gli viene associato un indirizzo ip. L'assegnazione avviene con protocollo DHCP.
+
+2. Come fa il DNS a conoscere l'associazione tra nome di dominio e indirizzo IP?
+Non esiste un singolo server DNS, bensì esiste un sistema gerarchico distribuito di server che comunicano tra di loro.
+Abbiamo server DNS ad alto livello, detti radice (ce ne sono pochi, una decina), ognuno dei quali contiene un insieme di indirizzi di altri server, detti top-level domain (TLD) (tengono .it, .com, etc). A loro volta, i TLD contengono puntatori ad altri server DNS locali (come google.it, univr.it, repubblica.it)
+
+I TLD gestiscono le informazioni relative ai domini di primo livello, mentre quelli locali gestiscono il dominio di un'organizzazione specifica.
+
+Come ho inteso nome di dominio, indirizzo logico, si intende in linguaggio corretto l'URL. Per esempio www.univr.it
+	- Server specifico: www
+	- Server locale: .univr
+	- TLD: .it
+	
+Se il server non conosce l'associazione, effettuerà un'operazione di comunicazione con gli altri per ricavarlo. Il client comunica esclusivamente col DNS locale. Il DNS locale mantiene le informazioni per le associazioni nomi logici-indirizzi IP del proprio dominio e memorizza le risposte di richieste dei propri client e gli indirizzi dei server TLD.
+
+--- Protocolli di posta elettronica SMTP - Simple mail transfer protocol
+Per la ricezione abbiamo più opzioni:
+	- POP (Dismesso, non cifra nulla)
+	- IMAP
+	- HTTP
+	
+Tutti i protocolli di posta elettronica si appoggiano al livello di trasporto sul TCP, mentre da un punto di vista architetturale, ogni dominio associato alla posta elettronica (la porzione che segue la @ dell'indirizzo, tipo @tutamail.com) deve avere un server SMTP che gestisce le caselle di posta elettronica degli utenti appartenenti a quel dominio. Le caselle hanno la coda dei messaggi in entrata e in uscita.
+
+Per inviare una mail si ha inizialmente uno scambio smtp tra dominio iniziale e server con lo stesso dominio e la mail viene messa nella coda di uscita, perché il dominio è diverso da quello di chi invia.
+	Poi si ha un secondo scambio SMTP tra i due server, per inserire il messaggio nella casella di posta in arrivo dell'altra casella di posta elettronica. Per leggere il messaggio questo userà un protocollo IMAP.

@@ -1,0 +1,65 @@
+27-03-26 - Reti di calcolatori
+
+--- Livello applicativo
+Come già visto, l'applicativo genera i messaggi, i quali per essere inviati si appoggiano al livello di trasporto, il quale userà il servizio con protocollo richiesto. TCP se affidabile, UDP se tollerante alle perdite.
+
+"Selezionare il servizio" per inviare un messaggio si traduce con l'apertura di un socket verso la destinazione.
+	Un socket è un'astrazione software che identifica un flusso informativo. Per aprirne uno serve specificare il protocollo di trasporto utilizzato, l'IP di sorgente e destinazione, e la porta di sorgente e destinazione (che identificano l'interfaccia).
+	
+Tra i due processi comunicanti possiamo identificare due ruoli distinti:
+	- Client: Inizia la comunicazione
+	- Server: (Processo in attesa di contatto, è su un host sempre raggiungibile e sempre in ascolto) Accetta la comunicazione
+	
+L'host non è il client. Il processo della macchina sì. Uno stesso host potrebbe infatti avere più client come più server.
+Il socket, anche se aperto da un client è bidirezionale, quindi il flusso informativo avviene in ambo le direzioni.
+
+--- Protocollo HTTP
+Hyper Text Transfer Protocol. È un protocollo testuale di tipo richiesta-risposta. Quindi, aperto il socket, su questo si inviano messaggi di richiesta, ai quali deve sempre corrispondere una risposta positiva (Pagina esiste e trovata) o negativa (Pagina non trovata, spostata o inesistente).
+
+Domande importanti:
+	- Come sono interpretati i bit?
+	- Quali sono le regole per lo scambio dei messaggi?
+
+Qui il client apre un socket, invia un messaggio di richiesta e il server deve inviare un messaggio di risposta.
+Il server è un host che mantiene delle pagine web, viste come file testuali più altri oggetti che la compongono (come immagini, video, etc).
+	Il file di testo principale è indicato con "index.html" (hyper text markup language, contiene la struttura della pagina)
+	
+Esempio di interazione:
+	1. Il processo client invia un messaggio al server per consentire l'apertura del socket. Nella pratica ciò avviene con la ricerca di una pagina web.
+	Otteniamo L'IP di sorgente dalla macchina e quello di destinazione grazie al nome del dominio. La porta di sorgente è scelta arbitrariamente e quella di destinazione dipende dal protocollo utilizzato.
+	2. Ottenute queste informazioni, si invia il primo messaggio di richiesta HTTP, chiamato get. Normalmente è sufficientemente piccolo da non essere spezzato in segmenti.
+	3. Ricevuto il get, il server prepara un messaggio HTTP reply da inviare al client.
+	
+-- Come sono fatti get e reply HTTP?
+get: Formato da due parti; riga di richiesta e righe di intestazione.
+Per esempio:
+Riga di richiesta:		GET /index.html HTTP/1.1 // La versione indica quale tipo di linguaggio utilizzare.
+Righe di intestazione:	Host: www.univr.it // Obbligatoria
+						User-agent: Mozilla/4.0 // Opzionale
+						Accept-language: en // Opzionale
+						
+Corrisponde nel browser ad aver inserito nella barra di ricerca "www.univr.it/index.html"
+	- www.univr.it identifica il server, è il nome logico tradotto in IP address. Divisione data dai punti.
+	- index.html identifica un file (in generale una risorsa) sul server che voglio ottenere.
+	
+--
+
+La parola chiave GET è definita metodo e serve per richiedere una risorsa. Altri metodi sono per esempio POST, usato per inviare informazioni al server. DELETE è usato per cancellare informazioni sul server.
+
+In un messaggio di risposta HTTP identifichiamo poi:
+	1. Riga di stato
+	2. Uno o più righe di intestazione
+	3. Dati effettivi.
+	
+Per esempio:
+	1. Riga di stato:	HTTP/1.1 codiceDiRisposta descrizioneCodice // esempi di codice sono 200 (OK) 404 (NOTFOUND) 400 (BADREQUEST)
+	2. Righe di intestazione:	etichetta: valore
+	- riga vuota
+	3. Dati effettivi: 	<body> ... // Ovvero la pagina html
+	
+---
+
+Altri elementi utili di HTTP: cookie
+Meccanismo usato dal server per sapere se ha interagito in passato con un determinato client.
+Al primo utilizzo, il server crea un codice associato all'utente e nella reply ci sarà il metodo set_cookie col valore del codice. Il client memorizzerà l'indirizzo web ed il codice ricevuto (scelta facoltativa).
+	Nelle successive interazioni, se i cookie sono accettati, all'invio della get ci sarà anche il campo con il suo codice del cookie, che sarà controllato dal server, il quale fornirà una risposta ritagliata per l'utente, a prescindere dall'indirizzo IP.

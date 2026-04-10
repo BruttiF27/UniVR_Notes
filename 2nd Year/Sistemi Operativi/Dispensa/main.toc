@@ -12,39 +12,39 @@
 \contentsline {section}{\numberline {2.4}Struttura del sistema operativo}{16}{}%
 \contentsline {chapter}{\numberline {3}Processi}{20}{}%
 \contentsline {section}{\numberline {3.1}Scheduling e operazioni sui processi}{20}{}%
-\contentsline {section}{\numberline {3.2}Comunicazione tra processi}{20}{}%
-\contentsline {section}{\numberline {3.3}Architettura client-server}{20}{}%
-\contentsline {chapter}{\numberline {4}Thread e concorrenza}{21}{}%
-\contentsline {section}{\numberline {4.1}Programmazione multicore}{21}{}%
-\contentsline {section}{\numberline {4.2}Multithreading}{21}{}%
-\contentsline {section}{\numberline {4.3}Librerie utili}{21}{}%
-\contentsline {chapter}{\numberline {5}Scheduling della CPU}{22}{}%
-\contentsline {section}{\numberline {5.1}Concetti e algoritmi di scheduling}{22}{}%
-\contentsline {section}{\numberline {5.2}Scheduling dei thread}{22}{}%
-\contentsline {section}{\numberline {5.3}Scheduling per sistemi multiprocessore}{22}{}%
-\contentsline {section}{\numberline {5.4}Scheduling real-time}{22}{}%
-\contentsline {section}{\numberline {5.5}Valutazione algoritmi}{22}{}%
-\contentsline {chapter}{\numberline {6}Sincronizzazione dei processi}{23}{}%
-\contentsline {section}{\numberline {6.1}Sezioni critiche}{23}{}%
-\contentsline {section}{\numberline {6.2}Algoritmo di Peterson}{23}{}%
-\contentsline {section}{\numberline {6.3}Supporto hardware}{23}{}%
-\contentsline {section}{\numberline {6.4}Lock/Unlock}{23}{}%
-\contentsline {section}{\numberline {6.5}Semafori}{23}{}%
-\contentsline {section}{\numberline {6.6}Monitor}{23}{}%
-\contentsline {section}{\numberline {6.7}Liveness}{23}{}%
-\contentsline {chapter}{\numberline {7}Stallo dei processi}{24}{}%
-\contentsline {section}{\numberline {7.1}Stallo e multithread}{24}{}%
-\contentsline {section}{\numberline {7.2}Caratterizzazioni di stallo}{24}{}%
-\contentsline {section}{\numberline {7.3}Metodi di gestione e prevenzione}{24}{}%
-\contentsline {section}{\numberline {7.4}Elusione e rilevamento stallo}{24}{}%
-\contentsline {section}{\numberline {7.5}Ripristino}{24}{}%
-\contentsline {chapter}{\numberline {8}Bash}{25}{}%
-\contentsline {section}{\numberline {8.1}Programmazione Bash}{25}{}%
-\contentsline {chapter}{\numberline {9}API Posix}{26}{}%
-\contentsline {section}{\numberline {9.1}Gestione dei file}{26}{}%
-\contentsline {section}{\numberline {9.2}Gestione dei diritti}{26}{}%
-\contentsline {section}{\numberline {9.3}Lettura/scrittura}{26}{}%
-\contentsline {section}{\numberline {9.4}Gestione dei processi}{26}{}%
-\contentsline {section}{\numberline {9.5}Segnali}{26}{}%
-\contentsline {section}{\numberline {9.6}Comunicazione tra processi tramite PIPE}{26}{}%
-\contentsline {section}{\numberline {9.7}Pthread}{26}{}%
+\contentsline {section}{\numberline {3.2}Comunicazione tra processi}{26}{}%
+\contentsline {section}{\numberline {3.3}Architettura client-server}{26}{}%
+\contentsline {chapter}{\numberline {4}Thread e concorrenza}{27}{}%
+\contentsline {section}{\numberline {4.1}Programmazione multicore}{27}{}%
+\contentsline {section}{\numberline {4.2}Multithreading}{27}{}%
+\contentsline {section}{\numberline {4.3}Librerie utili}{27}{}%
+\contentsline {chapter}{\numberline {5}Scheduling della CPU}{28}{}%
+\contentsline {section}{\numberline {5.1}Concetti e algoritmi di scheduling}{28}{}%
+\contentsline {section}{\numberline {5.2}Scheduling dei thread}{28}{}%
+\contentsline {section}{\numberline {5.3}Scheduling per sistemi multiprocessore}{28}{}%
+\contentsline {section}{\numberline {5.4}Scheduling real-time}{28}{}%
+\contentsline {section}{\numberline {5.5}Valutazione algoritmi}{28}{}%
+\contentsline {chapter}{\numberline {6}Sincronizzazione dei processi}{29}{}%
+\contentsline {section}{\numberline {6.1}Sezioni critiche}{29}{}%
+\contentsline {section}{\numberline {6.2}Algoritmo di Peterson}{29}{}%
+\contentsline {section}{\numberline {6.3}Supporto hardware}{29}{}%
+\contentsline {section}{\numberline {6.4}Lock/Unlock}{29}{}%
+\contentsline {section}{\numberline {6.5}Semafori}{29}{}%
+\contentsline {section}{\numberline {6.6}Monitor}{29}{}%
+\contentsline {section}{\numberline {6.7}Liveness}{29}{}%
+\contentsline {chapter}{\numberline {7}Stallo dei processi}{30}{}%
+\contentsline {section}{\numberline {7.1}Stallo e multithread}{30}{}%
+\contentsline {section}{\numberline {7.2}Caratterizzazioni di stallo}{30}{}%
+\contentsline {section}{\numberline {7.3}Metodi di gestione e prevenzione}{30}{}%
+\contentsline {section}{\numberline {7.4}Elusione e rilevamento stallo}{30}{}%
+\contentsline {section}{\numberline {7.5}Ripristino}{30}{}%
+\contentsline {chapter}{\numberline {8}Bash}{31}{}%
+\contentsline {section}{\numberline {8.1}Programmazione Bash}{31}{}%
+\contentsline {chapter}{\numberline {9}API Posix}{32}{}%
+\contentsline {section}{\numberline {9.1}Gestione dei file}{32}{}%
+\contentsline {section}{\numberline {9.2}Gestione dei diritti}{32}{}%
+\contentsline {section}{\numberline {9.3}Lettura/scrittura}{32}{}%
+\contentsline {section}{\numberline {9.4}Gestione dei processi}{32}{}%
+\contentsline {section}{\numberline {9.5}Segnali}{32}{}%
+\contentsline {section}{\numberline {9.6}Comunicazione tra processi tramite PIPE}{32}{}%
+\contentsline {section}{\numberline {9.7}Pthread}{32}{}%

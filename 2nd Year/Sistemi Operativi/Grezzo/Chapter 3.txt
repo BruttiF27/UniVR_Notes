@@ -74,3 +74,14 @@ I processi possono essere terminati anche per altre ragioni, come un'interruzion
 \noindent Se un processo termina, così dovranno fare anche gli eventuali figli: questo meccanismo è detto \textbf{terminazione a cascata} ed è una procedura avviata dal sistema operativo.
 
 La terminazione fornisce uno stato di uscita, dove 0 è terminazione normale, 1 è terminazione anomala e segue la deallocazione delle risorse utilizzate per il processo.
+
+--- Comunicazione tra processi
+Definiamo due tipi di processi all'interno dei sistemi operativi: \textbf{indipendenti} quando non influiscono né possono essere influenzati dagli altri e \textbf{cooperanti} quando influenzano o sono influenzati. Si creano ambienti che consentono la cooperazione tra i processi per i seguenti motivi: \begin{itemize}
+	\item \textbf{Condivisione di informazioni}: Più utenti potrebbero volere accesso alle stesse informazioni.
+	\item \textbf{Velocizzazione del calcolo}: Alcune operazioni sono più rapide quando divise in sottoattività eseguibili in parallelo.
+	\item \textbf{Modularità}: Suddivisione delle funzioni in processi o thread distinti.
+\end{itemize}
+\noindent I processi cooperanti richiedono di un meccanismo per la comunicazione; ne esistono due particolarmente diffusi: a \textbf{memoria condivisa}, il quale richiede una zona di memoria allocata dinamicamente condivisa dai processi, e a \textbf{scambio di messaggi}, dove la comunicazione tra i processi avviene tramite messaggi.\par
+Il primo paradigma può risultare più veloce perché richiede l'intervento del kernel esclusivamente per definire la zona condivisa, mentre lo scambio di messaggi è implementato tramite chiamate di sistema. Andiamo più nel dettaglio.\newline
+
+\noindent % riprendi da pag 135

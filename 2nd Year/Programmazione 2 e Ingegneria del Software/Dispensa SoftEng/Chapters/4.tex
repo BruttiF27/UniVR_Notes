@@ -1,123 +1,311 @@
-\section{Modellazione di sistemi OO con UML}
-class diagram, use case diagram, activity diagram, sequence diagram
-
-%
-
-\section{Fasi della progettazione}
-
-%
-
 \section{Pattern architetturali}
-MVC, repository, client server, pipe and filter
+La \textbf{progettazione architetturale} si occupa dell'organizzazione di un software e della definizione di una sua struttura complessiva; si tratta del collegamento fra ingegneria dei requisiti e la progettazione, poiché si identificano i componenti strutturali del sistema e le loro relazioni. Il deliverable è un modello architetturale che descrive in che modo il software è organizzato, in funzione dei suoi componenti.\par
+Sono proprio le componenti a identificare le caratteristiche di alto livello del sistema, ragion per cui è data molta importanza alla loro definizione. Si potrebbe inoltre usare il modello risultante per discutere con gli stakeholder dei progressi fatti.\newline
 
-\begin{comment}
-	19-03-26 - SoftEng
+\noindent In questa fase di sviluppo stiamo assumendo che il documento dei requisiti sia completo e disponibile, perché verrà usato come base per il design del sistema. Conoscendo "cosa" il software deve fare, adesso dobbiamo definire "come" deve eseguirlo, quindi la \textbf{struttura} della soluzione, la quale verrà scritta nella fase di implementazione. In particolare, ci sono due livelli di astrazione per la progettazione di architetture software: \begin{itemize}
+	\item \textbf{Alto livello}: Definizione dei macrocomponenti sui quali il sistema verrà architettato.
+	\item \textbf{Basso livello}: Definizione delle singole componenti, specificando la soluzione nel dettaglio.
+\end{itemize}
+
+\noindent Quello della progettazione è un processo creativo, basato nella maggior parte dei casi sull'adattamento di strutture già conosciute al caso in esame. Generalmente si fa molto uso degli \textbf{stili architetturali} ad alto livello e dei \textbf{design pattern} a basso livello. La definizione dell'architettura del sistema ha svariati pregi, come fornire una \textbf{guida} allo sviluppo, semplificando la comprensione del software in ambito di scelte manageriali e analisi di proprietà. Come conseguenza diretta, il sistema viene documentato e si ha una visione chiara sulla sua evoluzione.\par
+Le architetture sono descritte tramite diagrammi a blocchi, i quali presentano una visuale sulla loro struttura e le relative relazioni. Per la specifica architetturale useremo il linguaggio di modellazione unificato: \textbf{UML}, trattato nelle sezioni successive.\par
+Naturalmente, prima di pensare alle componenti è necessario definire la struttura ad alto livello. Già in questa fase è possibile farsi un'idea degli eventuali costi di sviluppo, in termini di risorse e tempo, con lo scopo di definire un budget più realistico. Ciò fornisce un notevole aiuto durante i colloqui con gli stakeholder, così che loro possano esprimere le loro preferenze in merito alle caratteristiche del sistema. Il design architetturale, infatti, impatta principalmente i seguenti campi: \begin{itemize}
+	\item \textbf{Prestazioni}: Se lo stakeholder ritiene le performance del sistema la caratteristica più importante, sarà necessario spendere più tempo sull'ottimizzazione delle operazioni critiche.
+	\item \textbf{Protezione}: Quando la protezione è un requisito critico, è comune utilizzare un'architettura a strati, al cui core sono presenti le risorse più importanti.
+	\item \textbf{Sicurezza}: Se la sicurezza è importante, bisognerà localizzare le operazioni ad essa relative in un singolo componente o in pochi sottosistemi, con lo scopo di ridurre costi e problemi di convalida. Rende inoltre possibile fornire sistemi di protezione che possono bloccare il software in caso di guasto.
+	\item \textbf{Disponibilità}: Se è richiesto che un sistema debba essere sempre disponibile, bisognerà progettare un'architettura con componenti ridondanti e meccanismi per la gestione di guasti, sicché si possa sostituire facilmente la componente problematica e allo stesso tempo mantenere il sistema attivo.
+	\item \textbf{Mantenibilità}: Se è previsto un software dal lungo ciclo vitale bisognerà renderlo modulare per facilitare il lavoro del team. Saranno quindi presenti componenti piccole e con meno dipendenze possibili.
+\end{itemize}
+
+\noindent Non esiste il design architetturale perfetto, è necessario scegliere quale modello si adatta al contesto degli stakeholder. Questo perché alcune architetture presentano conflitti; per esempio, risulta difficile creare un sistema le cui priorità sono prestazioni e protezione, perché, se si sceglie un design stratificato, per le operazioni critiche sarà presente un notevole overhead in quanto presenti al core, mentre le richieste sono eseguite al livello più esterno. È quindi verosimile cercare un compromesso tra i vari stili, piuttosto che adattarne uno solo.\par
+È quindi estremamente importante conoscere più stili architetturali per semplificare il lavoro di design e banalmente avere più idee riguardo all'implementazione del software per il dominio applicativo richiesto. Presentiamo quindi gli stili più utilizzati in ambito lavorativo: \begin{itemize}
+	\item \textbf{Modello stratificato}: Organizza il sistema in un insieme di livelli; poggia su dei servizi core nascosti agli utenti, sui quali sono stratificati i livelli superiori. Ogni livello usa i servizi di quello inferiore e la comunicazione avviene nella maggior parte dei casi tramite chiamata a funzione.\par
+	Si tratta di un'architettura spesso utilizzata per la scrittura di sistemi operativi. Il vantaggio principale risiede nella sua modifica: se si lavora sull'interfaccia di un livello, si influenza esclusivamente quello adiacente, tuttavia, come menzionato prima, è un modello che può risultare inefficiente a causa dell'alto numero di chiamate fra i livelli.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\linewidth]{Images/layered_structure.png}
+		\caption{Modello stratificato}	
+	\end{figure}
+	\item \textbf{Modello repository}: Prevede un componente centralizzato contenente la memoria dei dati e componenti periferici che attuano operazioni di lettura e scrittura in questa memoria. Le periferiche non interagiscono tra loro e parlano esclusivamente con la componente centrale. È adatto ad applicazioni in cui i dati sono prodotti da un sottosistema e usati da un altro, come i case tool, strumenti che aiutano l'ingegneria del software durante il suo ciclo di vita.\par
+	Si tratta di un modo efficiente di condividere grandi quantità di dati con una gestione centralizzata del backup e della sicurezza. I sottosistemi dovranno tuttavia accordarsi sulla struttura dei dati per il repository; si tratta di un'evoluzione complessa e costosa, che rende difficile distribuire il software in maniera efficiente.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.8\linewidth]{Images/repository_structure.png}
+		\caption{Modello repository}	
+	\end{figure}
+	\item \textbf{Modello client-server}: Presenta due entità fondamentali; il client, richiedente le informazioni, e il server, che le mantiene e fornisce. La comunicazione tra di loro avviene tramite una rete e le periferiche sono fornite da più server che svolgono appositi job a loro dedicati.\par
+	Si tratta di un modello usato normalmente dalle interfacce dei browser web; spostando la computazione tra i vari server si migliorano le prestazioni, il riuso e la mantenibilità. Tuttavia è un sistema distribuito, manca un modello di dati condiviso e il loro scambio può risultare inefficiente per questo. Non è semplice gestire il tutto perché possono presentarsi anche delle ridondanze e alcuni server potrebbero essere prorprietari di un'azienda, quindi al di fuori del proprio controllo.\par
+	Esistono due evoluzioni di questo modello; la prima, \textbf{a due livelli}, presenta tre componenti software di \textbf{interfaccia utente}, \textbf{gestione dei processi e logica} e \textbf{gestione del database}, distribuiti sui due strati di client e server. La seconda, presenta \textbf{tre livelli}: uno di \textbf{presentazione}, un secondo per la \textbf{logica} ed il terzo per la \textbf{gestione dei dati}. Il client utilizza esclusivamente l'interfaccia utente, mentre gli altri componenti sono tutti gestiti dal server.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.8\linewidth]{Images/client-server_structure.png}
+		\caption{Modello client-server}	
+	\end{figure}
+	\item \textbf{Modello peer to peer}: Questa architettura vede ogni componente svolgere il ruolo di client e server mentre esegue il proprio processo. Ogni elemento ha infatti un'interfaccia che specifica i servizi offerti. La comunicazione si basa quindi sulla richiesta e offerta dei servizi.\par
+	I sistemi p2p scalano bene grazie alla facilità di inserimento dei nodi nuovi e sono tolleranti ai guasti, perché il "perno" sul quale si regge la struttura è decentralizzato.
+	\item \textbf{Modello pipe and filter}: Presenta due entità fondamentali; i filtri, che effettuano trasformazioni sui dati, e i connettori che lo trasmettono ai vari filtri. Si tratta di un sistema che supporta l'esecuzione in parallelo e il riuso delle informazioni. Inoltre, ha un workflow intuitivo, rendendo semplice aggiungere e implementare trasformazioni. Tuttavia, non è adatto a software interattivi, ed è infatti usato spesso nello sviluppo di sistemi batch. Un esempio di questo sistema è il comando grep della bash Unix.
+\end{itemize}
+
+%
+
+\section{Modelli di controllo}
+Per quanto riguarda il design architetturale, sono presenti anche degli \textbf{stili di controllo} del workflow per decidere come gestire il funzionamento del sistema. Ne esistono due principali: \begin{itemize}
+	\item \textbf{Centralizzato}: Un sottosistema ha la responsabilità generale del controllo; avvia e termina gli altri componenti del software.
+	\item \textbf{Basato su eventi}: Un sottosistema può rispondere ad eventi generati da altre entità, non esiste quindi un vero e proprio controllore.
+\end{itemize}
+
+\noindent L'importanza di conoscere i modelli di controllo risiede nello stesso contesto dei pattern architetturali: la definizione del "come fare" non è completa se si fornisce esclusivamente una visuale astratta del sistema, ragion per cui andiamo nel dettaglio di come sarà gestito il workflow del software: \begin{itemize}
+	\item \textbf{Modello call-return}: Presuppone l'esistenza di un sottosistema di controllo (\textbf{Main}) che attiva e cede il controllo ad altri componenti. Decide inoltre l'ordine di esecuzione e, al termine dell'esecuzione della sottocomponente, riprende il controllo del flusso. Si tratta di un modello applicabile esclusivamente a sistemi sequenziali.
+	\item \textbf{Modello manager}: Pattern usato quando i sottosistemi possono lavorare in parallelo. Una componente \textbf{manager} controlla avvio, terminazione e coordinamento degli altri processi di sistema. Itera continuamente interrogando interfaccia utente, output ed eventuali sensori per identificare eventi o cambi di stato. Esempi di questo modello sono i sistemi di allarme; il manager interpella costantemente le sottocomponenti, le quali comunicano l'eventuale verificarsi di un dato evento con il segnale acustico.
+	\item \textbf{Modello broadcast}: Contrariamente a quanto visto nei precedenti modelli, un componente può annunciare, quindi fare un broadcast, l'esecuzione di uno o più eventi. La trasmissione sarà inviata a tutte le altre entità, ognuna capace di gestirlo. Quelle interessate all'ascolto del broadcast eseguiranno la procedura associata all'evento, causando l'invocazione delle proprie procedure.\par
+	I sistemi di sorveglianza utilizzano questo modello, poiché richiedono una costante allerta per gli eventi, la cui segnalazione deve essere comunicata a tutte le apparecchiature in ascolto. È facilmente mantenibile perché risulta semplice aggiungere e rimuovere entità. Tuttavia non è sicuro che l'evento venga gestito da una componente; come conseguenza diretta si potrebbero anche perdere dati importanti durante la trasmissione non ascoltata.
+	\item \textbf{Modello a microservizi}: Approccio per lo sviluppo di una singola applicazione come una suite di piccoli servizi, ognuno eseguito nel proprio ambiente e comunicante con gli altri mediante meccanismi semplici, come una API di risorse HTTP. È un modello orientato ai servizi offerti dal software nettamente più mantenibile rispetto ai precedenti, poiché le varie componenti hanno dimensioni ridotte e sono indipendenti l'una dall'altra. Ogni microservizio realizza una funzionalità, possiede le proprie risorse ed è coordinato con gli altri.\par
+	Un'altra caratteristica di questo modello è che le varie componenti possono essere scritte in linguaggi di programmazione diversi, perché sono collegati da un gateway per la loro coordinazione.
+\end{itemize}
+
+% TODO Aggiungi design delle componenti
+
+
+\begin{comment}		
+	--- Design delle componenti
+	Implicando che il design ad alto livello abbia avuto buon esito, possiamo passare a livello più basso e scrivere le componenti.
+	Ottenuti i requisiti, eseguiamo le fasi [activityName -> deliverable]:
+	- Design architetturale -> architettura del sistema
+	Definizione dei componenti software e i connettori
+	- Specifica astratta -> specifoche del software
+	Specifica di alto livello dei componenti
+	- Design interfaccia (Non la UI, inteso) -> specifiche dell'interfaccia
+	Definizione e specifica interfacce dei componenti
+	- Design componenti -> specifiche componenti
+	Specifica dettagkiata delle singole componenti, quindi i campi, i metodi, etc.
+	- Design strutture dati -> Specifiche strutture dati
+	Progettazione delle strutture dati atte a contenere i dati del problema
+	- Design algoritmi -> specifiche algoritmi
+	Scelta e progettazione degli algoritmi migliori.
 	
-	--- Design architetturale
-	Stiamo ora assumendfo che il documento dei requisiti sia completo e disponibile. Lo useremo per creare il design del software. Quindi non cosa fa, bensì come lo fa.
+	A partire dal design architetturale, prendiamo una componente e definiamo cosa serve per eseguire le sue funzioni.
 	
-	Per software design intendiamo un processo di trasformazione di un problema in una soluzione.
-	Definiamo la struttura della soluzione; sta all'implementazione il realizzarla, rendendola utilizzabile.
+	-- Design by contract
+	Progettare le componenti con un contratto (accordo tra le parti). L'obiettivo di questo metodo è migliorare la qualità del software. Prescrive che il progettista debba definire
+	specifiche precise delle componenti. L'idea centrale è che una componente ha obblighi nei confronti delle altre. Un contratto è creato per ogni componente del sistema prima che
+	sia codificato.
+	Un contratto ha più elementi: pre-conduzioni; espressione a valori booleani che rappresenta le aspettative sullo stato del programma prima dell'esecuzione di un'operazione.
+	Le post-condizionii, espressioni a valori booleani riguardanti lo stato del software dopo l'esecuzione di un'operazinoe. Invariante di classe, una condizione che ogni oggetto
+	della classe deve soddisfare quando è in equilibrio; quindi vero in ogni momento in cui è possibile svolgere un'operazione.
 	
-	Ci sono vari livelli di design:
-	- Design di alto livello; la decisione dei macrocomponenti sui quali il sistema verrà architettato
-	- Design di basso livello; I dettagli delle singole componenti, specificando maggiormente la soluzione.
+	Chi fa il controllo delle condizioni è definito nel contratto. Quando questo è violato, si lancia un eccezione o errori. Senza una definizione di chi effettua i controlli, si
+	potrebbero effettuare in altre parti del codice, distruggendo le performance.
+	Nel design by contract, il fornitore garantisce che se le precond. e le inv. valgono prima dell'operazione, dopo l'esecuzione varranno postcond. e le inv. Il fornitore chiede che
+	pre e inv valgano, altrimenti non garantisce niente.
+	La responsabilità del faulure dipende. Se la pre non è valida, l'errore è del chiamante, se la post non è valida, l'errore è del chiamato. Comodo capire dove sta l'errore
+	snellendo il processo di debugging
 	
-	Una prima scvelta che si può prendere è decidere se rendere il software indipendente da una piattaforma o meno; ciò influenzerebbe l'architettura in toto.
-	Il design è un processo creativo, migliorabile guardando altri esempi buoni (ma dai?). La maggioranza del lavoro di design è l'adattamento di architetture già conosciute al
-	caso in esame. Tra i diversi livelli di riuso abbiamo:
-	- clonazione: una copia, tale tale del codice con qualche aggiustamento.
-	- Design pattern: Una buona soluzione a un problema ricorrente
-	- Stili architetturali: Architettura generica che suggerisce come decomporre il sistema.
-	
-	L''idea del design architetturale ha lo scopo di definire le macrocomponenti del aistema in modo astratto, non definito, come anche il framework per il controllo e la comunicazione
-	tra componenti. Il deliverable è una descrizione dell'architettura del software.
-	Avere un'architettura software ha i seguenti pregi:
-	- Guida sviluppo e aiuta la comprensione del sistema
-	- Supporta decisioni manageriali (eg; se fattorizzare o meno il sistema)
-	- facilita l'analisi di alcune proprietà
-	- Su larga scala consente iol siuso, perché l'architettura potrebbe essere riusata su altri sistemi
-	- Aiuta a ragionare sull'evoluzione del sistema (chi dovrà mantenere il software avrà una visione chiara delle componenti)
-	- Documenta il sistema, spiegando le dièpendenze tra componenti.
-	
-	L'architettura è annotata com un diagramma a blocchi, che rappresenta un overview della struttura. Sono rettangoli collegati con archi. Questi rappresentano le relazioni tra
-	i vari componenti. Esistono linguaggi formali di specifica architetturale come Darwin o ADSl. Esiste pure UML.
-	Naturalmente, prima si fa design architetturale high-level, poi si passa a quello delle componenti, le quali si possono dividere in task.
-	Qua è possibile già farsi un'idea dei costi in termini di risorse e tempo, definendo quindi un budget più realistico.
-	
-	Il design architetturale impatta principalmente:
-	- performance: come il tempo di risposta
-	- security un'architettura a livelli con le risorse critiche in quelli più interni
-	- safety: localizzare le caratterisrtiche safety-critical in pochi sottosistemi
-	- disponibilità: includere componenti ridondanti e meccabnismi per fault tolerannce
-	- mantenibilità: Usare componenti fine-grain facilmente rimpiazzabili, quindi con poche dipendenze.
-	
-	Attenzione, alcuni concetti qua possono andare in conflitto: per esempio delle componenti large-grain migliorano performance ma riducono la mantenibilità a causa delle dipendenze.
-	Quindi si cerca tendenzialmente un compromesso per dare un buon livello con tutte quelle caratteristiche del software.
-	Unless... deutschbett; zwei Decken. Nel senso, più sistemi? Maybe? Vielleicht?
-	
-	L'architettura di un sistema può conformarsi a uno stile architetturale, un modello generico con caratteristiche specifiche che può essere adattato.
-	Conoscere stili architetturali è molto importante per semplificare il lavoro di design e non reinventare la ruota. La maggioranza dei grandi sistemi sono eterogenei e non
-	ne usano uno singolo. Dipende dal caso; scegli quello che credi risolva il problema al meglio.
-	Uno schema di design architetturale è definito da:
-	- componenti arch. di base: come procedure, livelli/strati, sevrizi, lassi etc.
-	- dipendenze??? Sta sulla slide, riguardalo.
-	
-	Ci sono quindi diversi stili: layered, repository, client/server, P2P, Pipe&filter, etc.
-	
-	- Stratificato (layered)
-	Organizza il sistema in un insieme di livelli. Poggia su dei servizi core nascosti al cliente, sui quali sono stratificati servizi superiori. Ogni livello usa i servizi di quello
-	inferiore. La comunicazione fra i layer avviene di norma tramite chiamata a funzione.
-	Generalmente è un'architettura usata per i sistemi operativi. Un primo vantaggio si ha che se cambia l'interfaccia di un livello, si influenza solo il livello adiacente.
-	Differenti implementazioni dello stesso livello possono essere usate in modo intercambiabile.
-	Tuttavia, è artificiale strutturare il sistema in questo modo e può anche risultare inefficiente a causa dell'alto numero di chiamate fra i livelli.
-	Questo tendenzialmente porta a delle shortcut fra livelli, ma ciò comporta la perdita dei vantaggi strutturali dell'architettura.
-	
-	- Modello repository
-	Prevede un componente centralizzato contenente la memoria dei dati e componenti periferici che leggono/scrivono dati in questa memoria. Le periferiche non interagiscono tra loro
-	e parlano esclusivamente con la componente centrale. E' adatto ad applicazioni in cui i dati sonbo prodotti da un subsystem e usati da un altro, come i case tool.
-	Strumenti che aiutano l'ingegneria del software durante il ciclo di vita del software.
-	Si tratta di un modo efficiente di condividere grandi quantità di dati e si ha una gestione centralizzata del backup e della sicurezza.
-	Tuttavia i sottosistemi devono accordarsi sulla struttura dei dati per il repo. L'evoluzione di questo schema di dati è quindi difficile e costosa, e rendere il software
-	distribuito in maniera efficiente è molto difficile. Nel senso, c'è un nodo critico, che se cade quello, cade tutto.
-	
-	- Client/server
-	Simile al precedente, ma le informazioni viaggiano unidirezionalmente dal server principale. Esiste una rete che permette ai client di accedere ai server.
-	>Le periferiche son date da altri server che svolgono appositi job a loro dedicati. E' un modello tipicamente usato dalle interfacce web browser.
-	I vantaggi riguardano il miglioreamento della performance spostando la computazione tra i vari server; supporta il riuso, è scalabile perché si possono aggiungere altri server
-	ed è pure semplice aggiungerci ste componenti.
-	Tuttavia è un sistema distribuito; c'è una mancanza di un modello dei dati condiviso e lo scambio dei dati può essere inefficienze.
-	Possono presentarsi anche ridondanze con questo e i server potrebbero anche essere di proprietà di altre organizzazioni, come per il cloud. Non semplice gestire tutto.
-	
-	- Client/server a due livelli
-	Presenta due strati: strato client e strato server. Ci sono tre componenti software:
-	- UI - presentation logic
-	- Gestione dei processi e lofica
-	- Gestione del Db
-	Le componenti sono distribuite negli strati (non necessariamente in modo uniforme) di client (chi richiede) e server (chi fornisce).
-	
-	- Client/server a tre livelli
-	Ciè uno strato di presentazione, uno di logica, ed un terzo per i dati. Sono tutti separati ed il client usa solo l'interfaccia utente. Parliamo di application server e DB server.
-	
-	- Modello peer to peer
-	Ogni componente esegue il suo processo e gioca allo stesso tempo il ruolo di client e server. Ogni elemento ha una interfaccia che specifica i servizi offerti e richiesto.
-	Si comunica richiedendo e offrendo servizi. Questi sistemi scalano bene e sono fault-tolerant, il sistema non dipende quindi da un solo perno.
-	Esempi sono bittorrent o bitcoin.
-	
-	- Pipe&filter
-	Abbiamo dei pipe connettori che trasmettono dati tra i filtri, e dei filter cje effettuano trasformazioni per elaborare i loro input, producendo output.
-	Un esempio è pipe Unix.
-	cat input.txt | grep "Palle" | sort > output.txt
-	Nel comando, | è pipe, le istruzioni i filters.
-	I vantaggi sono il supporto del riuso delle trasformazioni, è molto intuitivo; aggiungere trasformazioni è semplice, infatti da implementare, pure. Supporta inoltre l'esecuzione in
-	parallelo. Tuttavia non è adatto a sistemi interattivi e infatti solitamente porta allo sviluppo di sistemi batch. C'è inoltre del lavoro extra per dover fare parsing/unparsing
-	dei dati nei vari filtri. Se sono tanti dati, la pipeline risulta inefficiente.
-	
-	--- Stili di controllo
-	Nella prox. lezione
+	Vantaggi: Guida nell'implementazione; dice esattamente chi fa cosa coi contratti. Miglioa la qualità del software e aiuta a scrivere operazioni semplici per rispettare un dato
+	contratto. Poi la documentazione comprende anche le confixioni. Poi lato testing siamo guidati con la generazione di casi di test black box. Inoltre, il debugging è reso
+	estremamente più facile perché grazie ai contratti sappiamo esattamente dove si trova il problema. Esistono anche framework appositi per la realizzazione del metodo su diversi
+	linguaggi.
+	E' un metodo utilizzato tendenzialmente per le componenti più critiche.
 \end{comment}
 
 %
 
-\section{Pattern di design}
-singleton, observer, template, iterator, factory, abstract factory, proxy, façade, decorator
+\section{Progettazione degli algoritmi}
+
+\begin{comment}
+	02-04-26 - softEng
+	
+	--- Progettazione degli algoritmi
+	Si suppone di aver ben definito come le componenti si comportano tra di loro. Si tratta dell'attività più vicina alla codifica, tendenzialmente lasciata in gran parte agli sviluppatori. Ha le seguenti fasi:
+	- Analizza descrizione di design della classe target
+	- Selezione o definizione dell'algoritmo con relativa notazione
+	- Svilkuppo dell'algoritmo usando la nozione di stepwise refinement (algoritmo raffinato per passi)
+	- Uso dei metodi formali per provare la correttezza dell'algoritmo (dipende dal workflow questo, onestamente)
+	
+	- Notazioni per la rappresentazione degli algoritmi
+	Ne abbiamo di visuali, come diagrammi di attività di UML, flowchart e simili, oppure testuali, come lo pseudocodice o program design languages.
+	
+	Esempio di stepwise refinement
+	Dati tre numeri interi calcolare la differenza tra il più grande e il più piccolo
+	1. Leggere i valori
+	2. Calcolare max
+	3. Calcolare min
+	4. Calcola differenza
+	5. Ritorna il risultato
+	
+	var A, B, C, Max, Min, Res
+	Max <- calc_max(A, B, C)
+	Min <- calc_min(A, B, C)
+	Res <- Max-Min
+	
+	E poi definisci gli pseudo delle singole funzioni
+	
+	--- Principi di progettazione
+	Astrazione, decomposizione, modularità, information hiding, per la produzione di un software mantenibile, comprensibile e chiaro.
+	
+	- Modulo
+	Entità software identificata da un nome che contiene fornisce servizi. Contiene istruzioni, strutture dati e controllo. Puà essere incluso in altri moduli e può usarne a sua volta. Degli esempi sono una macro, un programma, una funzione, uno script, etc.
+	
+	- Astrazione
+	Permette di concentrarsi su un problema ad un livello determinato di astrazione, senza perdersi in dettagli degli altri livello. Riduce complessità e permette di descrivere il comportamento di un modulo più facilmente. Nasconde anche informazioni che a quel livello non servono.
+	Ci sono diverse forme di astrazione:
+	- Funzionale: Definisce una funzionalità indipendentemente dall'algoritmo che la implementa
+	- Di dati: Definizione di un tipo di dato in base alle operazioni che su di esso senza definire una struttura concreta.
+	- Di controllo: Definizione di un meccanismo di controllo senza indicarne i dettagli interni
+	
+	- Decomposizione
+	Scomposizione di un problema complesso in più parti: divide et impera, banalmente. Ricorda però che separare in pezzi più piccoli implica il dover spendere tempo per l'integrazione di ogni modulo creato. Non è indifferente.
+	
+	- Modularità
+	Conseguenza del proncipio di decomposizione: I sottoproblemi sono gestiti dai moduli. La modularità dona iun criterio per la divisione del software con la logica separation of concerns: il tenere separati gli aspetti unrelated di un software.
+	Una valida linea guida è tenere separati il sw di generazione dati dal sw necessario alla presentazione, quindi backend da frontend. Permette di cambiare la rappresentazione dello schermo senza modificare il sistema di calcolo.
+	
+	Criteri di modularizzazione:
+	- Massimizzare coesione e minimizzare l'accoppiamento e dipendenze. Ogni modulo esegue un singolo compito e bisogna minimizzare il numero e la complessità delle interazioni fra i moduli. Consigliato usare delle metriche per vedere quanta complessità è tollerabile in una singola classe.
+	
+	- Concetto di coesione
+	Un modulo coeso svolge un unico compito richiedendo poche interazioni con altri componenti. Usa gli elementi al suo interno lasciando fuori il resto. Permette di comprendere e modificare meglio ogni singolo modulo.
+	Ci sono più tipi di coesione: funzionale, di livello, comunicazionale, e altro. L'importante è che seguano la regola di usare le proprie risorse minimizzando il contatto con l'esterno.
+	
+	- Conceto di accoppiamento
+	Ogni modulo non deve dipendere da troppi altri moduli, né dipendervi in modo troppo forte. L'accoppiamento misura il grado di dipendenza di un modulo dali altri. Se ci sono, spesso si richiedono modifiche in più moduli, è difficile capire come un modulo singolo possa lavorare e non si può riutilizzare senza gli altri. È un pò nammerda.
+	Capiamo, avere moduli perfettamente indipendenti è irrealistico. Avresti programmi a sé, non un software che li comprende tutti. Allo stesso tempo, non è possibile scrivere dipendenze per tutti i modulo, è disgustosamente difficile da lavorarci. Trova quindi un giusto compromesso, rendendo il software funzionale con il minor numero di dipendenze possibili.
+	
+	Ci sono diversi tipi di accoppiamento per darci un criterio su quali siano meglio e quali no:
+	- Buono: Chiamata di routine, metodo, funzione di altro modulo. Si tratta di una chiamata inevitabile.
+	Un altro accoppiamento buono è magari istanziare oggetti di altre classi rendendoli privati e utilizzabili sulla singola classe chiamante (private).
+	Anche l'importazione dei componenti non è male.
+	- Cattivo: Accoppiamento di contenuto (come componente1 modifica il valore di componente2. I dati dovrebbero essere gestiti da componente2)
+	
+	- Information hiding
+	Moduli dovrebbero essere specificati e progettati sicché le informazioni siano nascoste agli altri moduli ai quali non serve sapere queste informazioni.
+	Ogni modulo incapsula una decisione di design separata che potrebbe essere modificata in futuro; le interfacce vengono usate per descrivere ogni modulo in termini delle sue proprietà visibili esternamente.
+	Il primo vantaggio di questa strategia è far risultare i moduli debolmente accoppiati grazie alla definizione delle interfacce.
+	
+	- Alto fan-in, basso fan-out
+	Possibile ricostruire il grafo degli usi o dipendenze in cui gli archi rappresentano la relazione di dipendenza. Fan-in sono dipendenze entranti, fan-out sono quelle uscenti. Tanti fan-in indica un buon riuso, mentre tanti fanout indicano eccessiva dipendenza e il modulo dovrebbe essere decomposto.
+	
+	- Generalità
+	Proprietà di design che impatta maggiormente il riuso di un modulo in progetti futuri. Lo scopo è rendere i moduli i più generali possibili per renderlo utilizzabile anche in altri contesti. Per esempio, un algoritmo di ordinamento si usa in molti programmi; generalizzare la procedura per far sì che possa ordinare qualunque parametro non sarebbe male. Rende il codice meno semplice, ma hey, per procedure iperutilizzate va bene.
+	
+	- Semplicità (DRY KISS, duh)
+	
+	Esistono delle metriche del software che ci permettono di misurare l'aderenza ai principi visti, come lo IEEE Std 610.12-1990, che è una misura quantitativa del grado di possesso di uno specifico attributo da parte di un sistema, componente o processo.
+	Dei tool possono implementarlo, come Stan4J, che funziona a livello di codice.
+\end{comment}
+
+%
+
+\section{UML - Unified Modeling Language}
+class diagram, use case diagram, activity diagram, sequence diagram
+
+\begin{comment}
+	08-04-26 - softEng
+	
+	--- UML
+	Unified modeling language è un linguaggio per il supporto alla descrizione e la progettazione dei sistemi software, tendenzialmente OO. Utile anche per sistemi hardware e capire il dominio del business. Presenta lo standard OMG object management group. Unifica in una collezione di varie notazioni preesistenti, integrate e rese orientate agli oggetti.
+	UML è puramente un linguaggio di modellazione, serve solo per esprimere i concetti. Non è usato per programmare.
+	
+	Con UML si possono fare:
+	- abbozzi: aiutano la comunicazione e la discussione, presentando solo le info più importanti. Il tool usato è una lavagna o editor grafici.
+	- progetti dettagliati: forniscono un modello completo da implementare usando un UML modeler, come Visual paradigm o papyrus
+	- (utilizzato come dei) Linguaggi di programmazione: forniscono un modello eseguibile trasformabile da UML a linguaggio con tool appositi come UniMod o WebRatio
+	
+	-- Prospettive disponibili
+	- Prospettiva software
+	Ciò che è descritto nel diagramma sono gli elementi di un sistema software. Per esempio un utente sarà rappresentato come una classe nel linguaggio di programmazione, insieme ai suoi campi. Descrive il design e documenta il software.
+	
+	- Prospettiva concettuale
+	Gli elementi rappresentati sono i concetti del dominio, ed è usato per modellare il dominio del business e i processi.
+	
+	- Modello di dominio
+	Rappresentazione visuale di classi concettuali o di oggetti del mondo reale di un dominio. Si tratta di un glossario visuale delle astrazioni significative del dominio. È utile per chiarire i concetti di dominio per il quale sviluppare il software, ispirare nomi delle classi e degli attributi, ma soprattutto fornisce un punto di partenza per la progettazione del sistema.
+	Dalle classi sarà naturalmente possibile rappresentare gli oggetti di dominio; istanze concrete delle classi.
+	
+	---
+	
+	UML è uno standard, svolge una funzione di lingua franca, è usato spesso in ambito lavorativo soprattutto per le figure di analista e progettista software.
+	UML definisce una famiglia di notazioni e un meta-modello, nel senso che posso descrivere la sintassi UML in UML.
+	
+	--- Viste, diagrammi e modello
+	In UML un sistema è descritto usando diverse viste, intese come un particolare aspetto di un sistema dal punto di vista di un ruolo specifico. Un diagramma descrive una vista e l'insieme dei diagrammi che descrivono gli aspetti del sistema è il modello.
+	Disegnamo i modelli con UML 2.0 che contiene 13 tipi di diagrammi. Vedremo i diagrammi use case, class diagram, sequence diagram, activity diagram, state machine diagram e component diagram.
+	
+	UML può essere usato con qualsiasi processo nelle fasi di raccolta requisiti, design architetturale e delle componenti. È praticamente uno strumento a supporto.
+	Nella prima fase possiamo usare uno use case diagram che descrive i requisiti funzionali del sistema dal punto di vista di chi lo usa.
+	I diagrammi UML tendenzalmente non sono sufficienti da soli. Esistono due soluzioni per essere esaustivi:
+	- cercare o produrre un'estensione di UML (concetto di profilo)
+	- Usare diagrammi non UML
+	
+	-- Mancherebbero le ultime slides, ma nulla di pesante.
+\end{comment}
+\begin{comment}
+	Lez9 - 09-04-26 SoftEng
+	
+	--- Class diagram
+	Definisce classi, le loro feature (attributi e operazioni) e le relazioni tra le classi, come associazioni, aggregazioni/composizioni, specializzazione/generalizzazioni e dipendenze.
+	Modelliamo la parte statica (e quindi la struttura) di un sistema software.
+	Il significato del diagramma dipende dalla prospettiva, come già detto.
+	- concettuale: descriviamo gli elementi del contesto che ci interessa modellare. Una classe è un concetto del dominio e un oggetto è una sua entità. Le operazioni rappresentano le azioni e le responsabilità.
+	- software: Descriviamo il design di un software, quindi i moduli che costituiranno l'effettiva implementazione del sistema. Le classi sono le classi in OO, le operazioni sono implementate da metodi.
+	
+	Il concetto di classe in UML è uguale a quello dell'OO. Tale e quale. Gli oggetti comunicano con scambio di messaggi, pure.
+	Rappresentiamo una classe con un rettangolo con il suo nome. In compartimenti sottostanti si indicano gli attributi e le operazioni.
+	
+	La sintassi per gli attributi è <visibilità nome: tipo [molteplicità] = default{proprietà}>. (default è il valore base dell'attributo di un oggetto appena creato). È possibile anche non visualizzare tutte le informazioni perché possono essere fuorvianti. Di norma basta visibilità, nome e tipo.
+	Visibilità indicata come:
+	+ pubblico
+	- privato
+	# protetto
+	~ package
+	
+	Abbiamo nominato la molteplicità: il quantitativo degli attributi (come per esempio le dimensioni per una lista). Alcuni valori possibili sono:
+	- 1. Uno singolo, il valore di default
+	- 0..1 (al più uno)
+	- * Numero imprecisato, eventualmente nessuno, equivalente a 0*
+	- 1..* (Almeno uno) // Elementi con molteplicità maggiore di 1 sono considerati un insieme.
+	- n..m ed m (m \geq 1)
+	
+	Anche le operazioni hanno una sintassi: <visibilità nome (parametri): tipo-ritornato {proprietà}>. La lista dei parametri ocontiene nome e tipo dei parametri, secondo la segnatura <direzione nome: tipo = default>.
+	La direzione è intesa come input (in), output (out) o entrambi (inout). Il default è input. I getter/setter non sono inseriti, è scontato che ci siano.
+	In UML esistono due operazioni:
+	- query: ottengono un valore da un oggetto senza side effect
+	- modificatori: modificano lo stato dell'oggetto su cui sono chiamate
+	
+	In UML esiste il concetto di data type che è diverso dagli oggetti. Non sono istanze, non hanno identità; le istanze sono valori in questo caso.
+	Degli esempi sono le date o un valore monetario, che hanno senso esclusivamente con i valori. Si indicano specificandoli con lo stereotipo <<datatype>> sopra il nome del tipo.
+	
+	-- Associazioni
+	Un'associazione è una relazione tra le classi. Un -> indica la direzione in cui deve essere letta l'associazione. éer esempio Persona -> automobile indica che la persona possiede l'auto. In alternativa si può indicare il ruolo di uno dei due estremi dell'associazione.
+	Puoi indicare questa cosa anche con il verso di navigazione, che indica in quale direzione è possibile reperire le infrmazioni. Con questo, puoi aggiungere anche la molteplicità. È comodo e compatto.
+	
+	Attributi e associazioni sono due modi per rappresentare la stessa cosa. Per convenzione si usano:
+	- attributi per tipi primitivi e datatype
+	- Associazioni se sono tipati da classi
+	
+	--- Object diagram
+	Diagramma che consente di rappresentare le istanze di una classe. Considera tutte le possibili combinazioni valide. Servono a chiarire i class diagram più complessi, spiegando anche la relazione tra classe e oggetti con l'operazione <<istanzia>>.
+	Le operazioni e i campi static corrispondono esattamente ai metodi e i static types di java. Per indicare che un campo è statico, lo si sottolinea.
+	
+	- Associazioni riflessive: una classe che ha associazione con sé stessa (parrebbe la relazione ricorsiva dello schema ER)
+	- Classi associative
+	Talvolta alcune proprietà sono proprie dell'associazione piuttosto che delle classi coinvolte; quindi si aggiunge un rettangolo alla relaizione, al quale è possibile aggiungere attributi e operazioni.
+	
+	- Asociazioni bidirezionali
+	Quando da le informazioni sono recepibili da ambo le direzioni, quindi da entrambe le due classi coinvolte. Non è una cosa implementabile con un singolo attributo e da implementare sono un attimo complesse.
+	Nel settare dei valori ad una classe con relazione bidirezionale, così bisognerà fare con l'altra a cui è legato. C'è dunque un problema di sincronizzazione. Per esempio, se ho classi Man e Woman e da una parte setto Man come marito della woman, a sua volta dovrà settare woman come moglie di Man. Per spiegare questo comportamento si esplicita che sono sincronizzate e si aggiunge una nota che specifica il comportamento.
+	
+	-- Aggregazione
+	Altra relazione di tipo strutturale. Si indica con una freccia simil-diamond: regione -<> nazione.
+	Una regione è parte di una nazione. Si tratta di una sfaccettatura più importante guardando al livello concettuale, perché a livello software si implementa con un'associazione.
+	
+	-- Composizione
+	Forma più rigorosa di aggregazione. Se il composto è distrutto, così seguiranno le sue parti. È indicato con la diamond-arrow riempita. Le classi aggregate non hanno senso da sole, difatti.
+	
+	-- Generalizzazione ed ereditarietà
+	Per generalizzazione intendiamo che ogni istanza di una classe è anche della superclasse, mentre l'ereditarietà è un meccanismo con il quale elementi specializzati incorporano la struttura ed il comportamento di elementi più generali.
+	
+	Attenzione che le operazioni e i metodi UML non sono la stessa cosa. Le operazioni sono invocate su oggetti e sono la dichiarazione di una procedura o funzione, mentre un metodo è il CORPO di tale procedura o funzione, quindi la sua definizione.
+	
+	-- Dipendenze
+	Si ha una dipendenza tra due classi se la modifica di una comporta un cambiamento a un'altra.
+\end{comment}

@@ -1,0 +1,38 @@
+08-04-26 - softEng
+
+--- UML
+Unified modeling language è un linguaggio per il supporto alla descrizione e la progettazione dei sistemi software, tendenzialmente OO. Utile anche per sistemi hardware e capire il dominio del business. Presenta lo standard OMG object management group. Unifica in una collezione di varie notazioni preesistenti, integrate e rese orientate agli oggetti.
+UML è puramente un linguaggio di modellazione, serve solo per esprimere i concetti. Non è usato per programmare.
+
+Con UML si possono fare:
+	- abbozzi: aiutano la comunicazione e la discussione, presentando solo le info più importanti. Il tool usato è una lavagna o editor grafici.
+	- progetti dettagliati: forniscono un modello completo da implementare usando un UML modeler, come Visual paradigm o papyrus
+	- (utilizzato come dei) Linguaggi di programmazione: forniscono un modello eseguibile trasformabile da UML a linguaggio con tool appositi come UniMod o WebRatio
+	
+-- Prospettive disponibili
+- Prospettiva software
+Ciò che è descritto nel diagramma sono gli elementi di un sistema software. Per esempio un utente sarà rappresentato come una classe nel linguaggio di programmazione, insieme ai suoi campi. Descrive il design e documenta il software.
+
+- Prospettiva concettuale
+Gli elementi rappresentati sono i concetti del dominio, ed è usato per modellare il dominio del business e i processi.
+
+- Modello di dominio
+Rappresentazione visuale di classi concettuali o di oggetti del mondo reale di un dominio. Si tratta di un glossario visuale delle astrazioni significative del dominio. È utile per chiarire i concetti di dominio per il quale sviluppare il software, ispirare nomi delle classi e degli attributi, ma soprattutto fornisce un punto di partenza per la progettazione del sistema.
+Dalle classi sarà naturalmente possibile rappresentare gli oggetti di dominio; istanze concrete delle classi.
+
+---
+
+UML è uno standard, svolge una funzione di lingua franca, è usato spesso in ambito lavorativo soprattutto per le figure di analista e progettista software.
+UML definisce una famiglia di notazioni e un meta-modello, nel senso che posso descrivere la sintassi UML in UML.
+
+--- Viste, diagrammi e modello
+In UML un sistema è descritto usando diverse viste, intese come un particolare aspetto di un sistema dal punto di vista di un ruolo specifico. Un diagramma descrive una vista e l'insieme dei diagrammi che descrivono gli aspetti del sistema è il modello.
+Disegnamo i modelli con UML 2.0 che contiene 13 tipi di diagrammi. Vedremo i diagrammi use case, class diagram, sequence diagram, activity diagram, state machine diagram e component diagram.
+
+UML può essere usato con qualsiasi processo nelle fasi di raccolta requisiti, design architetturale e delle componenti. È praticamente uno strumento a supporto.
+Nella prima fase possiamo usare uno use case diagram che descrive i requisiti funzionali del sistema dal punto di vista di chi lo usa.
+I diagrammi UML tendenzalmente non sono sufficienti da soli. Esistono due soluzioni per essere esaustivi:
+	- cercare o produrre un'estensione di UML (concetto di profilo)
+	- Usare diagrammi non UML
+	
+-- Mancherebbero le ultime slides, ma nulla di pesante.

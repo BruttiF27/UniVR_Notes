@@ -1,0 +1,69 @@
+Lez9 - 09-04-26 SoftEng
+
+--- Class diagram
+Definisce classi, le loro feature (attributi e operazioni) e le relazioni tra le classi, come associazioni, aggregazioni/composizioni, specializzazione/generalizzazioni e dipendenze.
+Modelliamo la parte statica (e quindi la struttura) di un sistema software.
+Il significato del diagramma dipende dalla prospettiva, come già detto.
+	- concettuale: descriviamo gli elementi del contesto che ci interessa modellare. Una classe è un concetto del dominio e un oggetto è una sua entità. Le operazioni rappresentano le azioni e le responsabilità.
+	- software: Descriviamo il design di un software, quindi i moduli che costituiranno l'effettiva implementazione del sistema. Le classi sono le classi in OO, le operazioni sono implementate da metodi.
+	
+Il concetto di classe in UML è uguale a quello dell'OO. Tale e quale. Gli oggetti comunicano con scambio di messaggi, pure.
+Rappresentiamo una classe con un rettangolo con il suo nome. In compartimenti sottostanti si indicano gli attributi e le operazioni.
+
+La sintassi per gli attributi è <visibilità nome: tipo [molteplicità] = default{proprietà}>. (default è il valore base dell'attributo di un oggetto appena creato). È possibile anche non visualizzare tutte le informazioni perché possono essere fuorvianti. Di norma basta visibilità, nome e tipo.
+	Visibilità indicata come:
+		+ pubblico
+		- privato
+		# protetto
+		~ package
+		
+Abbiamo nominato la molteplicità: il quantitativo degli attributi (come per esempio le dimensioni per una lista). Alcuni valori possibili sono:
+	- 1. Uno singolo, il valore di default
+	- 0..1 (al più uno)
+	- * Numero imprecisato, eventualmente nessuno, equivalente a 0*
+	- 1..* (Almeno uno) // Elementi con molteplicità maggiore di 1 sono considerati un insieme.
+	- n..m ed m (m \geq 1)
+	
+Anche le operazioni hanno una sintassi: <visibilità nome (parametri): tipo-ritornato {proprietà}>. La lista dei parametri ocontiene nome e tipo dei parametri, secondo la segnatura <direzione nome: tipo = default>.
+La direzione è intesa come input (in), output (out) o entrambi (inout). Il default è input. I getter/setter non sono inseriti, è scontato che ci siano.
+In UML esistono due operazioni:
+	- query: ottengono un valore da un oggetto senza side effect
+	- modificatori: modificano lo stato dell'oggetto su cui sono chiamate
+	
+In UML esiste il concetto di data type che è diverso dagli oggetti. Non sono istanze, non hanno identità; le istanze sono valori in questo caso.
+Degli esempi sono le date o un valore monetario, che hanno senso esclusivamente con i valori. Si indicano specificandoli con lo stereotipo <<datatype>> sopra il nome del tipo.
+
+-- Associazioni
+Un'associazione è una relazione tra le classi. Un -> indica la direzione in cui deve essere letta l'associazione. éer esempio Persona -> automobile indica che la persona possiede l'auto. In alternativa si può indicare il ruolo di uno dei due estremi dell'associazione.
+Puoi indicare questa cosa anche con il verso di navigazione, che indica in quale direzione è possibile reperire le infrmazioni. Con questo, puoi aggiungere anche la molteplicità. È comodo e compatto.
+
+Attributi e associazioni sono due modi per rappresentare la stessa cosa. Per convenzione si usano:
+	- attributi per tipi primitivi e datatype
+	- Associazioni se sono tipati da classi
+	
+--- Object diagram
+Diagramma che consente di rappresentare le istanze di una classe. Considera tutte le possibili combinazioni valide. Servono a chiarire i class diagram più complessi, spiegando anche la relazione tra classe e oggetti con l'operazione <<istanzia>>.
+Le operazioni e i campi static corrispondono esattamente ai metodi e i static types di java. Per indicare che un campo è statico, lo si sottolinea.
+
+- Associazioni riflessive: una classe che ha associazione con sé stessa (parrebbe la relazione ricorsiva dello schema ER)
+- Classi associative
+	Talvolta alcune proprietà sono proprie dell'associazione piuttosto che delle classi coinvolte; quindi si aggiunge un rettangolo alla relaizione, al quale è possibile aggiungere attributi e operazioni.
+	
+- Asociazioni bidirezionali
+Quando da le informazioni sono recepibili da ambo le direzioni, quindi da entrambe le due classi coinvolte. Non è una cosa implementabile con un singolo attributo e da implementare sono un attimo complesse.
+	Nel settare dei valori ad una classe con relazione bidirezionale, così bisognerà fare con l'altra a cui è legato. C'è dunque un problema di sincronizzazione. Per esempio, se ho classi Man e Woman e da una parte setto Man come marito della woman, a sua volta dovrà settare woman come moglie di Man. Per spiegare questo comportamento si esplicita che sono sincronizzate e si aggiunge una nota che specifica il comportamento.
+	
+-- Aggregazione
+Altra relazione di tipo strutturale. Si indica con una freccia simil-diamond: regione -<> nazione.
+Una regione è parte di una nazione. Si tratta di una sfaccettatura più importante guardando al livello concettuale, perché a livello software si implementa con un'associazione.
+
+-- Composizione
+Forma più rigorosa di aggregazione. Se il composto è distrutto, così seguiranno le sue parti. È indicato con la diamond-arrow riempita. Le classi aggregate non hanno senso da sole, difatti.
+
+-- Generalizzazione ed ereditarietà
+Per generalizzazione intendiamo che ogni istanza di una classe è anche della superclasse, mentre l'ereditarietà è un meccanismo con il quale elementi specializzati incorporano la struttura ed il comportamento di elementi più generali.
+
+Attenzione che le operazioni e i metodi UML non sono la stessa cosa. Le operazioni sono invocate su oggetti e sono la dichiarazione di una procedura o funzione, mentre un metodo è il CORPO di tale procedura o funzione, quindi la sua definizione.
+
+-- Dipendenze
+Si ha una dipendenza tra due classi se la modifica di una comporta un cambiamento a un'altra.

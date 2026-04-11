@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  5 APR 2026 13:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  11 APR 2026 11:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -489,19 +489,53 @@ Underfull \hbox (badness 10000) in paragraph at lines 98--99
 
 [19 <./Images/useCaseDiagram.png>]) [20]
 Capitolo 4.
-(./Chapters/4.tex Excluding 'comment' comment.) [21
+(./Chapters/4.tex
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
-]
+ []
+
+[21
+
+] [22]
+<Images/layered_structure.png, id=105, 342.27875pt x 342.27875pt>
+File: Images/layered_structure.png Graphic file (type png)
+<use Images/layered_structure.png>
+Package pdftex.def Info: Images/layered_structure.png  used on input line 26.
+(pdftex.def)             Requested size: 225.0pt x 225.00635pt.
+<Images/repository_structure.png, id=106, 502.87875pt x 302.12875pt>
+File: Images/repository_structure.png Graphic file (type png)
+<use Images/repository_structure.png>
+Package pdftex.def Info: Images/repository_structure.png  used on input line 33
+.
+(pdftex.def)             Requested size: 360.00137pt x 216.2878pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[23 <./Images/layered_structure.png>]
+<Images/client-server_structure.png, id=111, 583.17876pt x 302.12875pt>
+File: Images/client-server_structure.png Graphic file (type png)
+<use Images/client-server_structure.png>
+Package pdftex.def Info: Images/client-server_structure.png  used on input line
+ 41.
+(pdftex.def)             Requested size: 360.00137pt x 186.51111pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[24 <./Images/repository_structure.png>] [25 <./Images/client-server_structure.
+png>] Excluding 'comment' comment. Excluding 'comment' comment.
+Excluding 'comment' comment. Excluding 'comment' comment.) [26] [27]
 Capitolo 5.
-(./Chapters/5.tex) [22
+(./Chapters/5.tex) [28
 
 ]
 Capitolo 6.
-(./Chapters/6.tex) [23
+(./Chapters/6.tex) [29
 
 ]
 Capitolo 7.
-(./Chapters/7.tex) [24
+(./Chapters/7.tex) [30
 
 ] (./main.aux)
  ***********
@@ -510,10 +544,10 @@ L3 programming layer <2024-01-22>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 8324 strings out of 474222
- 134087 string characters out of 5748733
+ 8344 strings out of 474222
+ 134874 string characters out of 5748733
  1933975 words of memory out of 5000000
- 30456 multiletter control sequences out of 15000+600000
+ 30476 multiletter control sequences out of 15000+600000
  570253 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  74i,9n,82p,884b,504s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -529,10 +563,10 @@ ic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt1
 2.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (25 pages, 311700 bytes).
+Output written on main.pdf (31 pages, 368990 bytes).
 PDF statistics:
- 168 PDF objects out of 1000 (max. 8388607)
- 98 compressed objects within 1 object stream
+ 194 PDF objects out of 1000 (max. 8388607)
+ 111 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

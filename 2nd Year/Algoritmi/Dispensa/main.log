@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  7 APR 2026 16:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2025.11.2)  12 APR 2026 11:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -834,9 +834,13 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[48]) [49] [50]
+[48] [49]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[50]) [51] [52]
 Capitolo 5.
-(./Chapters/5.tex) [51
+(./Chapters/5.tex) [53
 
 ] (./main.aux)
  ***********
@@ -873,10 +877,10 @@ s/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /public/amsfonts/symbols/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-sup
 er/sfrm1200.pfb>
-Output written on main.pdf (52 pages, 449117 bytes).
+Output written on main.pdf (54 pages, 456792 bytes).
 PDF statistics:
- 302 PDF objects out of 1000 (max. 8388607)
- 188 compressed objects within 2 object streams
+ 308 PDF objects out of 1000 (max. 8388607)
+ 192 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  48 words of extra memory for PDF output out of 10000 (max. 10000000)
 

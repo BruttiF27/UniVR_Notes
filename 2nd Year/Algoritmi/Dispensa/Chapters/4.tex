@@ -321,58 +321,54 @@ Insomma, contraendo tutti gli archi i cui vertici incidenti sono all'interno del
 	\noindent Siano $C, C'$ due componenti fortemente connesse distinte in un grafo orientato $G$. Se $u,v\in C$ e $u',v'\in C'$, e supponendo ci sia un cammino che collega $u$ e $u'$, allora non può esistere anche un cammino da $v'$ a $v$ nello stesso grafo.
 \end{lemma}
 \noindent Il lemma è valido per la distinzione delle componenti, perché se esiste un cammino $v'\rightsquigarrow v$ nel grafo, allora esistono i cammini $u\rightsquigarrow u'\rightsquigarrow v'$ e $v'\rightsquigarrow v\rightsquigarrow u$, rendendo $u$ e $v$ raggiungibili mutualmente, contraddicendo l'ipotesi che $C$ e $C'$ siano SCC distinte.
-
-% TODO Non hai finito. Riprendi la dimostrazione del secondo lemma e termina con la dimostrazione del teorema intero.
-
-
-\begin{comment}		
-	-- Dimostrazione
-	Nodi fortemente connessi sono discendenti e raggiungibili quindi da un cammino bianco.
-	Ogni albero della foresta può contenere (sempre interamente) componenti fortememnte connesse. Non possiamo trovare archi di queste componenti che vanno al di fuori dell'albero 
-	o anche al di fuori delle componenti stesse.
-	
-	Per ogni SCC chiamiamo un nodo detto avo, e si nota che non è possibile collegarlo ad avi di altre SCC.
-	Il grafo delle SCC è sempre aciclico, perché le componenti fortemente connesse sono unite il più possibile.
-\end{comment}
+\begin{lemma}
+	\textbf{Tempo di elaborazione}\par
+	\noindent Siano $C, C'$ due componenti fortemente connesse distinte in un grafo orientato. Supponiamo l'esistenza di un arco $(u,v)\in E$, dove $u\in C'$ e $v\in C$. Allora il tempo di fine visita di $C'$ è maggiore di $C$: $f(C') > f(C)$.
+\end{lemma}
+\noindent Per la dimostrazione è necessario considerare due casi, in base a quale SCC ha il nodo scoperto prima durante la visita DFS: \begin{itemize}
+	\item Se $d(C') < d(C)$, diciamo $x$ il primo vertice scoperto in $C'$; quindi al tempo $d[x]$ tutti gli altri nodi sono bianchi e nel grafo esiste un cammino da $x$ a tutti gli altri composto da soli nodi bianchi, facendo valere il relativo teorema.\par
+	In quanto tale, tutti i vertici di $C$ e $C'$ diventano discendenti di $x$ nell'albero di visita DFS e questo nodo avrà tempo di finitura massimo rispetto a tutti i suoi discendenti: $f[x] = f(C') > f(C)$.
+	\item Se $d(C') > d(C)$, prendiamo $y$ primo vertice scoperto in $C$ per cui $d[y] = d(C)$, al cui tempo tutti i nodi in $C$ sono bianchi ed il grafo comprende un cammino da $y$ a tutti gli altri nodi in $C$, facendo valere il teorema del cammino bianco.\par
+	In quanto tale, tutti i nodi di $C$ diventano discendenti di $y$ nell'albero della visita DFS e, per l'annidamento degli intervalli dei discendenti, vale $f[y] = f(C)$.\par
+	Sappiamo inoltre che $d(C') < d(C) = d[y]$, al cui tempo tutti i vertici in $C'$ sono bianchi. Siccome esiste un arco da $C'$ a $C$, per rispettare la condizione che distingue le SCC, non esisterà un arco da $C$ a $C'$, rendendo tutti i vertici in quest'ultimo irraggiungibili da $y$. Dunque, al tempo $f[y]$ i vertici di $C'$ sono ancora bianchi, dimostrando che per qualunque vertice di $C'$ vale $f(C') > f(C)$.
+\end{itemize}
+\noindent Come conseguenza diretta, per garantire che le SCC rimangano distinte, il grafo trasposto non formerà nuovi archi per creare nuove componenti fortemente connesse. Abbiamo strumenti a sufficienza per la dimostrazione del teorema di questo algoritmo: \begin{teorema}
+	\textbf{Componenti fortemente connesse}\par
+	\noindent La procedura SCC() calcola correttamente le componenti fortemente connesse di un grafo orientato $G$.
+\end{teorema}
+\noindent La dimostrazione avviene per induzione sul numero di alberi creati dalla visita DFS sul grafo $G^T$. L'ipotesi è che i primi $k$ alberi formati siano componenti fortemente connesse. Quando $k=0$, banalmente, non avendo componenti, il teorema vale.\par
+Nel passo induttivo supponiamo l'ipotesi e prendiamo in considerazione l'albero $(k+1)$-esimo e supponiamo che la sua radice sia il nodo $u$, che si trova nella SCC $C$. Per il funzionamento della visita DFS, al tempo di scoperta della radice, tutti gli altri nodi della SCC sono bianchi e formano un cammino nell'albero; inoltre, il tempo di completamento della radice sarà maggiore rispetto a quello di tutti gli altri nodi suoi discendenti.\par
+Ogni arco in $G^T$ che esce da $C$ deve entrare in altre componenti già visitate, quindi nessun vertice appartenente a componenti diverse da $C$ è un discendente della radice $u$ nell'albero di visita DFS, provando che i vertici dell'albero DFS in $G^T$ formano esattamente una sola SCC, dimostrando il teorema.
 
 %
 
 \section{Alberi di copertura di costo minimo}
-Prim, Kruskal
+Spesso ci si trova davanti a problemi di ottimizzazione; nella teoria dei grafi si tratta il problema dell'\textbf{albero di copertura di costo minimo} (MST). Si parte da un grafo connesso non orientato, i cui archi hanno associato un valore, detto \textbf{peso}, che indica il costo richiesto per collegare due nodi. La soluzione di questo problema è un sottoinsieme aciclico del grafo di partenza che collega tutti i vertici, il cui peso totale è minimo.\par
+Gli algoritmi trattati in questa sezione, \textbf{prim} e \textbf{kruskal}, sono avidi e utilizzano la stessa strategia di base applicata in modi differenti. Iniziamo definendo l'algoritmo per la creazione di un albero di copertura minimo \textbf{generic-MST()}, il quale prende in input un grafo connesso non orientato con una funzione per il peso. Costruisce l'albero di connessione minimo un arco alla volta, per poi ritornarlo al termine della sua esecuzione.\par
+Questa procedura generica gestisce quindi un insieme $A$ di archi, assicurandosi che prima di ogni iterazione sia un sottoinsieme di qualche albero di connessione minimo.
+\begin{algorithm}[h]
+	\caption{generic-MST(G, w)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo connesso non orientato, $w$: Valore del peso
+		\State $A = \emptyset$
+		\While{$A$ non è albero di connessione}
+		\State Cerca un arco $(u,v)$ sicuro per $A$
+		\State $A = A\cup \{(u,v)\}$
+		\EndWhile
+		\State return $A$
+	\end{algorithmic}
+\end{algorithm}
+\noindent Per dimostrarne la correttezza abbiamo bisogno di definire alcune entità di base. Anzitutto, un \textbf{taglio} $(U, V-U)$ è una partizione dell'insieme dei nodi $V$, il quale sarà attraversato da alcuni archi, detti \textbf{archi del taglio}. Tra questi, quello con il peso minore è detto \textbf{arco sicuro} e sarà quello scelto per la costruzione dell'MST.
+\begin{teorema}
+	\textbf{Correttezza di generic-MST()}\par
+	\noindent Sia $(u,v)$ un arco sicuro per un taglio $(U, V-U)$ in un grafo $G$, allora esiste un albero di copertura di costo minimo $T$ che contiene $(u,v)$.
+\end{teorema}
+\noindent Banalmente, se l'arco sicuro $(u,v)$ è all'interno di $T$, la tesi è dimostrata. Alternativamente, è possibile notare che, essendo il grafo connesso, esiste almeno un arco $(x,y)$ che attraversa il taglio. Se questo ha il costo minimo tra tutti gli archi del taglio disponibili, è quello sicuro, e sarà unito all'MST. Dunque: \[T' = T - \{(u,v) \cup (x,y)\}\]
+\noindent Il grafo $T'$ è ancora un albero di copertura e il suo costo non è maggiore di quello di $T$. Pertanto $T'$ è un albero di copertura minimo che contiene $(u,v)$.
 
+% TODO Riprendi da Kruskal
 
-
-\begin{comment}
-	19-03-26 - Algoritmi
-	
-	Son crollati tutti i punti di venezia. Per ripararli hai:
-	Tuta blu gialla verde in ordine di costo max-min
-	Garantire che i cittadini possano spostarsi su qualunque punto via terra spendendo meno soldi possibili.
-	
-	Request: Lista dei ponti da riparare?
-	
-	Facciamo un grafo dove i nodi sono le varie zone di venezia isolate. Gli archi sono i ponti e hanno pesi che rappresentano il costo di riparazione.
-	Vogliamo un grafo come risultato che ha il numero minimo di archi tali per cui continua ad essere connesso.
-	
-	Aree isolate: V; Ponti: V-1
-	
-	Il risultato è detto albero di copertura (minimum spannning tree), vogliamo quello che costa meno di tutti. Rivedi definizione (Albero che copre l'intero grafo)
-	In questo caso abbiamo solo pesi positivi, ma se fossero nulli o negativi allora non avremmo come soluzione un albero. Per risolvere sta cosa basta imporre che la soluzione sia
-	un albero. Gli algoritmi funzionano ugualmente.
-	
-	--- Dimosrazione algoritmo MinimumSpanningTree
-	Effettuiamo un taglio nel grafo (bipartizione dell'insieme dei nodi) e noteremo che alcuni archi oltrepassano la propria parte. Li chiamiamo archi del taglio.
-	Arco sicuro per un taglio: L'arco del taglio con peso minore. Non necessariamente è unico.
-	
-	Sia ora (u,v) un arco sicuro per in taglio (U,V).
-	Allora esiste un MST che contiene (u,v)
-	
-	Quindi abbiamo un taglio U,V. Anche se presenti una soluzione che non è l'arco sicuro, il grafo sarà ugualmente connesso. L'albero è comunque di copertura.
-	Possiamo trovare quindi un'altra soluzione u',v' con un costo c'. c\leq c'.
-	Data iuna qualunque soluzione che non è u,v posso trovarne un'altra che è uguale o meno costosa. Dimostrato mostrando una soluzione nuova con proprietà equivalente a quella ideale
-	
-	Se prendo l'arco sicuro e cerco di ricondurmi ad un problema di dimensione minore, prima o poi arriverò a quello che mi serve, perché abbiamo dimostrato che la soluzione esiste.
-	
+\begin{comment}	
 	---
 	// Con grafo pesato G si dà in input w che è la matrice dei pesi, la quale è una funzione che ad ogni arco associa il relativo peso.
 	kruskal(G, w)

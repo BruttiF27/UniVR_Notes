@@ -32,12 +32,12 @@
 \contentsline {section}{\numberline {4.2}Visita in ampiezza}{38}{}%
 \contentsline {section}{\numberline {4.3}Visita in profondità}{42}{}%
 \contentsline {section}{\numberline {4.4}Ordinamento topologico}{46}{}%
-\contentsline {section}{\numberline {4.5}Alberi di copertura di costo minimo}{49}{}%
-\contentsline {section}{\numberline {4.6}Cammini minimi a sorgente singola}{49}{}%
-\contentsline {section}{\numberline {4.7}Cammini minimi a sorgente multipla}{49}{}%
-\contentsline {section}{\numberline {4.8}Flusso massimo}{49}{}%
-\contentsline {section}{\numberline {4.9}Matching massimale su grafo bipartito}{50}{}%
-\contentsline {chapter}{\numberline {5}Progettazione e analisi di algoritmi}{51}{}%
-\contentsline {section}{\numberline {5.1}Programmazione dinamica}{51}{}%
-\contentsline {section}{\numberline {5.2}Programmazione greedy}{51}{}%
-\contentsline {section}{\numberline {5.3}Programmazione lineare}{51}{}%
+\contentsline {section}{\numberline {4.5}Alberi di copertura di costo minimo}{50}{}%
+\contentsline {section}{\numberline {4.6}Cammini minimi a sorgente singola}{51}{}%
+\contentsline {section}{\numberline {4.7}Cammini minimi a sorgente multipla}{51}{}%
+\contentsline {section}{\numberline {4.8}Flusso massimo}{51}{}%
+\contentsline {section}{\numberline {4.9}Matching massimale su grafo bipartito}{52}{}%
+\contentsline {chapter}{\numberline {5}Progettazione e analisi di algoritmi}{53}{}%
+\contentsline {section}{\numberline {5.1}Programmazione dinamica}{53}{}%
+\contentsline {section}{\numberline {5.2}Programmazione greedy}{53}{}%
+\contentsline {section}{\numberline {5.3}Programmazione lineare}{53}{}%

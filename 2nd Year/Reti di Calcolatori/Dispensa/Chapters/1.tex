@@ -178,3 +178,95 @@ Tra l'altro, questi due comandi possono presentare valori il cui prefisso ha un 
 	\item \textbf{Classe B}: L'indirizzo ha 10 come prime due cifre e il prefisso ha $16b$ di dimensione. Numero di reti: $2^{14}$. Numero di host per rete massimi: $2^{16}$.
 	\item \textbf{Classe C}: L'indirizzo ha 110 come prime tre cifre ed il prefisso ha $24b$ di dimensione. Numero di reti: $2^{21}$. Numero di host per rete massimi: $2^8$.
 \end{itemize}
+
+%
+
+\section{Esercizi svolti}
+
+\begin{comment}
+	--- Esercizi su indirizzamento
+	1. Dato un indirizzo IP, trovare l'indirizzo di rete (ind. rete è il prefisso, il suffisso a tutti 0)
+	IP: 140.120.84.20/20
+	- Passaggio in binario: 10001100.01111000.0101 0000.00010100
+	Indirizzo di rete: pref(10001100.01111000.0101) suff(0000.00000000)
+	
+	- Ritorno in decimale puntato: 140.120.80.0/20		(Il terzo blocco va considerato tale anche se separato tra suff e pref)
+	
+	2. Scrivere la maschera con notazione decimale puntata di una rete con tre lan; all'insieme delle 3 lan è stato assegnato il blocco 165.5.1.0/24
+	Creare tre sottoreti per le tre lan sicché abbiano tutte lo stesso numero di indirizzi
+	
+	Per subnettare bisogna sacrificare bit del suffisso per distinguere le subnets. Se devo avere 3 subnets, userò 2b per rete.
+	
+	- IP binario: pref(10100101.00000101.00000001) suff(00000000)
+	- Uso 2b del suffisso per distinguere al più 3 reti, ottenendo: pref(10100101.00000101.00000001.00), suff(000000)
+	La prima rete avrà pref(10100101.00000101.00000001.00), suff(000000)
+	La seconda pref(10100101.00000101.00000001.01), suff(000000)
+	La terza pref(10100101.00000101.00000001.10), suff(000000)
+	Avresti anche un quarto indirizzo con pref(10100101.00000101.00000001.11), suff(000000) libero.
+	
+	- Ritorno a decimale puntata:
+	Prima rete: 165.5.1.0/26
+	Seconda rete: 165.5.1.64/26
+	Terza rete: 165.5.1.128/26
+	Quarta rete libera: 165.5.1.192/26
+	
+	Possiamo visualizzare il subnetting con un grafico a torta, sarebbe carino.
+	Una variante del problema consiste nella suddivisione con un numero indirizzi non uguali tra le subnets. Per esempio, se LAN1 richiede un numero di indirizzi doppio rispetto alle altre due reti. In tal caso:
+	Lan1: pref(10100101.00000101.00000001.0), suff(0000000) e pref(10100101.00000101.00000001.1), suff(0000000), quindi /25 bit di prefisso
+	Dec: 165.5.1.0/25
+	Lan2: pref(10100101.00000101.00000001.10), suff(000000), quindi /26 bit di prefisso
+	Dec: 165.5.1.128/26
+	Lan3: pref(10100101.00000101.00000001.11), suff(000000), quindi /26 bit di prefisso
+	Dec: 165.5.1.192/26
+	
+	Otteniamo quindi due blocchi di /25, il primo per LAN1 e il secondo usato per ottenere altri due blocchi /26 per LAN2 e LAN3 rispettivamente.
+\end{comment}
+
+\begin{comment}
+	Esercizio su indirizzamento: Una rete deve essere divisa in 5 subnets; ci sono due indirizzi a cui sono stati assegnati due host, che sono 101.75.79.255 e 101.75.80.0.
+	1. Qual è il blocco di rete (CIDR) più piccolo che contiene questi indirizzi? // inteso come il numero di bit più piccolo possibile del suffisso, quindi il prefisso deve avere quanti più bit possibile
+	2. Partendo dal blocco CIDR trovato, trovare gli indirizzi delle 5 subnets rispettando i seguenti vincoli:
+	- LAN1: /21
+	- LAN2: deve ospitare al più 1000 host
+	- LAN3: /23
+	- LAN4: deve ospitare al più 400 host
+	- LAN5: ha a disposizione metà degli indirizzi del blocco di partenza.
+	
+	Res1:
+	- Passa a binario:
+	1. 0110 0101 0100 1011 0100 1111 1111 1111
+	2. 0110 0101 0100 1011 0101 0000 0000 0000
+	
+	Il blocco minimo è trovato con un prefisso da /19, perché prima tutti i bit coincidono.
+	
+	0110 0101 0100 1011 010|0 0000 0000 0000 -> 101.75.64.0/19, quindi indirizzi a disposizione sono 2^{32-19} = 2^{13} = 8192 indirizzi.
+	
+	Res2:
+	L1: /21
+	L2: richiede almeno 1000 host, possiamo dargli 1024 indirizzi, dunque 2^{10}. Per darglieli, la lan avrà prefisso /22
+	L3: /23
+	L4: richiede almeno 400 host. 512 indirizzi, dunque 2^9. 2^{32-9} = 2^{23} bits per il prefisso. /23
+	L5: Metà degli indirizzi per L5, fai 8192/2 = 4096 = 2^{12}. Dunque 2^{32-12} = 2^{20}, la rete avrà prefisso /20
+	
+	- Il nostro blocco di partenza è 0110 0101 0100 1011 010
+	- Possiamo scorporare un bit dal prefisso e dare 4096 indirizzi alla L5 come richiesto.
+	L5 = 0110 0101 0100 1011 0100|0000 0000 = 101.75.64.0/20
+	
+	Gli altri 4096 indirizzi disponibili sono distinguibili con il bit a 1 e possiamo usarli per le altre reti
+	Fai 4092/2 scorporando un altro bit, avrai il prefisso a /21, che è quello che richiede L1
+	L1 = 0110 0101 0100 1011 0101 0|000 0000 0000 = 101.75.80.0/21
+	
+	Abbiamo ancora 2048 indirizzi. L2 richiedeva /22, no? Scorpora un altro bit per dargli 1024 indirizzi
+	L2 = 0110 0101 0100 1011 0101 10|00 0000 0000 = 101.75.88.0/22
+	
+	Rimangono 1024 indirizzi. È evidente che debbano essere dati a L3 e L4. Dividi ancora.
+	L3 = 0110 0101 0100 1011 0101 110|0 0000 0000 = 101.75.92.0/23
+	L4 = 0110 0101 0100 1011 0101 111|0 0000 0000 = 101.75.94.0/23
+	
+	Subnetting eseguito. Fine.
+	
+	// ----- Altro esercizio, ma tratto da un tema d'esame
+	Abbiamo 3 LAN, di cui L1 deve avere almeno 300 indirizzi, L2 almeno 40 e L3 almeno 90. È già stato assegnato l'indirizzo di broadcast di L3: 148.12.79.255
+	Trovare il blocco cidr totale che contiene le tre subnets
+	Partendo da tale blocco, trovare le tre subnets rispettando i vincoli.
+\end{comment}

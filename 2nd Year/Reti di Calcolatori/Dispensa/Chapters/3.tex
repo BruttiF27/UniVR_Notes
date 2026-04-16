@@ -1,10 +1,129 @@
 \section{Scopi e servizi}
+I protocolli a livello di trasporto mettono a disposizione una \textbf{comunicazione logica} tra processi applicativi di due host diversi. Sono implementati nei sistemi periferici; lato client, il livello di trasporto converte i messaggi spezzettandoli in \textbf{segmenti} e aggiungendo loro un'\textbf{intestazione}; il prodotto è passato al livello di rete che li incapsulerà in un pacchetto detto \textbf{datagramma} e inviato a destinazione.\par
+Lato server, invece, il livello di rete estrae i segmenti dai datagrammi ottenuti e li passa al livello di trasporto, il quale li elabora, estraendo i dati per renderli disponibili all'applicazione destinataria.\newline
+
+\noindent Come già menzionato in precedenza, il livello di trasporto fornisce due protocolli: \begin{itemize}
+	\item \textbf{Transmission Control Protocol} (TCP): Servizio orientato alla connessione, che garantisce la consegna ordinata di tutti i segmenti.
+	\item \textbf{User Datagram Protocol} (UDP): Servizio non orientato alla connessione, non affidabile.
+\end{itemize}
+\noindent Entrambi separano il messaggio originale in segmenti e aggiungono un'intestazione di forma diversa, la quale sarà trattata nelle seguenti sezioni.
+
+
+% TODO Riprendi da multiplexing/demultiplexing
 
 %
 
 \section{Protocollo TCP}
-3-way handshaking, controllo di flusso, ritrasmissione, controllo di congestione
+3-way handshake, controllo di flusso, ritrasmissione, controllo di congestione
+
+\begin{comment}		
+	Header del protocollo TCP (transport control protocol)
+	La dimensione dell'interstazione corrisponde a 20B. Ogni gruppo di bit rappresenta un campo, quindi un'informazione significativa per il protocollo.
+	
+	Campi:
+	- Porta sorgente/destinazione: Identificatori dei processi coinvolti nella comunicazione. Ciascuno di questi valori è rappresentato da 16b, quindi ci sono 65536 porte disponibili, ma a loro volta esistono due tipologie di porte:
+	- statiche: Da 0 a 1023, sono identificativi utilizzati esclusivamente (rigorosamente non è possibile usarli dal client specifica che sono usabili solo lato server) a lato server associati a protocolli definiti da uno standard (come HTTP o SMTP).
+	- dinamiche: Da 1024 a 65335, sono identificativi assegnati dal sistema operativo (genera un numero casuale in quell'intervallo e lo fa usare come srcDoor) lato client quando viene aperto un socket.
+	- Numero di sequenza: I messaggi generati dalle applicazioni hanno dimensione variabile, venendo divisi, bisogna sapere come ricomporli. A livello di collegamento dati, alla scheda di rete è associato un parametro detto MTU (Maximum transmission unit), la dimensione massima che la scheda di rete può gestire. Questo valore è tradotto nel livello di trasporto come MSS (Maximum segment size), la dimensione da usare per spezzare il messaggio, che rispetterà l'MTU. Il sequence number indica l'ordine con il quale devono essere ricomposti. In particolare, specifica l'offset rispetto al primo byte del segmento. (per esempio, hai un messaggio di 5000B e che il MSS sia di 900B. Il primo segmento conterrà i Byte da 0 a 899 e nell'header TCP il seqNum avrà 0 come valore. Il secondo da 900 a 1799 e l'header avrà seqNum 900 e così via. Insomma salva il valore del primo byte trasportato. A questo valore è sommato un altro chiamato ISN [Initial sequence number], che è un valore casuale che rimane costante)
+	- Acknowledge number: Abbiamo detto che TCP è affidabile perché garantisce la consegna del messaggio, quindi la corretta consegna di tutti i suoi segmenti. Per farlo, il TCP adotta la tecnica positive acknowledgement with retransmission. Ad ogni segmento inviato, deve essere ritornato un responso positivo. In sua mancanza, ritentare l'invio fino al riscontro positivo. Il riscontro, detto messaggio di acknowledgement o ACK, è un header TCP senza il payload. Avrà quindi il suo ackNumber, che contiene il primo byte del segmento che la destinazione si aspetta di ricevere (per esempio, se host 2 invia ackNum=900 significa che ha ricevuto tutti i bytes fino a 899 e richiede il blocchetto seguente. Se host1 non riceve alcun ackNum, si attiva un RTO [retransmission time out] dopo il quale si effettua una ritrasmissione del seqNum). Positive acknowledgement non è l'unica tecnica, esiste anche quella di negative acknowledgement, sebbene sia meno robusta.
+\end{comment}
+
+\begin{comment}
+	Lez8 - 14/04/2026 Reti di calcolatori
+	
+	- Checksum: Serve a controllare la presenza di errori nel segmento.
+	Viene preso l'header e i dati come input di funzione. Si ritorna un output da inserire nel checksum del tcp header. Poi si invia all'host 2 che fa la stessa cosa. Poi si
+	effettua un controllo tra glu output. Se differiscono, il segmento viene scartato e non è inviato alcun riscontro. Alternativamente, con alta probabilità non ci sono errori.
+	
+	--- Gestione delle connessioni
+	Ribadiamo che TCP è un protocollo affidabile (consegna tutti i pacchetti e se lo assicura con i riscontri) e orientato alla connesione.
+	Gestisce lo scambio di messaggi attraverso le connessioni. Si apre un socket e quando è aperta su usa quel tubo bidirezionalmente.
+	Prima di scambiare dati c'è quindi prima una fase di instaurazione della connesione, la quale avviene tramite un preliminare scambio di parametri fra gli host coinvolti.
+	Ocio che quest'instaurazione di connessione non c'entra un cazzo con la commutazione di circuito. Qui non è riservata nessuna risorsa di trasmissione.
+	Fisicamente, l'apertura della connessione avviene tramite uno scambio di segmenti TCP senza payload, quindi solo gli header. Questo passaggio è detto three-way handshake.
+	
+	Il client invia un iniziale messaggio di SYN (synchronize), il quale conterrà i parametri di srcDoor, dstDoor, seqNum (contiene l'initial sequence number del client, un numero scelto
+	casualmente dal client, dal quale inizia a numerare i byte da trasmettere), ackNum e una serie di campi che contengono i flag come quello di SYN che all'invio del suo messaggio è
+	posto a 1, segnalando che il client vuole aprire una connessione.
+	Il server risponderà con un messaggio di SYN-Ack, dove srcDoor e dstDoor sono naturalmente invertite, in quanto si va da server a client. Si inviano l'ISN_s e l'ackNum, il
+	quale sarà [ISN_c + 1], indicando il byte successivo che si aspetta di ricevere. Anche qui sono presenti alcuni flag, appunto SYN e ACK, posti a 1.
+	Il tutto si chiude con un altro messaggio di Ack da parte del client, il quale invia la sua srcDoor, dstDoor, ISN_c e come AckNum [ISN_s+1]. I flag qui vedono solo ACK posto a 1.
+	
+	ISN_c: Initial sequence number client
+	ISN_s: Initial sequence number server
+	
+	Altri parametri scambiati sono:
+	- Maximum Segment Size (MSS): Per evitare che si sforino le capacità, insomma. Viene scelto il valore più piccolo tra i due da usare per lo scambio.
+	Si tratta di un campo opzionale aggiunto ai 32b dell'header TCP, usato esclusivamente all'instaurazinoe delle connessioni. Dopo non è più cagato.
+	
+	// I messaggi GET sono piccoli abbastanza da essere inglobati nel primo messaggio con header TCP. Non succede sempre, ma spesso.
+	
+	Dopo l'instaurazione della connessione e lo scambio dei messaggi, è necessario poterla anche chiudere questa connessione. La connessione si chiude con una procedura che prevede
+	lo scambio di header TCP. La chiusura deve avvenire indipendentemente nelle due direzioni a causa della bidirezionalità del socket e i due messaggi utilizzati sono:
+	- "FIN": Segnalato con il relativo flag posto a 1
+	- "ACK": Posto a 1, idem.
+	
+	Possono avvenire più possibilità:
+	- Se il client manda un FIN per primo, il server manda un ACK e la connessione è chiusa lato client. Il server manderà poi il fin ed il client invierà un ACK e la connessione
+	sarà chiusa.
+	- Se il server manda un FIN per primo, è duale.
+	- Alternativamente, il client puà mandare FIN e il server ritornare FIN-ACK, per vedere il client inviare un ACK e chiudere la connessione. Vale viceversa, come prima.
+	
+	--- Affidabilità
+	Quando un host invia un segmento, si aspetta una ricevuta di consegna entro un tempo massimo (RTO - Retransmission Time Out). (poi invia di nuovo il segmento).
+	A quale valore è impostato l'RTO? Non è banale perché il tempo da aspettare varia in base anche alla geolocalizzazione degli host. Per questa ragione quando si inizia a stabilire
+	la connessione, client e server misurano l'RTT coi messaggi del TWH. Il valore di RTO dipende quindi dal RTT.
+	A priori per il primo messaggio di SYN e SYN-Ack c'è un RTO base di 5000ms, perché non si sa a priori a chi sto inviando messaggi. Eventualmente è possibile anche aggiornare
+	l'RTO se ci sono problemi di connessione o per esempio una congestione di rete. Si usa l'RTT istantaneo per aggiornare la variabile di smoothed-RTT.
+	Ogni host, per ogni segmento inviato, misura l'RTT istantaneo e usa tale valore per aggiornare una variabile chiamata S-RTT (Smoothed RTT). Segue la formula:
+	\[SRTT_{\text{attuale}} = \alpha SRTT_{\text{precedente}} + (1-\alpha)RTT_{\text{istantaneo}}\]
+	\noindent COn 0 < \alpha < 1. Lo SRTT è una stima del valore medio del RTT. Alternativamente si chiama Exponential weighted moving average (EWMA).
+	Dato l'SRTT, l'RTO viene determinato come \beta*SRTT, con \beta normalmente uguale a 2. In caso di perdita di segmento, inoltre, il RTO del segmento ritrasmesso viene raddoppiato.
+	
+	Se invio un segmento ogni RTT, la velocità di trasmissione è la dimensione del segmento diviso l'RTT.
+	Ex: 1500B/100ms \approx 120Kb/s. E' una miseria.
+	Quindi come si può aumentare la velocità di trasmissione? Trasmettere più segmenti in un singolo RTT. Ma allora quanti segmenti allo stesso tempo posso trasmettere?
+	Come è possibile gestire i riscontri? Che succede se uno dei segmenti inviati in gruppo viene perso?
+	
+	Le risposte le danno il controllo di flusso e il controllo di congestione.
+	Il primo è un'azione preventiva per evitare la congestione. Aiuta a ridurre la probabilità che vengano persi dei segmenti.
+	Il secondo è invece una reazione in caso di congestione, intesa come perdita di segmenti, dunque riscontri non ricevuti.
+	
+	--- Soluzione esercizio della scorsa lezione
+	1. Traduci i vincoli sugli spazi in potenze di 2, così capisci quanti bit ti serviranno per contenerli.
+	- L1 300 indirizzi: 512
+	- L2 40 indirizzi: 64
+	- L3 90 indirizzi: 128
+	
+	2. Somma le dimensioni dei blocchi: 512+64+128: Servono almeno 704 indirizzi.
+	
+	3. Trovare la potenza di 2 immediatamente superiore: 704: 1024 indirizzi totali. Dunque 2^10
+	Il blocco CIDR totale quindi avrà /22 di prefisso.
+	
+	4. Traduzione in binario del blocco intero e delle subnets
+	- Broadcast: 148.12.79.255		1001 0100 0000 1100 0100 1111 1111 1111
+	- Indirizzo di rete: 1001 0100 0000 1100 0100 11|00 0000 0000: 148.12.76.0/22
+	
+	5. Divisione in subnets
+	- L1: 1001 0100 0000 1100 0100 110|0 0000 0000: 148.12.76.0/23
+	- L2: 1001 0100 0000 1100 0100 1111 01|00 0000: 148.12.79.64/26
+	- L3: 1011 0100 0000 1100 0100 1111 1|000 0000:	148.12.79.128/25
+	
+	--- Come gestire la trasmissione di più segenti contemporaneamente da parte dell'host?
+	Approfondiamo meglio il controllo di flusso. Il suo meccanismo principale è chiamato "meccanismo a finestra scorrevole". Abbiamo un nuovo parametro w detto window size.
+	E' il numero massimo di segmenti che possono stare in rete senza ricevere riscontro. Praticamente si inviano queste finestre e l'altro host ritorna ackNum per ogni successivo
+	ricevuto. Per esempio se w=3 si inviano tre segmenti. Host 2 ritorna ack per ricevere seg2, vede che ce l'ha, quindi invia ack per seg3 e così via.
+	Ricevuto l'ack 2 dal client, si scorre la finestra dei segmenti inviabili, inviando il seg4, 5 e 6. Il server ripete quanto appena detto.
+	
+	Quindi si invia una sequenza w di pacchetti; ricevuti i rispettivi ack si possono inviare i successivi. La formula della velocità diventa [w segmenti/RTT].
+	Questo era il caso ideale; in caso di perdita e di fuori sequenza che fo?
+	Se perdi un pacchetto il server continua ad inviare il numero di sequenza che si aspetta prima di poter continuare.
+	Scaduto l'RTO, si reinvia il segmento non ricevuto con selective repeat. Con l'ack del server si fa capire alla sorgente quale pacchetto è stato perso e quali erano già stati
+	ricevuti. Ciò consente di far scorrere la finestra e di inviare i tre nuovi segmenti.
+	In caso di ritardi invece, il server continua a inviar l'ack del pacchetto mancante
+\end{comment}
 
 %
 
 \section{Protocollo UDP}
+

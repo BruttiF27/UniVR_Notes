@@ -1,0 +1,68 @@
+Lez7 - 10/04/26 Reti di calcolatori
+
+--- Livello di trasporto
+Ogni applicazione apre un socket attraverso il quale scambiarsi messaggi. Abbiamo creato un messaggio ed è passato al livello di trasporto, il quale lo spezzetta in vari segmenti ai quali è aggiunta un'intestazione. (quando trasportati a livello rete, gli header saranno ignorati da questo strato).
+
+A livello di trasporto esistono due protocolli:
+	- TCP: Connection-oriented, safe
+	- UDP: Non garantisce la consegna intera del messaggio.
+	
+Definiamo il formato dei messaggi e le azioni da intraprendere quando comunica coi livelli superiori (invio) e quelli inferiori (ricezione)
+
+Header del protocollo TCP (transport control protocol)
+La dimensione dell'interstazione corrisponde a 20B. Ogni gruppo di bit rappresenta un campo, quindi un'informazione significativa per il protocollo.
+
+Campi:
+	- Porta sorgente/destinazione: Identificatori dei processi coinvolti nella comunicazione. Ciascuno di questi valori è rappresentato da 16b, quindi ci sono 65536 porte disponibili, ma a loro volta esistono due tipologie di porte:
+		- statiche: Da 0 a 1023, sono identificativi utilizzati esclusivamente (rigorosamente non è possibile usarli dal client specifica che sono usabili solo lato server) a lato server associati a protocolli definiti da uno standard (come HTTP o SMTP).
+		- dinamiche: Da 1024 a 65335, sono identificativi assegnati dal sistema operativo (genera un numero casuale in quell'intervallo e lo fa usare come srcDoor) lato client quando viene aperto un socket.
+	- Numero di sequenza: I messaggi generati dalle applicazioni hanno dimensione variabile, venendo divisi, bisogna sapere come ricomporli. A livello di collegamento dati, alla scheda di rete è associato un parametro detto MTU (Maximum transmission unit), la dimensione massima che la scheda di rete può gestire. Questo valore è tradotto nel livello di trasporto come MSS (Maximum segment size), la dimensione da usare per spezzare il messaggio, che rispetterà l'MTU. Il sequence number indica l'ordine con il quale devono essere ricomposti. In particolare, specifica l'offset rispetto al primo byte del segmento. (per esempio, hai un messaggio di 5000B e che il MSS sia di 900B. Il primo segmento conterrà i Byte da 0 a 899 e nell'header TCP il seqNum avrà 0 come valore. Il secondo da 900 a 1799 e l'header avrà seqNum 900 e così via. Insomma salva il valore del primo byte trasportato. A questo valore è sommato un altro chiamato ISN [Initial sequence number], che è un valore casuale che rimane costante)
+	- Acknowledge number: Abbiamo detto che TCP è affidabile perché garantisce la consegna del messaggio, quindi la corretta consegna di tutti i suoi segmenti. Per farlo, il TCP adotta la tecnica positive acknowledgement with retransmission. Ad ogni segmento inviato, deve essere ritornato un responso positivo. In sua mancanza, ritentare l'invio fino al riscontro positivo. Il riscontro, detto messaggio di acknowledgement o ACK, è un header TCP senza il payload. Avrà quindi il suo ackNumber, che contiene il primo byte del segmento che la destinazione si aspetta di ricevere (per esempio, se host 2 invia ackNum=900 significa che ha ricevuto tutti i bytes fino a 899 e richiede il blocchetto seguente. Se host1 non riceve alcun ackNum, si attiva un RTO [retransmission time out] dopo il quale si effettua una ritrasmissione del seqNum). Positive acknowledgement non è l'unica tecnica, esiste anche quella di negative acknowledgement, sebbene sia meno robusta.
+
+// ----- Esercizio per rompere il ritmo lmao -----
+Esercizio su indirizzamento: Una rete deve essere divisa in 5 subnets; ci sono due indirizzi a cui sono stati assegnati due host, che sono 101.75.79.255 e 101.75.80.0.
+	1. Qual è il blocco di rete (CIDR) più piccolo che contiene questi indirizzi? // inteso come il numero di bit più piccolo possibile del suffisso, quindi il prefisso deve avere quanti più bit possibile
+	2. Partendo dal blocco CIDR trovato, trovare gli indirizzi delle 5 subnets rispettando i seguenti vincoli:
+		- LAN1: /21
+		- LAN2: deve ospitare al più 1000 host
+		- LAN3: /23
+		- LAN4: deve ospitare al più 400 host
+		- LAN5: ha a disposizione metà degli indirizzi del blocco di partenza.
+		
+Res1:
+	- Passa a binario:
+		1. 0110 0101 0100 1011 0100 1111 1111 1111
+		2. 0110 0101 0100 1011 0101 0000 0000 0000
+		
+		Il blocco minimo è trovato con un prefisso da /19, perché prima tutti i bit coincidono.
+		
+		0110 0101 0100 1011 010|0 0000 0000 0000 -> 101.75.64.0/19, quindi indirizzi a disposizione sono 2^{32-19} = 2^{13} = 8192 indirizzi.
+		
+Res2:
+	L1: /21
+	L2: richiede almeno 1000 host, possiamo dargli 1024 indirizzi, dunque 2^{10}. Per darglieli, la lan avrà prefisso /22
+	L3: /23
+	L4: richiede almeno 400 host. 512 indirizzi, dunque 2^9. 2^{32-9} = 2^{23} bits per il prefisso. /23
+	L5: Metà degli indirizzi per L5, fai 8192/2 = 4096 = 2^{12}. Dunque 2^{32-12} = 2^{20}, la rete avrà prefisso /20
+	
+	- Il nostro blocco di partenza è 0110 0101 0100 1011 010
+		- Possiamo scorporare un bit dal prefisso e dare 4096 indirizzi alla L5 come richiesto.
+			L5 = 0110 0101 0100 1011 0100|0000 0000 = 101.75.64.0/20
+			
+			Gli altri 4096 indirizzi disponibili sono distinguibili con il bit a 1 e possiamo usarli per le altre reti
+			Fai 4092/2 scorporando un altro bit, avrai il prefisso a /21, che è quello che richiede L1
+			L1 = 0110 0101 0100 1011 0101 0|000 0000 0000 = 101.75.80.0/21
+			
+			Abbiamo ancora 2048 indirizzi. L2 richiedeva /22, no? Scorpora un altro bit per dargli 1024 indirizzi
+			L2 = 0110 0101 0100 1011 0101 10|00 0000 0000 = 101.75.88.0/22
+			
+			Rimangono 1024 indirizzi. È evidente che debbano essere dati a L3 e L4. Dividi ancora.
+			L3 = 0110 0101 0100 1011 0101 110|0 0000 0000 = 101.75.92.0/23
+			L4 = 0110 0101 0100 1011 0101 111|0 0000 0000 = 101.75.94.0/23
+
+Subnetting eseguito. Fine.
+
+// ----- Altro esercizio, ma tratto da un tema d'esame
+Abbiamo 3 LAN, di cui L1 deve avere almeno 300 indirizzi, L2 almeno 40 e L3 almeno 90. È già stato assegnato l'indirizzo di broadcast di L3: 148.12.79.255
+Trovare il blocco cidr totale che contiene le tre subnets
+Partendo da tale blocco, trovare le tre subnets rispettando i vincoli.

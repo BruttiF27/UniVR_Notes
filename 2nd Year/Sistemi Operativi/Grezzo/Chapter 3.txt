@@ -84,4 +84,43 @@ Definiamo due tipi di processi all'interno dei sistemi operativi: \textbf{indipe
 \noindent I processi cooperanti richiedono di un meccanismo per la comunicazione; ne esistono due particolarmente diffusi: a \textbf{memoria condivisa}, il quale richiede una zona di memoria allocata dinamicamente condivisa dai processi, e a \textbf{scambio di messaggi}, dove la comunicazione tra i processi avviene tramite messaggi.\par
 Il primo paradigma può risultare più veloce perché richiede l'intervento del kernel esclusivamente per definire la zona condivisa, mentre lo scambio di messaggi è implementato tramite chiamate di sistema. Andiamo più nel dettaglio.\newline
 
-\noindent % riprendi da pag 135
+\noindent In un sistema di memoria condivisa si alloca la zona di memoria nello spazio degli indirizzi del processo che la riserva e si forma un accordo tra le entità che devono utilizzarla, al di fuori del controllo del sistema operativo.
+	La gestione avviene con un paradigma di produttore-consumatore: il primo processo produce informazioni che verranno consumate dal secondo. Nella memoria condivisa l'esecuzione concorrente dei due processi richiede un buffer che possa essere riempito dal produttore e svuotato dal consumatore. Naturalmente deve esserci una sincronizzazione tra i due per fare in modo che non si consumino informazioni prima di crearle. Ci sono due tipi di buffer utilizzabili: \begin{itemize}
+	\item Illimitato: consente al produttore di creare sempre nuove informazioni.
+	\item Limitato: Pone una dimensione al buffer condiviso; il consumatore dovrà attendere se è vuoto e il produttore dovrà attendere se è pieno.
+\end{itemize}
+
+--- Comunicazione interprocessi a scambio di messaggi
+In una comunicazione basata sullo scambio di messaggi è fondamentale fornire strumenti per la comunicazione; in particolare un meccanismo di sincronizzazione dei processi senza condividere lo spazio di indirizzi. Si prevede l'utilizzo di almeno due operazioni primitive: \begin{itemize}
+	\item send(): Per l'invio dei messaggi
+	\item receive(): Per la ricezione dei messaggi
+\end{itemize}
+\noindent I messaggi possono avere lunghezza variabile o fissa e sono inviati mediante un apposito \textbf{canale di comunicazione}, a livello logico realizzabile in più modi; in particolare le modalità cambiano in base al tipo di comunicazione, che può essere diretta/indiretta, sincrona/asincrona o con una gestione automatica/esplicita del buffer.\par
+Per comunicare, è necessario che i processi possano far riferimento ad altri. Con una \textbf{comunicazione diretta} ogni processo che intenda comunicare deve nominare esplicitamente ricevente o trasmittente e vede le primitive definite come segue: 
+	- send(P, msg) Per inviare msg al processo P
+	- receive(Q, msg) Per ricevere msd dal processo Q
+In uno schema tale, il canale di comunicazione deve presentare le seguenti caratteristiche: \begin{itemize}
+	\item Tra ogni coppia di processi che vogliono comunicare si instaura in automatico un canale e i processi devono conoscere solamente la reciproca identità.
+	\item Un canale è associato esclusivamente a due processi.
+	\item Esiste uno e un solo canale tra ciascuna coppia di processi.
+\end{itemize}
+\noindent Una variante di questo modello presenta un'asimmetria nell'indirizzamento; vede solamente il trasmittente nominare il ricevente, modificando le primitive come segue:
+	- send(P, msg) Invia msg al processo P
+	- receive(id, msg) Riceve un messaggio da qualsiasi processo, identificato con id.
+	
+Entrambi questi schemi tuttavia presentano una scarsissima modularità, rendendoli poco ideali se è necessario effettuare modifiche di qualche tipo. Un'idea più agevole è data dalla \textbf{comunicazione indiretta}, la quale impiega delle \textbf{porte} o \textbf{mailbox} univocamente identificate per la ricezione dei messaggi. In uno schema tale, i processi possono comunicare esclusivamente se condividono una mailbox e ridefinisce le primitive come segue:
+	- send(A, msg) Invia msg alla mailbox A
+	- receive(A, msg) Riceve msg dalla mailbox A
+Ne consegue che un canale di comunicazione può esistere solamente se due o più processi condividono una mailbox, ma ciò rende i canali non più esclusivi a soli due processi. Tra ogni coppia di processi possono anche esserci più canali diversi, infatti, ciascuno corrispondente a una mailbox.\par
+Dando l'accesso a più di due processi ad una sola mailbox si introduce il problema della decisione del destinatario. A quale processo arriverà il messaggio nella casella? Si potrebbe decidere arbitrariamente oppure scrivere un algoritmo per la selezione\footnote{Questo tipo di algoritmo è detto round robin} e può comunicare l'identità del ricevente al trasmittente.\newline
+
+\noindent Inoltre, una mailbox può appartenere a processi come anche al sistema. Nel primo caso, fa parte del suo spazio di indirizzi e occorre distinguere tra proprietario e utente. Quando un processo che ne fa utilizzo termina, la relativa mailbox scompare e bisogna avvisare tutti gli altri processi in essa comunicanti.\par
+Quando la mailbox è posseduta dal sistema operativo, invece, ha una vita autonoma ed è indipendente da altri processi. Il sistema offre inoltre un meccanismo per la creazione e rimozione di mailbox, come anche la ricezione e invio di messaggi. Quando un processo crea una mailbox con il sistema operativo, ne è il proprietario predefinito, ma è possibile modificarne la proprietà con apposite chiamate di sistema.
+
+Come abbiamo detto, lo scambio di messaggi può avvenire tramite due modalità: \textbf{sincrona}, dove mittente e ricevente si bloccano nell'attesa dell'invio e della ricezione rispettivamente, e \textbf{asincrona}, che vede le due entità continuare la propria esecuzione dopo invio o ricezione del messaggio.\par
+Si possono avere più combinazioni di primitive, non sono mutualmente esclusive.\par
+Infine, quando la comunicazione è diretta o indiretta, i messaggi scambiati risiedono in code temporanee, delle quali esistono tre tipi: \begin{itemize}
+	\item \textbf{Capacità zero}: Il canale di comunicazione non può ospitare messaggi; il trasmittente aspetta fino all'invio del contenuto.
+	\item \textbf{Capacità limitata}: La coda può ospitare un numero n di messaggi. Quando questa è piena, il trasmittente blocca la sua esecuzione e attende l'invio del messaggio, altrimenti invia il contenuto senza fermarsi.
+	\item \textbf{Capacità illimitata}: La coda non ha limiti di spazio; il trasmittente non si ferma mai.
+\end{itemize}

@@ -1,0 +1,17 @@
+15-24-26 - softEng
+
+--- Interfacce
+Per interfaccia intendiamo l'insieme delle operazioni visibili all'esterno degli oggetti, istanze di quella classe.
+Si tratta di un'entità simile ad una classe, ma priva di implementazione, che sarà definita con sue istanze concrete che la implementano.
+	Una o più classi possono fornire l'implementazione dell'interfaccia.
+
+Per esempio in un gestionale di banca, le classi Impiegato e Bancomato forniscono l'interfaccia cassiere.
+In essa sono dichiarate le operazioni di ritiro e deposito contante; esistono due modi per rappresentarlo in UML:
+	- Relazione di implementazione, detta anche realizzazione: Si indica con una linea tratteggiata e una freccia verso l'interfaccia.
+	- Lollipop: Si usa una pallina per rappresentare l'interfaccia esposta/fornita da una classe e un semicerchio per rappresentare l'interfaccia richiesta.
+		Si tratta quindi di una dipendenza. *Vedi immagine slide
+		
+Le interfacce hanno senso di esistere per diminuire l'accoppiamento tra classi. Se più classi usano simili meccanismi, potrebbe essere corretto astrarli
+con un'interfaccia e farli definire concretamente dalle classi implementanti.
+
+Esistono delle regole di vincolo

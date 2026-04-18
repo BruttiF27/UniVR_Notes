@@ -1,0 +1,36 @@
+Lez11 - 16/04/26 softEng
+
+--- Sequence diagram e communication diagram
+
+I diagrammi di interazione descrivono la collaborazione di un gruppo di oggetti (scambio di messaggi).
+I messaggi possono presentarsi in tre modi:
+	- sincroni: Il mittente si pone in attesa del risultato
+	- Asincroni: Il mittente continua l'esecuzione; questi ultimi sono usati per rappresentare i processi concorrenti.
+	- trovati: messaggi il cui partecipante che lo genera è omesso
+Per scambiare messaggi è necessario avere una relazione tra le classi.
+
+La notazione del sequence diagram presenta due attori principali detti partecipanti (sarebbero le classi) indicate con tre segnature possibili:
+	[nomeClasse]: oggetto di nome nomeClasse non specificando il tipo
+	[:nomeClasse]: istanza anonima di nomeClasse
+	[s:nomeClasse]: istanza di nomeClasse chiamata s
+Messaggi sincroni inficati con frecce piene; la risposta con una freccia tratteggiata.
+Naturalmente coi messaggi è possibile specificarne anche i parametri, con segnatura [returnValie = message(params): returnType]
+
+I messaggi possono essere anche usati per la creazione di istanze; allora la risposta andrà dentro ad un oggetto creato. Per indicare invece che la vita di un oggetto termina, si usa una risposta che entra in una X. Un oggetto si può anche autodistruggere.
+Cicli e condizioni possono essere espressi con i frame di interazione; cornici per inquadrare una parte del diagramma. Il primo operatore è loop, il secondo invece è opt, per optional. Un terzo si chiama Alt, per alternate e si usa per gli if-else.
+Naturalmente è possibile annidare i frame, sebbene faccia schifo a vedersi.
+Ref è invece usato per semplificare i sequence diagram; indica una reference ad un metodo specifico. Al posto di indicare l'intero diagramma coi messaggi, si usa il nome accerchiato dal frame ref.
+L'ultimo operatore è par, sta per parallel e indica metodi eseguiti concorrentemente. Naturalmente non ha senso accerchiare un solo metodo con par.
+
+I SD sono un buon mezzo per visualizzare l'interazione tra oggetti astrattamente, non la logica di controllo. Rendono chiare le chiamate e le relazioni tra le classi. Sconsigliato usare i frame di interazione; per la logica di controllo usare pseudocodice.
+	Normalmente gli SD sono usati a due livelli differenti: a livello di requisiti per spiegare gli use case e il funzionamento astratto, e a livello di design, per descrivere più facilmente le relazioni tra le classi e il modo in cui interagiscono.
+	Un diagramma di sequenza di sistema illustra invece gli eventi di I/O del sistema relativi ad uno scenario o più di uno use case. Hai praticamente lo use case ed il flusso dei messaggi è descritto tramite SD.
+	
+--- Diagrammi di interazione
+Simile ai sequence diagram, condivide la sintassi, ma si rappresentano i messaggi come etichette degli archi con una direzione. Semplifica la struttura del diagramma rispetto a prima.
+
+--- Esercizio (ordine)
+Supponiamo di avere un ordine di acquisto; ci serve un'operazione per calcolare l'importo totale scontato con o.calcolaPrezzo().
+Per farlo l'ordine deve determinare l'importo di tutti i suoi elementi di linea [Quantità*prezzoUnitario]; dopo aver calcolato il totale l'ordine deve calcolare uno sconto globale che dipende dal cliente e scalarlo.
+
+Dunque o.calcolaPrezzo = totale-sconto

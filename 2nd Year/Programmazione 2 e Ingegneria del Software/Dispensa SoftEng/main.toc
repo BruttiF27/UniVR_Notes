@@ -13,23 +13,23 @@
 \contentsline {chapter}{\numberline {4}Progettazione del software}{21}{}%
 \contentsline {section}{\numberline {4.1}Pattern architetturali}{21}{}%
 \contentsline {section}{\numberline {4.2}Modelli di controllo}{25}{}%
-\contentsline {section}{\numberline {4.3}Progettazione degli algoritmi}{27}{}%
-\contentsline {section}{\numberline {4.4}UML - Unified Modeling Language}{27}{}%
-\contentsline {chapter}{\numberline {5}Verifica e Validazione}{28}{}%
-\contentsline {section}{\numberline {5.1}Ispezione e test}{28}{}%
-\contentsline {section}{\numberline {5.2}Unit testing}{28}{}%
-\contentsline {section}{\numberline {5.3}Integration testing}{28}{}%
-\contentsline {section}{\numberline {5.4}User acceptance testing}{28}{}%
-\contentsline {section}{\numberline {5.5}Sviluppo guidato dal testing}{28}{}%
-\contentsline {chapter}{\numberline {6}Evoluzione e mantenimento software}{29}{}%
-\contentsline {section}{\numberline {6.1}Gestione del cambiamento}{29}{}%
-\contentsline {section}{\numberline {6.2}Sistemi legacy}{29}{}%
-\contentsline {section}{\numberline {6.3}Manutenzione del software}{29}{}%
-\contentsline {chapter}{\numberline {7}Strumenti e framework utili}{30}{}%
-\contentsline {section}{\numberline {7.1}Introduzione a Python}{30}{}%
-\contentsline {section}{\numberline {7.2}Visualizzazione di dati - Plotly}{30}{}%
-\contentsline {section}{\numberline {7.3}Manipolazione e analisi di dati - Pandas}{30}{}%
-\contentsline {section}{\numberline {7.4}Costruzione di applicazioni analitiche}{30}{}%
-\contentsline {subsection}{\numberline {7.4.1}Dash}{30}{}%
-\contentsline {subsection}{\numberline {7.4.2}Pony ORM}{30}{}%
-\contentsline {section}{\numberline {7.5}Applicazioni web complesse}{30}{}%
+\contentsline {section}{\numberline {4.3}Principi di progettazione}{27}{}%
+\contentsline {section}{\numberline {4.4}UML - Unified Modeling Language}{29}{}%
+\contentsline {chapter}{\numberline {5}Verifica e Validazione}{30}{}%
+\contentsline {section}{\numberline {5.1}Ispezione e test}{30}{}%
+\contentsline {section}{\numberline {5.2}Unit testing}{30}{}%
+\contentsline {section}{\numberline {5.3}Integration testing}{30}{}%
+\contentsline {section}{\numberline {5.4}User acceptance testing}{30}{}%
+\contentsline {section}{\numberline {5.5}Sviluppo guidato dal testing}{30}{}%
+\contentsline {chapter}{\numberline {6}Evoluzione e mantenimento software}{31}{}%
+\contentsline {section}{\numberline {6.1}Gestione del cambiamento}{31}{}%
+\contentsline {section}{\numberline {6.2}Sistemi legacy}{31}{}%
+\contentsline {section}{\numberline {6.3}Manutenzione del software}{31}{}%
+\contentsline {chapter}{\numberline {7}Strumenti e framework utili}{32}{}%
+\contentsline {section}{\numberline {7.1}Introduzione a Python}{32}{}%
+\contentsline {section}{\numberline {7.2}Visualizzazione di dati - Plotly}{32}{}%
+\contentsline {section}{\numberline {7.3}Manipolazione e analisi di dati - Pandas}{32}{}%
+\contentsline {section}{\numberline {7.4}Costruzione di applicazioni analitiche}{32}{}%
+\contentsline {subsection}{\numberline {7.4.1}Dash}{32}{}%
+\contentsline {subsection}{\numberline {7.4.2}Pony ORM}{32}{}%
+\contentsline {section}{\numberline {7.5}Applicazioni web complesse}{32}{}%

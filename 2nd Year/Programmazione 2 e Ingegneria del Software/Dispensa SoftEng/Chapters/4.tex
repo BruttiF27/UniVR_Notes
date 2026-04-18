@@ -57,106 +57,58 @@ Per quanto riguarda il design architetturale, sono presenti anche degli \textbf{
 \noindent L'importanza di conoscere i modelli di controllo risiede nello stesso contesto dei pattern architetturali: la definizione del "come fare" non è completa se si fornisce esclusivamente una visuale astratta del sistema, ragion per cui andiamo nel dettaglio di come sarà gestito il workflow del software: \begin{itemize}
 	\item \textbf{Modello call-return}: Presuppone l'esistenza di un sottosistema di controllo (\textbf{Main}) che attiva e cede il controllo ad altri componenti. Decide inoltre l'ordine di esecuzione e, al termine dell'esecuzione della sottocomponente, riprende il controllo del flusso. Si tratta di un modello applicabile esclusivamente a sistemi sequenziali.
 	\item \textbf{Modello manager}: Pattern usato quando i sottosistemi possono lavorare in parallelo. Una componente \textbf{manager} controlla avvio, terminazione e coordinamento degli altri processi di sistema. Itera continuamente interrogando interfaccia utente, output ed eventuali sensori per identificare eventi o cambi di stato. Esempi di questo modello sono i sistemi di allarme; il manager interpella costantemente le sottocomponenti, le quali comunicano l'eventuale verificarsi di un dato evento con il segnale acustico.
-	\item \textbf{Modello broadcast}: Contrariamente a quanto visto nei precedenti modelli, un componente può annunciare, quindi fare un broadcast, l'esecuzione di uno o più eventi. La trasmissione sarà inviata a tutte le altre entità, ognuna capace di gestirlo. Quelle interessate all'ascolto del broadcast eseguiranno la procedura associata all'evento, causando l'invocazione delle proprie procedure.\par
+	\item \textbf{Modello broadcast}: Contrariamente a quanto visto nei precedenti modelli, un componente può annunciare, quindi fare un broadcast, l'esecuzione di uno o più eventi. La trasmissione sarà inviata a tutte le altre entità, ognuna capace di gestirlo, e quelle interessate all'ascolto eseguiranno la procedura associata all'evento. Per questa ragione, un modello tale è chiamato anche \textbf{event-driven}.\par
 	I sistemi di sorveglianza utilizzano questo modello, poiché richiedono una costante allerta per gli eventi, la cui segnalazione deve essere comunicata a tutte le apparecchiature in ascolto. È facilmente mantenibile perché risulta semplice aggiungere e rimuovere entità. Tuttavia non è sicuro che l'evento venga gestito da una componente; come conseguenza diretta si potrebbero anche perdere dati importanti durante la trasmissione non ascoltata.
 	\item \textbf{Modello a microservizi}: Approccio per lo sviluppo di una singola applicazione come una suite di piccoli servizi, ognuno eseguito nel proprio ambiente e comunicante con gli altri mediante meccanismi semplici, come una API di risorse HTTP. È un modello orientato ai servizi offerti dal software nettamente più mantenibile rispetto ai precedenti, poiché le varie componenti hanno dimensioni ridotte e sono indipendenti l'una dall'altra. Ogni microservizio realizza una funzionalità, possiede le proprie risorse ed è coordinato con gli altri.\par
-	Un'altra caratteristica di questo modello è che le varie componenti possono essere scritte in linguaggi di programmazione diversi, perché sono collegati da un gateway per la loro coordinazione.
+	Un'altra caratteristica di questo modello è che le varie componenti possono essere scritte in linguaggi di programmazione diversi, perché sono collegati da un gateway\footnote{API Gateway. Si tratta di un design pattern.} per la loro coordinazione.
 \end{itemize}
-
-% TODO Aggiungi design delle componenti
-
-
-\begin{comment}		
-	--- Design delle componenti
-	Implicando che il design ad alto livello abbia avuto buon esito, possiamo passare a livello più basso e scrivere le componenti.
-	Ottenuti i requisiti, eseguiamo le fasi [activityName -> deliverable]:
-	- Design architetturale -> architettura del sistema
-	Definizione dei componenti software e i connettori
-	- Specifica astratta -> specifoche del software
-	Specifica di alto livello dei componenti
-	- Design interfaccia (Non la UI, inteso) -> specifiche dell'interfaccia
-	Definizione e specifica interfacce dei componenti
-	- Design componenti -> specifiche componenti
-	Specifica dettagkiata delle singole componenti, quindi i campi, i metodi, etc.
-	- Design strutture dati -> Specifiche strutture dati
-	Progettazione delle strutture dati atte a contenere i dati del problema
-	- Design algoritmi -> specifiche algoritmi
-	Scelta e progettazione degli algoritmi migliori.
-	
-	A partire dal design architetturale, prendiamo una componente e definiamo cosa serve per eseguire le sue funzioni.
-	
-	-- Design by contract
-	Progettare le componenti con un contratto (accordo tra le parti). L'obiettivo di questo metodo è migliorare la qualità del software. Prescrive che il progettista debba definire
-	specifiche precise delle componenti. L'idea centrale è che una componente ha obblighi nei confronti delle altre. Un contratto è creato per ogni componente del sistema prima che
-	sia codificato.
-	Un contratto ha più elementi: pre-conduzioni; espressione a valori booleani che rappresenta le aspettative sullo stato del programma prima dell'esecuzione di un'operazione.
-	Le post-condizionii, espressioni a valori booleani riguardanti lo stato del software dopo l'esecuzione di un'operazinoe. Invariante di classe, una condizione che ogni oggetto
-	della classe deve soddisfare quando è in equilibrio; quindi vero in ogni momento in cui è possibile svolgere un'operazione.
-	
-	Chi fa il controllo delle condizioni è definito nel contratto. Quando questo è violato, si lancia un eccezione o errori. Senza una definizione di chi effettua i controlli, si
-	potrebbero effettuare in altre parti del codice, distruggendo le performance.
-	Nel design by contract, il fornitore garantisce che se le precond. e le inv. valgono prima dell'operazione, dopo l'esecuzione varranno postcond. e le inv. Il fornitore chiede che
-	pre e inv valgano, altrimenti non garantisce niente.
-	La responsabilità del faulure dipende. Se la pre non è valida, l'errore è del chiamante, se la post non è valida, l'errore è del chiamato. Comodo capire dove sta l'errore
-	snellendo il processo di debugging
-	
-	Vantaggi: Guida nell'implementazione; dice esattamente chi fa cosa coi contratti. Miglioa la qualità del software e aiuta a scrivere operazioni semplici per rispettare un dato
-	contratto. Poi la documentazione comprende anche le confixioni. Poi lato testing siamo guidati con la generazione di casi di test black box. Inoltre, il debugging è reso
-	estremamente più facile perché grazie ai contratti sappiamo esattamente dove si trova il problema. Esistono anche framework appositi per la realizzazione del metodo su diversi
-	linguaggi.
-	E' un metodo utilizzato tendenzialmente per le componenti più critiche.
-\end{comment}
+\noindent Arrivati a questa fase del lavoro, si suppone che il design di alto livello, quindi delle specifiche del software e le sue relative interfacce, abbia avuto un riscontro positivo, consentendoci di andare più nel dettaglio e iniziare la \textbf{scrittura delle componenti}. Si determinano le specifiche dettagliate scrivendo interfacce dei singoli elementi che compongono il software, quindi i loro campi, metodi e relazioni necessari per svolgere la propria funzione.\par
+Un primo metodo di design per la scrittura di componenti è il \textbf{design by contract}: una progettazione che implementa un \textbf{contratto} tra due entità, il quale deve specificare gli obblighi di entrambe per garantire il loro corretto funzionamento. Si crea un contratto per ogni componente del sistema prima che sia codificata ed è composto da più elementi: \begin{itemize}
+	\item \textbf{Pre-condizioni}: Espressioni a valori booleani che rappresenta le aspettative sullo stato del programma prima dell'esecuzione di un'operazione.
+	\item \textbf{Post-condizioni}: Espressioni a valori booleani riguardanti lo stato del software dopo l'esecuzione di un'operazione.
+	\item \textbf{Invariante di classe}: Condizione che ogni oggetto della classe deve soddisfare in ogni momento in cui è possibile svolgere un'operazione.
+\end{itemize}
+\noindent Nei contratti si definiscono quindi responsabilità e condizioni da rispettare delle componenti coinvolte; quando queste sono violate, nella pratica viene lanciata un'eccezione. Si definiscono infatti due entità: un \textbf{client}, il cui compito è garantire la validità delle pre-condizioni, e un \textbf{fornitore}, che garantisce la correttezza delle post-condizioni in base alla validità di quanto passato dal client.\par
+Questa divisione dei compiti ben specificata è molto utile per vari motivi: in primo luogo, facilita notevolmente il \textbf{debugging}, poiché grazie ai ruoli è possibile ricondursi alla componente che ha lanciato l'eccezione. Se non valgono le pre-condizioni, la colpa sarà del client, mentre se sono violate le post-condizioni il problema sarà situato nel fornitore. In secondo luogo, guida il team nell'implementazione e mantenimento del software, perché presuppone una chiara definizione dei compiti nel contratto, semplificando anche la scrittura degli unit test.\par
+In generale, scrivere componenti con il metodo design by contract è molto importante, poiché senza una chiara definizione, si potrebbero effettuare controlli ripetuti delle condizioni in parti diverse del codice, danneggiando le prestazioni con le ridondanze.
 
 %
 
-\section{Progettazione degli algoritmi}
+\section{Principi di progettazione}
+Ottenute le specifiche delle singole componenti, si passa alla fase di \textbf{design} delle \textbf{strutture dati} da implementare e \textbf{algoritmi} da utilizzare. Si tratta di un'attività lasciata in gran parte agli sviluppatori e presenta alcune sottofasi: \begin{enumerate}
+	\item Analisi del design della classe da scrivere.
+	\item Selezione o definizione dell'algoritmo con la relativa notazione.
+	\item Scrittura dell'algoritmo mediante \textbf{step-wise refinement}.
+	\item Uso dei metodi formali per dimostrare la correttezza del codice.
+\end{enumerate}
+\noindent Per la notazione degli algoritmi abbiamo a disposizione diversi strumenti, i quali possono essere \textbf{testuali}, come lo pseudocodice, oppure \textbf{visuali}, come diagrammi UML. Prendiamo ora un esempio pratico su cui utilizzare lo step-wise refinement: si inizia con la lettura delle specifiche e si definiscono le dinamiche dell'algoritmo, come i ruoli di client e fornitore insieme ai parametri dei metodi.\par
+Dopodiché si passa ad una scrittura più profonda definendo il workflow dei singoli metodi, fino a quando non si è completato l'algoritmo. Lo scopo è ottenere una forma simile alla seguente: \begin{algorithm}[h]
+	\caption{getMax(a, b, c)}
+	\begin{algorithmic}[i]
+		\Require $a$: int, $b$: int, $c$: int
+		\State max $\gets$ calcMax(a, b, c)
+		\State min $\gets$ calcMin(a, b, c)
+		\State res $\gets max-min$
+		\State \textbf{return} res
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent Quello del design è un processo creativo, ma richiede anche dei \textbf{principi di progettazione} per garantire uno standard e guidare lo sviluppo verso il raggiungimento di obiettivi di qualità. Ne esistono molteplici e portano a produrre software mantenibile, comprensibile, semplice da testare, riutilizzabile, portabile e chiaro.\par
+Un primo modello è dato dai \textbf{moduli}: entità software identificate da un nome che contiene e fornisce servizi. Presenta un'interfaccia, la parte esternamente visibile, e la parte interna, composta da strutture dati e il codice. I moduli possono interagire fra loro e includerne altri (creando dipendenze); per esempio, in un programma C è possibile definire più file header da includere nel codice.\par
+Un'altra idea è l'\textbf{astrazione}, la quale consente di concentrarsi su un problema ad un determinato livello senza perdersi in dettagli di quelli sottostanti. Aiuta a ridurre la complessità e permette di descrivere il comportamento dei moduli più facilmente. Inoltre, nasconde informazioni che gli altri livelli non devono conoscere. Ne esistono diverse forme: \begin{itemize}
+	\item \textbf{Funzionale}: Definisce una funzionalità indipendentemente dall'algoritmo che la implementa.
+	\item \textbf{Di dati}: Definisce un tipo di dato in base alle operazioni che si attuano su di esso senza definire una struttura concreta.
+	\item \textbf{Di controllo}: Definisce un meccanismo di controllo senza mostrare i dettagli interni.
+\end{itemize}
+\noindent La terza idea è data dalla \textbf{decomposizione}, quindi la partizione di un problema complesso. Conosciuto anche come Divide-et-Impera, consente una più semplice gestione dei problemi in quanto di dimensione ridotta. Impiegando questo principio, tuttavia, sarà necessario spendere anche del tempo per l'integrazione di ogni modulo creato.\par
+Una diretta conseguenza della decomposizione è la \textbf{modularità}, un principio che fornisce un criterio detto \textbf{separation of concerns} per la divisione del software: tenere separati gli aspetti che non si riguardano di un software.
+
+
+% TODO Modularità non è finita
+
+
 
 \begin{comment}
-	02-04-26 - softEng
-	
-	--- Progettazione degli algoritmi
-	Si suppone di aver ben definito come le componenti si comportano tra di loro. Si tratta dell'attività più vicina alla codifica, tendenzialmente lasciata in gran parte agli sviluppatori. Ha le seguenti fasi:
-	- Analizza descrizione di design della classe target
-	- Selezione o definizione dell'algoritmo con relativa notazione
-	- Svilkuppo dell'algoritmo usando la nozione di stepwise refinement (algoritmo raffinato per passi)
-	- Uso dei metodi formali per provare la correttezza dell'algoritmo (dipende dal workflow questo, onestamente)
-	
-	- Notazioni per la rappresentazione degli algoritmi
-	Ne abbiamo di visuali, come diagrammi di attività di UML, flowchart e simili, oppure testuali, come lo pseudocodice o program design languages.
-	
-	Esempio di stepwise refinement
-	Dati tre numeri interi calcolare la differenza tra il più grande e il più piccolo
-	1. Leggere i valori
-	2. Calcolare max
-	3. Calcolare min
-	4. Calcola differenza
-	5. Ritorna il risultato
-	
-	var A, B, C, Max, Min, Res
-	Max <- calc_max(A, B, C)
-	Min <- calc_min(A, B, C)
-	Res <- Max-Min
-	
-	E poi definisci gli pseudo delle singole funzioni
-	
-	--- Principi di progettazione
-	Astrazione, decomposizione, modularità, information hiding, per la produzione di un software mantenibile, comprensibile e chiaro.
-	
-	- Modulo
-	Entità software identificata da un nome che contiene fornisce servizi. Contiene istruzioni, strutture dati e controllo. Puà essere incluso in altri moduli e può usarne a sua volta. Degli esempi sono una macro, un programma, una funzione, uno script, etc.
-	
-	- Astrazione
-	Permette di concentrarsi su un problema ad un livello determinato di astrazione, senza perdersi in dettagli degli altri livello. Riduce complessità e permette di descrivere il comportamento di un modulo più facilmente. Nasconde anche informazioni che a quel livello non servono.
-	Ci sono diverse forme di astrazione:
-	- Funzionale: Definisce una funzionalità indipendentemente dall'algoritmo che la implementa
-	- Di dati: Definizione di un tipo di dato in base alle operazioni che su di esso senza definire una struttura concreta.
-	- Di controllo: Definizione di un meccanismo di controllo senza indicarne i dettagli interni
-	
-	- Decomposizione
-	Scomposizione di un problema complesso in più parti: divide et impera, banalmente. Ricorda però che separare in pezzi più piccoli implica il dover spendere tempo per l'integrazione di ogni modulo creato. Non è indifferente.
-	
-	- Modularità
-	Conseguenza del proncipio di decomposizione: I sottoproblemi sono gestiti dai moduli. La modularità dona iun criterio per la divisione del software con la logica separation of concerns: il tenere separati gli aspetti unrelated di un software.
 	Una valida linea guida è tenere separati il sw di generazione dati dal sw necessario alla presentazione, quindi backend da frontend. Permette di cambiare la rappresentazione dello schermo senza modificare il sistema di calcolo.
 	
 	Criteri di modularizzazione:

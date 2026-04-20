@@ -1,0 +1,41 @@
+14/04/2026 - Algoritmi
+
+--- Come stabilire se un grafo è bipartito?
+Grafo bipartito quando possiamo partizionare l'insieme dei nodi sicché ogni arco connette due nodi con archi che collegano le due parti.
+
+Dato un grafo generico, 
+
+BFS di un grafo non orientato connesso
+
+forall u\in V[G]
+	color[u]\gets white
+endFor
+
+color[s]\gets grey
+Q\gets NIL
+enqueue(Q, s)
+
+while Q \neq NIL 
+	u\gets dequeue(Q)
+	
+	forall v\in Adj[u]
+		if color[v] = grey
+			return false
+		else 
+			color[v] = grey
+	endFor
+endWhile
+
+return true
+
+---
+
+Hai un insieme di piatti di materiale diverso. Chiedono di formarne una pila. Per formarla, il piatto sopra deve essere più piccolo e più morbido rispetto al sottostante.
+Bisogna fare la pila più alta possibile.
+
+Si disegna un grafo orientato dove i nodi entrano in altri con valori minori. Non può essere ciclico perché sopra puoi mettere solo dimensioni e peso minore.
+Quando ho un cammino su questo grafo posso costruire la pila.
+Per scegliere da dove partire si può creare un nodo radice collegato a tutti gli altri nodi.
+Si può aggiungere anche un nodo destinazione ad-hoc e collegarlo a tutti gli altri del grafo. Quello con distanza minima da questo è il cammino di lunghezza massima.
+
+Rimossi radice e destinazione arbitrari, hai la pila creata con l'MST. Easy. Free. Restando in V+E.

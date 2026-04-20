@@ -344,7 +344,7 @@ Ogni arco in $G^T$ che esce da $C$ deve entrare in altre componenti già visitat
 
 \section{Alberi di copertura di costo minimo}
 Spesso ci si trova davanti a problemi di ottimizzazione; nella teoria dei grafi si tratta il problema dell'\textbf{albero di copertura di costo minimo} (MST). Si parte da un grafo connesso non orientato, i cui archi hanno associato un valore, detto \textbf{peso}, che indica il costo richiesto per collegare due nodi. La soluzione di questo problema è un sottoinsieme aciclico del grafo di partenza che collega tutti i vertici, il cui peso totale è minimo.\par
-Gli algoritmi trattati in questa sezione, \textbf{prim} e \textbf{kruskal}, sono avidi e utilizzano la stessa strategia di base applicata in modi differenti. Iniziamo definendo l'algoritmo per la creazione di un albero di copertura minimo \textbf{generic-MST()}, il quale prende in input un grafo connesso non orientato con una funzione per il peso. Costruisce l'albero di connessione minimo un arco alla volta, per poi ritornarlo al termine della sua esecuzione.\par
+Gli algoritmi trattati in questa sezione, \textbf{kruskal} e \textbf{prim}, sono avidi e utilizzano la stessa strategia di base applicata in modi differenti. Iniziamo definendo l'algoritmo per la creazione di un albero di copertura minimo \textbf{generic-MST()}, il quale prende in input un grafo connesso non orientato con una funzione per il peso. Costruisce l'albero di connessione minimo un arco alla volta, per poi ritornarlo al termine della sua esecuzione.\par
 Questa procedura generica gestisce quindi un insieme $A$ di archi, assicurandosi che prima di ogni iterazione sia un sottoinsieme di qualche albero di connessione minimo.
 \begin{algorithm}[h]
 	\caption{generic-MST(G, w)}
@@ -364,68 +364,71 @@ Questa procedura generica gestisce quindi un insieme $A$ di archi, assicurandosi
 	\noindent Sia $(u,v)$ un arco sicuro per un taglio $(U, V-U)$ in un grafo $G$, allora esiste un albero di copertura di costo minimo $T$ che contiene $(u,v)$.
 \end{teorema}
 \noindent Banalmente, se l'arco sicuro $(u,v)$ è all'interno di $T$, la tesi è dimostrata. Alternativamente, è possibile notare che, essendo il grafo connesso, esiste almeno un arco $(x,y)$ che attraversa il taglio. Se questo ha il costo minimo tra tutti gli archi del taglio disponibili, è quello sicuro, e sarà unito all'MST. Dunque: \[T' = T - \{(u,v) \cup (x,y)\}\]
-\noindent Il grafo $T'$ è ancora un albero di copertura e il suo costo non è maggiore di quello di $T$. Pertanto $T'$ è un albero di copertura minimo che contiene $(u,v)$.
+\noindent Il grafo $T'$ è ancora un albero di copertura e il suo costo non è maggiore di quello di $T$. Pertanto $T'$ è un albero di copertura minimo che contiene $(u,v)$.\newline
 
-% TODO Riprendi da Kruskal
+\noindent Il primo algoritmo trattato è quello di \textbf{Kruskal}; trova un arco sicuro da aggiungere alla foresta in costruzione scegliendo l'arco dal peso minimo. Generalmente per la sua implementazione è usata una struttura dati per insiemi disgiunti; all'inizio saranno presenti vari set contenenti i vertici di un albero della foresta corrente. L'operazione di findSet(u) restituirà un rappresentante dell'insieme che contiene il nodo u, quindi per determinare se due vertici appartengono allo stesso insieme, si verifica se il risultato di findSet per entrambi è uguale. Per unire eventualmente gli alberi, si fa uso di union().\par
+All'inizio dell'algoritmo è presente una fase di inizializzazione: si definisce la foresta vuota e si crea un insieme per ogni nodo del grafo. Si crea poi una lista di tutti gli archi del grafo e la si ordina con criterio monotono crescente rispetto al peso degli archi.\par
+Dopodiché è presente un ciclo per la verifica di appartenenza ad uno stesso albero tramite findSet(). In caso affermativo, l'arco dei due nodi non può essere inserito perché è già dentro la foresta e viene quindi ignorato; alternativamente viene unito alla foresta e i nodi vengono fusi.
+\begin{algorithm}[h]
+	\caption{kruskal(G, w)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo connesso, $w$: Peso dell'arco
+		\State $A\gets\emptyset$
+		\ForAll{$v\in V[G]$} $\text{ }makeset(v)$
+		\State Crea una lista $L$ di tutti gli archi del grafo
+		\State Ordina la lista in modo monotono non decrescente rispetto al peso $w$
+		\EndFor
+		\ForAll{$(u,v)\in L$ preso nell'ordine della lista}
+		\If{$findSet(u)\neq findSet(v)$} \Comment{Se l'arco non è nella foresta, uniscilo}
+		\State $A\gets A\cup \{(u,v)\}$
+		\State $union(u,v)$
+		\EndIf
+		\EndFor
+		\State \textbf{return} $A$
+	\end{algorithmic}
+\end{algorithm}
 
-\begin{comment}	
-	---
-	// Con grafo pesato G si dà in input w che è la matrice dei pesi, la quale è una funzione che ad ogni arco associa il relativo peso.
-	kruskal(G, w)
-	A\gets NIL
-	\forall v\in V[G] makeset(v)
-	ordina E[G] in modo non decrescente // quindi ordine per minore o uguale	
-	\forall (u,v)\in E[G] preso in ordine // Prende gli archi del grafo dal più piccolo al più grande
-	if findSet(u) \neq findSet(v) // Se l'arco non è nell'insieme
-	A\gets A \cup {(u,v)} // Unisci l'arco nell'insieme
-	union(u,v) // Aggiungilo all'insieme
-	
-	return A
-	
-	Quando analizzo un arco, quelli più piccoli sono già stati analizzati (preso in ordine, infatti), e gli archi sicuri sicuramente non stanno nell'insieme, ma verranno aggiunti.
-	Basta sapere che il taglio esiste. L'algoritmo non lo crea. kruskal consente di trovare un arco sicuramente sicuro per qualche taglio.
-	L'insieme ordinato è l'albero di copertura di costo minimo.
-	
-	Complessità: Facciamo V makeset(), E findSet(), V union(). Il resto del lavoro è costante. Dunque O(V+E).
-	Qua però stiamo ordinando. log(E). Complessità totale: O(V+ElogE).
-	Per grafo sparso:
-	Per grafo completo:
-	Con possibilità di ordinare in tempo lineare:
-	
-	--- Esiste un algoritmo migliore?
-	prim(G, w, r)
-	Q\gets V[G] // Q priority queue. Ha tutti i nodi non elaborati. Li teniamo ordinati
-	\forall u\in V[G] key[u]\gets \infty
-	key[r]\gets 0
-	\pi[r]\gets NIL
-	
-	while Q\neq NIL
-	u\gets extractMin(Q) // Rimuovi il nodo dalla frontiera Q.
-	\forall v\in Adj[u]
-	if v\in Q AND w(u,v) < key[v] // Prendo un arco che attraversa la barriera. Da questo raggiungo v in modo migliore?
-	\pi[v]\gets u
-	key[v]\gets w(u,v)
-	
-	Prendi tutti i nodi con archi sicuri e salva quello col peso minore, il quale sarà inserito nella coda.
-	L'elemento minimo della coda è quel nodo raggiungibile con un arco sicuro. Fra tutti i nodi della coda vado a prendere quello migliore.
-	
-	Complessità: inizializzazione: V; il while è eseguito una volta per ogni nodo. Là dentro sta extractMin, stesso valore; poi nel \forall la complessità è data dalla reduceKey
-	che è implicita con l'assegnamento dell'arco alla chiave. Qua dipende dalla struttura dati.
-	Per liste ordinate: V+EV
-	Per lista non ordinata: V^2 + E
-	Per heap: (V+E)logV
-	Per heap di fibonacci: VlogV + E
-\end{comment}
+\noindent L'algoritmo di Kruskal non fa un taglio, data la richiesta di un grafo connesso abbiamo la garanzia che questo esiste, consentendoci di trovare un arco sicuro per qualche taglio che è garantito esista. L'insieme $A$ che ritorna la procedura è l'albero di copertura di costo minimo.\par
+Il tempo di esecuzione di Kruskal dipende principalmente dalla struttura dati implementata per gli insiemi disgiunti. Consideriamo il costrutto ideale dato dalla \textbf{foresta di insiemi disgiunti} per ottenere il tempo asintoticamente minore rispetto ad altre implementazioni. L'inizializzazione richiede un tempo $O(1)$, creare una lista per ogni arco $O(V+E)$, ordinare gli archi $O(Elog(E))$, le operazioni del secondo ciclo for sono poi ripetute $O(E)$ volte. Assieme alle $|V|$ operazioni di makeSet(), le operazioni sugli insiemi disgiunti richiedono un tempo totale di: \[O((V+E)\alpha(V))\]
+\noindent Con $\alpha$ funzione dalla crescita estremamente lenta. Essendo poi il grafo connesso, possiamo dire che $|E|\geq |V|-1$ e quindi le operazioni su insiemi disgiunti richiedono tempo $O(E\alpha(V))$. Da qui, osservando che $|E| < |V^2| \implies log|E| = O(log(V))$ possiamo concludere che il tempo di esecuzione totale per l'algoritmo di Kruskal è: \[O(Elog(E))\implies O(Elog(V))\]
+\noindent Un altro algoritmo per il calcolo di MST è quello di \textbf{Prim}, la cui proprietà è che gli archi nell'insieme $A$ che costruisce in esecuzione formano sempre un albero singolo. Inizia infatti da un arbitrario nodo $r$, radice dell'albero, per poi andare a coprire tutti gli altri vertici passando sempre per gli archi dai pesi minimi.\par
+Come input sono richiesti un grafo connesso $G$ e la radice dell'albero $r$. L'algoritmo è tipicamente implementato mantenendo una coda di priorità minima di tutti i vertici che non appartengono all'albero, basata su un attributo \textbf{key}, il peso minimo di un arco qualsiasi che collega $v$ a un nodo nell'albero. Si indica con $key[v]$. Inoltre, l'algoritmo mantiene implicitamente l'insieme $A$ come: \[A = \{(v, \pi[v]):v\in V - \{r\} - Q\}\]
+\noindent Al termine dell'algoritmo, la coda creata è del tutto vuota ed è creato l'albero di connessione minimo tale che: \[A = \{(v,\pi[v]):v\in V-\{r\}\}\]
+\begin{algorithm}[h]
+	\caption{prim(G, w, r)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo connesso, $w$: Peso dell'arco, $r$: Nodo radice
+		\ForAll{$u\in V[G]$} \Comment{Ogni nodo a sé. No predecessore, distanze infinite.}
+		\State $key[u]\gets \infty$, $\pi[u]\gets NIL$
+		\EndFor
+		\State $key[r]\gets 0$, $Q\gets \emptyset$
+		\State
+		\ForAll{$u\in V[G]$}
+		\State $enqueue(Q, u)$
+		\EndFor
+		\State
+		\While{$Q\neq\emptyset$}
+		\State $u\gets extractMin(Q)$ \Comment{Prendo un nodo oltre il taglio}
+		\ForAll{$v\in Adj[u]$}
+		\If{$v\in Q \textbf{ AND } w(u,v) < key[v]$} \Comment{Se arco leggero è minore del corrente}
+		\State $\pi[v]\gets u$, $key[v]\gets w(u,v)$ \Comment{Aggiorno i valori del nodo corrente}
+		\State $reduceKey(Q, v, w(u,v))$ \Comment{Riduco la chiave perché trovato peso minore}
+		\EndIf
+		\EndFor
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent Il tempo di esecuzione di Prim, Come per Kruskal, dipende dalla struttura dati utilizzata per implementare la coda. Se $Q$ è un min-heap binario ci sarà richiesta una buildHeap(), di costo $O(V)$. Il corpo del while è eseguito $|V|$ volte e siccome ogni estrazione di minimo è eseguita in un tempo $O(log(V))$, il tempo totale per terminare il ciclo è $O(Vlog(V))$. Il ciclo for viene poi eseguito $|E|$ volte complessivamente e il test che verifica l'appartenenza alla coda $Q$ richiede tempo costante. Ogni chiamata a reduceKey() usa infine un tempo $O(log(V))$. Possiamo concludere che il tempo di esecuzione totale dell'algoritmo è: \[O(Vlog(V) + Elog(V)) = O(Elog(V))\]
 
 %
 
 \section{Cammini minimi a sorgente singola}
 Dijkstra, Bellman-Ford
 
+% TODO Presenta prima il problema del cammino minimo, spiega perché è vietato avere cicli, pesi negativi e dai i relativi lemmi. Procedi con dijkstra e bellman-ford.
+
 \begin{comment}
-	Lez7 - 24-03-26 - Algoritmi
-	
-	Prossima lezione: 14 aprile. Giovedì non fa più lezione.
 	
 	--- Cammini minimi
 	Dati grafo pesato (G,w) e nodo s, voglio la descrizione di un cammino da s a u che abbia il costo minimo fra tutti quelli possibili.
@@ -547,6 +550,54 @@ Dijkstra, Bellman-Ford
 
 %
 
+\section{Matching massimale su grafo bipartito}
+
+\begin{comment}
+	14/04/2026 - Algoritmi
+	
+	--- Come stabilire se un grafo è bipartito?
+	Grafo bipartito quando possiamo partizionare l'insieme dei nodi sicché ogni arco connette due nodi con archi che collegano le due parti.
+	
+	Dato un grafo generico, 
+	
+	BFS di un grafo non orientato connesso
+	
+	forall u\in V[G]
+	color[u]\gets white
+	endFor
+	
+	color[s]\gets grey
+	Q\gets NIL
+	enqueue(Q, s)
+	
+	while Q \neq NIL 
+	u\gets dequeue(Q)
+	
+	forall v\in Adj[u]
+	if color[v] = grey
+	return false
+	else 
+	color[v] = grey
+	endFor
+	endWhile
+	
+	return true
+	
+	---
+	
+	Hai un insieme di piatti di materiale diverso. Chiedono di formarne una pila. Per formarla, il piatto sopra deve essere più piccolo e più morbido rispetto al sottostante.
+	Bisogna fare la pila più alta possibile.
+	
+	Si disegna un grafo orientato dove i nodi entrano in altri con valori minori. Non può essere ciclico perché sopra puoi mettere solo dimensioni e peso minore.
+	Quando ho un cammino su questo grafo posso costruire la pila.
+	Per scegliere da dove partire si può creare un nodo radice collegato a tutti gli altri nodi.
+	Si può aggiungere anche un nodo destinazione ad-hoc e collegarlo a tutti gli altri del grafo. Quello con distanza minima da questo è il cammino di lunghezza massima.
+	
+	Rimossi radice e destinazione arbitrari, hai la pila creata con l'MST. Easy. Free. Restando in V+E.
+\end{comment}
+
+%
+
 \section{Cammini minimi a sorgente multipla}
 Floyd-Warshall, Johnson
 
@@ -554,7 +605,3 @@ Floyd-Warshall, Johnson
 
 \section{Flusso massimo}
 Ford-Fulkerson, Karp
-
-%
-
-\section{Matching massimale su grafo bipartito}

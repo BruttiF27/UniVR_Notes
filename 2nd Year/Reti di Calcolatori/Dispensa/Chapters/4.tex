@@ -1,6 +1,41 @@
 \section{Protocollo IP}
 Formato del pacchetto IP, Indirizzi IP, spazio di indirizzamento, risoluzione degli indirizzi (ARP, RARP), CIDR
 
+
+
+\begin{comment}
+	--- Livello di rete
+	Il comportamento adesso riguarda ogni elemento della rete, quindi non solo più i due end-host, bensì anche i router.
+	Analizziamo il protocollo IP (Internet Protocol), l'unico disponibile per questo livello. Definiamo il suo header.
+	- Versione del protocollo 4b: Possono coesistere più versioni di IP, attualmente è in uso IPv4, ma esiste anche IPv6
+	- Lunghezza dell'header: Lungo 20b se non ci sono opzioni, altrimenti è lungo 20b.
+	- Lunghezza totale: Lunghezza di header e payload; indica globalmente la grandezza del pacchetto.
+	- Service Type: Codice identificativo di una classe di servizio (nei router ci sono più buffer di uscita, dalla priorità più alta alla più bassa. In base al campo service type i pacchetti sono messi in coda al buffer più appropriato.)
+	- Identification, flag e fragment offset sono legati alla frammentazione (vista più tardi)
+	- TTL (Time to leave): Contatore inizializzato dalla sorgente (Di norma 64 o 128) che identifica il numero massimo di router che il pacchetto può attraversare. Alla ricezione di un pacchetto, ogni router decrementa di 1 questo valore. Se il valore arriva a 0, il router scarta il pacchetto e invia un messaggio di errore alla sorgente. Utile negli scenari di rerouting in caso di problemi sui link; si ricalcola il percorso e se è troppo lungo entra in gioco il TTL. Previene inoltre cicli infiniti.
+	- TYPE: Codice che identifica il protocollo usato nei dati trasportati nel payload.
+	- Header checksum: Esattamente come i precedenti checksum discussi.
+	
+	--- Frammentazione IP
+	C'è un legame con la maximum transmission unit, perché ogni host ne ha una. Generalmente, data una tecnologia di trasmissione di Lv.2 (Data-link) c'è una dimensione massima di trasmissione che tale scheda di rete può gestire (Maximum Transmission Unit).
+	Que pasa se un pacchetto incontra una scheda di rete con minore MTU del pacchetto durante il percorso?
+	Il router con link di uscita con MTU < della dimensione del pacchetto frammenta quest'ultimo in più pacchetti con MTU compatibile con il link di uscita.
+	I campi dell'header IP coinvolti sono:
+	- Identification: Numero progressivo dato dalla sorgente al pacchetto IP (ATTENZIONE: NON HA RELAZIONI CON IL SEQUENCENUMBER DEL TCP). Tutti i frammenti del pacchetto avranno lo stesso numero identificativo del pacchetto frammentato.
+	- Dei tre flags, uno è chiamato "M (More fragments)". Se è impostato a 0, il pacchetto non è stato frammentato oppure è l'ultimo frammento. Se è impostato a 1, è uno dei frammenti.
+	- Offset: Posizione del frammento rispetto al pacchetto originario (diviso per 8).
+	
+	--- Esempio
+	Supponiamo un MTU da 5000B e il pacchetto generato è da 4000B + 20B di header IP. Nel campo identification avrà avuto 476, il flag M è a 0, in quanto il pacchetto non è frammentato, e per la stessa ragione offset ha valore 0.
+	Nel percorso, il pacchetto attraversa un router con link di uscita MTU 1420. 1400 per il payload, 20 per header IP. Il pacchetto sarà spezzato in tre e avremo:
+	- srcIP, dstIP e identification uguali per ogni frammento.
+	- Il valore del flag M sarà 0 nell'ultimo, negli altri sarà posto a 1.
+	- L'offset per il primo è 0/8=0, il secondo è 1400/8=175, il terzo è 2800/8=350
+	Con questa divisione i pacchetti potranno essere inviati e ricevuti in qualsiasi ordine; potranno essere ricostruiti grazie a M e offset.
+	
+	Ma chi effettua il riassemblaggio? Ovviamente l'host di destinazione. Non i router intermedi. L'end-host, proprio. Quando la destinazione riceve un frammento, fa partire un timer (generalmente di 250ms), se non riceve tutti i frammenti entro la sua scadenza, scarta tutto.
+\end{comment}
+
 %
 
 \section{Protocollo di configurazione DHCP}

@@ -1,0 +1,71 @@
+Lez10 - 21-04-26 Reti di calcolatori
+
+--- Profilo di trasmissione del TCP
+Vedi IM1
+
+--- Profilo di trasmissione del TCP FR/FR
+Vedi IM2
+
+Se il buffer dei router è pieno si scartano dei pacchetti a caso in esso contenuti; si riduce poi la finestra per consentirgli di respirare un pò di più.
+
+--- Protocollo UDP (User Datagram Protocol)
+UDP è un protocollo connectionless, quindi non c'è uno scambio di messaggi preliminare prima dell'invio dei dati. I segmenti non vengono nemmeno consegnati in modo ordinato. Non è un protocollo affidabile, perché in caso di perdita i segmenti non vengono recuperati.
+Spesso utilizzato per applicazioni tolleranti alle perdite come twitch oppure l'online dei giochi multiplayer.
+
+L'header è composto da quattro campi: srcDoor, dstDoor, checksum uguali per il TCP, ma ha anche il campo di lunghezza dei dati.
+Per esempio, nelle applicazioni di streaming audio, si riceve il segnale, che è quantizzato e discretizzato, per poi essere diviso in pacchetti ai quali è aggiunto l'header. Vengono inviate al secondo host, il quale potrà ricostruirlo ordinatamente, ma in caso di perdita, lascerà del silenzio.
+La velocità di trasmissione dei dati dipende dalla loro velocità di generazione.
+
+--- Livello di rete
+Il comportamento adesso riguarda ogni elemento della rete, quindi non solo più i due end-host, bensì anche i router.
+Analizziamo il protocollo IP (Internet Protocol), l'unico disponibile per questo livello. Definiamo il suo header.
+	- Versione del protocollo 4b: Possono coesistere più versioni di IP, attualmente è in uso IPv4, ma esiste anche IPv6
+	- Lunghezza dell'header: Lungo 20b se non ci sono opzioni, altrimenti è lungo 20b.
+	- Lunghezza totale: Lunghezza di header e payload; indica globalmente la grandezza del pacchetto.
+	- Service Type: Codice identificativo di una classe di servizio (nei router ci sono più buffer di uscita, dalla priorità più alta alla più bassa. In base al campo service type i pacchetti sono messi in coda al buffer più appropriato.)
+	- Identification, flag e fragment offset sono legati alla frammentazione (vista più tardi)
+	- TTL (Time to leave): Contatore inizializzato dalla sorgente (Di norma 64 o 128) che identifica il numero massimo di router che il pacchetto può attraversare. Alla ricezione di un pacchetto, ogni router decrementa di 1 questo valore. Se il valore arriva a 0, il router scarta il pacchetto e invia un messaggio di errore alla sorgente. Utile negli scenari di rerouting in caso di problemi sui link; si ricalcola il percorso e se è troppo lungo entra in gioco il TTL. Previene inoltre cicli infiniti.
+	- TYPE: Codice che identifica il protocollo usato nei dati trasportati nel payload.
+	- Header checksum: Esattamente come i precedenti checksum discussi.
+
+--- Frammentazione IP
+C'è un legame con la maximum transmission unit, perché ogni host ne ha una. Generalmente, data una tecnologia di trasmissione di Lv.2 (Data-link) c'è una dimensione massima di trasmissione che tale scheda di rete può gestire (Maximum Transmission Unit).
+	Que pasa se un pacchetto incontra una scheda di rete con minore MTU del pacchetto durante il percorso?
+Il router con link di uscita con MTU < della dimensione del pacchetto frammenta quest'ultimo in più pacchetti con MTU compatibile con il link di uscita.
+I campi dell'header IP coinvolti sono:
+	- Identification: Numero progressivo dato dalla sorgente al pacchetto IP (ATTENZIONE: NON HA RELAZIONI CON IL SEQUENCENUMBER DEL TCP). Tutti i frammenti del pacchetto avranno lo stesso numero identificativo del pacchetto frammentato.
+	- Dei tre flags, uno è chiamato "M (More fragments)". Se è impostato a 0, il pacchetto non è stato frammentato oppure è l'ultimo frammento. Se è impostato a 1, è uno dei frammenti.
+	- Offset: Posizione del frammento rispetto al pacchetto originario (diviso per 8).
+
+--- Esempio
+Supponiamo un MTU da 5000B e il pacchetto generato è da 4000B + 20B di header IP. Nel campo identification avrà avuto 476, il flag M è a 0, in quanto il pacchetto non è frammentato, e per la stessa ragione offset ha valore 0.
+	Nel percorso, il pacchetto attraversa un router con link di uscita MTU 1420. 1400 per il payload, 20 per header IP. Il pacchetto sarà spezzato in tre e avremo:
+		- srcIP, dstIP e identification uguali per ogni frammento.
+		- Il valore del flag M sarà 0 nell'ultimo, negli altri sarà posto a 1.
+		- L'offset per il primo è 0/8=0, il secondo è 1400/8=175, il terzo è 2800/8=350
+	Con questa divisione i pacchetti potranno essere inviati e ricevuti in qualsiasi ordine; potranno essere ricostruiti grazie a M e offset.
+	
+Ma chi effettua il riassemblaggio? Ovviamente l'host di destinazione. Non i router intermedi. L'end-host, proprio. Quando la destinazione riceve un frammento, fa partire un timer (generalmente di 250ms), se non riceve tutti i frammenti entro la sua scadenza, scarta tutto.
+
+--- Esercizio su TCP
+Abbiamo un'appA che deve trasferire 96.000B ad un'appB. Si suppone che la connessione sia già instaurata. Presentiamo i seguenti parametri:
+	- Maximum Segment Size: 1000B
+	- Receive Window: 32.000B, costante per tutto il tempo.
+	- Slow Start Threshold_i = RCVWND_i/2
+	- RTT costante, pari a 0,5s
+	- Retransmission Time-Out = 2RTT, raddoppia in caso di perdite sequenziali
+	- Sono presenti down di rete, dove questa va fuori uso e tutti i segmenti in quel momento vanno persi. Accade negli intervalli:
+		- (3, 3,5)
+		- (7, 7,5)
+		
+Valuta l'evoluzione temporale della congestion window fino alla fine della trasmissione.
+
+Il numero di segmenti da trasmettere è dato dal totale dei Byte da trasmettere diviso la MSS: 96000/1000 = 96
+La receive window iniziale è pari a 32000B; divisa per la MSS otteniamo 32000/1000 = 32 segmenti alla volta.
+La SSThresh_i è 32/2 = 16 segmenti
+La CWND_i è sempre posta a 1.
+Il tempo è iniziato a misurare da t=0s
+
+Dati questi valori iniziali possiamo disegnare il grafico dell'evoluzione temporale. (EX1)
+Segmenti trasmessi: 1 + 2 + 4 + 8 + 16 + 17, poi c'è il down dove provi a trasmettere 18 segmenti, fallendo.
+	Poi ricominci dopo il termine del RTO. Riprendi da 1, poi 

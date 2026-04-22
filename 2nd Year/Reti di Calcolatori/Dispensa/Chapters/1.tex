@@ -269,4 +269,23 @@ Tra l'altro, questi due comandi possono presentare valori il cui prefisso ha un 
 	Abbiamo 3 LAN, di cui L1 deve avere almeno 300 indirizzi, L2 almeno 40 e L3 almeno 90. È già stato assegnato l'indirizzo di broadcast di L3: 148.12.79.255
 	Trovare il blocco cidr totale che contiene le tre subnets
 	Partendo da tale blocco, trovare le tre subnets rispettando i vincoli.
+	
+	1. Traduci i vincoli sugli spazi in potenze di 2, così capisci quanti bit ti serviranno per contenerli.
+	- L1 300 indirizzi: 512
+	- L2 40 indirizzi: 64
+	- L3 90 indirizzi: 128
+	
+	2. Somma le dimensioni dei blocchi: 512+64+128: Servono almeno 704 indirizzi.
+	
+	3. Trovare la potenza di 2 immediatamente superiore: 704: 1024 indirizzi totali. Dunque 2^10
+	Il blocco CIDR totale quindi avrà /22 di prefisso.
+	
+	4. Traduzione in binario del blocco intero e delle subnets
+	- Broadcast: 148.12.79.255		1001 0100 0000 1100 0100 1111 1111 1111
+	- Indirizzo di rete: 1001 0100 0000 1100 0100 11|00 0000 0000: 148.12.76.0/22
+	
+	5. Divisione in subnets
+	- L1: 1001 0100 0000 1100 0100 110|0 0000 0000: 148.12.76.0/23
+	- L2: 1001 0100 0000 1100 0100 1111 01|00 0000: 148.12.79.64/26
+	- L3: 1011 0100 0000 1100 0100 1111 1|000 0000:	148.12.79.128/25
 \end{comment}

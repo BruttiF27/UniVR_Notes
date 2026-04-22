@@ -1,0 +1,53 @@
+Lez9 - 17/04/26 Reti di calcolatori
+
+--- Quant'è la dimensione della finestra di trasmissione w?
+Non possiamo avere un valore predeterminato, bensì bisogna adattarlo in base a quello che succede sulla rete. Ciò avviene grazie ai riscontri; la ricezione o assenza di un riscontro è il segnale usato per l'adattamento.
+	- Se ricevo regolarmente i riscontri la rete è in grado di gestire il traffico inviato, è possibile anche aumentare la dimensione della finestra.
+	- In caso di perdite, scade l'RTO e si diminuisce la finestra di trasmissione
+	
+Quali sono le regole per aumentare o diminuire la finestra? Abbiamo diversi casi.
+	- Se aumenta la finestra, abbiamo due possibilità:
+		- Slow start
+		- Congestion avoidance
+	- Se diminuisce la finestra, altre due possibilità:
+		- Vanilla (Versione base del TCP)
+		- Fast retransmit/Fast recovery
+		
+Per lo slow start: per ogni riscontro ricevuto si aumenta la finestra di un segmento e la si fa scorrere di un segmento. Quindi pos+1 e size+1
+Dunque se hai una finestra di size 2 e ricevi senza problemi i due acknowledge dal server, ti sposti di una posizione per segmento e incrementi la posizione per ogni riscontro corretto.
+Quindi si passa da w=2 a w=4 e ti troverai a posizione iniziale 3.
+
+Per la congestion avoidance: Per ogni riscontro ricevuto, aumenta la finestra di 1/w. Partendo da w=2 trasferisco i due segmenti, al rientro dei riscontri (elaborati a coppie) permettono di traslare la finestra di due posizioni e di aumentare la finestra di 1/2 per segmento. Quindi trasla di 2 e aumenta la dimensione di 2*1/2 = 1 segmento.
+	Generalmente, in condizioni ideali dove si ottengono tutti i riscontri, la dimensione aumenta di 1, perché banalmente w*1/w = 1.
+	
+Per vanilla: Se non arriva il riscontro si attende lo scadere del RTO, si pone w=1 e si ritrasmettono i segmenti persi (quindi quello singolo mancato; se ci sarà riscontro positivo si potrà eventualmente incrementare la dimensione della finestra)
+
+Per fast retransmit/fast recovery: Prendiamo un router con il buffer pieno. Se arriva un treno di pacchetti di spazio w potrebbe essere scartato o interallacciato in altri router intermedi. Nella pratica, una connessione TCP perde 1 o 2 pacchetti per finestra in caso di congestione; cerco di recuperarli senza chiudere eccessivamente la finestra.
+	In caso di ricezione di 3 ack duplicati si pone la finestra di trasmissione a w' = w/2 (quindi la metà della dimensione della finestra al momento della perdita) e si ritrasmette il segmento indicato dagli ack.
+	Se invii una finestra di w=8 segmenti e perdi il terzo, riceverai ack1, ack2 e ack3 per tutti quelli rimanenti. La finestra si sposterà di due segmenti, ma avrà dimensione ridotta della metà, quindi w'=8/2 = 4 e si rinvierà il segmento 3. Ricevuto quest'ultimo, si inviano gli ack per tutti gli altri segmenti già ottenuti fino al prossimo mancante, ack9, al cui segmento sarà posta la posizione iniziale della finestra, ora con valore w'.
+	
+--- Algoritmo di controllo congestione del TCP
+Requires: CWND (CongestionWindow, il parametro w di prima), RTO (calcolato dinamicamente in base a instant RTT e smoothed RTT), RCVWND (Receiver window, finestra massima di ricezione; il massimo di dati gestibile da chi riceve i dati, corrisponde al campo window nell'header TCP), SSTH (Slow Start threshold; soglia usata per distinguere l'uso dello slow start oppure congestion avoidance.)
+
+L'algoritmo ha una prima fase di inizializzazione:
+	cwnd = 1
+	rcvwnd = valore comunicato dalla destinazione ad ogni riscontro
+	ssth = rcvwnd_{iniziale} // talvolta rcvwnd/2
+	rto = in base al valore dell'RTT misurato nel three-way handshake
+	
+Algoritmo:
+	1. Host invia un numero di segmenti pari alla congestion window attuale.
+	2. All'arrivo dei riscontri:
+		se cwnd < ssthresh // uso lo SS
+			cwnd_{new} = minimum(cwnd_{old}+ackNum, rcvwnd, ssthresh)
+		Altrimenti // Uso il congestion avoidance
+			cwnd_{new} = minimum(cwnd_{old}+ackNum/cwnd_{old}, rcvwnd)
+		Torno al punto 1
+	3. Se non arrivano i riscontri e scade l'RTO
+		ssthresh = cwnd al momento della perdita / 2
+		cwnd = 1 // Se usi il vanilla TCP reinizializzi la finestra a 1
+		per i segmenti ritrasmessi pongo RTO' = 2RTO
+		torno al punto 1.
+		
+--- Esempio (semplificato, RTT costante) evoluzione trasmissione con TCP
+

@@ -1,9 +1,104 @@
-\section{Programmazione multicore}
+\section{Programmazione multicore e multithreading}
+Definiamo un \textbf{thread} come l'unità di base di uso della CPU, composto da un relativo identificatore, un program counter, un insieme di registri e una stack di attivazione. Condivide con altri thread appartenenti allo stesso processo le sezioni di codice, dati e altre risorse, come per esempio i file aperti.\par
+Finora abbiamo parlato di \textbf{heavyweight processes}, ovvero quelli composti da un solo thread, mentre in questa sezione discuteremo degli scopi e dei vantaggi della programmazione di processi \textbf{multithreaded}.\newline
+
+\noindent La maggior parte delle applicazioni odierne è multithreaded; si codificano infatti come un processo a sé stante che comprende più thread di controllo. Per esempio, un web browser ha un filo per rappresentare a schermo le pagine e un altro per scaricare i dati dalla rete. La ragione principale per la quale si è passati da un paradigma monolitico al multithread è che sempre più spesso era necessario per le applicazioni saper gestire più compiti allo stesso tempo; un web server intensamente utilizzato vede molti client che vi accedono concorrentemente, per esempio.\par
+Una prima soluzione a questo problema sarebbe di creare un nuovo processo per ogni richiesta, ma risulterebbe estremamente oneroso in termini di risorse e tempo. È nettamente più conveniente creare un thread apposito per ogni nuova richiesta, poiché condividendo le sezioni non è necessario allocare nuova memoria.\par
+Anche la maggior parte dei kernel dei sistemi operativi moderni è multithreaded; all'avvio di un sistema Linux vengono infatti creati diversi thread per le varie attività da svolgere, come la gestione dei dispositivi o della memoria. Determinati algoritmi possono inoltre trarre vantaggio da questo paradigma riducendo drasticamente i tempi di risposta.\newline
+
+\noindent Possiamo raggruppare i vantaggi del paradigma multithread in quattro categorie principali: in primo luogo, si riducono i \textbf{tempi di risposta}, perché consentiamo al programma di continuare la sua esecuzione mentre gestisce altre operazioni su diversi thread.\par
+Richiamando come i processi comunichino, ovvero tramite memoria condivisa o scambio di messaggi, ai thread è possibile \textbf{condividere risorse} e memoria del processo a cui appartengono.\par
+Come già menzionato, la creazione di nuovi processi risulta più costosa rispetto alla generazione di nuovi thread, perché per questi ultimi si richiede l'impiego di meno memoria, tempo, ed è anche più semplice gestirne il cambio di contesto.\par
+Infine, i processi multithreaded sono facilmente \textbf{scalabili}; nelle architetture multiprocessore i thread si possono eseguire in parallelo, incrementando il parallelismo.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{Images/single_and_multithreaded_processes.png}
+	\caption{Panoramica processi a singolo thread e multithreaded}
+\end{figure}
+
+\noindent In risposta alle necessità di maggiore potenza di calcolo, i calcolatori odierni presentano architetture multiprocessore, quindi che dispongono di più core di elaborazione su un unico chip. La \textbf{programmazione multithread} definisce un meccanismo per l'utilizzo efficiente di queste architetture, sfruttando al meglio la concorrenza.\par
+Quando parliamo di \textbf{esecuzione concorrente} in questo contesto, intendiamo che i thread possono funzionare in parallelo perché il sistema può assegnare thread diversi ad ogni core della CPU. Inoltre distinguiamo \textbf{sistema concorrente}, ovvero che supporta più task permettendo a ciascuno di progredire nell'esecuzione, da \textbf{sistema parallelo}, dove è effettivamente possibile eseguire simultaneamente più compiti.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/concurrence_and_parallelism.png}
+	\caption{Panoramica concorrenza e parallelismo}
+\end{figure}
+
+\noindent Questo cambio di forma porta delle nuove sfide in ambito progettuale e di sviluppo applicazioni; chi crea e mantiene sistemi operativi dovrà scrivere algoritmi di scheduling orientati all'utilizzo di più core e i programmatori di applicazioni dovranno renderle multithreaded. In particolare, identifichiamo le seguenti sfide nella programmazione multicore: \begin{itemize}
+	\item \textbf{Identificazione compiti}: Necessità di individuare aree separabili in task e quindi in thread.
+	\item \textbf{Bilanciamento}: Le task devono eseguire compiti di mole e valore confrontabili. Se presentano un basso valore computazionale, potrebbe non valerne la pena di dedicarvi un intero core.
+	\item \textbf{Suddivisione dati}: Definire i dati manipolati e a cui accedono le task. Vanno suddivisi per essere usati su core distinti.
+	\item \textbf{Dipendenze dati}: In caso di dipendenze tra due o più task è necessario anche implementare un meccanismo di sincronizzazione per garantirne il corretto flusso di esecuzione.
+	\item \textbf{Test e debugging}: Avendo più fili di esecuzione risulta più difficile fare testing e debugging.
+\end{itemize}
+\noindent Definiamo inoltre due tipi di parallelismo: quello dei \textbf{dati}, che riguarda la distribuzione di sottoinsiemi di dati su più core e l'esecuzione di una stessa operazione su ognuno di essi, e il \textbf{parallelismo delle attività}, che distribuisce thread su più core, i quali possono operare sugli stesso dati o diversi. Questi tipi di parallelismo non sono mutualmente esclusivi; infatti nei sistemi operativi è comune trovarne un'implementazione ibrida.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{Images/parallelism_types.png}
+	\caption{Tipi di parallelismo}
+\end{figure}
+
+\noindent Distinguiamo i thread su due livelli: a \textbf{livello utente} sono gestiti sopra quello del kernel e senza il suo supporto, mentre a \textbf{livello kernel} sono gestiti direttamente dal sistema operativo. È necessario che questi siano messi in relazione; esistono tre modelli principali per implementarla: \begin{itemize}
+	\item \textbf{Modello da molti a uno}: Fa corrispondere più thread utente ad un solo thread kernel. Si tratta di una gestione efficiente dei thread effettuata grazie ad un'apposita libreria nello spazio utente. Tuttavia, se il thread kernel invoca una system call bloccante, bloccherà l'intero processo. Inoltre, dato che un solo thread alla volta può accedere al kernel, è impossibile eseguire thread multipli in parallelo in sistemi multicore. Per queste ragioni è un modello raramente usato.
+	\item \textbf{Modello da uno a uno}: Mette in corrispondenza ogni thread utente con un thread kernel, offrendo un maggiore grado di concorrenza e permettendo l'esecuzione in parallelo nei sistemi multiprocessore. Tuttavia, l'esistenza di un thread utente richiede quella del corrispondente thread kernel; essendo che questo meccanismo può sovraccaricare le prestazioni delle applicazioni, si sceglie di porre un limite al numero di thread supportabili, ma grazie alle architetture moderne si è potuto ridurre questa restrizione.
+	\item \textbf{Modello da molti a molti}: Mette in corrispondenza più thread utente a un numero minore o uguale di thread kernel, dove il numero di thread kernel può essere calibrato in base all'applicazione o all'architettura del sistema. Per quanto riguarda la concorrenza, consente ai programmatori di creare liberamente un numero arbitrario di thread e i corrispondenti thread kernel si possono eseguire in parallelo nelle architetture multicore, superando gli svantaggi dei due precedenti modelli.\par
+	Una variante di questo modello è il \textbf{modello a due livelli}, che mantiene la corrispondenza fra più thread utente e un numero minore o uguale di thread kernel, ma consente anche di vincolare un primo con un secondo, come per il modello uno a uno. Si tratta del modello più flessibile di tutti, ma è anche quello più difficile da implementare nella pratica.
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{Images/multithreading_models.png}
+	\caption{Modelli di supporto multithreading}
+\end{figure}
 
 %
 
-\section{Multithreading}
+\section{Librerie dei thread}
+Le librerie dei thread forniscono ai programmatori una API per la loro creazione e gestione. Ci sono due metodi principali per l'implementazione di thread: collocare la \textbf{libreria a livello utente}, vedendo codice e strutture dati per la libreria risiedere nello spazio utente; invocare una funzione implica una chiamata locale sul livello utente. Alternativamente è possibile collocare la \textbf{libreria a livello kernel}, facendo risiedere le risorse nel relativo spazio e corrispondere l'invocazione di funzioni con le chiamate di sistema al kernel.\par
+La libreria utilizzata in questo corso è \textbf{Pthreads}, di POSIX, la quale può essere realizzata in entrambe le modalità appena discusse. Con questa API, tutti i dati dichiarati a livello globale sono condivisi tra tutti i thread generati dai programmi, mentre quelli a livello locale sono memorizzati nello stack proprietario del filo, dando quindi ad ogni thread una propria copia dei dati locali.\newline
+
+\noindent Esistono naturalmente più strategie per l'implementazione di thread: il \textbf{threading asincrono} vede il genitore creare un figlio e continuare la sua esecuzione indipendentemente dal workflow del figlio, usato normalmente quando è richiesta una scarsa condivisione dei dati. Il secondo metodo, invece, detto \textbf{threading sincrono}, blocca l'esecuzione del processo padre fino al termine dell'esecuzione dei figli\footnote{Questa strategia è chiamata anche \textbf{fork-join}, perché il genitore attende che tutti i figli si ricongiungano col padre prima di riprendere la sua esecuzione.}; generalmente è implementato quando vi è una significativa necessità di condivisione dati.\par
+L'API fornito da Pthreads ci consente di implementare questi meccanismi in linguaggio C; sarà necessario includere la relativa libreria e usare le funzioni apposite per inizializzare, creare e terminare thread di esecuzione. Prendiamo il seguente esempio: \begin{lstlisting}[language=C]
+	# include <pthread.h>
+	# include <stdio.h>
+	# include <stdlib.h>
+	
+	int sum; // Variabile globale, condivisa dai thread in questo file
+	void *runner(void *param); // Chiamata dai thread
+	
+	int main (int argc, char *argv[]) {
+		pthread_t tid; // Identificatore del thread
+		pthread_attr_t attr; // Insieme di attributi del thread
+		
+		// Inizializza thread con attributi predefiniti
+		pthread_attr_init(&attr);
+		// Crea il thread
+		pthread_create(&tid, &attr, runner, argv[1]);
+		// Attende terminazione thread figlio
+		pthread_join(tid, NULL);
+		
+		printf("%d\n", sum);
+	}
+	
+	// Thread eseguito nella seguente funzione runner
+	void *runner (void *param) {
+		int upper = atoi(param);
+		sum = 0;
+		
+		for (int i = 1; i <= upper; i++) sum += i;
+		
+		pthread_exit(0);
+	}
+\end{lstlisting}
+
+\noindent Il programma implementa un semplice workflow dove un processo padre genera un thread figlio, nel quale si ritorna la somma di tutti i numeri fino al parametro passato in funzione.\par
+Per creare un thread figlio, il padre deve in primo luogo assegnargli un identificativo e degli attributi, inizializzati tramite pthread\_attr\_init(). Dopodiché potrà generare il figlio con pthread\_create(), che prende in input questi due valori, la funzione dove è eseguito il thread e il parametro ivi indicato. Per garantire un workflow sincrono, il padre usa pthread\_join() per fermare la sua esecuzione fin quando tutti i figli non hanno terminato il loro lavoro.\par
+È possibile naturalmente generare più thread; una strategia comune per la modalità sincrona è di implementare un ciclo for e un counter apposito che si incrementa fino al termine di ogni figlio.
 
 %
 
-\section{Librerie utili}
+\section{Threading implicito}
+
+%
+
+\section{Problemi di gestione multithread}
+Thread di linux, anche.

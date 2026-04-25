@@ -1,0 +1,33 @@
+Lez12 - 22/04/26 softEng
+
+--- Lezione di esercizi
+	1. Prendi il testo ed evidenzia le possibili entità. Nel caso di un software per impresa edile avrai impiegati e cantieri, mezzi e clienti.
+		Qui possiamo iniziare a disegnare queste quattro classi. Prendiamone una per volta e proviamo a definire quali sono le sue relazioni con le altre e che cosa devono fare.
+		
+	2. Definizione delle classi
+		Un operaio potrebbe avere un ID e altri dati come nome cognome e qualifica. Bisogna definire il tipo dei campi, io ritengo che una stringa sia più che buono. Per la data di nascita invece un Date sarebbe carino.
+		
+		I cantieri sono associati ad un solo cliente e un cliente potrebbe richiedere più cantieri. I cantieri hanno data di inizio e prevista di fine. Può impiegare più operai e possono essere usati uno o più mezzi dell'impresa.
+		
+		Il sistema deve memorizzare le informazioni identificative e il tipo di ogni mezzo. Un mezzo può essere assegnato a un solo cantiere alla volta e può risultare non disponibile a causa di manutenzione o ad altri cantieri se già impiegato in uno.
+		
+		Per ogni cliente bisogna memorizzare i dati come il codice, nome, telefono, indirizzo e mail per poterlo contattare.
+		
+		Molti di questi campi si potrebbero gestire con stringhe, ma non dimenticare che è possibile definire altri tipi user-defined ad-hoc per la situazione. Potrebbe essere più facile gestire un codice cliente tramite un tipo apposito che è una stringa formattata, pensaci.
+		
+	3. Definizione delle relazioni
+		Ogni cantiere associato a un solo cliente e può impiegare più operai.
+		I cantieri possono impiegare uno o più mezzi. I mezzi non si possono sdoppiare, possono essere quindi assegnati a un solo cantiere alla volta.
+		I clienti dell'impresa possono commissionare uno o più cantieri
+		
+Adesso abbiamo degli scenari su cui lavorare. Useremo diagrammi
+	- Assegnazione di un operaio a un cantiere
+		Responsabile seleziona operaio e un cantiere a cui assegnarlo. Il sistema verifica se è già assegnato a un altro. Se è disponibile, registra l'assegnazione al cantiere, altrimenti il sistema dà errore
+	- Assegnazione di un mezzo a un cantiere
+		Responsabile richiede l'assegnazione di un mezzo a un cantiere e il sistema verifica che sia disponibile. Se sì ok, altrimenti errore
+	- Verifica disponibilità dei mezzi
+		Il sistema ritorna la lista dei mezzi disponibili all'utente.
+		
+Disegni disponibili su carta. Ex.1-n
+
+Altri esercizi disponibili sulle slides apposite. Simpatici, comprensibili, non difficili.

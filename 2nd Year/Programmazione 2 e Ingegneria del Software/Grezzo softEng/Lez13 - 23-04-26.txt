@@ -1,0 +1,27 @@
+Lez13 - 23-04-26 softEng
+
+# Prossima lezione il 6 maggio
+
+--- State machine diagrams
+Diagrammi che descrivono il comportamento di un componente, in termini di variazione del suo stato interno quando riceve un input di qualche tipo. Modello FSM, in pratica. Uno stato rappresenta una situazione nella vita di un oggetto durante la quale sono soddisfatte determinate condizioni e possono essere eseguite delle attività. Si cambia stato in base agli input ricevuti dagli attori.
+	Si rappresenta come una FSM (ma dai?) e sugli archi stanno descritti eventi e input.
+Una FSM è sempre associata a un'entita e ne descrive il relativo comportamento. Riceve eventi che sono salvati su una coda ed estratti uno alla volta; la semantica è di tipo run-to-completion, quindi un evento è estratto solo dopo che è stato estratto il precedente.
+Inoltre, se ci sono più transazioni eseguibili in un dato momento (non determinismo se due transizioni dallo stesso stato con stesso evento e due condizioni diverse sono entrambe vere) ne viene eseguita solo una.
+	Pallino nero è stato iniziale, nodi sono gli altri stati, archi son le transizioni. Un pallino nero accerchiato è lo stato finale e indica che l'esecuzione è terminata. Possono essercene più di uno.
+	
+Le transizioni specificano come si passa tra gli stati. Specifica evento (trigger che attiva il passaggio), guardia (condizione che se vera permette il passaggio di stato) e attività (una o più azioni che sono compiute prima di cambiare stato). Transizione avviene come risposta a un evento. Eventi guardie e attività sono opzionali.
+
+Possiamo associare le FSM a una classe o un singolo oggetto per la durata del suo ciclo di vita.
+
+Ci sono più tipi di evento. Il primo è la ricezione di un messaggio, ma può esserci anche un evento di cambiamento (quando condizione passa da falsa a vero) o un evento temporale (si verifica dopo un tempo t o a una data precisa); si indica con when(condizione) nell'arco.
+	Uno stato può reagire ad eventi e compiere attività anche senza una transizione ad uno stato diverso. Si possono mostrare nel secondo slot e seguono la sintassi delle transizioni. In particolare, entry ed exit sono attività speciali che si attivano ogni volta che si entera/escher dallo stato.
+Esiste anche do-activity che è eseguita mentre l'oggetto è nello stato. Può durare per un intervallo di tempo ed essere interrotta da altri eventi.
+
+Uno stato può essere semplice o composito. Quest'ultima forma consente di suddividere la complessità del modello. Nel senso, hai il macro-stato e una fsm interna. Si usa un'icona per rappresentare uno stato composito il cui comportamento interno non è mostrato.
+	Possibile indicare concorrenza negli stati compositi aggiungendo slot alla macro-fsm.
+	
+Entry ed exit points si indicano con cerchi bianchi e cerchi bianchi con una X all'interno rispettivamente.
+
+Quando è corretto usare le FSM? Per entità con una logica interna complessa.
+
+State machine si implementa in tre modi: switch case, con un design pattern state (ogni stato è una classe, si usa il polimorfismo per variare il comportamento) o delle STT con un tool che traduce da linguaggio apposito.

@@ -1,0 +1,86 @@
+Lez9 - 21-04-26 Algoritmi
+
+--- Risoluzione del problema del cammino minimo per ogni coppia di nodi (a sorgente multipla)
+Banalmente sarebbe possibile ripetere per ogni nodo la soluzione del cammino minimo a sorgente singola vista in precedenza. Dovremmo usare Bellman-ford ma avendo complessità VE e dovendolo ripetere V volte, avremmo V^2E.
+
+Bisogna abbassare la complessità con alcune tecniche.
+Anzitutto bisogna capire come rappresentare il problema. Usiamo la seguente notazione:
+	- D_i: Vettore che comprende i costi dei cammini minimi
+	- \pi_i: Vettore che comprende i predecessori
+	- D_{i,j}: Costo del cammino minimo da i a j
+	- \pi_{i,j}: Predecessore del nodo j nel cammino minimo da i a j
+	
+Per rappresentare la soluzione useremo quindi due vettori:
+	- D = {D_1, D_2, ..., D_n} // Matrice dei cammini minimi
+	- \Pi = {\pi_1, \pi_2, ..., \pi_n} // Matrice dei predecessori per i cammini minimi
+Matrice perché array bidimensionali, capito? Possiamo rappresentare il problema con una matrice. Bisogna calcolare queste matrici, quindi.
+
+// Proviamo ad applicare la soluzione oberosa discussa prima tramite bellman-ford
+all_pairs_sp(G, w)
+	D^0\gets init(G, w) // Inizializza ogni riga ponendo tutti gli elementi sulla diagonale a 0 e nel resto delle posizioni +\infty
+	\For{l\gets 1 to |V[G]|-1} // Per ogni istanza del problema, quindi |V|-1 volte
+		D^l\gets extend_sp(D^{l-1}, w) // extend shortest path, va a rilassare tutti gli archi relativi all'istanza corrente del problema
+	
+	D^{|V[G]|}\gets extend_st(D^{|V[G]|-1}, w)
+	if D^{|V[G]|}\neq D^{|V[G]|-1} // Check per controllare se è stato sbagliato qualcosa nell'estensione della shortest path
+		return false
+
+// A partire dalla destinazione facciamo il rilassamento degli archi
+extend_sp(D, w)
+	n\gets rown[D] // Scopriamo la dimensione della matrice quadrata
+	let D' be matrix n*n
+	
+	for i\gets 1 to n // Per ogni sorgente rilassa tutti gli archi. Sto aggiornando la distanza minima dal nodo di destinazione // i è la sorgente
+		for j\gets 1 to n // j è la destinazione
+			D'_{ij}\gets \infty // La distanza stimata iniziale dal nodo i a quello j è infinita. Va aggiornata tramite esplorazione grafo.
+			
+			for k\gets 1 to n // Per ogni possibile sorgente verso j
+				D'_{ij}\gets min(D_{ij}, D_{ik}+w_{kj}) // facciamo il rilassamento verso l'arco kj, confrontando la minima distanza corrente con quella che otterresti passando dal nodo k attraverso l'arco kj di costo w_{kj}. Se è minore di D_{ij}, lo aggiorna.
+	return D'
+				
+Quando w_{kj} non è un arco bisogna dare un peso che non causa problemi. Quindi il valore neutro per il minimo: \infty
+
+Complessità di questo algoritmo: per p volte eseguiamo la shortest path. Ha tre cicli for eseguiti V volte. La all pairs ha un altro ciclo for eseguito V volte. Gesù, è O(V^4). Inoltre, se guardi alla struttura di extend_sp si può notare che è praticamente uguale a quella dell'algoritmo di moltiplicazione delle matrici, solo posto in un'algebra diversa, chiamata minPlus.
+	Fondamentalmente è richiesta l'inizializzazione ad una matrice identità (quella con la diagonale principale a 0, le altre posizioni a infinito) sulla quale è possibile eseguire operazioni di somma e ricerca del minimo, allo stesso modo in cui si fanno quelle di somma e moltiplicazione. Valgono anche le stesse proprietà. Stiamo praticamente calcolando una potenza di w: w^4. C'è un modo per fare meno schifo?
+	
+Per ora, il prodotto di matrici ha complessità V^3; facendolo V volte otteniamo V^4. Si potrebbe parallelizzare l'algoritmo e poi rimettere insieme i pezzi successivamente, introducendo un fattore logaritmico e ottenendo una complessità V^3log(n).
+Un'altra idea è l'algoritmo di floyd_warshall
+
+// Algoritmo dinamico
+floyd_warshall(w)
+	D_{ij}^k // costo del cammino minimo da i a j che usa solo nodi di {1 ... k} come nodi intermedi
+	
+	n\gets rows[w]
+	D^0\gets w // Matrice iniziale è quella dei pesi di w.
+	
+	for k\gets 1 to n
+		for i \gets 1 to n // Calcoliamo la matrice di k supponendo di avere già disponibile quella di k-1
+			for j\gets i to n
+				D_{ij}^k\gets min(D_{ij}^{k-1}, D_{ik}^{k-1} + D_{kj}^{k-1}) // What the actual fuck, sta prendendo un cammino minore???
+				
+St'algoritmo ha complessità V^3. Costruiamo soluzioni vincolate, rendendo sempre più deboli i vincoli fin quando non arriviamo alla soluzione dei quali è priva.
+Si può fare ancora meglio? Dipende dal caso, ma sì.
+	Questo nuovo algoritmo funziona bene su grafi sparsi, ma male su quelli completi. Sul ragionamento di prima, se abbiamo tutti i pesi non negativi potremmo usare Dijkstra per ogni sorgente, ottenendo una complessità di V(V+E)logV = V^2logV + VElogV.
+	Se il grafo è sparso, allora otteniamo V^2logV, sicuramente meglio di floyd-warshall. Se invece avessimo grafo sparso con pesi negativi? Johnson dice: trasformiamo i pesi del grafo in modo da non avere valori negativi?
+	
+La modalità per ottenere questa cosa è definire una funzione di potenziale. Definisce un nuovo costo che somma il costo base con la differenza dell'arco negativo
+Sia h:V\to R. \hat{w}(u,v) = w(u,v) + h(u) - h(v)
+
+Prendiamo dunque un cammino v_0, v_1, ..., v_n. Quanto vale \hat{w}(v_0, ..., v_n)?
+\hat{w}(v_0, ..., v_n) &= \hat{w}(v_0, v_1) + \hat{w}(v_1, v_2) + ... + \hat{w}(v_{n-1}, v_n)\\
+	&= w(v_0, v_1) + h(v_0) - h(v_1) + w(v_1, v_2) + h(v_1) - h(v_2) + ... + w(v_{n-1}, v_n) + h(v_{n-1}) - h(v_n)
+	
+Notare che fra tutti gli elementi si annullano h(v_1), h(v_2) e in generale tutte le h eccezion fatta per v_0 e v_n. Dall'espressione risulta quindi: \[\sum w(v_i, v_{i+1}) + h(v_0) - h(v_n) = w(v_0, ..., v_n) + h(v_0) - h(v_n)\]
+\noindent Il costo nuovo è quindi uguale al costo vecchio sommato alla differenza tra gli estremi, facendo dipendere da essi il costo totale. Ciò non cambia la semantica del grafo, facendo valere la soluzione con Dijkstra.
+
+Se ora trovassimo una funzione h per la quale Johnson mantiene i cammini minimi anche per grafi completi, abbiamo trovato un algoritmo migliore sempre di floyd_warshall.
+	Supponiamo un grafo G e creiamo un supernodo collegato ad ogni nodo di G con peso 0. Usa bellman ford per calcolare i cammini minimi dal supernodo. Sia quindi d la funzione distanza minima. Sia inoltre h \Delta= d. Usa la funzione di distanza come la h definita prima quindi.
+	
+Complessità dell'algoritmo: VE + VElog(V), quindi bellman ford più l'algoritmo di prima.
+	La complessità generale asintotica è VElog(V), mentre su grafi sparsi è V^2log(V). Come funziona?
+	
+\forall(u,v)\in E[G] abbiamo che d[v] \leq d[u] + w(u,v). L'arco non è rilassabile. Il peso nuovo non è negativo.
+0 &\leq d[u] + w(u,v) - d[v]
+	&= w(u,v) + d[u] - d[v] \equiv \hat{w}(u,v)
+	
+---

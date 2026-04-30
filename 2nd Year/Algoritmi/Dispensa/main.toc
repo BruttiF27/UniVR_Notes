@@ -34,10 +34,9 @@
 \contentsline {section}{\numberline {4.4}Ordinamento topologico}{46}{}%
 \contentsline {section}{\numberline {4.5}Alberi di copertura di costo minimo}{50}{}%
 \contentsline {section}{\numberline {4.6}Cammini minimi a sorgente singola}{54}{}%
-\contentsline {section}{\numberline {4.7}Matching massimale su grafo bipartito}{54}{}%
-\contentsline {section}{\numberline {4.8}Cammini minimi a sorgente multipla}{54}{}%
-\contentsline {section}{\numberline {4.9}Flusso massimo}{54}{}%
-\contentsline {chapter}{\numberline {5}Progettazione e analisi di algoritmi}{55}{}%
-\contentsline {section}{\numberline {5.1}Programmazione dinamica}{55}{}%
-\contentsline {section}{\numberline {5.2}Programmazione greedy}{55}{}%
-\contentsline {section}{\numberline {5.3}Programmazione lineare}{55}{}%
+\contentsline {section}{\numberline {4.7}Cammini minimi a sorgente multipla}{58}{}%
+\contentsline {section}{\numberline {4.8}Flusso massimo}{58}{}%
+\contentsline {chapter}{\numberline {5}Progettazione e analisi di algoritmi}{59}{}%
+\contentsline {section}{\numberline {5.1}Programmazione dinamica}{59}{}%
+\contentsline {section}{\numberline {5.2}Programmazione greedy}{59}{}%
+\contentsline {section}{\numberline {5.3}Programmazione lineare}{59}{}%

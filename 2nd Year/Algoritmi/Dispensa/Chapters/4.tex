@@ -424,182 +424,266 @@ Come input sono richiesti un grafo connesso $G$ e la radice dell'albero $r$. L'a
 %
 
 \section{Cammini minimi a sorgente singola}
-Dijkstra, Bellman-Ford
+Il problema del \textbf{cammino minimo} è intuitivamente la ricerca di un percorso in un grafo da un nodo sorgente a una destinazione, il cui costo
+totale, dato dalla somma dei pesi degli archi, è minimo. Formalmente, è richiesto un grafo orientato pesato $G = (V, E)$, la cui funzione peso descritta
+da $w:E\to \mathbb{R}$ associa un valore ad ogni arco del grafo. Il peso di un cammino sarà dato dall'espressione: \[
+	w(p) = \sum_{i=1}^{k} w(v_{i-1}, v_i)
+\]
+\noindent Mentre il peso di un cammino minimo $\delta(u, v)$ è definito come: \[
+	\delta(u, v) = \begin{cases}
+		min\{w(p) : u\rightsquigarrow v\} & \text{Se esiste un cammino tra i nodi}\\
+		\infty & \text{Altrimenti}
+	\end{cases}
+\]
+\noindent Dunque un cammino minimo da un nodo $u$ ad un vertice destinazione $v$ è definito come un cammino qualsiasi con peso $w(p) = \delta(u,v)$.
+In particolare, questo percorso contiene anche i cammini minimi dalla sorgente a tutti i nodi intermedi per arrivare a $v$, grazie al seguente lemma:
+\begin{lemma}
+	\textbf{Sottocammini di cammini minimi}\par
+	\noindent Dato un grafo orientato pesato $G$ con la relativa funzione del peso $w$, sia un cammino $p = \left<v_0, v_1, ..., v_k \right>$ quello
+	minimo da $v_0$ a $v_k$. Consideriamo due valori $i,j$ compresi tra $0$ e $k$ tali da definire il percorso $p_{ij} = \left<v_i, v_{i+1}, ..., v_j \right>$.
+	Quest'ultimo è un sottocammino di $p$ ed è anche il percorso minimo dal nodo $v_i$ al vertice $v_j$.
+\end{lemma}
 
-% TODO Presenta prima il problema del cammino minimo, spiega perché è vietato avere cicli, pesi negativi e dai i relativi lemmi. Procedi con dijkstra e bellman-ford.
+\noindent Per il corretto funzionamento degli algoritmi trattati in questa sezione, è necessario rispettare alcune condizioni per garantire la risolubilità
+del problema preso in esame. Per esempio, supponiamo un grafo i cui pesi possono essere negativi; sarebbe possibile attraversare all'infinito l'arco con
+tale valore per ridurre il costo del cammino. Ciò rimuove ogni significato della ricerca, e per questa ragione l'algoritmo di Dijkstra contempla
+esclusivamente grafi pesati con valori non negativi.\par
+Espandiamo il discorso considerando i cicli positivi: i grafi non possono contenere nemmeno questi, perché eliminandoli dal cammino si ottiene un
+percorso con la stessa sorgente e destinazione con un peso più piccolo. Gli unici cicli contemplati sono quelli il cui attraversamento è a costo zero,
+i quali si possono direttamente rimuovere dal grafo in quanto ininfluenti.\newline
 
-\begin{comment}
-	
-	--- Cammini minimi
-	Dati grafo pesato (G,w) e nodo s, voglio la descrizione di un cammino da s a u che abbia il costo minimo fra tutti quelli possibili.
-	Problema risolvibile solo se esiste almeno un cammino da u a s. Se in un grafo orientato hai cammini con valori negativi, il problema può non avere soluzione.
-	
-	Illimitato: Dimensione finita e arbitraria
-	Infinito: Dimensione senza confini, non finita.
-	
-	Che modi si possono usare per rappresentare il problema dei cammini minimi?
-	- Lemma
-	Sia s \tilde> u -> v un cammino di costo minimo tra s e v (s\tilde> u significa cammino, -> è un arco diretto).
-	Allora s\tilde u è un cammino di costo minimo tra s e u.
-	
-	Dimostrazione per assurdo. Se [s u_1 u_2 ... u_n \cup v] non è un cammino di costo minimo, allora esisterà comunque un cammino di costo minore.
-	Come diretta conseguenza sto determinando il cammino minimo per ogni singolo nodo attraversato.
-	Posso rappresentare la soluzione come un albero. La soluzione è un insieme dei cammini. (Attenzione, non tutti i cammini minimi sono rappresentabili con alberi).
-	Bisogna dire che l'output è necessariamente un albero. La soluzione deve garantire che tutti i nodi siano raggiungibili e che non ci siano cicli negativi.
-	
-	Gli algoritmoi per la risoluzione di questo problema usano tutti una singol idea di base: Fai un'inizializzazione e continua a rilassare i cammini. Se non ne trovi più di relaxable
-	allora hai il cammino minimo.
-	
-	// Inizializzazione della struttura
-	init(G,s)
-	\forall v\in V[G]
-	d[u]\gets \infty 	// stima del costo minimo del cammino da s a u all'inizio. E' l'elemento neutro per il minimo.
-	\pi[u]\gets NIL		// Predecessore inesistente se sei all'inizio
-	
-	d[s]\gets 0				// s è tuttavia a distanza 0.
-	
-	// Data la distanza da s a v, è possibile arrivare da s a u ed arrivare a v con un costo minore?
-	relax(u, v, w)
-	if d[v] > d[u] + w(u,v) 		// Se la risposta è sì, aggiorno le informazioni e otteniamo quindi il nuovo cammino minimo.
-	d[v]\gets d[u] + w(u,w)		// Somma i nuovi valori di distanza minori rispetto al precedente
-	\pi[v] u					// Segnati il predecessore
-	
-	Se non esistono archi rilassabili, abbiamo il cammino minimo.
-	
-	--- Dijkstra
-	Guardiamo il caso in cui non ci sono pesi negativi. Tutti gli archi hanno pesi positivi. Voglio rendere massimo il prodotto del peso degli alberi.
-	(Oppure la somma dei logaritmi. E' uguale. Il minimo è ottenibile facendo *(-1))
-	
-	dijkstra(G, w, s)
-	init(G,s)
-	Q\gets v[G] // Queue ordinata sulla distanza d. La inizializziamo a tutti i nodi del grafo
-	
-	while Q\neq NIL
-	u\gets extract_min(Q) 	// Prendi il nodo più vicino ad s che trovi e rimuovilo dalla coda
-	\forall v\in Adj[u]		// Controlla ogni nodo nella lista di adiacenza di quello estratto
-	relax(u, v, w)		// Rilassa gli archi per trovare il costo minimo
-	
-	Prendi come esempio il grafo IM2. Per prima cosa la extract min rimuove s dalla coda. Questo perché ha distanza minima da se stesso: 0. Qualunque rilassamento che faccia, non
-	abbasserà mai quel valore. Si partirà quindi sempre da qua.
-	Vede la distanza da s ad a. 5 < \infty, quindi segno distanza 5 ed s come predecessore.
-	Ogni arco, siccome ne si estrae solamente un nodo, viene rilassato solamente una volta.
-	
-	Init: V, creazione coda Q: V, extract_min: V, relax: E.
-	Su extract_min stiamo facendo una reduce key. Per valutare la complessità di dijkstra bisogna valutare la complessità di extract_min e reduce_key.
-	- Per gli heap: extract_min costa log(n), reduce_key costa log(n) \implies (V+E)log(n)		(Miglior opzione grafo sparso)
-	- per liste ordinate: extract_min costa 1, reduce_key costa V \implies V + VE
-	- Per liste non ordinate: extract_min costa V, reduce_key costa E \implies V^2+E			(Miglior opzione grafo completo)
-	
-	NB: Dijkstra può non funzionare con un grafo pesato con valori anche negativi. Questo perché troverebbe nei negativi il minimo, ma essendo che si rimuove il nodo dalla coda non
-	si può tornare indietro.
-	
-	Possiamo fare qualcosa per cicli negativi? Bellman-Ford
-	
-	// Se esiste, la soluzione la trovi anche con archi negativi
-	// Continua a rilassare fin quando non trovi (o non trovi) la soluzione. Sa dire se esiste o meno una soluzione, quindi.
-	bellmanFord(G, w, s)
-	init(G,s)
-	
-	for V-1 times
-	\forall (u,v)\in E[G]
-	relax(u,v,w)
-	
-	\forall (u,v)\in E // Controlla se rimangono archi rilassabili
-	if d[v] > d[u] + w(u,v) // Se sì, non ha soluzione
-	ret false
-	
-	// Altrimenti la soluzione esiste
-	ret true
-	
-	- Lemma di BF
-	Dopo i iterazioni tutti i cammini minimi composti da al più i archi sono stati trovati.
-	
-	Si dimostra per induzione su i. Per i=0 è vera, la distanza da s a s è 0. Vale.
-	Prendiamo ora un cammino di costo minimo s u_1 ... u_i u_{i+1}. Se si arriva a u_{i+1} si arriva sicuramente ad u_i. Scopriamo quindi il cammino minimo.
-	Anzi, troviamo praticamente tutti i cammini minimi dopo V-1 iterazioni.
-	
-	Supponiamo ora di avere cicli negativi e che il test di bellmanFord abbia successo. u_0 u_1 ... u_n u_0
-	Quindi:
-	d[u_1] \leq d[u_0] + w(u_0, u_1)
-	d[u_2] \leq d[u_1] + w(u_1, u_2)
-	...
-	d[u_n] \leq d[u_{n-1}] + w(u_n, u_{n+1})
-	d[u_0] \leq d[u_n] + w(u_n, u_0)
-	
-	Il costo del ciclo è quindi: \sum_u_n d[u_i] \leq \sum_{u_i} d[u_i] + \sum_{u_i, u_{i+1}} w(u_i, u_{i+1})
-	
-	La complessità di bellmanFord è V*E.
-	
-	---
-	// Se il grafo non ha cicli, puoi usare questo per calcolare cammino minimo. Ref: IM3
-	dagSP (G, w, s)
-	init(G,s)
-	ord_top(G)
-	
-	// Praticamente come dijkstra, ma al posto di prendere da una coda, li prende da un ordine topologico.
-	\forall u in ordinamento topologico
-	\forall v\in Adj[u]
-	relax(u,v,w)
-	
-	Quindi archi già rilassati, non ci sono più quelli da rilassare in futuro perché il grafo è aciclico
-	Ord_top: V+E
-	Rilassamenti: E
-	
-	Compl. totale: V+E
-\end{comment}
+\noindent La \textbf{rappresentazione} dei cammini minimi è simile a quella usata per gli alberi BFS. Dato un grafo definiamo un predecessore $\pi[v]$
+che può essere un altro nodo o il valore NIL. È impostato in modo tale per cui sia possibile ripercorrere la catena dei predecessori, ritornando
+appunto il cammino minimo tramite la procedura \textbf{printPath()}. Inoltre, grazie al lemma dei sottocammini, sappiamo che è possibile usare il
+metodo per ritornare anche i sottocammini minimi. In ogni caso, il prodotto della funzione sarà un \textbf{albero di cammini minimi}, il quale conterrà
+i percorsi dalla sorgente alla destinazione definiti minimi in base al peso degli archi.\par
+Gli algoritmi della sezione usano la tecnica del \textbf{rilassamento}: la verifica dell'esistenza di un percorso migliore per la destinazione. Per
+ogni vertice del grafo è mantenuto un valore $d[v]$ detto \textbf{stima del cammino minimo}, il quale è un limite superiore per il peso di un cammino
+minimo dalla sorgente alla destinazione. Per eseguire calcoli corretti, è necessaria la seguente inizializzazione:
+\begin{algorithm}[h]
+	\caption{initializeSingleSource(G, s)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo orientato pesato, $s$: Nodo sorgente
+		\ForAll{$v\in V[G]$}
+		\State $d[v]\gets \infty$
+		\State $\pi[v]\gets \text{NIL}$
+		\EndFor
+		\State $d[s] = 0$
+	\end{algorithmic}
+\end{algorithm}
 
-%
+\noindent Questa procedura, essendo eseguita per ogni nodo del grafo, richiede un tempo di esecuzione $\Theta(V)$. Segue il rilassamento degli archi
+grazie alla procedura \textbf{relax()}, eseguita in tempo $O(1)$:
+\begin{algorithm}[h]
+	\caption{relax(u, v, w)}
+	\begin{algorithmic}[i]
+		\Require $u$: Sorgente, $v$: Destinazione, $w$: Peso
+		\If{$d[v] > d[u] + w(u,v)$} \Comment{Se è trovato un percorso migliore}
+		\State $d[v]\gets d[u] + w(u,v)$ \Comment{Questa diventa la stima del cammino minimo}
+		\State $\pi[v]\gets u$
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
 
-\section{Matching massimale su grafo bipartito}
+\noindent Il processo di rilassamento continua fino a quando non è più possibile rilassare gli archi; in tal caso è stato trovato il cammino minimo
+dalla sorgente alla destinazione.\par
+Il primo algoritmo discusso della sezione è quello di \textbf{Dijkstra}, il quale, eseguito su un grafo orientato pesato i cui costi degli
+archi sono tutti non negativi, consente di trovare il cammino minimo da un nodo sorgente $s$ ad una destinazione $v$ e a tutti i nodi intermedi $u_i$
+del percorso scelto secondo una strategia avida. Mantiene inoltre un insieme $S$ su vertici i cui pesi finali dei cammini minimi sono già stati
+determinati; l'algoritmo seleziona infatti ripetutamente il vertice $u\in V - S$ con la stima minima; lo aggiunge a $S$ e rilassa tutti gli archi
+uscenti dal nodo.
+\begin{algorithm}[h]
+	\caption{dijkstra(G, w, s)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo pesato orientato, $w$: Peso non negativo, $s$: Sorgente
+		\State initializeSingleSource(G, s)
+		\State $S\gets \emptyset$
+		\State $Q\gets \emptyset$
+		\State
+		\ForAll{$u\in V[G]$} \Comment{Inserisci ogni nodo nella coda}
+		\State enqueue(Q, u)
+		\EndFor
+		\State
+		\While{$Q\neq \emptyset$} \Comment{Finché la coda non è vuota}
+		\State $u\gets$ extractMin(Q) \Comment{Estrai il nodo corrente}
+		\State $S\gets S\cup {u}$ \Comment{Aggiungilo all'insieme}
+		\ForAll{$v\in Adj[u]$} \Comment{Rilassa ogni arco nella sua lista di adiacenza}
+		\State relax(u, v, w)
+		\If{relax() diminuisce il valore $d[v]$} \Comment{Se trovato un cammino migliore}
+		\State reduceKey(Q, v, d[v]) \Comment{Riduci la chiave della coda}
+		\EndIf
+		\EndFor
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
 
-\begin{comment}
-	14/04/2026 - Algoritmi
-	
-	--- Come stabilire se un grafo è bipartito?
-	Grafo bipartito quando possiamo partizionare l'insieme dei nodi sicché ogni arco connette due nodi con archi che collegano le due parti.
-	
-	Dato un grafo generico, 
-	
-	BFS di un grafo non orientato connesso
-	
-	forall u\in V[G]
-	color[u]\gets white
-	endFor
-	
-	color[s]\gets grey
-	Q\gets NIL
-	enqueue(Q, s)
-	
-	while Q \neq NIL 
-	u\gets dequeue(Q)
-	
-	forall v\in Adj[u]
-	if color[v] = grey
-	return false
-	else 
-	color[v] = grey
-	endFor
-	endWhile
-	
-	return true
-	
-	---
-	
-	Hai un insieme di piatti di materiale diverso. Chiedono di formarne una pila. Per formarla, il piatto sopra deve essere più piccolo e più morbido rispetto al sottostante.
-	Bisogna fare la pila più alta possibile.
-	
-	Si disegna un grafo orientato dove i nodi entrano in altri con valori minori. Non può essere ciclico perché sopra puoi mettere solo dimensioni e peso minore.
-	Quando ho un cammino su questo grafo posso costruire la pila.
-	Per scegliere da dove partire si può creare un nodo radice collegato a tutti gli altri nodi.
-	Si può aggiungere anche un nodo destinazione ad-hoc e collegarlo a tutti gli altri del grafo. Quello con distanza minima da questo è il cammino di lunghezza massima.
-	
-	Rimossi radice e destinazione arbitrari, hai la pila creata con l'MST. Easy. Free. Restando in V+E.
-\end{comment}
+\noindent A seguito dell'inizializzazione della rappresentazione dei nodi $O(V)$, della coda e dell'insieme, si inseriscono tutti i nodi del grafo
+nella coda $O(V)$, dalla quale ne sarà estratto uno alla volta, ad ogni iterazione del ciclo while, per un totale di $|V|$ volte.
+Al suo interno si unisce il nodo estratto nell'insieme $S$ e si rilassano tutti gli archi da esso uscenti aggiornando la stima $d[u]$ e il predecessore
+$\pi[v]$ se è trovato un cammino meno costoso. Quando ciò accade, si fa una chiamata alla funzione reduceKey() per aggiornare la coda. Ciò accade un 
+totale di $|E|$ volte, quindi per ogni arco del grafo.\par
+La complessità dell'algoritmo di Dijkstra dipende tuttavia anche dalla struttura dati utilizzata per la sua implementazione e quindi ragionare sulle
+procedure di estrazione del minimo e riduzione chiave. In particolare: \begin{itemize}
+	\item \textbf{Heap}: extractMin() e reduceKey() richiedono entrambe un tempo $log(n)$, facendo risultare come tempo totale di esecuzione: $(V+E)log(n)$.
+	Si tratta dell'implementazione migliore per i grafi sparsi.
+	\item \textbf{Liste ordinate}: extractMin() usa tempo costante, mentre reduceKey() costa $O(V)$. Dunque il tempo totale è di $O(V+VE)$.
+	\item \textbf{Liste non ordinate}: extractMin() costa $V$ e reduceKey() $E$. La miglior opzione per i grafi completi ha quindi tempo di esecuzione
+	totale $O(V^2 + E)$.
+\end{itemize}
+\noindent Come già menzionato, Dijkstra non funziona con grafi i cui pesi possono essere anche negativi, perché data la sua proprietà greedy, ovvero che
+estrarre il nodo con stima minima garantisce che quella sia già definitiva, dipende dalla non negatività dei pesi. Con un arco negativo, un nodo già
+estratto dalla coda e inserito nell'insieme potrebbe vedere la sua stima migliorata in seguito, ma non è possibile rivisitarlo.\par
+Per contemplare i cicli negativi possiamo introdurre il secondo algoritmo: \textbf{Bellman-Ford}, che consente di trovare la soluzione al problema del
+cammino minimo da singola sorgente anche in presenza di cicli negativi. Dato un grafo orientato pesato con un nodo sorgente e un peso, restituisce un
+valore booleano che indica se esiste un ciclo negativo raggiungibile dalla sorgente. In tal caso, ritorna false, indicando che il problema non ha una
+soluzione; altrimenti ritorna true insieme ai cammini minimi coi relativi pesi.
+\begin{algorithm}[h]
+	\caption{bellman-ford(G, w, s)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo orientato pesato, $w$: Peso, $s$: Sorgente
+		\State initializeSingleSource(G, s)
+		\For{$i\gets 1$ to $|V[G]|-1$}
+		\ForAll{$(u,v)\in E[G]$}
+		\State relax(u, v, w)
+		\EndFor
+		\EndFor
+		\State
+		\ForAll{$(u,v)\in E[G]$} \Comment{Controlla se rimangono archi rilassabili}
+		\If{$d[v] > d[u]+w(u,v)$} \Comment{Se sì, non c'è soluzione}
+		\State \textbf{return} false
+		\EndIf
+		\EndFor
+		\State \textbf{return} true
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent Dopo l'inizializzazione, l'algoritmo effettua un totale di $|V|-1$ passaggi sugli archi del grafo, ognuna corrispondente ad ogni iterazione
+del primo ciclo for per il rilassamento di ogni arco. Il secondo ciclo for controlla l'esistenza di cicli negativi, ed in tal caso ritorna false.\par
+Per confermare la correttezza dell'algoritmo è necessario in primo luogo dimostrare che in assenza di cicli di peso negativo, calcola correttamente i
+pesi dei cammini minimi per ogni vertice raggiungibile dalla sorgente. Consideriamo un qualunque nodo $v$ raggiungibile dalla sorgente e indichiamo con
+$p = \left<v_0, v_1, ..., v_k \right>$ il cammino minimo aciclico da $s$ a $v=v_k$.\par
+Sicuramente il cammino avrà al più $|V|-1$ archi, quindi $k \leq |V|-1$. Ognuna delle iterazioni del ciclo for rilassa tutti gli $|E|$ archi. In quanto
+comprende tutti i nodi all'interno del percorso, è capace di ritornare i cammini minimi per ognuno di loro a partire dalla sorgente. Inoltre, come
+corollario, abbiamo la sicurezza che esiste un cammino tra due nodi $s, v$ se e solo se l'algoritmo termina con una stima $d[v] < \infty$.\newline
+
+\noindent Supponiamo ora per assurdo che l'algoritmo ritorni un valore true anche in presenza di cicli di peso negativo. In tal caso, significa che per
+ogni arco $(u,v)$ vale la condizione $d[v] \leq d[u] + w(u,v)$. Applicando questa disuguaglianza ad ogni arco del ciclo, otteniamo: \[
+	\sum_{i=0} d[u_i] \leq \sum_{i=0} d[u_i] + \sum_{i=0} w(u_i, u_{i+1}) \implies 0 \leq \sum_{i=0} w(u_i, u_{i+1})
+\]
+\noindent Tuttavia ciò contraddice l'ipotesi che il ciclo sia negativo, perché risulta che sia maggiore o uguale di zero, provando il corretto
+funzionamento dell'algoritmo di Bellman-Ford. Infine, lo studio della complessità risulta estremamente semplice, poiché è evidente come le operazioni
+nei due cicli for siano eseguire prima su ogni nodo $O(V)$ e poi su ogni arco $O(E)$, dando come tempo di esecuzione totale $O(V\times E)$.\newline
+
+\noindent Un ultimo algoritmo per il calcolo del cammino minimo a sorgente singola è quello di \textbf{dagShortestPath()}, il quale sfrutta il fatto
+che in un grafo orientato aciclico esista sempre un ordinamento topologico. Ciò garantisce che quando si rilassa un arco, la stima $d[u]$ è già quella
+definitiva, perché nessun arco potrà tornare su $u$.\par
+Per ipotesi il grafo è aciclico ed è quindi possibile lavorare anche con pesi dal valore negativo. Richiede un'inizializzazione, un ordinamento
+topologico tramite topologicalSort() e un rilassamento degli archi visitando il grafo ordinato. Sfruttando la struttura del dag, ottiene una complessità
+temporale di $O(V+E)$.
+\begin{algorithm}[h]
+	\caption{dagShortestPath(G, w, s)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo orientato aciclico, $w$: Peso, $s$: Sorgente
+		\State initializeSingleSource(G, s)
+		\State topologicalSort(G)
+		\State
+		\ForAll{$u\in V[G]$ ordinato}
+		\ForAll{$v\in Adj[u]$}
+		\State relax(u, v, w)
+		\EndFor
+		\EndFor
+	\end{algorithmic}
+\end{algorithm}
 
 %
 
 \section{Cammini minimi a sorgente multipla}
 Floyd-Warshall, Johnson
+
+\begin{comment}
+--- Risoluzione del problema del cammino minimo per ogni coppia di nodi (a sorgente multipla)
+Banalmente sarebbe possibile ripetere per ogni nodo la soluzione del cammino minimo a sorgente singola vista in precedenza. Dovremmo usare Bellman-ford ma avendo complessità VE e dovendolo ripetere V volte, avremmo V^2E.
+
+Bisogna abbassare la complessità con alcune tecniche.
+Anzitutto bisogna capire come rappresentare il problema. Usiamo la seguente notazione:
+	- D_i: Vettore che comprende i costi dei cammini minimi
+	- \pi_i: Vettore che comprende i predecessori
+	- D_{i,j}: Costo del cammino minimo da i a j
+	- \pi_{i,j}: Predecessore del nodo j nel cammino minimo da i a j
+	
+Per rappresentare la soluzione useremo quindi due vettori:
+	- D = {D_1, D_2, ..., D_n} // Matrice dei cammini minimi
+	- \Pi = {\pi_1, \pi_2, ..., \pi_n} // Matrice dei predecessori per i cammini minimi
+Matrice perché array bidimensionali, capito? Possiamo rappresentare il problema con una matrice. Bisogna calcolare queste matrici, quindi.
+
+// Proviamo ad applicare la soluzione oberosa discussa prima tramite bellman-ford
+all_pairs_sp(G, w)
+	D^0\gets init(G, w) // Inizializza ogni riga ponendo tutti gli elementi sulla diagonale a 0 e nel resto delle posizioni +\infty
+	\For{l\gets 1 to |V[G]|-1} // Per ogni istanza del problema, quindi |V|-1 volte
+		D^l\gets extend_sp(D^{l-1}, w) // extend shortest path, va a rilassare tutti gli archi relativi all'istanza corrente del problema
+	
+	D^{|V[G]|}\gets extend_st(D^{|V[G]|-1}, w)
+	if D^{|V[G]|}\neq D^{|V[G]|-1} // Check per controllare se è stato sbagliato qualcosa nell'estensione della shortest path
+		return false
+
+// A partire dalla destinazione facciamo il rilassamento degli archi
+extend_sp(D, w)
+	n\gets rown[D] // Scopriamo la dimensione della matrice quadrata
+	let D' be matrix n*n
+	
+	for i\gets 1 to n // Per ogni sorgente rilassa tutti gli archi. Sto aggiornando la distanza minima dal nodo di destinazione // i è la sorgente
+		for j\gets 1 to n // j è la destinazione
+			D'_{ij}\gets \infty // La distanza stimata iniziale dal nodo i a quello j è infinita. Va aggiornata tramite esplorazione grafo.
+			
+			for k\gets 1 to n // Per ogni possibile sorgente verso j
+				D'_{ij}\gets min(D_{ij}, D_{ik}+w_{kj}) // facciamo il rilassamento verso l'arco kj, confrontando la minima distanza corrente con quella che otterresti passando dal nodo k attraverso l'arco kj di costo w_{kj}. Se è minore di D_{ij}, lo aggiorna.
+	return D'
+				
+Quando w_{kj} non è un arco bisogna dare un peso che non causa problemi. Quindi il valore neutro per il minimo: \infty
+
+Complessità di questo algoritmo: per p volte eseguiamo la shortest path. Ha tre cicli for eseguiti V volte. La all pairs ha un altro ciclo for eseguito V volte. Gesù, è O(V^4). Inoltre, se guardi alla struttura di extend_sp si può notare che è praticamente uguale a quella dell'algoritmo di moltiplicazione delle matrici, solo posto in un'algebra diversa, chiamata minPlus.
+	Fondamentalmente è richiesta l'inizializzazione ad una matrice identità (quella con la diagonale principale a 0, le altre posizioni a infinito) sulla quale è possibile eseguire operazioni di somma e ricerca del minimo, allo stesso modo in cui si fanno quelle di somma e moltiplicazione. Valgono anche le stesse proprietà. Stiamo praticamente calcolando una potenza di w: w^4. C'è un modo per fare meno schifo?
+	
+Per ora, il prodotto di matrici ha complessità V^3; facendolo V volte otteniamo V^4. Si potrebbe parallelizzare l'algoritmo e poi rimettere insieme i pezzi successivamente, introducendo un fattore logaritmico e ottenendo una complessità V^3log(n).
+Un'altra idea è l'algoritmo di floyd_warshall
+
+// Algoritmo dinamico
+floyd_warshall(w)
+	D_{ij}^k // costo del cammino minimo da i a j che usa solo nodi di {1 ... k} come nodi intermedi
+	
+	n\gets rows[w]
+	D^0\gets w // Matrice iniziale è quella dei pesi di w.
+	
+	for k\gets 1 to n
+		for i \gets 1 to n // Calcoliamo la matrice di k supponendo di avere già disponibile quella di k-1
+			for j\gets i to n
+				D_{ij}^k\gets min(D_{ij}^{k-1}, D_{ik}^{k-1} + D_{kj}^{k-1}) // What the actual fuck, sta prendendo un cammino minore???
+				
+St'algoritmo ha complessità V^3. Costruiamo soluzioni vincolate, rendendo sempre più deboli i vincoli fin quando non arriviamo alla soluzione dei quali è priva.
+Si può fare ancora meglio? Dipende dal caso, ma sì.
+	Questo nuovo algoritmo funziona bene su grafi sparsi, ma male su quelli completi. Sul ragionamento di prima, se abbiamo tutti i pesi non negativi potremmo usare Dijkstra per ogni sorgente, ottenendo una complessità di V(V+E)logV = V^2logV + VElogV.
+	Se il grafo è sparso, allora otteniamo V^2logV, sicuramente meglio di floyd-warshall. Se invece avessimo grafo sparso con pesi negativi? Johnson dice: trasformiamo i pesi del grafo in modo da non avere valori negativi?
+	
+La modalità per ottenere questa cosa è definire una funzione di potenziale. Definisce un nuovo costo che somma il costo base con la differenza dell'arco negativo
+Sia h:V\to R. \hat{w}(u,v) = w(u,v) + h(u) - h(v)
+
+Prendiamo dunque un cammino v_0, v_1, ..., v_n. Quanto vale \hat{w}(v_0, ..., v_n)?
+\hat{w}(v_0, ..., v_n) &= \hat{w}(v_0, v_1) + \hat{w}(v_1, v_2) + ... + \hat{w}(v_{n-1}, v_n)\\
+	&= w(v_0, v_1) + h(v_0) - h(v_1) + w(v_1, v_2) + h(v_1) - h(v_2) + ... + w(v_{n-1}, v_n) + h(v_{n-1}) - h(v_n)
+	
+Notare che fra tutti gli elementi si annullano h(v_1), h(v_2) e in generale tutte le h eccezion fatta per v_0 e v_n. Dall'espressione risulta quindi: \[\sum w(v_i, v_{i+1}) + h(v_0) - h(v_n) = w(v_0, ..., v_n) + h(v_0) - h(v_n)\]
+\noindent Il costo nuovo è quindi uguale al costo vecchio sommato alla differenza tra gli estremi, facendo dipendere da essi il costo totale. Ciò non cambia la semantica del grafo, facendo valere la soluzione con Dijkstra.
+
+Se ora trovassimo una funzione h per la quale Johnson mantiene i cammini minimi anche per grafi completi, abbiamo trovato un algoritmo migliore sempre di floyd_warshall.
+	Supponiamo un grafo G e creiamo un supernodo collegato ad ogni nodo di G con peso 0. Usa bellman ford per calcolare i cammini minimi dal supernodo. Sia quindi d la funzione distanza minima. Sia inoltre h \Delta= d. Usa la funzione di distanza come la h definita prima quindi.
+	
+Complessità dell'algoritmo: VE + VElog(V), quindi bellman ford più l'algoritmo di prima.
+	La complessità generale asintotica è VElog(V), mentre su grafi sparsi è V^2log(V). Come funziona?
+	
+\forall(u,v)\in E[G] abbiamo che d[v] \leq d[u] + w(u,v). L'arco non è rilassabile. Il peso nuovo non è negativo.
+0 &\leq d[u] + w(u,v) - d[v]
+	&= w(u,v) + d[u] - d[v] \equiv \hat{w}(u,v)
+\end{comment}
 
 %
 

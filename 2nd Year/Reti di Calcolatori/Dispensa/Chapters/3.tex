@@ -1,106 +1,321 @@
 \section{Scopi e servizi}
-I protocolli a livello di trasporto mettono a disposizione una \textbf{comunicazione logica} tra processi applicativi di due host diversi. Sono implementati nei sistemi periferici; lato client, il livello di trasporto converte i messaggi spezzettandoli in \textbf{segmenti} e aggiungendo loro un'\textbf{intestazione}; il prodotto è passato al livello di rete che li incapsulerà in un pacchetto detto \textbf{datagramma} e inviato a destinazione.\par
-Lato server, invece, il livello di rete estrae i segmenti dai datagrammi ottenuti e li passa al livello di trasporto, il quale li elabora, estraendo i dati per renderli disponibili all'applicazione destinataria.\newline
+I protocolli a livello di trasporto mettono a disposizione una \textbf{comunicazione logica} tra processi applicativi di due host diversi. Sono 
+implementati nei sistemi periferici; lato client, il livello di trasporto converte i messaggi spezzettandoli in \textbf{segmenti} e aggiungendo loro 
+un'\textbf{intestazione}; il prodotto è passato al livello di rete che li incapsulerà in un pacchetto detto \textbf{datagramma} e inviato a destinazione.\par
+Lato server, invece, il livello di rete estrae i segmenti dai datagrammi ottenuti e li passa al livello di trasporto, il quale li elabora, estraendo 
+i dati per renderli disponibili all'applicazione destinataria.\newline
 
 \noindent Come già menzionato in precedenza, il livello di trasporto fornisce due protocolli: \begin{itemize}
 	\item \textbf{Transmission Control Protocol} (TCP): Servizio orientato alla connessione, che garantisce la consegna ordinata di tutti i segmenti.
 	\item \textbf{User Datagram Protocol} (UDP): Servizio non orientato alla connessione, non affidabile.
 \end{itemize}
-\noindent Entrambi separano il messaggio originale in segmenti e aggiungono un'intestazione di forma diversa, la quale sarà trattata nelle seguenti sezioni. Prima di discuterne è tuttavia necessario chiarire in che modo i dati vengono trasferiti, ovvero come il servizio di trasporto a livello di rete possa diventarne un'altro da processo a processo per le applicazioni.\par
-Ricordiamo che il livello di trasporto invia i dati agli host tramite un socket, il quale ha un identificatore univoco il cui formato dipende dal protocollo utilizzato. Ciascun segmento dei dati originali presenta vari campi; lato ricevente, il livello di trasporto li analizza per identificare il socket di ricezione e dirigervi il segmento. Definiamo questo compito \textbf{demultiplexing}, mentre il suo duale, ovvero il raggruppare i segmenti ed incapsularli con un'intestazione per inviarli al livello di rete, è detto \textbf{multiplexing}. Con questi presupposti possiamo ora analizzare nel dettaglio i due protocolli di trasporto.
+\noindent Entrambi separano il messaggio originale in segmenti e aggiungono un'intestazione di forma diversa, la quale sarà trattata nelle seguenti
+sezioni. Prima di discuterne è tuttavia necessario chiarire in che modo i dati vengono trasferiti, ovvero come il servizio di trasporto a livello di
+rete possa diventarne un'altro da processo a processo per le applicazioni.\par
+Ricordiamo che il livello di trasporto invia i dati agli host tramite un socket, il quale ha un identificatore univoco il cui formato dipende dal
+protocollo utilizzato. Ciascun segmento dei dati originali presenta vari campi; lato ricevente, il livello di trasporto li analizza per identificare
+il socket di ricezione e dirigervi il segmento. Definiamo questo compito \textbf{demultiplexing}, mentre il suo duale, ovvero il raggruppare i segmenti
+ed incapsularli con un'intestazione per inviarli al livello di rete, è detto \textbf{multiplexing}. Con questi presupposti possiamo ora analizzare nel
+dettaglio i due protocolli di trasporto.
 
 %
 
 \section{Protocollo TCP}
-Il \textbf{Transport Control Protocol} (TCP) è un protocollo orientato alla connessione perché richiede un preliminare scambio di messaggi per la sua instaurazione, ed è ritenuto affidabile in quanto si assicura la consegna ordinata di ogni dato tramite ricevute inviate dall'end-host ricevente.\par
-Supponiamo ora che il processo di un host voglia comunicare con un altro; in primo luogo, l'applicativo del client informerà il suo livello di trasporto di voler stabilire una connessione verso un processo nel server e gli invierà quindi un segmento TCP. Il server risponderà con un altro segmento, alla cui ricezione da parte del client, ne invierà un terzo. Inviando tre segmenti, questa fase è detta \textbf{three-way handshake} e le sue specifiche saranno trattate nel dettaglio più avanti nella sezione.\par
-Instaurata una connessione TCP, i due processi applicativi potranno scambiarsi i dati bidirezionalmente tramite il socket aperto, in base ad un valore specifico, detto \textbf{maximum segment size} (MSS), che indica la massima quantità di dati prelevabili e posizionabili in un singolo segmento a livello di applicazione. È un valore impostato nel three-way handshake determinando la lunghezza del frame più grande che può essere inviato a livello di collegamento, la \textbf{maximum transmission unit} (MTU).\par
-TCP accoppierà poi ogni blocco di dati (\textbf{payload}) ricevuto dal livello superiore con un'\textbf{intestazione TCP}, formando i segmenti da inviare a livello di rete, ivi incapsulati a loro volta in \textbf{datagrammi IP}. Quando l'end-host ricevente riceve un segmento, i suoi dati sono memorizzati in un buffer di ricezione il quale è letto dal livello applicativo.\newline
+Il \textbf{Transport Control Protocol} (TCP) è un protocollo orientato alla connessione perché richiede un preliminare scambio di messaggi per la sua
+instaurazione, ed è ritenuto affidabile in quanto si assicura la consegna ordinata di ogni dato tramite ricevute inviate dall'end-host ricevente.\par
+Supponiamo ora che il processo di un host voglia comunicare con un altro; in primo luogo, l'applicativo del client informerà il suo livello di trasporto
+di voler stabilire una connessione verso un processo nel server e gli invierà quindi un segmento TCP. Il server risponderà con un altro segmento, alla
+cui ricezione da parte del client, ne invierà un terzo. Inviando tre segmenti, questa fase è detta \textbf{three-way handshake} e le sue specifiche
+saranno trattate nel dettaglio più avanti nella sezione.\par
+Instaurata una connessione TCP, i due processi applicativi potranno scambiarsi i dati bidirezionalmente tramite il socket aperto, in base ad un valore
+specifico, detto \textbf{maximum segment size} (MSS), che indica la massima quantità di dati prelevabili e posizionabili in un singolo segmento a
+livello di applicazione. È un valore impostato nel three-way handshake determinando la lunghezza del frame più grande che può essere inviato a livello
+di collegamento, la \textbf{maximum transmission unit} (MTU).\par
+TCP accoppierà poi ogni blocco di dati (\textbf{payload}) ricevuto dal livello superiore con un'\textbf{intestazione TCP}, formando i segmenti da
+inviare a livello di rete, ivi incapsulati a loro volta in \textbf{datagrammi IP}. Quando l'end-host ricevente riceve un segmento, i suoi dati sono
+memorizzati in un buffer di ricezione il quale è letto dal livello applicativo.\newline
 
-\noindent Analizziamo nel dettaglio la struttura dell'intestazione TCP; comunemente occupa $20b$ e presenta i seguenti campi: \begin{itemize}
-	\item \textbf{Porta sorgente/destinazione}: Identificatori dei processi coinvolti nella comunicazione. Ciascuno di questi valori è rappresentato da $16b$, rendendo possibile usare $65536$ porte diverse, le quali si dividono in due tipi: \begin{itemize}
-		\item \textbf{Statiche}: Identificativi utilizzabili esclusivamente lato server associati a protocolli definiti da uno standard come HTTP o SMTP. Comprendono i valori dell'intervallo $[0, 1023]$.
-		\item \textbf{Dinamiche}: Identificativi assegnati dal sistema operativo al lato client quando viene aperto un socket. Prendono un numero casuale dall'intervallo $[1024, 65535]$.
+\noindent Analizziamo nel dettaglio la struttura dell'intestazione TCP; comunemente occupa $20B$ e presenta i seguenti campi: \begin{itemize}
+	\item \textbf{Porta sorgente/destinazione}: Identificatori dei processi coinvolti nella comunicazione. Ciascuno di questi valori è rappresentato
+	da $16b$, rendendo possibile usare $65536$ porte diverse, le quali si dividono in due tipi: \begin{itemize}
+		\item \textbf{Statiche}: Identificativi utilizzabili esclusivamente lato server associati a protocolli definiti da uno standard come HTTP o
+		SMTP. Comprendono i valori dell'intervallo $[0, 1023]$.
+		\item \textbf{Dinamiche}: Identificativi assegnati dal sistema operativo al lato client quando viene aperto un socket. Prendono un numero
+		casuale dall'intervallo $[1024, 65535]$.
 	\end{itemize}
-	\item \textbf{Numero di sequenza/acknowledgement}: Utilizzati per implementare l'affidabilità del protocollo, richiedono entrambi $32b$. Il numero di sequenza indica l'offset rispetto al primo byte del segmento e consente di capire come devono essere ricostruiti\footnote{Supponiamo di avere un messaggio di dimensione $5000B$ e che l'MSS sia di $900B$. Il primo segmento avrà $0$ come numero di sequenza, il secondo $900$, il terzo $1800$ e così via.}. L'offset è calcolato sommando un \textbf{initial sequence number}, un numero casuale generato dal sistema operativo che rimane costante, con il numero di sequenza del segmento. Il numero di acknowledgement indica invece il primo byte del segmento che la destinazione si aspetta di ricevere.
+	\item \textbf{Numero di sequenza/acknowledgement}: Utilizzati per implementare l'affidabilità del protocollo, richiedono entrambi $32b$. Il numero
+	di sequenza indica l'offset rispetto al primo byte del segmento e consente di capire come devono essere ricostruiti\footnote{Supponiamo di avere un
+	messaggio di dimensione $5000B$ e che l'MSS sia di $900B$. Il primo segmento avrà $0$ come numero di sequenza, il secondo $900$, il terzo $1800$ e
+	così via.}. L'offset è calcolato sommando un \textbf{initial sequence number}, un numero casuale generato dal sistema operativo che rimane
+	costante, con il numero di sequenza del segmento. Il numero di acknowledgement indica invece il primo byte del segmento che la destinazione si
+	aspetta di ricevere.
 	\item \textbf{Offset intestazione}: Specifica la lunghezza dell'intestazione TCP in multipli di $32b$.
-	\item \textbf{Flag}: Questo campo contiene dei segnalatori con logica di codifica 1-hot. \textbf{ACK} segnala che un segmento contiene un acknowledgement per un segmento ricevuto correttamente. \textbf{RST}, \textbf{SYN} e \textbf{FIN} sono invece usati per impostare e chiudere la connessione. L'insieme richiede $6b$.
-	\item \textbf{Finestra di ricezione}: Usata per il controllo di flusso, indica il numero di byte che il destinatario è disposto ad accettare. Richiede $16b$.
-	\item \textbf{Checksum Internet}: Richiesto per il controllo di errori nel segmento. Si chiama una funzione che prende l'intestazione come input; il suo output è assegnato a questo campo. Si tratta di un controllo attuabile da entrambi gli host e se l'output risultante è lo stesso, è altamente probabile che i dati siano corretti. Se differiscono, il segmento è scartato.
+	\item \textbf{Flag}: Questo campo contiene dei segnalatori con logica di codifica 1-hot. \textbf{ACK} segnala che un segmento contiene un
+	acknowledgement per un segmento ricevuto correttamente. \textbf{RST}, \textbf{SYN} e \textbf{FIN} sono invece usati per impostare e chiudere la
+	connessione. L'insieme richiede $6b$.
+	\item \textbf{Finestra di ricezione}: Usata per il controllo di flusso, indica il numero di byte che il destinatario è disposto ad accettare.
+	Richiede $16b$.
+	\item \textbf{Checksum Internet}: Richiesto per il controllo di errori nel segmento. Si chiama una funzione che prende l'intestazione come input;
+	il suo output è assegnato a questo campo. Si tratta di un controllo attuabile da entrambi gli host e se l'output risultante è lo stesso, è altamente
+	probabile che i dati siano corretti. Se differiscono, il segmento è scartato.
 	\item \textbf{Opzioni}: Facoltativo e di lunghezza variabile, è utilizzato quando i due host devono determinare la lunghezza dell'MSS.
 \end{itemize}
-\noindent Definita l'intestazione, ora possiamo andare più nel dettaglio in merito all'instaurazione delle connessioni TCP. Il three-way handshake si compone di più elementi: in primo luogo, di un messaggio di \textbf{sincronizzazione} inviato dal client, contenente i parametri delle porte, numero di sequenza, numero di acknowledge e il flag SYN posto a $1$. Segnala la volontà di aprire una connessione.\par
-Il server risponderà con un messaggio di acknowledge sincronizzazione, dove sono contenuti i parametri delle porte invertiti, l'ISN$_s$\footnote{Indichiamo $ISN_c$ e $ISN_s$ come initial sequence numbers di client e server rispettivamente. In particolare, $ISN_s=ISN_c+1$.}, acknowledge number e naturalmente i flag SYN e ACK posti a $1$.\par
-La stretta di mano si conclude con un messaggio di acknowledge da parte del client, il quale invierà i parametri delle porte, l'ISN$_c$, il flag ACK posto a $1$ e come numero di acknowledge il valore $ISN_s+1$.\newline
+\noindent Definita l'intestazione, ora possiamo andare più nel dettaglio in merito all'instaurazione delle connessioni TCP. Il three-way handshake si
+compone di più elementi: in primo luogo, di un messaggio di \textbf{sincronizzazione} inviato dal client, contenente i parametri delle porte, numero di
+sequenza, numero di acknowledge e il flag SYN posto a $1$. Segnala la volontà di aprire una connessione.\par
+Il server risponderà con un messaggio di acknowledge sincronizzazione, dove sono contenuti i parametri delle porte invertiti, l'ISN$_s$\footnote{
+	Indichiamo $ISN_c$ e $ISN_s$ come initial sequence numbers di client e server rispettivamente. In particolare, $ISN_s=ISN_c+1$.
+	}, acknowledge number e naturalmente i flag SYN e ACK posti a $1$.\par
+La stretta di mano si conclude con un messaggio di acknowledge da parte del client, il quale invierà i parametri delle porte, l'ISN$_c$, il flag ACK
+posto a $1$ e come numero di acknowledge il valore $ISN_s+1$.\newline
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.75\linewidth]{Images/headerTCP.png}
 	\caption{Intestazione dei segmenti TCP}
 \end{figure}
 
-\noindent Durante il three-way handshake è inoltre deciso il parametro di maximum segment size per evitare che si sforino le capacità delle schede di rete, ed è scelto il valore più piccolo delle due entità.\par
-La richiesta di chiusura della connessione, come per il suo duale, richiede uno scambio di messaggi di header TCP, ed è una procedura che avviene indipendentemente nei due host. Si utilizzano messaggi di FIN e ACK con i relativi flag posti a $1$ e possono avvenire i seguenti casi: \begin{itemize}
-	\item Se il client è il primo a inviare un FIN, il server ritornerà un ACK e la connessione sarà chiusa lato client. L'altro host invierà poi a sua volta il FIN ed il client risponderà con un ACK. La connessione si può considerare chiusa solo dopo questo scambio.
-	\item Il primo host invia un messaggio di FIN e il secondo ritornerà un ACK, chiudendo una direzione del socket. Quando la procedura è ripetuta in viceversa, la connessione TCP sarà del tutto chiusa.
-	\item Una procedura più rapida vede il primo host inviare un FIN ed il secondo ritornare un FIN-ACK. Ricevuto quest'ultimo messaggio, il primo host risponderà con un ACK a sua volta, chiudendo la connessione.
+\noindent Durante il three-way handshake è inoltre deciso il parametro di maximum segment size per evitare che si sforino le capacità delle schede di
+rete, ed è scelto il valore più piccolo delle due entità.\par
+La richiesta di chiusura della connessione, come per il suo duale, richiede uno scambio di messaggi di header TCP, ed è una procedura che avviene
+indipendentemente nei due host. Si utilizzano messaggi di FIN e ACK con i relativi flag posti a $1$ e possono avvenire i seguenti casi: \begin{itemize}
+	\item Se il client è il primo a inviare un FIN, il server ritornerà un ACK e la connessione sarà chiusa lato client. L'altro host invierà poi a sua
+	volta il FIN ed il client risponderà con un ACK. La connessione si può considerare chiusa solo dopo questo scambio.
+	\item Il primo host invia un messaggio di FIN e il secondo ritornerà un ACK, chiudendo una direzione del socket. Quando la procedura è ripetuta in
+	viceversa, la connessione TCP sarà del tutto chiusa.
+	\item Una procedura più rapida vede il primo host inviare un FIN ed il secondo ritornare un FIN-ACK. Ricevuto quest'ultimo messaggio, il primo host
+	risponderà con un ACK a sua volta, chiudendo la connessione.
 \end{itemize}
 
-\noindent Chiediamoci adesso quali siano le modalità procedurali che rendono il TCP un protocollo affidabile. Adotta in primo luogo la tecnica del \textbf{positive acknowledgement with retransmission}, dunque ad ogni segmento inviato deve corrispondere un responso positivo dall'altro host. Quando non è ricevuto, si ritenta l'invio fino a quando non lo si ottiene.\par
-Il riscontro è un messaggio di acknowledgement che, come detto prima, contiene il relativo flag posto ad $1$ ed il primo byte del segmento che la destinazione si aspetta di ricevere. Ciò significa che se lato client è stato inviato un sequence number $44$, il numero di acknowledge inviato dal server sarà $45$. Quando non è ricevuto questo valore, si attiva un timer chiamato \textbf{Retransmission Time-out} (RTO), al termine del quale si invia nuovamente il messaggio precedentemente non corrisposto.\par
-Il valore di RTO non è fisso, perché il ritardo varia a causa di più fattori, come per esempio la distanza geografica tra i due host. È per questa ragione che durante il three-way handshake, client e server misurano il roundtrip time (RTT), per usarlo come base di calcolo. Prima di definire l'RTO, è assegnato un valore preventivo di $5000ms$
+\noindent Chiediamoci adesso quali siano le modalità procedurali che rendono il TCP un protocollo affidabile. Adotta in primo luogo la tecnica del
+\textbf{positive acknowledgement with retransmission}, dunque ad ogni segmento inviato deve corrispondere un responso positivo dall'altro host.
+Quando non è ricevuto, si ritenta l'invio fino a quando non lo si ottiene.\par
+Il riscontro è un messaggio di acknowledgement che, come detto prima, contiene il relativo flag posto ad $1$ ed il primo byte del segmento che la
+destinazione si aspetta di ricevere. Ciò significa che se lato client è stato inviato un sequence number $44$, il numero di acknowledge inviato dal
+server sarà $45$. Quando non è ricevuto questo valore, si attiva un timer chiamato \textbf{Retransmission Time-out} (RTO), al termine del quale si invia
+nuovamente il messaggio precedentemente non corrisposto.\par
+Il valore di RTO è inizialmente posto a $5000ms$ preventivando eventuali problemi legati a fattori come distanza geografica o problemi di rete. Non è
+tuttavia un numero fisso; infatti, client e server misurano il Roundtrip time ad ogni segmento inviato e usano il primo come base di calcolo per 
+aggiornare una variabile chiamata \textbf{smoothed-RTT} (SRTT) oppure Exponential Weighted Moving Average (EWMA) secondo la formula: \[
+SRTT_{\text{attuale}} = \alpha SRTT_{\text{precedente}} + (1-\alpha)RTT_{\text{istantaneo}} \quad\text{con $0 < \alpha < 1$}
+\]
+\noindent SRTT è una stima del valore medio di Roundtrip time e si utilizza per calcolare l'RTO con la formula: \[
+RTO = \beta\cdot SRTT\quad\text{con $\beta$ generalmente uguale a $2$}
+\]
+\noindent Il quale, in caso di perdita di un segmento, è raddoppiato. Questo meccanismo è necessario perché potremmo trovarci nelle condizioni di
+inviare segmenti ad un'applicazione con bassa velocità di lettura del suo buffer di ricezione, ma allora dovremmo rallentare la velocità di trasmissione,
+facendo risultare la connessione più lenta. Come è possibile avere un'alta velocità di trasmissione senza mandare il buffer in overflow?\par
+Le risposte offerte dal protocollo TCP vengono nella forma di \textbf{controllo di flusso} e \textbf{controllo di congestione}; il primo è un'azione
+preventiva per evitare la congestione e riduce la probabilità di perdere dei segmenti, mentre il secondo è una reazione in caso di congestione della
+rete, dunque quando non si ricevono riscontri per i segmenti inviati.\newline
 
+\noindent Il controllo di flusso è un meccanismo che consente anche l'invio di più segmenti alla volta grazie all'implementazione di una \textbf{
+finestra di ricezione scorrevole} (RCVWND) con un relativo parametro che salva la sua dimensione. Si tratta del numero massimo di segmenti inviabili
+al buffer del destinatario; se per esempio la dimensione corrisponde a tre segmenti, il mittente potrà inviare i segmenti $s1, s2, s3$ in una volta
+sola, alla cui ricezione da parte del server, risponderà con tre numeri di acknowledge di fila. Ad ogni riscontro ricevuto, la finestra si sposterà
+di una posizione, per consentire l'invio dei segmenti successivi, fino alla consegna dell'intero pacchetto. La formula della velocità di trasmissione
+diventa quindi: \[
+v_t = RCVWND / RTT
+\]
 
-\begin{comment}	
-	Eventualmente è possibile anche aggiornare
-	l'RTO se ci sono problemi di connessione o per esempio una congestione di rete. Si usa l'RTT istantaneo per aggiornare la variabile di smoothed-RTT.
-	Ogni host, per ogni segmento inviato, misura l'RTT istantaneo e usa tale valore per aggiornare una variabile chiamata S-RTT (Smoothed RTT). Segue la formula:
-	\[SRTT_{\text{attuale}} = \alpha SRTT_{\text{precedente}} + (1-\alpha)RTT_{\text{istantaneo}}\]
-	\noindent Con 0 < \alpha < 1. Lo SRTT è una stima del valore medio del RTT. Alternativamente si chiama Exponential weighted moving average (EWMA).
-	Dato l'SRTT, l'RTO viene determinato come \beta*SRTT, con \beta normalmente uguale a 2. In caso di perdita di segmento, inoltre, il RTO del segmento ritrasmesso viene raddoppiato.
-	
-	Se invio un segmento ogni RTT, la velocità di trasmissione è la dimensione del segmento diviso l'RTT.
-	Ex: 1500B/100ms \approx 120Kb/s. E' una miseria.
-	Quindi come si può aumentare la velocità di trasmissione? Trasmettere più segmenti in un singolo RTT. Ma allora quanti segmenti allo stesso tempo posso trasmettere?
-	Come è possibile gestire i riscontri? Che succede se uno dei segmenti inviati in gruppo viene perso?
-	
-	Le risposte le danno il controllo di flusso e il controllo di congestione.
-	Il primo è un'azione preventiva per evitare la congestione. Aiuta a ridurre la probabilità che vengano persi dei segmenti.
-	Il secondo è invece una reazione in caso di congestione, intesa come perdita di segmenti, dunque riscontri non ricevuti.
-	
-	--- Come gestire la trasmissione di più segenti contemporaneamente da parte dell'host?
-	Approfondiamo meglio il controllo di flusso. Il suo meccanismo principale è chiamato "meccanismo a finestra scorrevole". Abbiamo un nuovo parametro w detto window size.
-	E' il numero massimo di segmenti che possono stare in rete senza ricevere riscontro. Praticamente si inviano queste finestre e l'altro host ritorna ackNum per ogni successivo
-	ricevuto. Per esempio se w=3 si inviano tre segmenti. Host 2 ritorna ack per ricevere seg2, vede che ce l'ha, quindi invia ack per seg3 e così via.
-	Ricevuto l'ack 2 dal client, si scorre la finestra dei segmenti inviabili, inviando il seg4, 5 e 6. Il server ripete quanto appena detto.
-	
-	Quindi si invia una sequenza w di pacchetti; ricevuti i rispettivi ack si possono inviare i successivi. La formula della velocità diventa [w segmenti/RTT].
-	Questo era il caso ideale; in caso di perdita e di fuori sequenza che fo?
-	Se perdi un pacchetto il server continua ad inviare il numero di sequenza che si aspetta prima di poter continuare.
-	Scaduto l'RTO, si reinvia il segmento non ricevuto con selective repeat. Con l'ack del server si fa capire alla sorgente quale pacchetto è stato perso e quali erano già stati
-	ricevuti. Ciò consente di far scorrere la finestra e di inviare i tre nuovi segmenti.
-	In caso di ritardi invece, il server continua a inviar l'ack del pacchetto mancante
-\end{comment}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/streamControl.png}
+	\caption{Esempio controllo di flusso}
+\end{figure}
+
+\noindent Non sempre si può ottenere il caso ideale appena discusso; è possibile avere \textbf{perdite} o \textbf{ritardi} di segmenti durante i
+tentativi della loro trasmissione. Per il primo scenario supponiamo che il client voglia inviare una sequenza di tre segmenti $s1, s2, s3$ e che il
+terzo venga perso per qualche motivo.\par
+In tal caso, il server ritornerà correttamente i numeri di acknowledge per i primi due segmenti senza inviare l'ultimo. L'RTO per il terzo segmento
+è quindi ancora attivo. Ricevuti i riscontri, la finestra di ricezione si sposterà di due posizioni e il client potrà inviare i successivi due elementi
+$s4, s5$, correttamente ricevuti dal server, il quale continuerà a ritornare l'acknowledge number per il segmento mancante: $ack3$. Il mittente
+attenderà quindi lo scadere dell'RTO per ritrasmettere il segmento $s3$, ed una volta recepito dal server, ritornerà $ack6$, poiché ha già ricevuto
+tutti i segmenti fino a $s5$.\par
+Generalmente, quando un server riceve pacchetti diversi da quelli comunicati tramite l'acknowledge number, continua a reinviare quest'ultimo fino a
+quando non è recepito. In caso di ritardi infatti, se un client invia tre segmenti $s1, s2, s3$ come prima, ma il secondo ha un ritardo, il server
+invierà $ack2$ fino a quando non gli sarà consegnato.\newline
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/streamControlProblems.png}
+	\caption{Perdita e ritardo di pacchetti}
+\end{figure}
+
+\noindent Ma in che modo è determinata la dimensione della finestra di trasmissione? Non è possibile avere un valore determinato, bisogna infatti
+adattarlo in base alla situazione corrente della rete. Ciò avviene grazie ai riscontri; la loro ricezione o assenza è il metro per l'adattamento.\par
+In genere, se i riscontri sono ricevuti regolarmente, è un segnale che la rete è in grado di gestire il traffico inviato e si potrebbe pensare di
+aumentare la dimensione della finestra. In caso contrario, quindi in presenza di perdite, alla scadenza dell'RTO ne si diminuisce la dimensione.
+Le regole per la gestione di questo meccanismo sono: \begin{itemize}
+	\item \textbf{Slow-Start}: Oltre a spostare la finestra, aumenta la sua dimensione di un segmento per ogni riscontro correttamente ricevuto.
+	\item \textbf{Congestion avoidance}: Ad ogni riscontro ricevuto, aumenta la dimensione della finestra di $1/w$. Per esempio, partendo con una
+	dimensione $w=2$, alla ricezione dei due riscontri si incrementa la grandezza di $2\cdot 1/2 = 1$ segmento. 
+	\item \textbf{Vanilla TCP}: Quando non si è ricevuto un riscontro entro l'RTO, la dimensione è ridotta a $1$ e si ricomincia la trasmissione a
+	partire dal segmento perso.
+	\item \textbf{Fast retransmit/Fast recovery}: Quando non si è ricevuto un riscontro entro l'RTO, si dimezza\footnote{Generalmente si approssima
+	il risultato per difetto, ma è contemplata, previa segnalazione, l'approssimazione per eccesso.} la dimensione attuale della finestra
+	e si ricomincia la trasmissione a partire dal segmento perso.
+\end{itemize}
+
+\noindent Viene usato un \textbf{algoritmo} specifico per il \textbf{controllo} della \textbf{congestione} e richiede i parametri discussi prima:
+congestion window (CWND), la dimensione della finestra; retransmissione time-out (RTO); receiver window (RCVWND), la finestra massima di ricezione
+segmenti; slow-start threshold (SSTHRESH), soglia per determinare l'utilizzo di slow-start o congestion avoidance.
+\begin{algorithm}
+	\caption{TCP-WindowManager()}
+	\begin{algorithmic}[i]
+		\State $cwnd\gets 1$
+		\State $rcvwnd\gets$ valore comunicato ad ogni riscontro
+		\State $ssthresh\gets rcvwnd$
+		\State $rto\gets$ valore misurato con $\beta\cdot SRTT$
+		\State
+		\State Client invia un numero $cwnd$ di segmenti
+		\If{Riscontro ricevuto}
+		\If{$cwnd < ssthresh$} \Comment{Uso lo slow-start}
+		\State $cwnd\gets min(cwnd + ackNum, rcvwnd, ssthresh)$
+		\Else \Comment{Uso la congestion avoidance}
+		\State $cwnd\gets min(cwnd+ackNum / cwnd, rcvwnd)$
+		\EndIf
+		\Else \Comment{Se non arrivano riscontri e scade l'RTO}
+		\State $ssthresh\gets cwnd/2$
+		\State $cwnd\gets 1$ \Comment{In caso di vanilla TCP}
+		\State $rto\gets 2*rto$
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{Images/congestionControl.png}
+	\caption{Panoramica algoritmo controllo congestione}
+\end{figure}
 
 %
 
 \section{Protocollo UDP}
+Il protocollo \textbf{User Datagram Protocol} (UDP) ha una struttura nettamente più semplice rispetto al TCP: diciamo anzitutto che è \textbf{
+connectionless} perché non effettua un preliminare scambio dei messaggi prima di inviare dati al server. UDP riceve i messaggi, aggiunge porta di
+origine e destinazione e passa il segmento a livello di rete, dove viene incapsulato e inviato in modalità "best-effort". Ciò significa che non è
+garantita la consegna dei segmenti, rendendolo un protocollo inaffidabile.\par
+Tuttavia, non significa che non abbia comunque i suoi utilizzi. UDP è un protocollo utilizzato per le applicazioni \textbf{tolleranti alle perdite}
+grazie ad alcuni suoi pregi: \begin{itemize}
+	\item Richiede un controllo più preciso a livello applicativo su quali dati sono inviati e quando.
+	\item In quanto connectionless, non genera un ritardo per l'instaurazione della connessione.
+	\item Richiede minor spazio per l'intestazione dei pacchetti.
+\end{itemize}
+
+\noindent Quindi, sebbene a primo impatto possa sembrare inutilizzabile, UDP è un protocollo importante per il funzionamento di molte applicazioni
+che richiedono tempi di risposta rapidi e in tempo reale. Per esempio, in quelle di streaming audio si riceve il segnale, che è quantizzato e
+discretizzato, per poi essere diviso in pacchetti ai quali è aggiunto l'header. Vengono inviate al secondo host, il quale potrà ricostruirlo
+ordinatamente, ma in caso di perdita, lascerà del silenzio. La velocità di trasmissione dei dati dipende quindi dalla loro velocità di generazione.\par
+L'header, come già detto, di dimensione minore rispetto al TCP, presenta quattro campi: porta di origine, porta di destinazione e checksum, il cui
+funzionamento è identico al TCP, e quello di \textbf{lunghezza dei dati} per indicare la loro dimensione.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/UDP_header.png}
+	\caption{Panoramica intestazione UDP}
+\end{figure}
+
+%
+
+\section{Esercizi svolti}
 
 \begin{comment}
-	Lez10 - 21-04-26 Reti di calcolatori
+	--- Esercizio su TCP
+	Abbiamo un'appA che deve trasferire 96.000B ad un'appB. Si suppone che la connessione sia già instaurata. Presentiamo i seguenti parametri:
+	- Maximum Segment Size: 1000B
+	- Receive Window: 32.000B, costante per tutto il tempo.
+	- Slow Start Threshold_i = RCVWND_i/2
+	- RTT costante, pari a 0,5s
+	- Retransmission Time-Out = 2RTT, raddoppia in caso di perdite sequenziali
+	- Sono presenti down di rete, dove questa va fuori uso e tutti i segmenti in quel momento vanno persi. Accade negli intervalli:
+	- (3, 3,5)
+	- (7, 7,5)
 	
-	--- Profilo di trasmissione del TCP
-	Vedi IM1
+	Valuta l'evoluzione temporale della congestion window fino alla fine della trasmissione.
 	
-	--- Profilo di trasmissione del TCP FR/FR
-	Vedi IM2
+	Il numero di segmenti da trasmettere è dato dal totale dei Byte da trasmettere diviso la MSS: 96000/1000 = 96
+	La receive window iniziale è pari a 32000B; divisa per la MSS otteniamo 32000/1000 = 32 segmenti alla volta.
+	La SSThresh_i è 32/2 = 16 segmenti
+	La CWND_i è sempre posta a 1.
+	Il tempo è iniziato a misurare da t=0s
 	
-	Se il buffer dei router è pieno si scartano dei pacchetti a caso in esso contenuti; si riduce poi la finestra per consentirgli di respirare un pò di più.
+	Dati questi valori iniziali possiamo disegnare il grafico dell'evoluzione temporale. (EX1)
+	Segmenti trasmessi: 1 + 2 + 4 + 8 + 16 + 17, poi c'è il down dove provi a trasmettere 18 segmenti, fallendo.
+	Poi ricominci dopo il termine del RTO. Riprendi da 1, poi 
+\end{comment}
+
+\begin{comment}
+--- Esercizio su TCP
+Abbiamo un'appA che deve trasferire 96.000B ad un'appB. Si suppone che la connessione sia già instaurata. Presentiamo i seguenti parametri:
+	- Maximum Segment Size: 1000B
+	- Receive Window: 32.000B, costante per tutto il tempo.
+	- Slow Start Threshold_i = RCVWND_i/2
+	- RTT costante, pari a 0,5s
+	- Retransmission Time-Out = 2RTT, raddoppia in caso di perdite sequenziali
+	- Sono presenti down di rete, dove questa va fuori uso e tutti i segmenti in quel momento vanno persi. Accade negli intervalli:
+		- (3, 3,5)
+		- (7, 7,5)
+		
+Valuta l'evoluzione temporale della congestion window fino alla fine della trasmissione.
+
+Il numero di segmenti da trasmettere è dato dal totale dei Byte da trasmettere diviso la MSS: 96000/1000 = 96
+La receive window iniziale è pari a 32000B; divisa per la MSS otteniamo 32000/1000 = 32 segmenti alla volta.
+La SSThresh_i è 32/2 = 16 segmenti
+La CWND_i è sempre posta a 1.
+Il tempo è iniziato a misurare da t=0s
+
+Dati questi valori iniziali possiamo disegnare il grafico dell'evoluzione temporale. (EX1)
+Segmenti trasmessi: 1 + 2 + 4 + 8 + 16 + 17, poi c'è il down dove provi a trasmettere 18 segmenti, fallendo.
+	Poi ricominci dopo il termine del RTO. Riprendi da 1, poi 
+
+
+Notare che c'è la SSTHRESH a valore 9 e bisogna allargare la window. Il minimo è 9 dato dalla SSTHRESH quindi la finestra al posto del doppio, ottiene il valore della SSTHRESH
+Quindi, dopo il primo down di rete, riusciamo ad inviare 1+2+4+8+9+10 segmenti. Poi c'è un altro down di rete e 11 segmenti sono persi.
+La SSTHRESH è la CWND/2 = 11/2 = 5 (normalmente si arrotonda per difetto, ma è possibile farlo anche per eccesso, basta esplicitarlo nel compito)
+La CWND torna a 1 e si ritorna a ritrasmettere i segmenti; 1+2+4+5+6+7+8+9... fino all'invio di tutti i segmenti restanti. Alla ricezione dell'ultimo riscontro si procederà alla chiusura della connessione.
+	In particolare, essendo arrivati qui all'invio di possibili 6 pacchetti, se ne invieranno solo 2 perché avevamo meno segmenti da inviare. Viene calcolata la CWND finale con 6 + 2/6 e poi si segnalerà il tempo di fine con una freccia tratteggiata verso l'asse delle x.
 	
-	--- Protocollo UDP (User Datagram Protocol)
-	UDP è un protocollo connectionless, quindi non c'è uno scambio di messaggi preliminare prima dell'invio dei dati. I segmenti non vengono nemmeno consegnati in modo ordinato. Non è un protocollo affidabile, perché in caso di perdita i segmenti non vengono recuperati.
-	Spesso utilizzato per applicazioni tolleranti alle perdite come twitch oppure l'online dei giochi multiplayer.
+-- Esercizio 2 TCP
+AppA deve trasferire 46500B verso AppB. La MSS è 1500B. RCVWND_i = 24000B costante per tutto il trasf. SSTHRESH_i = RCVWND_i/2=12000B. RTT=0,5s costante per tutto il trasf. RTO=2RTT e raddoppia in caso di perdite consecutive. Rete fuori uso in due intervalli: (1.5, 3.5) e (7, 7.5)
+
+Numero di segmenti da trasferire: 46500/1500 = 31 segmenti
+RCVWND_i = 24000/1500 = 16 segmenti
+SSTHRESH_i = 16/2 = 8 segmenti
+
+Segmenti trasmessi: 1+2+4+0 // 8 segmenti persi causa down di rete; SSTHRESH/2 e CWND=1. L'RTO è 1s, ma c'è acora down. RTO*2=2s e aspettiamo due secondi, dimezzando nuovamente la SSTHRESH. L'RTO torna normale quando la rete riprende a funzionare (quindi ottenendo i riscontri)
+Post down trasmettiamo i segmenti 1+2+3+4+5+0 // Bisognava inviarne 6, ma persi causa down di rete. CWND = RCVWND/2 = 3.
+Trasmettiamo i segmenti dopo il down: 1+2+3+4, dove alla possibilità di invio di 4 pacchetti, nel buffer rimangono solo tre segmenti. Per concludere la trasmissione attendo i riscontri che modificano la CWND_f= CWND_curr + ackRicevuti/CWND_curr = 4 + 3/4. La trasmissione termina a 10s
+
+--- Esercizio TCP 3
+AppA deve trasferire 104000B ad AppB
+MSS = 1200B
+RCVWND_i = 24000B, costante per tutto il trasferimento
+SSTHRESH_i = RCVWND_i
+RTT = 0.5s costante per tutto il trasferimento
+RTO = 2RTT, raddoppia in caso di perdite sequenziali
+Rete down negli intervalli: (3.5, 4) e (6.5, 10.5)
+
+Segmenti da trasmettere: 87
+RCVWND: 20seg = SSTHRESH_i
+
+Trasmissione: 1+2+4+8+16+20+20+20(0) = 71 // 20(0) potenziali, in realtà 16(0) perché ne rimangono 16 da mandare e c'è down di rete.
+	71 + 1+2+4+8+10(0) = 86 // 10(0) potenziali, in realtà 1(0) perché ne manca solo uno e c'è down di rete
+	86 + 1(0) = 86 // Ancora down, si raddoppia l'RTO
+	86 + 1(0) = 86 // Ancora down, si raddoppia l'RTO. La SSTHRESH è al minimo: 2.
+	86 + 1 = 87 // CWND_f = 2, tempo totale utilizzato 14s
 	
-	L'header è composto da quattro campi: srcDoor, dstDoor, checksum uguali per il TCP, ma ha anche il campo di lunghezza dei dati.
-	Per esempio, nelle applicazioni di streaming audio, si riceve il segnale, che è quantizzato e discretizzato, per poi essere diviso in pacchetti ai quali è aggiunto l'header. Vengono inviate al secondo host, il quale potrà ricostruirlo ordinatamente, ma in caso di perdita, lascerà del silenzio.
-	La velocità di trasmissione dei dati dipende dalla loro velocità di generazione.
+--- TCP esercizio 4
+AppA deve trasferire 104400B verso AppB
+MSS = 1200B
+RCVWND_i = 9600B
+A partire dall'istante t_a > 4s, la destinazione annuncia una RCVWND = 14400B
+A partire dall'istante t_b > 9s, la destinazione annuncia una RCVWND = 7200B
+SSTHRESH_i = RCVWND_i // Occhio quindi non è influenzata dalle successive ridefinizioni della RCVWND
+CWND = 1	
+RTT = 1s costante per tutta la trasmissione
+RTO = 2RTT
+Down di rete in intervallo (11.5, 12.5)
+
+// Tip: le modifiche alla RCVWND sono comunicate dalla destinazione e il grafico che facciamo riguarda la sorgente. Quindi non le si riceve esattamente agli istanti t_a, t_b, bensì alla ricezione dell'ack.
+// Tip: A causa del down di rete, sono correttamente inviati i pacchetti, ma non si riceve il relativo ack. In quanto tale, si attiva ugualmente l'RTO.
 \end{comment}

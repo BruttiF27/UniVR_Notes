@@ -12,21 +12,21 @@
 \contentsline {section}{\numberline {2.2}Hyper Text Transfer Protocol - HTTP}{18}{}%
 \contentsline {section}{\numberline {2.3}Domain Name Service - DNS}{22}{}%
 \contentsline {section}{\numberline {2.4}Posta elettronica - SMTP e IMAP}{24}{}%
-\contentsline {section}{\numberline {2.5}Esercizi svolti}{25}{}%
 \contentsline {chapter}{\numberline {3}Livello trasporto}{26}{}%
 \contentsline {section}{\numberline {3.1}Scopi e servizi}{26}{}%
 \contentsline {section}{\numberline {3.2}Protocollo TCP}{27}{}%
-\contentsline {section}{\numberline {3.3}Protocollo UDP}{30}{}%
-\contentsline {chapter}{\numberline {4}Livello network}{31}{}%
-\contentsline {section}{\numberline {4.1}Protocollo IP}{31}{}%
-\contentsline {section}{\numberline {4.2}Protocollo di configurazione DHCP}{31}{}%
-\contentsline {section}{\numberline {4.3}Protocollo ICMP}{31}{}%
-\contentsline {section}{\numberline {4.4}Protocolli di routing}{31}{}%
-\contentsline {section}{\numberline {4.5}IPv6}{31}{}%
-\contentsline {section}{\numberline {4.6}Network Address Translation - NAT}{31}{}%
-\contentsline {chapter}{\numberline {5}Livello di collegamento dati}{32}{}%
-\contentsline {section}{\numberline {5.1}Framing}{32}{}%
-\contentsline {section}{\numberline {5.2}Accesso al canale condiviso}{32}{}%
-\contentsline {section}{\numberline {5.3}Sottolivello MAC}{32}{}%
-\contentsline {section}{\numberline {5.4}Bridge, switch e LAN}{32}{}%
-\contentsline {section}{\numberline {5.5}Wireless LAN}{32}{}%
+\contentsline {section}{\numberline {3.3}Protocollo UDP}{34}{}%
+\contentsline {section}{\numberline {3.4}Esercizi svolti}{35}{}%
+\contentsline {chapter}{\numberline {4}Livello network}{36}{}%
+\contentsline {section}{\numberline {4.1}Protocollo IP}{36}{}%
+\contentsline {section}{\numberline {4.2}Protocolli di routing}{37}{}%
+\contentsline {section}{\numberline {4.3}Protocollo ICMP}{37}{}%
+\contentsline {section}{\numberline {4.4}Protocollo di configurazione DHCP}{37}{}%
+\contentsline {section}{\numberline {4.5}IPv6}{37}{}%
+\contentsline {section}{\numberline {4.6}Network Address Translation - NAT}{37}{}%
+\contentsline {chapter}{\numberline {5}Livello di collegamento dati}{38}{}%
+\contentsline {section}{\numberline {5.1}Framing}{38}{}%
+\contentsline {section}{\numberline {5.2}Accesso al canale condiviso}{38}{}%
+\contentsline {section}{\numberline {5.3}Sottolivello MAC}{38}{}%
+\contentsline {section}{\numberline {5.4}Bridge, switch e LAN}{38}{}%
+\contentsline {section}{\numberline {5.5}Wireless LAN}{38}{}%

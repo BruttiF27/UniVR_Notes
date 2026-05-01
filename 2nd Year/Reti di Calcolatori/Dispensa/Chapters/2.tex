@@ -132,32 +132,3 @@ La posta elettronica è un mezzo di comunicazione asincrono che consente agli ut
 	\includegraphics[width=1\linewidth]{Images/mail_exchange.png}
 	\caption{Invio e ricezione posta elettronica}
 \end{figure}
-
-%
-
-\section{Esercizi svolti}
-
-\begin{comment}
-	--- Esercizio su TCP
-	Abbiamo un'appA che deve trasferire 96.000B ad un'appB. Si suppone che la connessione sia già instaurata. Presentiamo i seguenti parametri:
-	- Maximum Segment Size: 1000B
-	- Receive Window: 32.000B, costante per tutto il tempo.
-	- Slow Start Threshold_i = RCVWND_i/2
-	- RTT costante, pari a 0,5s
-	- Retransmission Time-Out = 2RTT, raddoppia in caso di perdite sequenziali
-	- Sono presenti down di rete, dove questa va fuori uso e tutti i segmenti in quel momento vanno persi. Accade negli intervalli:
-	- (3, 3,5)
-	- (7, 7,5)
-	
-	Valuta l'evoluzione temporale della congestion window fino alla fine della trasmissione.
-	
-	Il numero di segmenti da trasmettere è dato dal totale dei Byte da trasmettere diviso la MSS: 96000/1000 = 96
-	La receive window iniziale è pari a 32000B; divisa per la MSS otteniamo 32000/1000 = 32 segmenti alla volta.
-	La SSThresh_i è 32/2 = 16 segmenti
-	La CWND_i è sempre posta a 1.
-	Il tempo è iniziato a misurare da t=0s
-	
-	Dati questi valori iniziali possiamo disegnare il grafico dell'evoluzione temporale. (EX1)
-	Segmenti trasmessi: 1 + 2 + 4 + 8 + 16 + 17, poi c'è il down dove provi a trasmettere 18 segmenti, fallendo.
-	Poi ricominci dopo il termine del RTO. Riprendi da 1, poi 
-\end{comment}

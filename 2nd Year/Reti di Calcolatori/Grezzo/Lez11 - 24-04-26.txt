@@ -1,0 +1,46 @@
+Lez11 - 24-04-26 Reti di calcolatori
+
+--- Esercizio sul tcp iniziato scorsa volta
+Notare che c'è la SSTHRESH a valore 9 e bisogna allargare la window. Il minimo è 9 dato dalla SSTHRESH quindi la finestra al posto del doppio, ottiene il valore della SSTHRESH
+Quindi, dopo il primo down di rete, riusciamo ad inviare 1+2+4+8+9+10 segmenti. Poi c'è un altro down di rete e 11 segmenti sono persi.
+La SSTHRESH è la CWND/2 = 11/2 = 5 (normalmente si arrotonda per difetto, ma è possibile farlo anche per eccesso, basta esplicitarlo nel compito)
+La CWND torna a 1 e si ritorna a ritrasmettere i segmenti; 1+2+4+5+6+7+8+9... fino all'invio di tutti i segmenti restanti. Alla ricezione dell'ultimo riscontro si procederà alla chiusura della connessione.
+	In particolare, essendo arrivati qui all'invio di possibili 6 pacchetti, se ne invieranno solo 2 perché avevamo meno segmenti da inviare. Viene calcolata la CWND finale con 6 + 2/6 e poi si segnalerà il tempo di fine con una freccia tratteggiata verso l'asse delle x.
+	
+-- Esercizio 2 TCP
+AppA deve trasferire 46500B verso AppB. La MSS è 1500B. RCVWND_i = 24000B costante per tutto il trasf. SSTHRESH_i = RCVWND_i/2=12000B. RTT=0,5s costante per tutto il trasf. RTO=2RTT e raddoppia in caso di perdite consecutive. Rete fuori uso in due intervalli: (1.5, 3.5) e (7, 7.5)
+
+Numero di segmenti da trasferire: 46500/1500 = 31 segmenti
+RCVWND_i = 24000/1500 = 16 segmenti
+SSTHRESH_i = 16/2 = 8 segmenti
+
+Segmenti trasmessi: 1+2+4+0 // 8 segmenti persi causa down di rete; SSTHRESH/2 e CWND=1. L'RTO è 1s, ma c'è acora down. RTO*2=2s e aspettiamo due secondi, dimezzando nuovamente la SSTHRESH. L'RTO torna normale quando la rete riprende a funzionare (quindi ottenendo i riscontri)
+Post down trasmettiamo i segmenti 1+2+3+4+5+0 // Bisognava inviarne 6, ma persi causa down di rete. CWND = RCVWND/2 = 3.
+Trasmettiamo i segmenti dopo il down: 1+2+3+4, dove alla possibilità di invio di 4 pacchetti, nel buffer rimangono solo tre segmenti. Per concludere la trasmissione attendo i riscontri che modificano la CWND_f= CWND_curr + ackRicevuti/CWND_curr = 4 + 3/4. La trasmissione termina a 10s
+
+--- Esercizio TCP 3
+AppA deve trasferire 104000B ad AppB
+MSS = 1200B
+RCVWND_i = 24000B, costante per tutto il trasferimento
+SSTHRESH_i = RCVWND_i
+RTT = 0.5s costante per tutto il trasferimento
+RTO = 2RTT, raddoppia in caso di perdite sequenziali
+Rete down negli intervalli: (3.5, 4) e (6.5, 10.5)
+
+--- Livello di rete - pt.2 (routing/instradamento)
+Scopo del livello di rete è data una destinazione, fare il possibile per consegnare i pacchetti a tale destinazione. Il livello IP non dà nessuna garanzia di consegna, per questo fa il possibile. Si dice infatti che IP sia un protocollo best effort; possono sussistere condizioni non ideali per la perdita di pacchetti e IP non ha modo di recuperarli.
+	Per UDP no problem, ma se TCP usa IP ha dei meccanismi per recuperarli. Il recupero non si trova quindi nel dominio operativo del livello di rete. Ci pensa quello di trasporto.
+	
+Parliamo ora di consegna diretta e indiretta. La consegna diretta è quando una destinazione appartiene alla stessa rete. (in IM1, da hostA a hostB). Se la destinazione è in un'altra rete, è necessario demandare qualcuno (il router) per la consegna.
+	Come fa un host a capire che tipo di consegna è?
+	
+Un host conosce oltre al proprio indirizzo IP, la maschera della rete a cui appartiene e l'indirizzo IP del router di bordo della rete a cui appartiene.
+
+Data una destinazione (IP_d) l'host confronta (IP_h && mask) con un and bit a bit, facendo rimanere immutato il prefisso e mettendo il suffisso a 0. Confronta questo valore con (IP_d && mask). Se i due valori sono uguali, allora la destinazione appartiene alla stessa rete e sarà una consegna diretta. Altrimenti, se i due valori sono diversi, la destinazione apparterrà a un'altra rete e sarà consegna indiretta, richiedente l'appello del router di bordo.
+
+Il routing è il processo di scoperta del cammino migliore da una sorgente a una delle possibili destinazioni.
+I router al loro interno mantengono una tabella di routing, dove per ogni destinazione è segnata l'interfaccia di uscita per arrivarci e un parametro per il costo di attraversamento (di singolo hop, deduco).
+	Il cammino migliore è determinato dai criteri adottati dall'ISP. Potrebbe fare più hop e costare più tempo ma meno in risorse, mentre potrebbe scegliere un cammino con meno hop per rapidità ma costare un pò di più.
+	
+Indovina indovinello, il routing passa attraverso un'astrazione con i grafi e diventa un problema di ricerca del cammino di costo minimo. I router sono i nodi e i link sono gli archi, naturalmente. Per maggiori dettagli, vedasi la dispensa di algoritmi.
+Il cacolo del cammino minimo avviene prima dell'attraversamento, ovviamente.

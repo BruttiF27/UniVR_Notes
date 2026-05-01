@@ -1,0 +1,78 @@
+Lez12 - 28-04-26 Reti di calcolatori
+
+--- Routing pt2
+Data una topologia (quindi i router e i collegamenti), derivo il grafo e assegno i pesi in base a un determinato criterio. Normalmente il peso è assegnato dall'amministratore di rete. Alcuni criteri sono:
+	- Numero di hop attraversati: Soddisfatto ponendo tutti gli archi a peso 1. Il cammino minimo avrà valore minore di tutti.
+	- Velocità di trasmissione (nominale del link): Pesi inversamente proporzionali alla banda, perché maggiore è la velocità, minore è il tempo usato per il trasferimento.
+	
+Algoritmi per il calcolo del cammino minimo di un grafo possono essere:
+	- (che considerano lo) Stato dei collegamenti (Link state routing algorithm): Algoritmo "centralizzato": Ogni router conosce la topologia della rete e calcola in autonomia il cammino minimo, decidendo poi il link di uscita.
+	- Vettori distanza (Distance vector routing algorithm): Algoritmo distribuito; i router si parlano tra di loro ma non conoscono l'intera topologia della rete. Conoscono solo router adiacenti.
+	- SDN (Software Defined Network): Algoritmo realmente centralizzato; c'è un'entità esterna che conosce la topologia intera che comunica col router e gli comunica le tabelle di routing per il cammino minimo.
+	
+Esistono uno o più protocolli per ciascuna categoria per l'implementazione degli algoritmi di routing. (guarderemo solo gli algoritmi, citeremo solo i nomi degli algoritmi e ignoreremo il formato dei messaggi)
+	Per far funzionare gl algoritmi i router si scambiano messaggi tramite specifici protocolli. Ciascun router invia periodicamente (il tempo dipende dal protocollo) ai propri router adiacenti un messaggio di aggiornamento. Il messaggio di routing contiene informazioni relative allo stato dei collegamenti (se le interfacce sono raggiungibili) ed è incapsulato con un header IP. srcIP è quello della sua interfaccia di uscita, dstIP è quello del router destinatario.
+	
+--- Algoritmi Link State
+Ogni nodo della rete conosce l'intera topologia della rete e ogni nodo calcola autonomamente i cammini minimi da sé al nodo destinazione. Imposta le proprie tabelle di routing di conseguenza.
+	Sembrerebbe un algoritmo avido, che sceglie l'arco dal peso minore ogni volta. Si salva la strada da percorrere e scrive nella tabella di routing le interfacce migliori per ogni hop. Impostate tutte, i pacchetti sanno di dover utilizzare le interfacce di uscita segnalate. L'algoritmo utilizzato per raggiungere questo scopo è quello di Dijkstra.
+	
+In breve, i nodi si scambiano messaggi periodicamente per verificare se sono ancora raggiungibili mediante informazioni sui propri link. In caso di guasti o cambio di topologia, la relativa informazione è immediatamente propagata per aggiornare la topologia e le proprie tabelle di routing. Protocollo standard (che tutti i router devono supportare) basato su link state è OSPF (Open Shortest Path First).
+
+--- Algoritmo distance vector
+Supponiamo 3 nodi, i,j,k. i e j hanno un collegamento diretto (sono adiacenti, quindi), mentre l'altro no, sebbene rimanga raggiungibile.
+Il costo dell'arco da i a j è c(i,j). Il costo di un cammino da i a k è D(i, k) = \sum c(l, n), dove l->n\in Cammino.
+Quindi il costo è la somma dei costi dei singoli link che compongono il cammino. c è costo. D è distanza.
+
+Supponiamo ora un nodo i e tre suoi adiacenti, j,l,m. Sono gli unici vicini diretti di i.
+Ipotizziamo ora una destinazione k, per la quale j,l,m hanno calcolato la distanza con questa destinazione, quindi D(j,k), D(l,k), D(m,k).
+Come troviamo D(i,k)? Il suo cammino minimo sicuramente deve passare per nodi adiacenti, quindi le uniche possibilità che abbiamo per ottenere D(i,k) sono attraversare uno degli archi ai suoi nodi adiacenti e poi fare la somma con tutto il resto del cammino. Per esempio, se scelgo j: D(i,k) = c(i,j) + D(j,k).
+	Il cammino minimo sarà il costo minimo tra i cammini disponibili, naturalmente. Ma con questa osservazione capiamo che il nodo i non ha bisogno di conoscere la topologia, bensì solamente il costo minimo dell'hop.
+	
+In generale definiamo il costo del cammino minimo: D(i,k) = min(c(i,v) + D(v,k)), con v nodo adiacente a i.
+Il calcolo della distanza minima è ripetuto ad ogni hop per scegliere l'arco di costo minore fino ad arrivare alla destinazione.
+L'algoritmo usato è quello di Bellman-ford. Proviamo ad applicarlo ad un caso di esempio.
+
+-- Esempio
+Focalizziamoci sulla tabella di routing di A. La si inizializza, ottenendo i nodi adiacenti, i nextHop e il relativo costo.
+Per esempio A->A non ha nextHop ed è a costo zero, A->B ha nextHop B e costo 7, etc.
+Si inizializzano anche le tabelle dei nodi adiacenti E e B.
+	Data questa inizializzazione, il nodo A nella prima iterazione riceve i distance vector del nodo B (A7, B0, C1, E5) e del nodo E (A1, B5, D2, E0).
+Per la destinazione B, il nodo A calcola D(A, B) = \begin{cases}
+	c(A, B)=7 + D(B, B)=0 \implies = 7\\
+	c(A, E)=1 + D(E, B)=5 \implies = 6
+\end{cases}
+\noindent Siccome nella tabella c'era un costo iniziale da A verso B pari a 7, avendo trovato un costo minore attraverso E, il nodo A aggiorna la tabella per la destinazione B con costo 6 e nextHop il nodo E. L'aggiornamento avviene per ogni destinazione contenuta nei DV ricevuti.
+
+--- Esercizio TCP 3
+AppA deve trasferire 104000B ad AppB
+MSS = 1200B
+RCVWND_i = 24000B, costante per tutto il trasferimento
+SSTHRESH_i = RCVWND_i
+RTT = 0.5s costante per tutto il trasferimento
+RTO = 2RTT, raddoppia in caso di perdite sequenziali
+Rete down negli intervalli: (3.5, 4) e (6.5, 10.5)
+
+Segmenti da trasmettere: 87
+RCVWND: 20seg = SSTHRESH_i
+
+Trasmissione: 1+2+4+8+16+20+20+20(0) = 71 // 20(0) potenziali, in realtà 16(0) perché ne rimangono 16 da mandare e c'è down di rete.
+	71 + 1+2+4+8+10(0) = 86 // 10(0) potenziali, in realtà 1(0) perché ne manca solo uno e c'è down di rete
+	86 + 1(0) = 86 // Ancora down, si raddoppia l'RTO
+	86 + 1(0) = 86 // Ancora down, si raddoppia l'RTO. La SSTHRESH è al minimo: 2.
+	86 + 1 = 87 // CWND_f = 2, tempo totale utilizzato 14s
+	
+--- TCP esercizio 4
+AppA deve trasferire 104400B verso AppB
+MSS = 1200B
+RCVWND_i = 9600B
+A partire dall'istante t_a > 4s, la destinazione annuncia una RCVWND = 14400B
+A partire dall'istante t_b > 9s, la destinazione annuncia una RCVWND = 7200B
+SSTHRESH_i = RCVWND_i // Occhio quindi non è influenzata dalle successive ridefinizioni della RCVWND
+CWND = 1	
+RTT = 1s costante per tutta la trasmissione
+RTO = 2RTT
+Down di rete in intervallo (11.5, 12.5)
+
+// Tip: le modifiche alla RCVWND sono comunicate dalla destinazione e il grafico che facciamo riguarda la sorgente. Quindi non le si riceve esattamente agli istanti t_a, t_b, bensì alla ricezione dell'ack.
+// Tip: A causa del down di rete, sono correttamente inviati i pacchetti, ma non si riceve il relativo ack. In quanto tale, si attiva ugualmente l'RTO.

@@ -76,5 +76,3 @@ L'API fornito da Pthreads ci consente di implementare questi meccanismi in lingu
 \noindent Il programma implementa un semplice workflow dove un processo padre genera un thread figlio, nel quale si ritorna la somma di tutti i numeri fino al parametro passato in funzione.\par
 Il padre, per creare un thread figlio, è in primo luogo necessario che gli assegni un identificativo e attributi inizializzati con la funzione pthread_attr_init(). Dopodiché potrà generare il figlio con pthread_create(), che prende in input questi due valori, la funzione dove è eseguito il thread e il parametro ivi indicato. Per garantire un workflow sincrono, il padre usa pthread_join() per fermare la sua esecuzione fin quando tutti i figli non hanno terminato il loro lavoro.\par
 È possibile naturalmente generare più thread; una strategia comune per la modalità sincrona è di implementare un ciclo for e un counter apposito che si incrementa fino al termine di ogni figlio.
-
-% TODO Riprendi da threading implicito

@@ -598,94 +598,206 @@ temporale di $O(V+E)$.
 %
 
 \section{Cammini minimi a sorgente multipla}
-Floyd-Warshall, Johnson
+Intuitivamente, il problema della ricerca del cammino minimo da più nodi sorgente richiede l'applicazione ripetuta della ricerca del cammino minimo da
+una sorgente per ogni nodo del grafo. L'input rimane infatti un grafo orientato $G = (V, E)$ pesato con la relativa funzione peso $w:E\to\mathbb{R}$.
+L'output è invece presentato in forma tabulare in cui l'elemento nella riga $u$ e nella colonna $v$ indica il peso di un cammino minimo tra questi due
+nodi.\par
+Data questa forma del risultato, si preferisce una rappresentazione con matrici di adiacenza $W = (w_{ij})$ di dimensioni $n\cdot n$, le quali salvano
+i pesi degli archi del grafo orientato. In particolare, definiamo il peso $w_{ij}$ come: \[
+	w_{ij} = \begin{cases}
+		0 & \text{Se $i=j$}\\
+		\text{Peso dell'arco orientato $(i,j)$} & \text{Se $i\neq j$ e $(i,j)\in E$}\\
+		\infty & \text{Se $i\neq j$ e $(i,j)\notin E$}
+	\end{cases}
+\]
+\noindent Nel secondo caso della definizione è definito il cammino minimo $\delta(i, j)$ dal vertice $i$ a $j$. Una soluzione completa ritorna questi
+dati, ma anche una matrice dei predecessori $\Pi = (\pi_{i,j})$, dove $\pi_{ij}=NIL$ se $i=j$ o non esiste un cammino fra i due nodi, altrimenti prende
+il valore del predecessore di $j$ in qualche cammino da $i$.\par
+Il sottografo indotto da questa matrice $G_{\pi, i}$ è un albero di cammini minimi, ed in quanto tale è possibile utilizzare una procedura adattata di
+printPath() per poter selezionare l'elemento della matrice di cui stampare il cammino minimo.\newline
 
-\begin{comment}
---- Risoluzione del problema del cammino minimo per ogni coppia di nodi (a sorgente multipla)
-Banalmente sarebbe possibile ripetere per ogni nodo la soluzione del cammino minimo a sorgente singola vista in precedenza. Dovremmo usare Bellman-ford ma avendo complessità VE e dovendolo ripetere V volte, avremmo V^2E.
+\noindent Questo problema è particolarmente complesso perché non esistono ancora algoritmi per fornire una soluzione in tempi ottimi. Se applichiamo la
+prima idea in presenza di un grafo con anche pesi negativi, dovremmo utilizzare Bellman-Ford, di complessità $O(VE)$, un totale di $|V|$ volte,
+facendo risultare una complessità totale di $O(V^2E)$.
 
-Bisogna abbassare la complessità con alcune tecniche.
-Anzitutto bisogna capire come rappresentare il problema. Usiamo la seguente notazione:
-	- D_i: Vettore che comprende i costi dei cammini minimi
-	- \pi_i: Vettore che comprende i predecessori
-	- D_{i,j}: Costo del cammino minimo da i a j
-	- \pi_{i,j}: Predecessore del nodo j nel cammino minimo da i a j
-	
-Per rappresentare la soluzione useremo quindi due vettori:
-	- D = {D_1, D_2, ..., D_n} // Matrice dei cammini minimi
-	- \Pi = {\pi_1, \pi_2, ..., \pi_n} // Matrice dei predecessori per i cammini minimi
-Matrice perché array bidimensionali, capito? Possiamo rappresentare il problema con una matrice. Bisogna calcolare queste matrici, quindi.
+\begin{algorithm}[h]
+	\caption{all\_pairs\_sp(G, w)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo orientato pesato, $w$: Peso
+		\State $W\gets init(G, w)$ \Comment{Pone a 0 gli elementi sulla diagonale e a $\infty$ altre posizioni}
+		\For{$l\gets 1$ to $|V[G]|-1$} \Comment{Per ogni istanza del problema, quindi $|V|-1$ volte}
+		\State $W^l\gets extend\_sp(W^{l-1}, w)$ \Comment{Rilassa tutti gli archi relativi al percorso}
+		\EndFor
+		\State $W^{|V[G]|}\gets extend\_sp(W^{|V[G]|-1}, w)$
+		\If{$W^{|V[G]|}\neq W^{|V[G]|-1}$} \Comment{Controlla esistenza di cicli negativi}
+		\State \textbf{return} false
+		\EndIf
+		\State \textbf{return} $W^{|V[G]|}$
+	\end{algorithmic}
+\end{algorithm}
 
-// Proviamo ad applicare la soluzione oberosa discussa prima tramite bellman-ford
-all_pairs_sp(G, w)
-	D^0\gets init(G, w) // Inizializza ogni riga ponendo tutti gli elementi sulla diagonale a 0 e nel resto delle posizioni +\infty
-	\For{l\gets 1 to |V[G]|-1} // Per ogni istanza del problema, quindi |V|-1 volte
-		D^l\gets extend_sp(D^{l-1}, w) // extend shortest path, va a rilassare tutti gli archi relativi all'istanza corrente del problema
-	
-	D^{|V[G]|}\gets extend_st(D^{|V[G]|-1}, w)
-	if D^{|V[G]|}\neq D^{|V[G]|-1} // Check per controllare se è stato sbagliato qualcosa nell'estensione della shortest path
-		return false
+\noindent Notare che si sta inizializzando la matrice alla sua forma di identità, ma con un'algebra diversa. Normalmente, una matrice identità presenta
+valori uguali ad $1$ esclusivamente sulla sua diagonale principale, mentre tutte le altre posizioni sono poste a $0$; lo stesso procedimento è applicato
+qui, ma con $0$ e $\infty$ rispettivamente. Questa forma matriciale consente l'applicazione di operazioni di somma e ricerca del minimo, per le quali
+valgono le stesse proprietà già discusse.
+\begin{algorithm}[h]
+	\caption{extend\_sp(W, w)}
+	\begin{algorithmic}[i]
+		\Require $W$: Matrice di adiacenze, $w$: Peso
+		\State $n\gets row[W]$ \Comment{Otteniamo la dimensione della matrice quadrata}
+		\State Sia $W'$ matrice quadrata $n\times n$ con elementi $w'_{ij}$
+		\State
+		\For{$i\gets 1$ to $n$} \Comment{Per ogni sorgente $i$}
+		\For{$j\gets 1$ to $n$} \Comment{Per ogni destinazione $j$}
+		\State $w'_{ij}\gets \infty$ \Comment{Distanza iniziale da ridefinire esplorando il grafo}
+		\State
+		\For{$k\gets 1$ to $n$} \Comment{Per ogni possibile sorgente verso $j$}
+		\State $w'_{ij}\gets min(w'_{ij}, w_{ik}+w_{kj})$ \Comment{Verifica peso migliore rispetto a $w'_{ij}$}
+		\EndFor
+		\EndFor
+		\EndFor
+		\State \textbf{return} $W'$ \Comment{La matrice con ogni cammino minimo}
+	\end{algorithmic}
+\end{algorithm}
 
-// A partire dalla destinazione facciamo il rilassamento degli archi
-extend_sp(D, w)
-	n\gets rown[D] // Scopriamo la dimensione della matrice quadrata
-	let D' be matrix n*n
-	
-	for i\gets 1 to n // Per ogni sorgente rilassa tutti gli archi. Sto aggiornando la distanza minima dal nodo di destinazione // i è la sorgente
-		for j\gets 1 to n // j è la destinazione
-			D'_{ij}\gets \infty // La distanza stimata iniziale dal nodo i a quello j è infinita. Va aggiornata tramite esplorazione grafo.
-			
-			for k\gets 1 to n // Per ogni possibile sorgente verso j
-				D'_{ij}\gets min(D_{ij}, D_{ik}+w_{kj}) // facciamo il rilassamento verso l'arco kj, confrontando la minima distanza corrente con quella che otterresti passando dal nodo k attraverso l'arco kj di costo w_{kj}. Se è minore di D_{ij}, lo aggiorna.
-	return D'
-				
-Quando w_{kj} non è un arco bisogna dare un peso che non causa problemi. Quindi il valore neutro per il minimo: \infty
+\noindent Analizziamo la complessità di questo algoritmo: il cammino minimo è calcolato per un totale di $p = |V|-1$ volte e l'algoritmo di estensione
+presenta ben tre cicli for eseguiti $|V|$ volte l'uno, portando la complessità totale a $O(V^4)$.\par
+Trattandosi di un valore particolarmente alto, si ritiene necessario l'applicazione di tecniche specifiche per ridurlo. Una prima idea da un punto di
+vista pratico sarebbe la parallelizzazione dell'algoritmo, dove i cammini sono calcolati concorrentemente, e al termine della procedura si unirebbero
+i risultati, introducendo un fattore logaritmico e ottenendo una complessità totale di $O(V^3log(n))$.\par
+Un'altra idea è fornita dall'algoritmo di \textbf{Floyd-Warshall}, una soluzione basata sulla programmazione dinamica che contempla archi di peso
+negativo, ma non cicli negativi. L'algoritmo considera i nodi intermedi $k_i$ di un cammino minimo, definiti come un qualsiasi vertice del cammino non
+ai suoi estremi: \[
+p = \left<v_1, v_2, ..., v_l\right>;\quad k_i \neq v_1 \land k_i\neq v_l
+\]
+\noindent Numerando i nodi del grafo con $V = \{1, 2, ..., n\}$ prendiamo un sottoinsieme di vertici $\{1, 2, ..., k\}$ per qualche $1\leq k\leq n$. Per
+una coppia di nodi qualsiasi $i,j$ prendiamo tutti i cammini minimi i cui vertici intermedi si trovano all'interno del sottoinsieme e definiamo $p$ il
+peso del cammino minimo fra di loro.\par
+Sfruttando la relazione tra $p$ e i cammini minimi da $i$ a $j$ i cui vertici intermedi si trovano dentro $\{1, 2, ..., k-1\}$, possiamo dire: 
+\begin{itemize}
+	\item \textbf{k non è vertice intermedio di p}: Tutti i vertici intermedi di $p$ appartengono all'insieme $\{1, 2, ..., k-1\}$ e un cammino
+	minimo formato da questi nodi sarà un cammino minimo anche dell'insieme $\{1, 2, ..., k\}$, in quanto appartenenti al sottoinsieme.
+	\item \textbf{k è vertice intermedio di p}: Spezziamo il cammino minimo intero in due parti; la prima $p_1$ da $i$ a $k$, la seconda $p_2$ da $k$ a
+	$j$. Ciò forma due cammini minimi $\delta(i, k)$ e $\delta(k, j)$ i cui vertici intermedi appartengono a $\{1, 2, ..., k\}$. Inoltre, dato che $k$
+	non è intermedio per nessuna delle due parti, possiamo dire che tutti i nodi intermedi di $p_1$ appartengono a $\{1, 2, ..., k-1\}$, rendendo $p_1$
+	un cammino minimo coi vertici intermedi in questo insieme. Analogamente, $p_2$ è cammino minimo da $k$ a $j$ i cui vertici intermedi sono compresi
+	nell'insieme $\{1, 2, ..., k-1\}$.
+\end{itemize}
 
-Complessità di questo algoritmo: per p volte eseguiamo la shortest path. Ha tre cicli for eseguiti V volte. La all pairs ha un altro ciclo for eseguito V volte. Gesù, è O(V^4). Inoltre, se guardi alla struttura di extend_sp si può notare che è praticamente uguale a quella dell'algoritmo di moltiplicazione delle matrici, solo posto in un'algebra diversa, chiamata minPlus.
-	Fondamentalmente è richiesta l'inizializzazione ad una matrice identità (quella con la diagonale principale a 0, le altre posizioni a infinito) sulla quale è possibile eseguire operazioni di somma e ricerca del minimo, allo stesso modo in cui si fanno quelle di somma e moltiplicazione. Valgono anche le stesse proprietà. Stiamo praticamente calcolando una potenza di w: w^4. C'è un modo per fare meno schifo?
-	
-Per ora, il prodotto di matrici ha complessità V^3; facendolo V volte otteniamo V^4. Si potrebbe parallelizzare l'algoritmo e poi rimettere insieme i pezzi successivamente, introducendo un fattore logaritmico e ottenendo una complessità V^3log(n).
-Un'altra idea è l'algoritmo di floyd_warshall
+\begin{algorithm}[h]
+	\caption{floyd-warshall(W, n)}
+	\begin{algorithmic}[i]
+		\Require $W$: Matrice di adiacenze, $n$: Dimensione matrice
+		\State $D^0\gets W$ \Comment{Matrice iniziale contiene i pesi di $W$}
+		\For{$k\gets 1$ to $n$}
+		\State Sia $D^{k}=(d_{ij})$ matrice di dimensione $n\times n$
+		\For{$i\gets 1$ to $n$}
+		\For{$j\gets 1$ to $n$}
+		\State $d_{ij}^k\gets min\left(d_{ij}^{k-1}, d_{ik}^{k-1} + d_{kj}^{k-1}\right)$ \Comment{Calcola cammino minimo tra le parti}
+		\EndFor
+		\EndFor
+		\EndFor
+		\State \textbf{return} $D^{n}$
+	\end{algorithmic}
+\end{algorithm}
 
-// Algoritmo dinamico
-floyd_warshall(w)
-	D_{ij}^k // costo del cammino minimo da i a j che usa solo nodi di {1 ... k} come nodi intermedi
-	
-	n\gets rows[w]
-	D^0\gets w // Matrice iniziale è quella dei pesi di w.
-	
-	for k\gets 1 to n
-		for i \gets 1 to n // Calcoliamo la matrice di k supponendo di avere già disponibile quella di k-1
-			for j\gets i to n
-				D_{ij}^k\gets min(D_{ij}^{k-1}, D_{ik}^{k-1} + D_{kj}^{k-1}) // What the actual fuck, sta prendendo un cammino minore???
-				
-St'algoritmo ha complessità V^3. Costruiamo soluzioni vincolate, rendendo sempre più deboli i vincoli fin quando non arriviamo alla soluzione dei quali è priva.
-Si può fare ancora meglio? Dipende dal caso, ma sì.
-	Questo nuovo algoritmo funziona bene su grafi sparsi, ma male su quelli completi. Sul ragionamento di prima, se abbiamo tutti i pesi non negativi potremmo usare Dijkstra per ogni sorgente, ottenendo una complessità di V(V+E)logV = V^2logV + VElogV.
-	Se il grafo è sparso, allora otteniamo V^2logV, sicuramente meglio di floyd-warshall. Se invece avessimo grafo sparso con pesi negativi? Johnson dice: trasformiamo i pesi del grafo in modo da non avere valori negativi?
-	
-La modalità per ottenere questa cosa è definire una funzione di potenziale. Definisce un nuovo costo che somma il costo base con la differenza dell'arco negativo
-Sia h:V\to R. \hat{w}(u,v) = w(u,v) + h(u) - h(v)
+\noindent L'algoritmo di Floyd-Warshall ha complessità totale di $\Theta(V^3)$, come si può vedere dai tre cicli for al suo interno. Lo scopo è rendere
+sempre più deboli i vincoli tra i percorsi, fin quando non si arriverà alla soluzione dei quali è priva. Si ritorna dunque una matrice di adiacenza con
+i costi dei cammini minimi per ogni sorgente.\par
+Dipendentemente dal caso preso in esame, è possibile ridurre ulteriormente il tempo totale di esecuzione; l'algoritmo di \textbf{Johnson} funziona bene
+in presenza di grafi sparsi, con una complessità di $O(V^2log(V) + VE)$, sicuramente migliore di Floyd-Warshall, ma risulta inefficiente se applicato
+a grafi completi. La procedura prende in input un grafo orientato pesato $G$ con la relativa funzione peso $w$ e contempla anche l'esistenza di cicli
+negativi, utilizzando una tecnica di \textbf{ricalcolo dei pesi} da un valore $w$ a $\hat{w}$. Servendosi infatti dell'algoritmo di Dijkstra come
+sub-routine, è necessario garantirne il funzionamento portando tutti i pesi del grafo ad un valore positivo mantenendo i cammini minimi di $G$.\par
+Si calcola quindi un nuovo insieme di pesi sui quali è possibile applicare Dijkstra, il quale deve rispettare le seguenti proprietà: \begin{itemize}
+	\item Per ogni coppia di vertici $u,v\in V$, un cammino $p$ è minimo tra i due con la funzione peso $w$ se e solo se lo rimane anche con la funzione
+	peso ricalcolata $\hat{w}$.
+	\item Per ogni arco $(u,v)$, il nuovo peso $\hat{w}(u,v)$ non è negativo.
+\end{itemize}
 
-Prendiamo dunque un cammino v_0, v_1, ..., v_n. Quanto vale \hat{w}(v_0, ..., v_n)?
-\hat{w}(v_0, ..., v_n) &= \hat{w}(v_0, v_1) + \hat{w}(v_1, v_2) + ... + \hat{w}(v_{n-1}, v_n)\\
-	&= w(v_0, v_1) + h(v_0) - h(v_1) + w(v_1, v_2) + h(v_1) - h(v_2) + ... + w(v_{n-1}, v_n) + h(v_{n-1}) - h(v_n)
-	
-Notare che fra tutti gli elementi si annullano h(v_1), h(v_2) e in generale tutte le h eccezion fatta per v_0 e v_n. Dall'espressione risulta quindi: \[\sum w(v_i, v_{i+1}) + h(v_0) - h(v_n) = w(v_0, ..., v_n) + h(v_0) - h(v_n)\]
-\noindent Il costo nuovo è quindi uguale al costo vecchio sommato alla differenza tra gli estremi, facendo dipendere da essi il costo totale. Ciò non cambia la semantica del grafo, facendo valere la soluzione con Dijkstra.
+\noindent È quindi necessario dimostrare che il ricalcolo non cambia i cammini minimi del grafo originale e che rende tutti i pesi non negativi. Verrà
+usato il seguente lemma: \begin{lemma}
+	\textbf{Ricalcolare i pesi non cambia i cammini minimi}\par
+	\noindent Supponiamo un grafo orientato pesato $G$ con relativa funzione peso $w$. Sia una funzione generica $h:V\to\mathbb{R}$ che associa i nodi a
+	valori reali. Per ogni arco $(u,v)\in E$ definiamo: \[
+	\hat{w}(u,v) = w(u,v) + h(u)-h(v)
+	\]
+	\noindent Sia adesso $p = \left<v_0, v_1, ..., v_k \right>$ un cammino qualsiasi dal nodo $v_0$ a $v_k$. Questo sarà un cammino minimo per loro due
+	con un peso $w$ se e solo se $p$ rimane un cammino minimo con il peso $\hat{w}$, dunque: \[
+	w(p) = \delta(v_0, v_k) \iff \hat{w}(p) = \hat{\delta}(v_0, v_k)
+	\]
+	\noindent Inoltre, $G$ ha un ciclo di peso negativo con funzione $w$ se e solo se ce l'ha anche con $\hat{w}$.
+\end{lemma}
 
-Se ora trovassimo una funzione h per la quale Johnson mantiene i cammini minimi anche per grafi completi, abbiamo trovato un algoritmo migliore sempre di floyd_warshall.
-	Supponiamo un grafo G e creiamo un supernodo collegato ad ogni nodo di G con peso 0. Usa bellman ford per calcolare i cammini minimi dal supernodo. Sia quindi d la funzione distanza minima. Sia inoltre h \Delta= d. Usa la funzione di distanza come la h definita prima quindi.
-	
-Complessità dell'algoritmo: VE + VElog(V), quindi bellman ford più l'algoritmo di prima.
-	La complessità generale asintotica è VElog(V), mentre su grafi sparsi è V^2log(V). Come funziona?
-	
-\forall(u,v)\in E[G] abbiamo che d[v] \leq d[u] + w(u,v). L'arco non è rilassabile. Il peso nuovo non è negativo.
-0 &\leq d[u] + w(u,v) - d[v]
-	&= w(u,v) + d[u] - d[v] \equiv \hat{w}(u,v)
-\end{comment}
+\noindent È stata quindi definita una funzione di potenziale; dimostriamone la veridicità supponendo il cammino $p = \left<v_0, v_1, ..., v_k\right>$:
+\begin{equation}
+	\begin{split}
+		\hat{w}(p) &= \hat{w}(v_0, v_1) + \hat{w}(v_1, v_2) + ... + \hat{w}(v_{n-1}, v_k)\\
+			&= w(v_0, v_1) + h(v_0) - h(v_1)\\
+			&\quad+ w(v_1, v_2) + h(v_1) - h(v_2)\\
+			&\quad+ ... + w(v_{n-1}, v_k) + h(v_{n-1}) - h(v_k)\\
+			&= w(p) + h(v_0) - h(v_k)
+	\end{split}
+\end{equation}
+
+\noindent Fra tutti gli elementi si annullano quelli intermedi; in forma semplificata con la sommatoria risulta quindi: \[
+\sum_{i=1}^k w(v_i, v_{i+1}) + h(v_0) - h(v_k) = w(p) + h(v_0) - h(v_k)
+\]
+\noindent Dunque per un cammino qualsiasi $p$ da $v_0$ a $v_k$ vale l'equazione del lemma e siccome $h(v_0)$ e $h(v_k)$ non dipendono dal cammino, se
+un percorso tra questi due nodi è più corto di un altro con la funzione $w$, allora lo sarà allo stesso modo con $\hat{w}$, facendo valere: \[
+w(p) = \delta(v_0, v_k) \iff \hat{w}(p) = \hat{\delta}(v_0, v_k)
+\]
+\noindent Infine, in presenza di un ciclo, facendo valere $v_0 = v_k$, si rimuovono questi due valori dall'equazione, facendo risultare come risultato
+$\hat{w} = w(p)$, dimostrando che il peso non cambia. Adesso è necessario garantire che la seconda proprietà sia valida, quindi $\hat{w}(u, v)$ deve
+essere non negativo per ogni arco $w(u,v)\in E$.\par
+Sarà necessaria la creazione di un nuovo grafo $G' = (V', E')$ per cui $V' = V \cup \{s\}$, ovvero a cui è aggiunto un nuovo supernodo $s$. Estendiamo
+come prima cosa la funzione peso assegnando $w(s, v) = 0$ per ogni $v\in V$ e supponiamo che $G$ e $G'$ non abbiano cicli negativi, definendo
+$h(v) = \delta(s,v)$ per ogni $v\in V'$. Grazie alla proprietà di disuguaglianza triangolare, vale per tutti gli archi di $E'$: \[
+h(v) \leq h(u) + w(u,v)
+\]
+\noindent Definendo quindi i nuovi pesi secondo l'equazione del lemma sul ricalcolo, risulta: \[
+\hat{w}(u,v) = w(u,v) + h(u) - h(v) \geq 0
+\]
+\noindent Rendendo di fatto tutti gli archi di peso non negativo senza modificare la semantica del grafo. L'algoritmo riceve in input un grafo e la
+sua funzione del peso, per ritornare l'eventuale presenza di un ciclo negativo oppure la matrice contenente i cammini minimi per ogni sorgente.
+
+\begin{algorithm}[h]
+	\caption{johnson(G, w)}
+	\begin{algorithmic}[i]
+		\Require $G$: Grafo orientato pesato, $w$: Peso
+		\State Sia $G'$ t.c. $V[G']\gets V[G]\cup \{s\}$, $E[G']\gets E[G]\cup \{(s,v):v\in V[G]\}$
+		\State $w(s, v)\gets 0$ per ogni $v\in V[G]$
+		\State
+		\If{bellman-ford(G', w, s) = false}
+		\State print(Grafo contiene un ciclo negativo)
+		\Else
+		\ForAll{$v\in V[G']$}
+		\State $h(v)\gets \delta(s,v)$ \Comment{Cammino minimo calcolato con Bellman-Ford}
+		\EndFor
+		\ForAll{$(u,v)\in E[G']$}
+		\State $\hat{w}(u,v)\gets w(u,v) + h(u) - h(v)$ \Comment{Calcolo del nuovo peso}
+		\EndFor
+		\State Sia $D = (d_{uv})$ una nuova matrice $n\times n$
+		\State
+		\ForAll{$u\in V[G]$}
+		\State Esegui $dijkstra(G, \hat{w}, u)$ per calcolare $\hat{\delta}(u,v)$ per ogni nodo.
+		\ForAll{$v\in V[G]$}
+		\State $d_{uv}\gets \hat{\delta}(u,v) + h(v) - h(u)$
+		\EndFor
+		\EndFor
+		\State \textbf{return} D
+		\EndIf
+	\end{algorithmic}	
+\end{algorithm}
+
+\noindent Analizziamo la complessità dell'algoritmo: viene eseguito in primo luogo Bellman-Ford, il cui costo complessivo è $O(VE)$; se è presente un
+ciclo di peso negativo, l'algoritmo termina riportando l'istanza. Alternativamente, si assegna alla variabile $h(v)$ il peso del cammino minimo
+$\delta(s, v)$, calcolato da Bellman-Ford per ogni nodo del neo-grafo, quindi $|V|$ volte.\par
+Dopodiché si attua Dijkstra per un totale di $|V|$ volte, contribuendo con $O(VElog(V))$ al tempo totale, implicando che sia implementato con un heap.
+Infine è assegnato il cammino minimo ad ogni elemento della matrice $D$. Per quanto riguarda grafi sparsi, abbiamo che $E = O(V)$, facendo risultare il
+tempo totale di esecuzione: $O(V^2log(V))$, asintoticamente migliore di Floyd-Warshall.
 
 %
 
 \section{Flusso massimo}
-Ford-Fulkerson, Karp
+Ford-Fulkerson, Edmonds-Karp

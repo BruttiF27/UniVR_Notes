@@ -1,0 +1,20 @@
+30-04-26 - Algoritmi
+
+--- Flusso massimo
+Voglio portare acqua da una sorgente a una destinazione, detta pozzo. Bisognerà deviare il flusso in base alla quantità massima di acqua che posso trasportare alla destinazione.
+Mi sembra di capire che lo scopo primario sia garantire un flusso di qualcosa da una sorgente a una destinazione senza che questo si ingorghi in qualche modo, quindi rispettando i
+vincoli di capacità.
+
+I grafi si prestano molto bene alla rappresentazione di questo problema in forma di rete di flusso. Questi sono grafi G = (V, E) con una funzione di capacità ad ogni arco, che indica
+la sua massima portata c: V\times V\to R^{\geq 0} tale che \forall u,v (u,v)\notin E \implies c(u,v) = 0. Quindi se l'arco non appartiene al grafo, ha capacità 0.
+
+Supponendo un grafo bisogna poter instradare il flusso in tal modo da non sovraccaricare la capacità e garantire che quello che entra, esce. La segnatura è: [flussoEntrante/capacità]
+Definiamo un flusso come una funzione f : V\times V \to R. Se guardi IM1 vedrai per esempio che da a a b sono inviati 12 di acqua.
+Se la domanda è quanto flusso è dato da b ad a bisogna rispondere -12, perché puoi dire che sta andando nel verso opposto. Simile a fisica come cosa.
+
+La capacità deve essere: \forall u,v . f(u,v) \leq c(u,v), ovvero la capacità deve essere sempre minore o uguale del flusso inviato.
+Ed è presente la relazione di antisimmetria: \forall u,v . f(u,v) = -f(v,u). Qui la ragione per cui diciamo che da B ad A si invia -12.
+Regola di conservazione: \forall v\in V - {s, d} . \sum_v f(u,v) = 0. Non è possibile creare o rimuovere del flusso. Da qualche parte va. La somma dei flussi uscenti deve essere
+uguale a quella degli entranti.
+
+-- Riprendi da -1:42:40

@@ -1,170 +1,179 @@
 \section{Protocollo IP}
 L'\textbf{Internet Protocol} (IP) è l'unico protocollo disponibile per il livello di rete, il quale si occupa dell'incapsulamento dei segmenti ricevuti
-dal livello di trasporto, trasformandoli in \textbf{datagrammi}, e del loro trasporto da un host all'altro.\par
+dal livello di trasporto, trasformandoli in \textbf{datagrammi}, e del loro trasporto da un host all'altro, router inclusi.\par
 IP è un protocollo complesso che agisce su due piani: quello dei \textbf{dati} e quello di \textbf{controllo}, i quali interagiscono tra di loro.
-Utilizza inoltre algoritmi per l'instradamento dei datagrammi verso gli altri host, i quali saranno approfonditi nelle sezioni successive.
+Utilizza inoltre algoritmi per l'instradamento dei datagrammi verso gli altri host, i quali saranno approfonditi nelle sezioni successive
+L'intestazione usata per il protocollo IP si compone dei seguenti campi: \begin{itemize}
+	\item \textbf{Versione}: Indica la versione utilizzata di IP; attualmente è in uso IPv4, ma i calcolatori sono pronti alla sua sostituzione con
+	IPv6. Comprende $4b$.
+	\item \textbf{Lunghezza intestazione}: I datagrammi possono contenere un numero variabile di opzioni, questo campo indica dove iniziano effettivamente
+	i dati. Comprende $4b$, ma siccome è comune non avere opzioni in questi elementi, il tipico datagramma IP ha un'intestazione di $20B$.
+	\item \textbf{Tipo di servizio}: Codice identificativo di una classe di servizio, consente di determinare il livello di priorità associato al
+	datagramma per indirizzarlo verso il più appropriato buffer di uscita. Si comprende di $8b$.
+	\item \textbf{Lunghezza del datagramma}: Indica la dimensione globale dell'intero datagramma e comprende $16b$.
+	\item \textbf{Identificatore, flag e offset di frammentazione}: Campi richiesti per la frammentazione, una procedura necessaria per l'invio dei
+	datagrammi anche in presenza di router con banda ridotta. Verrà trattata più nel dettaglio successivamente. Comprendono $16b$ totali.
+	\item \textbf{Tempo di vita}: Contatore inizializzato a partire dall'host sorgente (tipicamente a valori come $64$ o $128$) che identifica il
+	numero massimo di router che il datagramma può attraversare prima di essere scartato. Il valore è decrementato ad ogni hop eseguito e, raggiunto lo
+	zero, è ritornato un messaggio di errore. Comprende $8b$.
+	\item \textbf{Protocollo}: Codice identificativo per determinare il protocollo usato nei dati trasportati nel payload. Prende $8b$.
+	\item \textbf{Header checksum}: Esegue la stessa funzione del checksum discusso durante il TCP. Richiede $16b$.
+	\item \textbf{Indirizzi IP sorgente e destinazione}: Utilizzati per determinare richiedente e ricevente dei datagrammi. Comprendono $32b$ l'uno.
+	\item \textbf{Opzioni}: Utile per un'eventuale estensione dell'intestazione. Mette a disposizione altri $32b$.
+\end{itemize}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.75\linewidth]{Images/header_IP.png}
+	\includegraphics[width=0.9\linewidth]{Images/header_IP.png}
 	\caption{Panoramica intestazione IP}
 \end{figure}
 
+\noindent Come già avanzato nella descrizione dell'intestazione, è necessario parlare di \textbf{frammentazione} dei datagrammi, una procedura legata
+alla scheda di rete presente negli host, la quale definisce la MTU. Ha luogo quando la dimensione del pacchetto è maggiore rispetto alla MTU dell'host e
+vede quest'ultimo frammentare il datagramma in più parti con dimensione compatibile a quella della sua scheda di rete.\par
+Per attuare la procedura, si utilizzano i campi appositi dell'header IP; in particolare, \textbf{identificatore} mantiene un numero progressivo generato
+dalla sorgente e assegnato a ogni frammento, il \textbf{flag M} è utile per distinguere i frammenti secondo la logica: \begin{itemize}
+	\item Se posto a 0, il datagramma non è stato frammentato oppure è l'ultimo frammento.
+	\item Se posto a 1, il datagramma è uno dei frammenti.
+\end{itemize}
+\noindent Infine, \textbf{offset di frammentazione} indica la posizione del frammento rispetto al pacchetto originario, espresso in multipli di $8$.\par
+Supponiamo una MTU di $5000B$ ed un pacchetto di dimensione $4000B+20B$ di header; naturalmente il datagramma non verrà frammentato e i tre campi
+discussi avranno i seguenti valori: \begin{center}
+	Identificatore: $476$\quad Flag M: $0$\quad Offset di frammentazione: $0$ 
+\end{center}
+\noindent Durante il suo viaggio, il datagramma attraversa un router il cui link di uscita presenta una MTU di $1420B$; sarà necessario frammentare
+l'unità in tre parti, per le quali avremo: \begin{itemize}
+	\item IP di sorgente e di destinazione uguali per ogni frammento.
+	\item Flag M posto a $1$ per i frammenti che non sono l'ultimo.
+	\item Per il primo frammento un $\text{offset}_1=0/8=0$, per il secondo $\text{offset}_2=1400/8=175$ e per il terzo $\text{offset}_3=2800/8=350$.
+\end{itemize}
+\noindent Grazie alla frammentazione è possibile inviare i datagrammi in qualsiasi ordine e ricostruirli correttamente. Il riassemblaggio è compito
+dell'end-host di ricezione, il quale, alla ricezione di un frammento, farà partire un timer (generalmente di $250ms$), al termine del quale, se non
+sono stati ricevuti tutti i frammenti, scarterà tutto.
+
+%
+
+\section{Algoritmi di routing}
+Come già chiarito, lo scopo del livello di rete è, data una destinazione, fare il possibile per consegnarle i datagrammi. Il livello di rete infatti non
+fornisce alcuna garanzia di consegna; esegue la sua mansione alla "best-effort" maniera, poiché è un compito assegnato al protocollo TCP. Esistono due
+tipi principali di consegna: \begin{itemize}
+	\item \textbf{Diretta}: Effettuata tra due end-host all'interno di una stessa LAN.
+	\item \textbf{Indiretta}: Effettuata tra due end-host appartenenti a LAN diverse, per la quale è necessario appellarsi al router di bordo.
+\end{itemize}
+
+\noindent Per poter determinare il tipo di consegna, un host è a conoscenza, oltre al proprio indirizzo IP, anche di quello del router di bordo e della
+maschera di rete. L'end-host effettua due operazioni di bit-wise $AND$: $IP_s \land \text{mask}$ e $IP_d \land \text{mask}$ per poi confrontare i
+risultati. Se sono uguali, la destinazione è all'interno della LAN e avverrà quindi una consegna diretta; alternativamente sarà indiretta.\par
+Proprio in questo caso entra in gioco il \textbf{routing}: il processo di scoperta del cammino migliore da una sorgente a una delle possibili
+destinazioni. Per attuarlo, ogni router mantiene una \textbf{tabella di routing}, dove per ogni destinazione composta di tre campi: \begin{itemize}
+	\item \textbf{Destinazione}: Il router al quale si vuole arrivare.
+	\item \textbf{Hop successivo}: Il router attraverso il quale si deve passare per arrivare a destinazione.
+	\item \textbf{Costo di attraversamento}: Autoesplicativo.
+\end{itemize}
+
+\noindent Il cammino migliore è determinato in base ai criteri adottati dall'ISP; alcuni scelgono di fare più hop e costare più tempo ma ridurre le
+risorse utilizzate, mentre altri potrebbero preferire un cammino con meno hop sacrificando più risorse. Non esiste la scelta migliore in assoluto.\par
+Il calcolo del cammino minimo avviene prima dell'attraversamento ed è rappresentato mediante un'astrazione con i grafi. Andare nel dettaglio su questa
+forma o spiegare i relativi algoritmi esula dallo scopo di questa dispensa; per maggiori dettagli consultare quella di Algoritmi.\newline
+
+\noindent Data quindi una topologia composta da router (nodi) e collegamenti (archi), si deriva il grafo e l'ISP assegna i pesi in base al criterio
+adottato; in particolare se si sceglie il \textbf{numero di hop attraversati} è necessario porre tutti gli archi con peso uguale a $1$ e il cammino
+minimo sarà il percorso con il valore minore. Alternativamente, scegliendo la \textbf{velocità di trasmissione} nominale del link, i pesi avranno un
+valore inversamente proporzionale alla loro banda, poiché maggiore è la velocità, minore sarà il tempo usato per il trasferimento dei datagrammi.\par
+Esistono più algoritmi applicabili per la risoluzione del problema di calcolo del cammino minimo; in particolare: \begin{itemize}
+	\item \textbf{Link-state routing algorithm}: Algoritmo "centralizzato", grazie al quale ogni router è a conoscenza della topologia della rete e
+	calcola in autonomia il cammino minimo, scegliendo il link di uscita più appropriato.\par
+	Si implementa tramite l'algoritmo di Dijkstra, una procedura avida che sceglie il nodo non ancora visitato con distanza minima dalla sorgente
+	e salva il percorso nella rispettiva tabella di routing. Impostate tutte le tabelle, i datagrammi saranno capaci di scegliere il link di uscita
+	opportuno.\par
+	In questo contesto, i router si scambiano messaggi periodicamente per verificare se sono ancora raggiungibili; in caso di guasti o cambio di
+	topologia, la relativa informazione è immediatamente propagata agli altri nodi, che aggiorneranno le proprie tabelle di routing. Il protocollo
+	standard che i router devono rispettare per questo tipo di algoritmo è quello di \textbf{Open Shortest Path First} (OSPF).
+	\item \textbf{Distance vector routing algorithm}: Algoritmo distribuito dove i router sono a conoscenza esclusivamente delle altre entità adiacenti
+	con le quali si scambiano messaggi per aggiornare le tabelle di routing e determinare il cammino di costo minimo, il cui peso è dato dalla somma
+	dei costi di tutti i link attraversati nel percorso, ricalcolato ad ogni iterazione dell'algoritmo usato: Bellman-Ford.\par
+	Supponiamo il grafo pesato rappresentato nell'immagine successiva; in primo luogo si inizializzerà la tabella del nodo sorgente $A$, ottenendo i 
+	nodi adiacenti, hop successivi e relativo costo. Nella prima iterazione dell'algoritmo, si riceveranno le tabelle dei router adiacenti
+	$B = [A7, B0, C1, E5]$ e $E = [A1, B5, D2, E0]$; per il calcolo del cammino minimo, la sorgente ottiene: \[
+	D(A, B) = \begin{cases}
+		c(A, B)=7 + D(B, B)=0 \implies = 7\\
+		c(A, E)=1 + D(E, B)=5 \implies = 6
+	\end{cases}\]
+	\noindent Visto che è stato trovato un costo minore passando da $E$, il nodo $A$ aggiorna la tabella per la destinazione $B$ con costo $6$ segnando
+	$E$ come hop successivo. L'aggiornamento avviene per ogni destinazione contenuta nei distance vector (tabelle) ricevuti.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.65\linewidth]{Images/routingTable.png}
+		\caption{Algoritmo Distance Vector}
+	\end{figure}
+	\item \textbf{Software-defined network}: Algoritmo effettivamente centralizzato, dove un'entità esterna, cosciente della topologia della rete,
+	comunica con il router di sorgente fornendo tabelle di routing per la scelta del cammino minimo.
+\end{itemize}
+
+\noindent I messaggi periodici inviati tra i vari router per garantire il corretto funzionamento degli algoritmi seguono specifici protocolli il cui
+tipo è incapsulato all'interno dell'header IP. Tuttavia, questi algoritmi operano solamente all'interno del proprio insieme di reti e per questa ragione
+sono detti \textbf{intra-AS}; per le consegne indirette, \textbf{inter-AS}, è necessario appellarsi ai router di bordo, detti \textbf{gateway}, i quali
+instraderanno correttamente i datagrammi verso l'end-host desiderato della loro rete.\par
+Per questi scopi è stato definito il protocollo standard condiviso da tutti i router: \textbf{Border Gateway Protocol} (BGP). Supponiamo un router
+appartenente ad un AS, la sua tabella di routing conterrà i blocchi di indirizzi configurati da un protocollo intra-AS per le destinazioni facenti
+parte della propria rete, ma saranno presenti anche altre righe dedicate alle destinazioni extra-AS configurate dal protocollo BGP.\par
+La configurazione è simile; l'hop successivo sarà sempre quello adiacente per poter proseguire nel cammino e bisognerà calcolare il costo minimo del
+percorso per arrivare al router di bordo. Non è infatti compito della rete di sorgente calcolare il cammino minimo anche per le altre, poiché queste
+ultime potrebbero avere policy differenti, impostate dagli amministratori di rete.\par
+Il cammino minimo inter-AS risulta essere quindi una composizione di cammini minimi intra-AS, calcolati mediante questa procedura chiamata anche
+\textbf{Hot potato routing}; è possibile infatti dover attraversare più sistemi perché non tutte le reti hanno collegamenti diretti.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/connectedAS.png}
+	\caption{Panoramica inter-AS}
+\end{figure}
+
+%
+
+\section{Protocolli DHCP e ICMP}
+Il protocollo \textbf{Dynamic Host Configuration Protocol} è usato per la configurazione dell'host ogni volta che questo si connette a una rete. Tratta
+l'assegnamento dell'indirizzo IP e parametri per consentire il lavoro sulla rete scelta. Non entriamo in dettagli eccessivi riguardo la struttura del
+protocollo, tuttavia è necessario nominare due campi importanti della sua intestazione: \begin{itemize}
+	\item \textbf{Message type}: Codice identificativo dei messaggi DHCP.
+	\item \textbf{Transaction ID}: Codice identificativo dello scambio di messaggi DHCP generato casualmente dal richiedente.
+\end{itemize}
+
+\noindent L'entità per l'assegnazione degli indirizzi IP è detta \textbf{server DHCP}. La connessione a una rete avviene tramite lo scambio di quattro
+tipi di messaggo DHCP: \begin{enumerate}
+	\item \textbf{DHCP Discover}: Il client invia un broadcast sulla porta UDP 67 a tutti gli host della rete, il quale sarà riconosciuto e inoltrato
+	dal client DHCP al suo livello di collegamento dati. Il campo transaction ID è fondamentale per distinguere i richiedenti.
+	\item \textbf{DHCP Offer}: Un server DHCP riceve un messaggio di identificazione e risponde a sua volta con un broadcast contenente l'indirizzo
+	offerto all'host che vuole instaurare una connessione, con il medesimo transaction ID ed un \textbf{lease time}\footnote{Generalmente, parliamo di
+	un'ora per le reti aziendali e 24h per quelle domestiche. Può essere rinnovato con DHCP request.} che definisce per quanto tempo può mantenere
+	questo IP.
+	\item \textbf{DHCP Request}: Il client appena collegato sceglierà uno degli indirizzi offerti dai server DHCP e risponderà con un messaggio
+	contenente l'IP del server, quello offerto e un nuovo transaction ID.
+	\item \textbf{DHCP Acknowledge}: La risposta finale del server che conferma i parametri richiesti.
+\end{enumerate}
+
+\noindent Oltre all'indirizzo IP, i server DHCP forniscono anche la maschera della rete, il valore dell'IP del router di default e l'IP del server DNS.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/protocol_DHCP.png}
+	\caption{Scambio di messaggi DHCP}
+\end{figure}
+
+\noindent Un altro protocollo, \textbf{Internet Control Message Protocol}, ha invece lo scopo di inviare messaggi che trasportano informazioni o errori
+a livello di rete. Il destinatario di questi messaggi può riconoscerli grazie alla segnalazione nel campo protocol presente nell'header IP.\par
+Nella pratica è utilizzato come un logger, per esempio per segnalare la scadenza del TTL di un datagramma, prendendo l'IP sorgente del pacchetto e
+inviando un messaggio ICMP di tipo "TTL exceeded". Ha uso anche nel traceroute per distinguere i vari hop su cui misurare l'RTT.
+
+%
+
+\section{Problema di carenza indirizzi IP}
+
 \begin{comment}
-	--- Livello di rete
-	Il comportamento adesso riguarda ogni elemento della rete, quindi non solo più i due end-host, bensì anche i router.
-	Analizziamo il protocollo IP (Internet Protocol), l'unico disponibile per questo livello. Definiamo il suo header.
-	- Versione del protocollo 4b: Possono coesistere più versioni di IP, attualmente è in uso IPv4, ma esiste anche IPv6
-	- Lunghezza dell'header: Lungo 20b se non ci sono opzioni, altrimenti è lungo 20b.
-	- Lunghezza totale: Lunghezza di header e payload; indica globalmente la grandezza del pacchetto.
-	- Service Type: Codice identificativo di una classe di servizio (nei router ci sono più buffer di uscita, dalla priorità più alta alla più bassa.
-	In base al campo service type i pacchetti sono messi in coda al buffer più appropriato.)
-	- Identification, flag e fragment offset sono legati alla frammentazione (vista più tardi)
-	- TTL (Time to leave): Contatore inizializzato dalla sorgente (Di norma 64 o 128) che identifica il numero massimo di router che il pacchetto può
-	attraversare. Alla ricezione di un pacchetto, ogni router decrementa di 1 questo valore. Se il valore arriva a 0, il router scarta il pacchetto e
-	invia un messaggio di errore alla sorgente. Utile negli scenari di rerouting in caso di problemi sui link; si ricalcola il percorso e se è troppo
-	lungo entra in gioco il TTL. Previene inoltre cicli infiniti.
-	- TYPE: Codice che identifica il protocollo usato nei dati trasportati nel payload.
-	- Header checksum: Esattamente come i precedenti checksum discussi.
-	
-	--- Frammentazione IP
-	C'è un legame con la maximum transmission unit, perché ogni host ne ha una. Generalmente, data una tecnologia di trasmissione di Lv.2 (Data-link)
-	c'è una dimensione massima di trasmissione che tale scheda di rete può gestire (Maximum Transmission Unit).
-	Que pasa se un pacchetto incontra una scheda di rete con minore MTU del pacchetto durante il percorso?
-	Il router con link di uscita con MTU < della dimensione del pacchetto frammenta quest'ultimo in più pacchetti con MTU compatibile con il link di
-	uscita.
-	I campi dell'header IP coinvolti sono:
-	- Identification: Numero progressivo dato dalla sorgente al pacchetto IP (ATTENZIONE: NON HA RELAZIONI CON IL SEQUENCENUMBER DEL TCP). Tutti i
-	frammenti del pacchetto avranno lo stesso numero identificativo del pacchetto frammentato.
-	- Dei tre flags, uno è chiamato "M (More fragments)". Se è impostato a 0, il pacchetto non è stato frammentato oppure è l'ultimo frammento. Se è
-	impostato a 1, è uno dei frammenti.
-	- Offset: Posizione del frammento rispetto al pacchetto originario (diviso per 8).
-	
-	--- Esempio
-	Supponiamo un MTU da 5000B e il pacchetto generato è da 4000B + 20B di header IP. Nel campo identification avrà avuto 476, il flag M è a 0, in
-	quanto il pacchetto non è frammentato, e per la stessa ragione offset ha valore 0.
-	Nel percorso, il pacchetto attraversa un router con link di uscita MTU 1420. 1400 per il payload, 20 per header IP. Il pacchetto sarà spezzato in
-	tre e avremo:
-	- srcIP, dstIP e identification uguali per ogni frammento.
-	- Il valore del flag M sarà 0 nell'ultimo, negli altri sarà posto a 1.
-	- L'offset per il primo è 0/8=0, il secondo è 1400/8=175, il terzo è 2800/8=350
-	Con questa divisione i pacchetti potranno essere inviati e ricevuti in qualsiasi ordine; potranno essere ricostruiti grazie a M e offset.
-	
-	Ma chi effettua il riassemblaggio? Ovviamente l'host di destinazione. Non i router intermedi. L'end-host, proprio. Quando la destinazione riceve un
-	frammento, fa partire un timer (generalmente di 250ms), se non riceve tutti i frammenti entro la sua scadenza, scarta tutto.
+	--- Soluzioni alla carenza di indirizzi IP
+Servono più di 32b per gli IP perché non sono abbastanza. Due possibili soluzioni:
+    - Cambiare protocollo a IPv6 per contenere 128b di indirizzi.
+    - Introdurre una classe di indirizzi IP privati (Attualmente in uso)
 \end{comment}
-
-%
-
-\section{Protocolli di routing}
-Distance vector, link state routing
-
-\begin{comment}
---- Livello di rete - pt.2 (routing/instradamento)
-Scopo del livello di rete è data una destinazione, fare il possibile per consegnare i pacchetti a tale destinazione. Il livello IP non dà nessuna
-garanzia di consegna, per questo fa il possibile. Si dice infatti che IP sia un protocollo best effort; possono sussistere condizioni non ideali per la
-perdita di pacchetti e IP non ha modo di recuperarli.
-	Per UDP no problem, ma se TCP usa IP ha dei meccanismi per recuperarli. Il recupero non si trova quindi nel dominio operativo del livello di rete.
-	Ci pensa quello di trasporto.
-	
-Parliamo ora di consegna diretta e indiretta. La consegna diretta è quando una destinazione appartiene alla stessa rete. (in IM1, da hostA a hostB).
-Se la destinazione è in un'altra rete, è necessario demandare qualcuno (il router) per la consegna.
-	Come fa un host a capire che tipo di consegna è?
-	
-Un host conosce oltre al proprio indirizzo IP, la maschera della rete a cui appartiene e l'indirizzo IP del router di bordo della rete a cui appartiene.
-
-Data una destinazione (IP_d) l'host confronta (IP_h && mask) con un and bit a bit, facendo rimanere immutato il prefisso e mettendo il suffisso a 0.
-Confronta questo valore con (IP_d && mask). Se i due valori sono uguali, allora la destinazione appartiene alla stessa rete e sarà una consegna diretta.
-Altrimenti, se i due valori sono diversi, la destinazione apparterrà a un'altra rete e sarà consegna indiretta, richiedente l'appello del router di
-bordo.
-
-Il routing è il processo di scoperta del cammino migliore da una sorgente a una delle possibili destinazioni.
-I router al loro interno mantengono una tabella di routing, dove per ogni destinazione è segnata l'interfaccia di uscita per arrivarci e un parametro
-per il costo di attraversamento (di singolo hop, deduco).
-	Il cammino migliore è determinato dai criteri adottati dall'ISP. Potrebbe fare più hop e costare più tempo ma meno in risorse, mentre potrebbe
-	scegliere un cammino con meno hop per rapidità ma costare un pò di più.
-	
-Indovina indovinello, il routing passa attraverso un'astrazione con i grafi e diventa un problema di ricerca del cammino di costo minimo. I router sono
-i nodi e i link sono gli archi, naturalmente. Per maggiori dettagli, vedasi la dispensa di algoritmi.
-Il cacolo del cammino minimo avviene prima dell'attraversamento, ovviamente.
-
-Lez12 - 28-04-26 Reti di calcolatori
-
---- Routing pt2
-Data una topologia (quindi i router e i collegamenti), derivo il grafo e assegno i pesi in base a un determinato criterio. Normalmente il peso è
-assegnato dall'amministratore di rete. Alcuni criteri sono:
-	- Numero di hop attraversati: Soddisfatto ponendo tutti gli archi a peso 1. Il cammino minimo avrà valore minore di tutti.
-	- Velocità di trasmissione (nominale del link): Pesi inversamente proporzionali alla banda, perché maggiore è la velocità, minore è il tempo usato 
-	per il trasferimento.
-	
-Algoritmi per il calcolo del cammino minimo di un grafo possono essere:
-	- (che considerano lo) Stato dei collegamenti (Link state routing algorithm): Algoritmo "centralizzato": Ogni router conosce la topologia della
-	rete e calcola in autonomia il cammino minimo, decidendo poi il link di uscita.
-	- Vettori distanza (Distance vector routing algorithm): Algoritmo distribuito; i router si parlano tra di loro ma non conoscono l'intera topologia
-	della rete. Conoscono solo router adiacenti.
-	- SDN (Software Defined Network): Algoritmo realmente centralizzato; c'è un'entità esterna che conosce la topologia intera che comunica col router
-	e gli comunica le tabelle di routing per il cammino minimo.
-	
-Esistono uno o più protocolli per ciascuna categoria per l'implementazione degli algoritmi di routing. (guarderemo solo gli algoritmi, citeremo solo i
-nomi degli algoritmi e ignoreremo il formato dei messaggi)
-	Per far funzionare gl algoritmi i router si scambiano messaggi tramite specifici protocolli. Ciascun router invia periodicamente (il tempo dipende
-	dal protocollo) ai propri router adiacenti un messaggio di aggiornamento. Il messaggio di routing contiene informazioni relative allo stato dei
-	collegamenti (se le interfacce sono raggiungibili) ed è incapsulato con un header IP. srcIP è quello della sua interfaccia di uscita, dstIP è
-	quello del router destinatario.
-	
---- Algoritmi Link State
-Ogni nodo della rete conosce l'intera topologia della rete e ogni nodo calcola autonomamente i cammini minimi da sé al nodo destinazione. Imposta le
-proprie tabelle di routing di conseguenza.
-	Sembrerebbe un algoritmo avido, che sceglie l'arco dal peso minore ogni volta. Si salva la strada da percorrere e scrive nella tabella di routing
-	le interfacce migliori per ogni hop. Impostate tutte, i pacchetti sanno di dover utilizzare le interfacce di uscita segnalate. L'algoritmo
-	utilizzato per raggiungere questo scopo è quello di Dijkstra.
-	
-In breve, i nodi si scambiano messaggi periodicamente per verificare se sono ancora raggiungibili mediante informazioni sui propri link. In caso di
-guasti o cambio di topologia, la relativa informazione è immediatamente propagata per aggiornare la topologia e le proprie tabelle di routing.
-Protocollo standard (che tutti i router devono supportare) basato su link state è OSPF (Open Shortest Path First).
-
---- Algoritmo distance vector
-Supponiamo 3 nodi, i,j,k. i e j hanno un collegamento diretto (sono adiacenti, quindi), mentre l'altro no, sebbene rimanga raggiungibile.
-Il costo dell'arco da i a j è c(i,j). Il costo di un cammino da i a k è D(i, k) = \sum c(l, n), dove l->n\in Cammino.
-Quindi il costo è la somma dei costi dei singoli link che compongono il cammino. c è costo. D è distanza.
-
-Supponiamo ora un nodo i e tre suoi adiacenti, j,l,m. Sono gli unici vicini diretti di i.
-Ipotizziamo ora una destinazione k, per la quale j,l,m hanno calcolato la distanza con questa destinazione, quindi D(j,k), D(l,k), D(m,k).
-Come troviamo D(i,k)? Il suo cammino minimo sicuramente deve passare per nodi adiacenti, quindi le uniche possibilità che abbiamo per ottenere D(i,k)
-sono attraversare uno degli archi ai suoi nodi adiacenti e poi fare la somma con tutto il resto del cammino. Per esempio, se scelgo
-j: D(i,k) = c(i,j) + D(j,k).
-	Il cammino minimo sarà il costo minimo tra i cammini disponibili, naturalmente. Ma con questa osservazione capiamo che il nodo i non ha bisogno
-	di conoscere la topologia, bensì solamente il costo minimo dell'hop.
-	
-In generale definiamo il costo del cammino minimo: D(i,k) = min(c(i,v) + D(v,k)), con v nodo adiacente a i.
-Il calcolo della distanza minima è ripetuto ad ogni hop per scegliere l'arco di costo minore fino ad arrivare alla destinazione.
-L'algoritmo usato è quello di Bellman-ford. Proviamo ad applicarlo ad un caso di esempio.
-
--- Esempio
-Focalizziamoci sulla tabella di routing di A. La si inizializza, ottenendo i nodi adiacenti, i nextHop e il relativo costo.
-Per esempio A->A non ha nextHop ed è a costo zero, A->B ha nextHop B e costo 7, etc.
-Si inizializzano anche le tabelle dei nodi adiacenti E e B.
-	Data questa inizializzazione, il nodo A nella prima iterazione riceve i distance vector del nodo B (A7, B0, C1, E5) e del nodo E (A1, B5, D2, E0).
-Per la destinazione B, il nodo A calcola D(A, B) = \begin{cases}
-	c(A, B)=7 + D(B, B)=0 \implies = 7\\
-	c(A, E)=1 + D(E, B)=5 \implies = 6
-\end{cases}
-\noindent Siccome nella tabella c'era un costo iniziale da A verso B pari a 7, avendo trovato un costo minore attraverso E, il nodo A aggiorna la
-tabella per la destinazione B con costo 6 e nextHop il nodo E. L'aggiornamento avviene per ogni destinazione contenuta nei DV ricevuti.
-
-\end{comment}
-
-%
-
-\section{Protocollo ICMP}
-
-%
-
-\section{Protocollo di configurazione DHCP}
-
-%
-
-\section{IPv6}
 
 %
 

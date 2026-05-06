@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  1 MAY 2026 12:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  6 MAY 2026 12:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -585,32 +585,59 @@ Package pdftex.def Info: Images/UDP_header.png  used on input line 214.
 (pdftex.def)             Requested size: 270.00275pt x 147.32544pt.
  Excluding 'comment' comment. Excluding 'comment' comment.) [34 <./Images/UDP_header.png>] [35]
 Capitolo 4.
-(./Chapters/4.tex
-<Images/header_IP.png, id=175, 622.325pt x 412.54124pt>
+(./Chapters/4.tex [36
+
+]
+<Images/header_IP.png, id=179, 622.325pt x 412.54124pt>
 File: Images/header_IP.png Graphic file (type png)
 <use Images/header_IP.png>
-Package pdftex.def Info: Images/header_IP.png  used on input line 9.
-(pdftex.def)             Requested size: 337.5pt x 223.73207pt.
- Excluding 'comment' comment. Excluding 'comment' comment. [36
+Package pdftex.def Info: Images/header_IP.png  used on input line 27.
+(pdftex.def)             Requested size: 404.99725pt x 268.47597pt.
+ [37 <./Images/header_IP.png>] [38]
+Underfull \hbox (badness 10000) in paragraph at lines 76--78
 
- <./Images/header_IP.png>]) [37]
+ []
+
+[39]
+<Images/routingTable.png, id=190, 783.92876pt x 532.99126pt>
+File: Images/routingTable.png Graphic file (type png)
+<use Images/routingTable.png>
+Package pdftex.def Info: Images/routingTable.png  used on input line 106.
+(pdftex.def)             Requested size: 292.49725pt x 198.8709pt.
+ [40 <./Images/routingTable.png>]
+<Images/connectedAS.png, id=196, 713.66624pt x 532.99126pt>
+File: Images/connectedAS.png Graphic file (type png)
+<use Images/connectedAS.png>
+Package pdftex.def Info: Images/connectedAS.png  used on input line 128.
+(pdftex.def)             Requested size: 270.00275pt x 201.64418pt.
+ [41 <./Images/connectedAS.png>]
+<Images/protocol_DHCP.png, id=201, 873.2625pt x 702.625pt>
+File: Images/protocol_DHCP.png Graphic file (type png)
+<use Images/protocol_DHCP.png>
+Package pdftex.def Info: Images/protocol_DHCP.png  used on input line 158.
+(pdftex.def)             Requested size: 450.0pt x 362.06497pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Excluding 'comment' comment.) [42] [43 <./Images/protocol_DHCP.png>]
 Capitolo 5.
-(./Chapters/5.tex) [38
+(./Chapters/5.tex) [44
 
 ] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 9089 strings out of 476041
- 147585 string characters out of 5793174
+ 9110 strings out of 476041
+ 148140 string characters out of 5793174
  1860388 words of memory out of 6000000
- 29375 multiletter control sequences out of 15000+600000
+ 29393 multiletter control sequences out of 15000+600000
  523986 words of font info for 80 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
  74i,15n,82p,920b,505s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (39 pages, 1409356 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on main.pdf (45 pages, 1517116 bytes).
 PDF statistics:
- 258 PDF objects out of 1000 (max. 8388607)
- 139 compressed objects within 2 object streams
+ 288 PDF objects out of 1000 (max. 8388607)
+ 155 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 121 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 136 words of extra memory for PDF output out of 10000 (max. 10000000)
 

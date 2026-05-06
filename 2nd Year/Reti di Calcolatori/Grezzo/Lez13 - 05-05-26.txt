@@ -1,0 +1,89 @@
+Lez13 - 05-05-26 Reti di calcolatori
+
+--- Routing pt.3, la finale, si spera
+Routing inter/intra Autonomous Systems
+
+Ricordiamo che internet è una composizione di reti, dunque è un insieme di ISP e AS di livelli diversi, implicando diversi domini amministrativi. Questi comunicano tra di loro mediante dei router di bordo appositi, detti gateway.
+Se un utente deve comunicare con un secondo affidato ad un diverso AS, dovrà affidarsi al gateway che trasporterà il messaggio all'end-host corretto del suo insieme.
+
+Gli algoritmi e protocolli link state/distance vector sono quelli per calcolare il cammino minimo all'interno di un autonomous system.
+Quelli all'interno del singolo insieme dell'AS si dicono algoritmi intra-AS, mentre per le destinazioni che appartengono ad altri ISP o AS è stato definito un protocollo standard che tutti devono usare: BGP (Border Gateway Protocol); determina il routing inter-AS.
+
+Quindi, intra- (all'interno), mentre inter- (fra di).
+
+Considerato un router di un AS, la tabella di routing conterrà righe (blocco di indirizzi) configurate dal protocollo intra-AS per le destinazioni all'interno dello stesso AS.
+Contiene anche altre righe per le altre destinazioni al di fuori dell'AS configurate dal protocollo inter-AS (ovvero dal BGP).
+
+Esempio tabella di routing:
+Dst         | nextHop       | costo
+n_1             R_x             c_1
+n_2             R_y             c_2
+...             ...             ...
+n_1^e           R_x             c_1^e
+n_2^e           R_w             c_2^e
+
+Le prime due righe riguardano intra-AS. Le ultime due quello inter-AS. Il next hop sarà sempre il router adiacente al corrente per poter andare avanti ma bisogna calcolare il costo.
+    Il next hop di una destinazione esterna è il next hop del cammino minimo per raggiungere il router di bordo (gateway) che porta a tale destinazione.
+Non è di interesse del primo AS sapere come il secondo AS raggiunto calcola il cammino minimo. È un problema suo una volta che è raggiunto con il link calcolato.
+
+Il cammino minimo inter-AS risulta essere quindi una composizione di cammini minimi. È possibile infatti dover attraversare più AS, perché magari non c'è tra loro un collegamento diretto.
+
+Quindi come determinare il costo? Il BGP dice solo la raggiungibilità.
+Il costo è pari al costo del cammino minimo per raggiungere il gateway. In caso di destinazioni esterne raggiungibili da più gateway, si sceglie quello di costo minimo (ma dai?) (questo metodo si chiama anche hot potato routing)
+
+Non c'è tempo per andare nei dettagli del BGP, maledizione, corri, corri!, CORRI!
+
+--- Protocolli di supporto: DHCP, ICMP
+DHCP (Dynamic Host Configuration Protocol) è un protocollo per la configurazione (assegnazione indirizzi ip e parametri per consentire di lavorare sulla rete) dell'host, è utilizzato ogni volta che un host si connette a una rete.
+Gli indirizzi ip degli host attestati ad una rete appartengono al blocco della rete stessa e sono assegnati dal server DHCP.
+
+Come avviene quindi l'assegnazione degli indirizzi IP? Viene inviato un messaggio in broadcast a tutti gli host; il server DHCP riconosce il messaggio per lui grazie al campo type dell'header IP. Lo va quindi a gestire. Gli altri host lo ignorano.
+    Non entriamo nel dettaglio dei campi DHCP, ne nominiamo solo alcuni:
+    - Message Type: Codice che identifica un messaggio di DHCP discover (richiesta da un utente appena connesso di avere un indirizzo IP)
+    - Transaction ID: Numero casuale generato dall'utente
+Il server risponde a sua volta con un messaggio di forma simile, con un DHCP offer all'interno del campo message type. È inviato sempre in broadcast che potrà essere gestito dagli host in ascolto che hanno fatto la richiesta. Il modo per differenziare l'host che deve riceverlo è il transaction ID che il client aveva inviato nel primo messaggio.
+Ricevuta l'offerta dal server, il client dovrà accettarla con un DHCP request, contenente IP del server, l'IP offerto e un nuovo transaction ID.
+Il server risponderà con un messaggio di dhcp acknowledgement ocntenente l'ip offerto e trans_id del terzo messaggio. Ricevuto dal client, questo potrà utilizzarlo per un determinato tempo di validità (lease) (per esempio 1h per le reti aziendali, oppure 24h per le reti domestiche). Se l'host rimane per più tempo, dovrà richiedere il rinnovo del lease con un message type extension.
+
+Il DHCP server oltre all'indirizzo IP, fornisce anche:
+    - Maschera della rete (totale dei bit dedicati al prefisso)
+    - Indirizzo IP del router di default
+    - IP del server DNS
+
+ICMP è invece Internet Control Message Protocol, il suo scopo è inviare messaggi che trasportano informazinoi o errori a livello di rete stessa.
+Chi riceve messaggi di tipo ICMP lo sa grazie alla segnalazione nel campo type dell'header IP del messaggio.
+Per esempio, che succede quando TTL raggiunge il valore 0? Viene pres l'ip sorgente del pacchetto e si invia un messaggio ICMP di tipo "TTL exceeded". Non ci andiamo troppo nel dettaglio, basta sapere che esiste.
+
+Fun fact: il TTL è usato nel traceroute per distinguere i vari hop su cui misurare l'RTT, perché le risposte dei router sono messaggi ICMP di errore.
+
+--- Soluzioni alla carenza di indirizzi IP
+Servono più di 32b per gli IP perché non sono abbastanza. Due possibili soluzioni:
+    - Cambiare protocollo a IPv6 per contenere 128b di indirizzi.
+    - Introdurre una classe di indirizzi IP privati (Attualmente in uso)
+
+--- Soluzione esercizio TCP 4
+AppA deve trasferire 104400B verso AppB
+MSS = 1200B
+RCVWND_i = 9600B
+A partire dall'istante t_a > 4s, la destinazione annuncia una RCVWND = 14400B
+A partire dall'istante t_b > 9s, la destinazione annuncia una RCVWND = 7200B
+SSTHRESH_i = RCVWND_i // Occhio quindi non è influenzata dalle successive ridefinizioni della RCVWND
+CWND = 1
+RTT = 1s costante per tutta la trasmissione
+RTO = 2RTT
+Down di rete in intervallo (11.5, 12.5)
+
+// Tip: le modifiche alla RCVWND sono comunicate dalla destinazione e il grafico che facciamo riguarda la sorgente. Quindi non le si riceve esattamente agli istanti t_a, t_b, bensì alla ricezione dell'ack.
+// Tip: A causa del down di rete, sono correttamente inviati i pacchetti, ma non si riceve il relativo ack. In quanto tale, si attiva ugualmente l'RTO.
+
+RCVWND_1: 9600B/1200B = 8
+RCVWND_2: 14400B/1200B = 12
+RCVWND_3: 7200B/1200B = 6
+Segmenti da trasmettere: 104400B/1200B = 87
+Segmenti trasmessi: 1+2+4+8+8+9+10+11+12+12+6+0 = 83 // Down di rete, i 4 segmenti rimanenti non sono inviati.
+Segmenti trasmessi: 1+2+(4-3) = 87
+
+Tempo totale = 16s, CWND finale: 3+1/3.
+
+In caso di perdita dei segmenti va così, mentre in caso di perdita dei riscontri durante il down di rete, non avendo ricevuto conferma, è necessario aspettare il termine dell'RTO per una ritrasmissione a t=13s.
+Si cambia ovviamente la SSTHRESH e la CWND. Si ritrasmette il primo segmento, ma la destinazione aveva già ricevuto quelli trasmessi prima del down, quindi verrà ritornato un ack88. La sorgente si rende conto che i segmenti erano stati trasmessi correttamente, ricalcola il nuovo valore della CWND = CWND+ackReceived = 1+1 = 2 e chiuderà la connessione, facendo terminare la trasmissione a t=14s.

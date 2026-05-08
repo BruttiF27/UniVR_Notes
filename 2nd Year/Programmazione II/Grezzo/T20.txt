@@ -1,0 +1,155 @@
+T20 - Prog2
+
+--- Flussi di input/output
+Le operazioni di I/O dipendono dall'astrazione data dagli stream, che tuttavia in questi caso sono differenti dall'interfaccia Stream.
+Un flusso I/O può essere utilizzato con file statici sul disco, stdin, stdout, stderr, una connessione oppure un flusso di dati da oppure a dispositivi hardware. In ogni caso, i flussi operano allo stesso modo di quelli già affrontati.
+
+I flussi I/O sono contenuti nel pacchetto java.io, le cui relative eccezioni fanno parte di IOException. Fondamentalmente abbiamo due tipi di flussi che condividono la stessa interfaccia:
+```Java
+	read()	// Ritorna uno o più byte/caratteri dallo stream
+	write()	// Inserisce uno o più byte/caratteri nello stream
+	close()	// Chiude lo stream
+```
+\begin{itemize}
+	\item \textbf{Orientati ai Byte}: Flusso di Byte gestito da classi astratte InputStream e OutputStream, spesso usato per la gestione di dati in binario come immagini, audio o bytecode. Oltre al costruttore, che apre lo stream, presentano i seguenti metodi:
+	Le implementazioni concrete sono specifiche del mezzo attraverso il quale si fa I/O e si utilizzano con le seguenti sottoclassi:
+	\begin{itemize}
+		\item BufferedInputStream/BufferedOutputStream: Legge/scrive dati con un buffer.
+		\item DataInputStream/DataOutputStream: Legge/scrive tipi primitivi di Java
+		\item FileInputStream/FileOutputStream: Legge/scrive un file.
+	\end{itemize}
+	\begin{lslisting}[language=Java]
+		// Esempio di gestione IO con file binario
+		public static void main (String args[]) throws IOException {
+			FileInputStreamfis = null;
+			FileOutputStreamfos = null;
+			try {
+				fis = new FileInputStream(args[0]);
+				fos = new FileOutputStream(args[1]);
+				int b;
+				while ((b = fis.read()) != −1) {			// throws IOException
+					fos.write(b);						// throws IOException
+				}
+			} catch (FileNotFoundException fnfe) {
+				System.out.println("File not found...");
+			} finally {
+				if (fis != null) fis.close();			// throws IOException
+				if (fos != null) fos.close();			// throws IOException
+			}
+		}
+	\end{lslisting}
+	\item \textbf{Orientati ai caratteri}: Flusso di caratteri Unicode a 16b gestito da classi astratte Reader e Writer, tendenzialmente usati per gestire dati testuali, come stringhe. Anche qui le implementazioni concrete dipendono dal mezzo e sono date dalle sottoclassi:
+	\begin{itemize}
+		\item BufferedReader/BufferedWriter: Leggi/Scrivi con un buffer
+		\item InputStreamReader/OutputStreamWriter: Wrapper per leggere/scrivere da/a un mezzo basato su byte.
+		\item StringReader/StringWriter: Wrapper per leggere/scrivere da/a una stringa.
+		\item FileReader/FileWriter: Legge/scrive da/su un file.
+	\end{itemize}
+	\begin{lslisting}[language=Java]
+		public static void main ( String args []) throws IOException
+			Buffe redReade r br = null ;
+			Buffe redWrite r bw = null ;
+			try {
+				br = new Buff eredRead er ( new FileReader ( " i . txt " ) ) ;
+				bw = new Buff eredWrit er ( new FileWriter ( " o . txt " ) ) ;
+				String line ;
+				while (( line = br . readLine () ) != null ) {	// throws IOException
+					bw . write ( line ) ;						// throws IOException
+				}
+			} catch ( F i l e N o t F o u n d E x c e p t i o n fnfe ) {
+				System . out . println ( " File ␣ not ␣ found ... " ) ;
+			} finally {
+				if ( br != null ) br . close () ;				// throws IOException
+				if ( bw != null ) bw . close () ;				// throws IOException
+			}
+		}
+	\end{lslisting}
+\end{itemize}
+\noindent Attenzione che gli stream da java 7 si chiudono automaticamente con la IOException, quindi nella gestione si può omettere il metodo close().
+
+--- Files e URL
+In java.IO è presente anche la classe File, che permette la gestione di pathnames assolute e relative per la creazione di file e cartelle. Metodi utili:
+```
+create()
+delete()
+exists()
+renameTo()
+getParent()
+mkdir()
+getAbsolutePath()
+isFile()
+isDirectory()
+listFiles()
+```
+
+In sinergia, il pacchetto java.net porta la classe URL per la modellazione degli Uniform Resource Locator, che fungeranno da puntatori a risorse online.
+Gli URL si compongono di:
+\begin{itemize}
+	\item protocollo: https://
+	\item dominio: www.google.com
+	\item port: :443
+	\item path: /search
+	\item parametri q=str&cr=countryIT
+\end{itemize}
+Il costruttore degli URL è deprecato, quindi vieve utilizzato il metodo .toURL().
+
+--- Dati strutturati
+
+-- CSV: Comma separated values
+File testaule rappresentante dati tabulari, come i contenuti di un database. Essendo di un formato standard, è semplice da farci parsing.
+Colonne separate da virgole, righe separate da newlines.
+	Java non ne ha supporto nativo, quindi nel pom.xml è necessario aggiungere la seguente dipendenza:
+< dependency >
+	< groupId > com . opencsv </ groupId >
+	< artifactId > opencsv </ artifactId >
+	< version > 5.12.0 </ version >
+</ dependency >
+Si tratta di una libreria che porta classi CSVReader e CSVWriter per leggere e scrivere CSV.
+
+```
+// Leggi un csv
+// From a File object , with the default reader
+File csvFile = new File ( " i . csv " ) ;
+CSVReader csvReader = new CSVReader ( new FileReader ( csvFile ) ) ;
+// From a filename , with a custom reader
+CSVReader csvReader = new CSVReader Builder ( new FileReader ( " i . csv " ) )
+. withSkipLines (1)
+. withSeparator ( ’; ’)
+. build () ;
+// Read CSV line by line
+List < String [] > table = new ArrayList < >() ;
+for ( String [] row ; ( row = csvReader . readNext () ) != null ; )
+table . add ( row ) ;
+// Read the whole CSV at once
+List < String [] > table = csvReader . readAll () ;
+// throws CsvException
+// throws CsvException
+```
+
+```
+// Scrivi un csv
+// To a File object , with the default writer
+File csvFile = new File ( " o . csv " ) ;
+CSVWriter csvWriter = new CSVWriter ( new FileWriter ( csvFile ) ) ;
+// To a filename , with a custom writer
+CSVWriter csvWriter = new CSVWriter ( new FileWriter ( " o . csv " ) , ’; ’) ;
+// Write CSV line by line
+for ( String [] row : table )
+csvWriter . writeNext ( row ) ;
+csvWriter . flush () ;
+// not needed if we close the file
+// Write the whole CSV at once
+csvWriter . writeAll ( table ) ;
+csvWriter . flush () ;
+// not needed if we close the file
+```
+
+-- JSON: JavaScript Object Notation
+File testuale che offre una rappresentazione leggibile di dati strutturati. Anche questo è un formato standard, ma è di uso più comune sul web.
+Ogni Json contiene oggetti, contenuti nelle {} sotto forma di coppie key-value, e array, liste ordinate di valori delimitati nelle []. I valori in questione possono essere stringhe, numeri, booleani, oggetti o array.
+Non ha gestione nativa di Java, viene generalmente utilizzata la libreria di google, che comprende la classe Gson coi metodi fromJson e toJson:
+< dependency >
+	< groupId > com . google . code . gson </ groupId >
+	< artifactId > gson </ artifactId >
+	< version > 2.13.2 </ version >
+</ dependency >

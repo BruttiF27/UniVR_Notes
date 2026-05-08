@@ -1,0 +1,30 @@
+Lez15 - 07-05-26 softEng
+
+--- UML activity diagram
+Descrivono come sono svolte attività relative a qualsiasi entità, intesa come operazione di una classe, la classe stessa, una componente o un attore.
+Si definisce il flusso di azioni che accadono o devono accadere, con il relativo ordine.
+Possono descrivere una o più entità allo stesso tempo.
+
+Si utilizzano in più contesti e in fasi diverse. Per esempio per modellare workflow di business, il flusso di un caso d'uso, un'operazione di classe come alternativa allo pseudocodice, un'algoritmo oppure come linguaggio di programmazione a sé.
+
+Definiamo un'attività come un flusso di azioni sue componenti. Supportano l'elaborazione concorrente e parallela.
+Presentano dei nodi di vario tipo: azione per specificare unità di comportamento, oggetto per specificare oggetti usati come I/O, o di controllo per specificare il flusso delle attività. Verranno usati flussi (->) per collegare i nodi.
+
+I nodi azione sono rappresentati con un rettangolo smussato; possono essere espressi in modo informale, invocare altre attività (con simbolo rake), invocare un'operazione di una classe (con sintassi method reference java ::) oppure può anche scrivere un frammento di pseudocodice.
+Viene utilizzato il concetto di token, il quale indica le azioni che sto eseguendo. Questo token si propaga e indica quale è correntemente attiva. Al termine di un'azione, sono generati i token su tutti gli archi in uscita. In un diagramme deve esistere un nodo iniziale e zero o più nodi finali.
+
+Nodi decisione hanno I e vari O, comprendono token in entrata su uno degli output a second della guardia. I nodi fusione hanno più input e un solo output, sul quale sono indirizzati i nodi di ingresso.
+I nodi fork dividono un'secuzione in più flussi concorrenti, i join sincronizzano e li riuniscono.
+Nodi finali di flusso quando raggiunti fa un token, terminano il flusso che li ha toccati. Il raggiungimento di un nodo finale di attività comporta la terminazione di tutti gli altri flussi.
+
+Nodi oggetto servono per modellare gli oggetti in I/O delle azioni. Sono oggetti reali o quelli della OO. Negli oggetti è possibile esplicitare il loro stato per mostrarne l'evoluzione nel flusso. Devono essere coerenti con la macchina a stati ad esso associata, se esiste.
+
+Partizioni
+Specificano l'esecutore delle azioni, suddividono il flusso delle attività senza modificarne il significato e rendono il diagramma più informativo.
+
+Ci sono alcuni nodi azione specializzati per la gestione, invio e ricezione di eventi. L'invio è asincrono e non bloccante, mentre la ricezione blocca l'attività fino al verificarsi dell'evento.
+I nodi ricezione sono attivi quando hanno token su tutti gli archi in entrata (se ne hanno) oppure durante l'intera vità dell'attività (quando non ne hanno). Generano token alla ricezione, e la dinamica è uguale per la ricezione di eventi temporali.
+
+Possibile indicare parametri e indicare regionri interompibili, per specificare interruzione dell'attività forzata come con le eccezioni.
+
+--- Come modellare use case?

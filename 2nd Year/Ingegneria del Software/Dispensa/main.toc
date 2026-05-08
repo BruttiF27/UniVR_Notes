@@ -16,17 +16,16 @@
 \contentsline {section}{\numberline {4.3}Principi di progettazione}{27}{}%
 \contentsline {chapter}{\numberline {5}UML - Unified Modeling Language}{31}{}%
 \contentsline {section}{\numberline {5.1}Introduzione a UML}{31}{}%
-\contentsline {section}{\numberline {5.2}Class e Object Diagram}{33}{}%
-\contentsline {section}{\numberline {5.3}Interfacce}{34}{}%
-\contentsline {section}{\numberline {5.4}Sequence e Communication Diagram}{34}{}%
-\contentsline {section}{\numberline {5.5}State Machine Diagram}{34}{}%
-\contentsline {chapter}{\numberline {6}Verifica e Validazione}{35}{}%
-\contentsline {section}{\numberline {6.1}Ispezione e test}{35}{}%
-\contentsline {section}{\numberline {6.2}Unit testing}{35}{}%
-\contentsline {section}{\numberline {6.3}Integration testing}{35}{}%
-\contentsline {section}{\numberline {6.4}User acceptance testing}{35}{}%
-\contentsline {section}{\numberline {6.5}Sviluppo guidato dal testing}{35}{}%
-\contentsline {chapter}{\numberline {7}Evoluzione e mantenimento software}{36}{}%
-\contentsline {section}{\numberline {7.1}Gestione del cambiamento}{36}{}%
-\contentsline {section}{\numberline {7.2}Sistemi legacy}{36}{}%
-\contentsline {section}{\numberline {7.3}Manutenzione del software}{36}{}%
+\contentsline {section}{\numberline {5.2}Diagrammi strutturali}{33}{}%
+\contentsline {section}{\numberline {5.3}Diagrammi di interazione}{36}{}%
+\contentsline {section}{\numberline {5.4}State Machine Diagram}{36}{}%
+\contentsline {chapter}{\numberline {6}Verifica e Validazione}{37}{}%
+\contentsline {section}{\numberline {6.1}Ispezione e test}{37}{}%
+\contentsline {section}{\numberline {6.2}Unit testing}{37}{}%
+\contentsline {section}{\numberline {6.3}Integration testing}{37}{}%
+\contentsline {section}{\numberline {6.4}User acceptance testing}{37}{}%
+\contentsline {section}{\numberline {6.5}Sviluppo guidato dal testing}{37}{}%
+\contentsline {chapter}{\numberline {7}Evoluzione e mantenimento software}{38}{}%
+\contentsline {section}{\numberline {7.1}Gestione del cambiamento}{38}{}%
+\contentsline {section}{\numberline {7.2}Sistemi legacy}{38}{}%
+\contentsline {section}{\numberline {7.3}Manutenzione del software}{38}{}%

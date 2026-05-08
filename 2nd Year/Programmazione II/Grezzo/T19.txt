@@ -1,0 +1,78 @@
+T19 - Prog2
+
+Chiaro che la documentazione del codice è fondamentale per chiunque debba andare a metterci le mani. Questa è automaticamente generata grazie alla javadoc.
+Questo tool consente di generare in automatico ed in modo standardizzato pagine web che descrivono le classi del programma
+Per usufruirne il programmatore deve scrivere un commento multilinea in questo modo:
+```
+/**	Il commento sarà letto dalla javadoc
+ 	Questa linea non sarà letta
+ * Questa invece sì.
+ * @author F27
+ * @param arr		Segnala un parametro
+ * @return			Descrive il valore ritornato dal metodo
+ * @throws			Descrive le eccezioni lanciabili
+ * @link				Link per portare l'utente alla classe
+ * @deprecated		Spiegazione del perché il metodo sia deprecato
+ */
+```
+
+Per commentare una classe, usare questo commento sopra di essa, idem per i singoli metodi o variabili.
+Essendo che stiamo usando IntelliJ, bisognerà andare sul pom.xml e aggiungere quanto segue al build:
+```
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			< artifactId > maven - javadoc - plugin </ artifactId >
+			< version > 3.6.2 </ version >
+			< configuration >
+				< source > 1.8 </ source >
+				< show > private </ show >
+			</ configuration >
+		</ plugin >
+	</ plugins >
+</ build >
+```
+
+--- Unit testing
+Il testing dei metodi delle singole classi è detto Unit testing, ed è un ottimo workflow per testare la qualità del codice. Consente anzitutto di controllare che abbia un determinato comportamento, come lo costringe anche ad essere consistente. Valutando inoltre le singole classi con test già scritti si riduce notevolmente il tempo di debug.
+Un test rappresenta uno scenario ottenibile dal codice scritto, composto da input e output che ci si aspetta esca. Da solo è detto test case, mentre una classe composta da più test è detta test suit, ed è eseguibile. Un test case è passato quando è prodotto l'output previsto dal blocco di codice.
+
+Per fare unit testing in Java, viene utilizzato un framework chiamato JUnit, che porta con sé annotazioni apposite per la creazione dei test cases.
+Questi vengono eseguiti tutti, e se ci sono problemi, verranno opportunamente segnalati.
+Notare che i test case non hanno un return type, quindi se il test non è passato JUnit lancia AssertionFailedError, per poi catturare l'errore e gestirlo.
+
+Il pacchetto org.junit.jupiter.api contiene la classe Assertions, che comprende un insieme di asserzioni utili per gestire il testing.
+Questi sono metodi statici dati da:
+	- static void assertTrue(condition, message)
+	- static void assertEquals(expected, actual, message)
+	- static void assertArrayEquals(expected, actual, message)
+	
+I test case sono annotati con @Test, che deve essere importata dal pacchetto. Altre annotazioni sono:
+	- @DisplayNameCustom display name for a test class or a test method
+	- @BeforeEachThe annotated method will be executed before each test method
+	- @AfterEachThe annotated method will be executed after each test method
+	- @BeforeAllThe annotated method will be executed before all test methods
+	- @AfterAllThe annotated method will be executed after all test methods
+	- @DisabledDisables a test class or method
+	
+Queste classi devono essere salvate in una cartella diversa dalla principale. Infatti di norma sono salvate in src/test/java/...
+Ed il loro nome dovrebbe essere consistente con la classe che testano.
+Palle.java
+PalleTest.java
+
+Per utilizzare JUnit, inserire nel pom.xml la seguente configurazione:
+< dependencies >
+<!- - to add to the pom . xml Maven configuration file -- >
+< dependency >
+< groupId > org . junit . jupiter </ groupId >
+< artifactId > junit - jupiter - engine </ artifactId >
+< version > 5.10.0 </ version >
+< scope > test </ scope >
+</ dependency >
+< dependency >
+< groupId > org . apache . maven . plugins </ groupId >
+< artifactId > maven - surefire - plugin </ artifactId >
+< version > 3.5.4 </ version >
+</ dependency >
+</ dependencies >

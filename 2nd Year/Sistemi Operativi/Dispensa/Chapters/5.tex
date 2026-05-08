@@ -1,4 +1,54 @@
-\section{Concetti e algoritmi di scheduling}
+\section{Concetti di base}
+Ribadiamo che lo scopo della programmazione multicore è mantenere la CPU quanto più attiva possibile, minimizzando i tempi in cui non sta elaborando
+processi. Questo concetto, nei sistemi multicore, è esteso ad ogni core di elaborazione del sistema, la cui gestione avviene tramite
+\textbf{scheduling}.\par
+I processi in esecuzione si compongono di un \textbf{ciclo di elaborazione CPU} e un \textbf{ciclo di attesa di completamento operazioni I/O}.
+L'esecuzione ha inizio con una sequenza di operazioni CPU, detta \textbf{CPU burst}, seguite da operazioni I/O, chiamate \textbf{I/O burst}; questi due
+elementi si avvicendano fino al termine del processo con la chiamata opportuna al sistema operativo.\par
+Dove le durate dei CPU burst variano in base al tipo di processo e all'architettura, in genere, i processi I/O-bound presentano CPU burst di breve
+durata, mentre i CPU-bound ne mostrano di lunga durata.\par
+Ogni volta che la CPU passa in stato di inattività, è compito dello \textbf{scheduler a breve termine} selezionare il processo dalla ready queue e dargli
+il controllo dell'unità. Le queues non sono necessariamente code FIFO; possono essere implementate anche con logica LIFO o altre strutture dati come
+alberi o liste concatenate; tuttavia, gli elementi al suo interno devono sempre essere i PCB dei processi. Le decisioni per lo scheduling sono
+effettuate in quattro contesti: \begin{itemize}
+    \item Quando un processo passa da esecuzione ad attesa, come per le richieste I/O oppure quando si invoca wait().
+    \item Quando un processo passa da esecuzione a pronto, come quando si segnala un interrupt.
+    \item Quando un processo passa da attesa a pronto, come quando si è completata un'operazione I/O.
+    \item Quando un processo termina l'esecuzione.
+\end{itemize}
+
+\noindent Quando lo scheduler interviene nei casi $1,4$ si dice che è \textbf{senza prelazione} e implica che quando si assegna il controllo della CPU
+a un processo, questo lo mantiene fino al momento del rilascio, dovuto al suo termine o al passaggio in stato di attesa.\par
+Negli altri due casi, lo schema di scheduling è \textbf{con prelazione}; sebbene sia la strategia attuata da tutti i moderni sistemi operativi, presenta
+alcuni svantaggi, come portare a race condition\footnote{Un processo potrebbe modificare dati che un altro in attesa deve leggere. Il risultato è 
+non deterministico.} quando i dati sono condivisi tra i processi, dinamica valida anche per il kernel. Si potrebbe pensare quindi di scegliere uno
+schema senza prelazione, ma non è adeguato per le applicazioni in tempo reale. È quindi necessario applicare meccanismi per prevenire la formazione di
+race condition.\par
+Un altro elemento coinvolto nello scheduling è il \textbf{dispatcher}, il modulo che passa effettivamente il controllo della CPU al processo
+scelto dallo scheduler. Le mansioni comprendono il context switch da un processo all'altro, il passaggio alla user-mode e il salto alla posizione
+adeguata dei programmi utente per la loro esecuzione.\par
+Idealmente, i dispatcher dovrebbero essere quanto più ottimizzati possibile poiché i cambi di contesto avvengono frequentemente. Chiamiamo
+\textbf{latenza di dispatch} il tempo richiesto per fermare un processo e avviarne un altro cedendo il controllo della CPU. In particolare, esistono
+due tipi di context switch: \textbf{volontario}, se un processo cede il controllo della CPU in seguito alla richiesta di una risorsa attualmente non
+disponibile, e \textbf{involontario} quando il comando è sottratto dal processo, per esempio quando è esercitata la prelazione.\newline
+
+\noindent Esistono più algoritmi di scheduling con diverse caratteristiche, ed è necessario prenderle in considerazione prima di implementare quello più
+adatto al contesto in esame. Consideriamo alcuni criteri per una scelta consapevole: \begin{itemize}
+    \item \textbf{Utilizzo della CPU}: L'unità deve essere quanto più attiva possibile e il suo utilizzo si misura in percentuale. In un sistema a basso
+    carico è di circa $40\%$, mentre se è ad alto carico, si aggira sul $90\%$.
+    \item \textbf{Throughput}: Numero di processi completati nell'unità di tempo.
+    \item \textbf{Tempo di completamento}: Intervallo di tempo che intercorre tra sottomissione del processo al suo completamento. È il risultato della
+    somma dei tempi di attesa per l'inserimento in memoria, nella ready queue, durante l'esecuzione e nelle operazioni di I/O.
+    \item \textbf{Tempo di attesa}: Somma dei tempi passati nella ready queue.
+    \item \textbf{Tempo di risposta}: Tempo necessario per iniziare la risposta ad una richiesta.
+\end{itemize}
+\noindent Generalmente, è una buona prassi cercare di massimizzare i tempi di utilizzo della CPU e minimizzare quelli di attesa, risposta e completamento.
+In particolare, con sistemi interattivi come quelli desktop, è auspicabile ridurre al minimo la varianza del tempo di risposta per garantire
+un'esperienza stabile ed efficace.
+
+%
+
+\section{Algoritmi di scheluding}
 
 %
 

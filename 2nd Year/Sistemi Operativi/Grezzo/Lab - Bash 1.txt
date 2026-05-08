@@ -87,3 +87,8 @@ Opzioni:
 	- -l: Oltre al nome di ogni file, stampa il relativo tipo, permessi, collegamenti fisici, nome proprietario, gruppo, dimensione in byte e timestamp.
 	- 
 
+- pwd (Print working directory)
+- cd (Change directory)
+- mkdir (Make directory) -m per definire i diritti
+- rmdir (Remove directory)
+- cp (Copy file)

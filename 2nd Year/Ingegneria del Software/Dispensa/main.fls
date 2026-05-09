@@ -1,8 +1,8 @@
-PWD /home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa SoftEng
+PWD /home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa SoftEng/main.tex
+INPUT /home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa/main.tex
 OUTPUT main.log
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/book.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/book.cls
@@ -641,6 +641,26 @@ INPUT ./Images/sequenceDiagramExample.png
 INPUT Images/sequenceDiagramExample.png
 INPUT ./Images/sequenceDiagramExample.png
 INPUT ./Images/sequenceDiagramExample.png
+INPUT ./Images/communicationDiagram.png
+INPUT ./Images/communicationDiagram.png
+INPUT Images/communicationDiagram.png
+INPUT ./Images/communicationDiagram.png
+INPUT ./Images/communicationDiagram.png
+INPUT ./Images/stateMachineDiagram.png
+INPUT ./Images/stateMachineDiagram.png
+INPUT Images/stateMachineDiagram.png
+INPUT ./Images/stateMachineDiagram.png
+INPUT ./Images/stateMachineDiagram.png
+INPUT ./Images/compositeState.png
+INPUT ./Images/compositeState.png
+INPUT Images/compositeState.png
+INPUT ./Images/compositeState.png
+INPUT ./Images/compositeState.png
+INPUT ./Images/activityDiagram.png
+INPUT ./Images/activityDiagram.png
+INPUT Images/activityDiagram.png
+INPUT ./Images/activityDiagram.png
+INPUT ./Images/activityDiagram.png
 INPUT ./Chapters/6.tex
 INPUT ./Chapters/6.tex
 INPUT ./Chapters/6.tex

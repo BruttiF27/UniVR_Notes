@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1777802889.36296 "/home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa SoftEng/main.tex" "main.pdf" "main" 1777802890.03864 0
-  "/home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa SoftEng/main.tex" 1777020244 1222 89c2738ebb51105f7b7b299df42e7cf6 ""
+["pdflatex"] 1778334497.42981 "/home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa/main.tex" "main.pdf" "main" 1778334498.8498 0
+  "/home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa/main.tex" 1777020244 1222 89c2738ebb51105f7b7b299df42e7cf6 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -107,7 +107,7 @@
   "Chapters/2.tex" 1774103838 14368 b1b167336979752dba8356fcc6dfaa25 ""
   "Chapters/3.tex" 1775389986 13221 b9de0fa21f2e930cf5d34b5557136a7b ""
   "Chapters/4.tex" 1777102400 21702 e597a1c652a5dd25c7074cf93701c45b ""
-  "Chapters/5.tex" 1777802888.04726 17918 eeb5d07bef11bbd2c9872e941228eb22 ""
+  "Chapters/5.tex" 1778334497.16578 21051 49688a6752e88aee1a893e4bdcf4ad93 ""
   "Chapters/6.tex" 1777020262 168 17d8e257d0e5af26539aefcbffc213d0 ""
   "Chapters/7.tex" 1777020258 103 ef7a36b9ab9d2f9707ef6aa23e624df8 ""
   "Configs/boxes.tex" 1774772198 43 b03ca03f01f2419681a63d051b6bcb33 ""
@@ -117,8 +117,11 @@
   "Images/V-Model.png" 1773407498 28682 55646374ffa1a29c72594b0a9e423bc0 ""
   "Images/WaterfallIterationModel.png" 1773407208 27877 3869a200de7de8e2cb6c4cc95edb30bb ""
   "Images/WaterfallModel.png" 1773407076 17848 8ed06abddf8293064e4d4c1a6e3fd2e3 ""
+  "Images/activityDiagram.png" 1778316884.50739 43672 13a5b62724e2c85e2584f753d1706882 ""
   "Images/classDiagramExample.png" 1777795197.54015 63131 ecbeee6d7d6b0ef1eea9ac54c4ec82d6 ""
   "Images/client-server_structure.png" 1774959448 42333 8ddf1abebfe5ac4bb7f98a9210f82578 ""
+  "Images/communicationDiagram.png" 1778312398.74915 36902 228d617c3e5c4c3f07cfbbcaca12dfa2 ""
+  "Images/compositeState.png" 1778313314.54383 28333 bd10af9b9282e2225a80ee3cdd2bcdb3 ""
   "Images/interfaceExample.png" 1777800135.7181 8621 e1f1d8fb91df07bf695f1e2635d8b032 ""
   "Images/layered_structure.png" 1774689540 27945 64a749eb93199c1622ec5a39d43b7a55 ""
   "Images/model_UP.png" 1774098888 50028 65c07bcb0aa7bb925afdd9e080b0b744 ""
@@ -127,10 +130,11 @@
   "Images/repository_structure.png" 1775896840 23595 fedb9b17544f54b6a716c8c74f784ba0 ""
   "Images/requirementsEngineering.png" 1774777218 56782 aa0ef660229de6827857fad135d9c0f2 ""
   "Images/sequenceDiagramExample.png" 1777801648.65917 41880 f491d61e6c690b3f382e4257e62ef05a ""
+  "Images/stateMachineDiagram.png" 1778312982.06355 30769 e9281a50855ab54b7eac5942dbf54e47 ""
   "Images/useCaseDiagram.png" 1775389754 29546 f657c14e06cb2e785ce609bac472254f ""
-  "main.aux" 1777802889.96976 5570 f7dfc3ef062e894f7387f95182ba1912 "pdflatex"
+  "main.aux" 1778334498.76453 6234 9d405feb23d6fedba5854dd600aa8ef1 "pdflatex"
   "main.tex" 1777020244 1222 89c2738ebb51105f7b7b299df42e7cf6 ""
-  "main.toc" 1777802889.97083 2142 efd9a6ab76231bd0a4128d9ec473e784 "pdflatex"
+  "main.toc" 1778334498.76553 2208 5963dcf7b395e2fae56e28c76a36a2a4 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

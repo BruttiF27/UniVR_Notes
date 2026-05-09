@@ -18,14 +18,15 @@
 \contentsline {section}{\numberline {5.1}Introduzione a UML}{31}{}%
 \contentsline {section}{\numberline {5.2}Diagrammi strutturali}{33}{}%
 \contentsline {section}{\numberline {5.3}Diagrammi di interazione}{36}{}%
-\contentsline {section}{\numberline {5.4}State Machine Diagram}{36}{}%
-\contentsline {chapter}{\numberline {6}Verifica e Validazione}{37}{}%
-\contentsline {section}{\numberline {6.1}Ispezione e test}{37}{}%
-\contentsline {section}{\numberline {6.2}Unit testing}{37}{}%
-\contentsline {section}{\numberline {6.3}Integration testing}{37}{}%
-\contentsline {section}{\numberline {6.4}User acceptance testing}{37}{}%
-\contentsline {section}{\numberline {6.5}Sviluppo guidato dal testing}{37}{}%
-\contentsline {chapter}{\numberline {7}Evoluzione e mantenimento software}{38}{}%
-\contentsline {section}{\numberline {7.1}Gestione del cambiamento}{38}{}%
-\contentsline {section}{\numberline {7.2}Sistemi legacy}{38}{}%
-\contentsline {section}{\numberline {7.3}Manutenzione del software}{38}{}%
+\contentsline {section}{\numberline {5.4}State Machine Diagram}{38}{}%
+\contentsline {section}{\numberline {5.5}Activity Diagram}{39}{}%
+\contentsline {chapter}{\numberline {6}Verifica e Validazione}{42}{}%
+\contentsline {section}{\numberline {6.1}Ispezione e test}{42}{}%
+\contentsline {section}{\numberline {6.2}Unit testing}{42}{}%
+\contentsline {section}{\numberline {6.3}Integration testing}{42}{}%
+\contentsline {section}{\numberline {6.4}User acceptance testing}{42}{}%
+\contentsline {section}{\numberline {6.5}Sviluppo guidato dal testing}{42}{}%
+\contentsline {chapter}{\numberline {7}Evoluzione e mantenimento software}{43}{}%
+\contentsline {section}{\numberline {7.1}Gestione del cambiamento}{43}{}%
+\contentsline {section}{\numberline {7.2}Sistemi legacy}{43}{}%
+\contentsline {section}{\numberline {7.3}Manutenzione del software}{43}{}%

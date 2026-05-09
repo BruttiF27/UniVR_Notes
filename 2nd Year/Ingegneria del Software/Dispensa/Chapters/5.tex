@@ -120,82 +120,125 @@ ordine.
 %
 
 \section{Diagrammi di interazione}
-
+I \textbf{diagrammi di interazione} sono un sottoinsieme di quelli che descrivono le modalità di interazione tra attori e sistema in termini di scambio
+di messaggi, i quali possono essere \textbf{sincroni}, dove il mittente si pone in attesa del risultato, \textbf{asincroni}, quando può continuare
+l'esecuzione concorrentemente all'elaborazione del risultato, e \textbf{trovati}, per i quali il partecipante che lo genera è omesso.\par
+Il primo diagramma trattato è il \textbf{sequence diagram}, la cui notazione presenta due attori (le classi) principali, detti partecipanti, e indicati
+da tre possibili segnature: \begin{itemize}
+	\item nomeClasse: Oggetto di nome "nomeClasse" il cui tipo non è specificato.
+	\item :nomeClasse: Istanza anonima della classe "nomeClasse".
+	\item s:nomeClasse: Oggetto di nome "s" della classe "nomeClasse".
+\end{itemize}
+\noindent Il contesto dei diagrammi di sequenza è descritto ponendo i partecipanti in cima al diagramma, con linee tratteggiate verso il basso che
+indicano il flusso del tempo. Su queste linee saranno disegnati dei rettangoli per indicare il tempo di esecuzione; da questi rettangoli è possibile
+segnare lo scambio di messaggi tramite frecce. In particolare, se una freccia ha riga normale, è un'invocazione, mentre se è tratteggiata, è la sua
+risposta. Sulle frecce dei messaggi è possibile specificarne anche i parametri, con la segnatura: \begin{center}
+	returnValue = message(params): returnType
+\end{center}
+\noindent I messaggi possono essere usati anche per la creazione di oggetti; in tal caso si indica con una freccia tratteggiata e il metodo new al
+rettangolo nuovo contenente il nome dell'oggetto. Se questo deve poi essere liberato, nella sua linea del tempo è sufficiente porre una croce per
+indicare il termine della sua esistenza.\par
+In questo diagramma è possibile indicare condizioni e cicli con i \textbf{frame di interazione}, in particolare \textbf{Alt} per il costrutto if-else,
+\textbf{loop} per while, e \textbf{opt} per indicare attività opzionali. La condizione, detta \textbf{guardia}, è indicata tra parentesi quadre vicino
+al nome del frame. È inoltre possibile annidare i contenitori, ma è sconsigliato farlo poiché riduce la leggibilità del diagramma.\par
+Un frame usato proprio come soluzione a questo problema è \textbf{ref}, usato per riferirsi a un metodo specifico, come per le chiamate a funzione.
+Esiste infine il frame \textbf{par}, che indica i metodi eseguiti in parallelo.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.9\linewidth]{Images/sequenceDiagramExample.png}
+	\includegraphics[width=0.8\linewidth]{Images/sequenceDiagramExample.png}
 	\caption{Esempio sequence diagram}
 \end{figure}
 
-\begin{comment}
-	Lez11 - 16/04/26 softEng
-	
-	--- Sequence diagram e communication diagram
-	
-	I diagrammi di interazione descrivono la collaborazione di un gruppo di oggetti (scambio di messaggi).
-	I messaggi possono presentarsi in tre modi:
-	- sincroni: Il mittente si pone in attesa del risultato
-	- Asincroni: Il mittente continua l'esecuzione; questi ultimi sono usati per rappresentare i processi concorrenti.
-	- trovati: messaggi il cui partecipante che lo genera è omesso
-	Per scambiare messaggi è necessario avere una relazione tra le classi.
-	
-	La notazione del sequence diagram presenta due attori principali detti partecipanti (sarebbero le classi) indicate con tre segnature possibili:
-	[nomeClasse]: oggetto di nome nomeClasse non specificando il tipo
-	[:nomeClasse]: istanza anonima di nomeClasse
-	[s:nomeClasse]: istanza di nomeClasse chiamata s
-	Messaggi sincroni inficati con frecce piene; la risposta con una freccia tratteggiata.
-	Naturalmente coi messaggi è possibile specificarne anche i parametri, con segnatura [returnValie = message(params): returnType]
-	
-	I messaggi possono essere anche usati per la creazione di istanze; allora la risposta andrà dentro ad un oggetto creato. Per indicare invece che la vita di un oggetto termina, si usa una risposta che entra in una X. Un oggetto si può anche autodistruggere.
-	Cicli e condizioni possono essere espressi con i frame di interazione; cornici per inquadrare una parte del diagramma. Il primo operatore è loop, il secondo invece è opt, per optional. Un terzo si chiama Alt, per alternate e si usa per gli if-else.
-	Naturalmente è possibile annidare i frame, sebbene faccia schifo a vedersi.
-	Ref è invece usato per semplificare i sequence diagram; indica una reference ad un metodo specifico. Al posto di indicare l'intero diagramma coi messaggi, si usa il nome accerchiato dal frame ref.
-	L'ultimo operatore è par, sta per parallel e indica metodi eseguiti concorrentemente. Naturalmente non ha senso accerchiare un solo metodo con par.
-	
-	I SD sono un buon mezzo per visualizzare l'interazione tra oggetti astrattamente, non la logica di controllo. Rendono chiare le chiamate e le relazioni tra le classi. Sconsigliato usare i frame di interazione; per la logica di controllo usare pseudocodice.
-	Normalmente gli SD sono usati a due livelli differenti: a livello di requisiti per spiegare gli use case e il funzionamento astratto, e a livello di design, per descrivere più facilmente le relazioni tra le classi e il modo in cui interagiscono.
-	Un diagramma di sequenza di sistema illustra invece gli eventi di I/O del sistema relativi ad uno scenario o più di uno use case. Hai praticamente lo use case ed il flusso dei messaggi è descritto tramite SD.
-	
-	--- Diagrammi di interazione
-	Simile ai sequence diagram, condivide la sintassi, ma si rappresentano i messaggi come etichette degli archi con una direzione. Semplifica la struttura del diagramma rispetto a prima.
-	
-	--- Esercizio (ordine)
-	Supponiamo di avere un ordine di acquisto; ci serve un'operazione per calcolare l'importo totale scontato con o.calcolaPrezzo().
-	Per farlo l'ordine deve determinare l'importo di tutti i suoi elementi di linea [Quantità*prezzoUnitario]; dopo aver calcolato il totale l'ordine deve calcolare uno sconto globale che dipende dal cliente e scalarlo.
-	
-	Dunque o.calcolaPrezzo = totale-sconto
-\end{comment}
+\noindent I sequence diagram sono un ottimo strumento per visualizzare l'interazione tra gli oggetti da un punto di vista astratto, mostrando con
+chiarezza le relazioni tra di essi senza andare nel dettaglio concreto. Per questa ragione sono spesso utilizzati a livello di requisiti per spiegare
+gli use case e a livello di design per descrivere le interazioni tra le classi.\par
+Un'altra opzione per la descrizione del comportamento sono i \textbf{communication diagram}, i quali hanno sintassi uguale a quella appena discussa, ma
+rappresentano i messaggi come etichette direzionali degli archi, numerati sequenzialmente.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/communicationDiagram.png}
+	\caption{Esempio communication diagram}
+\end{figure}
 
 %
 
 \section{State Machine Diagram}
+Gli \textbf{state machine diagram} descrivono il comportamento di un componente, in termini di variazione del suo stato interno alla ricezione di un
+input di qualche tipo, inteso come un'istanza ottenibile durante la vita di un oggetto, per la quale sono soddisfatte determinate condizioni.\par
+Rappresentiamo questo diagramma tramite nodi (stati) e archi (transizioni) e gli eventi ricevuti dal sistema sono salvati in una coda, dalla quale sono poi
+estratti uno alla volta. Presenta una sematica \textbf{run-to-completion}\footnote{Un elemento è estratto dalla coda esclusivamente quando il precedente
+è stato interamente processato.} e deve rispettare un comportamento deterministico.\par
+Nel diagramma sono presenti anche un singolo punto di inizio, indicato da un disco nero, ed uno o più stati finali, annotati con un disco nero bordato. 
+Le transizioni indicate negli archi specificano poi le modalità di passaggio tra gli stati; indicano l'\textbf{evento} scatenante il passaggio di stato,
+la \textbf{guardia} che se verificata permette la transizione, e le \textbf{attività} compiute prima di cambiare stato, tipicamente espresse in
+linguaggio naturale. Questi parametri sono opzionali.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{Images/stateMachineDiagram.png}
+	\caption{Esempio state machine diagram}
+\end{figure}
+
+\noindent Esistono più tipi di evento oltre alla ricezione di un messaggio; per esempio, quando una condizione passa da falsa a vera, diciamo che è un
+evento di \textbf{cambiamento}, oppure dopo un intervallo di tempo può accadere un evento \textbf{temporale}. Non è l'unico modo per gli stati di
+svolgere mansioni, tuttavia. Infatti, possono compiere delle \textbf{attività interne} annotabili nel diagramma in una partizione del loro rettangolo
+con una sintassi uguale a quella delle transizioni; in particolare, esistono anche attività speciali dette \textbf{entry} ed \textbf{exit}, le quali si
+eseguono all'entrata nello stato e alla sua uscita rispettivamente, come anche \textbf{do-activity}, eseguita mentre l'oggetto si trova in quello
+stato.\par
+Inoltre, gli stati si differenziano in \textbf{semplici}, come quelli discussi finora, e \textbf{compositi}, che possono comprendere più automi a stati
+finiti. Nei diagrammi che mostrano l'intero sistema, questi saranno annotati con un'icona, un entry point e un exit point, per poi essere esplicitati
+nel dettaglio con un diagramma differente. Risultano molto utili per descrivere la concorrenza o comportamenti non deterministici.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\linewidth]{Images/compositeState.png}
+	\caption{Esempio stato composito}
+\end{figure}
+
+\noindent Le macchine a stati si implementano generalmente in tre modi: con un costrutto switch, il design pattern State, oppure dando una state
+transition table a un tool per la traduzione in codice.
+
+%
+
+\section{Activity Diagram}
+Gli \textbf{activity diagrams} descrivono le modalità di interazione relative a una o più entità, intese come operazioni di una classe, le classi
+stesse, componenti o attori. Definisce il flusso di azioni che accadono o devono accadere, in ordine, con una sintassi flowchart-like. Sono diagrammi
+versatili, adattabili a più contesti; sono utilizzati per modellare il flusso di lavoro di un business, di use case, oppure anche come alternativa allo
+pseudocodice.\par
+Le attività sono definite come un flusso di azioni, singole componenti del diagramma collegate da frecce, dette \textbf{flussi}, e supportano
+l'elaborazione concorrente. Gli elementi del grafico si dicono \textbf{nodi} e ne esistono di tre tipi: \begin{itemize}
+	\item \textbf{Azione}: Rappresentati con rettangoli dagli angoli smussati, specificano le unità di comportamento.
+	\item \textbf{Oggetto}: Rappresentati con rettangoli classici, specificano gli oggetti usati come input/output.
+	\item \textbf{Di controllo}: Comprendono nodo di inizio (disco nero), attività (disco nero bordato), flusso (disco vuoto con croce interna), 
+	parallelismo (riga spessa) e decisione (rombo) e specificano il flusso delle attività.
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/activityDiagram.png}
+	\caption{Esempio activity diagram}
+\end{figure}
+
+\noindent I nodi \textbf{azione} possono essere espressi in linguaggio informale, invocare altre attività segnalandolo con il simbolo rake, chiamare
+l'operazione di una classe con una sintassi method reference Java-like, oppure scrivere un frammento di pseudocodice. La posizione all'interno dei nodi
+di un flusso è indicata tramite \textbf{token}, il quale si propaga sul nodo connesso dal suo arco in uscita. La terminazione avviene, come per lo
+state machine diagram, quando il token raggiunge il nodo finale.\par
+I nodi \textbf{decisione} hanno un input e vari output, direzionano il token ricevuto verso uno dei propri output in base alla guardia usata. La stessa
+forma sintattica prendono i nodi fusione, con la differenza che possono avere più input, ma un singolo output. Quelli di \textbf{fork} sono usati per
+eseguire operazioni in parallelo, mentre i \textbf{join} li riuniscono in un solo filo di esecuzione. Inoltre, se il nodo finale è raggiunto da un
+thread quando ne esistono altri attivi, terminerà il flusso di tutti gli altri.\par
+I nodi \textbf{oggetti} modellano gli oggetti in input e in output delle azioni; è possibile esplicitarne anche uno stato per mostrare la loro evoluzione
+durante il flusso, ma, se esiste, devono essere coerenti con la macchina a stati ad esso associata. Per rendere il diagramma ulteriormente informativo
+si può partizionare il nodo oggetto mostrando l'esecutore delle azioni e una suddivisione delle attività ad esso associate.
 
 \begin{comment}
-	Lez13 - 23-04-26 softEng
-	
-	# Prossima lezione il 6 maggio
-	
-	--- State machine diagrams
-	Diagrammi che descrivono il comportamento di un componente, in termini di variazione del suo stato interno quando riceve un input di qualche tipo. Modello FSM, in pratica. Uno stato rappresenta una situazione nella vita di un oggetto durante la quale sono soddisfatte determinate condizioni e possono essere eseguite delle attività. Si cambia stato in base agli input ricevuti dagli attori.
-	Si rappresenta come una FSM (ma dai?) e sugli archi stanno descritti eventi e input.
-	Una FSM è sempre associata a un'entita e ne descrive il relativo comportamento. Riceve eventi che sono salvati su una coda ed estratti uno alla volta; la semantica è di tipo run-to-completion, quindi un evento è estratto solo dopo che è stato estratto il precedente.
-	Inoltre, se ci sono più transazioni eseguibili in un dato momento (non determinismo se due transizioni dallo stesso stato con stesso evento e due condizioni diverse sono entrambe vere) ne viene eseguita solo una.
-	Pallino nero è stato iniziale, nodi sono gli altri stati, archi son le transizioni. Un pallino nero accerchiato è lo stato finale e indica che l'esecuzione è terminata. Possono essercene più di uno.
-	
-	Le transizioni specificano come si passa tra gli stati. Specifica evento (trigger che attiva il passaggio), guardia (condizione che se vera permette il passaggio di stato) e attività (una o più azioni che sono compiute prima di cambiare stato). Transizione avviene come risposta a un evento. Eventi guardie e attività sono opzionali.
-	
-	Possiamo associare le FSM a una classe o un singolo oggetto per la durata del suo ciclo di vita.
-	
-	Ci sono più tipi di evento. Il primo è la ricezione di un messaggio, ma può esserci anche un evento di cambiamento (quando condizione passa da falsa a vero) o un evento temporale (si verifica dopo un tempo t o a una data precisa); si indica con when(condizione) nell'arco.
-	Uno stato può reagire ad eventi e compiere attività anche senza una transizione ad uno stato diverso. Si possono mostrare nel secondo slot e seguono la sintassi delle transizioni. In particolare, entry ed exit sono attività speciali che si attivano ogni volta che si entera/escher dallo stato.
-	Esiste anche do-activity che è eseguita mentre l'oggetto è nello stato. Può durare per un intervallo di tempo ed essere interrotta da altri eventi.
-	
-	Uno stato può essere semplice o composito. Quest'ultima forma consente di suddividere la complessità del modello. Nel senso, hai il macro-stato e una fsm interna. Si usa un'icona per rappresentare uno stato composito il cui comportamento interno non è mostrato.
-	Possibile indicare concorrenza negli stati compositi aggiungendo slot alla macro-fsm.
-	
-	Entry ed exit points si indicano con cerchi bianchi e cerchi bianchi con una X all'interno rispettivamente.
-	
-	Quando è corretto usare le FSM? Per entità con una logica interna complessa.
-	
-	State machine si implementa in tre modi: switch case, con un design pattern state (ogni stato è una classe, si usa il polimorfismo per variare il comportamento) o delle STT con un tool che traduce da linguaggio apposito.
+TODO Riprendi da slide eventi 1, circa la n.37 del file.
+
+Ci sono alcuni nodi azione specializzati per la gestione, invio e ricezione di eventi. L'invio è asincrono e non bloccante, mentre la ricezione blocca
+l'attività fino al verificarsi dell'evento.
+I nodi ricezione sono attivi quando hanno token su tutti gli archi in entrata (se ne hanno) oppure durante l'intera vità dell'attività (quando non ne
+hanno). Generano token alla ricezione, e la dinamica è uguale per la ricezione di eventi temporali.
+
+Possibile indicare parametri e indicare regionri interompibili, per specificare interruzione dell'attività forzata come con le eccezioni.
+
+--- Come modellare use case?
+
 \end{comment}

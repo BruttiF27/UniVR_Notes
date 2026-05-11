@@ -166,15 +166,63 @@ inviando un messaggio ICMP di tipo "TTL exceeded". Ha uso anche nel traceroute p
 
 %
 
-\section{Problema di carenza indirizzi IP}
+\section{Network Address Translation e IPv6}
+Ad oggi si è potuto notare come l'insieme di indirizzi IP forniti dal protocollo IPv4, un totale di $2^{32}$ valori diversi, non siano sufficienti per
+garantire accesso a Internet per chi può; ragion per cui sono state proposte due soluzioni: l'introduzione di una classe di \textbf{IP privati}, la
+quale è attualmente in uso, e il cambio di protocollo in \textbf{IPv6} per garantire un totale di $2^{128}$ indirizzi. Non è ancora attiva, ma tutti
+gli elaboratori sarebbero capaci di usufruirne.\newline
 
-\begin{comment}
-	--- Soluzioni alla carenza di indirizzi IP
-Servono più di 32b per gli IP perché non sono abbastanza. Due possibili soluzioni:
-    - Cambiare protocollo a IPv6 per contenere 128b di indirizzi.
-    - Introdurre una classe di indirizzi IP privati (Attualmente in uso)
-\end{comment}
+\noindent Approfondiamo la prima soluzione: definire una classe di indirizzi privati implica l'esistenza di relativi blocchi, i quali possono essere
+riutilizzati su più LAN. Le maschere sono in genere:
+\begin{center}
+	10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16\footnote{Riservato a link-local, diverso dai precedenti.}
+\end{center}
+\noindent La loro caratteristica di essere privati è dovuta al fatto che sono utilizzati in reti LAN private, distinte dalle altre grazie al proprio
+router di bordo con funzionalità di \textbf{Network Address Translation} (NAT). Il vantaggio principale è il risparmio sugli indirizzi pubblici,
+poiché riutilizzando quei blocchi non è necessario fornire un IP pubblico per ogni end-host. Inoltre, è resa possibile la comunicazione tra gli utenti
+della stessa rete senza l'appello di Internet.\par
+Tuttavia, una rete non connessa a internet non ha alcuno scopo, ragion per cui il router NAT prende il ruolo di interfaccia con l'esterno. Si compone
+di un IP privato come gli altri host della rete per poter comunicare con loro, e di un IP pubblico rappresentante l'intera LAN privata per la
+comunicazione su Internet. Questo meccanismo è vantaggioso perché l'interfaccia dà l'impressione agli host di reti diverse che tutto il traffico sia
+generato esclusivamente dal router, celando loro la rete privata e, lato utente, non è cambiato nulla nelle modalità di interazione.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/NAT.png}
+	\caption{Panoramica NAT}
+\end{figure}
 
-%
+\noindent Supponiamo che un end-host di una rete LAN privata generi un pacchetto verso una destinazione esterna. Questo avrà naturalmente un payload
+incapsulato dall'intestazione IP, dove nel campo IP sorgente è indicato quello privato dell'host, mentre come IP destinazione quello del ricevente
+pubblico.\par
+Il pacchetto passerà necessariamente attraverso il router di bordo NAT, il quale sovrascriverà l'IP privato con la sua interfaccia pubblica,
+memorizzando il primo anche in un'apposita tabella, detta \textbf{Tabella NAT}. Inviato il pacchetto, il server risponderà con i campi IP dell'header
+invertiti e l'elemento sarà ricevuto dal router NAT, il quale ripristinerà l'IP destinazione con quello privato dell'host sorgente per farlo recapitare
+correttamente.\par
+Queste informazioni tuttavia non sono sufficienti a coprire ogni istanza problematica del caso. Se infatti più host inviano un pacchetto alla stessa
+destinazione contemporaneamente, il router non sarebbe in grado di distinguere la sorgente corretta. Per questo motivo, la tabella NAT presenta tre
+campi aggiuntivi: \begin{itemize}
+	\item \textbf{Porta sorgente}: Valore generato casualmente dall'host, è il principale discriminante\footnote{Si tratta di un numero compreso in un
+	intervallo specifico. Ciò comporta una remota ma esistente possibilità che due host scelgano la stessa porta, confondendo il router.} per la
+	distinzione delle richieste.
+	\item \textbf{Porta destinazione}: Valore che dipende dal processo destinatario. E.g: $80$ per messaggi HTTP.
+	\item \textbf{Porta router}: Valore generato casualmente dal router NAT per sovrascrivere il campo di porta sorgente nell'header TCP.
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/NAT_table.png}
+	\caption{Tabella NAT}
+\end{figure}
 
-\section{Network Address Translation - NAT}
+\noindent Questo schema di traduzione è detto \textbf{Network Address and Port Translation} (NAPT) e per evitare problemi di starvation, vede associato
+un timer ad ogni riga; se al suo scadere il router verifica che non ci sono messaggi relativi alla riga, questa viene cancellata. L'unico svantaggio
+di questo sistema è che, in quanto nascosti all'esterno, non è possibile contattare direttamente end-host delle reti private.\par
+Supponiamo dunque di avere due reti LAN: $L_1$ privata e $L_2$ pubblica, i cui host sono intenzionati a scambiarsi messaggi. La comunicazione dalla
+prima alla seconda rete avviene nelle modalità discusse prima, ma viceversa si richiede il supporto di due server forniti dall'applicazione utilizzata:
+\begin{itemize}
+	\item \textbf{Server Relay}: Assegna a ogni utente un identificativo unico stabile, indipendente dalla rete a cui si appartiene.
+	\item \textbf{Server Directory}: Mantiene informazioni sullo stato degli utenti, in particolare il loro indirizzo IP e stato online/offline.
+\end{itemize}
+
+\noindent Quindi ogni volta che un utente vuole contattarne un altro connesso a una rete privata, richiede in primo luogo l'IP del destinatario al
+server Directory. Se questo è pubblico, si ha una comunicazione normale con l'apertura di un socket; alternativamente ci si appoggia al server Relay
+per poter comunicare.

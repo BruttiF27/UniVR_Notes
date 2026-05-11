@@ -1,0 +1,59 @@
+Lez14 - 08-05-26 Reti di calcolatori
+
+--- Soluzioni alla carenza degli indirizzi IP
+Avere una classe di indirizzi privati implica l'esistenza di blocchi di tali indirizzi. Questi sono 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16.
+Di questi quattro gruppi si vedono di solito il primo e il terzo.
+Questi indirizzi si dicono privati perché sono utilizzati su una rete privata e non possono essere esposti su rete pubblica o internet. Yes, it is safe to show them.
+
+Esistono quindi delle lan con IP pubblici ed altre con IP privati, queste ultime possono utilizzare lo stesso blocco di indirizzi privati. Ciò significa che gli utenti all'interno di una di queste due LAN possono fare comunicazione diretta senza appellarsi a Internet.
+Tuttavia è impensabile non volersi connettere a internet, per questo c'è un router di bordo anche nelle lan private, detto con funzionalità di NAT (Network Address Translation). È ciò che permette a questi utenti di parlare su internet.
+
+Dunque, più LAN possono utilizzare lo stesso blocco di indirizzi privati e gli utenti all'interno di ciascuna LAN comunicano senza problemi. Per comunicare verso l'esterno è necessario appellarsi al router di bordo con NAT.
+L'interfaccia del router in LAN privata appartiene al blocco di indirizzi privati, ma quella connessa a internet prende da quello dell'ISP.
+
+L'idea di base è utilizzare l'indirizzo IP pubblico dell'interfaccia pubblica (quindi quella connessa a internet) del router per rappresentare interamente la rete LAN privata. Dà l'impressione che tutto il traffico della rete LAN privata (nascosta all'esterno) sia generato dal router.
+
+Per esempio, quando un host di rete privata genera un pacchetto verso una destinazione, (ovvio avrà un header IP con relativo payload dei livelli precedenti), srcIP è l'ip privato dell'host, mentre quello di destinazione è quello del server di destinazione. Ovvio.
+Il pacchetto passa attraverso il router di bordo, il quale sovrascrive l'ip privato della sorgente con l'indirizzo dell'interfaccia pubblica del router. Memorizza inoltre in una tabella l'IP privato che ha generato il pacchetto.
+Dunque il pacchetto che esce dal router avrà nell'header IP con srcIP la sua interfaccia pubblica e dstIP invariato.
+Naturalmente, in questo contesto, la risposta del server avrà come srcIP il proprio e come dstIP l'IP pubblico del router ricevuto. Arrivato al router di bordo, quest'ultimo ripristinerà l'IP di destinazione del pacchetto a quello privato dell'end-host e lo ricapiterà correttamente.
+
+La tabella di memorizzazione IP privati è detta tabella di NAT. Cosa contiene?
+Presenta cinque colonne:
+    srcID privato
+    dstID
+    srcDoor: Usato per distinguere le istanze di comunicazione
+    dstDoor
+    newDoor: Valore generato dal router NAT usato per sovrascrivere il campo srcDoor nell'header TCP
+
+Cosa succede se più host inviano un pacchetto alla stessa destinazione? Come fa il router a ridirezionarlo correttamente?
+Nell'header TCP incapsulato è presente un campo per srcDoor; questo verrà sovrascritto con un valore generato dal router di bordo; in questo modo potrà distinguere le varie istanze di richiesta e riassegnare il valore di porta e IP privato corretti, per instradare il pacchetto all'host opportuno.
+
+Esiste una vaga possibilità che due host diversi scelgano una stessa porta. Sfortunata coincidenza. Questo problema è esattamente la ragione per cui si sovrascrivono con la newDoor. Lo schema appena discusso è detto Network Address and Port Translation (NAPT).
+Ad ogni riga viene associato anche un timer; se non ci sono messaggi che coinvolgono quella riga e scade, la riga è cancellata.
+I vantaggi del nat consistono nel:
+    - limitare l'utilizzo degli IP pubblici, c'è un solo IP pubblico per ogni rete privata a prescindere dalla sua dimensione.
+    - Introduce cambiamenti esclusivamente nei router di bordo.
+
+Mentre ha degli svantaggi:
+    - Qualsiasi connessione (canale di comunicazione) può iniziare solo se instaurato dall'interno della rete privata.
+
+Come gestire la comunicazione verso un utente in una rete privata, dunque?
+Supponiamo di avere un'app di messaggistica, due utenti, uno in LAN privata (con indirizzi privati), l'altro in LAN pubblica (con indirizzi pubblici).
+La comunicazione da host privato a host pubblico non ha problemi, mentre viceversa non è ammesso, come detto prima.
+La soluzione a questo problema è quella di utilizzare un server che fa da relay. Si assegna ad ogni utente un identificativo univoco (dipendente dall'applicazione) stabile, indipendente dalla rete in cui appartiene l'utente. Esiste un server chiamato directory che mantiene informazioni sullo stato degli utenti, quindi se sono online/offline e l'attuale indirizzo IP.
+Ogni volta che un utente vuole contattarne un altro, chiede al server directory l'indirizzo IP del destinatario. Se l'IP dell'utente destinazione è pubblico, si ha una comunicazione normale con l'apertura di un socket. Altrimenti, si appoggia a un altro server, quello di relay, per poter comunicare.
+
+Dunque se ip privato comunica con ip pubblico c'è un socket "diretto" (per rendere il concetto; i due utenti non sono nella stessa lan, la comunicazione è formalmente indiretta) tra i due, altrimenti se entrambi sono privati, si appoggiano al server relay.
+
+--- Esercizio indirizzamento
+Abbiamo 4 LAN:
+    - LAN1 richiede 130 host minimo
+    - LAN2 almeno 270
+    - Lan3 almeno 65
+    - Lan4 almeno 35
+
+Alla LAN1 contiene un host con indirizzo 46.144.141.41
+
+- Calcolare il blocco CIDR totale
+- Calcolare gli indirizzi di rete delle LAN.

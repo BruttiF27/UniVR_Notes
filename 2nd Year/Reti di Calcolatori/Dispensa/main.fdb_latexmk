@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1778061748.14349 "/home/F27/Desktop/UniVR/2nd Year/Reti di Calcolatori/Dispensa/main.tex" "main.pdf" "main" 1778061748.92349 0
+["pdflatex"] 1778486172.05979 "/home/F27/Desktop/UniVR/2nd Year/Reti di Calcolatori/Dispensa/main.tex" "main.pdf" "main" 1778486173.38832 0
   "/home/F27/Desktop/UniVR/2nd Year/Reti di Calcolatori/Dispensa/main.tex" 1776869102 1067 db84b81b73f0c1c694cf48005f950629 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -104,10 +104,10 @@
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1775001600 40900 887e0dc8cac988a9e9c574af364cf837 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777382308.55095 4602016 72a039a3c4aea0fa25b5d35d65138f54 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777382069 7753793 49853c54d310b0d2fce2a6e72b3b1880 ""
-  "Chapters/1.tex" 1777620810.13973 31691 b48e9e1a61bda498d61b0fef522868dc ""
+  "Chapters/1.tex" 1778480153.40159 32002 8f1d967e7656bcf2d5a1584a9edca627 ""
   "Chapters/2.tex" 1777627874.0699 16852 3fda28f0df979e5fd2a0829d1c7b5c40 ""
   "Chapters/3.tex" 1777980073.30914 26679 9b0ea24700617f783335de4f0c1f3416 ""
-  "Chapters/4.tex" 1778061747.97519 15420 90e9c05d8c072b07b5f757d91829942d ""
+  "Chapters/4.tex" 1778486171.78101 20315 2015c408f8800c2e8f91d1d5f8ed835a ""
   "Chapters/5.tex" 1771408204 193 2518dabf89b461a7f331040963bac92f ""
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
   "Configs/formats.tex" 1741537610 162 94ad515d4f2656e52898454c9959e092 ""
@@ -115,6 +115,8 @@
   "Images/DNS_search.png" 1774962220 60795 66fcb14db9a932b615aa21458890f286 ""
   "Images/EsempioComunicazione.png" 1772702244 24967 ecc46811aa61538b8f728dd41401f5cd ""
   "Images/LAN-Internet connection.png" 1773058224 87379 d9c6569b85632325cf5d82b73d3118c9 ""
+  "Images/NAT.png" 1778481327.26088 35441 21e33feab183134a79cbca1149579cb4 ""
+  "Images/NAT_table.png" 1778481644.47585 36765 354f5d5860bb93f596a4de4015ad4f56 ""
   "Images/UDP_header.png" 1777627549.43509 14457 0d07a679183ea25de590e06b5c32cddb ""
   "Images/basicHTTP_get-reply.png" 1774959826 32129 4cbb0754174f1cced865dd63be1ab030 ""
   "Images/circuitComm.png" 1773062074 45926 dc91ce7c4032ae6b76854a79edb05043 ""
@@ -139,9 +141,9 @@
   "Images/subnetting.png" 1774534412 32938 1ac23ff7be3b01c6de6a5eca94d33f0e ""
   "Images/traceroute.jpg" 1773988796 11811 8429e974eb6c38e449eb72982749d5f6 ""
   "Images/webCache.png" 1774960206 36762 6a91e89a4f3894bdf79bbfa2bf1fa4fe ""
-  "main.aux" 1778061748.86433 7034 7d08ba53fb1f0b392fef39ccbd066f2a "pdflatex"
+  "main.aux" 1778486173.31091 7163 b8016f87b552851f13a0664adcf4c168 "pdflatex"
   "main.tex" 1776869102 1067 db84b81b73f0c1c694cf48005f950629 ""
-  "main.toc" 1778061748.86517 2156 c60d45f237b57168681c957ce0ace000 "pdflatex"
+  "main.toc" 1778486173.31191 2075 d15e1c00fd47c4ad00c099e68c225cba "pdflatex"
   (generated)
   "main.aux"
   "main.log"

@@ -21,11 +21,10 @@
 \contentsline {section}{\numberline {4.1}Protocollo IP}{36}{}%
 \contentsline {section}{\numberline {4.2}Algoritmi di routing}{38}{}%
 \contentsline {section}{\numberline {4.3}Protocolli DHCP e ICMP}{42}{}%
-\contentsline {section}{\numberline {4.4}Problema di carenza indirizzi IP}{43}{}%
-\contentsline {section}{\numberline {4.5}Network Address Translation - NAT}{43}{}%
-\contentsline {chapter}{\numberline {5}Livello di collegamento dati}{44}{}%
-\contentsline {section}{\numberline {5.1}Framing}{44}{}%
-\contentsline {section}{\numberline {5.2}Accesso al canale condiviso}{44}{}%
-\contentsline {section}{\numberline {5.3}Sottolivello MAC}{44}{}%
-\contentsline {section}{\numberline {5.4}Bridge, switch e LAN}{44}{}%
-\contentsline {section}{\numberline {5.5}Wireless LAN}{44}{}%
+\contentsline {section}{\numberline {4.4}Network Address Translation e IPv6}{43}{}%
+\contentsline {chapter}{\numberline {5}Livello di collegamento dati}{46}{}%
+\contentsline {section}{\numberline {5.1}Framing}{46}{}%
+\contentsline {section}{\numberline {5.2}Accesso al canale condiviso}{46}{}%
+\contentsline {section}{\numberline {5.3}Sottolivello MAC}{46}{}%
+\contentsline {section}{\numberline {5.4}Bridge, switch e LAN}{46}{}%
+\contentsline {section}{\numberline {5.5}Wireless LAN}{46}{}%

@@ -14,7 +14,77 @@ Se la domanda è quanto flusso è dato da b ad a bisogna rispondere -12, perché
 
 La capacità deve essere: \forall u,v . f(u,v) \leq c(u,v), ovvero la capacità deve essere sempre minore o uguale del flusso inviato.
 Ed è presente la relazione di antisimmetria: \forall u,v . f(u,v) = -f(v,u). Qui la ragione per cui diciamo che da B ad A si invia -12.
-Regola di conservazione: \forall v\in V - {s, d} . \sum_v f(u,v) = 0. Non è possibile creare o rimuovere del flusso. Da qualche parte va. La somma dei flussi uscenti deve essere
-uguale a quella degli entranti.
+Regola di conservazione: \forall v\in V - {s, d} . \sum_v f(u,v) = 0. Non è possibile creare o rimuovere del flusso. Quello che entra deve anche uscire. La somma dei flussi uscenti deve essere uguale a quella degli entranti.
 
--- Riprendi da -1:42:40
+I ragionamenti si fanno con le funzioni di flusso f descritte. Le dimostrazioni concerneranno quelle.
+Adesso effettuiamo un taglio U,V t.c s\in U e t\in V. Voglio calcolare la capacità c(U,V) = \sum_{u,v} c(u,v), con u\in U e v\in V.
+Per fare ciò bisognerà calcolare la capacità per ogni parte del taglio, prendendo IM1 come esempio vediamo che:
+    - La parte di sx può inviare flusso da a a b (12) e da c a d. (14), per un totale di 26. Non esistendo arco da c a b, la capacità è 0.
+    - La parte di dx può inviare solo 9 alla sx perché l'unico arco esistente in questa direzione è da b a c.
+
+Per calcolare il flusso di ogni taglio si segue un procedimento equivalente ma con i valori di flusso inviati. Sempre prendendo IM1:
+    - La sx invia f(a,b)=12, f(c,d)=11 e f(c,b)=-4, per un totale di 19.
+    - La dx invia f(b,c)=4, f(b,a)=-12 e f(d,c)=-11, per un totale di -19.
+I flussi sono l'uno l'opposto dell'altro rispettando la regola di conservazione. 19 è anche \leq di 26, la capacità massima, facendo valere f(u,v) \leq c(u,v).
+
+Nei calcoli abbiamo considerato solo gli archi sicuri, perché la procedura richiede che sia sommata ogni coppia di nodi. Tuttavia, se non sono connessi alle parti, il valore del flusso sarà zero. È per snellire.
+Inoltre, per qualunque taglio eseguito nel grafo, passerà sempre un valore di flusso uguale a 19. Dimostriamo quest'ultima proprietà:
+
+Dimostriamo per induzione che il flusso che esce da ogni taglio è uguale a quello che esce da s. Se l'unico nodo è s, è banale, mentre se proviamo a considerare un nuovo taglio che ha 4 nodi.
+Se voglio calcolare il flusso che attraversa il taglio, devo rimuovere il flusso di tutti gli archi che, prima del taglio, entrano in quello di frontiera, aggiungendo quelli che invece lo attraversano. (stesso procedimento di prima per il calcolo del flusso)
+
+// Introducendo una proprietà più generale talvolta rende possibile dimostrare per induzione delle proprietà richieste. È un trucco usato spesso.
+
+--- Capacità residua (di un arco)
+c_f(u,v) = c(u,v) - f(u,v) // La capacità rimasta nell'arco quando ha al suo interno un flusso. Per esempio, se un arco ha capacità 20 e si fa scorrere 12 di flusso, la capacità residua è uguale a 8.
+In presenza di due nodi collegati bidirezionalmente, è possibile che uno respinga il flusso dati dall'altro. Nell'IM1, a e c presentano questa situazione; dove f(c,a)=1, è possibile che a respinga quanto ricevuto e lo rimandi a c, facendo valere come capacità residua 10+1=11.
+In generale, se un nodo respinge un flusso, fa valere la sua capacità residua equivalentemente al flusso ricevuto. Se t deve respingere il flusso di b, ritorna capacità residua 15.
+La capacità residua è il flusso aggiuntivo che posso rispedire lungo ogni arco.
+
+Esiste un percorso da s a t lungo il quale sia possibile aumentare il flusso? La risposta si trova con il cammino aumentante; un cammino da s a t nella rete residua (rete che contiene le capacità residue). Nell'immagine è s, c, b, t. È evidente però come presenti un bottleneck tra c e b. Per questa ragione possiamo ridirezionare il flusso uscente f(b,c) e sommarlo a quello f(b,t). Questa operazione mantiene i vincoli di conservazione perché quella che stiamo facendo è un'operazione di ridirezionamento, non creazione o rimozione del flusso.
+In tal caso, f(b,c)=0 e f(b,t) = 15+5 = 20. Flusso aumentato. Le capacità residue cambiano di conseguenza, costruendo una nuova rete residua.
+Questo procedimento va ripetuto fino a quando il flusso inviato all'altra parte del taglio è quanto più vicino al valore della capacità massima. Quando i due valori sono equivalenti, si dice che l'arco è saturo e si ha un flusso massimo.
+
+--- Ford-Fulkerson
+Parti dal flusso nullo, questa soddisferà tutte le proprietà e non ci saranno punti di accumulo. Finché nella rete residua esistono cammini aumentanti, sia p un cammino aumentante, aumenta il flusso lungo p di una quantità pari alla capacità residua dell'arco critico (bottleneck).
+
+- Correttezza di ford-fulkerson
+Sia f una funzione di flusso; sono equivalenti le seguenti proprietà:
+    - f è un flusso massimo (non esistono flussi di modulo più alto)
+    - G_f (rete residua) non ha cammini aumentanti.
+    - f(u,v) = c(u,v) per un taglio (u,v) // esiste un taglio saturo
+
+1\implies 2:
+Se abbiamo trovato un flusso massimo, banalmente nella rete residua non esisteranno cammini aumentanti.
+
+2\implies 3:
+Se non ci sono cammini aumentanti nella rete residua, significa che dato un taglio, è stato trovato un arco la cui funzione di flusso ha valore equivalente alla capacità massima.
+
+3\implies 1:
+Se esiste un taglio saturo, questo è il flusso massimo. Non è possibile infatti aumentare il flusso.
+
+Se FF termina, abbiamo quindi trovato un flusso massimo. Ok, ma sto algoritmo termina? Generalmente no, lmao, perché di base si lavora con numeri razionali e si continuerebbe ad aumentare il flusso di una quantità razionale sempre più piccola, avvicinandosi sempre di più al modulo massimo, ma senza mai raggiungerlo.
+Tuttavia, coi naturali la storia è diversa, perché nel peggiore degli scenari, incrementando sempre di 1 il valore, si otterrà il flusso massimo in tempo equivalente al suo valore.
+
+Complessità: O(|f*|(V+E))
+f* è un flusso massimo
+Il corpo ha complessità V+E
+
+V+E è il numero di interazioni da attuare nell'algoritmo; se queste sono di un numero molto alto, FF risulterebbe estremamente inefficiente. Introduciamo quindi Karp.
+
+Supponiamo di usare BFS per la ricerca di un cammino aumentante.
+Sia d_i la funzione distanza calcolata da BFS all'iterazione i.
+\forall i < j, \forall u, d_i(u)\leq d_j(u). La funzione di distanza è monotona non decrescente.
+
+Dimostrato questo lemma, quante volte è possibile che un arco (u,v) sia critico in un cammino aumentante?
+Prendiamo l'arco e supponiamo che sia critico in un cammino aumentante.
+u è a distanza d, mentre v a d+1 in quanto successore. In quanto critico, sparisce dalla rete residua. Per farlo ritornare al suo interno sarà necessario trovare un altro arco critico, ma allora si avrebbe distanza d+2, cosa non possibile perché d è al massimo uguale al numero di archi del grafo, V.
+(v,u) quindi non può essere critico più di V/2 volte, e visto che per ogni cammino aumentante c'è un arco critico, non possiamo trovare cammini aumentanti più di E*V/2 volte.
+
+In questo contesto, la complessità di FF è O(EV(V+E)) ed è chiamato algoritmo di Karp; banalmente è un ford-fulkerson che usa la BFS per la ricerca del cammino aumentante. In quanto tale, la complessità totale è data dal minimo di queste due.
+O(min(EV(V+E), |f*|(V+E)))
+
+Trovare un flusso di modulo massimo e trovare un taglio di capacità minima è la stessa cosa. È il teorema del taglio minimo e flusso massimo. Questo permette di affrontare il problema da un punto di vista diverso.
+
+--- Problema dell'agenzia matrimoniale
+Riconducibile ad un flusso massimo con una complessità relativamente bassa.

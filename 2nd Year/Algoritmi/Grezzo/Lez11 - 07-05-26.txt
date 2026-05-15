@@ -1,15 +1,4 @@
-\section{Programmazione dinamica}
-
-%
-
-\section{Programmazione greedy}
-
-%
-
-\section{Programmazione lineare}
-
-\begin{comment}
-    Lez11 - 07-05-26 Algoritmi
+Lez11 - 07-05-26 Algoritmi
 
 --- Programmazione lineare
 Gli algoritmi studiati sui grafi sono istanze di risoluzione particolari dell'insieme della programmazione lineare. È talvolta utile capire quando ci si trova davanti a un contesto del genere e cercare di trovare una soluzione migliore.
@@ -116,4 +105,3 @@ Se ripetiamo questa operazione con ogni uomo, il valore dei flussi ricevuti dal 
 
 In quanto flusso massimo, possiamo usarci ford-fulkerson. Cerchiamo quindi i cammini aumentanti fin quando non se ne trovano più e formiamo le coppie in base ad esso.
 Il problema della ricerca del tagio di capacità minima è il suo duale.
-\end{comment}

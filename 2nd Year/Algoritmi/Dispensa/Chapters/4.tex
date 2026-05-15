@@ -800,4 +800,138 @@ tempo totale di esecuzione: $O(V^2log(V))$, asintoticamente migliore di Floyd-Wa
 %
 
 \section{Flusso massimo}
-Ford-Fulkerson, Edmonds-Karp
+Il problema della ricerca del \textbf{flusso massimo} è descritto tramite grafi e si pone come obiettivo il calcolo del percorso con il quale si ha
+la velocità massima di scorrimento del materiale da un nodo sorgente ad uno di destinazione, detto \textbf{pozzo}. Per raggiungere questo obiettivo
+sarà necessario deviare il flusso di materiale rispettando i vincoli di \textbf{capacità}.\par
+I grafi utilizzati in questo contesto sono chiamati \textbf{reti di flusso} $G = (V, E)$ e si definiscono con una funzione di capacità associata a ogni
+arco: \[
+	c:V\times V\to \mathbb{R}^{\geq 0} \text{ tale che } \forall (u,v), (u,v)\notin E \implies c(u,v) = 0
+\]
+\noindent Che indica la massima portata che può scorrere in quell'arco e se non appartiene al grafo, equivarrà a zero. Supponendo ora un grafo, la
+segnatura utilizzata per gli archi è [flussoEntrante/capacità], il cui primo valore ha segno variabile in base alla prospettiva del nodo. Osservando
+l'immagine della rete di flusso è possibile vedere che dal vertice $a$ al $b$ sono inviate $12$ unità di materiale, mentre viceversa, ne sono inviate
+$-12$. Questo è dovuto ai \textbf{vincoli} di capacità, i quali devono essere rispettati per ottenere una soluzione valida al problema: \begin{itemize}
+	\item \textbf{Invariante della capacità}: Il valore del flusso deve essere sempre minore o uguale della capacità dell'arco. \[
+		\forall u,v . f(u,v) \leq c(u,v)
+	\]
+	\item \textbf{Relazione di antisimmetria}: Il segno del flusso dipende dalla prospettiva. \[
+		\forall u,v . f(u,v) = -f(v,u)
+	\]
+	\item \textbf{Regola di conservazione}: Non è possibile creare o rimuovere flusso; la somma dei flussi uscenti deve essere uguale a quella degli
+	entranti. \[
+		\forall v\in V - \{s, t\} \text{ . } \sum_v f(u,v) = 0
+	\]
+\end{itemize}
+
+\noindent Adesso effettuiamo un taglio $U,V \text{ t.c } s\in U e t\in V$ sulla rete per calcolare il valore di capacità $c(U,V) = \sum_{u,v} c(u,v)$,
+con $u\in U$ e $v\in V$, e il valore della funzione di flusso. Risulta che: \begin{itemize}
+	\item La sezione di sinistra è capace di inviare alla destra un massimo di $12+14=26$ unità e invia effettivamente un flusso di $12+11-4=19$ unità.
+	\item La sezione di destra è capace di inviare alla sinistra un massimo di $9$ unità e invia effettivamente un flusso di $4-12-11=-19$ unità.
+\end{itemize}
+\noindent Naturalmente, per il calcolo dei valori totali stiamo considerando esclusivamente gli archi sicuri e che sono state rispettate le tre regole
+per le reti di flusso: non si è sforata la capacità, è stata segnalata l'antisimmetria ed il flusso è stato conservato.\par
+Una proprietà molto utile delle reti di flusso riguarda che per un qualunque taglio eseguito nel grafo, passerà sempre lo stesso valore di flusso che è
+uscito dalla sorgente. È dimostrabile per induzione sui tagli; infatti: \begin{itemize}
+	\item \textbf{Base}: Se $s$ è l'unico nodo del grafo, la proprietà è banalmente dimostrata.
+	\item \textbf{Induzione}: In presenza di più nodi, si effettua in primo luogo un taglio nel grafo per i vertici adiacenti alla sorgente. In quanto
+	tali, il valore di flusso calcolato dagli archi sicuri è mantenuto e, continuando a spostare il taglio verso l'altra sezione, si terranno in
+	considerazione solo questi ultimi, che a loro volta manterranno il quantitativo uscito dalla sorgente.
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/streamNet.png}
+	\caption{Rete di flusso}
+\end{figure}
+
+\noindent Introduciamo adesso il concetto di \textbf{capacità residua} di un arco: il valore di capacità rimanente quando un arco fa scorrere un flusso.
+Per esempio, se ha una base di capacità di $20$ unità e gli è inviato un flusso di $12$, la rimanente sarà uguale a $8$. Si definisce formalmente come: \[
+	c_f(u,v) = c(u,v) - f(u,v)
+\]
+
+
+
+
+% TODO Rivedere il concetto di rete residua perché boh.
+% TODO Presenta ford-fulkerson con pseudocodice, complessità e correttezza.
+% TODO Presenta caso limite delle innumerevoli iterazioni e fornisci Karp come soluzione al problema
+% TODO Presenta Karp e spiegane la complessità.
+
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\linewidth]{Images/residualNet.png}
+	\caption{Rete residua}
+\end{figure}
+
+\begin{comment}
+In presenza di due nodi collegati bidirezionalmente, è possibile che uno respinga il flusso dati dall'altro. Nell'IM1, a e c presentano questa
+situazione; dove f(c,a)=1, è possibile che a respinga quanto ricevuto e lo rimandi a c, facendo valere come capacità residua 10+1=11.
+In generale, se un nodo respinge un flusso, fa valere la sua capacità residua equivalentemente al flusso ricevuto. Se t deve respingere il flusso
+di b, ritorna capacità residua 15.
+La capacità residua è il flusso aggiuntivo che posso rispedire lungo ogni arco.
+
+Esiste un percorso da s a t lungo il quale sia possibile aumentare il flusso? La risposta si trova con il cammino aumentante; un cammino da s a t nella
+rete residua (rete che contiene le capacità residue). Nell'immagine è s, c, b, t. È evidente però come presenti un bottleneck tra c e b. Per questa
+ragione possiamo ridirezionare il flusso uscente f(b,c) e sommarlo a quello f(b,t). Questa operazione mantiene i vincoli di conservazione perché quella
+che stiamo facendo è un'operazione di ridirezionamento, non creazione o rimozione del flusso.
+In tal caso, f(b,c)=0 e f(b,t) = 15+5 = 20. Flusso aumentato. Le capacità residue cambiano di conseguenza, costruendo una nuova rete residua.
+Questo procedimento va ripetuto fino a quando il flusso inviato all'altra parte del taglio è quanto più vicino al valore della capacità massima. Quando
+i due valori sono equivalenti, si dice che l'arco è saturo e si ha un flusso massimo.
+
+--- Ford-Fulkerson
+Parti dal flusso nullo, questa soddisferà tutte le proprietà e non ci saranno punti di accumulo. Finché nella rete residua esistono cammini aumentanti,
+sia p un cammino aumentante, aumenta il flusso lungo p di una quantità pari alla capacità residua dell'arco critico (bottleneck).
+
+- Correttezza di ford-fulkerson
+Sia f una funzione di flusso; sono equivalenti le seguenti proprietà:
+    - f è un flusso massimo (non esistono flussi di modulo più alto)
+    - G_f (rete residua) non ha cammini aumentanti.
+    - f(u,v) = c(u,v) per un taglio (u,v) // esiste un taglio saturo
+
+1\implies 2:
+Se abbiamo trovato un flusso massimo, banalmente nella rete residua non esisteranno cammini aumentanti.
+
+2\implies 3:
+Se non ci sono cammini aumentanti nella rete residua, significa che dato un taglio, è stato trovato un arco la cui funzione di flusso ha valore
+equivalente alla capacità massima.
+
+3\implies 1:
+Se esiste un taglio saturo, questo è il flusso massimo. Non è possibile infatti aumentare il flusso.
+
+Se FF termina, abbiamo quindi trovato un flusso massimo. Ok, ma sto algoritmo termina? Generalmente no, lmao, perché di base si lavora con numeri
+razionali e si continuerebbe ad aumentare il flusso di una quantità razionale sempre più piccola, avvicinandosi sempre di più al modulo massimo, ma
+senza mai raggiungerlo.
+Tuttavia, coi naturali la storia è diversa, perché nel peggiore degli scenari, incrementando sempre di 1 il valore, si otterrà il flusso massimo in
+tempo equivalente al suo valore.
+
+Complessità: O(|f*|(V+E))
+f* è un flusso massimo
+Il corpo ha complessità V+E
+
+V+E è il numero di interazioni da attuare nell'algoritmo; se queste sono di un numero molto alto, FF risulterebbe estremamente inefficiente.
+Introduciamo quindi Karp.
+
+Supponiamo di usare BFS per la ricerca di un cammino aumentante.
+Sia d_i la funzione distanza calcolata da BFS all'iterazione i.
+\forall i < j, \forall u, d_i(u)\leq d_j(u). La funzione di distanza è monotona non decrescente.
+
+Dimostrato questo lemma, quante volte è possibile che un arco (u,v) sia critico in un cammino aumentante?
+Prendiamo l'arco e supponiamo che sia critico in un cammino aumentante.
+u è a distanza d, mentre v a d+1 in quanto successore. In quanto critico, sparisce dalla rete residua. Per farlo ritornare al suo interno sarà
+necessario trovare un altro arco critico, ma allora si avrebbe distanza d+2, cosa non possibile perché d è al massimo uguale al numero di archi del
+grafo, V.
+(v,u) quindi non può essere critico più di V/2 volte, e visto che per ogni cammino aumentante c'è un arco critico, non possiamo trovare cammini
+aumentanti più di E*V/2 volte.
+
+In questo contesto, la complessità di FF è O(EV(V+E)) ed è chiamato algoritmo di Karp; banalmente è un ford-fulkerson che usa la BFS per la ricerca del
+cammino aumentante. In quanto tale, la complessità totale è data dal minimo di queste due.
+O(min(EV(V+E), |f*|(V+E)))
+
+Trovare un flusso di modulo massimo e trovare un taglio di capacità minima è la stessa cosa. È il teorema del taglio minimo e flusso massimo. Questo
+permette di affrontare il problema da un punto di vista diverso.
+
+--- Problema dell'agenzia matrimoniale
+Riconducibile ad un flusso massimo con una complessità relativamente bassa.
+\end{comment}

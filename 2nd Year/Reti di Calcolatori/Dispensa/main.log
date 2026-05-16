@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  11 MAY 2026 12:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  16 MAY 2026 14:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -368,29 +368,29 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
  [2
 
-] [3]
+]
 Capitolo 1.
-(./Chapters/1.tex [4
+(./Chapters/1.tex [3
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<Images/EsempioComunicazione.png, id=26, 502.87875pt x 422.57875pt>
+<Images/EsempioComunicazione.png, id=22, 502.87875pt x 422.57875pt>
 File: Images/EsempioComunicazione.png Graphic file (type png)
 <use Images/EsempioComunicazione.png>
 Package pdftex.def Info: Images/EsempioComunicazione.png  used on input line 16.
 (pdftex.def)             Requested size: 314.99863pt x 264.69783pt.
- [5 <./Images/EsempioComunicazione.png>]
-<Images/LAN-Internet connection.png, id=32, 423.5825pt x 292.09125pt>
+ [4 <./Images/EsempioComunicazione.png>]
+<Images/LAN-Internet connection.png, id=29, 423.5825pt x 292.09125pt>
 File: Images/LAN-Internet connection.png Graphic file (type png)
 <use Images/LAN-Internet connection.png>
 Package pdftex.def Info: Images/LAN-Internet connection.png  used on input line 29.
 (pdftex.def)             Requested size: 360.00137pt x 248.25642pt.
- [6 <./Images/LAN-Internet connection.png>]
-<Images/circuitComm.png, id=38, 384.43625pt x 132.495pt>
+ [5 <./Images/LAN-Internet connection.png>]
+<Images/circuitComm.png, id=34, 384.43625pt x 132.495pt>
 File: Images/circuitComm.png Graphic file (type png)
 <use Images/circuitComm.png>
 Package pdftex.def Info: Images/circuitComm.png  used on input line 47.
 (pdftex.def)             Requested size: 202.49863pt x 69.79138pt.
-<Images/circuitCommGraph.png, id=39, 434.62375pt x 262.9825pt>
+<Images/circuitCommGraph.png, id=35, 434.62375pt x 262.9825pt>
 File: Images/circuitCommGraph.png Graphic file (type png)
 <use Images/circuitCommGraph.png>
 Package pdftex.def Info: Images/circuitCommGraph.png  used on input line 49.
@@ -400,23 +400,23 @@ Underfull \hbox (badness 10000) in paragraph at lines 52--53
 
  []
 
-<Images/packageComm.png, id=40, 513.92pt x 177.66376pt>
+<Images/packageComm.png, id=36, 513.92pt x 177.66376pt>
 File: Images/packageComm.png Graphic file (type png)
 <use Images/packageComm.png>
 Package pdftex.def Info: Images/packageComm.png  used on input line 58.
 (pdftex.def)             Requested size: 202.49863pt x 70.00426pt.
-<Images/packageCommGraph.png, id=41, 451.6875pt x 242.9075pt>
+<Images/packageCommGraph.png, id=37, 451.6875pt x 242.9075pt>
 File: Images/packageCommGraph.png Graphic file (type png)
 <use Images/packageCommGraph.png>
 Package pdftex.def Info: Images/packageCommGraph.png  used on input line 60.
 (pdftex.def)             Requested size: 225.0pt x 121.00125pt.
-<Images/packageCommDivision.png, id=42, 342.27875pt x 171.64125pt>
+<Images/packageCommDivision.png, id=38, 342.27875pt x 171.64125pt>
 File: Images/packageCommDivision.png Graphic file (type png)
 <use Images/packageCommDivision.png>
 Package pdftex.def Info: Images/packageCommDivision.png  used on input line 62.
 (pdftex.def)             Requested size: 225.0pt x 112.83308pt.
-[7 <./Images/circuitComm.png> <./Images/circuitCommGraph.png>] [8 <./Images/packageComm.png> <./Images/packageCommGraph.png> <./Images/packageCommDivision.png>]
-<Images/ping_example.png, id=57, 1262.7175pt x 360.34625pt>
+[6 <./Images/circuitComm.png> <./Images/circuitCommGraph.png>] [7 <./Images/packageComm.png> <./Images/packageCommGraph.png> <./Images/packageCommDivision.png>]
+<Images/ping_example.png, id=54, 1262.7175pt x 360.34625pt>
 File: Images/ping_example.png Graphic file (type png)
 <use Images/ping_example.png>
 Package pdftex.def Info: Images/ping_example.png  used on input line 85.
@@ -425,14 +425,14 @@ Package pdftex.def Info: Images/ping_example.png  used on input line 85.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[9]
-<Images/traceroute.jpg, id=64, 314.97675pt x 168.63pt>
+[8]
+<Images/traceroute.jpg, id=61, 314.97675pt x 168.63pt>
 File: Images/traceroute.jpg Graphic file (type jpg)
 <use Images/traceroute.jpg>
 Package pdftex.def Info: Images/traceroute.jpg  used on input line 95.
 (pdftex.def)             Requested size: 360.00137pt x 192.73936pt.
- [10 <./Images/ping_example.png> <./Images/traceroute.jpg>]
-<Images/model_layered.jpg, id=69, 230.0595pt x 197.538pt>
+ [9 <./Images/ping_example.png> <./Images/traceroute.jpg>]
+<Images/model_layered.jpg, id=66, 230.0595pt x 197.538pt>
 File: Images/model_layered.jpg Graphic file (type jpg)
 <use Images/model_layered.jpg>
 Package pdftex.def Info: Images/model_layered.jpg  used on input line 109.
@@ -442,25 +442,25 @@ Underfull \hbox (badness 10000) in paragraph at lines 113--114
 
  []
 
-[11 <./Images/model_layered.jpg>]
-<Images/model_ISO-OSI.jpg, id=73, 302.3295pt x 205.36725pt>
+[10 <./Images/model_layered.jpg>]
+<Images/model_ISO-OSI.jpg, id=70, 302.3295pt x 205.36725pt>
 File: Images/model_ISO-OSI.jpg Graphic file (type jpg)
 <use Images/model_ISO-OSI.jpg>
 Package pdftex.def Info: Images/model_ISO-OSI.jpg  used on input line 119.
 (pdftex.def)             Requested size: 360.00137pt x 244.55301pt.
- [12 <./Images/model_ISO-OSI.jpg>]
-<Images/model_TCP-IP.jpg, id=78, 302.3295pt x 157.18726pt>
+ [11 <./Images/model_ISO-OSI.jpg>]
+<Images/model_TCP-IP.jpg, id=74, 302.3295pt x 157.18726pt>
 File: Images/model_TCP-IP.jpg Graphic file (type jpg)
 <use Images/model_TCP-IP.jpg>
 Package pdftex.def Info: Images/model_TCP-IP.jpg  used on input line 132.
 (pdftex.def)             Requested size: 360.00137pt x 187.17986pt.
- [13 <./Images/model_TCP-IP.jpg>]
+ [12 <./Images/model_TCP-IP.jpg>]
 Underfull \hbox (badness 10000) in paragraph at lines 143--144
 
  []
 
-[14] [15]
-<Images/subnetting.png, id=88, 323.2075pt x 221.82875pt>
+[13] [14]
+<Images/subnetting.png, id=85, 323.2075pt x 221.82875pt>
 File: Images/subnetting.png Graphic file (type png)
 <use Images/subnetting.png>
 Package pdftex.def Info: Images/subnetting.png  used on input line 172.
@@ -470,7 +470,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 185--186
 
  []
 
-[16 <./Images/subnetting.png>]
+[15 <./Images/subnetting.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 194--196
 
  []
@@ -485,7 +485,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 218--220
 
  []
 
-[17] [18]
+[16] [17]
 Underfull \hbox (badness 10000) in paragraph at lines 261--263
 
  []
@@ -495,34 +495,34 @@ Underfull \hbox (badness 10000) in paragraph at lines 284--286
 
  []
 
-[19]) [20]
+[18]) [19]
 Capitolo 2.
-(./Chapters/2.tex [21
+(./Chapters/2.tex [20
 
 ]
-<Images/socket.png, id=110, 583.17876pt x 302.12875pt>
+<Images/socket.png, id=107, 583.17876pt x 302.12875pt>
 File: Images/socket.png Graphic file (type png)
 <use Images/socket.png>
 Package pdftex.def Info: Images/socket.png  used on input line 16.
 (pdftex.def)             Requested size: 360.00137pt x 186.51111pt.
- [22 <./Images/socket.png>]
-<Images/basicHTTP_get-reply.png, id=115, 501.875pt x 242.9075pt>
+ [21 <./Images/socket.png>]
+<Images/basicHTTP_get-reply.png, id=112, 501.875pt x 242.9075pt>
 File: Images/basicHTTP_get-reply.png Graphic file (type png)
 <use Images/basicHTTP_get-reply.png>
 Package pdftex.def Info: Images/basicHTTP_get-reply.png  used on input line 29.
 (pdftex.def)             Requested size: 360.00137pt x 174.24832pt.
- [23 <./Images/basicHTTP_get-reply.png>]
+ [22 <./Images/basicHTTP_get-reply.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 66--67
 
  []
 
-[24]
+[23]
 Underfull \hbox (badness 10000) in paragraph at lines 69--70
 
  []
 
-[25]
-<Images/webCache.png, id=127, 403.5075pt x 232.87pt>
+[24]
+<Images/webCache.png, id=124, 403.5075pt x 232.87pt>
 File: Images/webCache.png Graphic file (type png)
 <use Images/webCache.png>
 Package pdftex.def Info: Images/webCache.png  used on input line 81.
@@ -532,14 +532,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 97--98
 
  []
 
-[26 <./Images/webCache.png>]
-<Images/DNS_search.png, id=132, 643.40375pt x 303.1325pt>
+[25 <./Images/webCache.png>]
+<Images/DNS_search.png, id=129, 643.40375pt x 303.1325pt>
 File: Images/DNS_search.png Graphic file (type png)
 <use Images/DNS_search.png>
 Package pdftex.def Info: Images/DNS_search.png  used on input line 109.
 (pdftex.def)             Requested size: 337.5pt x 159.0128pt.
- [27 <./Images/DNS_search.png>]
-<Images/mail_exchange.png, id=137, 702.625pt x 333.245pt>
+ [26 <./Images/DNS_search.png>]
+<Images/mail_exchange.png, id=134, 702.625pt x 333.245pt>
 File: Images/mail_exchange.png Graphic file (type png)
 <use Images/mail_exchange.png>
 Package pdftex.def Info: Images/mail_exchange.png  used on input line 132.
@@ -548,14 +548,14 @@ Package pdftex.def Info: Images/mail_exchange.png  used on input line 132.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [28] [29 <./Images/mail_exchange.png>]
+) [27] [28 <./Images/mail_exchange.png>]
 Capitolo 3.
 (./Chapters/3.tex
 Underfull \hbox (badness 10000) in paragraph at lines 5--7
 
  []
 
-[30
+[29
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 34--37
@@ -567,8 +567,8 @@ Overfull \hbox (27.79175pt too wide) in paragraph at lines 43--45
 \OT1/cmr/m/n/12 do vie-ne aper-to un soc-ket. Pren-do-no un nu-me-ro ca-sua-le dal-l'in-ter-val-lo $[1024\OML/cmm/m/it/12 ; \OT1/cmr/m/n/12 65535]$. 
  []
 
-[31]
-<Images/headerTCP.png, id=152, 537.00626pt x 432.61626pt>
+[30]
+<Images/headerTCP.png, id=149, 537.00626pt x 432.61626pt>
 File: Images/headerTCP.png Graphic file (type png)
 <use Images/headerTCP.png>
 Package pdftex.def Info: Images/headerTCP.png  used on input line 73.
@@ -577,13 +577,13 @@ Package pdftex.def Info: Images/headerTCP.png  used on input line 73.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[32] [33 <./Images/headerTCP.png>]
+[31] [32 <./Images/headerTCP.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 107--110
 
  []
 
-[34]
-<Images/streamControl.png, id=165, 593.21625pt x 313.17pt>
+[33]
+<Images/streamControl.png, id=162, 593.21625pt x 313.17pt>
 File: Images/streamControl.png Graphic file (type png)
 <use Images/streamControl.png>
 Package pdftex.def Info: Images/streamControl.png  used on input line 122.
@@ -593,7 +593,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 134--137
 
  []
 
-<Images/streamControlProblems.png, id=166, 648.4225pt x 544.0325pt>
+<Images/streamControlProblems.png, id=163, 648.4225pt x 544.0325pt>
 File: Images/streamControlProblems.png Graphic file (type png)
 <use Images/streamControlProblems.png>
 Package pdftex.def Info: Images/streamControlProblems.png  used on input line 140.
@@ -601,47 +601,47 @@ Package pdftex.def Info: Images/streamControlProblems.png  used on input line 14
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[35 <./Images/streamControl.png>] [36 <./Images/streamControlProblems.png>]
-<Images/congestionControl.png, id=176, 792.9625pt x 260.975pt>
+[34 <./Images/streamControl.png>] [35 <./Images/streamControlProblems.png>]
+<Images/congestionControl.png, id=172, 792.9625pt x 260.975pt>
 File: Images/congestionControl.png Graphic file (type png)
 <use Images/congestionControl.png>
 Package pdftex.def Info: Images/congestionControl.png  used on input line 187.
 (pdftex.def)             Requested size: 404.99725pt x 133.2906pt.
- [37 <./Images/congestionControl.png>]
-<Images/UDP_header.png, id=181, 461.725pt x 251.94125pt>
+ [36 <./Images/congestionControl.png>]
+<Images/UDP_header.png, id=178, 461.725pt x 251.94125pt>
 File: Images/UDP_header.png Graphic file (type png)
 <use Images/UDP_header.png>
 Package pdftex.def Info: Images/UDP_header.png  used on input line 214.
 (pdftex.def)             Requested size: 270.00275pt x 147.32544pt.
- Excluding 'comment' comment. Excluding 'comment' comment.) [38 <./Images/UDP_header.png>] [39]
+ Excluding 'comment' comment. Excluding 'comment' comment.) [37 <./Images/UDP_header.png>] [38]
 Capitolo 4.
-(./Chapters/4.tex [40
+(./Chapters/4.tex [39
 
 ]
-<Images/header_IP.png, id=192, 622.325pt x 412.54124pt>
+<Images/header_IP.png, id=189, 622.325pt x 412.54124pt>
 File: Images/header_IP.png Graphic file (type png)
 <use Images/header_IP.png>
 Package pdftex.def Info: Images/header_IP.png  used on input line 27.
 (pdftex.def)             Requested size: 404.99725pt x 268.47597pt.
- [41 <./Images/header_IP.png>] [42]
+ [40 <./Images/header_IP.png>] [41]
 Underfull \hbox (badness 10000) in paragraph at lines 76--78
 
  []
 
-[43]
-<Images/routingTable.png, id=204, 783.92876pt x 532.99126pt>
+[42]
+<Images/routingTable.png, id=201, 783.92876pt x 532.99126pt>
 File: Images/routingTable.png Graphic file (type png)
 <use Images/routingTable.png>
 Package pdftex.def Info: Images/routingTable.png  used on input line 106.
 (pdftex.def)             Requested size: 292.49725pt x 198.8709pt.
- [44 <./Images/routingTable.png>]
-<Images/connectedAS.png, id=210, 713.66624pt x 532.99126pt>
+ [43 <./Images/routingTable.png>]
+<Images/connectedAS.png, id=207, 713.66624pt x 532.99126pt>
 File: Images/connectedAS.png Graphic file (type png)
 <use Images/connectedAS.png>
 Package pdftex.def Info: Images/connectedAS.png  used on input line 128.
 (pdftex.def)             Requested size: 270.00275pt x 201.64418pt.
- [45 <./Images/connectedAS.png>]
-<Images/protocol_DHCP.png, id=215, 873.2625pt x 702.625pt>
+ [44 <./Images/connectedAS.png>]
+<Images/protocol_DHCP.png, id=212, 873.2625pt x 702.625pt>
 File: Images/protocol_DHCP.png Graphic file (type png)
 <use Images/protocol_DHCP.png>
 Package pdftex.def Info: Images/protocol_DHCP.png  used on input line 158.
@@ -655,14 +655,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 170--174
 
  []
 
-[46] [47 <./Images/protocol_DHCP.png>]
-<Images/NAT.png, id=223, 673.51625pt x 255.95625pt>
+[45] [46 <./Images/protocol_DHCP.png>]
+<Images/NAT.png, id=220, 673.51625pt x 255.95625pt>
 File: Images/NAT.png Graphic file (type png)
 <use Images/NAT.png>
 Package pdftex.def Info: Images/NAT.png  used on input line 190.
 (pdftex.def)             Requested size: 314.99863pt x 119.7097pt.
- [48 <./Images/NAT.png>]
-<Images/NAT_table.png, id=229, 783.92876pt x 182.6825pt>
+ [47 <./Images/NAT.png>]
+<Images/NAT_table.png, id=225, 783.92876pt x 182.6825pt>
 File: Images/NAT_table.png Graphic file (type png)
 <use Images/NAT_table.png>
 Package pdftex.def Info: Images/NAT_table.png  used on input line 212.
@@ -672,24 +672,98 @@ Overfull \hbox (4.9088pt too wide) in paragraph at lines 216--218
 \OT1/cmr/m/n/12 Questo sche-ma di tra-du-zio-ne ^^Re det-to \OT1/cmr/bx/n/12 Net-work Ad-dress and Port Trans-la-tion \OT1/cmr/m/n/12 (NAPT)
  []
 
-) [49 <./Images/NAT_table.png>]
-Capitolo 5.
-(./Chapters/5.tex) [50
+[48 <./Images/NAT_table.png>]
+<Images/header_IPv6.png, id=231, 547.04375pt x 407.5225pt>
+File: Images/header_IPv6.png Graphic file (type png)
+<use Images/header_IPv6.png>
+Package pdftex.def Info: Images/header_IPv6.png  used on input line 246.
+(pdftex.def)             Requested size: 337.5pt x 251.42389pt.
 
-] (./main.aux) ) 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Images/extensionHeader.png, id=232, 301.125pt x 86.3225pt>
+File: Images/extensionHeader.png Graphic file (type png)
+<use Images/extensionHeader.png>
+Package pdftex.def Info: Images/extensionHeader.png  used on input line 268.
+(pdftex.def)             Requested size: 179.99725pt x 51.60158pt.
+[49]) [50 <./Images/header_IPv6.png> <./Images/extensionHeader.png>]
+Capitolo 5.
+(./Chapters/5.tex [51
+
+]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[52]
+<Images/aloha.png, id=248, 812.03375pt x 177.66376pt>
+File: Images/aloha.png Graphic file (type png)
+<use Images/aloha.png>
+Package pdftex.def Info: Images/aloha.png  used on input line 73.
+(pdftex.def)             Requested size: 337.5pt x 73.84023pt.
+<Images/slotted_aloha.png, id=249, 812.03375pt x 224.84pt>
+File: Images/slotted_aloha.png Graphic file (type png)
+<use Images/slotted_aloha.png>
+Package pdftex.def Info: Images/slotted_aloha.png  used on input line 81.
+(pdftex.def)             Requested size: 337.5pt x 93.44751pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Images/pers-CSMA.png, id=250, 812.03375pt x 257.96375pt>
+File: Images/pers-CSMA.png Graphic file (type png)
+<use Images/pers-CSMA.png>
+Package pdftex.def Info: Images/pers-CSMA.png  used on input line 87.
+(pdftex.def)             Requested size: 337.5pt x 107.21434pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Images/nonPersistent_CSMA.png, id=251, 812.03375pt x 257.96375pt>
+File: Images/nonPersistent_CSMA.png Graphic file (type png)
+<use Images/nonPersistent_CSMA.png>
+Package pdftex.def Info: Images/nonPersistent_CSMA.png  used on input line 93.
+(pdftex.def)             Requested size: 337.5pt x 107.21434pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Images/p-persistent-CSMA.drawio.png, id=252, 530.98375pt x 249.93375pt>
+File: Images/p-persistent-CSMA.drawio.png Graphic file (type png)
+<use Images/p-persistent-CSMA.drawio.png>
+Package pdftex.def Info: Images/p-persistent-CSMA.drawio.png  used on input line 99.
+(pdftex.def)             Requested size: 337.5pt x 158.86252pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Images/CD-CSMA.png, id=253, 551.05875pt x 273.02pt>
+File: Images/CD-CSMA.png Graphic file (type png)
+<use Images/CD-CSMA.png>
+Package pdftex.def Info: Images/CD-CSMA.png  used on input line 105.
+(pdftex.def)             Requested size: 337.5pt x 167.22101pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Images/header_ethernet.png, id=254, 823.075pt x 86.3225pt>
+File: Images/header_ethernet.png Graphic file (type png)
+<use Images/header_ethernet.png>
+Package pdftex.def Info: Images/header_ethernet.png  used on input line 111.
+(pdftex.def)             Requested size: 337.5pt x 35.3964pt.
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+Excluding 'comment' comment.) [53 <./Images/aloha.png>] [54 <./Images/slotted_aloha.png> <./Images/pers-CSMA.png> <./Images/nonPersistent_CSMA.png>] [55 <./Images/p-persistent-CSMA.drawio.png> <./Images/CD-CSMA.png> <./Images/header_ethernet.png>] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 9124 strings out of 476041
- 148426 string characters out of 5793174
+ 9192 strings out of 476041
+ 150232 string characters out of 5793174
  1860388 words of memory out of 6000000
- 29405 multiletter control sequences out of 15000+600000
+ 29464 multiletter control sequences out of 15000+600000
  523986 words of font info for 80 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
  74i,15n,82p,920b,505s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (51 pages, 1574793 bytes).
+Output written on main.pdf (56 pages, 1674257 bytes).
 PDF statistics:
- 316 PDF objects out of 1000 (max. 8388607)
- 171 compressed objects within 2 object streams
+ 350 PDF objects out of 1000 (max. 8388607)
+ 182 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 146 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 191 words of extra memory for PDF output out of 10000 (max. 10000000)
 

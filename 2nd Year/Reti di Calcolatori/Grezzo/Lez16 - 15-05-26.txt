@@ -1,0 +1,102 @@
+Lez16 - 15-05-26 Reti di calcolatori
+
+--- Come aumentare ulteriormente l'efficienza (usare il canale evitando le collisioni il più possibile)
+
+La soluzione è l'Algoritmo CSMA (carrier sense multiple access)
+
+```
+Algoritmo Persistent CSMA:
+Se una stazione ha una trama da trasmettere
+    Ascolta il canale
+
+Se il canale è libero (non è rilevata alcuna trasmissione)
+    Trasmette la trama
+Altrimenti
+    Finché il canale non è libero
+        Continua ad ascoltare; poi trasmetti quando è libero
+
+Se c'è collisione
+    Estrae un intervallo di tempo casuale e torna al primo if.
+```
+
+Collisioni possono avvenire quando due stazioni pongono di voler trasmettere una trama e sono in attesa della fine trasmissione della stessa. Allora trasmetterebbero quasi allo stesso tempo, collidendo.
+È possibile evitare anche queste collisioni? Con un numero grande di stazioni sarebbe molto difficile gestire il tutto.
+
+```
+Algoritmo Non-persistent CSMA:
+Se una stazione ha una trama da trasmettere
+    Ascolta il canale
+
+Se il canale è libero (non è rilevata alcuna trasmissione)
+    Trasmette la trama
+Altrimenti
+    Estrae un tempo casuale e torna al punto 1
+
+Se c'è collisione
+    Estrae un intervallo di tempo casuale e torna al primo if.
+```
+Con questa configurazione si riduce il numero di collisioni possibili grazie alla generazione di intervalli casuali. Introduce tuttavia un ritardo; mettiamo caso che una stazione ritenta la trasmissione e continui a trovare il canale occupato. Questo algoritmo dunque aumenta l'efficienza ma diminuisce l'equità.
+
+```
+Algoritmo p-persistent CSMA: // p è un parametro configurabile
+Se una stazione ha una trama da trasmettere
+    Ascolta il canale
+
+Se il canale è libero (non è rilevata alcuna trasmissione)
+    Trasmette la trama
+Altrimenti
+    Finché il canale non è libero
+        Con probabilità p trasmetti la trama
+        Con probabilità (1-p) rimando il tentativo di trasmissione di un microslot (microslot t_M << Tempo di trama T)
+
+Se c'è collisione
+    Estrae un intervallo di tempo casuale e torna al primo if.
+```
+Si lascia al caso la decisione di trasmettere la trama. Avere microslot significa ridurre i ritardi ed ognuno è sufficientemente grande per capire se un'altra stazione sta trasmittendo. È comunque possibile collidere se due stazioni trasmettono allo stesso microslot, ma è una probabilità molto piccola. Diminuisce insomma il ritardo ottenendo una migliore efficienza.
+
+```
+Algoritmo CSMA-CD (Collision-Detection) (combinabile con tutte le varianti precedenti)
+Se una stazione ha una trama da trasmettere
+    Ascolta il canale
+
+Se il canale è libero (non è rilevata alcuna trasmissione)
+    Trasmette la trama
+Altrimenti
+    Finché il canale non è libero
+        Continua ad ascoltare; poi trasmetti quando è libero
+
+Se c'è collisione
+    Interrompi la trasmissione
+    Estrai un tempo casuale e torna al punto 1
+```
+
+Efficienze:
+    - Aloha: 19%
+    - Slotted Aloha: 38%
+    - CSMA-CD Persistent: 58% (Attualmente quella usata)
+    - CSMA-CD p-persistent: 90% (con p = 0.01) (Aumenta il ritardo)
+
+Periodo di vulnerabilità del CSMA è legato al ritardo di propagazione (le linette tratteggiate nel grafico), il tempo che il segnale impiega a viaggiare nello spazio, indicato con \tau. In genere è molto minore del tempo di trama T. È un valore onnipresente, perché la trasmissione dei dati non è istantanea.
+Il periodo di vulnerabilità è generalmente pari a 2\tau.
+
+--- Protocollo Ethernet
+Standardizzato da IEEE con codice 802.3. Presenta un formato dell'header e trailer abbastanza semplice.
+    - Preambolo (7B): Alternanza di 01, serve per sincronizzare le stazioni tra di loro.
+    - Flag (1B)
+    - Hardware dstAddress (6B): Legato all'indirizzo scritto nell'hardware della scheda di rete.
+    - Hardware srcAddress (6B): Indirizzo hardware della scheda di rete sorgente.
+    - Lunghezza payload (2B): Autoesplicativo.
+    - Payload
+    - Checksum (?B): Tale e quale ai checksum dei protocolli trattati in precedenza. È il trailer o tailer.
+
+Gli indirizzi hardware (conosciuti anche come MAC Addresses) sono assegnati dal produttore quando è creata la scheda di rete. Non è possibile cambiarli.
+
+QST: Perché servono indirizzi HW quando ci sono gli indirizzi IP?
+
+--- Esercizio TCP
+AppA deve trasferire 77500B verso appB
+MSS: 1250B
+RCVWND a t=0: 10000B. A t>4 dst annuncia RCVWND di 17500B. A t>8 dst annuncia RCVWND di 12500B.
+SSTHRESH_i: RCVWND_i
+RTT = 1s costante per tutto il trasferimento e RTO = 2RTT e raddoppia in caso di perdite.
+Rete down: (8, 10) e (13.5, 14.5)

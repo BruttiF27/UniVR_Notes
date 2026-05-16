@@ -1,0 +1,87 @@
+Lez15 - 12-05-26 Reti di calcolatori
+
+--- IPv6
+Header di base, senza aggiunte, è di 40B. Contiene:
+    - Versione: 4b, per distinguere da IPv4 e IPv6, fornisce significato dei campi successivi.
+    - Traffic class: Gestisce le proprietà dei pacchetti (in IPv4 l'avevamo chiamato TYPE).
+    - Flow label: Numero assegnato al socket, quindi alla connessione. È quindi assegnato univocamente a srcIP, dstIP, srcDoor e dstDoor.
+    - Lunghezza Payload: Autoesplicativo
+    - Next header: 8b di codice con doppio significato. Se non ci sono estensioni all'header, identifica il protocollo trasportato nel payload. Altrimenti, in presenza di un header extension, rappresenta il tipo di quest'ultimo.
+    - hop limit: Corrisponde al TTL di IPv4.
+    - srcIP: 128b disponibili
+    - dstIP: 128b disponibili
+
+2^{128} indirizzi dovrebbero essere sufficienti per coprire le necessità per l'intera superficie terrestre, acqua inclusa.
+
+Cos'è un extension header? Un pezzo di intestazione con un formato specifico; contiene due campi:
+    - nextHeader, stesso campo di prima, con stessa funzione. 8b. Può identificare a sua volta altri extension header, potenzialmente ad infinitum.
+    - extHeaderLen, indica la lunghezza dell'estensione. 8b
+
+Esempi di estensione dell'header:
+    - frammentazione; nextheader dell'header IPv6 si riferirà all'estensione dovuta alla frammentazione, che conterrà una parte dei dati del frammento.
+    - routing; è indicato un percorso (IP dei router da attraversare) da preferire.
+
+Vantaggi:
+    - Le estensioni sono presenti esclusivamente se necessarie.
+    - Se un router non è aggiornato (non in grado di gestire le estensioni), ignora il pacchetto. Ciò permette di fare aggiornamenti graduali e adattare tutti i router un giorno.
+    - Protocollo può essere esteso con nuove funzionalità senza cambiare l'header di base.
+
+--- Livello di collegamento dati
+Il protocollo usato a livello data-link dipende dalla tecnologia della porta di rete. Per esempio, il wifi è una di queste, e ha un codice standard (IEEE 802.11), oppure la rete fissa ethernet (IEEE 802.3), oppure la fibra ottica (SDH, PPP).
+
+Gli host mi pare di capire che abbiano più interfacce per invio e ricezione di dati in base alla tecnologia. Naturalmente al livello data-link è assegnato il relativo header, usato per decidere le interfacce di entrata e uscita. Viene rimosso e ri-assegnato ad ogni host in base alla tecnologia utilizzata per la trasmissione.
+
+Lo scopo del livello data-link è di gestire i problemi associati alla trasmissione sul singolo hop senza conoscere l'intera rete.
+I problemi principali da gestire sono:
+    - Gestione al mezzo condiviso
+    - Delimitazione delle trame
+
+-- Accesso al mezzo condiviso
+Esempio di mezzo condiviso: rete wireless.
+Consideriamo un router attaccato a un access point; questo gestisce una serie di utenti connessi allo stesso punto di accesso, come pc, telefoni e simili, i quali potrebbero entrare in contesa se utilizzano gli strumenti allo stesso tempo.
+
+Alla nascita delle rete ethernet si aveva un singolo cavo coassiale (a mo di BUS)
+al quale erano connessi tutti gli host
+
+In un contesto di mezzo condiviso è necessario regolarne le modalità di accesso; in particolare:
+    - Minimizzare le collisoni (più stazioni trasmettono contemporaneamente e l'informazione viene persa.)
+    - Massimizzare l'utilizzo del mezzo (algoritmi di scheduling?)
+
+Ci sono più modi per l'allocazione del canale (mezzo a disposizione):
+    - Allocazione statica: Le risorse sono suddivise a priori tra i partecipanti. Per esempio, Time Division Multiplex (TDM) divide il tempo in slot temporali e si associano gli slot ad ogni utente. Altro esempio è la Frequency Division Multiplex, che divide le frequenze e le di associa ai diversi utenti, un pò come fa la radio.
+    Questa tecnologia statica non risponde alle nostre richieste. Non massimizza l'utilizzo del mezzo, perché all'aggiungersi di nuovi utenti bisogna riallocare tutto e presenta sprechi quando non è usato il canale.
+    - Allocazione dinamica, diviso in:
+        - Tecniche a turno come il token ring. Organizzo le stazioni in un determinato ordine e definisco un token che dà il diritto di trasmettere per un determinato tempo. Come quando in comunità si passa la palla per parlare. Scaduto il tempo, si passa all'utente successivo.
+        Risponde sicuramente alle esigenze, ma è necessario stabilire l'ordine e la durata della disponibilità del token. Inoltre, più stazioni ci sono, più si dovrà dividere il tempo.
+        - Tecniche a contesa, dove non esiste coordinamento centralizzato, bensì le varie stazioni si contengono l'utilizzo del token.
+
+Ci sono inoltre più tecniche a contesa:
+    - Aloha
+    - Slotted Aloha
+    - CSMA
+
+--- Aloha
+Specifica il comportamento e ci saranno protocolli che lo implementano. Questo è molto semplice, ma è tuttora utilizzato, per esempio per le chiamate col telefono.
+
+È uno schema distribuito che vede più stazioni indipendenti eseguire la stessa procedura, che è:
+    1. Se la stazione ha dati da trasmettere, li trasmette.
+    2. Durante la trasmissione, ascolta il canale (rileva la potenza). In caso di collisione (più trasmissioni in corso). Se la potenza rilevata è maggiore di quella trasmessa, la stazione estrae un tempo casuale, aspetta tale intervallo di tempo e ripeti il punto 1.
+
+Il punto chiave è la scelta del tempo CASUALE, perché se fosse deterministico, le collisioni andrebbero avanti all'infinito. Bisogna quindi desincronizzarle.
+
+Quanto è efficiente aloha? Nello scenario ideale si avrebbe uno sviluppo lineare, ma nella realtà si utilizza al massimo il 19% delle sue potenzialità. Si entra in periodo di vulnerabilità, un intervallo di tempo in cui una trama può subire collisioni. Dipende dall'algoritmo.
+Per quanto riguarda aloha, supponiamo che il tempo di trama sia fisso e uguale a T (T = numeroBitDaTrasmettere/velocitàTrasmissione); il periodo di vulnerabilità della trama trasmessa con aloha ha durata uguale a due volte il tempo di trasmissione usato. 2T, insomma.
+
+--- Slotted aloha
+Parte da due premesse:
+    - il tempo è suddiviso in intervalli (slot) di durata tempo di trama T.
+    - Tutte le stazioni sono sincronizzate.
+
+Algoritmo:
+    1. Quando una stazione genera una trama, aspetta l'inizio dello slot successivo per trasmetterla.
+    2. Uguale alla procedura aloha base.
+
+Periodo di vulnerabilità di questa tecnica: una stazione rischia di subire collisioni solo se un'altra ha trasmesso nella stessa slot. Il periodi di vulnerabilità ha la grandezza dello slot: T.
+Ciò si traduce in un'efficienza migliore rispetto all'aloha base, del 38%.
+
+% TODO: Disegna anche le rappresentazioni per Aloha e Slotted Aloha. Avevo finito i foglietti, sry.

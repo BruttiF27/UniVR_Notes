@@ -225,4 +225,46 @@ prima alla seconda rete avviene nelle modalità discusse prima, ma viceversa si 
 
 \noindent Quindi ogni volta che un utente vuole contattarne un altro connesso a una rete privata, richiede in primo luogo l'IP del destinatario al
 server Directory. Se questo è pubblico, si ha una comunicazione normale con l'apertura di un socket; alternativamente ci si appoggia al server Relay
-per poter comunicare.
+per poter comunicare.\par
+La soluzione del cambio di protocollo in IPv6 presenta la necessità di un cambio di intestazione, naturalmente. L'header di base ha una dimensione di
+$40B$ e contiene i seguenti campi: \begin{itemize}
+	\item \textbf{Versione}: Consente di distinguere IPv6 da IPv4 e fornisce il significato dei campi successivi. Richiede $4b$.
+	\item \textbf{Traffic class}: Gestisce le proprietà dei pacchetti in base al tipo di servizio dato dalla priorità. Richiede $8b$.
+	\item \textbf{Flow label}: Numero assegnato al socket. È univoco e condiviso dagli IP di sorgente e destinazione, come anche le rispettive porte.
+	Richiede $20b$.
+	\item \textbf{Lunghezza payload}: Autoesplicativo. Richiede $16b$.
+	\item \textbf{Next header}: Codice dal duplice significato. In mancanza di estensioni all'intestazione, identifica il protocollo trasportato nel
+	payload; alternativamente, rappresenta il tipo di extension header. Richiede $8b$.
+	\item \textbf{Hop limit}: Indica il numero di hop attraversabili dal frame prima di essere scartato. Corrisponde al campo TTL di IPv4 e richiede
+	$8b$.
+	\item \textbf{IP Sorgente}: Autoesplicativo. Ha $128b$ disponibili.
+	\item \textbf{IP Destinazione}: Autoesplicativo. Ha $128b$ disponibili.
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/header_IPv6.png}
+	\caption{Intestazione IPv6}
+\end{figure}
+
+\noindent Il protocollo IPv6 dovrà eventualmente essere implementato quando la richiesta di indirizzi IP a $32b$ sarà diventata insostenibile. Una
+disponibilità di $2^{128}$ indirizzi sarà sufficiente per coprire le necessità dell'intera superficie terrestre, acqua inclusa.\par
+Nel campo next header abbiamo poi nominato gli \textbf{extension header}: sono delle ulteriori intestazioni con un formato specifico. A noi interessano
+due campi in particolare: \begin{itemize}
+	\item \textbf{Next header}: Campo dalla medesima funzione di quello in IPv6; è quindi capace di identificare ulteriori estensioni, potenzialmente,
+	ma non realisticamente, ad-infinitum. Richiede $8b$.
+	\item \textbf{Next header length}: Indica la lunghezza dell'estensione. Richiede $8b$.
+\end{itemize}
+
+\noindent Le estensioni si possono utilizzare in vari contesti; per esempio, con la frammentazione, il campo next header di IPv6 indicherà il tipo di
+extension header contenente una parte dei dati frammentati. Un altro caso è con l'instradamento, dove sono indicati gli indirizzi IP dei router da
+attraversare.\par
+\noindent I vantaggi di questo costrutto riguardano in primo luogo la possibilità di estendere gli header con nuove funzionalità senza modificare quello di base,
+facendo scartare il frame a quei router non in grado di gestirlo. Ciò consente anche un aggiornamento graduale degli hardware. Inoltre, le estensioni
+sono utilizzate esclusivamente se necessarie.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.4\linewidth]{Images/extensionHeader.png}
+	\caption{Estensione dell'intestazione}
+\end{figure}

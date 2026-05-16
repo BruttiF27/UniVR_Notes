@@ -345,4 +345,13 @@ Tempo totale = 16s, CWND finale: 3+1/3.
 
 In caso di perdita dei segmenti va così, mentre in caso di perdita dei riscontri durante il down di rete, non avendo ricevuto conferma, è necessario aspettare il termine dell'RTO per una ritrasmissione a t=13s.
 Si cambia ovviamente la SSTHRESH e la CWND. Si ritrasmette il primo segmento, ma la destinazione aveva già ricevuto quelli trasmessi prima del down, quindi verrà ritornato un ack88. La sorgente si rende conto che i segmenti erano stati trasmessi correttamente, ricalcola il nuovo valore della CWND = CWND+ackReceived = 1+1 = 2 e chiuderà la connessione, facendo terminare la trasmissione a t=14s.
+
+
+--- Esercizio TCP
+AppA deve trasferire 77500B verso appB
+MSS: 1250B
+RCVWND a t=0: 10000B. A t>4 dst annuncia RCVWND di 17500B. A t>8 dst annuncia RCVWND di 12500B.
+SSTHRESH_i: RCVWND_i
+RTT = 1s costante per tutto il trasferimento e RTO = 2RTT e raddoppia in caso di perdite.
+Rete down: (8, 10) e (13.5, 14.5)
 \end{comment}

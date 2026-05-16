@@ -1,13 +1,229 @@
-\section{Framing}
+\section{Servizi e accesso al canale condiviso}
+Lo scopo del livello di \textbf{collegamento dati} è la gestione e risoluzione dei problemi associati alla trasmissione sul singolo hop, senza
+conoscere l'intera topologia della rete. Offre quindi servizi di: \begin{itemize}
+    \item \textbf{Framing}: Molti protocolli di questo livello incapsulano i datagrammi all'interno di un frame prima di trasmetterlo, la cui struttura
+    è definita dal primo.
+    \item \textbf{Accesso al mezzo condiviso}: È necessario che i protocolli forniscano un \textbf{Medium Access Control} (MAC) per l'accesso ai
+    collegamenti, il quale specifica le regole con cui immettere i frame nel socket. Saranno approfonditi nella sezione successiva.
+    \item \textbf{Consegna affidabile}: I protocolli che forniscono questo servizio sono utilizzati in un contesto dove è comune trovare errori nella
+    trasmissione, ed è quindi necessario implementare una funzione per la relativa gestione.
+    \item \textbf{Rilevazione e gestione errori}: Può capitare che a causa di disturbi del segnale i dati vengano corrotti. Per questa ragione, molti
+    protocolli forniscono un meccanismo per rilevare questi problemi grazie ad un bit di flag all'interno del frame, il quale sarà controllato dall'host
+    ricevente.
+\end{itemize}
+
+\noindent I protocolli usati a livello di collegamento dati dipendono dalla tecnologia della porta di rete, come la rete \textbf{Wi-Fi} (IEEE 802.11),
+una rete fissa \textbf{Ethernet} (IEEE 802.3), oppure \textbf{Fibra ottica}, che fa uso di Synchronous Digital Hierarchy (SDH) o di Point to Point
+Protocol (PPP). È chiaro come questo livello sia strettamente legato all'hardware; infatti il protocollo è realizzato da un \textbf{adattatore di rete}
+(scheda di rete), nel quale un chip dedicato ne fornisce i relativi servizi, mentre lato software sono implementate le funzioni per comunicare con i
+livelli superiori.\par
+Ogni host presenta più interfacce di rete per l'invio e la ricezione dei dati in base alle tecnologia, le quali corrispondono a un collegamento fisico
+specifico, definito da un \textbf{indirizzo MAC}, il quale sarà utilizzato negli header dei protocolli per la scelta del canale da utilizzare. In quanto
+condiviso, tuttavia, si presenta il problema di regolamentazione accessi e delimtazione delle trasmissioni. Supponiamo infatti un router di una rete
+domestica, al cui access point sono collegati più host, come PC, telefoni, console, etc; questi potrebbero entrare in contesa se utilizzano i servizi
+concorrentemente. La soluzione al problema deve cercare al meglio delle sue possibilità di: \begin{itemize}
+    \item Minimizzare le collisioni fra le trasmissioni e quindi la perdita di informazioni.
+    \item Massimizzare l'utilizzo del mezzo ed evitare sprechi di risorse.
+\end{itemize}
+\noindent La prima strategia proposta è quella di \textbf{allocazione statica}, la quale vede le risorse suddivise a priori tra i partecipanti. Degli
+esempi di questa implementazione sono il Time Division Multiplex (TDM), che divide il tempo in vari slot, ognuno dei quali associato ad ogni utente, e
+il Frequency Division Multiplex, che fa lo stesso, ma per le frequenze. La strategia statica non risponde appropriatamente alle nostre richieste,
+perché non massimizza l'utilizzo del mezzo; dividendo aprioristicamente le risorse, è inevitabile che quando non ci sia richiesta dagli host, lo slot
+ad essi associato sia inutilizzato. Inoltre, con aggiunta o rimozione di altri host sarebbe necessario ricalcolare la divisione delle risorse. La
+strategia attualmente in uso è quella di \textbf{allocazione dinamica}, che si divide a sua volta in due tecniche: \begin{itemize}
+    \item \textbf{A turno}: Organizzano le stazioni (host) in un determinato ordine e si definisce un token che dona il diritto di trasmissione per un
+    determinato intervallo di tempo. Scaduta la disponibilità, si passa all'utente successivo. Questa implementazione in particolare è chiamata
+    \textbf{token-ring} e richiede di stabilire un ordine e intervallo di disponibilità del token. Inoltre, più stazioni sono presenti, meno tempo
+    potrà essere dedicato alla trasmissione della singola.
+    \item \textbf{A contesa}: Non implementano un coordinamento centralizzato e le varie stazioni si contengono l'utilizzo del canale di comunicazione.
+    Si tratta della strategia attualmente in uso, della quale studieremo nella prossima sezione i protocolli Aloha, Slotted-Aloha e CSMA.
+\end{itemize}
 
 %
 
-\section{Accesso al canale condiviso}
+\section{Algoritmi di accesso al canale condiviso}
+Il primo algoritmo discusso, come anche il più semplice tra tutti, è \textbf{Aloha}. Si tratta di uno schema distribuito che vede più stazioni
+indipendenti eseguire la stessa seguente procedura: \begin{algorithm}[h]
+    \caption{Aloha()}
+    \begin{algorithmic}[i]
+        \While{Stazione ha dati da trasmettere}
+        \State Trasmetti i dati
+        \If{Canale è occupato} \Comment{Collisione verificata}
+        \State Estrai un tempo casuale da aspettare
+        \EndIf
+        \While{Tempo non scaduto}
+        \State Decrementa il tempo
+        \EndWhile
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}
 
-%
+\noindent La verifica della collisione avviene tramite "ascolto" del canale. Viene rilevato un valore di potenza, il quale, se è più alto del normale,
+indica che stanno già venendo trasmessi dei dati e bisogna attendere il termine dell'intervallo di tempo calcolato casualmente. Tuttavia, è necessario
+che le stazioni siano desincronizzate, perché se così non fosse, continuerebbero a trasmettere le loro trame senza successo. Aloha trova utilizzo
+ancora oggi grazie alla sua semplicità, per esempio per le chiamate telefoniche.\par
+In uno scenario ideale, Aloha è eseguito in tempo lineare $\Omega(n)$, ma nella realtà è possibile utilizzare al massimo il $19\%$ del suo potenziale.
+Definiamo inoltre \textbf{periodo di vulnerabilità} l'intervallo di tempo in cui una trama può subire collisioni, il quale dipende dall'algoritmo usato.
+Per quanto riguarda Aloha, ha durata uguale a due volte il tempo di trasmissione usato per la trama. In particolare: \begin{itemize}
+    \item \textbf{Tempo di trama}: $T = \text{bitDaTrasmettere} / \text{velocitàTrasmissione}$ 
+    \item \textbf{Periodo di vulnerabilità}: $V = 2T$
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/aloha.png}
+	\caption{Evoluzione di Aloha nel tempo}
+\end{figure}
 
-\section{Sottolivello MAC}
-Protocolli Aloha, CSMA, CSMA/CD, CSMA/CA
+\noindent \textbf{Slotted-Aloha}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/slotted_aloha.png}
+	\caption{Evoluzione di Slotted-Aloha nel tempo}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/pers-CSMA.png}
+	\caption{Evoluzione di CSMA persistente nel tempo}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/nonPersistent_CSMA.png}
+	\caption{Evoluzione di CSMA non persistente nel tempo}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/p-persistent-CSMA.drawio.png}
+	\caption{Evoluzione di CSMA P-persistente nel tempo}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/CD-CSMA.png}
+	\caption{Evoluzione di CD-CSMA nel tempo}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/header_ethernet.png}
+	\caption{Intestazione protocollo Ethernet}
+\end{figure}
+
+
+\begin{comment}
+
+--- Slotted aloha
+Parte da due premesse:
+    - il tempo è suddiviso in intervalli (slot) di durata tempo di trama T.
+    - Tutte le stazioni sono sincronizzate.
+
+Algoritmo:
+    1. Quando una stazione genera una trama, aspetta l'inizio dello slot successivo per trasmetterla.
+    2. Uguale alla procedura aloha base.
+
+Periodo di vulnerabilità di questa tecnica: una stazione rischia di subire collisioni solo se un'altra ha trasmesso nella stessa slot. Il periodi di vulnerabilità ha la grandezza dello slot: T.
+Ciò si traduce in un'efficienza migliore rispetto all'aloha base, del 38%.
+
+% TODO: Disegna anche le rappresentazioni per Aloha e Slotted Aloha. Avevo finito i foglietti, sry.
+
+Lez16 - 15-05-26 Reti di calcolatori
+
+--- Come aumentare ulteriormente l'efficienza (usare il canale evitando le collisioni il più possibile)
+
+La soluzione è l'Algoritmo CSMA (carrier sense multiple access)
+
+```
+Algoritmo Persistent CSMA:
+Se una stazione ha una trama da trasmettere
+    Ascolta il canale
+
+Se il canale è libero (non è rilevata alcuna trasmissione)
+    Trasmette la trama
+Altrimenti
+    Finché il canale non è libero
+        Continua ad ascoltare; poi trasmetti quando è libero
+
+Se c'è collisione
+    Estrae un intervallo di tempo casuale e torna al primo if.
+```
+
+Collisioni possono avvenire quando due stazioni pongono di voler trasmettere una trama e sono in attesa della fine trasmissione della stessa. Allora trasmetterebbero quasi allo stesso tempo, collidendo.
+È possibile evitare anche queste collisioni? Con un numero grande di stazioni sarebbe molto difficile gestire il tutto.
+
+```
+Algoritmo Non-persistent CSMA:
+Se una stazione ha una trama da trasmettere
+    Ascolta il canale
+
+Se il canale è libero (non è rilevata alcuna trasmissione)
+    Trasmette la trama
+Altrimenti
+    Estrae un tempo casuale e torna al punto 1
+
+Se c'è collisione
+    Estrae un intervallo di tempo casuale e torna al primo if.
+```
+Con questa configurazione si riduce il numero di collisioni possibili grazie alla generazione di intervalli casuali. Introduce tuttavia un ritardo; mettiamo caso che una stazione ritenta la trasmissione e continui a trovare il canale occupato. Questo algoritmo dunque aumenta l'efficienza ma diminuisce l'equità.
+
+```
+Algoritmo p-persistent CSMA: // p è un parametro configurabile
+Se una stazione ha una trama da trasmettere
+    Ascolta il canale
+
+Se il canale è libero (non è rilevata alcuna trasmissione)
+    Trasmette la trama
+Altrimenti
+    Finché il canale non è libero
+        Con probabilità p trasmetti la trama
+        Con probabilità (1-p) rimando il tentativo di trasmissione di un microslot (microslot t_M << Tempo di trama T)
+
+Se c'è collisione
+    Estrae un intervallo di tempo casuale e torna al primo if.
+```
+Si lascia al caso la decisione di trasmettere la trama. Avere microslot significa ridurre i ritardi ed ognuno è sufficientemente grande per capire se un'altra stazione sta trasmittendo. È comunque possibile collidere se due stazioni trasmettono allo stesso microslot, ma è una probabilità molto piccola. Diminuisce insomma il ritardo ottenendo una migliore efficienza.
+
+```
+Algoritmo CSMA-CD (Collision-Detection) (combinabile con tutte le varianti precedenti)
+Se una stazione ha una trama da trasmettere
+    Ascolta il canale
+
+Se il canale è libero (non è rilevata alcuna trasmissione)
+    Trasmette la trama
+Altrimenti
+    Finché il canale non è libero
+        Continua ad ascoltare; poi trasmetti quando è libero
+
+Se c'è collisione
+    Interrompi la trasmissione
+    Estrai un tempo casuale e torna al punto 1
+```
+
+Efficienze:
+    - Aloha: 19%
+    - Slotted Aloha: 38%
+    - CSMA-CD Persistent: 58% (Attualmente quella usata)
+    - CSMA-CD p-persistent: 90% (con p = 0.01) (Aumenta il ritardo)
+
+Periodo di vulnerabilità del CSMA è legato al ritardo di propagazione (le linette tratteggiate nel grafico), il tempo che il segnale impiega a viaggiare nello spazio, indicato con \tau. In genere è molto minore del tempo di trama T. È un valore onnipresente, perché la trasmissione dei dati non è istantanea.
+Il periodo di vulnerabilità è generalmente pari a 2\tau.
+
+--- Protocollo Ethernet
+Standardizzato da IEEE con codice 802.3. Presenta un formato dell'header e trailer abbastanza semplice.
+    - Preambolo (7B): Alternanza di 01, serve per sincronizzare le stazioni tra di loro.
+    - Flag (1B)
+    - Hardware dstAddress (6B): Legato all'indirizzo scritto nell'hardware della scheda di rete.
+    - Hardware srcAddress (6B): Indirizzo hardware della scheda di rete sorgente.
+    - Lunghezza payload (2B): Autoesplicativo.
+    - Payload
+    - Checksum (?B): Tale e quale ai checksum dei protocolli trattati in precedenza. È il trailer o tailer.
+
+Gli indirizzi hardware (conosciuti anche come MAC Addresses) sono assegnati dal produttore quando è creata la scheda di rete. Non è possibile cambiarli.
+
+QST: Perché servono indirizzi HW quando ci sono gli indirizzi IP?
+\end{comment}
 
 %
 

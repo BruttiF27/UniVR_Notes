@@ -33,7 +33,7 @@ Esistono più algoritmi di scheduling con diverse caratteristiche, ed è necessa
 
 --- Algoritmi di scheduling
 Il più semplice algoritmo di scheduling CPU è quello in base all'ordine di arrivo \textbf{First-come, First-served} (FCFS), il quale richiede l'implementazione della ready queue come una coda FIFO, sicché lo scheduler possa recuperare il PCB del processo dalla cima della coda e assegnargli la CPU fino al termine della sua esecuzione.\par
-Si tratta di un algoritmo con prelazione il cui tempo medio di attesa è spesso abbastanza lungo; consideriamo infatti le seguenti coppie (processo, durata sequenza): \[
+Si tratta di un algoritmo senza prelazione il cui tempo medio di attesa è spesso abbastanza lungo; consideriamo infatti le seguenti coppie (processo, durata sequenza): \[
     (P_1, 24ms)\quad (P_2, 3ms)\quad (P_3, 3ms)
 \]
 \noindent Il tempo di attesa per il primo processo è $0ms$, per il secondo è $24ms$ e per il terzo $27ms$, facendo risultare come tempo medio: \[
@@ -43,5 +43,113 @@ Si tratta di un algoritmo con prelazione il cui tempo medio di attesa è spesso 
 
 *Inserisci immagine diagramma di Gantt per FCFS.
 
-Riprendi e termina con:
-SJF, RR, Priority scheduling, multilevelde queues, multileveled queues with retroaction
+Un secondo algoritmo è quello di scheduling per brevità \textbf{Shortest job first} (SJF), il quale associa a ogni processo la lunghezza della sequenza di operazioni CPU successiva. Quando è disponibile, si assegna al core la più breve lunghezza; a parità di valori, invece, è assegnato con logica FCFS. Supponiamo i processi: \[
+    (P_1, 6ms)\quad (P_2, 8ms)\quad (P_3, 7ms)\quad (P_4, 3ms)
+\]
+\noindent Verranno eseguiti in base alla loro lunghezza, quindi nell'ordine: $P_4, P_1, P_3, P_2$, facendo risultare un tempo di attesa medio di : \[
+    \overline{t} = (0+3+9+16)/4 = 7ms
+\]
+\noindent SJF è un algoritmo ottimale, tuttavia non è realizzabile a livello dello scheduling della CPU a breve termine, perché non è possibile conoscere la lunghezza della sequenza successiva. Possiamo tuttavia provare a predirlo; calcolando un valore approssimato della lunghezza si può scegliere il processo con quella più breve stimata.\par
+La stima avviene calcolando la media esponenziale delle lunghezze misurate dalle sequenze precedenti tramite la formula: \[
+    \tau_{n+1} = \alpha t_n + (1-\alpha)\tau_n
+\]
+\noindent Dove $t_n$ è la lunghezza della sequenza $n$, $\tau_{n+1}$ il valore previsto per la sequenza successiva e $0 \leq \alpha \leq 1$ controlla il peso sulla predizione della storia recente e passata. Infatti, con $\alpha=0$, la storia recente non ha effetto, mentre con $\alpha=1$ ha significato solo la più recente sequenza di operazioni della CPU. Generalmente, questo valore corrisponde a $0,5$.\par
+L'algoritmo SJF può essere con o senza prelazione; la scelta si compie quando un nuovo processo si accoda alla ready queue mentre un altro è in esecuzione. L'implementazione con prelazione riprende il controllo del core dal processo attivo se quello nuovo risulta più breve, mentre quello senza prelazione lascia lo lascia terminare prima di riassegnare il core.
+
+* Inserisci Gantt Per SJF senza e con prelazione.
+
+Il terzo algoritmo proposto riguarda lo scheduling circolare \textbf{Round-Robin} (RR), che vede fornita ad ogni processo una quantità dipendente dalla CPU di tempo fissa, detta \textbf{quanto}, entro la quale possono continuare la loro esecuzione.\par
+L'implementazione della ready queue si ha con una coda FIFO; lo scheduler imposta un timer per segnalare la fine di ogni quanto di tempo, inviare un segnale di interruzione e cambiare il contesto facendo riassegnare il core dal dispatcher. Se il processo non termina entro l'intervallo, è reinserito nella ready queue. Supponiamo i processi: \[
+    (P_1, 24ms)\quad (P_2, 3ms)\quad (P_3, 3ms)
+\]
+\noindent Considerando un quanto di tempo di $4ms$, si avrebbe un tempo di attesa per $P_1$ uguale a $(10-4)ms$, $4ms$ per $P_2$ e $7ms$ per $P_3$, per poi continuare ad eseguire $P_1$ fino al suo termine. Risultato: \[
+    \overline{t} = (6 + 4 + 7) / 3 = 5,66ms
+\]
+\noindent I tempi di attesa e di completamento dipendono tuttavia anche dalla dimensione del quanto di tempo stabilita; è necessario trovare un compromesso che ottimizzi l'esecuzione senza far attendere troppo gli altri processi.
+
+* Immagine Gantt RR
+
+\noindent L'algoritmo di scheduling con priorità è un caso più generale di SJF, che vede associato ad ogni processo un valore di priorità, in base al quale sarà assegnato il core di esecuzione. Le priority sono indicate con un intervallo di numeri il cui significato è arbitrario e va deciso durante l'implementazione. In questo contesto useremo valori più bassi per indicare priorità più alte.\par
+L'algoritmo può essere sia con prelazione che senza; nel primo caso sottrae forzatamente il core al processo in essere quando nella ready queue se ne inserisce uno nuovo di priorità più alta, mentre nel secondo si pone in cima alla coda il nuovo processo, il quale sarà eseguito dopo la terminazione di quello attivo.\par
+Lo scheduling con priorità porta tuttavia alcuni problemi, come quello dell'attesa indefinita (\textbf{starvation}) dei processi a bassa priorità, perché saranno potenzialmente ignorati in favore di quelli con valori più alti. Una soluzione al problema si pone grazie all'\textbf{invecchiamento}, un campo aggiuntivo che indica per quanto tempo un processo si trova all'interno della ready queue oppure più direttamente un aumento progressivo della priorità in base alla permanenza in coda. Alternativamente sarebbe possibile combinare scheduling con priorità e round-robin per garantire che ogni processo progredisca.
+
+* Immagine Gantt priority scheduling
+
+\noindent Usando il concetto di priorità si potrebbe pensare di implementarlo sulle ready queues. Questa è l'idea di base per l'algoritmo di scheduling a code multi-livello.\par
+Si definiscono più code con un valore di priorità statico, nelle quali saranno inseriti i processi che saranno scelti dallo scheduler. Questo approccio è spesso usato per suddividere i processi in primo piano da quelli in background, assegnando più priorità a quelli interattivi rispetto ai batch e consente inoltre di definire un algoritmo di scheduling potenzialmente diverso per ogni coda.\par
+Non consentire ai processi di spostarsi fra le code è un approccio rigido, ma ha il vantaggio di avere un basso carico sullo scheduling. In ogni caso, se si volesse dare la possibilità di rompere questo vincolo, staremmo implementando un algoritmo di scheduling a code multilivello con retroazione. L'idea consiste nel separare i processi che hanno caratteristiche diverse in termini di CPU burst; se hanno una lunga sequenza di operazioni CPU, saranno spostati in una coda con minor priorità, prediligendo i processi interattivi. Lo spostamento dinamico fra code garantisce un invecchiamento per evitare di incorrere in starvation. Generalmente, questo algoritmo è caratterizzato da alcuni parametri: \begin{itemize}
+    \item Numero di code
+    \item Algoritmo di scheduling per ciascuna coda
+    \item Metodo per determinare quando spostare un processo in code più prioritarie.
+    \item Metodo per determinare quando spostare un processo in code meno prioritarie.
+    \item Metodo per determinare la coda di priorità nella quale inserire un processo.
+\end{itemize}
+\noindent Quest'ultimo algoritmo è quello più generale di quelli discussi, ma per questa ragione è anche il più complesso da implementare
+
+--- Scheduling dei thread
+Come già discusso, distinguiamo i thread dei processi tra livello utente e livello kernel; per i sistemi che fanno uso di queste funzioni, non si effettua lo scheduling dei processi, bensì direttamente dei thread a livello kernel, mentre i thread utente sono gestiti da una libreria. Per eseguire questi ultimi sarà necessario associarvi un thread kernel, dinamica normalmente ottenuta grazie a un LWP posto fra i due.\par
+Tra più richieste concorrenti di utilizzo dei core della CPU si parla di ambito della contesa. In un modello da molti a uno o da molti a molti, la libreria dei thread pianifica l'esecuzione di quelli a livello utente su un LWP libero, restringendo l'ambito al processo (PCS), perché la contesa ha luogo fra thread dello stesso processo. Alternativamente, per determinare quale thread kernel debba essere eseguito, il kernel esamina tutti i thread del sistema, allargando l'ambito all'intero sistema (SCS).\par
+Con un PCS, lo scheduling è spesso basato su una priorità stabilita dal programmatore e non modificabile dalla libreria, sebbene alcune lo consentano, e si applica la prelazione al processo in esecuzione.\newline
+
+\noindent Per quanto riguarda la libreria Pthreads, è possibile specificare l'ambito della contesa nella fase di generazione dei thread usando i valori \textbf{PTHREAD\_SCOPE\_PROCESS} per lo scheduling PCS, e \textbf{PTHREAD\_SCOPE\_SYSTEM} per l'SCS. Nei sistemi con modello molti a molti il primo valore pianifica i thread utente sugli LWP disponibili, mentre il secondo crea in corrispondenza di ciascun thread utente un LWP a esso vincolato. Per leggere e impostare gli ambiti, Pthread fornisce le seguenti funzioni: \begin{itemize}
+    \item pthread\_attr\_setscope(pthread\_attr\_t *attr, int scope)
+    \item pthread\_attr\_getscope(pthread\_attr\_t *attr, int *scope)
+\end{itemize}
+\noindent Dove il primo parametro per entrambe è un puntatore agli attributi del thread, il secondo del setter riceve uno dei due valori di scope mostrati prima per stabilire l'ambito della contesa, mentre il secondo parametro del getter contiene un puntatore a un intero che contiene l'attuale valore dell'ambito della contesa. In caso di errore, ambo le funzioni ritornano valori non nulli. Infine, i sistemi come Linux e macOS consentono di usare soltanto l'ambito esteso al sistema.
+
+```
+# include <pthread.h>
+# include <stdio.h>
+
+# define NUM_THREADS 5
+
+int main (int argc, char *argv[]) {
+    int scope;
+    pthread_t tid[NUM_THREADS];
+    pthread_attr_t attr;
+
+    // Ottieni gli attributi di default
+    pthread_attr_init(&attr);
+
+    // Definisci l'ambito della contesa
+    if (pthread_attr_getscope(&attr, &scope)) {
+        printf("Impossibile appurare valore ambito contesa");
+    } else {
+        if (scope == PTHREAD_SCOPE_PROCESS) printf("Scope Process");
+        else if (scope == PTHREAD_SCOPE_SYSTEM) printf("Scope System");
+        else printf("Valore ambito contesa non ammesso")
+    }
+
+    // Imposta algoritmo di scheduling PCS o SCS
+    pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
+
+    // Genera i thread
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_create(&tid[i], &attr, runner, NULL);
+    }
+
+    // Attendi la terminazione di ogni thread
+    for (int i = 0; i < NUM_THREADS; i++) {
+        pthread_join(tid[i], NULL);
+    }
+}
+
+// Ogni thread esegue questa funzione
+void *runner () {
+    /*
+        A: What are you doing?
+        B: Stuff
+        C: I am stuff
+    */
+    pthread_exit(0);
+}
+```
+
+--- Valutazione degli algoritmi
+La scelta dell'algoritmo al contesto operativo, come già menzionato, è ponderata in base a vari criteri e con l'obiettivo di massimizzare l'utilizzo della CPU, rendendo massima anche la produttività sicché sia in media linearmente proporzionale al tempo totale di esecuzione. Definiti ciò, è possibile utilizzare vari metodi di valutazione, il cui insieme di maggiore utilizzo riguarda la \textbf{valutazione analitica}, che consente di, dato un input di carico e un algoritmo, fornire una formula matematica o un numero che valuta le prestazioni dell'istanza del problema.\newline
+
+\noindent La \textbf{modellazione deterministica} è il primo metodo di questo insieme, che considera un carico predeterminato definito da numeri esatti e definisce le prestazioni dell'algoritmo ritornandone altrettanti. È chiaro che non è sempre possibile avere dati discreti, ragion per cui, per quanto preciso, il metodo soffre limiti di applicazione.\par
+Ciò non vale solo per i numeri, bensì anche per i processi; non esiste infatti un loro insieme statico poiché molti sistemi devono poterne gestire sempre di nuovi. L'idea fornita per la valutazione di algoritmi in questi contesti è quella dell' \textbf{analisi delle reti di code}, la quale richiede il calcolo delle distribuzioni di sequenze di operazioni CPU, I/O e degli istanti di arrivo dei processi in coda per fornire una probabilità che si verifichi una determinata sequenza, di norma definita dalla sua media esponenziale, come anche la produttività media e altre statistiche utili.\par
+Il sistema di calcolo è descritto come una rete di server, ognuno dei quali con una propria coda d'attesa, mentre la CPU tiene una ready queue, il sistema I/O e le code di attesa dei dispositivi. In particolare, data una lunghezza media della coda n, un tempo medio di attesa W e \lambda il tasso medio di arrivo dei processi in coda, si prevede che entro W raggiungano la coda un numero di \lambda * W nuovi processi. Questi dat formano la \textbf{formula di Little}: \[n = W\times \lambda\]
+\noindent La formula è molto utile perché funziona per ogni algoritmo di scheduling e distribuzione degli arrivi. L'analisi delle reti di code funziona molto bene per il confronto degli algoritmi, ma capita spesso di avere distribuzioni complicate e difficilmente trattabili matematicamente. Ciò causa varie approssimazioni che non sempre rispecchiano correttamente le prestazioni reali.\par
+Per una valutazione più precisa si può ricorrere alle \textbf{simulazioni}; una tecnica che richiede un sistema di calcolo ad-hoc le cui strutture dati rappresentano gli elementi del sistema e, tramite una variabile di clock, si può osservare l'evoluzione del software ed eventualmente raccoglierne statistiche con un \textbf{trace tape}. Per quanto efficace, è allo stesso tempo oneroso da produrre, poiché richiede tempo e costi per la codifica, testing e messa a punto del simulatore. Risorse che potrebbero essere dedicate al metodo più sicuro di tutti: la \textbf{realizzazione} all'interno del sistema operativo e la verifica delle sue prestazioni nelle reali condizioni d'uso. Ci sono tuttavia dei problemi a cui si deve far fronte, come il comportamento all'utilizzo di vari programmi oppure il cambio di ambiente del sistema. Tendenzialmente si scrive uno script per far eseguire le stesse azioni su diverse piattaforme, per verificare le eventuali differenze nelle prestazioni. Ne consegue che gli algoritmi di scheduling più flessibili siano quelli tarati per adattarsi a un insieme di applicazioni.

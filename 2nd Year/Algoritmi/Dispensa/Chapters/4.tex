@@ -844,20 +844,27 @@ uscito dalla sorgente. È dimostrabile per induzione sui tagli; infatti: \begin{
 	\caption{Rete di flusso}
 \end{figure}
 
-\noindent Introduciamo adesso il concetto di \textbf{capacità residua} di un arco: il valore di capacità rimanente quando un arco fa scorrere un flusso.
-Per esempio, se ha una base di capacità di $20$ unità e gli è inviato un flusso di $12$, la rimanente sarà uguale a $8$. Si definisce formalmente come: \[
-	c_f(u,v) = c(u,v) - f(u,v)
+\noindent Il concetto duale della rete di flusso è la \textbf{rete dei residui}, un grafo indotto dalla prima il cui scopo è indicare quanto flusso
+può essere ancora gestito nei vari archi. Per annotarlo si fa uso del concetto di \textbf{capacità residua}, intuitivamente il valore di capacità
+rimanente quando nella connessione scorre un flusso, e formalmente descritta come: \[
+	c_f(u,v) = \begin{cases}
+		c(u,v) - f(u,v) & \text{Se $(u,v)\in E$}\\
+		f(v,u) & \text{Se $(v,u)\in E$}\\
+		0 & \text{Altrimenti}
+	\end{cases}
 \]
-
-
-
-
-% TODO Rivedere il concetto di rete residua perché boh.
-% TODO Presenta ford-fulkerson con pseudocodice, complessità e correttezza.
-% TODO Presenta caso limite delle innumerevoli iterazioni e fornisci Karp come soluzione al problema
-% TODO Presenta Karp e spiegane la complessità.
-
-
+\noindent La scrittura delle reti residue richiede necessariamente di prendere quella di flusso come punto di partenza; in particolare, possiamo avere
+due possibilità per indicare le connessioni tra i nodi: \begin{itemize}
+	\item Se tutta la capacità dell'arco è utilizzata la rete residua annota l'arco tra i due nodi con direzione opposta a quella originale e indica
+	come valore il flusso ricevuto.
+	\item Se non tutta la capacità dell'arco è utilizzata la rete residua annota due archi tra i nodi; il primo, nella medesima direzione della rete
+	originale, indica il valore di flusso rimanente che potrebbe essere inviato, mentre il secondo, nella direzione opposta, indica il flusso ricevuto.
+\end{itemize}
+\noindent Prendiamo come esempio la rete di flusso discussa prima; il primo caso si rispecchia nel flusso $f(a,b)$; tutta la capacità è utilizzata e
+quindi la rete residua annoterà una sola freccia in direzione opposta con il medesimo valore. Il secondo caso, invece, si può vedere con $f(c,d)$.
+L'arco della capacità rimanente avrà valore $3$, mentre quello in direzione inversa presenterà $11$. Questa dinamica ci consente di manipolare il
+flusso e ridirezionarlo per ricercare cammini che lo possano eventualmente massimizzare, detti \textbf{cammini aumentanti}. Il processo di ricerca si
+effettua fintanto che è possibile trovarne di nuovi, e al suo termine si ottiene il flusso massimo.
 
 \begin{figure}[h]
 	\centering
@@ -865,25 +872,35 @@ Per esempio, se ha una base di capacità di $20$ unità e gli è inviato un flus
 	\caption{Rete residua}
 \end{figure}
 
+\noindent Quest'idea è alla base dell'algoritmo di \textbf{Ford-Fulkerson}, il quale, a partire da un flusso nullo, continuerà a ricercare un cammino
+aumentante $p$ nella rete residua e aumentare il flusso lungo di esso di una quantità pari alla sua capacità residua.
+\begin{algorithm}[h]
+	\caption{ford-fulkerson(G, s, t)}
+	\begin{algorithmic}[i]
+		\Require $G$: Rete di flusso, $s$: Sorgente, $t$: Pozzo
+		\State Inizializza il flusso $f$ a $0$
+		\While{$\exists p\in G_f$ tale che sia aumentante}
+		\State Aumenta il flusso $f$ lungo $p$
+		\EndWhile
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent 
+
+
+
+
+
+
+% TODO Presenta ford-fulkerson con pseudocodice, complessità e correttezza.
+% TODO Presenta caso limite delle innumerevoli iterazioni e fornisci Karp come soluzione al problema
+% TODO Presenta Karp e spiegane la complessità.
+
+
+
+
+
 \begin{comment}
-In presenza di due nodi collegati bidirezionalmente, è possibile che uno respinga il flusso dati dall'altro. Nell'IM1, a e c presentano questa
-situazione; dove f(c,a)=1, è possibile che a respinga quanto ricevuto e lo rimandi a c, facendo valere come capacità residua 10+1=11.
-In generale, se un nodo respinge un flusso, fa valere la sua capacità residua equivalentemente al flusso ricevuto. Se t deve respingere il flusso
-di b, ritorna capacità residua 15.
-La capacità residua è il flusso aggiuntivo che posso rispedire lungo ogni arco.
-
-Esiste un percorso da s a t lungo il quale sia possibile aumentare il flusso? La risposta si trova con il cammino aumentante; un cammino da s a t nella
-rete residua (rete che contiene le capacità residue). Nell'immagine è s, c, b, t. È evidente però come presenti un bottleneck tra c e b. Per questa
-ragione possiamo ridirezionare il flusso uscente f(b,c) e sommarlo a quello f(b,t). Questa operazione mantiene i vincoli di conservazione perché quella
-che stiamo facendo è un'operazione di ridirezionamento, non creazione o rimozione del flusso.
-In tal caso, f(b,c)=0 e f(b,t) = 15+5 = 20. Flusso aumentato. Le capacità residue cambiano di conseguenza, costruendo una nuova rete residua.
-Questo procedimento va ripetuto fino a quando il flusso inviato all'altra parte del taglio è quanto più vicino al valore della capacità massima. Quando
-i due valori sono equivalenti, si dice che l'arco è saturo e si ha un flusso massimo.
-
---- Ford-Fulkerson
-Parti dal flusso nullo, questa soddisferà tutte le proprietà e non ci saranno punti di accumulo. Finché nella rete residua esistono cammini aumentanti,
-sia p un cammino aumentante, aumenta il flusso lungo p di una quantità pari alla capacità residua dell'arco critico (bottleneck).
-
 - Correttezza di ford-fulkerson
 Sia f una funzione di flusso; sono equivalenti le seguenti proprietà:
     - f è un flusso massimo (non esistono flussi di modulo più alto)
@@ -910,6 +927,8 @@ Complessità: O(|f*|(V+E))
 f* è un flusso massimo
 Il corpo ha complessità V+E
 
+
+
 V+E è il numero di interazioni da attuare nell'algoritmo; se queste sono di un numero molto alto, FF risulterebbe estremamente inefficiente.
 Introduciamo quindi Karp.
 
@@ -931,7 +950,4 @@ O(min(EV(V+E), |f*|(V+E)))
 
 Trovare un flusso di modulo massimo e trovare un taglio di capacità minima è la stessa cosa. È il teorema del taglio minimo e flusso massimo. Questo
 permette di affrontare il problema da un punto di vista diverso.
-
---- Problema dell'agenzia matrimoniale
-Riconducibile ad un flusso massimo con una complessità relativamente bassa.
 \end{comment}

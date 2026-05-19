@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1778856088.84154 "/home/F27/Desktop/UniVR/2nd Year/Algoritmi/Dispensa/main.tex" "main.pdf" "main" 1778856089.69017 0
+["pdflatex"] 1779199038.87236 "/home/F27/Desktop/UniVR/2nd Year/Algoritmi/Dispensa/main.tex" "main.pdf" "main" 1779199039.69082 0
   "/home/F27/Desktop/UniVR/2nd Year/Algoritmi/Dispensa/main.tex" 1774175952 1059 7a5ce97422a92d71053667ec8cc3f38b ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -180,7 +180,7 @@
   "Chapters/1.tex" 1771749344 23806 4357193d0aaf58a0580568725c6eb5bf ""
   "Chapters/2.tex" 1772378294 36293 1f4a9d19ce6b178b2b671845750d98c1 ""
   "Chapters/3.tex" 1774188396 23757 a48382d49b9774a0e54144562516529b ""
-  "Chapters/4.tex" 1778856088.67002 80321 e75134acf4357cf67c576eb603a3e460 ""
+  "Chapters/4.tex" 1779199038.70179 80570 a9354cd6ed43c6eb764195185e6733b7 ""
   "Chapters/5.tex" 1778850523.78175 7368 6a4ab4909dc0a6d49e962e61eb1010e6 ""
   "Configs/boxes.tex" 1773495068 137 3ef8b4873610eddd773a1953318fcaa8 ""
   "Configs/formats.tex" 1773495104 241 b7231f7934eb8c2017cf8dfea19748ad ""
@@ -194,9 +194,9 @@
   "Images/residualNet.png" 1778413075.19249 44683 5e552c95390791aadf18e637953d1897 ""
   "Images/streamNet.png" 1778412558.21047 34941 861ab38dab7c1e37f1b45babd76c9b44 ""
   "Images/topologicalSort.png" 1775564488 61948 6ac6106b21b09a6b98feb2b402fd019e ""
-  "main.aux" 1778856089.62102 10920 aa8936d23a5ee56fff9d1015f0e85608 "pdflatex"
+  "main.aux" 1779199039.62629 11058 4e5b7afdf03ff0db7ed06abafe1da7a1 "pdflatex"
   "main.tex" 1774175952 1059 7a5ce97422a92d71053667ec8cc3f38b ""
-  "main.toc" 1778856089.62202 2876 446bbbaad90ac6499d81083bf14433be "pdflatex"
+  "main.toc" 1779199039.62729 2876 1721e023cbbb1a26fae10c8b56a1849f "pdflatex"
   (generated)
   "main.aux"
   "main.log"

@@ -354,4 +354,11 @@ RCVWND a t=0: 10000B. A t>4 dst annuncia RCVWND di 17500B. A t>8 dst annuncia RC
 SSTHRESH_i: RCVWND_i
 RTT = 1s costante per tutto il trasferimento e RTO = 2RTT e raddoppia in caso di perdite.
 Rete down: (8, 10) e (13.5, 14.5)
+
+RCVWND_1 = 8, RCVWND_2 = 14, RCVWND_3 = 10
+SEGMENTI: 62
+
+Inviati: 1+2+4+8+8+9+10+11+9(0) = 53 // 9 non inviato, down di rete.
+Inviati: 53 + 1+2+4+6(0) = 60
+Inviati: 60 + 1+1, fine trasmissione a t=17ms con CWND=3
 \end{comment}

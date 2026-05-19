@@ -1,0 +1,99 @@
+Lez17 - 19-05-26 Reti di calcolatori
+
+QST: Perché servono indirizzi HW quando ci sono gli indirizzi IP?
+
+Per consegna diretta si legge il mac address e il pacchetto verrà preso dall'elaboratore relativo.
+Per consegna indiretta, lo prenderà il router, farà le sue sovrascrizioni e inizieranno gli algoritmi di routing per trasmettere il pacchetto al calcolatore nell'altra rete. (Si cambia di hop in hop l'indirizzo hardware)
+
+- Come fa un host a conoscere gli indirizzi MAC degli altri host (della propria rete) o del router?
+A livello 2 esiste un protocollo Address Resolution Protocol (ARP) che svolge la medesima funzione del DNS, ma per i MAC address. Partendo da un indirizzo IP, ricava il MAC, per poterlo inserire nel campo adeguato.
+
+(Non entriamo nel formato di ARP, si definisce solo il comportamento)
+
+1. Quando un host non ha un MAC, dato un indirizzo IP, l'host manda in broadcast a livello 2 una richiesta ARP. Questa contiene un campo che segnala ARP-req e un altro che contiene l'IP per il quale si richiede l'indirizzo hardware. Il pacchetto è incapsulato nell'header L2 con come indirizzo dstMAC è l'indirizzo IP di destinazione trasmesso in broadcast, mentre srcMAC è il MAC di sorgente.
+
+2. Solo chi possiede l'IP indicato nella richiesta ARP nel campo dstHW, risponde direttamente a chi ha fatto tale richiesta (Se nella stessa lan). Nel pacchetto ARP di risposta ci sarà l'apposito codice per identificare il tipo di messaggio, c'è l'IP di chi risponde e il suo relativo MAC address in tre campi diversi. Tutto questo è incapsulato nell'header L2, dove dstMAC corrisponde a quello di chi ha fatto la richiesta e srcMAC è il MAC di chi sta rispondendo.
+
+Le risposte ARP ottenute vengono memorizzate in una tabella (ARP table, salva anche associazioni tra IP e MAC) in cui ogni entry ha un tempo di validità, al termine del quale è cancellato.
+
+--- LAN estese
+Per lan estese intendiamo degli apparati di livello 2 che sostituiscono il cavo coassiale, il quale storicamente collegava tutti gli host al router della LAN.
+Questi apparati sostitutivi si chiamano switch e sono formati da un insieme di porte alle quali sono collegati i vari host.
+Lo switch ha solo il livello di collegamento dati e le varie porte che determinano quello fisico.
+
+Il pacchetto a lv.2 attraversa quindi lo switch dal canale fisico adeguato per essere trasportato al router. Lo switch mantiene una tabella in cui è associato il MAC address dell'host o del router con la porta alla quale sono connessi.
+Per consegna diretta non si passa dal router e lo switch trasmette i pacchetti, mentre per quella indiretta si mette la porta del router, che decapsulerà il livello di rete e procederà a trasmettere con routing etc.
+
+-- Altre configurazioni
+Gli switch si possono collegare tra di loro. Per gestire un edificio con più piani, per esempio, ogni piano avrà il proprio switch che gestirà gli host del rispettivo piano.
+Tuttavia sarà necessario anche usare uno switch radice che avrà interfaccia verso internet (quindi ha il router connesso a una sua porta) e userà le sue porte per connettersi agli altri switch, consentendo ad ogni host di accedere a internet.
+
+Dal punto di vista dello switch ci sono tutti i mac address che fanno capo allo switch del piano. I messaggi di broadcast sono trasmessi a tutti e dico tutti gli host della rete, dal punto di vista della radice vede solamente a quale porta rigirare, senza che l'amministratore di rete debba riconfigurare nulla. Attenzione solo a non creare cicli, perché in tal caso lo switch vedrebbe più porte associate ad uno stesso MAC address.
+
+--- Esercizi livello di collegamento
+Si tratta di esercizi riguardanti gli algoritmi di accesso al mezzo condiviso, in particolare Aloha e CSMA. Data una serie di trame generate da alcune stazioni, descrivere l'evoluzione della trasmissione.
+
+Per generare numeri casuali negli esercizi usiamo una versione semplificata del generatore realistico. La procedura è:
+    - Si usano le cirfe che compongono l'istante di inizio trasmissione, si sommano, si moltiplicano per il numero di collisioni consecutive e si aggiunge il tempo di trama.
+
+Per esempio: Trama trasmessa a t=512ms che ha già subìto una collisione (quindi è il secondo try di trasmissione) con tempo di trama T=10ms
+
+// Somma le cifre dell'istante di inizio trasmissione: 5+1+2
+// Moltiplica per il numero di collisioni avvenute: *2
+// Somma il tempo di trama: 10
+z = (5+1+2) * 2 + 10 = 26
+
+--- Ex1 Aloha
+Tre stazioni collegate da un mezzo condiviso. Poniamo ritardo di propagazione trascurabile \tau=0. Le stazioni generano le seguenti trame:
+    - A: t_a = 410ms
+    - B: t_b = 418ms
+    - C: t_c = 454ms
+Velocità di trasmissione è pari a 2.5Mbit/s e la lunghezza delle trame è di 3750B.
+
+Calcolo il tempo di trama: T = LunghezzaTrama / velTrasmissione = 3750*8[bit] / 2.5*10^6[bit/s] = 12ms.
+Ora è necessario descrivere graficamente il comportamento della trasmissione
+
+A inizia a trasmettere da 410ms a 422ms
+B inizia da 418ms, entrando in collisione con A. Le trame sono perse
+
+Calcoliamo i tempi da estrarre:
+    - z_A = (4+1+0)*1+12 = 17ms, quindi riproverà a 422+17 = 439ms.
+    - z_B = (4+1+8)*1+12 = 25ms, quindi riproverà a 430+25 = 455ms.
+
+A trasmette ora da 439 a 451. Questa è effettivamente trasmessa.
+C trasmette da 454 a 466 ed entra in collisione con B a 455. Si ri-estraggono i tempi:
+    - z_B': (4+5+5)*2+12 = 40ms, quindi riproverà a 507ms
+    - z_C: (4+5+4)*1+12 = 25ms, quindi riproverà a 491ms
+
+C trasmette senza problemi da 491 a 503ms e B pure da 507 a 519.
+A tutte trame trasmesse, si conclude l'esercizio.
+
+--- Ex2 CSMA persistent
+Abbiamo due stazioni collegate da un mezzo condiviso e ritardo di propagazione \tau=2ms
+    - A: Genera due trame a tempo t_{A1}=225ms, t_{A2}=240ms
+    - B: Genera una trama a tempo t_B = 228ms
+Velocità di trasmissione è 2.5MBit/s e la lunghezza delle trame è 3750B
+
+Tempo di trama: 3750*8 / 2.5*10^6 = 12ms
+
+CSMA persistente aggiunge l'ascolto del canale. A lo trova libero e trasmette la trama A_1 da 225 a 237.
+La seconda trama ascolta il canale, nota che è occupato e attende la fine della sua trasmissione. Potrà trasmettere da 239ms, perché dal suo punto di vista, A1 termina a 237+\tau, ovvero 237+2=239ms.
+B trasmette quindi da 239 a 251.
+A2 inizia a trasmettere da 240, ma vede a partire da 239+2=241ms che il canale è occupato, entrando in collisione con la trama trasmessa da B.
+B percepisce naturalmente la collision a sua volta.
+
+Si estrae dunque un tempo casuale per entrambe le stazioni:
+    z_A = (2+4+0)*1+12 = 18ms, ritrasmissione a 240+12+18 = 270ms
+    z_B = (2+3+9)*1+12 = 26ms, ritrasmissione a 239+12+26 = 277ms
+
+A ritenta quindi la sua trasmissione da 270 a 282.
+B ritenta a tempo 277, nota che il canale è occupato e attende fino a 282+2=284ms, da cui potrà trasmettere senza problemi fino a 296ms, tempo di terminazione trasmissione.
+
+--- Esercizio su indirizzamento
+Abbiamo tre LAN
+    LAN1 400host, contiene un host con indirizzo 178.242.85.168
+    LAN2 300host
+    LAN3 1200host
+
+Trova il blocco CIDR dell'intera rete e gli indirizzi di rete delle tre lan.
+Trova inoltre la tabella di routing del router A. (Da vedere in aula)

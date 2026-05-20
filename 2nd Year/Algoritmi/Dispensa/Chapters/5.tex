@@ -9,10 +9,9 @@
 \section{Programmazione lineare}
 
 \begin{comment}
-    Lez11 - 07-05-26 Algoritmi
-
 --- Programmazione lineare
-Gli algoritmi studiati sui grafi sono istanze di risoluzione particolari dell'insieme della programmazione lineare. È talvolta utile capire quando ci si trova davanti a un contesto del genere e cercare di trovare una soluzione migliore.
+Gli algoritmi studiati sui grafi sono istanze di risoluzione particolari dell'insieme della programmazione lineare. È talvolta utile capire quando ci si
+trova davanti a un contesto del genere e cercare di trovare una soluzione migliore.
 
 Se ho un problema, lo posso quindi ricondurre quando possibile ad un problema di programmazione lineare.
 
@@ -26,7 +25,8 @@ L'azienda deve decidere che cioccolatini produrre in base a dei vincoli:
     - Max 400 scatole/giorno di cioccolatini creabili
 Massimizzare il profitto.
 
-Proviamo a formulare il problema in mariera più rigorosa. Definiamo quindi due variabili x_1, x_2, rispettivamente il numero di scatole di normali e deliziosi. Voglio trovare il profitto massimo dato dalla somma x_1+6x_2.
+Proviamo a formulare il problema in mariera più rigorosa. Definiamo quindi due variabili x_1, x_2, rispettivamente il numero di scatole di normali e
+deliziosi. Voglio trovare il profitto massimo dato dalla somma x_1+6x_2.
 
 I vincoli si traducono in: \begin{cases}
     x_1 \leq 200\\
@@ -34,21 +34,28 @@ I vincoli si traducono in: \begin{cases}
     x_1+x_2 \leq 400
 \end{cases}
 
-Questo è un sistema di disequazioni lineari. Ogni qualvolta un problema è riconducibile ad un sistema lineare, si parla di programmazione lineare. Questa è detta formulazione canonica.
+Questo è un sistema di disequazioni lineari. Ogni qualvolta un problema è riconducibile ad un sistema lineare, si parla di programmazione lineare.
+Questa è detta formulazione canonica.
 
-Proviamo a rappresentare graficamente il problema coi rispettivi vincoli (IM1). Si nota che è un'area delimitata da un insieme di disequazioni lineari. Uno spazio convesso, insomma. Questo ha naturalmente bordi e vertici; i punti delle soluzioni sono detti invece simplessi.
+Proviamo a rappresentare graficamente il problema coi rispettivi vincoli (IM1). Si nota che è un'area delimitata da un insieme di disequazioni lineari.
+Uno spazio convesso, insomma. Questo ha naturalmente bordi e vertici; i punti delle soluzioni sono detti invece simplessi.
 È possibile costruire una retta che rappresenta tutti i punti per cui la soluzione è massima. In questo caso specifico è x_1+6x_2 = 1900.
-Se ne creiamo una ad essa parallela e la trasliamo più in basso, avremo necessariamente un valore e quindi un obiettivo minore. Viceversa, per retta parallela più in alto.
+Se ne creiamo una ad essa parallela e la trasliamo più in basso, avremo necessariamente un valore e quindi un obiettivo minore. Viceversa, per retta
+parallela più in alto.
 
-Prenderemo una retta qualsiasi. Ci sono dei punti dello spazio che intersecano la nostra soluzione? Sì? Bene, sposta in alto finché non puoi più. Questo sarà il punto che indica la soluzione massima.
+Prenderemo una retta qualsiasi. Ci sono dei punti dello spazio che intersecano la nostra soluzione? Sì? Bene, sposta in alto finché non puoi più. Questo
+sarà il punto che indica la soluzione massima.
 Ci possono essere più soluzioni ottime?
 
 --- Algoritmo del simplesso
-Partiamo da un vertice dello spazio dello soluzioni. La funzione obiettivo avrà un determinato valore. Possiamo dire se abbandonare un certo vincolo in favore di un altro (spostandoci quindi sul piano verso un dato vertice fino ad arrivarci).
-A questo punto si sceglie la direzione nella quale modificare il coefficiente angolare e per la quale l'obiettivo aumenta e si cerca la soluzione massima.
+Partiamo da un vertice dello spazio dello soluzioni. La funzione obiettivo avrà un determinato valore. Possiamo dire se abbandonare un certo vincolo in
+favore di un altro (spostandoci quindi sul piano verso un dato vertice fino ad arrivarci).
+A questo punto si sceglie la direzione nella quale modificare il coefficiente angolare e per la quale l'obiettivo aumenta e si cerca la soluzione
+massima.
 Quando nessun'altra soluzione aumenta il valore dell'obiettivo, hai trovato la soluzione massima.
 
-I sistemi lineari si possono esprimere in forma matriciale [Ax = b]; come visto in algebra lineare, applicata al caso in esame, otteniamo la forma: A = \begin{pmatrix}
+I sistemi lineari si possono esprimere in forma matriciale [Ax = b]; come visto in algebra lineare, applicata al caso in esame, otteniamo la forma:
+A = \begin{pmatrix}
     1 & 0\\
     0 & 1\\
     1 & 1\\
@@ -59,7 +66,8 @@ I sistemi lineari si possono esprimere in forma matriciale [Ax = b]; come visto 
 \end{pmatrix}
 Lo scopo è trovare il massimo c_x tale per cui c = <1, 6>
 
-Adesso aggiungiamo i cioccolatini deluxe, con 13€ di profitto a scatola. Il loro problema tuttavia è che richiedono il triplo del materiale dei deliziosi per fare una scatola. Ciò crea un nuovo vincolo.
+Adesso aggiungiamo i cioccolatini deluxe, con 13€ di profitto a scatola. Il loro problema tuttavia è che richiedono il triplo del materiale dei
+deliziosi per fare una scatola. Ciò crea un nuovo vincolo.
 Se x_3 è il numero di scatole di deluxe:
     - x_1 \leq 200
     - x_2 \leq 300
@@ -71,12 +79,15 @@ Se scegliamo x_1, x_2, x_3 = 0, 300, 100 il profitto diventa 300*6 + 100*3 = 310
 Questa soluzione è ottima? (Mi rifiuto di fare il disegno in R^3)
 
 Verifichiamolo facendo una combinazione lineare dei vincoli. Far ciò non li rompe.
-Moltiplichiamo il primo vincolo per zero, il secondo e terzo per uno e l'ultimo per 4. Sommiamo poi i valori di ogni colonna; se fatto correttamente risulta x_1 + 6x_2 + 13x_3 \leq 3100, mostrando che è una soluzione ottima.
+Moltiplichiamo il primo vincolo per zero, il secondo e terzo per uno e l'ultimo per 4. Sommiamo poi i valori di ogni colonna; se fatto correttamente
+risulta x_1 + 6x_2 + 13x_3 \leq 3100, mostrando che è una soluzione ottima.
 La vera domanda è trovare i valori corretti per i quali moltiplicare i vincoli.
 
-Riprendiamo il problema originale senza i deluxe e chiamiamo i moltiplicatori y_1, y_2, y_3 da dover utilizzare per ricavare l'equazione del vincolo dalla combinazione lineare. Dato il sistema in essere, risulterà sicuramente $(y_1+y_3)x_1 + (y_2+y_3)x_2 \leq 200y_1 + 300y_2 + 400y_3$
+Riprendiamo il problema originale senza i deluxe e chiamiamo i moltiplicatori y_1, y_2, y_3 da dover utilizzare per ricavare l'equazione del vincolo
+dalla combinazione lineare. Dato il sistema in essere, risulterà sicuramente $(y_1+y_3)x_1 + (y_2+y_3)x_2 \leq 200y_1 + 300y_2 + 400y_3$
 
-Se y_1+y_3 \geq 1 e y_2 + y_3 \geq 6, allora la disequazione del vincolo produce un limite superiore pari a 200y_1 + 300y_2 + 400y_3 al valore di x_1+6x_2, che è la funzione obiettivo.
+Se y_1+y_3 \geq 1 e y_2 + y_3 \geq 6, allora la disequazione del vincolo produce un limite superiore pari a 200y_1 + 300y_2 + 400y_3 al valore
+di x_1+6x_2, che è la funzione obiettivo.
 Vogliamo rendere minimo il limite superiore con una scelta corretta dei moltiplicatori, quindi: min(200y_1, 300y_2, 400y_3)
 
 Questo... è un altro problema di programmazine lineare. Con forma matriciale: A'y \leq b', min(c'y)
@@ -95,25 +106,31 @@ Possiamo notare che il problema iniziale Ax \leq b con max cx è legato al sotto
 Questo perché A' = A^T, ma anche perché b' = c^T e c' = b^T.
 Il primo problema è detto primale, il secondo duale. Sono complementari e si passa dall'uno all'altro scambiando i vincoli con gli obiettivi.
 
-Il problema duale serve per trovare dei limiti al primale. C'è un teorema che dice che in ambito di programmazione lineare, se esiste una soluzione al problema, allora la soluzione del primale coincide con quella del duale. (quindi l'ottimo obiettivo primale coincide con l'ottimo obiettivo duale)
+Il problema duale serve per trovare dei limiti al primale. C'è un teorema che dice che in ambito di programmazione lineare, se esiste una soluzione al
+problema, allora la soluzione del primale coincide con quella del duale. (quindi l'ottimo obiettivo primale coincide con l'ottimo obiettivo duale)
 
 --- Problema dell'agenzia matrimoniale
-Siamo dei gestori di un'agenzia matrimoniale dove vengono uomini e donne per trovare l'ammòre. Si intervistano e in base ai dati ottenuti si cerca di matchare con persone adeguate. Veniamo pagati solo per matching e duraturi.
+Siamo dei gestori di un'agenzia matrimoniale dove vengono uomini e donne per trovare l'ammòre. Si intervistano e in base ai dati ottenuti si cerca di
+matchare con persone adeguate. Veniamo pagati solo per matching e duraturi.
 Notare solo duraturi, non frega della qualità, l'importante è guadagnarci.
 
-Facciamo interviste, abbiamo un'idea delle coppie funzionanti o meno; formiamo il numero più alto di coppie possibili. Come possiamo rappresentare questo problema? Come possiamo risolverlo?
+Facciamo interviste, abbiamo un'idea delle coppie funzionanti o meno; formiamo il numero più alto di coppie possibili. Come possiamo rappresentare
+questo problema? Come possiamo risolverlo?
 
 In maniera formale, abbiamo uomini, donne e coppie che si possono formare. Questa è una relazione. Sì, quella del prodotto cartesiano.
 Useremo grafi per rappresentare gli oggetti e archi per la relazione.
 Tutti gli omiin da una parte, le donne dall'altra, e inizio a costruirmi le mie relazioni di compatibilità. Questo forma anche un grafo bipartito.
 Il problema in questione è detto matching massimale su grafo bipartito.
 
-Come lo risolviamo? Si può ricondurre a un problema di flusso massimo utilizzando un supernodo per gli uomini e un secondo supernodo target dove vanno tutte le donne.
+Come lo risolviamo? Si può ricondurre a un problema di flusso massimo utilizzando un supernodo per gli uomini e un secondo supernodo target dove vanno
+tutte le donne.
 Il vincolo è che ogni uomo sia vincolato a una sola donna. La capacità dal supernodo e al supernodo fine sarà 1.
 
-Mando quindi un'unità di flusso da un uomo; questo sarà indirizzato verso una sola relazione con una donna, la quale farà uscire il flusso al supernodo finale.
+Mando quindi un'unità di flusso da un uomo; questo sarà indirizzato verso una sola relazione con una donna, la quale farà uscire il flusso al supernodo
+finale.
 Se ripetiamo questa operazione con ogni uomo, il valore dei flussi ricevuti dal supernodo finale equivarrà a quello del numero di coppie formate.
 
-In quanto flusso massimo, possiamo usarci ford-fulkerson. Cerchiamo quindi i cammini aumentanti fin quando non se ne trovano più e formiamo le coppie in base ad esso.
+In quanto flusso massimo, possiamo usarci ford-fulkerson. Cerchiamo quindi i cammini aumentanti fin quando non se ne trovano più e formiamo le coppie
+in base ad esso.
 Il problema della ricerca del tagio di capacità minima è il suo duale.
 \end{comment}

@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1779199038.87236 "/home/F27/Desktop/UniVR/2nd Year/Algoritmi/Dispensa/main.tex" "main.pdf" "main" 1779199039.69082 0
+["pdflatex"] 1779273079.34544 "/home/F27/Desktop/UniVR/2nd Year/Algoritmi/Dispensa/main.tex" "main.pdf" "main" 1779273080.9315 0
   "/home/F27/Desktop/UniVR/2nd Year/Algoritmi/Dispensa/main.tex" 1774175952 1059 7a5ce97422a92d71053667ec8cc3f38b ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -56,6 +56,7 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb" 1248133631 34586 5a65dc15601f9c74fe3fb3f37b3b8b6f ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb" 1248133631 32587 1788b0c1c5b39540c96f5e42ccd6dae8 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1248133631 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1248133631 36118 fad905eba93cff5bce1e185fe980a177 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb" 1248133631 24252 1e4e051947e12dfb50fee0b7f4e26e3a ""
@@ -180,8 +181,8 @@
   "Chapters/1.tex" 1771749344 23806 4357193d0aaf58a0580568725c6eb5bf ""
   "Chapters/2.tex" 1772378294 36293 1f4a9d19ce6b178b2b671845750d98c1 ""
   "Chapters/3.tex" 1774188396 23757 a48382d49b9774a0e54144562516529b ""
-  "Chapters/4.tex" 1779199038.70179 80570 a9354cd6ed43c6eb764195185e6733b7 ""
-  "Chapters/5.tex" 1778850523.78175 7368 6a4ab4909dc0a6d49e962e61eb1010e6 ""
+  "Chapters/4.tex" 1779270320.83093 83593 a7539aedfd8a9363e15330f55ee44f60 ""
+  "Chapters/5.tex" 1779273079.0916 7336 c06e7f5521e4d0e33174d0da88aba4fd ""
   "Configs/boxes.tex" 1773495068 137 3ef8b4873610eddd773a1953318fcaa8 ""
   "Configs/formats.tex" 1773495104 241 b7231f7934eb8c2017cf8dfea19748ad ""
   "Configs/packages.tex" 1772881600 1103 062f3fe3e4514873bd69db8a8bc36896 ""
@@ -194,9 +195,9 @@
   "Images/residualNet.png" 1778413075.19249 44683 5e552c95390791aadf18e637953d1897 ""
   "Images/streamNet.png" 1778412558.21047 34941 861ab38dab7c1e37f1b45babd76c9b44 ""
   "Images/topologicalSort.png" 1775564488 61948 6ac6106b21b09a6b98feb2b402fd019e ""
-  "main.aux" 1779199039.62629 11058 4e5b7afdf03ff0db7ed06abafe1da7a1 "pdflatex"
+  "main.aux" 1779273080.84038 11058 194d23dbce6fd36480761b3867331598 "pdflatex"
   "main.tex" 1774175952 1059 7a5ce97422a92d71053667ec8cc3f38b ""
-  "main.toc" 1779199039.62729 2876 1721e023cbbb1a26fae10c8b56a1849f "pdflatex"
+  "main.toc" 1779273080.84188 2876 fd6fd196949cc6404d9eb825d84ef2ba "pdflatex"
   (generated)
   "main.aux"
   "main.log"

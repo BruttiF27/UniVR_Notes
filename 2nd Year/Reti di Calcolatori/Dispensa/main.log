@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  19 MAY 2026 11:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  21 MAY 2026 15:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -691,79 +691,69 @@ Package pdftex.def Info: Images/extensionHeader.png  used on input line 268.
 Capitolo 5.
 (./Chapters/5.tex [51
 
-]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[52]
+] [52]
 <Images/aloha.png, id=248, 812.03375pt x 177.66376pt>
 File: Images/aloha.png Graphic file (type png)
 <use Images/aloha.png>
 Package pdftex.def Info: Images/aloha.png  used on input line 73.
-(pdftex.def)             Requested size: 337.5pt x 73.84023pt.
-<Images/slotted_aloha.png, id=249, 812.03375pt x 224.84pt>
+(pdftex.def)             Requested size: 450.0pt x 98.45273pt.
+ [53 <./Images/aloha.png>]
+<Images/slotted_aloha.png, id=253, 812.03375pt x 224.84pt>
 File: Images/slotted_aloha.png Graphic file (type png)
 <use Images/slotted_aloha.png>
-Package pdftex.def Info: Images/slotted_aloha.png  used on input line 81.
-(pdftex.def)             Requested size: 337.5pt x 93.44751pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<Images/pers-CSMA.png, id=250, 812.03375pt x 257.96375pt>
+Package pdftex.def Info: Images/slotted_aloha.png  used on input line 101.
+(pdftex.def)             Requested size: 450.0pt x 124.59555pt.
+ [54 <./Images/slotted_aloha.png>]
+<Images/pers-CSMA.png, id=259, 812.03375pt x 257.96375pt>
 File: Images/pers-CSMA.png Graphic file (type png)
 <use Images/pers-CSMA.png>
-Package pdftex.def Info: Images/pers-CSMA.png  used on input line 87.
-(pdftex.def)             Requested size: 337.5pt x 107.21434pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<Images/nonPersistent_CSMA.png, id=251, 812.03375pt x 257.96375pt>
+Package pdftex.def Info: Images/pers-CSMA.png  used on input line 135.
+(pdftex.def)             Requested size: 360.00137pt x 114.36249pt.
+ [55 <./Images/pers-CSMA.png>]
+<Images/nonPersistent_CSMA.png, id=264, 812.03375pt x 257.96375pt>
 File: Images/nonPersistent_CSMA.png Graphic file (type png)
 <use Images/nonPersistent_CSMA.png>
-Package pdftex.def Info: Images/nonPersistent_CSMA.png  used on input line 93.
-(pdftex.def)             Requested size: 337.5pt x 107.21434pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<Images/p-persistent-CSMA.drawio.png, id=252, 530.98375pt x 249.93375pt>
+Package pdftex.def Info: Images/nonPersistent_CSMA.png  used on input line 160.
+(pdftex.def)             Requested size: 450.0pt x 142.95114pt.
+ [56 <./Images/nonPersistent_CSMA.png>]
+<Images/p-persistent-CSMA.drawio.png, id=269, 530.98375pt x 249.93375pt>
 File: Images/p-persistent-CSMA.drawio.png Graphic file (type png)
 <use Images/p-persistent-CSMA.drawio.png>
-Package pdftex.def Info: Images/p-persistent-CSMA.drawio.png  used on input line 99.
-(pdftex.def)             Requested size: 337.5pt x 158.86252pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<Images/CD-CSMA.png, id=253, 551.05875pt x 273.02pt>
+Package pdftex.def Info: Images/p-persistent-CSMA.drawio.png  used on input line 193.
+(pdftex.def)             Requested size: 314.99863pt x 148.27194pt.
+ [57 <./Images/p-persistent-CSMA.drawio.png>]
+<Images/CD-CSMA.png, id=274, 551.05875pt x 273.02pt>
 File: Images/CD-CSMA.png Graphic file (type png)
 <use Images/CD-CSMA.png>
-Package pdftex.def Info: Images/CD-CSMA.png  used on input line 105.
-(pdftex.def)             Requested size: 337.5pt x 167.22101pt.
+Package pdftex.def Info: Images/CD-CSMA.png  used on input line 222.
+(pdftex.def)             Requested size: 314.99863pt x 156.06877pt.
+ [58 <./Images/CD-CSMA.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 237--240
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+ []
 
-<Images/header_ethernet.png, id=254, 823.075pt x 86.3225pt>
+<Images/header_ethernet.png, id=279, 743.77875pt x 87.32625pt>
 File: Images/header_ethernet.png Graphic file (type png)
 <use Images/header_ethernet.png>
-Package pdftex.def Info: Images/header_ethernet.png  used on input line 111.
-(pdftex.def)             Requested size: 337.5pt x 35.3964pt.
+Package pdftex.def Info: Images/header_ethernet.png  used on input line 255.
+(pdftex.def)             Requested size: 450.0pt x 52.83586pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-Excluding 'comment' comment.) [53 <./Images/aloha.png>] [54 <./Images/slotted_aloha.png> <./Images/pers-CSMA.png> <./Images/nonPersistent_CSMA.png>] [55 <./Images/p-persistent-CSMA.drawio.png> <./Images/CD-CSMA.png> <./Images/header_ethernet.png>] (./main.aux) ) 
+Excluding 'comment' comment.) [59] [60 <./Images/header_ethernet.png>] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 9192 strings out of 476041
- 150232 string characters out of 5793174
+ 9196 strings out of 476041
+ 150295 string characters out of 5793174
  1860388 words of memory out of 6000000
- 29464 multiletter control sequences out of 15000+600000
+ 29468 multiletter control sequences out of 15000+600000
  523986 words of font info for 80 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
  74i,15n,82p,920b,505s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (56 pages, 1674257 bytes).
+Output written on main.pdf (61 pages, 1681932 bytes).
 PDF statistics:
- 350 PDF objects out of 1000 (max. 8388607)
- 182 compressed objects within 2 object streams
+ 366 PDF objects out of 1000 (max. 8388607)
+ 193 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  191 words of extra memory for PDF output out of 10000 (max. 10000000)
 

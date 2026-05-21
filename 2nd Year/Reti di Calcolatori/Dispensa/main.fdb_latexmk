@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1779182074.68509 "/home/F27/Desktop/UniVR/2nd Year/Reti di Calcolatori/Dispensa/main.tex" "main.pdf" "main" 1779182076.20105 0
+["pdflatex"] 1779371856.91396 "/home/F27/Desktop/UniVR/2nd Year/Reti di Calcolatori/Dispensa/main.tex" "main.pdf" "main" 1779371858.58572 0
   "/home/F27/Desktop/UniVR/2nd Year/Reti di Calcolatori/Dispensa/main.tex" 1776869102 1067 db84b81b73f0c1c694cf48005f950629 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -109,7 +109,7 @@
   "Chapters/2.tex" 1777627874.0699 16852 3fda28f0df979e5fd2a0829d1c7b5c40 ""
   "Chapters/3.tex" 1779182074.40033 27204 f719390a6ab8d0932034b84c68b8a6dc ""
   "Chapters/4.tex" 1778923380.4827 23303 0d31ba304c30d4a467503135385bd1d8 ""
-  "Chapters/5.tex" 1778933388.88682 12542 2d3a2c1df5c2253999944bbaa92743cb ""
+  "Chapters/5.tex" 1779371856.63387 19226 51ec8fe6200247bcda02a8457a85a963 ""
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
   "Configs/formats.tex" 1741537610 162 94ad515d4f2656e52898454c9959e092 ""
   "Configs/packages.tex" 1777618793.12289 1129 6bd2b930fb2f44498e65a609a7a95b10 ""
@@ -130,7 +130,7 @@
   "Images/headerTCP.png" 1776852362 37294 ffca78998caf5d765f48d85d3cd6a743 ""
   "Images/header_IP.png" 1777627675.58676 35205 60ea0edf6a7aaa600410091c38768a63 ""
   "Images/header_IPv6.png" 1778923355.30771 28333 864f350be7bc547a379e1d9d0b005443 ""
-  "Images/header_ethernet.png" 1778921263.07832 21127 954e6af528d12608ee196fba61d3b856 ""
+  "Images/header_ethernet.png" 1779368203.66984 18400 6ad50cdd471e31c513a171948a354294 ""
   "Images/mail_exchange.png" 1774963362 41955 8a679c4726cf95cb7408c18b9fdf8d20 ""
   "Images/model_ISO-OSI.jpg" 1773988722 24289 9b0c2753aa59d9558b3428998359f329 ""
   "Images/model_TCP-IP.jpg" 1773988712 20083 9120fa6c244b6b3e2e05d779d03ea8d0 ""
@@ -151,9 +151,9 @@
   "Images/subnetting.png" 1774534412 32938 1ac23ff7be3b01c6de6a5eca94d33f0e ""
   "Images/traceroute.jpg" 1773988796 11811 8429e974eb6c38e449eb72982749d5f6 ""
   "Images/webCache.png" 1774960206 36762 6a91e89a4f3894bdf79bbfa2bf1fa4fe ""
-  "main.aux" 1779182076.13494 8535 2ef5b7986b047ff502bd4a1b169ac277 "pdflatex"
+  "main.aux" 1779371858.50112 9188 5ad5563875a05b96f0c2e1932d9cf43a "pdflatex"
   "main.tex" 1776869102 1067 db84b81b73f0c1c694cf48005f950629 ""
-  "main.toc" 1779182076.13542 2052 3830297e6a44dc59b05f4ed58a35a3aa "pdflatex"
+  "main.toc" 1779371858.50223 2054 1e556b1b79a43c3464f17bdda0ebc97d "pdflatex"
   (generated)
   "main.aux"
   "main.log"

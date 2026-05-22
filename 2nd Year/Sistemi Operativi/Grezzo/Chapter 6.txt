@@ -1,0 +1,44 @@
+Warning: Appunti presi dalle slide dell'AA 2024-2025
+
+--- Introduzione
+Come già menzionato, l'esecuzione di processi concorrentemente o in parallelo su dati condivisi può portare a problemi riguardanti l'integrità di questi ultimi; la soluzione proposta nei capitoli precedenti implementava un buffer di dimensione fissa, ma sarebbe possibile anche utilizzare un contatore che si incrementa ad ogni nuovo elemento inserito nel buffer e decrementa quando ne vengono rimossi.\par
+Tuttavia, se il counter è inserito in più file ed è condiviso, è possibile che si presentino comportamenti indesiderati, come per esempio l'aumento e diminuzione della variabile allo stesso tempo. Si ritiene dunque necessario fornire una garanzia che un solo processo alla volta possa modificare i dati condivisi, evitando che questi dipendano dall'ordine degli accessi, quindi dalle race conditions. La forma presa da queste soluzioni ha il nome di \textbf{sincronizzazione e coordinamento tra processi}.
+
+--- Problema della sezione critica
+Supponiamo un sistema composto da un totale di $n$ processi, ognuno dei quali con un proprio segmento di codice. Definiamo \textbf{sezione critica} la parte della sezione in cui i processi possono accedere e modificare dati condivisi; la soluzione relativa alla gestione di questo spazio consiste nel progettare un meccanismo per regolarne gli accessi.\par
+Il codice che lo implementa è detto \textbf{sezione di ingresso}, seguita talvolta da una \textbf{sezione di uscita}. La parte restante del codice è detta invece textbf{sezione non critica}. In ogni caso, il protocollo ideato deve rispettare i tre seguenti requisiti: \begin{itemize}
+    \item \textbf{Mutua esclusione}: Quando un processo è in esecuzione all'interno della sua sezione critica, nessun altro processo può accedere alla propria.
+    \item \textbf{Progresso}: Se nessun processo è in esecuzione nella propria sezione critica e qualcuno di loro desidera accedervi, solo i processi al di fuori delle relative sezioni critiche possono contribuire alla scelta del processo che potrà accedervi per primo. Questa non è una scelta infinitamente rimandabile.
+    \item \textbf{Attesa limitata}: Se un processo ha fatto richiesta di entrare nella sua sezione critica, si pone un limite al numero di volte in cui gli altri processi possono accedere alle proprie prima che si accordi la richiesta del primo. In tal modo, tutti i processi potranno eventualmente accedere alla sezione.
+\end{itemize}
+\noindent La soluzione del problema in ambiente single-core è banalmente risolto impedendo il verificarsi di interruzioni durante la modifica di dati condivisi, quindi fornendo algoritmi senza prelazione. Tuttavia ciò non si può dire per sistemi multi-core, perché disabilitare gli interrupt potrebbe richiedere molto tempo, impattando anche l'efficienza del sistema.\par
+Le due soluzioni proposte per il problema della sezione critica in ambiente multi-core sono: \begin{itemize}
+    \item \textbf{Kernel con diritto di prelazione}: Consente che un processo in modalità di sistema sia sottoposto a prelazione, rinviandone quindi l'esecuzione.
+    \item \textbf{Kernel senza diritto di prelazione}: Non consente di applicare prelazione a processi di sistema attivi, seguitandone di conseguenza l'esecuzione fino a quando non cambia modalità, si blocca, oppure ceda il controllo della CPU volontariamente. Ciò rende questi kernel immuni a race conditions.
+\end{itemize}
+\noindent Si potrebbe pensare quindi che i kernel senza diritto di prelazione siano i migliori per la risoluzione del problema. Tuttavia, si tende a preferire gli altri data la loro velocità nelle risposte e un miglior adattamento alla programmazione real-time, permettendo di effettuare la prelazione di un processo attivo nel kernel.
+
+--- Algoritmo di Peterson
+Una classica soluzione al problema della sezione critica è l'algoritmo di Peterson. Questo è limitato a due processi P_i, P_j, ognuno dei quali esegue alternativamente la propria sezione critica e non critica. È richiesto che condividano una variabile intera turn, che indica di chi sia il turno di accesso alla senzione critica, e un array di booleani flag[2], il quale segnala quali processi sono pronti a entrare nella sezione.\par
+Per accedervi, il processo P_i assegna a flag[i] = true e turn = j per conferire all'altro processo la facoltà di entrare nella sezione critica. In caso di richieste contemporanee verrà mantenuta solo l'ultima richiesta. Peterson richiede la dimostrazione dei tre requisiti discussi prima; dato lo snippet:
+
+``` Codice per P_i
+while (true) {
+    flag[i] = true;
+    turn = j;
+    while (flag[j] && turn == j);
+    // Sezione critica
+
+    flag[i] = false;
+
+    // Sezione non critica
+}
+```
+
+Per dimostrare la proprietà della mutua esclusione, notiamo come nel codice ogni processo P_i accede alla propria sezione critica se e solo se flag[i]==false oppure turn == i, inoltre se entrambi i processi sono eseguibili in concomitanza nelle rispettive sezioni critiche, allora flag[i] = flag[j] = true. Per queste ragioni è impossibile che P_i e P_j eseguano le proprie istruzioni del ciclo while allo stesso tempo. La variabile turn, infatti, non può avere più di un valore e fino al termine della permanenza di P_j nella sua sezione critica restano valide flag[j]==true turn==j, confermando la mutua esclusione.\par
+Per il progresso e l'attesa limitata invece notiamo come l'ingresso di P_i nella propria sezione critica è impedito solo se è bloccato nella sua iterazione while, con condizioni flag[j]==true e turn==j. Non esistono altre possibilità perché:
+    - se P_j non fosse pronto ad entrare in sezione, flag[j]==false, permettendo a P_i di entrare
+    - Se flag[j]==true e sta eseguendo la sua sezione critica, può avere turn==i, facendo entrare P_i in critica, o turn==j, che vede P_j continuare ad eseguirla.
+All'uscita dalla sezione, P_j imposterà flag[j]=false per permettere a P_i di entrare, mentre se P_j lo reimposta a true, dovrà anche mettere turn=i. Siccome P_i non modifica questi dati mentre è al di fuori della sezione critica, entrerà al suo interno dopo che P_j avrà effettuato più di un ingresso, garantendo gli altri due requisiti.
+
+La soluzione di Peterson posta in questi termini potrebbe tuttavia non funzionare sempre a causa di come i compilatori e i processori lavorano sulle architetture moderne, principalmente perché potrebbero riordinare le operazioni r/w per ottimizzare le prestazioni. L'unico modo per preservare la mutua esclusione è l'implementazione di strumenti di sincronizzazione adeguati, trattati nelle sezioni successive.

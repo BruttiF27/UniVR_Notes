@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1779023313.01218 "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" "main.pdf" "main" 1779023314.35676 0
+["pdflatex"] 1779461354.92609 "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" "main.pdf" "main" 1779461355.7612 0
   "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" 1772443430 1264 d1e9468036f0bb558e816563341c3104 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -29,6 +29,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1136768653 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1136768653 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1136768653 1120 8b7d695260f3cff42e636090a8002094 ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmti12.tfm" 1136768653 1484 ed72f8f5cf654cda15ecc8e32bfcbee5 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm" 1136768653 768 1321e9409b4137d6fb428ac9dc956269 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm" 1136768653 772 9a936b7f5e2ff0557fce0f62822f0bbf ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/latex-fonts/lasy10.tfm" 1136768653 520 82a3d37183f34b6eb363a161dfc002c2 ""
@@ -49,6 +50,7 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb" 1248133631 34586 5a65dc15601f9c74fe3fb3f37b3b8b6f ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb" 1248133631 36118 fad905eba93cff5bce1e185fe980a177 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1248133631 31099 c85edf1dd5b9e826d67c9c7293b6786c ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb" 1248133631 24252 1e4e051947e12dfb50fee0b7f4e26e3a ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb" 1215737283 136101 f533469f523533d38317ab5729d00c8a ""
@@ -105,7 +107,7 @@
   "Chapters/3.tex" 1776438538 18740 13739da84c6e3b5725fe2136361d2d00 ""
   "Chapters/4.tex" 1777717703.85168 23145 07750f45fd5752452aebbd75b243dbf0 ""
   "Chapters/5.tex" 1779023312.74633 21085 e8a98ad32848e5f3e810af8fa52fb43d ""
-  "Chapters/6.tex" 1772443478 188 b1a74c6cc835baa92ecad02ccbf15c1a ""
+  "Chapters/6.tex" 1779461353.30766 7645 93d9df7276997d628b59b016c581de36 ""
   "Chapters/7.tex" 1772443474 188 ae5fe3f68e2b5c5701f935b4205375b3 ""
   "Chapters/8.tex" 1772443468 29 7305eb0c0de277f28b7be3683e9059cb ""
   "Chapters/9.tex" 1772443456 228 e5d72a75210e65dedbcbea0547a8ab1f ""
@@ -132,9 +134,9 @@
   "Images/processScheduling_enqueueDiagram.png" 1775811064 45697 2b24bec717affd3fc9554b0f43f1d13e ""
   "Images/ready-wait_queues.png" 1775810522 40631 88ae5234f8eecb0b822d4302c50c4fab ""
   "Images/single_and_multithreaded_processes.png" 1776949914 34623 9a2d934f913af9e575ef5f830bb9f9cb ""
-  "main.aux" 1779023314.2919 9119 bfc05b4b5d13dbfddb60160235c0e164 "pdflatex"
+  "main.aux" 1779461355.68115 8928 27aa1e2bb746542d6ffe13951764cf06 "pdflatex"
   "main.tex" 1772443430 1264 d1e9468036f0bb558e816563341c3104 ""
-  "main.toc" 1779023314.29237 3420 0a98143d2b212130b428f6d17af4cd39 "pdflatex"
+  "main.toc" 1779461355.68144 3311 5fac439153f3d8d6997de5beed12aea0 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

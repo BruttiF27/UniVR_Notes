@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1779273079.34544 "/home/F27/Desktop/UniVR/2nd Year/Algoritmi/Dispensa/main.tex" "main.pdf" "main" 1779273080.9315 0
+["pdflatex"] 1779614109.94908 "/home/F27/Desktop/UniVR/2nd Year/Algoritmi/Dispensa/main.tex" "main.pdf" "main" 1779614111.66506 0
   "/home/F27/Desktop/UniVR/2nd Year/Algoritmi/Dispensa/main.tex" 1774175952 1059 7a5ce97422a92d71053667ec8cc3f38b ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -179,10 +179,10 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777382308.55095 4602016 72a039a3c4aea0fa25b5d35d65138f54 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777382069 7753793 49853c54d310b0d2fce2a6e72b3b1880 ""
   "Chapters/1.tex" 1771749344 23806 4357193d0aaf58a0580568725c6eb5bf ""
-  "Chapters/2.tex" 1772378294 36293 1f4a9d19ce6b178b2b671845750d98c1 ""
+  "Chapters/2.tex" 1779614109.67945 36298 386fc4a7ed0464fd8f1198097659e028 ""
   "Chapters/3.tex" 1774188396 23757 a48382d49b9774a0e54144562516529b ""
-  "Chapters/4.tex" 1779270320.83093 83593 a7539aedfd8a9363e15330f55ee44f60 ""
-  "Chapters/5.tex" 1779273079.0916 7336 c06e7f5521e4d0e33174d0da88aba4fd ""
+  "Chapters/4.tex" 1779612479.90287 85427 59b1eb7b1908fe397fe100991af66665 ""
+  "Chapters/5.tex" 1779612914.44771 7354 ae6c466bd9483d9e181c2593aeb76114 ""
   "Configs/boxes.tex" 1773495068 137 3ef8b4873610eddd773a1953318fcaa8 ""
   "Configs/formats.tex" 1773495104 241 b7231f7934eb8c2017cf8dfea19748ad ""
   "Configs/packages.tex" 1772881600 1103 062f3fe3e4514873bd69db8a8bc36896 ""
@@ -192,12 +192,13 @@
   "Images/graphOriented.png" 1772875158 16021 59c6f87cc2635561559343309b7f967d ""
   "Images/graphWeighted.png" 1772875020 18140 19407a66849d33a15930506a90babeed ""
   "Images/graph_DFS-example.png" 1774873366 33158 48ddac2736f223ad5f05f1b07b08a105 ""
+  "Images/linearProgramming.png" 1779607197.91581 33258 4614cf47e2e6fcff2716fa52890b1779 ""
   "Images/residualNet.png" 1778413075.19249 44683 5e552c95390791aadf18e637953d1897 ""
   "Images/streamNet.png" 1778412558.21047 34941 861ab38dab7c1e37f1b45babd76c9b44 ""
   "Images/topologicalSort.png" 1775564488 61948 6ac6106b21b09a6b98feb2b402fd019e ""
-  "main.aux" 1779273080.84038 11058 194d23dbce6fd36480761b3867331598 "pdflatex"
+  "main.aux" 1779614111.5821 11191 173287895a122117c516dc029e3eb2e2 "pdflatex"
   "main.tex" 1774175952 1059 7a5ce97422a92d71053667ec8cc3f38b ""
-  "main.toc" 1779273080.84188 2876 fd6fd196949cc6404d9eb825d84ef2ba "pdflatex"
+  "main.toc" 1779614111.5831 2876 fd6fd196949cc6404d9eb825d84ef2ba "pdflatex"
   (generated)
   "main.aux"
   "main.log"

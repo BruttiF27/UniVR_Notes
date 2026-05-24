@@ -410,7 +410,10 @@ Dato un insieme di elementi $A$, definiamo formalmente il \textbf{problema della
 	\item \textbf{Input}: Insieme $A$ di $n$ numeri diversi ed un intero $i$, con $1 \leq i \leq n$.
 	\item \textbf{Output}: L'elemento $x\in A$, maggiore di esattamente altri $i-1$ elementi di $A$.
 \end{itemize}
-\noindent In termini pratici, ci concentreremo sulla selezione del valore minimo, massimo e uno particolare dell'insieme. Per i primi due casi è evidente che non sia possibile fare meno di $n-1$ confronti, poiché per determinare un massimo o un minimo è necessario verificare la proprietà per ogni altro elemento dell'insieme. Ne deduciamo quindi che il problema della selezione di uno di questi due valori ha limite asintotico inferiore $\Omega(n)$.
+\noindent In termini pratici, ci concentreremo sulla selezione del valore minimo, massimo e uno particolare dell'insieme. Per i primi due casi è
+evidente che non sia possibile fare meno di $n-1$ confronti, poiché per determinare un massimo o un minimo è necessario verificare la proprietà per
+ogni altro elemento dell'insieme. Ne deduciamo quindi che il problema della selezione di uno di questi due valori ha limite asintotico inferiore
+$\Omega(n)$.
 \begin{algorithm}[h]
 	\caption{findMin(A, n)}
 	\begin{algorithmic}[i]
@@ -425,13 +428,25 @@ Dato un insieme di elementi $A$, definiamo formalmente il \textbf{problema della
 	\end{algorithmic}
 \end{algorithm}
 
-\noindent Se si volesse ricercare simultaneamente il minimo e il massimo sarebbe possibile eseguire questo algoritmo in istanze separate, ottenendo una complessità di $(n-1)+(n-1) = 2n-2\implies \Theta(n)$ confronti, asintoticamente ottimale. Tuttavia possiamo ridurre ulteriormente il valore dei termini costanti, eseguendo al più $3\lfloor n/2\rfloor$ confronti.\par
-Ciò si ottiene mantenendo aggiornati il minimo e il massimo con i valori dell'istante corrente. Inizialmente, si confrontano i valori di input, per poi confrontare il più piccolo col minimo corrente ed il più grande con il massimo corrente. Con questo procedimento eliminiamo quegli elementi che hanno "perso" il confronto. L'impostazione dei valori iniziali di massimo e minimo dipende dal numero totale di elementi, in particolare: \begin{itemize}
-	\item \textbf{Dimensione dispari}: Il valore del primo elemento è assegnato al minimo e massimo corrente. Gli altri elementi saranno esaminati a coppie.
+\noindent Se si volesse ricercare simultaneamente il minimo e il massimo sarebbe possibile eseguire questo algoritmo in istanze separate, ottenendo una
+complessità di $(n-1)+(n-1) = 2n-2\implies \Theta(n)$ confronti, asintoticamente ottimale. Tuttavia possiamo ridurre ulteriormente il valore dei termini
+costanti, eseguendo al più $3\lfloor n/2\rfloor$ confronti.\par
+Ciò si ottiene mantenendo aggiornati il minimo e il massimo con i valori dell'istante corrente. Inizialmente, si confrontano i valori di input, per poi
+confrontare il più piccolo col minimo corrente ed il più grande con il massimo corrente. Con questo procedimento eliminiamo quegli elementi che hanno
+"perso" il confronto. L'impostazione dei valori iniziali di massimo e minimo dipende dal numero totale di elementi, in particolare: \begin{itemize}
+	\item \textbf{Dimensione dispari}: Il valore del primo elemento è assegnato al minimo e massimo corrente. Gli altri elementi saranno esaminati a
+	coppie.
 	\item \textbf{Dimensione pari}: Si effettua un confronto fra i primi due elementi, mentre i restanti saranno esaminati a coppie.
 \end{itemize}
-\noindent Analizzando il numero di confronti effettuati possiamo vedere che con dimensione dispari abbiamo $3\lfloor n/2\rfloor$ confronti, mentre se è pari, ne eseguiamo uno iniziale, seguito da $3(n-2)/2$ confronti, per un totale di $3n/2-2$. In entrambi i casi, dunque, il numero totale di confronti è: \[T(n) = 3\lfloor n/2\rfloor = \Theta(n)\]
-\noindent Il problema della selezione generico presenta il medesimo tempo di esecuzione asintotico: $\Theta(n)$. Una prima idea di algoritmo vede una rielaborazione del quickSort() in tal modo che, dato un elemento perno, l'algoritmo operi solo su un sottoarray della partizione. Ciò impatta drasticamente il tempo di esecuzione, che al posto di essere uguale al quickSort è ottimale, $\Theta(n)$, nell'ipotesi che gli elementi siano tutti diversi.
+\noindent Analizzando il numero di confronti effettuati possiamo vedere che con dimensione dispari abbiamo $3\lfloor n/2\rfloor$ confronti, mentre se è
+pari, ne eseguiamo uno iniziale, seguito da $3(n-2)/2$ confronti, per un totale di $3n/2-2$. In entrambi i casi, dunque, il numero totale di confronti
+è: \[
+	T(n) = 3\lfloor n/2\rfloor = \Theta(n)
+\]
+\noindent Il problema della selezione generico presenta il medesimo tempo di esecuzione asintotico: $\Theta(n)$. Una prima idea di algoritmo vede una
+rielaborazione del quickSort() in tal modo che, dato un elemento perno, l'algoritmo operi solo su un sottoarray della partizione. Ciò impatta
+drasticamente il tempo di esecuzione, che al posto di essere uguale al quickSort è ottimale, $\Theta(n)$, nell'ipotesi che gli elementi siano tutti
+diversi.
 \begin{algorithm}[h]
 	\caption{randSelect(A, p, r, i)}
 	\begin{algorithmic}[i]
@@ -446,11 +461,16 @@ Ciò si ottiene mantenendo aggiornati il minimo e il massimo con i valori dell'i
 		\EndIf
 	\end{algorithmic}
 \end{algorithm}
-\noindent Come visto nelle sezioni precedenti, si prende un pivot che prenderà la prima posizione del sottoarray della sezione alta. Esiste tuttavia anche un algoritmo deterministico per risolvre il problema delle selezioni in tempo lineare, ma in quanto il suo tempo di esecuzione ha una forte dipendenza dalla quantità delle costanti è difficile poterlo considerare in termini asintotici. In particolare, con grandi numeri è possibile che sia più efficiente un algoritmo nell'ordine di $nlog(n)$.\par
-Questo algoritmo è detto \textbf{mediana dei mediani} e si pone lo scopo di scegliere un perno buono deterministicamente, per rimanere in una zona proporzionale. Intuitivamente, segue questi passi: \begin{enumerate}
+\noindent Come visto nelle sezioni precedenti, si prende un pivot che prenderà la prima posizione del sottoarray della sezione alta. Esiste tuttavia
+anche un algoritmo deterministico per risolvre il problema delle selezioni in tempo lineare, ma in quanto il suo tempo di esecuzione ha una forte
+dipendenza dalla quantità delle costanti è difficile poterlo considerare in termini asintotici. In particolare, con grandi numeri è possibile che sia
+più efficiente un algoritmo nell'ordine di $nlog(n)$.\par
+Questo algoritmo è detto \textbf{mediana dei mediani} e si pone lo scopo di scegliere un perno buono deterministicamente, per rimanere in una zona
+proporzionale. Intuitivamente, segue questi passi: \begin{enumerate}
 	\item Dividi l'array in gruppi di 5 elementi. Complessità: 0.
 	\item Calcola il mediano di ogni gruppo. Complessità: $5n$.
-	\item Calcola ricorsivamente il mediano dei mediani $x$. Complessità: $T(n/5)$, con $n/5$ approssimato per eccesso. Eccesso a causa del gruppo con gli ultimi elementi restanti.
+	\item Calcola ricorsivamente il mediano dei mediani $x$. Complessità: $T(n/5)$, con $n/5$ approssimato per eccesso. Eccesso a causa del gruppo con
+	gli ultimi elementi restanti.
 	\item Partiziona rispetto a $x$, il perno. Complessità: $n$.
 	\item Ricorri sulla parte interessata.
 \end{enumerate}

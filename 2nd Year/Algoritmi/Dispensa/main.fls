@@ -817,6 +817,11 @@ INPUT Chapters/5.tex
 INPUT ./Chapters/5.tex
 INPUT ./Chapters/5.tex
 INPUT Chapters/5.tex
+INPUT ./Images/linearProgramming.png
+INPUT ./Images/linearProgramming.png
+INPUT Images/linearProgramming.png
+INPUT ./Images/linearProgramming.png
+INPUT ./Images/linearProgramming.png
 INPUT main.aux
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb

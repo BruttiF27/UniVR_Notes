@@ -27,13 +27,12 @@ English translation? Why would you ever consider that?
   - Reti di calcolatori: Attualmente in lavorazione.
   - Sistemi operativi: Attualmente in lavorazione. Mi fa molto male.
   - Analisi matematica 2: Ha contenuto, ma è da rivedere.
-  - Fisica 2: Ci rivediamo dopo settembre 2026.
+  - Fisica 2: Sarà letteralmente l'ultimo esame che darò. È atroce.
 - Terzo anno:
   - Basi di dati: Non credo sia il momento di considerarla vista la vastità.
-  - Elaborazione di segnali e immagini: Ci vediamo entro settembre 2026.
+  - Elaborazione di segnali e immagini: Completamento previsto entro settembre 2026.
   - Fondamenti dell'informatica: Haha, no.
-  - Linguaggi: Manco so di che parla sta materia, la spiegano al secondo semestre.
+  - Linguaggi: Ora so di che parla sta materia. Rimandata al 2027.
 - Corsi extra:
-  - Linguaggio LaTeX: Quando inizia il corso forse ci faccio davvero qualcosa
-  - Programmazione e sicurezza delle reti: La fanno al secondo semestre, fatemela frequentare prima
-  - Intelligenza artificiale: Datemi, uh... tipo un altro anno. Ho altro da cavarmi via.
+  - Programmazione e sicurezza delle reti: Completamento previsto entro settembre 2026.
+  - Intelligenza artificiale: Completamento previsto entro febbraio 2027.

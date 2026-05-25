@@ -235,8 +235,21 @@ delle \textbf{LAN Broadcast}, in quanto tutti i frame trasmessi venivano elabora
 Alla fine degli anni '90 si passa ad una topologia a stella, dove host e router sono collegati direttamente a un \textbf{hub}, un dispositivo a livello
 fisico che, ricevuto un bit a un'interfaccia, ne amplifica la potenza e lo trasmette su tutte le altre.\par
 Negli anni 2000 Ethernet subì un'altra trasformazione; dove è rimasta la topologia a stella, l'hub è stato sostituito da uno \textbf{switch}, un
-apparecchio che svolge funzioni di store-and-forward immune alle collisioni, trasformando le reti in \textbf{Switched LAN}, ovvero reti locali
-commutate.\newline
+apparecchio che utilizza i soli livelli di collegamento dati e fisico ed è formato da un insieme di porte alle quali sono collegati i vari host della
+rete. Svolge funzioni di store-and-forward ed è immune alle collisioni. Le reti che lo implementano sono dette \textbf{Switched LAN}, ovvero reti
+locali commutate.\par
+Il pacchetto a livello 2 attraversa lo switch dal canale fisico (la porta, appunto) adeguato per essere trasportato al router, determinato grazie a una
+tabella in cui è associato l'indirizzo MAC dell'host o del router con la porta alla quale sono connessi. In caso di una consegna diretta, non è
+richiesto l'utilizzo del router ed è sufficiente lo switch per il trasporto dei pacchetti, mentre per quella indiretta è necessario inviare i dati alla
+porta del router, il quale decapsulerà le intestazioni presenti fino a livello di rete, per poi procedere con i consueti algoritmi di instradamento
+relativi alla consegna.\par
+È possibile fare uso di più switch collegandoli tra di loro; si tratta di una configurazione utilizzata per la gestione di un edificio su più piani,
+per esempio. Ogni piano presenterà un determinato numero di host, collegati al relativo switch della locazione, i quali potranno vedere i loro indirizzi
+MAC. Ogni switch del piano è a sua volta collegato a uno \textbf{switch radice}, capace di vedere solo le porte degli switch ai quali rigirare i dati,
+e anche l'unico collegato al router di bordo per consentire agli end-host di interfacciarsi su Internet.\par
+Una configurazione tale presenta un grande vantaggio per gli amministratori di rete: se la radice è connessa solo agli switch dei piani e al router di
+bordo, non sarà necessario modificarla in base agli host presenti sui piani, perché non può vederli. Tuttavia, è necessario prestare attenzione a non
+creare dei cicli, perché in tal caso si avrebbero più porte associate ad uno stesso indirizzo MAC.\newline
 
 \noindent L'intestazione del protocollo utilizzato, standardizzato da IEEE con codice $802.3$, presenta la seguente struttura: \begin{itemize}
     \item \textbf{Campo dati}: Contiene il datagramma IP la cui dimensione minima dovrà essere $46B$. Se inferiore, si riempie il campo di bit fino a
@@ -256,51 +269,20 @@ commutate.\newline
 	\caption{Intestazione protocollo Ethernet}
 \end{figure}
 
-\noindent 
+\noindent La coesistenza di indirizzi IP e indirizzi MAC tuttavia implica la necessità di un meccanismo per l'accoppiamento dei due, in tal modo che
+risultino associati alla stessa scheda di rete e interfaccia dell'host. Il protocollo risolutivo è chiamato \textbf{Address Resolution Protocol} e
+svolge una funzione analoga al DNS, ma per gli indirizzi MAC della stessa sottorete. La dinamica segue i passi: \begin{enumerate}
+    \item Se un host non conosce un indirizzo MAC, a partire da un dato indirizzo IP, crea una richiesta ARP (ARP-req), la quale contiene un campo che
+    segnala questo tipo di messaggio e un altro contenente l'indirizzo IP per il quale si richiede il relativo indirizzo MAC. Il pacchetto è incapsulato
+    in un header di livello 2 ed è inviato in broadcast ad ogni host della rete.
+    \item Ogni host ricevente il pacchetto rimuove l'intestazione di livello 2 e controlla l'IP di destinazione nel payload ricevuto. Se corrisponde, si
+    crea una risposta ARP (ARP-asw) con tre campi dove sono segnalati il tipo di messaggio, l'IP di chi sta rispondendo e il relativo indirizzo MAC. Il
+    tutto è naturalmente incapsulato in un header di livello 2 dove il MAC di destinazione corrisponde a quello che ha fatto la richiesta iniziale e
+    quello di sorgente indica quello di chi sta rispondendo.
+\end{enumerate}
 
-
-\begin{comment}
-- Come fa un host a conoscere gli indirizzi MAC degli altri host (della propria rete) o del router?
-A livello 2 esiste un protocollo Address Resolution Protocol (ARP) che svolge la medesima funzione del DNS, ma per i MAC address. Partendo da un
-indirizzo IP, ricava il MAC, per poterlo inserire nel campo adeguato.
-
-(Non entriamo nel formato di ARP, si definisce solo il comportamento)
-
-1. Quando un host non ha un MAC, dato un indirizzo IP, l'host manda in broadcast a livello 2 una richiesta ARP. Questa contiene un campo che segnala
-ARP-req e un altro che contiene l'IP per il quale si richiede l'indirizzo hardware. Il pacchetto è incapsulato nell'header L2 con come indirizzo dstMAC
-è l'indirizzo IP di destinazione trasmesso in broadcast, mentre srcMAC è il MAC di sorgente.
-
-2. Solo chi possiede l'IP indicato nella richiesta ARP nel campo dstHW, risponde direttamente a chi ha fatto tale richiesta (Se nella stessa lan). Nel
-pacchetto ARP di risposta ci sarà l'apposito codice per identificare il tipo di messaggio, c'è l'IP di chi risponde e il suo relativo MAC address in
-tre campi diversi. Tutto questo è incapsulato nell'header L2, dove dstMAC corrisponde a quello di chi ha fatto la richiesta e srcMAC è il MAC di chi
-sta rispondendo.
-
-Le risposte ARP ottenute vengono memorizzate in una tabella (ARP table, salva anche associazioni tra IP e MAC) in cui ogni entry ha un tempo di
-validità, al termine del quale è cancellato.
-
---- LAN estese
-Per lan estese intendiamo degli apparati di livello 2 che sostituiscono il cavo coassiale, il quale storicamente collegava tutti gli host al router
-della LAN.
-Questi apparati sostitutivi si chiamano switch e sono formati da un insieme di porte alle quali sono collegati i vari host.
-Lo switch ha solo il livello di collegamento dati e le varie porte che determinano quello fisico.
-
-Il pacchetto a lv.2 attraversa quindi lo switch dal canale fisico adeguato per essere trasportato al router. Lo switch mantiene una tabella in cui è
-associato il MAC address dell'host o del router con la porta alla quale sono connessi.
-Per consegna diretta non si passa dal router e lo switch trasmette i pacchetti, mentre per quella indiretta si mette la porta del router, che
-decapsulerà il livello di rete e procederà a trasmettere con routing etc.
-
--- Altre configurazioni
-Gli switch si possono collegare tra di loro. Per gestire un edificio con più piani, per esempio, ogni piano avrà il proprio switch che gestirà gli host
-del rispettivo piano.
-Tuttavia sarà necessario anche usare uno switch radice che avrà interfaccia verso internet (quindi ha il router connesso a una sua porta) e userà le
-sue porte per connettersi agli altri switch, consentendo ad ogni host di accedere a internet.
-
-Dal punto di vista dello switch ci sono tutti i mac address che fanno capo allo switch del piano. I messaggi di broadcast sono trasmessi a tutti e dico
-tutti gli host della rete, dal punto di vista della radice vede solamente a quale porta rigirare, senza che l'amministratore di rete debba riconfigurare
-nulla. Attenzione solo a non creare cicli, perché in tal caso lo switch vedrebbe più porte associate ad uno stesso MAC address.
-\end{comment}
-
-
+\noindent Gli accoppiamenti tra indirizzi IP e indirizzi MAC, come anche le ARP-asw ottenute, sono salvati in una \textbf{tabella ARP} in cui ogni
+riga ha un determinato tempo di validità, al termine del quale viene cancellato.
 
 %
 

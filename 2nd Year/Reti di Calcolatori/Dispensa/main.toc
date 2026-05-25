@@ -26,4 +26,4 @@
 \contentsline {section}{\numberline {5.1}Servizi e accesso al canale condiviso}{51}{}%
 \contentsline {section}{\numberline {5.2}Algoritmi di accesso al canale condiviso}{52}{}%
 \contentsline {section}{\numberline {5.3}Ethernet, switch e LAN}{59}{}%
-\contentsline {section}{\numberline {5.4}Wireless LAN}{59}{}%
+\contentsline {section}{\numberline {5.4}Wireless LAN}{61}{}%

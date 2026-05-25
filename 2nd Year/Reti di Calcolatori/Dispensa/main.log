@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  21 MAY 2026 15:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  25 MAY 2026 10:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -728,19 +728,17 @@ File: Images/CD-CSMA.png Graphic file (type png)
 Package pdftex.def Info: Images/CD-CSMA.png  used on input line 222.
 (pdftex.def)             Requested size: 314.99863pt x 156.06877pt.
  [58 <./Images/CD-CSMA.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 237--240
+Underfull \hbox (badness 10000) in paragraph at lines 250--253
 
  []
 
-<Images/header_ethernet.png, id=279, 743.77875pt x 87.32625pt>
+[59]
+<Images/header_ethernet.png, id=282, 743.77875pt x 87.32625pt>
 File: Images/header_ethernet.png Graphic file (type png)
 <use Images/header_ethernet.png>
-Package pdftex.def Info: Images/header_ethernet.png  used on input line 255.
+Package pdftex.def Info: Images/header_ethernet.png  used on input line 268.
 (pdftex.def)             Requested size: 450.0pt x 52.83586pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-Excluding 'comment' comment.) [59] [60 <./Images/header_ethernet.png>] (./main.aux) ) 
+ [60 <./Images/header_ethernet.png>]) [61] (./main.aux) ) 
 Here is how much of TeX's memory you used:
  9196 strings out of 476041
  150295 string characters out of 5793174
@@ -750,10 +748,10 @@ Here is how much of TeX's memory you used:
  1137 hyphenation exceptions out of 8191
  74i,15n,82p,920b,505s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (61 pages, 1681932 bytes).
+Output written on main.pdf (62 pages, 1685018 bytes).
 PDF statistics:
- 366 PDF objects out of 1000 (max. 8388607)
- 193 compressed objects within 2 object streams
+ 369 PDF objects out of 1000 (max. 8388607)
+ 195 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  191 words of extra memory for PDF output out of 10000 (max. 10000000)
 

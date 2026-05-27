@@ -84,14 +84,93 @@ modo per preservare la mutua esclusione è l'implementazione di strumenti di sin
 %
 
 \section{Supporto hardware}
+Con Peterson abbiamo definito una soluzione software per il problema della sezione critica, perché l'algoritmo garantisce mutua esclusione senza dover
+dipendere dall'hardware. Tuttavia, questa indipendenza è ciò che di base non garantisce il funzionamento su architetture moderne, ragion per cui ci
+affideremo a meccanismi di sincronizzazione.\par
+Gli elaboratori utilizzano un \textbf{modello di memoria}, la modalità per determinare le garanzie sulla memoria da fornire agli applicativi. Ne
+esistono di due tipi: \begin{itemize}
+    \item \textbf{Fortemente ordinato}: Una modifica alla memoria su un processore è immediatamente visibile anche a tutti gli altri.
+    \item \textbf{Debolmente ordinato}: Una modifica alla memoria su un processore non sempre è immediatamente visibile anche a tutti gli altri.
+\end{itemize}
+
+\noindent In quanto i modelli variano in base al processore, è necessario che forniscano istruzioni ad hoc per consentire la loro implementazione; tali
+istruzioni sono dette \textbf{barriere di memoria} e alla loro esecuzione, il sistema garantisce che siano eseguite tutte le operazioni di load e
+store antecedenti alle successive, risolvendo anche il problema del riordinamento delle istruzioni.\par
+Le barriere di memoria fungono quindi da "blocco" per assicurarsi l'esecuzione di un insieme di operazioni prima di procedere con le successive parti
+del codice; sono operazioni di basso livello spesso utilizzate nei sistemi operativi o dagli sviluppatori dei kernel.\par
+Le moderne architetture forniscono anche un particolare insieme di istruzioni dedito alla manipolazione delle parole di memoria in modo
+atomico: \begin{itemize}
+    \item \textbf{test\_and\_set()}: Controlla e modifica il contenuto di una parola di memoria. Imposta atomicamente una variabile a true e
+    restituisce il suo valore precedente, consentendo di rilevare se il lock era già acquisito.
+    \item \textbf{compare\_and\_swap()}: Scambia il contenuto di due parole di memoria. Usa tre operandi: \textbf{int *value}, indicante il valore
+    della parola, \textbf{int expected}, il valore che ci si aspetta abbia la parola, e \textbf{int new\_value}, il nuovo valore di quest'ultima, preso
+    dall'altra parola. Se il valore della parola è uguale all'atteso, viene aggiornato con quello nuovo, altrimenti non è effettuata alcuna modifica.
+    In ogni caso, ritorna il value discusso.
+\end{itemize}
+
+\noindent Queste due istruzioni sono eseguite atomicamente, quindi in presenza di due loro istanze esecutive su due unità di elaborazione, saranno
+eseguite in modo sequenziale con un ordine arbitrario. Con questa dinamica e l'aiuto di una variabile booleana globale \textbf{lock}, è possibile
+garantire la mutua esclusione. In particolare, si implementano il lock e un array di booleani globale inizializzati a false; quando un processo richiede
+l'accesso alla propria sezione critica, setta la sua cella di array a true e dichiara una variabile key a valore 1. Fintanto che presentano questa
+configurazione, ovvero fino a quando la sezione critica è utilizzata da un altro processo, il flusso rimane in un ciclo while fino a quando key non è
+aggiornata con la compare and swap. Terminata l'iterazione, la cella dell'array sarà posta a false e il processo entrerà nella sua sezione critica.\par
+Per quanto riguarda l'attesa limitata, invece, si itera l'array in ordine ciclico e setta il primo processo in attesa come il prossimo che può entrare
+nella propria sezione critica; quindi qualunque processo voglia accedervi, potrà farlo entro $n-1$ turni.
+
+\begin{lstlisting}[language=C]
+    while (true) {
+        waiting[i] = true;
+        key = 1;
+
+        while (waiting[i] && key == 1) {
+            key = compare_and_swap(&lock, 0, 1);
+        }
+        waiting[i] = false;
+
+        // Sezione critica
+
+        j = (i+1) % waiting_len;
+        while ((j != i) && !waiting[j]) j = (j+1) % waiting_len;
+
+        if (j == i) lock = 0;
+        else waiting[j] = false;
+
+        // Sezione non critica
+}
+\end{lstlisting}
+\noindent In genere, dato che sono operazioni atomiche, test\&set e compare\&swap sono utilizzate come base per costruire strumenti di sincronizzazione
+più astratti, come le \textbf{variabili atomiche}, le quali forniscono operazioni su tipi di dati base, come interi e booleani. Possono essere
+utilizzate per garantire mutua esclusione in alcune situazioni dove possono presentarsi race condition. Sono usate comunemente nei sistemi operativi e
+applicazioni concorrenti.
 
 %
 
-\section{Lock Mutex}
+\section{Lock Mutex, Semafori e Monitor}
+Le soluzioni hardware possono essere astratte in strumenti software più accessibili come il \textbf{Lock Mutex}, usato per proteggere le sezioni
+critiche e prevenire le race condition.\par
+La procedura associata vede un processo acquisire il lock prima di entrare nella regione, e rilasciarlo quando ne esce. Il meccanismo è ottenuto grazie
+alle funzioni \textbf{acquire()}, che acquisisce il lock quando è disponibile e pone i processi che lo richiedono in attesa attiva quando non lo è, fin
+quando non viene rilasciato con \textbf{release()}. Queste devono essere eseguite atomicamente e lo stato del lucchetto è consultabile grazie a una sua
+variabile booleana \textbf{available}.
+\begin{lstlisting}[language=C]
+    // Definizione di acquire
+    acquire () {
+        while (!available) { /* Attendi */}
+        available = false;
+    }
 
-%
+    // Definizione di release
+    release () {
+        available = true;
+    }
+\end{lstlisting}
 
-\section{Semafori e Monitor}
+\noindent Il vantaggio di questo meccanismo è di non rendere necessario alcun cambio di contesto, che tendenzialmente occupa molto tempo, tuttavia, se
+molti processi richiedono di acquisire un lock indisponibile, questi continueranno a ciclare e chiamare acquire() fino al suo rilascio, sprecando cicli
+della CPU. Per questa ragione sono chiamati anche "spinlock" e vengono utilizzati in sistemi multiprocessore dove possono far girare i thread su core
+diversi mentre il detentore del lock esegue la sua sezione critica.
+
+% TODO Mancano semafori e Monitor
 
 %
 

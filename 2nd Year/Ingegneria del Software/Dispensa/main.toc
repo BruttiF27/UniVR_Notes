@@ -14,12 +14,14 @@
 \contentsline {section}{\numberline {4.1}Pattern architetturali}{21}{}%
 \contentsline {section}{\numberline {4.2}Modelli di controllo}{25}{}%
 \contentsline {section}{\numberline {4.3}Principi di progettazione}{27}{}%
+\contentsline {section}{\numberline {4.4}Design Pattern}{30}{}%
 \contentsline {chapter}{\numberline {5}UML - Unified Modeling Language}{31}{}%
 \contentsline {section}{\numberline {5.1}Introduzione a UML}{31}{}%
 \contentsline {section}{\numberline {5.2}Diagrammi strutturali}{33}{}%
 \contentsline {section}{\numberline {5.3}Diagrammi di interazione}{36}{}%
 \contentsline {section}{\numberline {5.4}State Machine Diagram}{38}{}%
 \contentsline {section}{\numberline {5.5}Activity Diagram}{39}{}%
+\contentsline {section}{\numberline {5.6}Component, Package e Deployment Diagram}{41}{}%
 \contentsline {chapter}{\numberline {6}Verifica e Validazione}{42}{}%
 \contentsline {section}{\numberline {6.1}Ispezione e test}{42}{}%
 \contentsline {section}{\numberline {6.2}Unit testing}{42}{}%

@@ -1,0 +1,46 @@
+Lez17 - 14-05-26
+
+--- Component diagram
+Descrive i componenti del sistema; è un'unità modulare con interfacce ben-definite che è rimpiazzabile all'interno del suo ambiente. Una scatola nera il cui comportamento esterno è definito in toto dalle sue interfacce.
+
+I componenti sono entità logiche realizzate da artefatti (entità fisiche), come per esempio:
+    - subsystem realizzato con un insieme di classi
+    - Mocroservice realizzato con Spring Boot
+
+// Design pattern facade, vedere in autonomia.
+
+Il diagramma delle componenti mostra quindi le componenti che costituiscono il sistema e le loro relative dipendenze. Sono utili per rappresentare l'architettura di un sistema ad alto livello.
+Per rappresentazione dell'architettura è meglio usare questo rispetto al class diagram, perché quest'ultimo va troppo nel dettaglio.
+
+I componenti sono descritti da un rettangolo, il loro nome al suo interno e l'icona componente apposita. Altrimenti si può usare un semplice rettangolo con lo stereotipo <<component>>.
+Le interfacce fornite usano notazione lollipop, quella del pallino. Quelle richieste invece sono indicate con il socket (semicerchio). Queste possono incastrarsi, naturalmente, per indicare le dipendenze.
+
+Introduciamo il concetto di porta.
+Una porta raggruppa un insieme semanticamente coeso di interfacce, è un punto specifico di interazione tra componente esterno e interno. Si indica con un rettangolino sul bordo di un rettangolo più grande. Naturalmente, si possono nominare anch'esse.
+Si può dare inoltre una vista interna delle componenti. È utile per chi deve implementare il componente.
+
+(prendere immagine di esempio sistema gestione ordini)
+
+--- Deployment diagram
+Vista implementativa che mostra la relazione tra HW e SW in un sistema. È molto legato al component diagram, perché qua si descrive dove vanno fatte girare le componenti descritte.
+Contiene nodi, che rappresentano un tipo di risorsa, come una periferica fisica, e le connessioni, che indicano un ambiente software di esecuzione, come un browser, un container o una VM.
+
+Una connessione tra nodi rappresenta un canale di comunicazione attraverso il quale passano le informazioni.
+
+Gli artefatti qui sono le entità concrete del mondo reale, come il file di codice sorgente o le tabelle di un DB. Possono essere dislocati (deployed) sui nodi e possono dipendere tra di loro.
+
+Manifest è una relazione che indica che gli artefatti sono rappresentazioni/manifestazioni fisiche dei componenti. Per esempio, una componente può includere una classe e un'interfaccia, realizzate da due file contenenti il codice sorgente.
+
+(Prendere immagine nodi annidati e tagged values)
+
+--- Package diagram
+Visualizzazione orientata ai pacchetti UML, costrutti che permettono di prendere un numero arbitrario di elementi UML e raggrupparli insieme. Un package può contenere elementi o altri pacchetti.
+
+Ogni package definisce un namespace, una regione al cui interno tutti i nomi devono essere univoci. Lo scopo dei namespace è evitare confusione ed equivoci in caso di entità con nomi simili. Per indicare la classe a cui ci si riferisce bisogna usare una sintassi method reference:
+    - System::Data
+    - NomeClasse::Util::Data
+Le due classi Data sono differenti, perché usate in contesti diversi.
+I package sono rappresentati a mò di cartelle. Il rettangolo più grande rappresenta il contenuto, quello più piccolino contiene il nome del package.
+Dentro al package si può indicare la visibilità; quelli pubblici formano la sua interfaccia.
+
+È possibile indicae anche dipendenze tra i package; significa che almeno una classe nell'uno è dipendente da quella di un altro. La seconda deve necessariamente essere pubblica.

@@ -25,6 +25,7 @@ Specificano l'esecutore delle azioni, suddividono il flusso delle attività senz
 Ci sono alcuni nodi azione specializzati per la gestione, invio e ricezione di eventi. L'invio è asincrono e non bloccante, mentre la ricezione blocca l'attività fino al verificarsi dell'evento.
 I nodi ricezione sono attivi quando hanno token su tutti gli archi in entrata (se ne hanno) oppure durante l'intera vità dell'attività (quando non ne hanno). Generano token alla ricezione, e la dinamica è uguale per la ricezione di eventi temporali.
 
-Possibile indicare parametri e indicare regionri interompibili, per specificare interruzione dell'attività forzata come con le eccezioni.
+Possibile indicare parametri e indicare regioni interompibili, per specificare interruzione dell'attività forzata come con le eccezioni.
 
 --- Come modellare use case?
+Per la modellazione si segue uno schema generale, composto da una breve descrizione, gli attori primari e la sequenza principale degli eventi. Poi è applicato l'activity diagram per mostrare le eventuali diramazioni del flusso di lavoro.

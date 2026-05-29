@@ -218,27 +218,74 @@ l'elaborazione concorrente. Gli elementi del grafico si dicono \textbf{nodi} e n
 \end{figure}
 
 \noindent I nodi \textbf{azione} possono essere espressi in linguaggio informale, invocare altre attività segnalandolo con il simbolo rake, chiamare
-l'operazione di una classe con una sintassi method reference Java-like, oppure scrivere un frammento di pseudocodice. La posizione all'interno dei nodi
+l'operazione di una classe con una sintassi method reference simil-Java, oppure scrivere un frammento di pseudocodice. La posizione all'interno dei nodi
 di un flusso è indicata tramite \textbf{token}, il quale si propaga sul nodo connesso dal suo arco in uscita. La terminazione avviene, come per lo
 state machine diagram, quando il token raggiunge il nodo finale.\par
 I nodi \textbf{decisione} hanno un input e vari output, direzionano il token ricevuto verso uno dei propri output in base alla guardia usata. La stessa
 forma sintattica prendono i nodi fusione, con la differenza che possono avere più input, ma un singolo output. Quelli di \textbf{fork} sono usati per
 eseguire operazioni in parallelo, mentre i \textbf{join} li riuniscono in un solo filo di esecuzione. Inoltre, se il nodo finale è raggiunto da un
 thread quando ne esistono altri attivi, terminerà il flusso di tutti gli altri.\par
-I nodi \textbf{oggetti} modellano gli oggetti in input e in output delle azioni; è possibile esplicitarne anche uno stato per mostrare la loro evoluzione
-durante il flusso, ma, se esiste, devono essere coerenti con la macchina a stati ad esso associata. Per rendere il diagramma ulteriormente informativo
-si può partizionare il nodo oggetto mostrando l'esecutore delle azioni e una suddivisione delle attività ad esso associate.
+I nodi \textbf{oggetti} modellano gli oggetti in input e in output delle azioni; è possibile esplicitarne anche uno stato per mostrare la loro
+evoluzione durante il flusso, ma, se esiste, devono essere coerenti con la macchina a stati ad esso associata. Per rendere il diagramma ulteriormente
+informativo si può partizionare il nodo oggetto mostrando l'esecutore delle azioni e una suddivisione delle attività ad esso associate.\par
+Esistono inoltre alcuni nodi specializzati per la gestione di invio (non bloccante) e ricezione (bloccante) di eventi; questi ultimi in particolare
+sono attivi quando presentano token su tutti gli archi in entrata, se ne hanno, oppure durante l'intera vita dell'attività quando non ne hanno.
+Generano inoltre i token alla ricezione di eventi, sia temporali che non. Infine, è possibile indicare parametri specifici e \textbf{regioni
+interrompibili} per mostrare il comportamento del flusso in caso di interruzione forzata delle attività, come in caso di un'eccezione.\par
+In genere, i diagrammi di attività sono utilizzati per la spiegazione e modellazione di casi d'uso. Questi devono seguire uno schema generale, composto
+da una breve descrizione, gli attori primari e la sequenza principale degli eventi, sul quale basare la stesura del diagramma con le relative
+diramazioni del flusso di lavoro.
+
+%
+
+\section{Component, Package e Deployment Diagram}
 
 \begin{comment}
-TODO Riprendi da slide eventi 1, circa la n.37 del file.
+	Lez17 - 14-05-26
 
-Ci sono alcuni nodi azione specializzati per la gestione, invio e ricezione di eventi. L'invio è asincrono e non bloccante, mentre la ricezione blocca
-l'attività fino al verificarsi dell'evento.
-I nodi ricezione sono attivi quando hanno token su tutti gli archi in entrata (se ne hanno) oppure durante l'intera vità dell'attività (quando non ne
-hanno). Generano token alla ricezione, e la dinamica è uguale per la ricezione di eventi temporali.
+--- Component diagram
+Descrive i componenti del sistema; è un'unità modulare con interfacce ben-definite che è rimpiazzabile all'interno del suo ambiente. Una scatola nera il cui comportamento esterno è definito in toto dalle sue interfacce.
 
-Possibile indicare parametri e indicare regionri interompibili, per specificare interruzione dell'attività forzata come con le eccezioni.
+I componenti sono entità logiche realizzate da artefatti (entità fisiche), come per esempio:
+    - subsystem realizzato con un insieme di classi
+    - Mocroservice realizzato con Spring Boot
 
---- Come modellare use case?
+// Design pattern facade, vedere in autonomia.
+
+Il diagramma delle componenti mostra quindi le componenti che costituiscono il sistema e le loro relative dipendenze. Sono utili per rappresentare l'architettura di un sistema ad alto livello.
+Per rappresentazione dell'architettura è meglio usare questo rispetto al class diagram, perché quest'ultimo va troppo nel dettaglio.
+
+I componenti sono descritti da un rettangolo, il loro nome al suo interno e l'icona componente apposita. Altrimenti si può usare un semplice rettangolo con lo stereotipo <<component>>.
+Le interfacce fornite usano notazione lollipop, quella del pallino. Quelle richieste invece sono indicate con il socket (semicerchio). Queste possono incastrarsi, naturalmente, per indicare le dipendenze.
+
+Introduciamo il concetto di porta.
+Una porta raggruppa un insieme semanticamente coeso di interfacce, è un punto specifico di interazione tra componente esterno e interno. Si indica con un rettangolino sul bordo di un rettangolo più grande. Naturalmente, si possono nominare anch'esse.
+Si può dare inoltre una vista interna delle componenti. È utile per chi deve implementare il componente.
+
+(prendere immagine di esempio sistema gestione ordini)
+
+--- Deployment diagram
+Vista implementativa che mostra la relazione tra HW e SW in un sistema. È molto legato al component diagram, perché qua si descrive dove vanno fatte girare le componenti descritte.
+Contiene nodi, che rappresentano un tipo di risorsa, come una periferica fisica, e le connessioni, che indicano un ambiente software di esecuzione, come un browser, un container o una VM.
+
+Una connessione tra nodi rappresenta un canale di comunicazione attraverso il quale passano le informazioni.
+
+Gli artefatti qui sono le entità concrete del mondo reale, come il file di codice sorgente o le tabelle di un DB. Possono essere dislocati (deployed) sui nodi e possono dipendere tra di loro.
+
+Manifest è una relazione che indica che gli artefatti sono rappresentazioni/manifestazioni fisiche dei componenti. Per esempio, una componente può includere una classe e un'interfaccia, realizzate da due file contenenti il codice sorgente.
+
+(Prendere immagine nodi annidati e tagged values)
+
+--- Package diagram
+Visualizzazione orientata ai pacchetti UML, costrutti che permettono di prendere un numero arbitrario di elementi UML e raggrupparli insieme. Un package può contenere elementi o altri pacchetti.
+
+Ogni package definisce un namespace, una regione al cui interno tutti i nomi devono essere univoci. Lo scopo dei namespace è evitare confusione ed equivoci in caso di entità con nomi simili. Per indicare la classe a cui ci si riferisce bisogna usare una sintassi method reference:
+    - System::Data
+    - NomeClasse::Util::Data
+Le due classi Data sono differenti, perché usate in contesti diversi.
+I package sono rappresentati a mò di cartelle. Il rettangolo più grande rappresenta il contenuto, quello più piccolino contiene il nome del package.
+Dentro al package si può indicare la visibilità; quelli pubblici formano la sua interfaccia.
+
+È possibile indicae anche dipendenze tra i package; significa che almeno una classe nell'uno è dipendente da quella di un altro. La seconda deve necessariamente essere pubblica.
 
 \end{comment}

@@ -1,0 +1,53 @@
+Lez18 - 28-05-26 ingegneria del software
+
+--- Design pattern
+I software design pattern sono soluzioni standardizzate per dei problemi specifici di programmazione OO che costituisce un'unità di riuso.
+Aiutano ad applicare i principi di buona progettazione, come anche buoni design. Possono essere applicati durante la modellazione e la codifica, facilitando anche la comunicazione tra sviluppatori grazie agli standard dati dal pattern.
+
+Altre unità di riuso oltre ai design pattern sono le componenti riusabili (COTS) parti di app riutilizzabili, i framework (applicazioni per il controllo dell'app), le product lines (Famiglie di prodotti sviluppati fin dall'inizio in contemporanea con un nucleo comune) e i modelli (del dominio, dei requisiti, del design).
+
+- Framework
+Un framework è un insieme di classi e interfacce cooperanti che formano un design riusabile e customizzabile per uno specifico dominio o tipo di app.
+Vede il developer scrivere le classi e le operazioni che vengono chiamate dal framework, riempiendo i buchi. La libreria, in confronto, vede il dev chiamare le operazioni delle classi di una libreria.
+
+I design pattern sono più astratti, piccoli e meno specializzati, mentre i framework rappresentano un insieme più grande di classi.
+
+-- Design pattern elementari (GRASP)
+Pattern per l'assegnazione di responsabilità nel software, costituiscono il fondamento per la progettazione di sistemi OO. Ci sono tre categorie:
+    - Creazionali, per la creazione degli oggetti
+    - Strutturali, per la composizione di classi e oggetti
+    - Comportamentali, per l'interazione tra gli oggetti e distribuzione di responsabilità.
+
+Per presentare i pattern si usa una struttura come segue:
+    - Nome del pattern
+    - Problema da risolvere
+    - Soluzione del pattern
+    - Conseguenze
+
+-- Pattern creazionali
+Pattern per la creazione di istanze. Di norma ci si affida a Creator, che assegna alla classe B la responsabilità di creare un'istanza di A se una delle condizioni è vera:
+    - B contiene o aggrega
+
+- Factory
+Una classe svolge il ruolo di creazione degli oggetti. Utile quando si vuole nascondere la logica di creazione per vari motivi. Potrebbe essere potenzialmente complessa.
+
+- Abstract factory
+Fornisce una soluzione per creare famiglie di prodotti (oggetti connessi o dipendenti tra di loro) in modo che non ci sia necessità da parte dei client di specificare le classi concrete dei prodotti dentro al loro codice.
+Da usare quando un sistema deve essere indipendente da come i suoi prodotti son creati, composti e rappresentati.
+
+Un sistema deve essere configurato per una di diverse famiglie di prodotti disponibili e quest'ultima è progettata per funzionare assieme.
+
+Isola le classi concrete, rende il cambio della famiglia dei prodotti facile e favorisce la consistenza tra i vari prodotti di una famiglia. Tuttavia, l'aggiunta di nuovi prodotti può richiedere cambiamenti all'interfaccia dell'Abstract factory e le relative sottoclassi, come l'aggiunta di una nuova classe concretefactory e di nuovi prodotti e prodotti astratti.
+
+-- Adapter
+Adatta le interfacce che normalmente non sono compatibili. Converte l'interfaccia di una classe in un'altra che il cliente si aspetta. Consente alle classi di lavorare assieme anche se di base non potrebbero date interfacce incompatibili. Di norma l'adattatore deve essere un oggetto.
+
+% todo manca roba
+
+-- Facade
+
+-- Template
+
+-- Observer
+
+-- State

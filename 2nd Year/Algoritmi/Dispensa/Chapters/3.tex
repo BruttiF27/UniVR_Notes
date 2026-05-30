@@ -1,7 +1,15 @@
-\section{Pile}
-Le \textbf{pile}, o stack, sono insiemi dinamici dove la posizione di un elemento inserito o rimosso è predeterminata. In particolare, questa struttura dati implementa la logica \textbf{LIFO}: Last-in, First-out.\par
-L'operazione di inserimento è chiamata \textbf{push()} e pone un elemento in cima alla pila; quella di rimozione è invece detta \textbf{pop()} e rimuove l'elemento inserito più recentemente. Si presentano inoltre i campi \textit{S.top}, l'indice della cima, e \textit{S.size}, la dimensione della pila. È possibile implementare questa struttura dati su un array di dimensione $S[1:S.top]$.\par
-Se la stack è vuota, verificabile con la procedura \textbf{isEmpty()}, allora \textit{S.size = 0} e se si cerca di estrarne un elemento, si avrà un \textbf{underflow}, mentre se si cerca di inserire un elemento in una pila piena, quindi \textit{S.top = S.size}, si avrà un \textbf{overflow}. Inoltre, la logica LIFO può essere descritta tramite sequenze di push tranne per i casi in cui si presenta un errore. Infatti, definendo un'operazione \textbf{top()} per recuperare l'elemento in cima alla pila abbiamo: \[Pop(Push(S,x)) = S,\quad Top(Push(S,x)) = x\] \[Top(Empty(S)) = ERR,\quad Pop(Empty(S)) = ERR\]
+\section{Pile e code}
+Le \textbf{pile}, o stack, sono insiemi dinamici dove la posizione di un elemento inserito o rimosso è predeterminata. In particolare, questa struttura
+dati implementa la logica \textbf{LIFO}: Last-in, First-out.\par
+L'operazione di inserimento è chiamata \textbf{push()} e pone un elemento in cima alla pila; quella di rimozione è invece detta \textbf{pop()} e
+rimuove l'elemento inserito più recentemente. Si presentano inoltre i campi \textit{S.top}, l'indice della cima, e \textit{S.size}, la dimensione della
+pila. È possibile implementare questa struttura dati su un array di dimensione $S[1:S.top]$.\par
+Se la stack è vuota, verificabile con la procedura \textbf{isEmpty()}, allora \textit{S.size = 0} e se si cerca di estrarne un elemento, si avrà un
+\textbf{underflow}, mentre se si cerca di inserire un elemento in una pila piena, quindi \textit{S.top = S.size}, si avrà un \textbf{overflow}. Inoltre,
+la logica LIFO può essere descritta tramite sequenze di push tranne per i casi in cui si presenta un errore. Infatti, definendo un'operazione
+\textbf{top()} per recuperare l'elemento in cima alla pila abbiamo: \[
+	Pop(Push(S,x)) = S,\quad Top(Push(S,x)) = x\] \[Top(Empty(S)) = ERR,\quad Pop(Empty(S)) = ERR
+\]
 \noindent In ogni caso, ognuna delle tre operazioni è eseguita in tempo costante $O(1)$.
 \begin{algorithm}[h]
 	\caption{isEmpty(S)}
@@ -36,12 +44,14 @@ Se la stack è vuota, verificabile con la procedura \textbf{isEmpty()}, allora \
 	\end{algorithmic}
 \end{algorithm}
 
-%
-
-\section{Code con priorità}
-Le \textbf{code}, come le pile, sono un insieme dinamico di elementi con posizioni predeterminate. La differenza principale è l'implementazione della logica \textbf{FIFO}, First-in, First-out. Ciò significa che gli oggetti sono inseriti nella struttura all'ultima posizione con \textbf{enqueue()} e prelevati a partire dalla cima con \textbf{dequeue()}. Si possono implementare con un array $Q[1:n]$, il quale avrà gli attributi $Q.size$ per la dimensione, mentre $Q.head$ e $Q.tail$ sono usati per puntare al primo e all'ultimo elemento rispettivamente.\par
-All'inizio, con la coda vuota, i campi di testa e coda sono uguali; provando a usare dequeue() si avrà un errore di underflow, mentre se si presenta una di queste due istanze: \[Q.head = Q.tail+1 \quad\lor\quad (Q.head=1\land Q.tail=Q.size)\]
-\noindent La coda sarà piena, e invocando enqueue() si avrà un errore di overflow. Inoltre, come per le pile, le seguenti operazioni hanno tempo di esecuzione costante $O(1)$:
+\noindent Le \textbf{code}, come le pile, sono un insieme dinamico di elementi con posizioni predeterminate. La differenza principale è
+l'implementazione della logica \textbf{FIFO}, First-in, First-out. Ciò significa che gli oggetti sono inseriti nella struttura all'ultima posizione con
+\textbf{enqueue()} e prelevati a partire dalla cima con \textbf{dequeue()}. Si possono implementare con un array $Q[1:n]$, il quale avrà gli attributi
+$Q.size$ per la dimensione, mentre $Q.head$ e $Q.tail$ sono usati per puntare al primo e all'ultimo elemento rispettivamente.\par
+All'inizio, con la coda vuota, i campi di testa e coda sono uguali; provando a usare dequeue() si avrà un errore di underflow, mentre se si presenta una
+di queste due istanze: \[Q.head = Q.tail+1 \quad\lor\quad (Q.head=1\land Q.tail=Q.size)\]
+\noindent La coda sarà piena, e invocando enqueue() si avrà un errore di overflow. Inoltre, come per le pile, le seguenti operazioni hanno tempo di
+esecuzione costante $O(1)$:
 \begin{algorithm}[h]
 	\caption{enqueue(Q, x)}
 	\begin{algorithmic}[i]
@@ -75,23 +85,76 @@ All'inizio, con la coda vuota, i campi di testa e coda sono uguali; provando a u
 %
 
 \section{Liste concatenate}
+Una \textbf{lista concatenata} è una struttura dati i cui oggetti sono disposti in un determinato ordine lineare, determinato da un puntatore in ogni
+suo elemento. È pratica comune inserire un campo \textit{key} negli oggetti della lista per poterne più facilmente definire l'ordinamento. Esistono più
+tipi di liste concatenate: \begin{itemize}
+	\item \textbf{Liste singolarmente concatenate}: Gli elementi della struttura sono collegati da un solo puntatore \textit{next}, che indica il nodo
+	successivo.
+	\item \textbf{Liste doppiamente concatenate}: Gli elementi sono collegati con due puntatori \textit{next, prev}, che indicano il nodo successivo e
+	precedente.
+	\item \textbf{Liste di ricerca}: Sfruttano il campo chiave per la ricerca efficiente del campo richiesto.
+	\item \textbf{Liste ordinate}: Sfruttano il campo chiave per determinare l'ordine dei nodi.
+	\item \textbf{Liste non ordinate}: Preservano l'ordine di inserimento degli oggetti.
+\end{itemize}
 
+\noindent Contenendo puntatori ai nodi adiacenti, è evidente come si possono definire più istanze di nodo: se il puntatore al precedente è $NIL$,
+l'elemento della lista sarà la \textbf{testa}, mentre se è quello al successivo ad esserlo, ci troveremo nell'oggetto di \textbf{coda}. Qualunque altro
+elemento sarà intermedio a questi due. Le operazioni attuabili su questa struttura dati sono quelle di ricerca $\Theta(n)$, inserimento $O(1)$ e
+rimozione $O(1)$ con chiave, mentre $\Theta(n)$ senza. Si definiscono come segue: \begin{algorithm}[h]
+	\caption{list-search(L, k)}
+	\begin{algorithmic}
+		\Require $L$: Lista concatenata, $k$: Chiave da cercare
+		\State $x\gets head[L]$
+		\While{$x\neq NIL$ \textbf{AND} $key[x]\neq k$}
+			\State $x\gets next[x]$
+		\EndWhile
+		\State \textbf{return} $x$
+	\end{algorithmic}
+\end{algorithm}
 
-\begin{comment}		
-	Lista doppiamente concatenata vede l'esistenza del campo next, ma anche del prev.
-	
-	// x è un ptr ad un nodo. Rimuovi x
-	Remove(x)
-	if (prev != NULL) prev(succ(x)) = prev(x);
-	if (next != NULL) succ(prev(x)) = next(x);
-	
-	Problema di edge cases. Meglio codice pulito e non comprendente ogni edge case oppure un codice complesso e sporco ma solido e completamente funzionale?
-	Dipende da quanto viene invocata.
-	
-	--- Tecnica delle sentinelle
-	Al posto di usare NULL si andrebbe ad utilizzare uno pseudooggetto per evitare errori negli edge cases.
-	Rende il codice molto più semplice, nel caso specifico precedente rimuoverebbe gli if, dando per scontato che ci siano queste sentinelle per garantire sicurezza.
-\end{comment}
+\begin{algorithm}[h]
+	\caption{list-prepend(L, x)}
+	\begin{algorithmic}
+		\Require $L$: Lista concatenata, $x$: Nodo da inserire
+		\State $next[x]\gets head[L]$
+		\State $prev[x]\gets NIL$
+		\If{$head[L]\neq NIL$}
+			\State $prev[head[L]]\gets x$
+		\EndIf
+		\State $head[L]\gets x$
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[h]
+	\caption{list-insert(x, y)}
+	\begin{algorithmic}
+		\Require $x$: Nodo da inserire dopo $y$, $y$: Nodo corrente
+		\State $next[x]\gets next[y]$
+		\State $prev[x]\gets y$
+		\If{$next[y] \neq NIL$}
+			\State $prev[next[y]]\gets x$
+		\EndIf
+		\State $next[y]\gets x$
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[h]
+	\caption{list-remove(L, x)}
+	\begin{algorithmic}
+		\Require $L$: Lista concatenata, $x$: Nodo da rimuovere
+		\If{$prev[x]\neq NIL$}
+			\State $next[prev[x]]\gets next[x]$
+		\Else $\text{ }head[L]\gets next[x]$
+		\EndIf
+		\If{$next[x]\neq NIL$}
+			\State $prev[next[x]]\gets prev[x]$
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent In particolare, per quest'ultima operazione, è possibile applicare la \textbf{tecnica delle sentinelle} per semplificare il codice, ignorando
+le condizioni in cima e in fondo alla lista. Si tratta dell'implementazione di oggetti della lista che rappresentano $NIL$, ma che allo stesso tempo
+hanno anche tutti gli attributi dei nodi veri.
 
 %
 

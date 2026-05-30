@@ -443,15 +443,16 @@ pari, ne eseguiamo uno iniziale, seguito da $3(n-2)/2$ confronti, per un totale 
 è: \[
 	T(n) = 3\lfloor n/2\rfloor = \Theta(n)
 \]
-\noindent Il problema della selezione generico presenta il medesimo tempo di esecuzione asintotico: $\Theta(n)$. Una prima idea di algoritmo vede una
-rielaborazione del quickSort() in tal modo che, dato un elemento perno, l'algoritmo operi solo su un sottoarray della partizione. Ciò impatta
-drasticamente il tempo di esecuzione, che al posto di essere uguale al quickSort è ottimale, $\Theta(n)$, nell'ipotesi che gli elementi siano tutti
-diversi.
+
+\noindent Il problema generale della selezione, quindi trovare la $i$-esima statistica d'ordine dato un array $A[p:r]$, presenta il medesimo tempo di
+esecuzione asintotico: $\Theta(n)$. Una prima idea di algoritmo vede una rielaborazione del quickSort() in tal modo che, dato un elemento perno,
+l'algoritmo operi solo su un sottoarray della partizione. Ciò impatta drasticamente il tempo di esecuzione, che al posto di essere uguale al quickSort
+è ottimale, $\Theta(n)$, nell'ipotesi che gli elementi siano tutti diversi.
 \begin{algorithm}[h]
 	\caption{randSelect(A, p, r, i)}
 	\begin{algorithmic}[i]
 		\Require $A$: Array, $p$: Posizione iniziale, $r$: Posizione finale, $i$: Valore del pivot
-		\If{p == r} \textbf{return} A[p]
+		\If{$p == r$} \textbf{return} A[p]
 		\EndIf
 		\State $q\gets$ randPartition($A, p, r$) \Comment{Divido l'array in due parti con un perno casuale}
 		\State $k\gets q-p+1$ \Comment{Numero elementi a sinistra del perno}
@@ -461,53 +462,53 @@ diversi.
 		\EndIf
 	\end{algorithmic}
 \end{algorithm}
-\noindent Come visto nelle sezioni precedenti, si prende un pivot che prenderà la prima posizione del sottoarray della sezione alta. Esiste tuttavia
-anche un algoritmo deterministico per risolvre il problema delle selezioni in tempo lineare, ma in quanto il suo tempo di esecuzione ha una forte
-dipendenza dalla quantità delle costanti è difficile poterlo considerare in termini asintotici. In particolare, con grandi numeri è possibile che sia
-più efficiente un algoritmo nell'ordine di $nlog(n)$.\par
-Questo algoritmo è detto \textbf{mediana dei mediani} e si pone lo scopo di scegliere un perno buono deterministicamente, per rimanere in una zona
-proporzionale. Intuitivamente, segue questi passi: \begin{enumerate}
-	\item Dividi l'array in gruppi di 5 elementi. Complessità: 0.
-	\item Calcola il mediano di ogni gruppo. Complessità: $5n$.
-	\item Calcola ricorsivamente il mediano dei mediani $x$. Complessità: $T(n/5)$, con $n/5$ approssimato per eccesso. Eccesso a causa del gruppo con
-	gli ultimi elementi restanti.
-	\item Partiziona rispetto a $x$, il perno. Complessità: $n$.
-	\item Ricorri sulla parte interessata.
+
+\noindent La prima riga dell'algoritmo valuta il caso base della ricorsione, ovvero l'array contenente un singolo elemento. Se è verificato,
+restituisce direttamente l'elemento $A[p]$ in esso contenuto, altrimenti si chiama la procedura $randPartition()$ per dividere $A$ in due sottoarray
+sicché siano rispettate le proprietà di sezione bassa e alta, scegliendone l'elemento perno $A[q]$.\par
+Viene poi calcolata la dimensione del sottoarray basso e controllato se $A[q]$ è l'$i$-esimo elemento ricercato. Se sì, lo riporta, altrimenti la
+procedura determina in quale sezione si trovi e possiamo avere i seguenti casi: \begin{itemize} 
+	\item Se $i < k$: L'elemento si trova nella sezione bassa, verrà selezionato ricorsivamente dal sottoarray.
+	\item Se $i > k$: L'elemento si trova nella sezione alta e sarà in posizione $(i-k)$, ricercato ricorsivamente dal sottoarray.
+\end{itemize}
+
+\noindent Il tempo di esecuzione peggiore di questo algoritmo è $\Theta(n^2)$ e si verifica quando la partizione si effettua sempre attorno all'elemento
+dalla caratteristica opposta a quello ricercato, come per esempio, nella ricerca del minimo, si partiziona attorno al massimo. In questo contesto si
+troverà l'elemento ricercato solo quando sarà l'unico rimasto da trovare. Sebbene la ricorrenza per il tempo di esecuzione sia equivalente al quickSort,
+quindi: \[
+	T(n) = T(n-1)+\Theta(n) \implies T(n) = \Theta(n^2)
+\]
+
+\noindent L'algoritmo avrà un tempo di esecuzione atteso lineare, perché, in quanto reso casuale, nessun input in particolare ne provoca il caso pessimo.
+Esiste tuttavia un algoritmo deterministico per risolvere il problema delle selezioni con uno stesso tempo di esecuzione, ma in quanto fortemente
+dipendente dalla quantità delle costanti è difficile poterlo considerare in termini asintotici.\par
+In particolare, con grandi numeri è possibile che sia più efficiente un algoritmo nell'ordine di $nlog(n)$. Questo algoritmo è detto \textbf{mediana
+dei mediani} e si pone lo scopo di scegliere un buon pivot deterministicamente, per rimanere in una zona proporzionale. Intuitivamente, dato un array
+$A[p:r]$ di $n = r-p+1$ elementi e un intero $i$ tale che $1\leq i\leq n$, restituisce l'$i$-esimo elemento più piccolo dell'array con i seguenti
+passi, assicurandosi che il numero di elementi $r-p+1$ di $A[p:r]$ sia divisibile per $5$: \begin{enumerate}
+	\item Divide gli elementi dell'array $A[p:r]$ in gruppi da $5$ elementi ciascuno, per poi ordinarli con una sub-routine che lavora in loco.
+	\item Ottenute le cinquine ordinate, la loro mediana sarà sicuramente $A[j+2g]$ e a loro volta, la loro mediana cade nel sottoarray
+	$A[p+2g:p+3g-1]$.
+	\item Si determina quindi il pivot $x$ chiamando ricorsivamente l'algoritmo per trovare la mediana delle $g$ mediane di ogni cinquina.
+	\item Si partizionano ora gli elementi di $A[p:r]$ attorno ad $x$, restituendo l'indice $q$ di $x$ sicché $A[q]=x$. Sono create inoltre la sezione
+	bassa e alta.
+	\item Si effettua, come in randSelect, la ricorsione sulla sezione interessata per trovare l'elemento $i$.
 \end{enumerate}
 
-% TODO Riprendi da qua, sto distrutto oggi, non ce la fo.
+\noindent La divisione degli elementi in cinquine usa tempo costante, il calcolo della mediana richiede $O(5n)$ per ogni gruppo e la mediana delle
+mediane $O(n/5)$, approssimato per eccesso. La partizione attorno al pivot si effettua poi in tempo lineare $O(n)$, considerata asintoticamente insieme
+alle chiamate ricorsive finali, risulta la seguente equazione di ricorrenza per il caso pessimo: \[
+	T(n) \leq T(n/5) + T(7n/10) + \Theta(n)
+\]
 
-\begin{comment}	
-	1: Dividi A in n/5 (approx per difetto) gruppi di 5 elementi più il gruppo con gli ultimi che restano.
-	Compl: 0
-	2: Calcolo il mediano di ogni singolo gruppo
-	Compl: 5n
-	3: Sia x il mediano dei mediani, calcolato ricorsivamente con select();
-	Compl: $T(n/5)$, con $n/5$ approssimato per eccesso. Eccesso a causa del gruppo con gli ultimi elementi restanti.
-	4: Partiziona su x. Sia k il numero di elementi a sinistra. Quindi x è il perno usato.
-	Compl: n
-	5: Scelgo la parte interessata.
-	if (i<=k) select(left, i)
-	else select(right, i-k)
-	Compl: T(dimensione più grande) [*qui]
-	
-	Complessità: \Theta(n) + T(n/5) + T(7/10n + 6)
-	
-	5 elementi perché così il mediano è ben definito, ed è anche un numero sufficientemente basso per avere complessità lineare. Un compromesso.
-	
-	Per esempio, con un array ottenuto dall'elaborazione dei mediani, ottengo che ha lunghezza 9. Se prendo la parte più grande, avrò 4 mediani maggiori del perno.
-	Uno di questi mediani è in un insieme con possibilmente non 5 elementi. La cosa si mostra con:
-	
-	3 (\frac{n/5}{2} - 1 - 1) \\geq 3/10 n - 6		// Limite inferiore al numero di elementi che stanno a dx. Puoi farlo anche per la sx.
-	
-	Tutti gli elementi a destra meno uno esprimeranno 3 valori maggiori del mediano.
-	
-	n - (3/10 n -6) = 7/10n + 6. Questa formula è l'argomento da sostituire a "dimensione più grande"[*]
-	
-	L'equazione di ricorrenza \Theta(n) + T(n/5) + T(7/10n + 6) è sotto c(n). Usiamo la sostituzione
-	
-	T(n) \leq c'n + c(n/5) + c(7/10n + 6)		// Sostituzione applicabile solo se 7/10n + 6 è più piccolo di n.
-	\leq c'n + c(n/5 + 1 + 7/10n + 6)
-	= c'n + 7c + c9/10n					// Al prox passaggio procedo a tenere la mia ipotesi MENO all'espressione rimanente
-	\leq cn - (1/10cn - c'n -7c)		// Serve (1/10cn - c'n -7c) \geq 0 per avere questo valore \leq cn.
-\end{comment}
+\noindent Questo perché almeno $3\lfloor n/10 \rfloor - 6$ elementi sono garantiti essere eliminati dalla partizione attorno alla mediana delle mediane,
+lasciando al più $7n/10+6$ elementi nel sottoproblema. Per dimostrare che l'algoritmo opera in un ordine di grandezza lineare, utilizziamo il metodo di
+sostituzione per risolvere l'equazione di ricorrenza: \begin{equation}
+	\begin{split}
+		T(n) &\leq c(n/5) + c(7n/10) + \Theta(n)\\
+			&\leq 9cn/10 + \Theta(n) = cn - cn/10 + \Theta(n)\\
+			&\leq cn
+	\end{split}
+\end{equation}
+
+\noindent Questa sostituzione vale per una costante $c$ sufficientemente grande e per ogni $n > 0$, prendendo in particolare $n \geq 5$.

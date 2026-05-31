@@ -1,0 +1,100 @@
+Lez18 - 26-05-26 Reti di calcolatori
+
+--- Bridge
+Quando gli switch costavano ancora tanto e avevano un numero limitato di porte, se ne utilizzava uno solo al quale erano connessi tutti i cavi coassiali.
+
+La sua dinamica è quanto segue:
+- Quando una stazione genera una trama, il bridge la recupera dal primo segmento (cavo coassiale) e la memorizza interamente. Se la destinazione si trova sull'altro segmento la trasmette là.
+- Il comportamento nei due segmenti è indipendente. Quindi se due stazioni trasmettono nel mezzo condiviso collidono, mentre se due stazioni in due segmenti diversi generano una trama e la trasmettono non ci sono problemi, perché bridge la memorizzerà e tenterà di trasmetterla in base all'algoritmo scelto tra aloha o csma.
+
+Ogni porta ha il proprio buffer di entrata e uscita, i quali metteranno in coda le trame per la trasmissione.
+
+--- Esercizi con il bridge
+1. Bridge Aloha
+Stabiliamo che il tempo di propagazione sui segmenti è nullo (\tau_1=0, \tau_2=0). La velocità di trasmissione sul primo segmento v_1 = 1.6Mbit/s. La lunghezza delle trame è di 800B.
+
+A genera due trame al tempo t_{A1}=216ms e t_{A2}=256ms, entrambe dirette a B.
+B genera t_{B1}=233ms diretta ad A
+C genera t_{C1}=219ms diretta ad A
+
+Tempo di trama T = 800B * 8 / 1.6MBit/s * 10^6 = 4ms
+
+A inizia la trasmissione di A1 da 216ms a 220ms, trasmessa correttamente.
+Il bridge la riceve a 220ms per trasmetterla a 224ms.
+C inizia la trasmissione da 219ms a 223ms, collide con A1 trasmessa dal bridge.
+
+Il tempo di attesa per C z_c = (2+1+9)*1+4=16ms \implies 223+16 = 239ms
+Il tempo di atteza per Bridge z_{Br} = (2+2+0)*1+4=8ms \implies 224+8 = 232ms
+
+Il bridge ritenta di trasmettere A1 da 232 a 236.
+B inizia la trasmissione di B1 a 233ms, collide con A1.
+
+Il tempo di attesa per B z_B = (2+3+3)*1+4 = 12ms \implies 237+12 = 249ms
+Il tempo di attesa per Bridge z_{Br} = (2+3+2)*2+4 = 18ms \implies 236+24 = 254ms
+
+C ritenta la trasmissione di C1 da 239ms a 243ms, correttamente trasmessa al bridge.
+Quest'ultimo trasmetterà ad A C1 da 243 a 247 senza problemi.
+
+B ritenta da 249 a 253 di trasmettere B1 al bridge. Nessuna collisione.
+Il bridge ritenta per la seconda volta di trasmettere A1 da 254 a 258. Non collide.
+Il bridge trasmette B1 ad A da 253ms a 257ms.
+A genera e trasmette A2 da 256ms a 260ms, collide con B1 dal bridge.
+
+Tempo di attesa per z_{A2} = (2+5+6)*1+4 = 17ms \implies 260+17 = 277ms
+Tempo di attesa per z_{Br} = (2+5+3)*1+4 = 14ms \implies 257+14 = 271ms
+
+Il bridge ritenta di trasmettere da 271 a 275ms. Nessun problema.
+A ritenta di trasmettere al bridge da 277 a 281. Nessun problema.
+Il bridge trasmette da 281 a 285. Nessun problema. Terminato.
+
+--- Bridge CSMA persistent
+Abbiamo due segmenti e un bridge. Sul primo sta A e sul secondo sta B.
+\tau_1 = 1ms, \tau_2 = 2ms. La lunghezza L = 1500B. v_1 = v_2 = 1.5Mbit/s
+
+A genera due trame t_{A1}=713ms, t_{A2}=715ms dirette a B
+B genera due trame t_{B1}=719ms, t_{B2}=730ms dirette a A
+
+Tempo di trama T = 1500*8 / 1.5*10^6 = 8ms
+
+A inizia la trasmissione di A1 da 713 a 721. Arriva al bridge a 722ms.
+A genera inoltre A2 a 715, che però non è trasmessa perché vede che il canale è occupato. La concatena appena finisce A1 e inizierà quindi la trasmissione da 721ms a 729ms.
+
+Intanto, il bridge trasmette da 714 a 722 A1 verso B e da 722 a 730 A2 verso B.
+
+B genera e trasmette B1 da 719 a 727 verso il bridge.
+A1, vedendo ciò, attende la trasmissione fino al termine di B1 che è a 729. Inizierà quindi la trasmissione di A1 a 729 a 737. Arriverà su B da 731 a 739.
+
+Tuttavia B aveva iniziato B2 da 730ms. Entra qunindi in collisione con A1.
+
+Tempo di atteza z_{Br} = (7+2+9)*1+8 = 26ms \implies 737+26 = 763ms
+Tempo di attesa z_{B} = (7+3+0)*1+8 = 18ms \implies 738+18 = 756ms
+
+Il bridge a 730 inizia a trasmettere B1, intonso. È trasmessa correttamente da 730 a 738, arrivata da 731 a 739.
+
+Il bridge, finché non risolve la collisione, non fa passare davanti altre trame nella coda del buffer. Bisognerà quindi risolvere il problema con A1.
+Quindi, si ritenta la trasmissione di B2 da 756 a 764. Ascoltando il canale, il bridge vede che a 763 il canale è occupato. Potrà trasmettere A1 da 766 a 774 e il bridge con gli stessi tempi trasmetterà B2 ad A correttamente.
+
+Poi il bridge trasmetterà A2 concatenato ad A1 da 774 a 782, il quale arriverà da 776 a 784ms, terminando la trasmissinoe.
+
+--- Esercizio indirizzamento parte di routing
+Mostrare la tabella di routing del router A considerando come metrica il numero di hop e assumendo che il router X abbia annunciato di raggiungere tutti gli host su internet con 5 hop.
+La tabella di routing di A è come seue:
+
+destinazione        costo           nextHop
+Lan1                1               diretta
+Lan2                1               diretta
+Lan3                2               B           // Hop da a a b e da b a host
+Internet            6               X           // Hop da a a x e da x a internet (5)
+X                   1               diretta
+B                   1               diretta
+C                   2               B or X
+
+--- Delimitazione delle trame
+Assumiamo di dover trasmettere più trame di lv.2 consecutive. Quindi stanno nel buffer e devono essere trasmesse una dietro l'altra. Bisognerà passare dal livello fisico e quindi dal mezzo di trasmissione.
+I due pacchetti sono una sequenza di bit tradotta (per esempio) in onda elettromagnetica, che viaggia sul canale e viene demodulata riottenendo i bit trasmessi, dai quali si recuperano le diverse trame.
+Ma come si fa a capire quali bit appartengono alla relativa trama?
+
+Soluzioni possibili:
+    - Introdurre intervalli tra una trama e la successiva. Si tratta di una soluzione semplice e intuitiva, ma spreca inevitabilmente del canale con dei momenti di silenzio e la distorsione del segnale potrebbe annullare i silenzi.
+    - Character count: Introduce nell'header di lv.2 un campo che indica il numero di Byte della trama. Il problema sta nel fatto che ogni trasmissione si porta un potenziale errore a causa delle distorsioni, quindi in caso di errore, nel campo della dimensione potrebbero spuntare disallineamenti a cascata.
+    - Byte di flag e bit stuffing: Ad ogni trama si aggiunge all'inizio e alla fine un byte con una sequenza specifica di bit. Per esempio 01111110. Limita sicuramente la propagazione degli errori, ma la sequenza usata per il flag si può trovare all'interno dei dati della trama. Qui entra in gioco il bit stuffing. In trasmissione, ogni volta che incontro nei dati la sequenza scelta per il flag, viene aggiunto uno 0 per differenziarla. In ricezione, invece, ogni volta che incontro la sequenza, lo si rimuove quello 0 aggiunto, per ottenere i dati effettivi della trama.

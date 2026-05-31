@@ -1,0 +1,83 @@
+Lez19 - 29-05-26 Reti di calcolatori
+
+--- Reti Wireless (Wi-Fi, codice IEEE 802.11, CSMA-CA)
+Nelle reti LAN wireless, posto fra il router e gli host, è presente un Access point con uno stack protocollare di livello fisico e collegamento dati. Se ho capito bene svolge lo stesso funzionamento del bridge.
+Presenta due interfacce, la prima agli host, la seconda è la cablata per il router. In particolare, hanno un sottolivello 2 nello stack protocollare.
+Gli access point sono mezzi condivisi, con una capacità condivisa con tutti gli host. Bisogna prevenire quanto più possibile le collisioni e si introduce quindi una nuova variante di algoritmo per gestione mezzo condiviso.
+
+Il protocollo non prevede comunicazione diretta tra gli host e si appella sempre all'access point. Una variante lo permette, ma formalmente non viene mai attivata. L'access point dunque agisce da manager o master e gestisce la temporizzazione, sicché tutti gli host siano allineati.
+
+Il tempo disponibile è diviso in slot la cui dimensione è determinata dal tempo di propagazione tra l'access point e la stazione più distante. Si tratta di un valore dipendente dalla tecnologia implementata. Influenza anche il tempo di propagazione.
+Gli slot sono in genere intervalli molto piccoli.
+
+Per esempio 802.116 (11Mbit/s), con \tau = 10\mu s.
+
+Vengono definiti due intervalli per il CSMA-CA:
+    - SIFS: Short InterFrame Space, equivalente alla dimensione minima dello slot, qunidi uguale a \tau.
+    - DIFS: Distributed InterFrame Space, equivalente a tre volte l'intervallo base, quindi 3\tau.
+
+Tutti gli host sono sincronizzati riguardo la temporizzazione, quindi tutti sanno quando inizia un nuovo slot.
+
+``` CSMA-CA (CSMA Collision avoidance)
+- Quando una stazione ha una trama, la trasmette.
+    - Ascolta il canale
+
+    1. Se il canale è libero
+        - Continua ad ascoltarlo per un tempo pari a un tempo di intervallo DIFS
+        - Se il canale è ancora libero
+            - Trasmetti la trama
+
+    2. Se il canale è occupato
+        - Se visto occupato prima dell'attesa del tempo DIFS
+            - Continua ad ascoltare finché non si libera
+        - Se visto occupato durante l'attesa del tempo DIFS
+            - Continua ad ascoltare finché non si libera
+
+    3. Quando il canale si è liberato
+        - Ascolta per un ulteriore intervallo DIFS
+        - Se durante l'attesa il canale torna occupato
+            - Ritorna al punto 2.
+
+    4. Se il canale rimane libero per un intervallo DIFS
+        - Estrai un numero casuale uniformemente distribuito tra s = (0,cw-1) (cw=contention window).
+        - Fintanto che il canale rimane libero, la stazione decrementa s ad ogni slot.
+        - Se s arriva a 0 la stazione trasmette la trama.
+        - Se il canale torna occupato durante la decrementazione di s, congelo il countdown, torno al punto 2, e una volta tornati al punto 4 si riprenderà a decrementare s da dove ci si era fermati.
+
+    5. In caso di collisione
+        - Interrompi la trasmissione
+        - Estrai un tempo casuale e torna al punto 1 raddoppiando il valore della cw.
+```
+s è il numero di slot SIFS da attendere prima di poter trasmettere.
+
+- Esempio CSMA-CA
+AP sta trasmettendo una trama e assumiamo che A e B abbiano generato una trama ciascuna.
+A lo percepisce occupato e continua ad ascoltare il canale finché non si libera. Idem B.
+Le due stazioni contnuano ad ascoltare il canale per un intervallo DIFS.
+Scaduti i tre slot DIFS, le due stazioni estraggono un numero casuale s = (0, cw-1). Diciamo che s_a=6 e s_b=10.
+
+s_a si decrementa e a s_a=0 potrà trasmettere la trama perché vede che il canale è libero.
+s_b riesce a decrementare fino a 4 per poi notare che il canale è occupato da A. interrompe la trasmissione.
+
+Nel frattempo, C ha generato un'altra trama mentre è trasmessa la trama di A. Terminata la trasmissione di A e scaduto il DIFS di C, estrae s_c=8.
+
+B nel frattempo stava ascoltando e riesce a trasmettere prima di C grazie a s_b=4.
+s_c riesce a decrementare fino a s_c=4. Potrà riprendere la trasmissione quando termina quella di B, avrà atteso i suoi DIFS e decrementato s_c=0.
+
+È evidente che il protocollo favorisca stazioni che estraggono valori di s più piccoli. È uno schema equo rispetto a tutte le risorse perché s è estratto casualmente.
+Ma se esiste già s a che serve attendere pure il DIFS?
+Nelle wireless lan (wifi) c'è la possibilità di attivare un riscontro di livello 2. Quindi una ricevuta di consegna da parte dell'access point in merito alla trama, relativo, naturalmente, al singolo hop tra host e AP.
+Di norma questo ACK non è mai attivato, ma deve essere mandato subito dopo un SIFS dalla terminazione della trasmissione della trama.
+
+Quindi banalmente il DIFS da attendere esiste per permettere una corretta ricezione del riscontro di consegna.
+
+--- Esercizio Lv2
+Abbiamo due segmenti di rete collegati da un bridge. Sul primo sono due stazioni A, B, mentre sul secondo sta la C.
+Il ritardo di propagazione è di 2ms da A al bridge, di 1ms da B e di 1ms da C.
+Il segmento delle due stazioni ha v=600KBit/s, mentre quella del segmento 2 è di 1200KBit/s.
+La lunghezza delle trame globale è di L = 900B. Il protocollo adottato è CSMA-persistent.
+
+Vengono generate le seguenti trame:
+    - A: t_{A1}=511ms verso C, t_{A2}=531ms verso B
+    - B: t_{B1}=545ms verso C
+    - C: t_{C1}=514ms verso B, t_{C2}=533ms verso A

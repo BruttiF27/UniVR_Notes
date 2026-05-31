@@ -509,6 +509,7 @@ INPUT ./main.toc
 INPUT main.toc
 INPUT main.toc
 OUTPUT main.toc
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsl12.tfm
 INPUT ./Chapters/1.tex
 INPUT ./Chapters/1.tex
 INPUT ./Chapters/1.tex
@@ -525,7 +526,6 @@ INPUT ./Images/EsempioComunicazione.png
 INPUT Images/EsempioComunicazione.png
 INPUT ./Images/EsempioComunicazione.png
 INPUT ./Images/EsempioComunicazione.png
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmsl12.tfm
 INPUT ./Images/LAN-Internet connection.png
 INPUT ./Images/LAN-Internet connection.png
 INPUT Images/LAN-Internet connection.png
@@ -747,11 +747,26 @@ INPUT ./Images/CD-CSMA.png
 INPUT Images/CD-CSMA.png
 INPUT ./Images/CD-CSMA.png
 INPUT ./Images/CD-CSMA.png
+INPUT ./Images/switch.png
+INPUT ./Images/switch.png
+INPUT Images/switch.png
+INPUT ./Images/switch.png
+INPUT ./Images/switch.png
 INPUT ./Images/header_ethernet.png
 INPUT ./Images/header_ethernet.png
 INPUT Images/header_ethernet.png
 INPUT ./Images/header_ethernet.png
 INPUT ./Images/header_ethernet.png
+INPUT ./Images/wirelessLAN.png
+INPUT ./Images/wirelessLAN.png
+INPUT Images/wirelessLAN.png
+INPUT ./Images/wirelessLAN.png
+INPUT ./Images/wirelessLAN.png
+INPUT ./Images/CSMA-CA.png
+INPUT ./Images/CSMA-CA.png
+INPUT Images/CSMA-CA.png
+INPUT ./Images/CSMA-CA.png
+INPUT ./Images/CSMA-CA.png
 INPUT main.aux
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb

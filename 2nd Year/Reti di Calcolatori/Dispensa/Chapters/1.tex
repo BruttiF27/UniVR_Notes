@@ -295,3 +295,18 @@ infine LAN4, ottenendo: \begin{itemize}
 	\item LAN3: $00101110.10100000.10001100.1/0000000 \implies 46.144.140.128/25$ \checkmark
 	\item LAN4: $00101110.10100000.10001100.01/000000 \implies 46.144.140.64/26$ \checkmark
 \end{itemize}
+
+\begin{comment}
+--- Esercizio indirizzamento parte di routing
+Mostrare la tabella di routing del router A considerando come metrica il numero di hop e assumendo che il router X abbia annunciato di raggiungere tutti gli host su internet con 5 hop.
+La tabella di routing di A è come seue:
+
+destinazione        costo           nextHop
+Lan1                1               diretta
+Lan2                1               diretta
+Lan3                2               B           // Hop da a a b e da b a host
+Internet            6               X           // Hop da a a x e da x a internet (5)
+X                   1               diretta
+B                   1               diretta
+C                   2               B or X
+\end{comment}

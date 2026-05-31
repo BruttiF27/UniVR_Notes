@@ -228,7 +228,7 @@ $58\%$ per l'algoritmo persistente, mentre fino al $90\%$ per il p-persistente, 
 
 %
 
-\section{Ethernet, switch e LAN}
+\section{Ethernet, switch e LAN, Bridge}
 Il protocollo \textbf{Ethernet} è quello attualmente più utilizzato nelle reti LAN cablate; si tratta di una tecnologia nata negli anni '70 le cui
 prime implementazioni si servivano di un cavo coassiale come bus per connettere ogni nodo. Questa topologia rendeva le reti che ne facevano utilizzo
 delle \textbf{LAN Broadcast}, in quanto tutti i frame trasmessi venivano elaborati da tutte le schede di rete connesse al bus.\par
@@ -237,11 +237,17 @@ fisico che, ricevuto un bit a un'interfaccia, ne amplifica la potenza e lo trasm
 Negli anni 2000 Ethernet subì un'altra trasformazione; dove è rimasta la topologia a stella, l'hub è stato sostituito da uno \textbf{switch}, un
 apparecchio che utilizza i soli livelli di collegamento dati e fisico ed è formato da un insieme di porte alle quali sono collegati i vari host della
 rete. Svolge funzioni di store-and-forward ed è immune alle collisioni. Le reti che lo implementano sono dette \textbf{Switched LAN}, ovvero reti
-locali commutate.\par
-Il pacchetto a livello 2 attraversa lo switch dal canale fisico (la porta, appunto) adeguato per essere trasportato al router, determinato grazie a una
-tabella in cui è associato l'indirizzo MAC dell'host o del router con la porta alla quale sono connessi. In caso di una consegna diretta, non è
-richiesto l'utilizzo del router ed è sufficiente lo switch per il trasporto dei pacchetti, mentre per quella indiretta è necessario inviare i dati alla
-porta del router, il quale decapsulerà le intestazioni presenti fino a livello di rete, per poi procedere con i consueti algoritmi di instradamento
+locali commutate.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/switch.png}
+	\caption{Struttura di uno switch}
+\end{figure}
+
+\noindent Il pacchetto a livello 2 attraversa lo switch dal canale fisico (la porta, appunto) adeguato per essere trasportato al router, determinato
+grazie a una tabella in cui è associato l'indirizzo MAC dell'host o del router con la porta alla quale sono connessi. In caso di una consegna diretta,
+non è richiesto l'utilizzo del router ed è sufficiente lo switch per il trasporto dei pacchetti, mentre per quella indiretta è necessario inviare i dati
+alla porta del router, il quale decapsulerà le intestazioni presenti fino a livello di rete, per poi procedere con i consueti algoritmi di instradamento
 relativi alla consegna.\par
 È possibile fare uso di più switch collegandoli tra di loro; si tratta di una configurazione utilizzata per la gestione di un edificio su più piani,
 per esempio. Ogni piano presenterà un determinato numero di host, collegati al relativo switch della locazione, i quali potranno vedere i loro indirizzi
@@ -282,8 +288,196 @@ svolge una funzione analoga al DNS, ma per gli indirizzi MAC della stessa sottor
 \end{enumerate}
 
 \noindent Gli accoppiamenti tra indirizzi IP e indirizzi MAC, come anche le ARP-asw ottenute, sono salvati in una \textbf{tabella ARP} in cui ogni
-riga ha un determinato tempo di validità, al termine del quale viene cancellato.
+riga ha un determinato tempo di validità, al termine del quale viene cancellato.\par
+Introduciamo adesso il problema di \textbf{delimitazione delle trame}. Richiamando il tempo in cui gli apparecchi switch erano troppo costosi e con un
+numero di porte limitato rispetto a quelli odierni, era possibile utilizzarne uno solo al quale erano collegati tutti i cavi coassiali della struttura.
+Ciò creava un contesto nel quale erano presenti almeno due cavi indipendenti connessi allo stesso apparecchio, definito \textbf{bridge}. Quando una
+stazione genera una trama, quest'ultimo la recupera dal segmento (cavo coassiale) al quale è collegata e la memorizza internamente. Se la destinazione
+si trova sull'altro segmento, procede a trasmettervi la trama.\par
+In quanto cavi indipendenti, se due stazioni trasmettono allo stesso tempo ma sono collegate a segmenti diversi, non si ha una collisione. Inoltre, il
+bridge utilizzerà il suo buffer di entrata per salvare le trame ricevute e quello di uscita per effettuare tentativi di trasmissione in base
+all'algoritmo scelto dal segmento.\newline
+
+\noindent Assumiamo ora di dover trasmettere più trame di livello 2 consecutivamente. Queste arriveranno al buffer di entrata della porta del bridge e
+saranno trasmesse una dietro l'altra. Sarà necessario passare dal livello fisico, ma a questo punto bisogna fornire una modalità per distinguere
+l'inizio e la fine di ogni trama inviata, perché a livello fisico sono modulate e demodulate in base al mezzo scelto.\par
+Si potrebbe pensare di introdurre intervalli tra le trame, ma ha alcuni svantaggi degni di nota, come lo spreco di risorse dovuto a questi spazi di
+silenzio, oppure la fragilità in caso di distorsione del segnale. Un'altra idea è quella del \textbf{character count}, che introduce nell'header di
+livello 2 un campo che indica il numero di Byte della trama. Problematica anch'essa, però, in quanto ogni trasmissione comporta un potenziale errore a
+causa delle distorsioni, disallineando di conseguenza il valore della trama distorta come anche quelle successive.\par
+La soluzione più utilizzata è quella del \textbf{byte di flag e bit di stuffing}, che vede una specifica sequenza di bit aggiunta all'inizio e alla fine
+di ogni trama. Usata da sola risulterebbe estremamente fragile, poiché la sequenza potrebbe presentarsi all'interno del campo dei dati, quindi si
+aggiunge il bit di stuffing; in particolare, in trasmissione, ad ogni sequenza equivalente a quella scelta trovata nei dati si aggiunge uno $0$, mentre
+in ricezione lo si rimuove per riottenere i dati originali della trama.
 
 %
 
 \section{Wireless LAN}
+Introduciamo adesso l'architettura di rete più comunemente utilizzata: le \textbf{Wireless LAN} (Wi-Fi). In questo modello è presente un apparecchio
+supplementare chiamato \textbf{access point}, dotato di una stack protocollare di livello fisico e collegamento dati e posto tra il router e gli
+end-host. Svolge una funzione equivalente a quella del bridge ed è connesso tramite due interfacce agli host e al router rispettivamente.\par
+Questi apparecchi sono mezzi la cui capacità è condivisa con tutti gli host di una determinata rete; ciò implica la presenza di collisioni, ed è
+necessario fornire una nuova variante del CSMA per una gestione quanto più ottimale. Questo protocollo, chiamato \textbf{CSMA-CA} (Collision Avoidance)
+non prevede una comunicazione diretta tra gli host\footnote{Il discorso vale per una configurazione normale, ma esiste anche una variante che consente
+di comunicare direttamente in determinati contesti.}, forzandoli quindi ad appellarsi all'access point per comunicazioni dirette e indirette.\par
+Il mezzo condiviso agisce quindi da manager e ha anche il compito di gestire la temporizzazione per allineare correttamente gli host coinvolti; in
+particolare, il tempo disponibile è diviso in vari slot la cui dimensione è determinata dal tempo di propagazione tra access point e la stazione più
+distante, rendendo il valore dipendente dalla tecnologia implementata. In genere, gli slot hanno un intervallo di dimensione molto piccola, come
+$10\mu s$, se consideriamo IEEE 802.116. Definiamo quindi due tipi di intervallo per il CSMA-CA: \begin{itemize}
+    \item \textbf{SIFS}: Short InterFrame Space, equivalente alla dimensione minima dello slot, quindi a $\tau$.
+    \item \textbf{DIFS}: Distributed InterFrame Space, equivalente a tre volte l'intervallo base, quindi a $3\tau$.
+\end{itemize}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/wirelessLAN.png}
+	\caption{Struttura rete wireless}
+\end{figure}
+
+\noindent Tutti gli host sono sincronizzati dall'access point per quanto riguarda la temporizzazione, di conseguenza hanno tutti presente quando inizia
+un nuovo slot. La procedura richiede inoltre due valori specifici: $cw$, detto \textbf{contention window}, indica il numero di slot totali che si
+possono potenzialmente attendere, mentre $s$ è il numero di slot SIFS da attendere prima di poter trasmettere. Presentiamo l'algoritmo con un esempio
+in quanto nettamente più complesso rispetto ai precedenti: \begin{enumerate}
+    \item Supponiamo un access point che collega due segmenti. Il primo contiene la stazione A, mentre il secondo presenta B e C.
+    \item L'AP trasmette una trama $t_{AP}$ con successo, e durante questo intervallo di tempo così generano anche A e B le proprie $t_A, t_B$. Vedendo
+    tuttavia il canale occupato, continueranno ad ascoltare il canale fino alla sua liberazione.
+    \item Una volta liberato il canale, A e B continuano ad ascoltarlo per un intervallo DIFS, al termine del quale estrarranno il proprio valore
+    casuale $s$. Supponiamo $s_A=6$ e $s_B=10$.
+    \item Si decrementano quindi i due valori e dato che A presentava quello minore, raggiungerà lo 0 per prima e potrà quindi trasmettere la sua trama.
+    Vedendo il canale nuovamente occupato, B salva il suo counter, arrivato a $s_B=4$ e ritorna ad attendere la liberazione del mezzo. Inoltre, durante
+    la trasmissione di $t_A$, C ha generato la propria trama $t_C$, che come $t_B$ dovrà attendere il termine di $t_A$.
+    \item Conclusa la trasmissione della trama di A, B e C attenderanno il DIFS per poi riprendere il conteggio interrotto nel caso di B ed estrarre un
+    $s$ nel caso di C. Supponiamo $s_C=8$.
+    \item Il valore di $s_B$ è il minore, quindi B potrà trasmettere la sua trama quando raggiungerà lo zero, mentre $s_C$ arriva a $4$ e salverà il
+    proprio valore.
+    \item Terminata la trasmissione di $t_B$, C potrà attendere il DIFS e decrementare il suo $s_C$ per trasmettere finalmente la sua trama, terminando
+    la comunicazione in toto.
+\end{enumerate}
+
+\begin{algorithm}[h]
+    \caption{CSMA-CA}
+    \begin{algorithmic}[i]
+        \While{Stazione ha dati da trasmettere}
+            \State Verifica stato del canale
+            \If{Canale libero}
+                \State Ascoltalo ancora per un tempo pari a un DIFS
+                \State Se rimane libero al termine dell'attesa, trasmetti. \Comment{Terminazione}
+            \Else
+                \While{Canale occupato}
+                    \State Attendi la sua liberazione
+                \EndWhile
+            \EndIf
+            \State Verifica stato del canale
+            \If{Canale rimane libero per un intervallo DIFS}
+                \State Se non esiste, estrai un numero uniformemente distribuito $s$ tra $(0, cw-1)$
+                \While{Canale è ancora libero}
+                    \State $s\gets s-1$
+                    \If{$s=0$}
+                        \State Trasmetti la trama \Comment{Terminazione}
+                    \EndIf
+                \EndWhile \Comment{Se esce con $s\neq 0$, il canale è di nuovo occupato}
+                \State Salva il valore corrente di $s$
+            \ElsIf{Collisione verificata}
+                \State Interrompi la trasmissione
+                \State Estrai un tempo casuale da attendere e raddoppia $cw$
+            \EndIf
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}
+
+\noindent Ne risulta evidente come il protocollo favorisca stazioni fortunate abbastanza da estrarre valori $s$ più piccoli rispetto alle altre.
+Nonostante ciò, è esattamente questa casualità a renderlo equo rispetto a tutte.\par
+Ma a questo punto, qual è lo scopo del DIFS se è necessario attendere ugualmente un numero di $s$ slot? Ebbene, nelle reti wireless è possibile
+attivare un riscontro di livello 2, quindi una ricevuta di consegna da parte dell'access point in merito alla trama; relativo, naturalmente, al singolo
+hop tra host e access point, ed è inviato subito dopo un SIFS dalla fine della trasmissione della relativa trama. Il DIFS è necessario per garantire
+tempo a sufficienza per la trasmissione di questo acknowledgement.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/CSMA-CA.png}
+	\caption{Algoritmo CSMA-CA}
+\end{figure}
+
+%
+
+\section{Esercizi svolti}
+
+\begin{comment}
+--- Esercizi con il bridge
+1. Bridge Aloha
+Stabiliamo che il tempo di propagazione sui segmenti è nullo (\tau_1=0, \tau_2=0). La velocità di trasmissione sul primo segmento v_1 = 1.6Mbit/s. La lunghezza delle trame è di 800B.
+
+A genera due trame al tempo t_{A1}=216ms e t_{A2}=256ms, entrambe dirette a B.
+B genera t_{B1}=233ms diretta ad A
+C genera t_{C1}=219ms diretta ad A
+
+Tempo di trama T = 800B * 8 / 1.6MBit/s * 10^6 = 4ms
+
+A inizia la trasmissione di A1 da 216ms a 220ms, trasmessa correttamente.
+Il bridge la riceve a 220ms per trasmetterla a 224ms.
+C inizia la trasmissione da 219ms a 223ms, collide con A1 trasmessa dal bridge.
+
+Il tempo di attesa per C z_c = (2+1+9)*1+4=16ms \implies 223+16 = 239ms
+Il tempo di atteza per Bridge z_{Br} = (2+2+0)*1+4=8ms \implies 224+8 = 232ms
+
+Il bridge ritenta di trasmettere A1 da 232 a 236.
+B inizia la trasmissione di B1 a 233ms, collide con A1.
+
+Il tempo di attesa per B z_B = (2+3+3)*1+4 = 12ms \implies 237+12 = 249ms
+Il tempo di attesa per Bridge z_{Br} = (2+3+2)*2+4 = 18ms \implies 236+24 = 254ms
+
+C ritenta la trasmissione di C1 da 239ms a 243ms, correttamente trasmessa al bridge.
+Quest'ultimo trasmetterà ad A C1 da 243 a 247 senza problemi.
+
+B ritenta da 249 a 253 di trasmettere B1 al bridge. Nessuna collisione.
+Il bridge ritenta per la seconda volta di trasmettere A1 da 254 a 258. Non collide.
+Il bridge trasmette B1 ad A da 253ms a 257ms.
+A genera e trasmette A2 da 256ms a 260ms, collide con B1 dal bridge.
+
+Tempo di attesa per z_{A2} = (2+5+6)*1+4 = 17ms \implies 260+17 = 277ms
+Tempo di attesa per z_{Br} = (2+5+3)*1+4 = 14ms \implies 257+14 = 271ms
+
+Il bridge ritenta di trasmettere da 271 a 275ms. Nessun problema.
+A ritenta di trasmettere al bridge da 277 a 281. Nessun problema.
+Il bridge trasmette da 281 a 285. Nessun problema. Terminato.
+
+--- Bridge CSMA persistent
+Abbiamo due segmenti e un bridge. Sul primo sta A e sul secondo sta B.
+\tau_1 = 1ms, \tau_2 = 2ms. La lunghezza L = 1500B. v_1 = v_2 = 1.5Mbit/s
+
+A genera due trame t_{A1}=713ms, t_{A2}=715ms dirette a B
+B genera due trame t_{B1}=719ms, t_{B2}=730ms dirette a A
+
+Tempo di trama T = 1500*8 / 1.5*10^6 = 8ms
+
+A inizia la trasmissione di A1 da 713 a 721. Arriva al bridge a 722ms.
+A genera inoltre A2 a 715, che però non è trasmessa perché vede che il canale è occupato. La concatena appena finisce A1 e inizierà quindi la trasmissione da 721ms a 729ms.
+
+Intanto, il bridge trasmette da 714 a 722 A1 verso B e da 722 a 730 A2 verso B.
+
+B genera e trasmette B1 da 719 a 727 verso il bridge.
+A1, vedendo ciò, attende la trasmissione fino al termine di B1 che è a 729. Inizierà quindi la trasmissione di A1 a 729 a 737. Arriverà su B da 731 a 739.
+
+Tuttavia B aveva iniziato B2 da 730ms. Entra qunindi in collisione con A1.
+
+Tempo di atteza z_{Br} = (7+2+9)*1+8 = 26ms \implies 737+26 = 763ms
+Tempo di attesa z_{B} = (7+3+0)*1+8 = 18ms \implies 738+18 = 756ms
+
+Il bridge a 730 inizia a trasmettere B1, intonso. È trasmessa correttamente da 730 a 738, arrivata da 731 a 739.
+
+Il bridge, finché non risolve la collisione, non fa passare davanti altre trame nella coda del buffer. Bisognerà quindi risolvere il problema con A1.
+Quindi, si ritenta la trasmissione di B2 da 756 a 764. Ascoltando il canale, il bridge vede che a 763 il canale è occupato. Potrà trasmettere A1 da 766 a 774 e il bridge con gli stessi tempi trasmetterà B2 ad A correttamente.
+
+Poi il bridge trasmetterà A2 concatenato ad A1 da 774 a 782, il quale arriverà da 776 a 784ms, terminando la trasmissinoe.
+
+--- Esercizio Lv2
+Abbiamo due segmenti di rete collegati da un bridge. Sul primo sono due stazioni A, B, mentre sul secondo sta la C.
+Il ritardo di propagazione è di 2ms da A al bridge, di 1ms da B e di 1ms da C.
+Il segmento delle due stazioni ha v=600KBit/s, mentre quella del segmento 2 è di 1200KBit/s.
+La lunghezza delle trame globale è di L = 900B. Il protocollo adottato è CSMA-persistent.
+
+Vengono generate le seguenti trame:
+    - A: t_{A1}=511ms verso C, t_{A2}=531ms verso B
+    - B: t_{B1}=545ms verso C
+    - C: t_{C1}=514ms verso B, t_{C2}=533ms verso A
+\end{comment}

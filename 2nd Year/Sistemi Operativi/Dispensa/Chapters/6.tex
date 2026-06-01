@@ -168,10 +168,188 @@ variabile booleana \textbf{available}.
 \noindent Il vantaggio di questo meccanismo è di non rendere necessario alcun cambio di contesto, che tendenzialmente occupa molto tempo, tuttavia, se
 molti processi richiedono di acquisire un lock indisponibile, questi continueranno a ciclare e chiamare acquire() fino al suo rilascio, sprecando cicli
 della CPU. Per questa ragione sono chiamati anche "spinlock" e vengono utilizzati in sistemi multiprocessore dove possono far girare i thread su core
-diversi mentre il detentore del lock esegue la sua sezione critica.
+diversi mentre il detentore del lock esegue la sua sezione critica.\par
+Uno strumento più robusto per gestire la sincronizzazione dei processi è quello dei \textbf{semafori}; sono delle variabili intere a cui si può
+accedere\footnote{Escludendo l'inizializzazione.} solo tramite due operazioni atomiche chiamate \textit{wait()} e \textit{signal()}, definite come segue:
+\begin{lstlisting}[language=C]
+    wait (S) {
+        while (S <= 0) {
+            // Attesa attiva
+        }
+        S--;
+    }
 
-% TODO Mancano semafori e Monitor
+    signal (S) { S++; }
+\end{lstlisting}
+
+\noindent Tutte le modifiche al valore del semaforo $S$ devono essere effettuate all'interno di queste due funzioni e in modo indivisibile. Inoltre,
+nel caso di una chiamata a \textit{wait(S)}, sarà necessario verificare anche il valore intero del semaforo e la sua eventuale modifica. Distinguiamo
+due tipi di semafori: \begin{itemize}
+    \item \textbf{Binari}: Il loro valore è limitato a $[0,1]$; in quanto simili ai lock mutex, vengono usati al loro posto dove i primi non possono
+    essere applicati.
+    \item \textbf{Contatore}: Il loro valore è un numero intero. Sono utilizzati in un contesto dove è necessario un controllo dell'accesso ad una
+    risorsa presente in più esemplari.
+\end{itemize}
+
+\noindent In particolare, per questi ultimi, si inizializzano con il valore delle risorse disponibili, e i processi che ne desiderano utilizzare una
+dovranno invocare \textit{wait(S)}, decrementandone quindi il valore, mentre coloro che devono restituirne, useranno \textit{signal(S)}, aumentandolo.
+Nel caso in cui il semaforo valga $0$ significa che tutte le risorse sono occupate e i processi richiedenti dovranno \textbf{bloccarsi} fin quando il
+semaforo non torna positivo.\par
+Ciò introduce nuovamente il problema dell'attesa attiva, quindi si va a modificare le definizioni delle due operazioni elementari. Per quanto riguarda
+\textit{wait()} possiamo bloccare il processo e porlo nello stato di attesa, sicché lo scheduler possa fare un cambio di contesto e dare il controllo
+della CPU a un altro processo pronto. Questo processo sospeso, in attesa del semaforo, sarà riavviato in seguito ad una chiamata a \textit{signal(S)}
+da parte di un altro processo e tramite un'operazione chiamata \textit{wakeup()} si modifica il suo stato da attesa a pronto, spostandolo nella relativa
+coda. In un contesto tale, ridefiniamo il semaforo come segue: \begin{lstlisting}[language=C]
+    typedef struct {
+        int value; // Valore del semaforo
+        struct process *list; // Processi in attesa
+    } semaphore;
+\end{lstlisting}
+
+\noindent Mentre in pseudocodice, wait e signal diventano: \begin{lstlisting}[language=C]
+    wait (semaphore *S) {
+        S->value--;
+        if (S->value < 0) {
+            // Aggiungi il processo a S->list
+            sleep();
+        }
+    }
+
+    signal (semaphore *S) {
+        S->value++;
+        if (S->value <= 0) {
+            // Rimuovi un processo da S->list
+            wakeup();
+        }
+    }
+\end{lstlisting}
+
+\noindent La funzione \textit{sleep()} sospende il processo che la invoca, mentre \textit{wakeup()} lo pone come pronto; queste sono due operazioni
+fornite dal sistema operativo tramite system call.\par
+Contrariamente alla precedente definizione di semaforo, che lo mostrava come un intero, con queste modifiche è possibile scendere a numeri negativi, il
+cui valore assoluto rappresenta il numero di processi in attesa che il semaforo si liberi. La lista dei processi, invece, è tipicamente implementata
+con un puntatore a una coda FIFO contenente ciascun PCB.\par
+Consideriamo ora le operazioni di \textit{wait()} e \textit{signal()}; in quanto è richiesto che siano atomiche, si deve garantire che nessun processo
+le attui allo stesso tempo su uno stesso semaforo; ciò è riconducibile a un problema di accesso alla sezione critica. Nei sistemi a singola CPU
+banalmente si inibiscono gli interrupt durante le esecuzioni delle due operazioni, ma nei sistemi multi-core disabilitare le interruzioni porterebbe a
+un drastico calo delle prestazioni; per questa ragione mettono a disposizione diverse tecniche di realizzazione dei lock, come spinlock o
+\textit{compare\_and\_swap()}.\par
+Notiamo infine che la nuova definizione di \textit{wait()} e \textit{signal()} non elimina completamente il problema dell'attesa attiva, bensì lo
+rimuove dalle sezioni di ingresso degli applicativi; poiché infatti questa si limita alle sezioni critiche delle due operazioni, queste sono in genere
+convenientemente codificate, sicché siano particolarmente brevi. Ciò fa presentare raramente l'attesa attiva e quando accade, lo fa per breve
+tempo.\newline 
+
+\noindent Nonostante i semafori siano un costrutto pratico ed efficace, un loro uso scorretto può causare vari problemi di difficile individuazione,
+in quanto si possono manifestare solo in presenza di particolari sequenze di esecuzione. Non escludono nemmeno il verificarsi di problemi di
+sincronizzazione; supponiamo infatti il problema della sezione critica dove tutti i processi condividono una variabile semaforo mutex inizializzata a
+$1$. Ogni processo chiama \textit{wait(mutex)} all'entrata nella propria sezione critica e invoca \textit{signal(mutex)} quando ne esce. Se la sequenza
+non è rispettata possono verificarsi i seguenti problemi: \begin{itemize}
+    \item \textbf{Ordine della operazioni inverso}: Più processi possono eseguire le proprie sezioni critiche, violando la mutua esclusione.
+    \item \textbf{Sostituzione di signal(mutex) con wait(mutex)}: Il processo si bloccherà permanentemente alla seconda chiamata \textit{wait()},
+    perché il semaforo non sarà più disponibile.
+    \item \textbf{Omissione di una o entrambe le operazioni}: Si viola la mutua esclusione oppure il processo si blocca indefinitamente.
+\end{itemize}
+
+\noindent Una strategia per la gestione di questi errori consiste nell'incorporare ulteriori strumenti di sincronizzazione astratti, come il tipo
+\textbf{monitor}.\par
+Un monitor è un \textbf{tipo di dato astratto} (ADT) che incapsula i dati mettendo a disposizione un insieme di funzioni, contraddistinte dalla mutua
+esclusione, per operare su di essi. Contiene inoltre la dichiarazione delle variabili i cui valori definiscono lo stato dell'istanza del monitor.
+Generalmente, la sintassi di un monitor in pseudocodice è: \begin{lstlisting}[language=C]
+    monitor monitorName {
+        // Dichiarazione di variabili condivise
+
+        function P1 (...) { ... }
+        function P2 (...) { ... }
+
+        // Altre funzioni
+
+        function Pn (...) { ... }
+        initCode (...) { ... }
+    }
+\end{lstlisting}
+
+\noindent Le funzioni dentro al monitor hanno accesso solo alle variabili locali o ai parametri formali. Il costrutto assicura inoltre che al suo
+interno possa essere attivo un solo processo alla volta grazie ad eventuali variabili \textbf{condition} $x$, costrutti sui quali sono applicabili
+esclusivamente le operazioni di \textit{wait()} e \textit{signal()}.\par
+Entrambe mantengono la stessa funzione discussa con i semafori, ma la seconda non ha effetto in assenza di processi sospesi. Supponiamo che un processo
+$P$ chiami \textit{x.signal()} e che ne esista un altro $Q$ associato alla condition $x$. Se si permette a $Q$ di riprendere la propria esecuzione,
+l'altro processo $P$ dovrà necessariamente attendere. Tuttavia, concettualmente, potrebbero entrambi continuare l'esecuzione, creando due
+possibilità: \begin{itemize}
+    \item \textbf{Segnalare e attendere}: $P$ attende che $Q$ lasci il monitor o attenda su un'altra condition.
+    \item \textbf{Segnalare e continuare}: $Q$ attende che $P$ lasci il monitor o attenda su un'altra condition.
+\end{itemize}
+
+\noindent Non esiste un metodo migliore rispetto all'altro, ma per le implementazioni useremo la prima istanza. Presentiamo una possibile realizzazione
+di un monitor tramite semafori. A ogni monitor sarà associato un semaforo mutex inizializzato a $1$ per garantire la mutua esclusione. Un processo
+eseguirà \textit{wait(mutex)} prima di entrare nel meccanismo e chiamerà \textit{signal(mutex)} quando uscirà dal monitor. In quest'ultimo scenario,
+dato che il processo chiamante dovrà attendere finché quello risvegliato si metta in attesa o lasci il monitor, si introduce un nuovo semaforo
+\textit{next} inizializzato a $0$, su cui i processi segnalanti possono autosospendersi. Il relativo contatore si implementa con una variabile intera
+\textit{next\_count}. Si richiede quindi che ogni procedura esterna $F$ sia compresa nel seguente codice: \begin{lstlisting}[language=C]
+    wait(mutex);
+
+    // Corpo di F
+
+    if (next_count > 0) signal(next);
+    else signal(mutex);
+\end{lstlisting}
+
+\noindent Ciò assicura la mutua esclusione dentro al monitor. La realizzazione delle condition vede poi l'introduzione di un semaforo \textit{x\_sem} e
+un intero \textit{x\_count}, ambo inizializzati a $0$. Quindi, le operazioni di \textit{wait()} e \textit{signal()} associate alla condition $x$ si
+ridefiniscono come segue: \begin{lstlisting}[language=C]
+    wait () {
+        x_count++;
+        if (next_count > 0) signal(next);
+        else signal(mutex);
+        wait(x_sem); // Chiamata a wait di semaforo, non condition
+        x_count--;
+    }
+
+    signal () {
+        if (x_count > 0) {
+            next count++;
+            signal(x_sem); // Chiamata a signal di semaforo, non condition
+            wait(next); // Idem qua
+            next_count--;
+        }
+    }
+\end{lstlisting}
+
+\noindent È necessario ora decidere l'ordine di ripresa dei processi sospesi alla condition $x$. Generalmente si crea un costrutto di
+\textbf{attesa condizionale} con forma \textit{x.wait(c)}, dove $c$ è un valore di \textbf{priorità} determinato da un'espressione valutata al momento
+dell'esecuzione di \textit{wait()}. Tale numero è poi associato a un processo sospeso, e all'esecuzione di \textit{x.signal()} si riprenderà dal
+processo con la priorità più alta in base alla convenzione scelta.\par
+Di base, tuttavia, il monitor non garantisce il rispetto di questo ordine, poiché potrebbero accadere i seguenti scenari: \begin{itemize}
+    \item Un processo accede alla risorsa senza prima ottenere il permesso.
+    \item Ottenuto l'accesso alla risorsa, un processo potrebbe non rilasciarla più.
+    \item Un processo tenta di rilasciare una risorsa che non ha mai richiesto.
+    \item Un processo può richiedere più volte la stessa risorsa senza averla rilasciata prima delle successive richieste.
+\end{itemize}
+
+\noindent È evidente che bisogna concentrarsi su eventuali soluzioni in merito alla gestione delle operazioni ad alto livello, controllando i programmi
+che utilizzano il monitor in tal modo che si verifichino due condizioni: in primo luogo, i \textbf{processi utenti} devono sempre impiegare il costrutto
+seguendo la \textbf{sequenza corretta}; in secundis, bisognerà assicurare che eventuali \textbf{processi non cooperativi} non \textbf{aggirino} la
+\textbf{mutua esclusione} offerta.\par
+Rispettando le due condizioni si ha la certezza di non avere problemi di sincronizzazione, ma è applicabile agevolmente solo per sistemi di piccole
+dimensioni.
 
 %
 
 \section{Liveness}
+L'impiego di strumenti di sincronizzazione può avere conseguenze relative all'attesa indefinita a determinate risorse. Con \textbf{liveness} intendiamo
+un insieme di proprietà che un sistema deve soddisfare per evitare questo problema e garantire che ogni processo progredisca la sua esecuzione durante
+il proprio ciclo vitale. Strumenti come i lock mutex e semafori consentono di indurre i problemi di \textbf{mancanza di liveness} alla programmazione
+concorrente. Analizziamo ora alcune istanze di questo tipo di problemi con relative soluzioni.\par
+Il primo caso di studio è rappresentato dallo \textbf{stallo} (deadlock); una situazione nella quale uno o più processi rimangono in eterna
+attesa del verificarsi di un evento. In particolare, nelle implementazioni dei semafori con coda di attesa, i processi aspetteranno una chiamata a
+\textit{signal()} impossibile da attuare.\par
+Supponiamo due processi $P_0, P_1$, ognuno dei quali con un accesso a due semafori $S, Q$, ambo impostati al valore $1$. Se i due processi chiamano
+\textit{wait(S)} e \textit{wait(Q)} rispettivamente allo stesso tempo, allora entrambi si bloccheranno fino alla ricezione di \textit{signal()}, ma
+essendo in attesa, non possono effettuare chiamate a funzioni, risultando in stallo. La soluzione è fornita con un opportuno utilizzo della
+sincronizzazione.\par
+Un'altra istanza di liveness failure si può ottenere con lo scheduling dei processi. Se è implementato un meccanismo basato sulla priorità, è probabile
+che un processo a priorità alta richieda dei dati utilizzati da un altro con priorità minore, ed essendo i dati a livello kernel protetti da un lock,
+il primo processo sarà costretto ad attendere fino al rilascio delle suddette risorse.\par
+La soluzione a questo problema, detto \textbf{inversione della priorità}, si ha implementando un protocollo per l'\textbf{ereditazione delle priorità}.
+Fondamentalmente, quando un processo a bassa priorità utilizza dei dati che possono essere richiesti da altri processi più importanti, eredita il
+livello di priorità di questi ultimi per tutto il tempo in cui usufruiscono di queste risorse, impedendo che processi a priorità intermedia sottraggano
+la CPU al processo a bassa priorità che detiene il lock, riducendo così il tempo di attesa del processo ad alta priorità.

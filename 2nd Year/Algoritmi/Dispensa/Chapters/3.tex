@@ -153,125 +153,182 @@ rimozione $O(1)$ con chiave, mentre $\Theta(n)$ senza. Si definiscono come segue
 \end{algorithm}
 
 \noindent In particolare, per quest'ultima operazione, è possibile applicare la \textbf{tecnica delle sentinelle} per semplificare il codice, ignorando
-le condizioni in cima e in fondo alla lista. Si tratta dell'implementazione di oggetti della lista che rappresentano $NIL$, ma che allo stesso tempo
-hanno anche tutti gli attributi dei nodi veri.
+le condizioni in cima e in fondo alla lista. Si tratta dell'implementazione agli estremi di oggetti della lista che rappresentano $NIL$, ma che allo
+stesso tempo hanno anche tutti gli attributi dei nodi effettivi, creando quella che è di fatto una lista concatenata circolare con sentinelle.\newpage
 
 %
 
-\section{Alberi binari}
+\section{Alberi}
+Le liste concatenate sono un ottima struttura dati per rappresentare relazioni di ordine totale, ma non tutti i casi di studio richiedono che la
+proprietà sia estesa all'intero insieme. Introduciamo quindi gli \textbf{alberi}, i quali saranno rappresentati mediante strutture dati concatenate.\par
+Gli alberi sono composti di \textbf{nodi}, i quali rappresentano gli oggetti con i relativi campi, e \textbf{archi}, che indicano le connessioni tra i
+nodi, implementate con i relativi puntatori in base al tipo di albero scelto. La struttura dell'albero mostra anche un nodo in cima alla rappresentazione,
+detto \textbf{radice}, dal quale si diramano i \textbf{figli}, fino a raggiungere la base, i cui nodi sono detti \textbf{foglie}. L'implementazione
+generale di questa struttura dati consente a ogni nodo di avere un numero indefinito di figli, ma noi ci concentreremo su tre sottocasi particolari: gli
+alberi binari, gli RB-alberi e gli alberi binomiali.
 
+\subsection{Alberi binari di ricerca}
+Con \textbf{Albero binario} intendiamo un albero i cui nodi possono avere al più due figli e presentano almeno quattro campi fondamentali: \textit{key},
+il valore determinante la relazione di ordinamento, e i tre puntatori al genitore \textit{parent[x]}, figlio destro \textit{right[x]} e figlio sinistro
+\textit{left[x]} rispettivamente. La posizione dei nodi deve inoltre rispettare una proprietà dell'ordinamento: i figli sinistri devono avere un valore
+chiave minore o uguale del genitore, mentre quelli di destra devono presentarlo maggiore.
 
-\begin{comment}
-	18-11-25 - Algoritmi
-	
-	--- Albero binario di ricerca
-	Si rappresentano tramite appositi nodi, i quali posseggono:
-	- una chiave (la quale può essere qualunuque oggetto). In questo caso hanno una relazione di ordinamento.
-	Preso un qualunque nodo, i nodi figli sx devono avere chiave <= del parent, mentre quelli di dx devono avere chiave >= del parent.
-	- ptr p
-	- ptr Left: Punta al figlio sx
-	- ptr Right: Punta al figlio dx
-	
-	La ricerca avviene spostandosi dai parent ai children di dx o sx con una complessità lineare in un albero sbilanciato, mentre se è (sufficientemente) bilanciato possiamo avere anche
-	tempi logaritmici. Per sufficientemente si intende avere una profondità logaritmica.
-	
-	Possiamo costruire un albero binario per far sì che la ricerca e l'inserimento siano entrambe logn e che rimanga bilanciato?
-	Supponiamo di avere un albero bilanciato tranne per un buco all'estrema destra. Se devo inserire un nodo più piccolo rispetto a tutti gli altri, lo sbilancerò per forza.
-	Verrà inserito il nodo alla base sinistra e dovrò riordinare tutto in tempo lineare.
-	Esistono tuttavia delle tecniche per avere alberi sufficientemente bilanciati per garantirci tempi logn per inserimento estrazione e ricerca.
-	
-	-- Tre modi principali per visitare i nodi di un albero binario:
-	Ovvero per ogni nodo di un albero effettuo un'operazione in un determinato modo.
-	
-	1. 
-	PreVisit(x)		// x è un nodo.
-	if (x != NIL) {
-		Visit(x)		// Vedo la radice prima e poi vedo i due figli prima di spostarmi
-		PreVisit(left(x))
-		PreVisit(right(x))
-	}	
-	2.
-	InVisit(x)
-	if (x != NIL) {
-		InVisit(left(x))
-		Visit(x)
-		InVisit(right(x))
-	}
-	
-	3.
-	PostVisit (x)
-	if (x != NIL)
-	PostVisit(left(x))
-	PostVisit(right(x))
-	Visit(x)
-	
-	Con il seguente albero:
-	7
-	3				10
-	1				9		12
-	
-	PreVisit = 7, 3, 1, 10, 9, 12
-	InVisit = 1, 3, 7, 9, 10, 12		// Guarda un pò, è ordinato. Grazie alla logica del binary search tree è possibile dimostrare per induzione che l'albero ordina.
-	PostVisit = 1, 3, 9, 12, 10, 7
-	
-	Essendo che scorro l'intero albero abbiamo che la complessità è lineare.
-	Per la costruzione di un albero da un array qualsiasi tuttavia la complessità è nlogn. In questo tempo possiamo costruire alberi bilanciati e sbilanciati.
-	Per il bilanciato bisogna ordinare l'array, prendere il suo mediano e poi inserisci ricorsivamente tutti i nodi secondo la logica dell'albero.
-	
-	BT (A, p, r) {
-		n = r-p+1;					// n è la cardinalità del sottoarray.
-		
-		if (n < 1) return NIL;		// Controlla se l'array è vuoto
-		
-		m = (p+r)/2;
-		Node x = new Node(A[m]);
-		x.left = BT(A, p, m-1);
-		x.right = BT(A, m+1, r);
-		
-		return x;
-	}
-	
-\end{comment}
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[
+		level distance=1.5cm,
+		level 1/.style={sibling distance=4cm},
+		level 2/.style={sibling distance=1.5cm}
+		]			
+		\node {$6$}
+			child {node {$5$}
+			child {node {$2$}}
+			child {node {$5$}}
+		}
+			child {node {$7$}
+			child {node {$8$}}
+		};
+	\end{tikzpicture}
+	\caption{Albero binario di ricerca}
+\end{figure}
 
-\subsection{Alberi di ricerca}
+\noindent Per quanto riguarda gli alberi binari \textbf{completi}, ovvero con il numero massimo di nodi foglia ottenibili, le operazioni di ricerca
+predecessore, successore, inserimento e rimozione richiedono un tempo $\Theta(log(n))$ nel peggiore degli scenari, mentre nello specifico caso in cui si
+crei una catena lineare di $n$ nodi, il tempo peggiora a $\Theta(n)$. Inoltre, l'altezza dell'albero binario attesa è di $O(log(n))$\footnote{Rammento
+che, in quanto l'albero si estende esponenzialmente verso il basso creando $n = 2^l$ nodi, il totale dei livelli ottenuti è dato dall'esponente, quindi
+$log(n) = l$.}.\par
+L'esplorazione dei nodi dell'albero avviene a partire dalla radice e procede muovendosi figlio per figlio; questa operazione è necessaria sia per
+ricavare una determinata chiave, sia per l'inserimento o rimozione degli oggetti. In particolare, per queste ultime, si finirà inevitabilmente per
+\textbf{sbilanciare} l'albero, poiché si modifica il suo numero totale di nodi; ciò non è un problema perché esistono tecniche per mantenere alberi
+sufficientemente bilanciati (con altezza $O(log(n))$) e garantire tempo di esecuzione logaritmico per le operazioni di estrazione e ricerca. Anzitutto,
+esistono tre algoritmi principali per l'esplorazione di un albero binario: \begin{itemize}
+	\item \textbf{preVisit()}: Visita il nodo corrente ed effettua una visita preliminare dei due nodi figli.
+	\item \textbf{inVisit()}: Visita il nodo corrente dopo il suo figlio sinistro e prima di quello destro.
+	\item \textbf{postVisit()}: Visita i figli prima del nodo corrente.
+\end{itemize}
+
+\begin{minipage}[h]{0.31\linewidth}
+	\begin{algorithm}[H]
+		\caption{preVisit(x)}
+		\begin{algorithmic}[1]
+			\Require $x$: Nodo
+			\If{$x \neq NIL$}
+				\State $visit(x)$
+				\State $preVisit(left[x])$
+				\State $preVisit(right[x])$
+			\EndIf
+		\end{algorithmic}
+	\end{algorithm}
+\end{minipage}
+\hspace{0.001\textwidth}
+\begin{minipage}[h]{0.3\linewidth}
+	\begin{algorithm}[H]
+		\caption{inVisit(x)}
+		\begin{algorithmic}[1]
+			\Require $x$: Nodo
+			\If{$x \neq NIL$}
+				\State $inVisit(left[x])$
+				\State $visit(x)$
+				\State $inVisit(right[x])$
+			\EndIf
+		\end{algorithmic}
+	\end{algorithm}
+\end{minipage}
+\hspace{0.001\textwidth}
+\begin{minipage}[h]{0.32\linewidth}
+	\begin{algorithm}[H]
+		\caption{postVisit(x)}
+		\begin{algorithmic}[1]
+			\Require $x$: Nodo
+			\If{$x \neq NIL$}
+				\State $postVisit(left[x])$
+				\State $postVisit(right[x])$
+				\State $visit(x)$
+			\EndIf
+		\end{algorithmic}
+	\end{algorithm}
+\end{minipage}
+\vspace{0.01\linewidth}
+
+\noindent Supponiamo ora il seguente albero binario dove sono effettuate le operazioni di preVisit, inVisit e postVisit:
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[
+		level distance=1.5cm,
+		level 1/.style={sibling distance=4cm},
+		level 2/.style={sibling distance=1.5cm}
+		]			
+		\node {$7$}
+			child {node {$3$}
+			child {node {$1$}}
+		}
+			child {node {$10$}
+			child {node {$9$}}
+			child {node {$12$}}
+		};
+	\end{tikzpicture}
+	\caption{Albero binario di ricerca}
+\end{figure}
+
+\noindent I risultati degli algoritmi saranno: \begin{itemize}
+	\item \textbf{preVisit()}: $7, 3, 1, 10, 9, 12$.
+	\item \textbf{inVisit()}: $1, 3, 7, 9, 10, 12$.
+	\item \textbf{postVisit()}: $1, 3, 9, 12, 10, 7$.
+\end{itemize}
+
+\noindent Ne risulta che con l'algoritmo \textit{inVisit()} è possibile ordinare gli elementi dell'albero in tempo lineare. Inoltre, la costruzione di
+un albero binario richiede una complessità $O(nlog(n))$; ciò vale sia per quelli bilanciati che non. In particolare, per i primi è necessario ordinare
+l'array di partenza, ricavarne il mediano per usarlo come radice e inserire poi ricorsivamente il resto dei nodi in base alla proprietà dell'albero.
+\begin{algorithm}[h]
+	\caption{makeTree(A, p, r)}
+	\begin{algorithmic}[1]
+		\Require $A$: Array ordinato, $p$: prima metà, $r$: seconda metà
+		\State $n\gets r-p+1$ \Comment{Dimensione dell'array}
+		\If{$n < 1$} \Comment{Verifica se l'array è vuoto}
+			\State \textbf{return} $NIL$
+		\EndIf
+		\State $m\gets (p+r)/2$ \Comment{Elemento mediano dell'array}
+		\State $Node \text{ }x\gets new Node(A[m])$ \Comment{Aggiungi il nodo all'albero}
+		\State $left[x]\gets makeTree(A, p, m-1)$
+		\State $right[x]\gets makeTree(A, m+1, r)$
+		\State \textbf{return} $x$
+	\end{algorithmic}
+\end{algorithm}
+
 \subsection{RB-alberi}
+Gli \textbf{Alberi rosso-neri} o RB-alberi sono strutture dati basate sugli alberi binari di ricerca, il cui scopo è bilanciare l'albero a sufficienza
+per mantenere un'altezza logaritmica e quindi garantire l'esecuzione in tempo $O(log(n))$ delle operazioni di base nel caso peggiore.\par
+Presentano un campo aggiuntivo apposito per la colorazione di ogni oggetto, il quale può essere rosso o nero. Aggiungendo vincoli in merito alle
+modalità di colorazione, è possibile garantire che nessun cammino semplice da radice a foglia sia lungo più del doppio di qualsiasi altro, rendendo
+l'albero approssimativamente bilanciato. L'altezza di un RB-albero contenente $n$ nodi è infatti al più $2log(n+1)$, che sta sotto $O(log(n))$.
+Questa struttura dati deve inoltre rispettare le cinque proprietà degli RB-alberi: \begin{itemize}
+	\item Ogni nodo è rosso oppure nero.
+	\item La radice dell'albero è sempre nera.
+	\item Ogni foglia (NIL) è sempre nera.
+	\item Se un nodo è rosso, i suoi figli sono neri e può essere circondato solo da altri neri.
+	\item Per ogni nodo, tutti i cammini semplici dallo stesso alle sue foglie discendenti contengono lo stesso numero di nodi neri.
+\end{itemize}
 
 \begin{comment}
-	24-11-25 Algoritmi
-	
-	--- Albero RB
-	Se voglio fare le cose con tempo logaritmico, ho bisogno di una profondità dell'albero logaritmica.
-	Posso mantenere le operazioni di inserimento e ricerca in tempo logaritmico? Non siamo in grado di inserire un nodo in tempo logaritmico mantenendo l'albero bilanciato.
-	Potremmo tuttavia permettere uno sbilanciamento, purché la profondità rimanga logaritmica.
-	
-	Il senso è costruire alberi binari di ricerca sbilanciati con profondità logaritmica. Vengono posti vincoli sui nodi dell'albero in termini locali e globali; sicché quando andiamo a inserire/ricercare, verosimilmente violeremo la regola e risolveremo l'anomalia spingendola alla radice.
-	
-	Prop globale: valida per l'intera struttura
-	Prop locale: verificabile su ogni singolo punto della struttura vedendo un suo intorno ristretto
-	
-	Preferibile ragionare su proprietà locali perché non devi andare a scorrere l'intera struttura dati.
-	
-	Un RB albero è un albero binario di ricerca con le proprietà:
-	- Ogni nodo é rosso o nero (hai un campo aggiuntivo su tutti i nodi che assegna loro il colore, tendenzialmente un boolean)
-	- Ogni foglia é nera (Le foglie con elemento nullo in fondo sono considerate nere)
-	- I figli di un nodo rosso sono sempre neri ed un nodo rosso può essere circondato solo da nodi neri.
-	- Ogni cammino radice-foglia contiene lo stesso numero di nodi neri (proprietà globale)
-	Quindi l'RB albero non è bilanciato, ma se ti restringi ai nodi neri, il cammino avrà sempre un loro numero costante.
-	
-	Grazie alla proprietà 3 abbiamo che negli RB alberi avremo al peggio un cammino radice-foglia con alternazioni di nero-rosso fino alla eventuale foglia nera, mentre il cammino ottimo avrà esclusivamente nodi neri. Ciò significa che se il meglio è 1, il peggio sarà il suo doppio, 2. Manterremo quindi una profondità logaritmica.
+	Grazie alla proprietà 3 abbiamo che negli RB alberi avremo al peggio un cammino radice-foglia con alternazioni di nero-rosso fino alla eventuale
+	foglia nera, mentre il cammino ottimo avrà esclusivamente nodi neri. Ciò significa che se il meglio è 1, il peggio sarà il suo doppio, 2.
+	Manterremo quindi una profondità logaritmica.
 	
 	Esempio: pag. 300 figura a
 	
-	RB ha profondità logaritmica e che la ricerca di un elemento specifico, elemento minimo e massimo é logaritmica. Costruzione albero RB non puó essere fatta in meno di nlogn.
+	RB ha profondità logaritmica e che la ricerca di un elemento specifico, elemento minimo e massimo é logaritmica. Costruzione albero RB non puó
+	essere fatta in meno di nlogn.
 	'Altezza Nera' BH di un nodo X: Numero di nodi neri incontrati in un cammino da nodo X ad una foglia escludendo X
-	I nodi foglia all'estremo con elemento null sono sprecati; consigliato usare il metodo delle sentinelle. Nel caso in cui serva invocare il parent di questo nodo nullo, nell'algoritmo invocato bisognerá assegnare al nodo nullo il parent corretto
+	I nodi foglia all'estremo con elemento null sono sprecati; consigliato usare il metodo delle sentinelle. Nel caso in cui serva invocare il parent
+	di questo nodo nullo, nell'algoritmo invocato bisognerá assegnare al nodo nullo il parent corretto
 	
 	In generale meglio assumere che la radice sia nera
 	Se non lo è la si puó modificare senza alterare nessuna proprietà
 	
 	Dimostrazione che la profondità è logaritmica.
 	Lemma: un RB albero con n nodi interni ha altezza al più 2log(n+1). Un nodo interno è tale se non è una foglia; l'altezza è il cammino peggiore.
-	Sottolemma: Il sottoalbero radicato in un nodo x contiene almeno 2^{bh(x)}-1 nodi interni. Quindi prendo un nodo x dell'albero e la considero come radice del sottoalbero.
+	Sottolemma: Il sottoalbero radicato in un nodo x contiene almeno 2^{bh(x)}-1 nodi interni. Quindi prendo un nodo x dell'albero e la considero come 
+	radice del sottoalbero.
 	
 	Dimostrato per induzione sull'altezza del nodo x
 	Caso base: altezza 0
@@ -290,11 +347,14 @@ hanno anche tutti gli attributi dei nodi veri.
 	Quindi l'altezza di un rb albero con n nodi è al più il doppio di log(n). La profondità è logaritmica.
 	
 	--- Come inserire un nodo mantenendo profondità logaritmica?
-	Partiamo dal presupposto che si segue la logica di inserimento di un qualunque albero binario di ricerca. Quindi si sposterà a destra o sinistra in base alle regole di definizione.
-	Di che colore facciamo il nodo? Se lo facciamo rosso e siamo una foglia, viola la definizione, mentre se lo facciamo nero sminchia la profondità logaritmica.
+	Partiamo dal presupposto che si segue la logica di inserimento di un qualunque albero binario di ricerca. Quindi si sposterà a destra o sinistra in
+	base alle regole di definizione.
+	Di che colore facciamo il nodo? Se lo facciamo rosso e siamo una foglia, viola la definizione, mentre se lo facciamo nero sminchia la profondità
+	logaritmica.
 	Quindi lo facciamo rosso a prescindere lmao
 	Abbiamo un rb albero con l'anomalia sul nodo appena inserito. Bisogna eliminarla.
-	Facciamo delle trasformazioni locali portando l'anomalia verso la radice. Oppure la eliminiamo prima, dipende quale vien prima. Se questo problema si presenta alla radice, non è un problema. È valido.
+	Facciamo delle trasformazioni locali portando l'anomalia verso la radice. Oppure la eliminiamo prima, dipende quale vien prima. Se questo problema
+	si presenta alla radice, non è un problema. È valido.
 	
 	Domande:
 	- Possiamo assumere che la radice sia sempre nera? Sì, perché se la radice fosse rossa potremmo colorarla di nero senza eludere la definizione.
@@ -319,9 +379,11 @@ hanno anche tutti gli attributi dei nodi veri.
 	
 	Inserimento estrazione e ricerca in tempo logaritmico se si usa un RB albero
 	Inserimento, con eventuale anomalia, la quale viene eliminata o propagata verso l'alto
-	Gli algoritmi per le rotazioni hanno complessità costante. L'unico caso con complessità maggiore è quello dove si spinge l'anomalia verso la radice, ma è di massimo logn
+	Gli algoritmi per le rotazioni hanno complessità costante. L'unico caso con complessità maggiore è quello dove si spinge l'anomalia verso la
+	radice, ma è di massimo logn
 	
-	E' possibile anche unire due RB-alberi che contiene gli elementi di entrambia? Sì, ma in minimo tempo lineare, prima con una buildtree e poi un merge.
+	E' possibile anche unire due RB-alberi che contiene gli elementi di entrambia? Sì, ma in minimo tempo lineare, prima con una buildtree e poi un
+	merge.
 	
 	Ex. Dato un nodo x, trovare il suo successore (quello che nell'ordinamento occuperebbe la posizione successiva)
 	Se esiste il figlio destro, prendo il minimo del figlio destro, mentre in loro assenza, si guarda agli antenati destri.
@@ -340,7 +402,8 @@ hanno anche tutti gli attributi dei nodi veri.
 	Le next hanno complessità lineare, tranne nel caso pessimo che è nlogn, dove deve scorrere l'intero albero.
 	
 	Giustamente puoi farci anche la select. Il minimo e il massimo son banali, alle estremità sinistra e destra.
-	Tuttavia considera il mediano ed un albero sbilanciato. Per un tempo logaritmico bisogna seguire un singolo cammino. Ciò si può ottenere aggiungendo un campo "rank" ad ogni nodo.
+	Tuttavia considera il mediano ed un albero sbilanciato. Per un tempo logaritmico bisogna seguire un singolo cammino. Ciò si può ottenere
+	aggiungendo un campo "rank" ad ogni nodo.
 	Questo consentirebbe di capire la direzione istantaneamente, usando un singolo cammino.
 	However; se vado ad inserire un nuovo minimo, toccherà cambiare il rank di tutto l'albero, e ciò ha una complessità lineare. non sufficiente.
 	
@@ -365,7 +428,8 @@ hanno anche tutti gli attributi dei nodi veri.
 		}
 	}
 	
-	Se volessimo una posizione specifica in senso di rank, tuttavia, questa cosa funzionerebbe solo per la radice, quindi bisogna trovare un modo per generalizzarlo
+	Se volessimo una posizione specifica in senso di rank, tuttavia, questa cosa funzionerebbe solo per la radice, quindi bisogna trovare un modo per
+	generalizzarlo
 	
 	rank (x) {
 		r <- size[left(x)]+1;
@@ -399,9 +463,11 @@ hanno anche tutti gli attributi dei nodi veri.
 	02-12-25 - Algoritmi
 	
 	--- Estensione di strutture dati
-	Prendere per esempio un RB albero ed aggiungerci campi comodi per poter eseguire più facilmente gli ordinamenti. In questo caso specifico la cosa più importante è non andare
+	Prendere per esempio un RB albero ed aggiungerci campi comodi per poter eseguire più facilmente gli ordinamenti. In questo caso specifico la cosa
+	più importante è non andare
 	a considerare il nodo parent negli argomenti di F(x).
-	I campi, infatti, cambiano esclusivamente se viene inserito/rimosso un nodo sullo specifico cammino; gli altri rimangono intonsi. E si fa pure in logn sta cosa.
+	I campi, infatti, cambiano esclusivamente se viene inserito/rimosso un nodo sullo specifico cammino; gli altri rimangono intonsi. E si fa pure in
+	logn sta cosa.
 	
 	Per le operazioni di risistemazione dell'albero:
 	- i colori non cambiano, non è un argomento di F(x).
@@ -414,7 +480,8 @@ hanno anche tutti gli attributi dei nodi veri.
 	Ma complessivamente rimaniamo sempre su logn.
 	
 	// Esempio: agenda con appuntamenti, caratterizzati da un intervallo di tempo, l'obiettivo è ins/ext e trovare conflitti, tutto in tempo logaritmico
-	// Serve un modo per decidere istantaneamente se andare a sx o dx. Ordiniamoli in base al tempo e aggiungiamo il massimo tempo di fine visita come campo aggiuntivo.
+	// Serve un modo per decidere istantaneamente se andare a sx o dx. Ordiniamoli in base al tempo e aggiungiamo il massimo tempo di fine visita come
+	campo aggiuntivo.
 	
 	search (x, I)		// I intervallo, tempo di inizio e fine dell'appuntamento. x è la radice.
 	while (x != NIL && I \cap int(x) == \void) {			// int è intervallo di x.
@@ -425,12 +492,15 @@ hanno anche tutti gli attributi dei nodi veri.
 	}
 	ret x;
 	
-	Supponiamo di avere un determinato intervallo in root. Sappiamo che se non troviamo nulla a sinistra, allora sicuramente non c'è nulla nemmeno a destra.
-	Se un subintervallo left ha massimo nel mezzo dell'intervallo root, sappiamo che a destra esisterà un altro intervallo che sarà anche dentro questo max. Dunque c'è un conflitto.
+	Supponiamo di avere un determinato intervallo in root. Sappiamo che se non troviamo nulla a sinistra, allora sicuramente non c'è nulla nemmeno a
+	destra.
+	Se un subintervallo left ha massimo nel mezzo dell'intervallo root, sappiamo che a destra esisterà un altro intervallo che sarà anche dentro questo
+	max. Dunque c'è un conflitto.
 	Se non ci sono conflitti a sinistra, allora non ce ne saranno neanche a dx.
 	
 	// Esempio 2: Abbiamo lanciato una missione su marte, dove vengono raccolti vari campioni di suolo. Sono catalogati in un database, ordinato in base ad una chiave, la frequenza
-	// spettrale dominante. Il misuratore ha una tolleranza \epsilon; rendendo la frequenza [f+\epsilon, f-\epsilon]. Come memorizzare i dati sicché il db restituisca, se esiste un
+	// spettrale dominante. Il misuratore ha una tolleranza \epsilon; rendendo la frequenza [f+\epsilon, f-\epsilon]. Come memorizzare i dati sicché il
+	db restituisca, se esiste un
 	// campione corrispondente a quello letto?
 	// Può essere che ci siano più frequenze candidate, bisogna trovarne la frequenza più vicina.
 	
@@ -505,7 +575,8 @@ hanno anche tutti gli attributi dei nodi veri.
 	|	 /\	   /\
 	10	 B_4   B_5				// B_4 e B_5 sono due alberi binomiali di dimensione rispettiva 4 e 5.
 	
-	Perché non ci possono essere più di logn radici distinte? Qualunque grado dell'albero io prenda deve avere 2^k \leq n. Dunque il grado massimo che si può prendere è k \leq log_2n
+	Perché non ci possono essere più di logn radici distinte? Qualunque grado dell'albero io prenda deve avere 2^k \leq n. Dunque il grado massimo che
+	si può prendere è k \leq log_2n
 	E no, non posso andare oltre perché posso inserire al più l'albero binomiale della dimensione più tutte le dimensioni precedenti.
 	Dato n converti il suo valore in binario e otterrai facilmente le posizioni degli alberi binari.
 	La ricerca del minimo sarà quindi in realtà logaritmica, perché scorri ogni radice.
@@ -535,7 +606,8 @@ hanno anche tutti gli attributi dei nodi veri.
 	000111 + 110011 = 111010
 	
 	L'algoritmo ha un pointer in un nodo, il suo successore ed il successore del successore.
-	Va a guardare i gradi dei nodi x, del successore e del successore del successore. Se nota gradi uguali, fa una fusione fra i due, altrimenti passa ai prossimi.
+	Va a guardare i gradi dei nodi x, del successore e del successore del successore. Se nota gradi uguali, fa una fusione fra i due, altrimenti passa
+	ai prossimi.
 	
 	La complessità dell'unione è logn.
 	Per calcolare la dimensione puoi estendere la struttura dandogli un campo size, così la complessità diventa costante.
@@ -544,7 +616,8 @@ hanno anche tutti gli attributi dei nodi veri.
 	Prendi l'elemento, vedilo come un heap binomiale con un singolo nodo. Fai l'unione seguendo le regole appena viste.
 	
 	-- Estrazione
-	Per la proprietà 4, se rimuovi la radice di un heap binomiale, rimane quello della sua dimensione-1. Fai una unione e la struttura è nuovamente corretta.
+	Per la proprietà 4, se rimuovi la radice di un heap binomiale, rimane quello della sua dimensione-1. Fai una unione e la struttura è nuovamente
+	corretta.
 	
 	-- ReduceKey; voglio un nodo e cambiargli la chiave con un nodo più piccolo
 	// Sta roba ha senso farla perché la useremo per eliminare ogni elemento arbitrario di un albero.

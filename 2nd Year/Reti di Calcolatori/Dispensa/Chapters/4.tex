@@ -268,3 +268,34 @@ sono utilizzate esclusivamente se necessarie.
 	\includegraphics[width=0.4\linewidth]{Images/extensionHeader.png}
 	\caption{Estensione dell'intestazione}
 \end{figure}
+
+%
+
+\section{Esercizi svolti}
+\textbf{Esercizio 1}: Sia la seguente architettura di rete mostrata in immagine. Scrivere la tabella di routing per il router A considerando come
+metrica il numero di hop e assumendo che il router X abbia annunciato di poter raggiungere tutti gli host su Internet con 5 hop. Le LAN dispongono di
+un mezzo condiviso per il salto da una rete all'altra.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/routing_ex1.png}
+	\caption{Architettura esercizio 1}
+\end{figure}
+
+\noindent Questo esercizio è molto più basato sul guardare l'architettura di rete piuttosto che di ragionamento. È stato richiesto di prendere come
+riferimento A; quindi basta vedere il numero di reti da esso attraversate per poter fornire costi verso una data destinazione. \begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Destinazione & Costo & Hop successivo\\
+		\hline
+		LAN1 & 1 & diretta\\
+		\hline
+		LAN2 & 1 & diretta\\
+		\hline
+		LAN3 & 2 & B\\
+		\hline
+		Internet & 6 & X\\
+		\hline
+	\end{tabular}
+	\caption{Tabella di routing per il router A}
+\end{table}

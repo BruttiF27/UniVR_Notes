@@ -218,92 +218,95 @@ funzionamento è identico al TCP, e quello di \textbf{lunghezza dei dati} per in
 %
 
 \section{Esercizi svolti}
+\textbf{Esercizio 1}: Sia un'applicazione A che desidera trasferire $96000B$ ad una seconda applicazione B. Si suppone che la connessione sia già
+instaurata e presenti i seguenti parametri: \begin{itemize}
+	\item Maximum Segment Size: $1000B$.
+	\item Receive Window: $32000B$, rimane costante per tutta la trasmissione.
+	\item Slow Start Threshold: $\text{RCVWND}_i/2$.
+	\item Round-trip time: $0,5s$, rimane costante per tutta la trasmissione.
+	\item Retransmission time-out: $2RTT$, raddoppia in caso di perdite sequenziali.
+\end{itemize}
+\noindent Sono inoltre presenti dei down di rete durante gli intervalli di tempo $(3, 3.5), (7, 7.5)$. Valutare l'evoluzione temporale della congestion
+window fino al termine della trasmissione.\par
+Lo svolgimento di questo esercizio è dato interamente dall'algoritmo di slow start, per il quale valgono le seguenti regole generali: \begin{itemize}
+	\item La dimensione della congestion window aumenta esponenzialmente finché il valore è minore dello slow start threshold.
+	\item Arrivati ad un valore maggiore o uguale al threshold, si pone il valore di quest'ultimo alla finestra, per poi procedere aumentando la sua
+	dimensione di 1 ad ogni RTT.
+	\item Con eventuali down di rete, il threshold ottiene il valore dato dal rapporto tra dimensione della finestra corrente e 2, poi la dimensione
+	della finestra torna a 1. Inoltre, si potrà ricominciare a trasmettere solo dopo un RTO.
+\end{itemize}
+\noindent Sapendo questo, iniziamo ottenendo il valore in segmenti dei dati da trasmettere, dividendo i Byte totali con la MSS: \[
+	\text{Segmenti: } 92000/1000 = 92,\quad \text{RCVWND: } 32000/1000=32,\quad \text{SSTHR: } 32/2 = 16
+\]
+\noindent Se disegnato correttamente, l'evoluzione temporale è la seguente: \begin{itemize}
+	\item $1+2+4+8+16+17+18(0) = 48$. I 18 segmenti sono trasmessi ma non sono stati recepiti a causa del down di rete. Non è stato quindi ricevuto
+	alcun acknoledgement. Si attiva l'RTO, si pone $\text{SSTHR}_2=18/2=9$ e $CWND=1$.
+	\item $48+1+2+4+8+9+10+11(0) = 82$. Gli 11 segmenti hanno subito la stessa sorte sovramenzionata causa down di rete. Scaduto l'RTO, abbiamo che
+	$\text{SSTHR}_3=11/2=4,5$ e $CWND=1$. L'approssimazione del treshold è arbitraria, previa segnalazione si può approssimare per eccesso o difetto. In
+	questo esempio, approssimiamo per difetto, quindi $\text{SSTHR}_3=4$.
+	\item $82+1+2+4+5+(6-4) = 96$. La dimensione finale della congestion window risulta come: \[
+		\text{CWND}_f = \text{CWND}_c + \text{ackRicevuti}/\text{CWND}_c = 6 + 2/6 = 6,33 = 6
+	\]
+	\noindent L'ultimo acknowledge è poi ricevuto con il termine del round-trip time attivato con l'invio degli ultimi $(6-4)=2$ segmenti. Il tempo di
+	trasmissione totale è quindi $t=10,5s$
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/tcp_ex1.png}
+	\caption{Evoluzione trasmissione esercizio 1}
+\end{figure}
+
+\noindent \textbf{Esercizio 2}: Sia un'applicazione A che desidera trasferire $46500B$ ad una seconda applicazione B. Si suppone che la connessione sia
+già instaurata e presenti i seguenti parametri: \begin{itemize}
+	\item Maximum Segment Size: $1500B$.
+	\item Receive Window: $24000B$, rimane costante per tutta la trasmissione.
+	\item Slow Start Threshold: $\text{RCVWND}_i/2$.
+	\item Round-trip time: $0,5s$, rimane costante per tutta la trasmissione.
+	\item Retransmission time-out: $2RTT$, raddoppia in caso di perdite sequenziali.
+\end{itemize}
+\noindent Sono inoltre presenti dei down di rete durante gli intervalli di tempo $(1.5, 3.5), (7, 7.5)$. Valutare l'evoluzione temporale della
+congestion window fino al termine della trasmissione.\par
+Stesso identico procedimento di prima; trasformiamo i Byte in segmenti: \[
+	\text{Segmenti: } 46500/1500 = 31,\quad \text{RCVWND: } 24000/1500=16,\quad \text{SSTHR: } 16/2 = 8
+\]
+\noindent Se disegnato correttamente, l'evoluzione temporale è la seguente: \begin{itemize}
+	\item $1+2+4+8(0)=7$. Gli 8 segmenti sono stati persi a causa del down di rete. poniamo $\text{SSTHR}_2=8/2=4$ e $CWND=1$; parte inoltre l'RTO, ma
+	non è sufficiente per superare il problema. Si raddoppia, quindi, arrivando a $RTO=2s$, dimezzando ulteriormente il threshold. Si supera il down.
+	\item $7+1+2+3+4+5+6(0)=22$. I 6 segmenti subiscono la medesima sorte. $\text{SSTHR}_4=6/2=3$, $CWND=1$. Riparte di nuovo l'RTO di $1s$.
+	\item $22+1+2+3+(4-1) = 31$. All'ultima finestra rimanevano solo 3 segmenti da trasmettere.
+\end{itemize}
+\noindent Dimensione finale della CWND$_f=4+3/4=4,75$, tempo di trasmissione totale $t=10s$ al termine della ricezione dell'ultimo acknowledgement.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.75\linewidth]{Images/tcp_ex2.png}
+	\caption{Evoluzione trasmissione esercizio 2}
+\end{figure}
+
+\noindent \textbf{Esercizio 3}: Sia un'applicazione A che desidera trasferire $104000B$ ad una seconda applicazione B. Si suppone che la connessione sia
+già instaurata e presenti i seguenti parametri: \begin{itemize}
+	\item Maximum Segment Size: $1200B$.
+	\item Receive Window: $24000B$, rimane costante per tutta la trasmissione.
+	\item Slow Start Threshold: $\text{RCVWND}_i$.
+	\item Round-trip time: $0,5s$, rimane costante per tutta la trasmissione.
+	\item Retransmission time-out: $2RTT$, raddoppia in caso di perdite sequenziali.
+\end{itemize}
+\noindent Sono inoltre presenti dei down di rete durante gli intervalli di tempo $(3.5, 4), (6.5, 10.5)$. Valutare l'evoluzione temporale della
+congestion window fino al termine della trasmissione. Non credo ci sia bisogno di ripetermi, no? \[
+	\text{Segmenti: } 104000/1200 = 87,\quad \text{RCVWND: } 24000/1200=20 = \text{SSTHR}
+\]
+\noindent Trasmissione: \begin{itemize}
+	\item $1+2+4+8+16+20+20+20(0) = 71$. Down di rete. You know the drill.
+	\item $71+1+2+4+8+10(0) = 86$. Grosso down di rete ora. Tre volte scade l'RTO, diventando uguale a $4s$ e la SSTHR è ridotta a $2$ segmenti.
+	\item $86+1 = 87$.
+\end{itemize}
+\noindent Dimensione finale della CWND: $2 + 1/2=2.5$, tempo di trasmissione totale: $t=14s$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/tcp_ex3.png}
+	\caption{Evoluzione trasmissione esercizio 3}
+\end{figure}
 
 \begin{comment}
-	--- Esercizio su TCP
-	Abbiamo un'appA che deve trasferire 96.000B ad un'appB. Si suppone che la connessione sia già instaurata. Presentiamo i seguenti parametri:
-	- Maximum Segment Size: 1000B
-	- Receive Window: 32.000B, costante per tutto il tempo.
-	- Slow Start Threshold_i = RCVWND_i/2
-	- RTT costante, pari a 0,5s
-	- Retransmission Time-Out = 2RTT, raddoppia in caso di perdite sequenziali
-	- Sono presenti down di rete, dove questa va fuori uso e tutti i segmenti in quel momento vanno persi. Accade negli intervalli:
-	- (3, 3,5)
-	- (7, 7,5)
-	
-	Valuta l'evoluzione temporale della congestion window fino alla fine della trasmissione.
-	
-	Il numero di segmenti da trasmettere è dato dal totale dei Byte da trasmettere diviso la MSS: 96000/1000 = 96
-	La receive window iniziale è pari a 32000B; divisa per la MSS otteniamo 32000/1000 = 32 segmenti alla volta.
-	La SSThresh_i è 32/2 = 16 segmenti
-	La CWND_i è sempre posta a 1.
-	Il tempo è iniziato a misurare da t=0s
-	
-	Dati questi valori iniziali possiamo disegnare il grafico dell'evoluzione temporale. (EX1)
-	Segmenti trasmessi: 1 + 2 + 4 + 8 + 16 + 17, poi c'è il down dove provi a trasmettere 18 segmenti, fallendo.
-	Poi ricominci dopo il termine del RTO. Riprendi da 1, poi 
-\end{comment}
-
-\begin{comment}
---- Esercizio su TCP
-Abbiamo un'appA che deve trasferire 96.000B ad un'appB. Si suppone che la connessione sia già instaurata. Presentiamo i seguenti parametri:
-	- Maximum Segment Size: 1000B
-	- Receive Window: 32.000B, costante per tutto il tempo.
-	- Slow Start Threshold_i = RCVWND_i/2
-	- RTT costante, pari a 0,5s
-	- Retransmission Time-Out = 2RTT, raddoppia in caso di perdite sequenziali
-	- Sono presenti down di rete, dove questa va fuori uso e tutti i segmenti in quel momento vanno persi. Accade negli intervalli:
-		- (3, 3,5)
-		- (7, 7,5)
-		
-Valuta l'evoluzione temporale della congestion window fino alla fine della trasmissione.
-
-Il numero di segmenti da trasmettere è dato dal totale dei Byte da trasmettere diviso la MSS: 96000/1000 = 96
-La receive window iniziale è pari a 32000B; divisa per la MSS otteniamo 32000/1000 = 32 segmenti alla volta.
-La SSThresh_i è 32/2 = 16 segmenti
-La CWND_i è sempre posta a 1.
-Il tempo è iniziato a misurare da t=0s
-
-Dati questi valori iniziali possiamo disegnare il grafico dell'evoluzione temporale. (EX1)
-Segmenti trasmessi: 1 + 2 + 4 + 8 + 16 + 17, poi c'è il down dove provi a trasmettere 18 segmenti, fallendo.
-	Poi ricominci dopo il termine del RTO. Riprendi da 1, poi 
-
-
-Notare che c'è la SSTHRESH a valore 9 e bisogna allargare la window. Il minimo è 9 dato dalla SSTHRESH quindi la finestra al posto del doppio, ottiene il valore della SSTHRESH
-Quindi, dopo il primo down di rete, riusciamo ad inviare 1+2+4+8+9+10 segmenti. Poi c'è un altro down di rete e 11 segmenti sono persi.
-La SSTHRESH è la CWND/2 = 11/2 = 5 (normalmente si arrotonda per difetto, ma è possibile farlo anche per eccesso, basta esplicitarlo nel compito)
-La CWND torna a 1 e si ritorna a ritrasmettere i segmenti; 1+2+4+5+6+7+8+9... fino all'invio di tutti i segmenti restanti. Alla ricezione dell'ultimo riscontro si procederà alla chiusura della connessione.
-	In particolare, essendo arrivati qui all'invio di possibili 6 pacchetti, se ne invieranno solo 2 perché avevamo meno segmenti da inviare. Viene calcolata la CWND finale con 6 + 2/6 e poi si segnalerà il tempo di fine con una freccia tratteggiata verso l'asse delle x.
-	
--- Esercizio 2 TCP
-AppA deve trasferire 46500B verso AppB. La MSS è 1500B. RCVWND_i = 24000B costante per tutto il trasf. SSTHRESH_i = RCVWND_i/2=12000B. RTT=0,5s costante per tutto il trasf. RTO=2RTT e raddoppia in caso di perdite consecutive. Rete fuori uso in due intervalli: (1.5, 3.5) e (7, 7.5)
-
-Numero di segmenti da trasferire: 46500/1500 = 31 segmenti
-RCVWND_i = 24000/1500 = 16 segmenti
-SSTHRESH_i = 16/2 = 8 segmenti
-
-Segmenti trasmessi: 1+2+4+0 // 8 segmenti persi causa down di rete; SSTHRESH/2 e CWND=1. L'RTO è 1s, ma c'è acora down. RTO*2=2s e aspettiamo due secondi, dimezzando nuovamente la SSTHRESH. L'RTO torna normale quando la rete riprende a funzionare (quindi ottenendo i riscontri)
-Post down trasmettiamo i segmenti 1+2+3+4+5+0 // Bisognava inviarne 6, ma persi causa down di rete. CWND = RCVWND/2 = 3.
-Trasmettiamo i segmenti dopo il down: 1+2+3+4, dove alla possibilità di invio di 4 pacchetti, nel buffer rimangono solo tre segmenti. Per concludere la trasmissione attendo i riscontri che modificano la CWND_f= CWND_curr + ackRicevuti/CWND_curr = 4 + 3/4. La trasmissione termina a 10s
-
---- Esercizio TCP 3
-AppA deve trasferire 104000B ad AppB
-MSS = 1200B
-RCVWND_i = 24000B, costante per tutto il trasferimento
-SSTHRESH_i = RCVWND_i
-RTT = 0.5s costante per tutto il trasferimento
-RTO = 2RTT, raddoppia in caso di perdite sequenziali
-Rete down negli intervalli: (3.5, 4) e (6.5, 10.5)
-
-Segmenti da trasmettere: 87
-RCVWND: 20seg = SSTHRESH_i
-
-Trasmissione: 1+2+4+8+16+20+20+20(0) = 71 // 20(0) potenziali, in realtà 16(0) perché ne rimangono 16 da mandare e c'è down di rete.
-	71 + 1+2+4+8+10(0) = 86 // 10(0) potenziali, in realtà 1(0) perché ne manca solo uno e c'è down di rete
-	86 + 1(0) = 86 // Ancora down, si raddoppia l'RTO
-	86 + 1(0) = 86 // Ancora down, si raddoppia l'RTO. La SSTHRESH è al minimo: 2.
-	86 + 1 = 87 // CWND_f = 2, tempo totale utilizzato 14s
-	
 --- TCP esercizio 4
 AppA deve trasferire 104400B verso AppB
 MSS = 1200B
@@ -316,7 +319,8 @@ RTT = 1s costante per tutta la trasmissione
 RTO = 2RTT
 Down di rete in intervallo (11.5, 12.5)
 
-// Tip: le modifiche alla RCVWND sono comunicate dalla destinazione e il grafico che facciamo riguarda la sorgente. Quindi non le si riceve esattamente agli istanti t_a, t_b, bensì alla ricezione dell'ack.
+// Tip: le modifiche alla RCVWND sono comunicate dalla destinazione e il grafico che facciamo riguarda la sorgente. Quindi non le si riceve esattamente
+agli istanti t_a, t_b, bensì alla ricezione dell'ack.
 // Tip: A causa del down di rete, sono correttamente inviati i pacchetti, ma non si riceve il relativo ack. In quanto tale, si attiva ugualmente l'RTO.
 
 --- Soluzione esercizio TCP 4

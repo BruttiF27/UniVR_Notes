@@ -276,13 +276,12 @@ sprechi di indirizzi: \begin{itemize}
 \end{itemize}
 
 \noindent \textbf{Esercizio 6}: Sia una blocco di rete con il quale si vuole creare quattro sottoreti con i seguenti vincoli: \begin{itemize}
-	\item LAN1: Richiede almeno 130 host.
+	\item LAN1: Richiede almeno 130 host. Contiene inoltre l'indirizzo $46.144.141.41$
 	\item LAN2: Richiede almeno 270 host.
 	\item LAN3: Richiede almeno 65 host.
 	\item LAN4: Richiede almeno 35 host.
 \end{itemize}
-\noindent Ricavare il blocco CIDR minimo che le contenga sprecando meno indirizzi possibile e sapendo che alla LAN1 è assegnato un indirizzo
-$46.144.141.41$.\newline
+\noindent Ricavare il blocco CIDR minimo che le contenga sprecando meno indirizzi possibile.\newline
 
 \noindent Uguale al procedimento del precedente esercizio. Sommando le potenze del 2 più vicine alla richiesta, otteniamo la necessità di $1024$
 indirizzi minimo e quindi un prefisso del CIDR di $/22$ bits. Traduciamo l'indirizzo di rete dall'host fornito: \[
@@ -296,17 +295,20 @@ infine LAN4, ottenendo: \begin{itemize}
 	\item LAN4: $00101110.10100000.10001100.01/000000 \implies 46.144.140.64/26$ \checkmark
 \end{itemize}
 
-\begin{comment}
---- Esercizio indirizzamento parte di routing
-Mostrare la tabella di routing del router A considerando come metrica il numero di hop e assumendo che il router X abbia annunciato di raggiungere tutti gli host su internet con 5 hop.
-La tabella di routing di A è come seue:
+\noindent \textbf{Esercizio 7}: Sia un blocco di rete con il quale si vuole creare tre sottoreti con i seguenti vincoli: \begin{itemize}
+	\item LAN1: Richiede almeno 400 host. Contiene inoltre l'indirizzo $178.242.85.168$.
+	\item LAN2: Richiede almeno 300 host.
+	\item LAN3: Richiede almeno 1200 host.
+\end{itemize}
+\noindent Ricavare il blocco CIDR minimo che le contenga sprecando meno indirizzi possibile.\newline
 
-destinazione        costo           nextHop
-Lan1                1               diretta
-Lan2                1               diretta
-Lan3                2               B           // Hop da a a b e da b a host
-Internet            6               X           // Hop da a a x e da x a internet (5)
-X                   1               diretta
-B                   1               diretta
-C                   2               B or X
-\end{comment}
+\noindent Uguale al procedimento del precedente esercizio. Non mi ripeterò. $400\implies 512$, $300\implies 512$, $1200\implies 2048$. Per contenere
+questo totale, avremo bisogno di $2^{12}=4096$ indirizzi; il prefisso avrà $20b$, ricaviamone il blocco CIDR: \[
+	178.242.85.168/20 \implies 10110010.11110010.0101/0000.00000000 \implies 178.242.80.0/20
+\]
+\noindent Suddividiamo il blocco in base alle richieste. È possibile usare una notazione più contratta che mischia notazione decimale puntata con
+quella in binario: \begin{itemize}
+	\item LAN3: $178.242.01011/000.00000000 \implies 178.242.88.0/21$ \checkmark
+	\item LAN2: $178.242.0101011/0.00000000 \implies 178.242.86.0/23$ \checkmark
+	\item LAN1: $178.242.0101010/0.00000000 \implies 178.242.84.0/23$ \checkmark
+\end{itemize}

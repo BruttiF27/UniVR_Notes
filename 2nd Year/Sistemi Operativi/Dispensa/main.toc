@@ -28,19 +28,20 @@
 \contentsline {section}{\numberline {6.2}Supporto hardware}{52}{}%
 \contentsline {section}{\numberline {6.3}Lock Mutex, Semafori e Monitor}{53}{}%
 \contentsline {section}{\numberline {6.4}Liveness}{58}{}%
-\contentsline {chapter}{\numberline {7}Stallo dei processi}{60}{}%
-\contentsline {section}{\numberline {7.1}Stallo e multithread}{60}{}%
-\contentsline {section}{\numberline {7.2}Caratterizzazioni di stallo}{60}{}%
-\contentsline {section}{\numberline {7.3}Metodi di gestione e prevenzione}{60}{}%
-\contentsline {section}{\numberline {7.4}Elusione e rilevamento stallo}{60}{}%
-\contentsline {section}{\numberline {7.5}Ripristino}{60}{}%
-\contentsline {chapter}{\numberline {8}Bash}{61}{}%
-\contentsline {section}{\numberline {8.1}Programmazione Bash}{61}{}%
-\contentsline {chapter}{\numberline {9}API Posix}{62}{}%
-\contentsline {section}{\numberline {9.1}Gestione dei file}{62}{}%
-\contentsline {section}{\numberline {9.2}Gestione dei diritti}{62}{}%
-\contentsline {section}{\numberline {9.3}Lettura/scrittura}{62}{}%
-\contentsline {section}{\numberline {9.4}Gestione dei processi}{62}{}%
-\contentsline {section}{\numberline {9.5}Segnali}{62}{}%
-\contentsline {section}{\numberline {9.6}Comunicazione tra processi tramite PIPE}{62}{}%
-\contentsline {section}{\numberline {9.7}Pthread}{62}{}%
+\contentsline {section}{\numberline {6.5}Esempi di sincronizzazione}{59}{}%
+\contentsline {chapter}{\numberline {7}Stallo dei processi}{63}{}%
+\contentsline {section}{\numberline {7.1}Stallo e multithread}{63}{}%
+\contentsline {section}{\numberline {7.2}Caratterizzazioni di stallo}{63}{}%
+\contentsline {section}{\numberline {7.3}Metodi di gestione e prevenzione}{63}{}%
+\contentsline {section}{\numberline {7.4}Elusione e rilevamento stallo}{63}{}%
+\contentsline {section}{\numberline {7.5}Ripristino}{63}{}%
+\contentsline {chapter}{\numberline {8}Bash}{64}{}%
+\contentsline {section}{\numberline {8.1}Programmazione Bash}{64}{}%
+\contentsline {chapter}{\numberline {9}API Posix}{65}{}%
+\contentsline {section}{\numberline {9.1}Gestione dei file}{65}{}%
+\contentsline {section}{\numberline {9.2}Gestione dei diritti}{65}{}%
+\contentsline {section}{\numberline {9.3}Lettura/scrittura}{65}{}%
+\contentsline {section}{\numberline {9.4}Gestione dei processi}{65}{}%
+\contentsline {section}{\numberline {9.5}Segnali}{65}{}%
+\contentsline {section}{\numberline {9.6}Comunicazione tra processi tramite PIPE}{65}{}%
+\contentsline {section}{\numberline {9.7}Pthread}{65}{}%

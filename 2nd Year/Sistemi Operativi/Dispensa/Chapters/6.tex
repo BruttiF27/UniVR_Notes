@@ -353,3 +353,129 @@ La soluzione a questo problema, detto \textbf{inversione della priorità}, si ha
 Fondamentalmente, quando un processo a bassa priorità utilizza dei dati che possono essere richiesti da altri processi più importanti, eredita il
 livello di priorità di questi ultimi per tutto il tempo in cui usufruiscono di queste risorse, impedendo che processi a priorità intermedia sottraggano
 la CPU al processo a bassa priorità che detiene il lock, riducendo così il tempo di attesa del processo ad alta priorità.
+
+%
+
+\section{Esempi di sincronizzazione}
+Analizziamo ora alcuni classici problemi in merito al controllo della concorrenza; vengono utilizzati per verificare le proposte di nuovi schemi di
+sincronizzazione. Il primo, già trattato in precedenza, riguarda il \textbf{produttore/consumatore} con memoria limitata, generalmente usato per
+illustrare le primitive. Data una quantità di memoria limitata definita da un buffer con $n$ posizioni, si condividono le seguenti strutture dati:
+\begin{lstlisting}[language=C]
+    int n; // Numero posizioni buffer
+    semaphore mutex = 1; // Garantisce mutua esclusione accessi buffer
+    semaphore empty = n; // Numero posizioni vuote in buffer
+    semaphore full = 0; // Numero posizioni piene in buffer
+\end{lstlisting}
+
+\noindent I prodotti generati saranno inseriti nel buffer e viene segnalato l'utilizzo della posizione, mentre per consumarli si prelevano dal buffer e
+viene riportato che la posizione è nuovamente libera. I due processi sono quindi simmetrici.
+\begin{lstlisting}[language=C]
+    // Struttura processo produttore
+    while (true) {
+        . . .
+        /* Produci un elemento in next_produced */
+        . . .
+        wait(empty);
+        wait(mutex);
+        . . .
+        /* Inserisci next_produced in buffer */
+        . . .
+        signal(mutex);
+        signal(full);
+    }
+
+    // Struttura processo consumatore
+    while (true) {
+        wait(full);
+        wait(mutex);
+        . . .
+        /* Rimuovi un elemento da buffer e mettilo in next_consumed */
+        . . .
+        signal(mutex);
+        signal(empty);
+        . . .
+        /* Consuma l'elemento in next_consumed */
+        . . .
+    }
+\end{lstlisting}
+
+\noindent Il secondo problema presentato è quello dei \textbf{lettori/scrittori}; si supponga una base di dati condivisa da più processi concorrenti,
+alcuni dei quali richiedenti solo funzioni di lettura (\textbf{lettori}), mentre altri anche di scrittura (\textbf{scrittori}). Se due lettori accedono
+contemporaneamente alla propria sezione critica, non si presenta alcun problema; caso contrario se due scrittori devono aggiornare l'area allo stesso
+tempo.\par
+È necessario impedire quest'ultima istanza garantendo un accesso esclusivo agli scrittori quando questi debbano aggiornare i dati. Questo problema ha
+molte varianti, ma presentiamo le prime due classiche: \begin{itemize}
+    \item \textbf{Primo problema}: Nessun lettore deve attendere per accedere ai dati, a meno che uno scrittore non abbia ottenuto il permesso di
+    modificare i dati.
+    \item \textbf{Secondo problema}: Gli scrittori pronti devono eseguire e terminare l'operazione di scrittura dati condivisi il prima possibile.
+\end{itemize}
+\noindent In quanto queste due situazioni possono presentare attese indefinite, è necessario modificare la soluzione proposta in base alla situazione.
+Presentiamo quella relativa al primo problema, che vede condivise le seguenti strutture dati:
+\begin{lstlisting}[language=C]
+    semaphore rw_mutex = 1; // Garantisce mutua esclusione per scrittori
+    semaphore mutex = 1; // Garantisce mutua esclusione all'aggiornamento di read_count
+    int read_count = 0; // Numero processi che stanno leggendo i dati
+\end{lstlisting}
+
+\noindent Se uno scrittore si trova in sezione critica ed $n$ lettori attendono di entrare nella propria, si accoda un lettore a \textit{rw\_mutex} e
+$n-1$ lettori a \textit{mutex}. Inoltre, quando uno scrittore chiama \textit{signal(rw\_mutex)}, lo scheduler potrà scegliere se dare gli accessi ad un
+altro scrittore oppure ai lettori in attesa.
+\begin{lstlisting}[language=C]
+    // Struttura processo scrittore
+    while (true) {
+        wait(rw_mutex);
+        . . .
+        /* Esegui scrittura */
+        . . .
+        signal(rw_mutex);
+    }
+
+    // Struttura processo lettore
+    while (true) {
+        wait(mutex);
+        read_count++;
+        if (read_count == 1) wait(rw_mutex);
+        signal(mutex);
+        . . .
+        /* Esegui lettura */
+        . . .
+        wait(mutex);
+        read_count--;
+        if (read_count == 0) signal(rw_mutex);
+        signal(mutex);
+    }
+\end{lstlisting}
+
+\noindent Le soluzioni a questo problema sono generalizzate in alcuni sistemi mediante \textbf{lock di lettura-scrittura}, i quali sono acquisiti grazie
+ad una specifica della funzionalità richiesta. Si permette a più processi di acquisire più lock in modalità lettura, ma solamente a uno alla volta in
+modalità scrittura, data la necessità dell'accesso esclusivo.\par
+L'ultimo problema proposto è quello dei \textbf{cinque filosofi}: si suppongano cinque filosofi che trascorrono la loro vita a pensare e mangiare.
+Questi condividono una tavola rotonda al cui centro è posto del riso. La tavola presenta cinque posti disponibili, ma solo un totale di cinque 
+bacchette; una posta a sinistra e l'altra a destra del piatto, entrambe necessarie per mangiare. Se un filosofo pensa, non interagisce, mentre se gli
+viene fame, cerca di prendere le bacchette più vicine al suo posto. Può prendere una bacchetta libera alla volta e se ne ha due in mano potrà mangiare
+senza essere interrotto. Terminato il pasto, le lascerà nuovamente disponibili per tornare a pensare.\par
+Questo problema è un classico esempio di gestione della concorrenza dove si richiede la necessità di assegnazione delle risorse ai vari processi
+evitando stallo e starvation. Una soluzione di questo problema si ottiene grazie ai semafori; i filosofi condivideranno un array \textit{chopstick[5]}
+dove gli elementi sono inizializzati a $1$; si prenderanno le bacchette chiamando \textit{wait()} e le si poseranno con \textit{signal()} sui semafori
+appropriati. Questa proposta garantisce che due vicini non mangino allo stesso tempo, ma non esclude eventuali stalli, perché se tutti i filosofi hanno
+fame allo stesso tempo, alcuni dovranno necessariamente aspettare. Per questa ragione si implementa uno dei seguenti espedienti: \begin{itemize}
+    \item Solo quattro filosofi possono stare contemporaneamente a tavola.
+    \item Un filosofo può prendere le bacchette ad esso adiacenti solamente se sono entrambe disponibili.
+    \item Soluzione asimmetrica dove i filosofi dispari prendono prima la bacchetta di sinistra e poi quella di destra e viceversa per quelli pari.
+\end{itemize}
+
+\begin{lstlisting}[language=C]
+    // Struttura dei filosofi
+    while (true) {
+        wait(chopstick[i]);
+        wait(chopstick[(i+1)%5]);
+        . . .
+        /* Mangia */
+        . . .
+        signal(chopstick[i]);
+        signal(chopstick[(i+1)%5]);
+        . . .
+        /* Pensa */
+        . . .
+    }
+\end{lstlisting}

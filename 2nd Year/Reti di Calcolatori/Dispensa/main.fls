@@ -730,6 +730,11 @@ INPUT ./Images/routing_ex1.png
 INPUT Images/routing_ex1.png
 INPUT ./Images/routing_ex1.png
 INPUT ./Images/routing_ex1.png
+INPUT ./Images/routing_ex2.png
+INPUT ./Images/routing_ex2.png
+INPUT Images/routing_ex2.png
+INPUT ./Images/routing_ex2.png
+INPUT ./Images/routing_ex2.png
 INPUT ./Chapters/5.tex
 INPUT ./Chapters/5.tex
 INPUT ./Chapters/5.tex
@@ -797,6 +802,16 @@ INPUT ./Images/rts-cts.png
 INPUT Images/rts-cts.png
 INPUT ./Images/rts-cts.png
 INPUT ./Images/rts-cts.png
+INPUT ./Images/sharedMedium_ex1.png
+INPUT ./Images/sharedMedium_ex1.png
+INPUT Images/sharedMedium_ex1.png
+INPUT ./Images/sharedMedium_ex1.png
+INPUT ./Images/sharedMedium_ex1.png
+INPUT ./Images/sharedMedium_ex2.png
+INPUT ./Images/sharedMedium_ex2.png
+INPUT Images/sharedMedium_ex2.png
+INPUT ./Images/sharedMedium_ex2.png
+INPUT ./Images/sharedMedium_ex2.png
 INPUT main.aux
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
@@ -813,6 +828,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb

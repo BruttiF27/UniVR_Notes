@@ -451,11 +451,84 @@ riaccenderanno i rispettivi circuiti e riprenderanno ad ascoltare il canale.
 %
 
 \section{Esercizi svolti}
+\textbf{Esercizio 1}: Supponiamo tre stazioni $A, B, C$ collegate da un mezzo condiviso la cui velocità di trasmissione è $v=2.5MBit/s$ e la dimensione
+delle trame è di $3750B$. Mostrare l'evoluzione temporale della trasmissione sapendo che è utilizzato l'algoritmo ALOHA e vengono generate le seguenti
+trame: \begin{itemize}
+    \item A: $t_{A1}=410ms$.
+    \item B: $t_{B1}=418ms$.
+    \item C: $t_{C1}=454ms$.
+\end{itemize}
+
+\noindent ALOHA non implementa alcun ascolto del canale: le stazioni trasmettono le trame direttamente e se c'è collisione sono perse. Verrà poi
+calcolato il tempo di ritrasmissione secondo la formula: \[
+    z = (\text{Cifra1}+\text{Cifra2}+\text{Cifra3})\cdot \text{TentativiDiRitrasmissione} + \text{TempoDiTrama}
+\]
+
+\noindent Con cifre i numeri del valore di inizio trasmissione. Per prima cosa, è necessario calcolare il tempo di trama convertendo appropriatamente
+le misure: \[
+    T = \frac{\text{lunghezzaTrama}}{\text{velocitàTrasmissione}} = \frac{3750B\cdot 8}{2,5\text{[Mbit/s]}\cdot 10^6} = 12s
+\]
+\noindent Quindi ogni trama richiederà $12s$ per essere trasmessa e l'evoluzione è la seguente: \begin{enumerate}
+    \item $A$ trasmette $A1$ in $[410s, 422s]$.
+    \item $B$ trasmette $B1$ in $[418s, 430s]$. Collide con $A1$, le trame sono perse e si calcolano i tempi di ritrasmissione: \[
+        \begin{split}
+            z_{A1} &= (4+1+0)\cdot 1+12 = 17s\implies 422+17 = 439s\\
+            z_{B1} &= (4+1+8)\cdot 1+12 = 25s\implies 430+25 = 455s
+        \end{split}
+    \]
+    \item $A$ trasmette $A1$ in $[439s, 451s]$. Non collide e termina.
+    \item $C$ trasmette $C1$ in $[454s, 466s]$.
+    \item $B$ trasmette $B1$ in $[455s, 467s]$. Collide con $C1$, le trame sono perse e si calcolano i tempi di ritrasmissione: \[
+        \begin{split}
+            z_{B1}' &= (4+5+5)\cdot 2+12 = 40s\implies 467+40 = 507s\\
+            z_{C1} &= (4+5+4)\cdot 1+12 = 25s\implies 466+25 = 491s
+        \end{split}
+    \]
+    \item $C$ trasmette $C1$ in $[491s, 503s]$. Non collide e termina.
+    \item $B$ trasmette $B1$ in $[507s, 519s]$. Non collide e termina la trasmissione in toto.
+\end{enumerate}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/sharedMedium_ex1.png}
+	\caption{Evoluzione esercizio 1}
+\end{figure}
+
+\noindent \textbf{Esercizio 2}: Supponiamo due stazioni $A, B$ collegate da un mezzo condiviso la cui velocità di trasmissione è $v = 2.5Mbit/s$, il
+ritardo di trasmissione è $\tau = 2s$ e la lunghezza delle trame di $3750B$. Mostrare l'evoluzione temporale della trasmissione sapendo che è utilizzato
+l'algoritmo CSMA-persistent e vengono generate le seguenti trame: \begin{itemize}
+    \item A: $t_{A1} = 225s$, $t_{A2} = 240s$.
+    \item B: $t_{B1} = 228s$.
+\end{itemize}
+
+\noindent CSMA-persistent implementa un ascolto preventivo del canale; se è occupato, attende la liberazione, altrimenti trasmette. \[
+    T = \frac{3750B\cdot 8}{2.5[MBit/s]\cdot 10^6} = 12s
+\]
+\noindent Quindi ogni trama richiederà $12s$ per essere trasmessa e l'evoluzione è la seguente: \begin{enumerate}
+    \item $A$ ascolta il canale e lo vede libero. Trasmette $A1$ in $[225s, 237s]$ e arriva a $B$ in $[227s, 239s]$.
+    \item $B$ ascolta il canale e lo vede occupato. Non può trasmettere $B1$ a $228s$; attende la fine di $A1$ e trasmette $B1$ in $[239s, 251s]$,
+    arrivando ad $A$ in $[241, 253s]$.
+    \item $A$ vuole trasmettere $A2$ in $[240s, 252s]$. In questo primo tempo non nota il canale libero e inizia la sua trasmissione, collidendo con $B1$
+    al tempo $241s$. Le trame sono perse e si calcolano i tempi di ritrasmissione: \[
+        \begin{split}
+            z_{A2} = (2+4+0)\cdot 1+12 = 18s \implies 252+18 = 270s\\
+            z_{B1} = (2+3+9)\cdot 1+12 = 26s \implies 251+26 = 277s
+        \end{split}
+    \]
+    \item $A$ ascolta il canale e lo vede libero. Trasmette $A2$ in $[270s, 282s]$ e arriva a $B$ in $[272s, 284s]$. Non collide.
+    \item $B$ ascolta il canale e lo vede occupato. Non può trasmettere $B1$ a $277s$; attende la fine di $A2$ e trasmette $B1$ in $[284s, 296s]$,
+    arrivando ad $A$ in $[286, 298s]$, terminando la trasmissione in toto.
+\end{enumerate}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{Images/sharedMedium_ex2.png}
+	\caption{Evoluzione esercizio 2}
+\end{figure}
+
 
 \begin{comment}
---- Esercizi con il bridge
 1. Bridge Aloha
-Stabiliamo che il tempo di propagazione sui segmenti è nullo (\tau_1=0, \tau_2=0). La velocità di trasmissione sul primo segmento v_1 = 1.6Mbit/s. La lunghezza delle trame è di 800B.
+Stabiliamo che il tempo di propagazione sui segmenti è nullo (\tau_1=0, \tau_2=0). La velocità di trasmissione sul primo segmento v_1 = 1.6Mbit/s. La
+lunghezza delle trame è di 800B.
 
 A genera due trame al tempo t_{A1}=216ms e t_{A2}=256ms, entrambe dirette a B.
 B genera t_{B1}=233ms diretta ad A

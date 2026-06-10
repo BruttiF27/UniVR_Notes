@@ -23,9 +23,9 @@
 \contentsline {section}{\numberline {4.3}Protocolli DHCP e ICMP}{49}{}%
 \contentsline {section}{\numberline {4.4}Network Address Translation e IPv6}{50}{}%
 \contentsline {section}{\numberline {4.5}Esercizi svolti}{54}{}%
-\contentsline {chapter}{\numberline {5}Livello di collegamento dati}{56}{}%
-\contentsline {section}{\numberline {5.1}Servizi e accesso al canale condiviso}{56}{}%
-\contentsline {section}{\numberline {5.2}Algoritmi di accesso al canale condiviso}{57}{}%
-\contentsline {section}{\numberline {5.3}Ethernet, switch e LAN, Bridge}{64}{}%
-\contentsline {section}{\numberline {5.4}Wireless LAN}{67}{}%
-\contentsline {section}{\numberline {5.5}Esercizi svolti}{72}{}%
+\contentsline {chapter}{\numberline {5}Livello di collegamento dati}{57}{}%
+\contentsline {section}{\numberline {5.1}Servizi e accesso al canale condiviso}{57}{}%
+\contentsline {section}{\numberline {5.2}Algoritmi di accesso al canale condiviso}{58}{}%
+\contentsline {section}{\numberline {5.3}Ethernet, switch e LAN, Bridge}{65}{}%
+\contentsline {section}{\numberline {5.4}Wireless LAN}{68}{}%
+\contentsline {section}{\numberline {5.5}Esercizi svolti}{73}{}%

@@ -272,17 +272,17 @@ sono utilizzate esclusivamente se necessarie.
 %
 
 \section{Esercizi svolti}
-\textbf{Esercizio 1}: Sia la seguente architettura di rete mostrata in immagine. Scrivere la tabella di routing per il router A considerando come
-metrica il numero di hop e assumendo che il router X abbia annunciato di poter raggiungere tutti gli host su Internet con 5 hop. Le LAN dispongono di
+\textbf{Esercizio 1}: Sia la seguente configurazione di rete mostrata in immagine. Scrivere la tabella di routing per il router $A$ considerando come
+metrica il numero di hop e assumendo che il router $X$ abbia annunciato di poter raggiungere tutti gli host su Internet con 5 hop. Le LAN dispongono di
 un mezzo condiviso per il salto da una rete all'altra.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.6\linewidth]{Images/routing_ex1.png}
-	\caption{Architettura esercizio 1}
+	\includegraphics[width=0.5\linewidth]{Images/routing_ex1.png}
+	\caption{Configurazione esercizio 1}
 \end{figure}
 
 \noindent Questo esercizio è molto più basato sul guardare l'architettura di rete piuttosto che di ragionamento. È stato richiesto di prendere come
-riferimento A; quindi basta vedere il numero di reti da esso attraversate per poter fornire costi verso una data destinazione. \begin{table}[h]
+riferimento $A$; quindi basta vedere il numero di reti da esso attraversate per poter fornire costi verso una data destinazione. \begin{table}[h]
 	\centering
 	\begin{tabular}{|c|c|c|}
 		\hline
@@ -298,4 +298,34 @@ riferimento A; quindi basta vedere il numero di reti da esso attraversate per po
 		\hline
 	\end{tabular}
 	\caption{Tabella di routing per il router A}
+\end{table}
+
+\noindent \textbf{Esercizio 2}: Sia la seguente configurazione di rete mostrata in immagine. Scrivere la tabella di routing per il router $X$
+considerando come metrica il numero di hop e assumendo che abbia annunciato di poter raggiungere tutti gli host su Internet con 4 hop. Le LAN dispongono
+di un mezzo condiviso per il salto da una rete all'altra.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{Images/routing_ex2.png}
+	\caption{Configurazione esercizio 2}
+\end{figure}
+
+\noindent Stesso identico procedimento di prima, ma bisogna indicare "?" come hop successivo nella connessione a Internet, poiché l'host al suo interno
+è sconosciuto, ma sempre raggiungibile con 4 salti. \begin{table}[h]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Destinazione & Costo & Hop successivo\\
+		\hline
+		LAN1 & 2 & R1\\
+		\hline
+		LAN2 & 2 & R1\\
+		\hline
+		LAN3 & 2 & R1\\
+		\hline
+		R1 & 1 & Diretta\\
+		\hline
+		Internet & 4 & ?\\
+		\hline
+	\end{tabular}
+	\caption{Tabella di routing per il router X}
 \end{table}

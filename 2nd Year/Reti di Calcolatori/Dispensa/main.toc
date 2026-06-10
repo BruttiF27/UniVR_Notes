@@ -28,4 +28,4 @@
 \contentsline {section}{\numberline {5.2}Algoritmi di accesso al canale condiviso}{57}{}%
 \contentsline {section}{\numberline {5.3}Ethernet, switch e LAN, Bridge}{64}{}%
 \contentsline {section}{\numberline {5.4}Wireless LAN}{67}{}%
-\contentsline {section}{\numberline {5.5}Esercizi svolti}{70}{}%
+\contentsline {section}{\numberline {5.5}Esercizi svolti}{72}{}%

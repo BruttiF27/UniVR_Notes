@@ -1,0 +1,52 @@
+Lez21 - 09-06-26 Reti di calcolatori
+
+--- Domande di teoria (appello 09-01-2013)
+Leggi la domanda, scomponila nelle sub-requests e non aggiungere roba fuori tema.
+
+1. Descrivi CSMA-CD (anche) con pseudocodice commentato e indica il motivo che ha portato all'introduzione di tale variante. Qui è preferibile commentare quanto più possibile.
+
+Ragione: Serve per non andare a occupare il canale inutilmente con la collisione. Liberando il canale permetto alle altre stazioni di eventualmente utilizzarlo.
+
+2. L'header IP contiene un campo Identification di 16b. Spiegare cosa contiene e come viene usato.
+
+Numero progressivo assegnato dalla sorgente a ciascun pacchetto generato a livello 3. Qua devi necessariamente spiegare anche la frammentazione perché
+
+3. Descrivi la fase di chiusura di connessione TCP, indicando messaggi scambiati e i principali campi dell'header usati in tale fase.
+
+Non complessa; basta riguardare la parte teorica in merito. Tutto quello degli fin-acknowledge e come la chiusura può iniziare da ambo le parti.
+
+--- Esercizio bridge
+Vel: 1.6Mbit/s, L = 2000B
+T = 2000*8 / 1.6*10^6 = 10ms
+A genera t_{a1}: 704, t_{a2}: 720       // 1s di ritardo dal bridge
+B genera t_b: 723                       // 2s
+C genera t_{c1}: 703 (verso A), t_{c2}: 735     // 3s
+
+Collisione A2 C2
+z_{c2}: (7+3+9)*1+10ms = 29 \implies 749 + 29 = 778ms
+z_{Br}: (7+4+0)*1+10ms = 21 \implies 750 + 21 = 771ms
+
+--- Esercizio indirizzamento
+L1 richiede 500 indirizzi
+L2 richiede 1200 indirizzi (89.136.63.255)
+L3 richiede 200 indirizzi
+
+Minimo 4096 indirizzi, ordunque. Implica 2^{12}, un blocco CIDR di 20b
+
+Blocco CIDR: 89.136.0011/1111.11111111 = 89.136.0011/0000.00000000/20
+    L1: 89.136.0011000/0.00000000 = 89.136.48.0/23
+    L2: 89.136.00111/000.00000000 = 89.136.56.0/21
+    L3: 89.136.00110010/.00000000 = 89.136.50.0/24
+
+--- Esercizio TCP
+78segs
+RCVWND_i = 16segs, da t>2.5s la fa diventare da 5segs, e da t>3.5s la fa diventare da 20segs.
+RTT=0,5s
+Down (4.5, 5.5)
+SSTHRESH = RCVWND_i
+
+Trasmissione: 1+2+4+8+16+16+5+5+10+16(0)
+Trasmissione: 1+2+4+8-4 = 72. Finito.
+
+Trasmissione conclusa a 7.5s
+CWND_f = 8+4/8

@@ -1,0 +1,61 @@
+Lez20 - 05-06-26 Reti di calcolatori
+
+--- WLAN 2
+- Problema del terminale nascosto
+Si tratta di un problema specifico delle reti wireless; il segnale generato dall'antenna è omnidirezionale e in quanto tale, la sua potenza si distribuisce sulla superficie della sfera con la quale è distribuito il segnale, diminuendo.
+Se una stazione vuole ricevere il segnale, potrà captarne solamente una parte, di potenza non massima. Inoltre, più vicini si è, più facilmente si potrà captare più potenza dalla sfera, ottenendo maggior potenza. Più ci si distanzia, naturalmente, la potenza diminuisce (con il wuadrato della distanza).
+C'è un dato limite sotto il uale il segnale non è più ricostruibile. È più generoso e stabile se si utilizza una rete cablata.
+
+Consideriamo ora la seguente configurazione:
+    - AP
+    - Stazione A
+    - Stazione B
+Entrambe le stazioni sono in un raggio nel quale è possibile percepire l'access point. Tuttavia A e B non si riescono a raggiungere tra di loro. Non è un problema perché l'AP farà da mezzo condiviso col proprio switch.
+Ora, che cosa succede con il CSMA-CA se mentre A trasmette B genera una trama?
+
+A genera la trama e B ascolta il canale. Essendo il segnale di A troppo debole data la distanza, B non lo percepisce, vedendo il mezzo libero.
+B attenderà il DIFS e trasmetterà dopo aver aspettato gli altri microslot SIFS estratti.
+L'AP percepirà poi 2 trasmissioni contemporaneamente, creando collisione. Tuttavia, nessuna delle due stazioni si accorge della collisione, perché non hanno letto potenza maggiore del normale nel canale. Non riproveranno a ritrasmettere la trama perché per loro è stata trasmessa bene. È questo il problema del terminale nascosto. Non basta il CSMA-CA. Abbiamo tre soluzioni possibili:
+    1. Aggiungere un ack a livello 2. Come già discusso, l'attesa del DIFS è necessaria per consentire l'invio di questo acknowledge e mettere in piedi il meccanismo per risolvere il problema. (genera eventualmente collisioni)
+    2. Limitazione dello spazio di responsabilità dell'access point (attualmente la più usata). Nella configurazione di prima, si può restringere il range dell'AP per far sì che il segnale venga percepito anche dalle altre stazioni all'interno del raggio ristretto dell'AP. Ciò significa anche, in caso di più AP, metterli a frequenze differenti per evitare di confondersi.
+    3. Soluzione protocollare. Si introducono due nuovi messaggi: RTS (Request to send) e CTS (Clear to send). Si tratta di una soluzione adattata quando l'access point è isolato e non si può restringere il suo range.
+
+Per la terza soluzione, A invia un RTS in broadcast. Ricevuto da AP e non da B poiché troppo lontano. AP ritorna in broadcast un CTS ed è ricevuto da tutte. B in questo caso anche se non ha visto l'RTS, vedendo il CTS sa che qualcuno ha richiesto la trasmissione e B inibisce qualsiasi sua trasmissione e considera il canale occupato per un tempo pari a quanto indicato nel CTS.
+A invece vede che gli è stato concesso il canale e potrà trasmettere la sua trama.
+La soluzione RTS-CTS permette anche di risparmiare energia, perché quando si legge un CTS, le stazioni non richiedenti spengono il proprio circuito di ricezione.
+Si tende a preferire la soluzione 2, tuttavia.
+
+Esistono altre occasioni per risparmiare energia? È il problema più grande delle W-LAN perché si richiede che gli host siano costantemente in ascolto con il loro circuito attivo.
+In primo luogo, nell'header di Lv2 delle trame, si guarda al mac address di destinazione e il campo della lunghezza della trama; se la stazione che legge non corrisponde al dstMAC, considera il canale occupato e spegne il suo canale di ricezione per il tempo necessario alla trasmissione della trama.
+Questo meccanismo è chiamato (NAV) Network Allocation Vector e dice per quanto tempo il canale è indisponibile. Quando il NAV è a 0 riaccendo il circuito e si riprende ad ascoltare il canale.
+
+--- Esercizio Lv2
+Abbiamo due segmenti di rete collegati da un bridge. Sul primo sono due stazioni A, B, mentre sul secondo sta la C.
+Il ritardo di propagazione è di 2ms da A al bridge, di 1ms da B e di 1ms da C.
+Il segmento delle due stazioni ha v=600KBit/s, mentre quella del segmento 2 è di 1200KBit/s.
+La lunghezza delle trame globale è di L = 900B. Il protocollo adottato è CSMA-persistent.
+
+Vengono generate le seguenti trame:
+    - A: t_{A1}=511ms verso C, t_{A2}=531ms verso B
+    - B: t_{B1}=545ms verso C
+    - C: t_{C1}=514ms verso B, t_{C2}=533ms verso A
+
+T_1 = 900*8/600*10^{3}=12ms, T_2 = 900*8/1200*10^3 = 6ms
+
+A genera t_{A1} a 511ms e finisce a 523ms. Raggiunge AP da 513 a 525ms.
+C genera t_{C1} da 514 a 520ms, raggiungendo AP da 515 a 521. Questa è trasferita sull'altro segmento. Non essendo finita la trasmissione di A, attende il termine di t_{A1} per trasmettere t_{C1}.
+t_{C1} è quindi trasmessa da 525 a 537, facendo arrivare a B la trama dopo 1ms e ad A dopo 2ms.
+Il bridge trasmette poi t_{A1} da 525 a 531, facendola arrivare a C da 526 a 532
+C trasmette t_{C2} da 533 a 539, facendola arrivare al bridge da 534 a 540.
+A attende il liberarsi del canale dopo aver generato t_{A2} a 531. Trasmette da 539 a 551, facendola arrivare da 541 a 553. Tuttavia il bridge stava trasmettendo da 540ms la trama t_{C2}, creando collisione.
+
+tempo di attesa z_{A}: (5+3+9)1+12 = 29 \implies 551+29 = 580ms
+tempo di attesa z_{Br}: (5+4+0)1+12 = 21 \implies 552+21 = 573ms
+
+B genera t_B da 545 e legge il canale occupato. Attende la liberazione a 553ms e inizia la trasmissione fino a 565ms. Non ci sono problemi e il bridge riceve tutto, inviando B1 a C da 556 a 572 e facendogliela ricevere 1ms dopo.
+
+Il bridge riprende la trasmissione di C2 da 573 a 585 e non ha problemi.
+A2 attende la terminazione a 587ms e trasmette da 587 a 599, arriverà a B 1ms dopo.
+
+--- Fun fact derivato da wooclap
+Con ritardi \tau maggiori di tempo di trasmissione T potrebbe capitare che alcune collisioni non vengano percepite, perché fa in tempo a terminare la trasmissione prima di far arrivare l'altro segnale.

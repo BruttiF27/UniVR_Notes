@@ -323,7 +323,7 @@ di comunicare direttamente in determinati contesti.}, forzandoli quindi ad appel
 Il mezzo condiviso agisce quindi da manager e ha anche il compito di gestire la temporizzazione per allineare correttamente gli host coinvolti; in
 particolare, il tempo disponibile è diviso in vari slot la cui dimensione è determinata dal tempo di propagazione tra access point e la stazione più
 distante, rendendo il valore dipendente dalla tecnologia implementata. In genere, gli slot hanno un intervallo di dimensione molto piccola, come
-$10\mu s$, se consideriamo IEEE 802.116. Definiamo quindi due tipi di intervallo per il CSMA-CA: \begin{itemize}
+$10\mu s$, se consideriamo IEEE 802.11. Definiamo quindi due tipi di intervallo per il CSMA-CA: \begin{itemize}
     \item \textbf{SIFS}: Short InterFrame Space, equivalente alla dimensione minima dello slot, quindi a $\tau$.
     \item \textbf{DIFS}: Distributed InterFrame Space, equivalente a tre volte l'intervallo base, quindi a $3\tau$.
 \end{itemize}
@@ -391,12 +391,62 @@ Ma a questo punto, qual è lo scopo del DIFS se è necessario attendere ugualmen
 attivare un riscontro di livello 2, quindi una ricevuta di consegna da parte dell'access point in merito alla trama; relativo, naturalmente, al singolo
 hop tra host e access point, ed è inviato subito dopo un SIFS dalla fine della trasmissione della relativa trama. Il DIFS è necessario per garantire
 tempo a sufficienza per la trasmissione di questo acknowledgement.
-
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{Images/CSMA-CA.png}
 	\caption{Algoritmo CSMA-CA}
 \end{figure}
+
+\noindent Sebbene le reti wireless LAN siano lo standard odierno ed il modello di infrastruttura più utilizzato, presentano un particolare problema,
+dovuto alla modalità di dispersione del segnale nel proprio raggio d'azione: il \textbf{problema del terminale nascosto}.\par
+Il segnale generato dalle antenne è omnidirezionale, ed in quanto tale si distribuisce in un range sferico; più è distante dalla sorgente, meno risulta
+potente; in particolare, diminuisce con il quadrato della distanza\footnote{In casi di studio reali, la potenza del segnale diminuisce anche a causa di
+vari ostacoli, come muri o mobili.}. Ne consegue che esiste una data distanza limite oltre la quale il segnale non è più ricostruibile.\par
+Consideriamo ora una configurazione di rete che presenta un access point e due stazioni $A, B$, entrambe in un raggio nel quale possono percepire
+l'access point ma non l'una con l'altra. Ciò non è un problema perché l'access point svolge il ruolo di mezzo condiviso con il proprio switch, ma in
+questo contesto cede la conoscenza universale in merito alla generazione delle trame di tutte le stazioni.\newline 
+
+\noindent Supponiamo quindi il seguente caso di studio, con una rete che fa uso dell'algoritmo CSMA-CA: \begin{itemize}
+    \item La stazione A trasmette una trama. B non percepisce potenza maggiore poiché il segnale è troppo debole, vedendo quindi il canale libero.
+    \item La stazione B vuole trasmettere una trama; attenderà il proprio DIFS e i SIFS casuali calcolati, per poi trasmettere.
+    \item L'access point percepirà due trasmissioni allo stesso tempo: collisione. Ciononostante, nessuna delle due stazioni se ne accorge, poiché non
+    hanno percepito il canale occupato e di conseguenza non riproveranno a trasmettere le relative trame.
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/wlan_range.png}
+	\caption{Panoramica rete wireless}
+\end{figure}
+
+\noindent L'algoritmo CSMA-CA da solo non è sufficiente; esistono quindi tre soluzioni per la risoluzione del problema: \begin{itemize}
+    \item \textbf{Acknowledgement a lv.2}: Il sistema di ricevuta di consegna garantito dall'attesa del DIFS. Può eventualmente generare ulteriori
+    collisioni.
+    \item \textbf{Limitazione spazio di responsabilità Access-Point}: Una riduzione del raggio dell'access-point per garantire che il segnale di una 
+    stazione venga percepito anche da tutte le altre nel range\footnote{In caso di più access-point sarà necessario porli a frequenze differenti}.
+    Usando questa soluzione nella configurazione mostrata in precedenza, la stazione B avrebbe necessariamente percepito la trasmissione di A e non
+    avrebbe iniziato a trasmettere, evitando la collisione.
+    \item \textbf{Soluzione protocollare}: Introduzione di due nuovi messaggi chiamati \textbf{Request to send} (RTS) e \textbf{Clear to send} (CTS).
+    Meccanica utilizzata in sostituzione alla seconda soluzione, quando l'access point è isolato e non è possibile restringere il suo raggio d'azione.
+\end{itemize}
+
+\noindent In particolare, per la terza soluzione, se applicata all'esempio di configurazione precedente, il messaggio di RTS viene inviato dalla stazione
+$A$ in broadcast e recepito dall'access-point, ma non da $B$ in quanto troppo distante. L'AP ritornerà ugualmente in broadcast un messaggio CTS per
+comunicare a qualunque stazione nel suo raggio d'azione che il canale sarà occupato perché una stazione ha richiesto una trasmissione. Le stazioni non
+richiedenti, alla ricezione del CTS, inibiranno il loro circuito di ricezione e considereranno il canale occupato per un tempo pari a quanto indicato
+nel messaggio. $A$ vedrà invece che il canale gli è stato concesso e potrà iniziare a trasmettere la sua trama.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/rts-cts.png}
+	\caption{Funzionalità RTS-CTS}
+\end{figure}
+
+\noindent Il problema principale delle reti Wi-Fi rimane in ogni caso quello del consumo energetico e si richiede l'attuazione di meccanismi per
+risparmiare risorse quando possibile. Oltre l'inibizione del circuito di ricezione, si implementa anche il \textbf{Network Allocation Vector} (NAV),
+una struttura dati che tiene conto del tempo per il quale il canale condiviso è occupato. In primo luogo, nell'intestazione di livello di collegamento,
+la stazione guarda all'indirizzo MAC di destinazione e il campo di lunghezza trama; se quanto letto non corrisponde al MAC di destinazione,
+considererà il canale come occupato e spegnerà il suo circuito di ricezione per il tempo necessario alla trasmissione della trama.\par
+In breve, è un meccanismo che comunica per quanto tempo il mezzo condiviso rimane indisponibile. Quando il suo valore è posto a zero, le stazioni
+riaccenderanno i rispettivi circuiti e riprenderanno ad ascoltare il canale.
 
 %
 
@@ -480,4 +530,25 @@ Vengono generate le seguenti trame:
     - A: t_{A1}=511ms verso C, t_{A2}=531ms verso B
     - B: t_{B1}=545ms verso C
     - C: t_{C1}=514ms verso B, t_{C2}=533ms verso A
+
+T_1 = 900*8/600*10^{3}=12ms, T_2 = 900*8/1200*10^3 = 6ms
+
+A genera t_{A1} a 511ms e finisce a 523ms. Raggiunge AP da 513 a 525ms.
+C genera t_{C1} da 514 a 520ms, raggiungendo AP da 515 a 521. Questa è trasferita sull'altro segmento. Non essendo finita la trasmissione di A, attende il termine di t_{A1} per trasmettere t_{C1}.
+t_{C1} è quindi trasmessa da 525 a 537, facendo arrivare a B la trama dopo 1ms e ad A dopo 2ms.
+Il bridge trasmette poi t_{A1} da 525 a 531, facendola arrivare a C da 526 a 532
+C trasmette t_{C2} da 533 a 539, facendola arrivare al bridge da 534 a 540.
+A attende il liberarsi del canale dopo aver generato t_{A2} a 531. Trasmette da 539 a 551, facendola arrivare da 541 a 553. Tuttavia il bridge stava trasmettendo da 540ms la trama t_{C2}, creando collisione.
+
+tempo di attesa z_{A}: (5+3+9)1+12 = 29 \implies 551+29 = 580ms
+tempo di attesa z_{Br}: (5+4+0)1+12 = 21 \implies 552+21 = 573ms
+
+B genera t_B da 545 e legge il canale occupato. Attende la liberazione a 553ms e inizia la trasmissione fino a 565ms. Non ci sono problemi e il bridge riceve tutto, inviando B1 a C da 556 a 572 e facendogliela ricevere 1ms dopo.
+
+Il bridge riprende la trasmissione di C2 da 573 a 585 e non ha problemi.
+A2 attende la terminazione a 587ms e trasmette da 587 a 599, arriverà a B 1ms dopo.
+
+--- Fun fact derivato da wooclap
+Con ritardi \tau maggiori di tempo di trasmissione T potrebbe capitare che alcune collisioni non vengano percepite, perché fa in tempo a terminare la trasmissione prima di far arrivare l'altro segnale.
+
 \end{comment}

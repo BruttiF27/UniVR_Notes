@@ -787,6 +787,16 @@ INPUT ./Images/CSMA-CA.png
 INPUT Images/CSMA-CA.png
 INPUT ./Images/CSMA-CA.png
 INPUT ./Images/CSMA-CA.png
+INPUT ./Images/wlan_range.png
+INPUT ./Images/wlan_range.png
+INPUT Images/wlan_range.png
+INPUT ./Images/wlan_range.png
+INPUT ./Images/wlan_range.png
+INPUT ./Images/rts-cts.png
+INPUT ./Images/rts-cts.png
+INPUT Images/rts-cts.png
+INPUT ./Images/rts-cts.png
+INPUT ./Images/rts-cts.png
 INPUT main.aux
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb

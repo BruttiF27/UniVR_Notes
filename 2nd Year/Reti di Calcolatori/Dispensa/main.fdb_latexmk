@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1780580077.53983 "/home/F27/Desktop/UniVR/2nd Year/Reti di Calcolatori/Dispensa/main.tex" "main.pdf" "main" 1780580078.56411 0
+["pdflatex"] 1781079676.68972 "/home/F27/Desktop/UniVR/2nd Year/Reti di Calcolatori/Dispensa/main.tex" "main.pdf" "main" 1781079678.50915 0
   "/home/F27/Desktop/UniVR/2nd Year/Reti di Calcolatori/Dispensa/main.tex" 1776869102 1067 db84b81b73f0c1c694cf48005f950629 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -109,7 +109,7 @@
   "Chapters/2.tex" 1780559105.27681 16852 3fda28f0df979e5fd2a0829d1c7b5c40 ""
   "Chapters/3.tex" 1780580077.36762 28043 8b3c511038a2e59e58e9952fcf0c58c4 ""
   "Chapters/4.tex" 1780559055.12147 24413 4db6e91969542e617ba7966dbda94df4 ""
-  "Chapters/5.tex" 1780220514.14229 32482 9f2f2f018a9f5bb1f95d28e34f743ca6 ""
+  "Chapters/5.tex" 1781079676.41784 38916 d00f20d06a0782470e04dc57bcc3f685 ""
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
   "Configs/formats.tex" 1741537610 162 94ad515d4f2656e52898454c9959e092 ""
   "Configs/packages.tex" 1777618793.12289 1129 6bd2b930fb2f44498e65a609a7a95b10 ""
@@ -146,6 +146,7 @@
   "Images/protocol_DHCP.png" 1778061046.50173 77143 ac12675e42660859dedd0d173f3254cc ""
   "Images/routingTable.png" 1778046454.58475 97137 e74fd3416536dd44b10879fcb59a9f08 ""
   "Images/routing_ex1.png" 1780558385.98416 29580 65b606373f8a56254fbe742ef3b6aef8 ""
+  "Images/rts-cts.png" 1781076646.30007 37464 e415dc9377c273d01d95160b1a5a0e2d ""
   "Images/slotted_aloha.png" 1778919262.99098 36326 3fa01d157346129d6c96a5c6a17046fe ""
   "Images/socket.png" 1774959448 42333 8ddf1abebfe5ac4bb7f98a9210f82578 ""
   "Images/streamControl.png" 1777621440.58707 47797 e4069892204d258dda54200f3344b6fb ""
@@ -158,9 +159,10 @@
   "Images/traceroute.jpg" 1773988796 11811 8429e974eb6c38e449eb72982749d5f6 ""
   "Images/webCache.png" 1774960206 36762 6a91e89a4f3894bdf79bbfa2bf1fa4fe ""
   "Images/wirelessLAN.png" 1780213247.66793 43250 b406ccd65d7d3830da0fa594e7f45c9d ""
-  "main.aux" 1780580078.49974 10661 8ddd155ac15561321d71ede1cbd3b045 "pdflatex"
+  "Images/wlan_range.png" 1781076171.41293 19370 a587da88bd6804979ca1775cd565561e ""
+  "main.aux" 1781079678.43721 10934 d9292b4a4e9fd1048af75f2ab116f8cb "pdflatex"
   "main.tex" 1776869102 1067 db84b81b73f0c1c694cf48005f950629 ""
-  "main.toc" 1780580078.50074 2192 b0af3322bd82ed4513fd6c937336be92 "pdflatex"
+  "main.toc" 1781079678.43785 2192 9bf909c295f0d8d546c2b67fc8b79454 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

@@ -10,6 +10,7 @@ English translation? Why would you ever consider that?
 - Secondo anno:
   - Programmazione 2: Eventualmente da revisionare
   - Sistemi: Aggiungere esercizi
+  - Reti di calcolatori: Aggiungere esercizi
 - Terzo anno:
   - Empty as empty, empty my soul, soul, soul
 - Corsi extra:
@@ -24,7 +25,6 @@ English translation? Why would you ever consider that?
 - Secondo anno:
   - Algoritmi: Attualmente in lavorazione.
   - Ingegneria del software: Attualmente in lavorazione.
-  - Reti di calcolatori: Attualmente in lavorazione.
   - Sistemi operativi: Attualmente in lavorazione. Mi fa molto male.
   - Analisi matematica 2: Ha contenuto, ma è da rivedere.
   - Fisica 2: Sarà letteralmente l'ultimo esame che darò. È atroce.

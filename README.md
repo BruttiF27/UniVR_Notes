@@ -12,27 +12,27 @@ English translation? Why would you ever consider that?
   - Sistemi: Aggiungere esercizi
   - Reti di calcolatori: Aggiungere esercizi
 - Terzo anno:
-  - Empty as empty, empty my soul, soul, soul
+  - Nothing?
 - Corsi extra:
-  - Empty as empty, empty my soul, soul, soul
+  - Nothing?
 
 # Materie in lavorazione
 - Primo anno:
-  - Analisi matematica 1: Giuro che la comincio quando dovrò dare analisi 2.
+  - Analisi matematica 1: Da riprendere in mano verso giugno 2027.
   - Logica: È incompleta, da rivedere. Avendo passato l'esame non credo la riprenderò.
   - Programmazione 1: Ha roba a sufficienza ma non è completa.
   - Algebra lineare: Potrei riprenderla se necessario per analisi 2
 - Secondo anno:
   - Algoritmi: Attualmente in lavorazione.
   - Ingegneria del software: Attualmente in lavorazione.
-  - Sistemi operativi: Attualmente in lavorazione. Mi fa molto male.
+  - Sistemi operativi: Attualmente in lavorazione.
   - Analisi matematica 2: Ha contenuto, ma è da rivedere.
-  - Fisica 2: Sarà letteralmente l'ultimo esame che darò. È atroce.
+  - Fisica 2: Completamento previsto entro settembre 2027.
 - Terzo anno:
-  - Basi di dati: Non credo sia il momento di considerarla vista la vastità.
+  - Basi di dati: Completamento previsto entro giugno 2027.
   - Elaborazione di segnali e immagini: Completamento previsto entro settembre 2026.
-  - Fondamenti dell'informatica: Haha, no.
-  - Linguaggi: Ora so di che parla sta materia. Rimandata al 2027.
+  - Fondamenti dell'informatica: Completamento previsto entro febbraio 2027.
+  - Linguaggi: Completamento previsto entro giugno 2027.
 - Corsi extra:
   - Programmazione e sicurezza delle reti: Completamento previsto entro settembre 2026.
   - Intelligenza artificiale: Completamento previsto entro febbraio 2027.

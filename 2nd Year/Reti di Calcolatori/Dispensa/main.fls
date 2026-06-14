@@ -678,6 +678,11 @@ INPUT ./Images/tcp_ex3.png
 INPUT Images/tcp_ex3.png
 INPUT ./Images/tcp_ex3.png
 INPUT ./Images/tcp_ex3.png
+INPUT ./Images/tcp_ex4.png
+INPUT ./Images/tcp_ex4.png
+INPUT Images/tcp_ex4.png
+INPUT ./Images/tcp_ex4.png
+INPUT ./Images/tcp_ex4.png
 INPUT ./Chapters/4.tex
 INPUT ./Chapters/4.tex
 INPUT ./Chapters/4.tex
@@ -812,6 +817,11 @@ INPUT ./Images/sharedMedium_ex2.png
 INPUT Images/sharedMedium_ex2.png
 INPUT ./Images/sharedMedium_ex2.png
 INPUT ./Images/sharedMedium_ex2.png
+INPUT ./Images/sharedMedium_ex3.png
+INPUT ./Images/sharedMedium_ex3.png
+INPUT Images/sharedMedium_ex3.png
+INPUT ./Images/sharedMedium_ex3.png
+INPUT ./Images/sharedMedium_ex3.png
 INPUT main.aux
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
@@ -824,6 +834,7 @@ INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
+INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb

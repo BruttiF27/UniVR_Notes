@@ -17,15 +17,15 @@
 \contentsline {section}{\numberline {3.2}Protocollo TCP}{31}{}%
 \contentsline {section}{\numberline {3.3}Protocollo UDP}{38}{}%
 \contentsline {section}{\numberline {3.4}Esercizi svolti}{39}{}%
-\contentsline {chapter}{\numberline {4}Livello network}{43}{}%
-\contentsline {section}{\numberline {4.1}Protocollo IP}{43}{}%
-\contentsline {section}{\numberline {4.2}Algoritmi di routing}{45}{}%
-\contentsline {section}{\numberline {4.3}Protocolli DHCP e ICMP}{49}{}%
-\contentsline {section}{\numberline {4.4}Network Address Translation e IPv6}{50}{}%
-\contentsline {section}{\numberline {4.5}Esercizi svolti}{54}{}%
-\contentsline {chapter}{\numberline {5}Livello di collegamento dati}{57}{}%
-\contentsline {section}{\numberline {5.1}Servizi e accesso al canale condiviso}{57}{}%
-\contentsline {section}{\numberline {5.2}Algoritmi di accesso al canale condiviso}{58}{}%
-\contentsline {section}{\numberline {5.3}Ethernet, switch e LAN, Bridge}{65}{}%
-\contentsline {section}{\numberline {5.4}Wireless LAN}{68}{}%
-\contentsline {section}{\numberline {5.5}Esercizi svolti}{73}{}%
+\contentsline {chapter}{\numberline {4}Livello network}{45}{}%
+\contentsline {section}{\numberline {4.1}Protocollo IP}{45}{}%
+\contentsline {section}{\numberline {4.2}Algoritmi di routing}{47}{}%
+\contentsline {section}{\numberline {4.3}Protocolli DHCP e ICMP}{51}{}%
+\contentsline {section}{\numberline {4.4}Network Address Translation e IPv6}{52}{}%
+\contentsline {section}{\numberline {4.5}Esercizi svolti}{56}{}%
+\contentsline {chapter}{\numberline {5}Livello di collegamento dati}{59}{}%
+\contentsline {section}{\numberline {5.1}Servizi e accesso al canale condiviso}{59}{}%
+\contentsline {section}{\numberline {5.2}Algoritmi di accesso al canale condiviso}{60}{}%
+\contentsline {section}{\numberline {5.3}Ethernet, switch e LAN, Bridge}{67}{}%
+\contentsline {section}{\numberline {5.4}Wireless LAN}{70}{}%
+\contentsline {section}{\numberline {5.5}Esercizi svolti}{75}{}%

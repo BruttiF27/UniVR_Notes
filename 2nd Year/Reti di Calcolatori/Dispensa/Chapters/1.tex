@@ -1,10 +1,18 @@
 \section{Comunicazione tra elaboratori}
-Il corso di reti di calcolatori si pone come obiettivo quello di risolvere il problema della \textbf{comunicazione tra computer}, inteso come il trasferimento di informazioni tra due o più sistemi, studiato in questo corso con un approccio \textbf{top-down}, ovvero a partire da un alto livello per andare sempre più a basso livello. In particolare, si presentano i due problemi fondamentali della comunicazione: \begin{itemize}
-	\item \textbf{Protocollo di comunicazione}: Insieme di regole logiche che definiscono come le entità devono comunicare, nello specifico il \textbf{formato} dei messaggi, il loro \textbf{ordine} e le \textbf{azioni} da compiere alla loro ricezione.
-	\item \textbf{Trasporto delle informazioni}: Il trasferimento fisico di dati fra due dispositivi. Richiede un'infrastruttura di rete composta da mezzi trasmissivi, come cavi o fibra ottica, dispositivi di rete e, naturalmente, protocolli di trasmissione.
+Il corso di reti di calcolatori si pone come obiettivo quello di risolvere il problema della \textbf{comunicazione tra computer}, inteso come il
+trasferimento di informazioni tra due o più sistemi, studiato in questo corso con un approccio \textbf{top-down}, ovvero a partire da un alto livello
+per andare sempre più a basso livello. In particolare, si presentano i due problemi fondamentali della comunicazione: \begin{itemize}
+	\item \textbf{Protocollo di comunicazione}: Insieme di regole logiche che definiscono come le entità devono comunicare, nello specifico il
+	\textbf{formato} dei messaggi, il loro \textbf{ordine} e le \textbf{azioni} da compiere alla loro ricezione.
+	\item \textbf{Trasporto delle informazioni}: Il trasferimento fisico di dati fra due dispositivi. Richiede un'infrastruttura di rete composta da
+	mezzi trasmissivi, come cavi o fibra ottica, dispositivi di rete e, naturalmente, protocolli di trasmissione.
 \end{itemize}
-\noindent Possiamo paragonare lo scambio di informazioni tra elaboratori con l'invio di una lettera. Il mittente scrive il messaggio, inserisce il foglio in una busta, con scritto l'indirizzo del destinatario e la consegna all'ufficio postale. Quest'ultimo la trasporterà fino al destinatario descritto, il quale potrà aprire la busta e leggere il contenuto del messaggio. Affinché il processo funzioni correttamente, è necessario seguire regole precise (quindi seguire il protocollo), come scrivere correttamente l'indirizzo del destinatario.\par
-Nella pratica, la comunicazione tra due calcolatori avviene tramite una sequenza di livelli, spesso rappresentata come una pila verticale, dove ogni livello svolge una funzione specifica e prepara i dati per quello successivo. Intuitivamente: \begin{enumerate}
+\noindent Possiamo paragonare lo scambio di informazioni tra elaboratori con l'invio di una lettera. Il mittente scrive il messaggio, inserisce il
+foglio in una busta, con scritto l'indirizzo del destinatario e la consegna all'ufficio postale. Quest'ultimo la trasporterà fino al destinatario
+descritto, il quale potrà aprire la busta e leggere il contenuto del messaggio. Affinché il processo funzioni correttamente, è necessario seguire regole
+precise (quindi seguire il protocollo), come scrivere correttamente l'indirizzo del destinatario.\par
+Nella pratica, la comunicazione tra due calcolatori avviene tramite una sequenza di livelli, spesso rappresentata come una pila verticale, dove ogni
+livello svolge una funzione specifica e prepara i dati per quello successivo. Intuitivamente: \begin{enumerate}
 	\item L'applicazione genera il messaggio.
 	\item Il messaggio è preparato per la trasmissione.
 	\item I dati vengono inviati tramite la rete.
@@ -17,25 +25,37 @@ Nella pratica, la comunicazione tra due calcolatori avviene tramite una sequenza
 	\caption{Esempio di comunicazione intuitivo}
 	\label{fig:commExample}
 \end{figure}
-\noindent Naturalmente, lo scambio di informazioni non è unidirezionale, infatti si dice che il processo di trasferimento informazioni è \textbf{simmetrico} tra mittente e destinatario. Definiamo ora la struttura delle architetture di rete per capire in che modo comunichino gli elaboratori: possono avere elementi diversi, ma tutte presentano necessariamente gli \textbf{end-host}, ovvero i dispositivi per l'invio e ricezione di informazioni come computer o smartphone, gli \textbf{apparati di rete}, che permettono l'instradamento o la distribuzione dei dati nella rete, come router, switch e access point, e i \textbf{collegamenti}, i mezzi fisici o wireless che permettono la trasmissione dei dati, come fibra ottica o Wi-Fi.\par
-Possiamo descrivere \textbf{Internet} in termini di infrastruttura di rete su scala globale, la quale fornisce servizi ad applicazioni distribuite. Per carpirne il funzionamento analizziamo un esempio su scala minore: le reti \textbf{Local Area Network} (LAN). Queste sono reti che coprono un'area limitata, come ad esempio un ufficio o una casa, dove sono presenti gli end-host. I principali dispositivi utilizzati sono: \begin{itemize}
+\noindent Naturalmente, lo scambio di informazioni non è unidirezionale, infatti si dice che il processo di trasferimento informazioni è
+\textbf{simmetrico} tra mittente e destinatario. Definiamo ora la struttura delle architetture di rete per capire in che modo comunichino gli
+elaboratori: possono avere elementi diversi, ma tutte presentano necessariamente gli \textbf{end-host}, ovvero i dispositivi per l'invio e ricezione di
+informazioni come computer o smartphone, gli \textbf{apparati di rete}, che permettono l'instradamento o la distribuzione dei dati nella rete, come
+router, switch e access point, e i \textbf{collegamenti}, i mezzi fisici o wireless che permettono la trasmissione dei dati, come fibra ottica o
+Wi-Fi.\par
+Possiamo descrivere \textbf{Internet} in termini di infrastruttura di rete su scala globale, la quale fornisce servizi ad applicazioni distribuite. Per
+carpirne il funzionamento analizziamo un esempio su scala minore: le reti \textbf{Local Area Network} (LAN). Queste sono reti che coprono un'area
+limitata, come ad esempio un ufficio o una casa, dove sono presenti gli end-host. I principali dispositivi utilizzati sono: \begin{itemize}
 	\item \textbf{Switch}: Dispositivo che collega fra loro più connessioni cablate.
 	\item \textbf{Access point}: Dispositivo wireless che consente agli end-host di collegarsi alla rete.
 \end{itemize}
-\noindent Tipicamente lo switch rappresenta il punto centrale della rete cablata, mentre l'access point vi si collega per fornire connettività wireless. Nelle reti domestiche moderne è comune che router, switch e access point siano integrati nello stesso apparato.\par
-Le LAN sono collegate alla rete Internet grazie ad un \textbf{router di bordo}, il quale, oltre al suddetto compito, è capace di inoltrare i dati ad altri router della rete globale, detta \textbf{backbone}, fino al raggiungimento di quello di destinazione, che consegnerà i dati all'end-host. 
+\noindent Tipicamente lo switch rappresenta il punto centrale della rete cablata, mentre l'access point vi si collega per fornire connettività wireless.
+Nelle reti domestiche moderne è comune che router, switch e access point siano integrati nello stesso apparato.\par
+Le LAN sono collegate alla rete Internet grazie ad un \textbf{router di bordo}, il quale, oltre al suddetto compito, è capace di inoltrare i dati ad
+altri router della rete globale, detta \textbf{backbone}, fino al raggiungimento di quello di destinazione, che consegnerà i dati all'end-host. 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=0.8\linewidth]{Images/LAN-Internet connection.png}
 	\caption{Collegamento tra rete LAN e Internet}
 \end{figure}
 
-\noindent La connettività Internet è fornita da organizzazioni chiamate \textbf{Internet Service Provider} (ISP), divise in tre livelli gerarchici: \begin{itemize}
+\noindent La connettività Internet è fornita da organizzazioni chiamate \textbf{Internet Service Provider} (ISP), divise in tre livelli gerarchici:
+\begin{itemize}
 	\item \textbf{Tier 1}: Operatori globali che gestiscono infrastrutture backbone internazionali.
-	\item \textbf{Tier 2}: Operatori nazionali o regionali che acquistano connettività dai Tier-1 ma possono anche stabilire collegamenti diretti tra loro.
+	\item \textbf{Tier 2}: Operatori nazionali o regionali che acquistano connettività dai Tier-1 ma possono anche stabilire collegamenti diretti tra
+	loro.
 	\item \textbf{Tier 3}: Operatori locali che forniscono connettività agli utenti finali, come abitazioni, aziende, hotel.
 \end{itemize}
-\noindent In particolare, esistono gli \textbf{Autonomous Systems} (AS); insiemi di reti gestite da un'unica entità amministrativa e con una politica di routing comune.
+\noindent In particolare, esistono gli \textbf{Autonomous Systems} (AS); insiemi di reti gestite da un'unica entità amministrativa e con una politica di
+routing comune.
 
 %
 

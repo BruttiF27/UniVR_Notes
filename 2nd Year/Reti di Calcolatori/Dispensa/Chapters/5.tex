@@ -524,46 +524,56 @@ l'algoritmo CSMA-persistent e vengono generate le seguenti trame: \begin{itemize
 	\caption{Evoluzione esercizio 2}
 \end{figure}
 
+\noindent \textbf{Esercizio 3}: Supponiamo un Bridge che collega due segmenti. Il primo contiene la stazione $A$, mentre il secondo presenta $B, C$.
+Entrambi hanno la medesima velocità di trasmissione $1.6Mbit/s$ e non presentano ritardi di trasmissione. La lunghezza globale delle trame è $800B$.
+Mostrare l'evoluzione temporale della trasmissione sapendo che è utilizzato l'algoritmo ALOHA e vengono generate le seguenti trame: \begin{itemize}
+    \item A: $t_{A1}=216s$, $t_{A2}=256s$, entrambe dirette a B.
+    \item B: $t_{B1}=233s$, diretta ad A.
+    \item C: $t_{C1}=219s$, diretta ad A.
+\end{itemize}
+
+\noindent L'implementazione di un bridge implica che venga usato come mezzo condiviso. Presente un buffer di entrata e uno di uscita, sui quali le
+stazioni dovranno trasmettere le proprie trame. Quando una trasmissione al bridge è completata, la trama è salvata al suo interno fino alla sua consegna
+alla destinazione. \[
+    T = \frac{800B\cdot 8}{1.6Mbit\cdot 10^6} = 4s
+\]
+\noindent La trasmissione evolve come segue: \begin{itemize}
+    \item $A$ trasmette $A_1$ al Bridge in $[216s, 220s]$ senza collisioni.
+    \item $C$ trasmette $C_1$ al Bridge in $[219s, 223s]$, collidendo con $A_1$ dal Bridge, trasmessa in $[220s, 224s]$. Si calcolano i tempi di
+    ritrasmissione: \[ \begin{split}
+        z_{A_1} = (2+2+0)\cdot1+4=8s \implies 224+8 = 232s\\
+        z_{C_1} = (2+1+9)\cdot1+4=16s \implies 223+16 = 239s
+    \end{split}
+    \]
+    \item Il Bridge ritenta la trasmissione di $A_1$ in $[232s, 236s]$. Collide con B, trasmittente $B_1$ in $[233s, 237s]$. Si calcolano i tempi di
+    ritrasmissione: \[ \begin{split}
+        z_{A_1}' = (2+3+2)\cdot2+4=18s \implies 236+18 = 254s\\
+        z_{B_1} = (2+3+3)\cdot1+4=12s \implies 237+12 = 249s
+    \end{split}
+    \]
+    \item $C$ ritenta la trasmissione al Bridge di $C_1$ in $[239s, 243s]$. Nessuna collisione.
+    \item Il Bridge trasmette $C_1$ ad $A$ in $[243s, 247s]$. Nessun problema.
+    \item $B$ ritenta la trasmissione al Bridge di $B_1$ in $[249s, 253s]$. Nessuna collisione.
+    \item Il Bridge trasmette $B_1$ ad $A$ in $[253s, 257s]$, collide con $A_2$, trasmessa in $[256s, 260s]$. Si calcolano i tempi di ritrasmissione:
+    \[ \begin{split}
+        z_{A_2} = (2+5+6)\cdot1+4=17s \implies 260+17 = 277s\\
+        z_{B_1} = (2+5+3)\cdot1+4=14s \implies 257+14 = 271s
+    \end{split} \]
+    \item Il Bridge ritenta nuovamente la trasmissione di $A_1$ in $[254s, 258s]$. Nessuna collisione.
+    \item Il Bridge ritenta la trasmissione di $B_1$ in $[271s, 275s]$. Nessuna collisione.
+    \item $A$ ritente la trasmissione di $A_2$ in $[277s, 281s]$. Nessuna collisione.
+    \item Il Bridge trasmette $A_2$ in $[281s, 285s]$. Nessuna collisione e termina la trasmissione.
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/sharedMedium_ex3.png}
+	\caption{Evoluzione esercizio 3}
+\end{figure}
+
+\noindent \textbf{Esercizio 4}: 
+
 
 \begin{comment}
-1. Bridge Aloha
-Stabiliamo che il tempo di propagazione sui segmenti è nullo (\tau_1=0, \tau_2=0). La velocità di trasmissione sul primo segmento v_1 = 1.6Mbit/s. La
-lunghezza delle trame è di 800B.
-
-A genera due trame al tempo t_{A1}=216ms e t_{A2}=256ms, entrambe dirette a B.
-B genera t_{B1}=233ms diretta ad A
-C genera t_{C1}=219ms diretta ad A
-
-Tempo di trama T = 800B * 8 / 1.6MBit/s * 10^6 = 4ms
-
-A inizia la trasmissione di A1 da 216ms a 220ms, trasmessa correttamente.
-Il bridge la riceve a 220ms per trasmetterla a 224ms.
-C inizia la trasmissione da 219ms a 223ms, collide con A1 trasmessa dal bridge.
-
-Il tempo di attesa per C z_c = (2+1+9)*1+4=16ms \implies 223+16 = 239ms
-Il tempo di atteza per Bridge z_{Br} = (2+2+0)*1+4=8ms \implies 224+8 = 232ms
-
-Il bridge ritenta di trasmettere A1 da 232 a 236.
-B inizia la trasmissione di B1 a 233ms, collide con A1.
-
-Il tempo di attesa per B z_B = (2+3+3)*1+4 = 12ms \implies 237+12 = 249ms
-Il tempo di attesa per Bridge z_{Br} = (2+3+2)*2+4 = 18ms \implies 236+24 = 254ms
-
-C ritenta la trasmissione di C1 da 239ms a 243ms, correttamente trasmessa al bridge.
-Quest'ultimo trasmetterà ad A C1 da 243 a 247 senza problemi.
-
-B ritenta da 249 a 253 di trasmettere B1 al bridge. Nessuna collisione.
-Il bridge ritenta per la seconda volta di trasmettere A1 da 254 a 258. Non collide.
-Il bridge trasmette B1 ad A da 253ms a 257ms.
-A genera e trasmette A2 da 256ms a 260ms, collide con B1 dal bridge.
-
-Tempo di attesa per z_{A2} = (2+5+6)*1+4 = 17ms \implies 260+17 = 277ms
-Tempo di attesa per z_{Br} = (2+5+3)*1+4 = 14ms \implies 257+14 = 271ms
-
-Il bridge ritenta di trasmettere da 271 a 275ms. Nessun problema.
-A ritenta di trasmettere al bridge da 277 a 281. Nessun problema.
-Il bridge trasmette da 281 a 285. Nessun problema. Terminato.
-
 --- Bridge CSMA persistent
 Abbiamo due segmenti e un bridge. Sul primo sta A e sul secondo sta B.
 \tau_1 = 1ms, \tau_2 = 2ms. La lunghezza L = 1500B. v_1 = v_2 = 1.5Mbit/s
@@ -574,12 +584,14 @@ B genera due trame t_{B1}=719ms, t_{B2}=730ms dirette a A
 Tempo di trama T = 1500*8 / 1.5*10^6 = 8ms
 
 A inizia la trasmissione di A1 da 713 a 721. Arriva al bridge a 722ms.
-A genera inoltre A2 a 715, che però non è trasmessa perché vede che il canale è occupato. La concatena appena finisce A1 e inizierà quindi la trasmissione da 721ms a 729ms.
+A genera inoltre A2 a 715, che però non è trasmessa perché vede che il canale è occupato. La concatena appena finisce A1 e inizierà quindi la
+trasmissione da 721ms a 729ms.
 
 Intanto, il bridge trasmette da 714 a 722 A1 verso B e da 722 a 730 A2 verso B.
 
 B genera e trasmette B1 da 719 a 727 verso il bridge.
-A1, vedendo ciò, attende la trasmissione fino al termine di B1 che è a 729. Inizierà quindi la trasmissione di A1 a 729 a 737. Arriverà su B da 731 a 739.
+A1, vedendo ciò, attende la trasmissione fino al termine di B1 che è a 729. Inizierà quindi la trasmissione di A1 a 729 a 737. Arriverà su B da 731 a
+739.
 
 Tuttavia B aveva iniziato B2 da 730ms. Entra qunindi in collisione con A1.
 
@@ -589,9 +601,12 @@ Tempo di attesa z_{B} = (7+3+0)*1+8 = 18ms \implies 738+18 = 756ms
 Il bridge a 730 inizia a trasmettere B1, intonso. È trasmessa correttamente da 730 a 738, arrivata da 731 a 739.
 
 Il bridge, finché non risolve la collisione, non fa passare davanti altre trame nella coda del buffer. Bisognerà quindi risolvere il problema con A1.
-Quindi, si ritenta la trasmissione di B2 da 756 a 764. Ascoltando il canale, il bridge vede che a 763 il canale è occupato. Potrà trasmettere A1 da 766 a 774 e il bridge con gli stessi tempi trasmetterà B2 ad A correttamente.
+Quindi, si ritenta la trasmissione di B2 da 756 a 764. Ascoltando il canale, il bridge vede che a 763 il canale è occupato. Potrà trasmettere A1 da 766
+a 774 e il bridge con gli stessi tempi trasmetterà B2 ad A correttamente.
 
 Poi il bridge trasmetterà A2 concatenato ad A1 da 774 a 782, il quale arriverà da 776 a 784ms, terminando la trasmissinoe.
+
+
 
 --- Esercizio Lv2
 Abbiamo due segmenti di rete collegati da un bridge. Sul primo sono due stazioni A, B, mentre sul secondo sta la C.

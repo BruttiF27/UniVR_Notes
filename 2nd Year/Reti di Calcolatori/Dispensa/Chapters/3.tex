@@ -306,51 +306,35 @@ congestion window fino al termine della trasmissione. Non credo ci sia bisogno d
 	\caption{Evoluzione trasmissione esercizio 3}
 \end{figure}
 
+\noindent \textbf{Esercizio 4}: Sia un'applicazione A che desidera trasferire $104400B$ ad una seconda applicazione B. Si suppone che la connessione sia
+già instaurata e presenti i seguenti parametri: \begin{itemize}
+	\item Maximum Segment Size: $1200B$
+	\item Receive Window: $9600B$. A partire da $t>4s$, B annuncia una nuova dimensione di $14400B$ e dopo $t>9s$ ne annuncia un'altra di $7200B$.
+	\item Slow Start Threshold: $\text{RCVWND}_i$.
+	\item Round-trip time: $1s$, rimane costante per tutta la trasmissione.
+	\item Retransmission time-out: $2RTT$, raddoppia in caso di perdite sequenziali.
+\end{itemize}
+\noindent È inoltre presente un down di rete durante l'intervallo di tempo $(11.5, 12.5)$. Valutare l'evoluzione temporale della congestion window fino
+al termine della trasmissione.\par
+L'aggiornamento della dimensione della Receive window è comunicato dalla destinazione; di conseguenza verrà modificata
+solo dopo aver ricevuto i messaggi di acknoledgement, quindi al termine dell'RTT. \begin{itemize}
+	\item $\text{Segmenti: } 104000/1200 = 87$
+	\item $\text{RCVWNDS: } \left<9600/1200=8, 14400/1200=12, 7200/1200=6\right>$
+	\item $\text{SSTHR} = \text{RCVWND}_i$
+\end{itemize}
+\noindent Trasmissione: \begin{itemize}
+	\item $1+2+4+8+8+9+10+11+12+12+6+0 = 83$. Down di rete, gli ack non sono stati ricevuti e parte quindi l'RTO.
+	\item $83+1+2+(3-2) = 87$.
+\end{itemize}
+\noindent Dimensione finale della CWND: $3+1/3$, tempo di trasmissione totale: $t = 16s$.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{Images/tcp_ex4.png}
+	\caption{Evoluzione trasmissione esercizio 4}
+\end{figure}
+
+
 \begin{comment}
---- TCP esercizio 4
-AppA deve trasferire 104400B verso AppB
-MSS = 1200B
-RCVWND_i = 9600B
-A partire dall'istante t_a > 4s, la destinazione annuncia una RCVWND = 14400B
-A partire dall'istante t_b > 9s, la destinazione annuncia una RCVWND = 7200B
-SSTHRESH_i = RCVWND_i // Occhio quindi non è influenzata dalle successive ridefinizioni della RCVWND
-CWND = 1	
-RTT = 1s costante per tutta la trasmissione
-RTO = 2RTT
-Down di rete in intervallo (11.5, 12.5)
-
-// Tip: le modifiche alla RCVWND sono comunicate dalla destinazione e il grafico che facciamo riguarda la sorgente. Quindi non le si riceve esattamente
-agli istanti t_a, t_b, bensì alla ricezione dell'ack.
-// Tip: A causa del down di rete, sono correttamente inviati i pacchetti, ma non si riceve il relativo ack. In quanto tale, si attiva ugualmente l'RTO.
-
---- Soluzione esercizio TCP 4
-AppA deve trasferire 104400B verso AppB
-MSS = 1200B
-RCVWND_i = 9600B
-A partire dall'istante t_a > 4s, la destinazione annuncia una RCVWND = 14400B
-A partire dall'istante t_b > 9s, la destinazione annuncia una RCVWND = 7200B
-SSTHRESH_i = RCVWND_i // Occhio quindi non è influenzata dalle successive ridefinizioni della RCVWND
-CWND = 1
-RTT = 1s costante per tutta la trasmissione
-RTO = 2RTT
-Down di rete in intervallo (11.5, 12.5)
-
-// Tip: le modifiche alla RCVWND sono comunicate dalla destinazione e il grafico che facciamo riguarda la sorgente. Quindi non le si riceve esattamente agli istanti t_a, t_b, bensì alla ricezione dell'ack.
-// Tip: A causa del down di rete, sono correttamente inviati i pacchetti, ma non si riceve il relativo ack. In quanto tale, si attiva ugualmente l'RTO.
-
-RCVWND_1: 9600B/1200B = 8
-RCVWND_2: 14400B/1200B = 12
-RCVWND_3: 7200B/1200B = 6
-Segmenti da trasmettere: 104400B/1200B = 87
-Segmenti trasmessi: 1+2+4+8+8+9+10+11+12+12+6+0 = 83 // Down di rete, i 4 segmenti rimanenti non sono inviati.
-Segmenti trasmessi: 1+2+(4-3) = 87
-
-Tempo totale = 16s, CWND finale: 3+1/3.
-
-In caso di perdita dei segmenti va così, mentre in caso di perdita dei riscontri durante il down di rete, non avendo ricevuto conferma, è necessario aspettare il termine dell'RTO per una ritrasmissione a t=13s.
-Si cambia ovviamente la SSTHRESH e la CWND. Si ritrasmette il primo segmento, ma la destinazione aveva già ricevuto quelli trasmessi prima del down, quindi verrà ritornato un ack88. La sorgente si rende conto che i segmenti erano stati trasmessi correttamente, ricalcola il nuovo valore della CWND = CWND+ackReceived = 1+1 = 2 e chiuderà la connessione, facendo terminare la trasmissione a t=14s.
-
-
 --- Esercizio TCP
 AppA deve trasferire 77500B verso appB
 MSS: 1250B

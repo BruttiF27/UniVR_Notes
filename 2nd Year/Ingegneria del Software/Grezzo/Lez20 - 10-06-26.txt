@@ -1,0 +1,40 @@
+Lez20 - 10-06-26 ingegneria del software
+
+--- Testing del software
+Failure: Sistema si blocca e non permette di terminare l'operazione desiderata. Il sistema crasha.
+Postumo al failure, si apre un ticket, un protocollo interno dove:
+    - Si ascolta il problema
+    - Si spiega una procedura di recovery per far ripartire il tutto. Non si risolve il fault che ha causato il failure.
+    - Si attiva un ticket da inserire nel bug tracking system.
+    - In base alla gravità del problema viene avvisato il PM il senior softdev.
+
+Se il senior softdev è in ufficio:
+    - Avvia la procedura di debug cercando di replicare fault e failure.
+    - Si individua il file/componente problematico
+    - Si risolve il bug con una patch.
+Si manda poi la patch al tester che verificherà il rispetto dei test di regressione. Se va tutto bene, chiude il ticket, aggiunge la documentazione, avverte della risoluzione e poi si rilascerà la patch.
+
+Se il senior softdev non è reperibile, il PM nomina uno degli sviluppatori come sostituto. Deve svolgere gli stessi compiti sovramenzinoati, ma sarà inevitabilmente più lento data la sua non totale conoscenza del software. Per aiutarsi può usare un fault detection tool.
+
+Problemi di questa origine hanno luogo quando si effettua poco testing o si usano relative tecniche non appropriate. Il testing è una fase difficile e costosa ed è necessario agire con cognizione di causa per capire gli input giusti e rivelare i failure spendendoci meno tempo possibile.
+
+---
+
+Il software testing è una procedura sistematica che prevede l'esecuzione di un sistema con l'intento di trovare failure e fault ad essi associati.
+Un testing esaustivo non è normalmente realizzabile in sistemi di grandi dimensioni; è necessario trovare un modo diverso, come gli unit test.
+
+Per trovare gli input giusti si possono usare gli approcci:
+    - black box: conosciamo solo l'interfaccia. Si usa nel testing funzionale e gli input sono generati a partire dai requisiti e le specifiche.
+    - white box: conosciamo anche ciò che compone la scatola. Si usa nel testing strutturale e si cerca di produrre abbastanza input per assicurare che ogni statement sia eseguito almeno uno alla volta.
+
+Il testing in generale si fa mediante test case, raggruppati in test suites.
+Nel case vanno commentati i passi da replicare, input e output.
+Ci sono varie fasi di test:
+    - unit testing (in fase di implementazione): Normalmente con un approccio white-box; si testa la componente isolandola quanto più possibile dal resto.
+    - integration testing (in fase di implementazione): I moduli sono testati insieme e viene testato come comunicano e le info scambiate. Normalmente le interfacce tra i moduli sono le fonti degli errori.
+    - system testing (in fase di verifica): Dopo essersi assicurati che le componenti funzionino tra di loro, si verifica la correttezza dei requisiti di sistema. Normalmente è un approccio black-box. Qua si testano pure performance, usabilità, sicurezza, etc.
+    - regression testing (in fase di mantenimento): Ad ogni modifica in un'applicazione c'è il rischio di incombere in effetti collaterali. Lo scopo di questi test è verificare che questi side-effect non ci siano stati.
+
+--- JUnit 5.0
+Framework di testing automatizzato utile per verificare il comportamento del sistema. Si usa con Java.
+Naming convention: Classe -> ClasseTest

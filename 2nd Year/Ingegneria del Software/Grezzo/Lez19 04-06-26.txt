@@ -1,0 +1,32 @@
+Lez19 - 04-06-26 softEng
+
+--- Code refactoring
+Cambio fatto alla struttura interna del software per renderlo più comprensibile e mantenibile senza cambiarne il comportamento osservabile.
+È una pratica necessaria perché secondo vari studi la qualità del codice tende a diminuire col passare del tempo. Una rielaborazione e riorganizzazione consente di rialzare questo valore e semplificare anche le future manutenzioni, diminuendo soprattutto anche i costi (debito tecnico) ad esse legati.
+
+La rifattorizzazione si deve attuare quando si vuole aggiungere nuove funzionalità al sistema, risolvere bug, oppure quando è rilevato un "code smell", ovvero se si nota che il codice è scritto col culo.
+Ci sono varie condizioni che puzzano, come metodi eccessivamente lunghi, troppe condizioni innestate, numeri magici, cattiva nominazione degli elementi, mancanza di codice utile, ma oprattutto il codice duplicato.
+
+Il refactoring si può attuare avendo come base degli unit test per valutare se il comportamento corretto è rispettato.
+Si agisce quindi sul codice lezzo, si determina la rifattorizzazione, implementandola, e si verifica che si passino tutti i test stabiliti in precedenza.
+Consigliabile procedere a piccoli pezzi e verificare spesso la correttezza degli unit tests.
+Il refactoring a basso livello (estrazione di metodi o rinominazione degli stessi) deve porre le basi per rielaborazioni più complesse, come l'implementazione di design patterns.
+
+Sebbene il refactoring possa essere effettuato manualmente, esistono alcuni strumenti per facilitarne il workflow. Spesso sono intrinsechi agli ambienti di sviluppo.
+
+Esempio di refactoring è l'astrazione in interfaccia. Se più classi condividono metodi duplicati, è intelligente far loro implementare un'interfaccia con parametri generalizzati.
+Altro refactoring è il metodo pull-up, che consiste nello spostare in una superclasse determinati metodi più specifici.
+Esplicitare anche le classi innestate anonime è un'idea. Alternativamente, se ci sono metodi troppo lunghi potrebbe essere ideale separarlo e dichiararlo come privato all'interno della classe. Oppure, usando la tecnica move method, puoi direttamente fare una nuova classe in toto dove spostare i metodi.
+
+Se alcuni parametri possono essere calcolati, puoi creare un metodo privato ad-hoc.
+Se le classi sono troppo grandi (god-class) è intelligente separarla in più parti, in base alle funzioni che svolge.
+
+--- Refactoring più complessi
+- Rimpiazza ereditarietà con delegazione
+Se una sottoclasse usa solo parte di una superclasse e non vuole ereditare il resto (rivedere, ha spiegato male)
+
+- Rimpiazza condizione con polimorfismo
+Se hai un costrutto switch molto grande, dove bisogna scegliere differenti comportamenti a seconda del tipo di una varibile, creare una sottoclasse per ogni case e fare override del metodo (da definire come astratto nella superclasse) non è una brutta idea.
+
+- Separa dominio da presentazione
+Se abbiamo per esempio una GUI che contiene business logic non vi è separation of concerns.

@@ -217,7 +217,129 @@ all'interno del programma, è stato fatto un buon lavoro.
 %
 
 \section{Design Pattern}
+I \textbf{pattern di design} sono soluzioni standardizzate per dei problemi specifici di programmazione orientata agli oggetti, le quali costituiscono
+anche eventuali unità di riuso. Aiutano ad applicare i principi di buona progettazione, l'implementazione del design architetturale, ma possono anche
+essere utilizzati durante la modellazione e la codifica del software, facilitando la comunicazione tra sviluppatori. Altre unità di riuso disponibili
+sono \begin{itemize}
+	\item \textbf{componenti riusabili} (COTS): Parti di applicazioni di cui è fornita l'interfaccia, ma l'implementazione non è visibile.
+	\item \textbf{Framework}: Insieme di classi e interfacce cooperanti che realizzano un design riutilizzabile e adattabile in più domini operativi.
+	\item \textbf{Product lines}: Famiglie di prodotti sviluppati da uno stesso nucleo.
+	\item \textbf{Librerie}: Insiemi di operazioni riutilizzabili in più contesti.
+\end{itemize}
+
+\noindent I design pattern si differenziano da queste unità perché rappresentano un concetto più astratto. Non è possibile applicarli direttamente,
+bensì è necessario adattarli al contesto operativo; inoltre, non concernono l'intera architettura del sistema, bensì solo alcune parti dove è ritenuto
+opportuno applicarli. Per esempio, in un sistema può capitare di avere la necessità di fornire uno spazio di dati condiviso, rendendo corretta
+l'applicazione di \textbf{Singleton}\footnote{Design pattern che garantisce l'esistenza di un solo oggetto della classe in tal modo definita.}, ma ciò
+non significa che tutte le classi debbano necessariamente avere un solo oggetto. In ogni caso, i pattern elementari (GRASP) sono usati per
+l'assegnazione delle responsabilità nel software e costituiscono il confamento per la progettazione di sistemi orientati agli oggetti. In particolare,
+distinguiamo tre sottocategorie: \begin{itemize}
+	\item \textbf{Creazionali}: Definiscono modalità di istanziazione degli oggetti, come Abstract Factory.
+	\item \textbf{Strutturali}: Definiscono la composizione di classi e oggetti, come Adapter e Facade.
+	\item \textbf{Comportamentali}: Definiscono l'interazione tra gli oggetti e distribuiscono le varie responsabilità, come il Template Method, State e
+	Observer.
+\end{itemize}
+
+\noindent La descrizione di un design pattern presenta una struttura standardizzata, composta di quattro sezioni: il relativo \textbf{nome}, un
+\textbf{problema da risolvere}, la \textbf{soluzione} fornita dal pattern e le \textbf{conseguenze} che porta la sua applicazione. Vediamo alcuni
+esempi concreti.\newline
+
+\noindent \textbf{Factory}: Design pattern creazionale che fornisce un'interfaccia per la creazione di oggetti in una superclasse, ma consente alle
+eventuali sottoclassi di alterare il tipo di oggetti da creare.\par
+Supponiamo di avere un sistema per la logistica. Una prima versione gestisce il trasporto solo mediante oggetti \textit{Truck} e il grosso del codice
+è scritto al loro interno. Nel caso in cui si abbia la necessità di gestire trasporti con mezzi diversi, tuttavia, sarà necessario apportare modifiche
+all'intera codebase, perché la responsabilità non sarà più solo delle classi \textbf{Truck}.\par
+La soluzione fornita da Factory suggerisce il rimpiazzo delle instanziazioni dirette degli oggetti, in questo contesto chiamati \textbf{prodotti}, con
+invocazioni ad un metodo ad hoc specifico per la loro creazione. Il vantaggio diretto di questo approccio è la possibilità di fare override del metodo
+in una sottoclasse ed eventualmente modificare la classe del prodotto da creare.\newline
+
+\noindent Un pattern simile è poi quello della \textbf{Abstract Factory}: pattern creazionale che consente di produrre famiglie di oggetti legati da una
+relazione senza specificare le loro classi concrete.\par
+Immaginiamo di avere un sistema gestionale per un negozio di vendita di mobili. Il codice presenterà classi di famiglie dei vari prodotti, come
+\textit{Chair}, \textit{Sofa} e simili. Queste classi tuttavia presentano delle varianti ed è quindi necessario trovare un modo per creare oggetti
+concreti che rispecchino la caratteristica in esame. Inoltre, pensare di cambiare il codice esistente ad ogni nuovo tipo di prodotto è impensabile
+poiché estremamente dispendioso in termini di tempo e risorse. La soluzione Abstract Factory si attua in due fasi: \begin{enumerate}
+	\item Dichiarazione di interfacce per ogni famiglia distinta di prodotti, quindi una per \textit{Chair}, una per \textit{Sofa}, etc, in tal modo
+	che eventuali nuovi prodotti di quell'insieme seguano le stesse dinamiche.
+	\item Dichiarazione di una classe \textit{AbstractFactory}, un'interfaccia con una lista di metodi creazionali per ogni prodotto facente parte di
+	una determinata famiglia. Queste procedure devono ritornare necessariamente tipi di prodotto \textbf{astratti} rappresentati dalle interfacce
+	definite prima. Per ogni variante di prodotto bisognerà creare una classe \textit{Factory} concreta che implementa quella astratta e ritorna il
+	prodotto concreto desiderato.
+\end{enumerate}
+
+\noindent Il codice dovrà quindi lavorare con le fabbriche e i prodotti mediante le rispettive interfacce astratte. Ciò consente di cambiare il tipo di
+fabbrica che viene passato al richiedente, come anche la variante di prodotto che riceve, senza modificare il codice del client.\newline
+
+\noindent Per quanto riguarda i pattern strutturali, il primo degno di nota è \textbf{Adapter}\footnote{Chiamato anche Wrapper.}, il quale consente di
+far collaborare due oggetti le cui interfacce sarebbero altrimenti incompatibili.\par
+Supponiamo di voler creare un'applicazione per monitorare il mercato azionario, la quale fa un download dei dati da più fonti per esportarlo in formato
+XML e mostrarlo in modo pulito con un'apposita interfaccia utente. Dopo un pò, si contempla l'idea di integrare una libreria di terze parti, ma questa
+lavora esclusivamente con file JSON.\par
+La soluzione di Adapter richiede la creazione di un oggetto speciale che converte le interfacce di un oggetto sicché un altro possa comprenderlo e
+collaborarci. Un adattatore nasconde quindi la complessità nativa con un'astrazione comprensibile dall'altra parte, generalmente incurante del fatto
+che sia un adattatore.\newline
+
+\noindent Un prossimo pattern strutturale è \textbf{Facade}, che fornisce un'interfaccia semplificata a una libreria, un framework, o più in generale
+qualunque altro insieme complesso di classi.\par
+Supponiamo di avere la necessità di rendere il codice funzionale con un vasto insieme di oggetti appartenenti a un Framework. La soluzione della
+facciata richiede la creazione di un'interfaccia più semplice con funzionalità essenziali dell'intero set di classi. Per esempio, un'applicazione atta
+al download di video su YouTube potrebbe usare una libreria contenente anche funzioni di riproduzione dei file. Queste ultime, tuttavia, esulano dallo
+scopo del nostro software, e la facciata non le comprenderebbe in quanto tali.\newline
+
+\noindent Passando ai pattern comportamentali vediamo anzitutto il \textbf{Template method}, che definisce lo scheletro di un algoritmo in una classe,
+le cui sottoclassi faranno override su step specifici della procedura senza modificarne la struttura intera.\par
+Supponiamo di avere un'applicazione per il data mining, il cui scopo è estrarre informazioni dai documenti forniti. La prima versione gestisce solo il
+formato DOC, ma nelle successive si migliora il sistema rendendolo capace di lavorare anche sui CSV e PDF. Tuttavia, è evidente che molto codice è
+simile o duplicato nelle classi specifiche per formato.\par
+La soluzione del template suggerisce di spezzare l'algoritmo in una serie di passi definiti in metodi diversi, ognuno dei quali potrà essere overridato
+e reso specifico per il formato desiderato, rimuovendo il codice duplicato in toto.
+
+
+
+
+
+
+
 
 \begin{comment}
-	Le slide della lezione 14 devono andare qua
+-- Observer
+Observer is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re observing.
+Imagine that you have two types of objects: a Customer and a Store. The customer is very interested in a particular brand of product (say, it’s a new model of the iPhone) which should become available in the store very soon.
+
+The customer could visit the store every day and check product availability. But while the product is still en route, most of these trips would be pointless.
+On the other hand, the store could send tons of emails (which might be considered spam) to all customers each time a new product becomes available. This would save some customers from endless trips to the store. At the same time, it’d upset other customers who aren’t interested in new products.
+
+It looks like we’ve got a conflict. Either the customer wastes time checking product availability or the store wastes resources notifying the wrong customers.
+The object that has some interesting state is often called subject, but since it’s also going to notify other objects about the changes to its state, we’ll call it publisher. All other objects that want to track changes to the publisher’s state are called subscribers.
+
+The Observer pattern suggests that you add a subscription mechanism to the publisher class so individual objects can subscribe to or unsubscribe from a stream of events coming from that publisher. Fear not! Everything isn’t as complicated as it sounds. In reality, this mechanism consists of 1) an array field for storing a list of references to subscriber objects and 2) several public methods which allow adding subscribers to and removing them from that list.
+Now, whenever an important event happens to the publisher, it goes over its subscribers and calls the specific notification method on their objects.
+
+Real apps might have dozens of different subscriber classes that are interested in tracking events of the same publisher class. You wouldn’t want to couple the publisher to all of those classes. Besides, you might not even know about some of them beforehand if your publisher class is supposed to be used by other people.
+
+That’s why it’s crucial that all subscribers implement the same interface and that the publisher communicates with them only via that interface. This interface should declare the notification method along with a set of parameters that the publisher can use to pass some contextual data along with the notification.
+If your app has several different types of publishers and you want to make your subscribers compatible with all of them, you can go even further and make all publishers follow the same interface. This interface would only need to describe a few subscription methods. The interface would allow subscribers to observe publishers’ states without coupling to their concrete classes.
+
+-- State
+State is a behavioral design pattern that lets an object alter its behavior when its internal state changes. It appears as if the object changed its class.
+The main idea is that, at any given moment, there’s a finite number of states which a program can be in. Within any unique state, the program behaves differently, and the program can be switched from one state to another instantaneously. However, depending on a current state, the program may or may not switch to certain other states. These switching rules, called transitions, are also finite and predetermined.
+
+You can also apply this approach to objects. Imagine that we have a Document class. A document can be in one of three states: Draft, Moderation and Published. The publish method of the document works a little bit differently in each state:
+
+    In Draft, it moves the document to moderation.
+    In Moderation, it makes the document public, but only if the current user is an administrator.
+    In Published, it doesn’t do anything at all.
+
+	State machines are usually implemented with lots of conditional statements (if or switch) that select the appropriate behavior depending on the current state of the object. Usually, this “state” is just a set of values of the object’s fields. Even if you’ve never heard about finite-state machines before, you’ve probably implemented a state at least once. Does the following code structure ring a bell?
+
+	The biggest weakness of a state machine based on conditionals reveals itself once we start adding more and more states and state-dependent behaviors to the Document class. Most methods will contain monstrous conditionals that pick the proper behavior of a method according to the current state. Code like this is very difficult to maintain because any change to the transition logic may require changing state conditionals in every method.
+
+The problem tends to get bigger as a project evolves. It’s quite difficult to predict all possible states and transitions at the design stage. Hence, a lean state machine built with a limited set of conditionals can grow into a bloated mess over time.
+
+The State pattern suggests that you create new classes for all possible states of an object and extract all state-specific behaviors into these classes.
+
+Instead of implementing all behaviors on its own, the original object, called context, stores a reference to one of the state objects that represents its current state, and delegates all the state-related work to that object.
+To transition the context into another state, replace the active state object with another object that represents that new state. This is possible only if all state classes follow the same interface and the context itself works with these objects through that interface.
+
+This structure may look similar to the Strategy pattern, but there’s one key difference. In the State pattern, the particular states may be aware of each other and initiate transitions from one state to another, whereas strategies almost never know about each other.
 \end{comment}

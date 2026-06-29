@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1782206698.58823 "/home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa/main.tex" "main.pdf" "main" 1782206699.28667 0
+["pdflatex"] 1782634553.85862 "/home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa/main.tex" "main.pdf" "main" 1782634555.36099 0
   "/home/F27/Desktop/UniVR/2nd Year/Ingegneria del Software/Dispensa/main.tex" 1782198986.07674 1169 1d1431d7d7df329cc43d82e58dcfaf77 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -106,7 +106,7 @@
   "Chapters/1.tex" 1773396944 4490 a3a84249fc2dbc713603ca1447f706bf ""
   "Chapters/2.tex" 1782199279.20217 14375 50c6943da4d1983528ce25baee20ac2a ""
   "Chapters/3.tex" 1782199668.40961 13246 7a398180da2cc992716bb2c754b5ec72 ""
-  "Chapters/4.tex" 1782206698.42172 35726 ee8765a468baa7b2267705ab1ebf8ecb ""
+  "Chapters/4.tex" 1782634553.58955 32099 fc69d3ebbd83ca45c3ac9aeb0e0b092e ""
   "Chapters/5.tex" 1780048791.33446 25057 178e27e246793f38991472abdba51921 ""
   "Chapters/6.tex" 1782198946.12752 48 8fb88fb9cae7fb4345363f96f421deb0 ""
   "Configs/boxes.tex" 1774772198 43 b03ca03f01f2419681a63d051b6bcb33 ""
@@ -131,9 +131,9 @@
   "Images/sequenceDiagramExample.png" 1777801648.65917 41880 f491d61e6c690b3f382e4257e62ef05a ""
   "Images/stateMachineDiagram.png" 1778312982.06355 30769 e9281a50855ab54b7eac5942dbf54e47 ""
   "Images/useCaseDiagram.png" 1775389754 29546 f657c14e06cb2e785ce609bac472254f ""
-  "main.aux" 1782206699.23455 5420 22c447eb9880371baedb7646b8c969cc "pdflatex"
+  "main.aux" 1782634555.27032 5420 9ab4b39b92aea1c22aefcf3d03873c7f "pdflatex"
   "main.tex" 1782198986.07674 1169 1d1431d7d7df329cc43d82e58dcfaf77 ""
-  "main.toc" 1782206699.23565 1793 4e377a75bef25be6ca8f7b81f4fe6ccb "pdflatex"
+  "main.toc" 1782634555.27032 1793 e3ec5a5e3cde7e70e8dfb815e9d4a68b "pdflatex"
   (generated)
   "main.aux"
   "main.log"

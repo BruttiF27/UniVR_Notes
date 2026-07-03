@@ -13,8 +13,6 @@ English translation? Why would you ever consider that?
   - Reti di calcolatori: Aggiungere esercizi
 - Terzo anno:
   - Nothing?
-- Corsi extra:
-  - Nothing?
 
 # Materie in lavorazione
 - Primo anno:
@@ -23,16 +21,15 @@ English translation? Why would you ever consider that?
   - Programmazione 1: Ha roba a sufficienza ma non è completa.
   - Algebra lineare: Potrei riprenderla se necessario per analisi 2
 - Secondo anno:
-  - Algoritmi: Attualmente in lavorazione.
-  - Ingegneria del software: Attualmente in lavorazione.
+  - Algoritmi: Non finita, in iato fino a nuovo ordine.
+  - Ingegneria del software: Non finita, in iato fino a nuovo ordine.
   - Sistemi operativi: Attualmente in lavorazione.
   - Analisi matematica 2: Ha contenuto, ma è da rivedere.
   - Fisica 2: Completamento previsto entro settembre 2027.
 - Terzo anno:
   - Basi di dati: Completamento previsto entro giugno 2027.
-  - Elaborazione di segnali e immagini: Completamento previsto entro settembre 2026.
+  - Elaborazione di segnali e immagini: Completamento previsto entro febbraio 2027.
   - Fondamenti dell'informatica: Completamento previsto entro febbraio 2027.
   - Linguaggi: Completamento previsto entro giugno 2027.
-- Corsi extra:
-  - Programmazione e sicurezza delle reti: Completamento previsto entro settembre 2026.
+  - Programmazione e sicurezza delle reti: Attualmente in lavorazione.
   - Intelligenza artificiale: Completamento previsto entro febbraio 2027.

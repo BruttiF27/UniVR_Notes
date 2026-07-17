@@ -1,0 +1,135 @@
+\section{Introduzione alla Bash}
+Come già menzionato, i sistemi operativi sono programmi che svolgono i compiti di gestione della memoria, dei processi e del file system; per poter
+utilizzare l'hardware di un elaboratore è necessario che su di esso sia in esecuzione un sistema operativo.\par
+L'interazione con il sistema si effettua mediante CLI, in particolare con la \textbf{shell}; un terminale virtuale dove è possibile digitare comandi,
+farli eseguire dal sistema operativo e ricevere risposte. Si suppone quindi che il sistema operativo utilizzato sia Unix o Linux; in questo contesto è
+necessario chiarire le funzioni dei file, visti come contenitori di dati e con tipi particolari: \begin{itemize}
+	\item \textbf{Regolare}: File utente come i binari o ascii.
+	\item \textbf{Directory}: Contiene informazioni relative ad altri file.
+	\item \textbf{Pipe}: Si occupa di comunicazioni unidirezionali tra processi.
+	\item \textbf{Link}: Funge da alias per altri file.
+	\item \textbf{Socket}: Consente la comunicazione bidirezionale tra processi.
+	\item \textbf{Speciali}: Riguardano i dispositivi.
+\end{itemize}
+
+\noindent Tutti i file sono organizzato in un albero, detto \textbf{File System}, composto dalla sua \textbf{root} e i relativi nodi, suoi figli; quando
+la shell è in esecuzione la posizione attuale nell'albero è detta \textbf{working directory}\footnote{Per controllare la working directory
+usare il comando "pwd".}; in particolare, i path possono essere annotati in due modi: \textbf{assoluto}, quando si indica il percorso intero dalla
+radice al nodo, e \textbf{relativo}, se il cammino comprende i nodi dalla working directory al nodo desiderato. Generalmente, il File System presenta
+la seguente struttura:
+\dirtree{%
+	.1 /.
+	.2 usr.
+	.3 local.
+	.4 bin.
+	.2 bin.
+	.2 Users.
+	.3 user1.
+	.3 user2.
+}
+
+\noindent Descriveremo la sintassi della shell con la grammatica BNF, un linguaggio che descrive i comandi con la seguente forma generale: \[
+	<\text{categoria-sintattica}>::= N_{1,1} ... N_{1,n_1} | ... | N_{k,1} ... N_{k, n_k}
+\]
+
+\noindent Dove ogni $N_{i,j}$ è una categoria sintattica oppure una parola del lessico, le sequenze di simboli facenti parti del lessico sono dette
+parole, il simbolo "::=" corrisponde a "è" in italiano, ogni stringa chiusa tra $<>$ è una categoria sintattica, ogni entità sopralineata è opzionale e
+il simbolo "$|$" corrisponde a "oppure". Per esempio, per fare un confronto con la lingua italiana, avremmo: \begin{verbatim}
+	<frase>::= <soggetto> <verbo> \overline{<complemento oggetto>}
+	<soggetto>::= Franco|Monica
+\end{verbatim}
+
+\noindent La sintassi della Bash comprende anche l'utilizzo di caratteri \textbf{wild card}, i quali rappresentano un insieme specifico nel quale
+ricercare elementi visibili dal livello corrente. Ne esistono quattro principali: \begin{itemize}
+	\item ?: Carattere generico.
+	\item *: Stringa generica (possibilmente vuota)
+	\item \lbrack...lista...\rbrack : Uno qualsiasi dei caratteri nella lista.
+	\item \lbrack a-z\rbrack : Tutti i caratteri compresi da \textit{a} a \textit{z}.
+\end{itemize}
+
+%
+
+\section{Comandi notevoli e diritti}
+$\left<\textbf{List Directory Contents}\right>::=$ ls $\overline{\left<options\right>}$ $\overline{\left<fileNames\right>}$\par
+Elenca informazioni in merito ai file nella working directory (di default) in ordine alfabetico (di default). Opzioni: \begin{itemize}
+	\item -a: Elenca tutti i file nelle directory, inclusi quelli che iniziano con '.'.
+	\item -d: Elenca le directory come se fossero file, invece di elencarne il contenuto.
+	\item -l: Oltre al nome di ogni file, stampa il relativo tipo, permessi, collegamenti fisici, nome proprietario, gruppo, dimensione in byte e
+	timestamp.
+\end{itemize}
+
+\noindent$\left<\textbf{Change Directory}\right>::=$ cd $\overline{\left<directoryPath\right>}$\par
+Consente di cambiare la working directory con quella indicata nel parametro \textit{directoryPath}. Esistono delle keyword: \begin{itemize}
+	\item ..: Sale di un livello rispetto alla working directory.
+	\item \textasciitilde: Pathname relativo alla home direcory dell'utente.
+	\item \textasciitilde username: Pathname relativo alla home directory dell'utente specificato.
+\end{itemize}
+
+\noindent$\left<\textbf{Make Directory}\right>::=$ mkdir $\overline{\left<options\right>}$ $\left<directoryPath\right>$\par
+Crea una directory in base al parametro \textit{directoryPath} fornito se già non esiste con mode uguale a $0777$. Opzioni: \begin{itemize}
+	\item -m $\left<mode\right>$: Definisce i permessi relativi alla directory. Sintassi uguale al comando chmod.
+\end{itemize}
+
+\noindent$\left<\textbf{Remove Directory}\right>::=$ rmdir $\left<directoryPath\right>$\par
+Rimuove la directory indicata nel parametro dal File System purché sia vuota.\newline
+
+\noindent$\left<\textbf{Copy Files}\right>::=$ cp $\overline{\left<options\right>}$ $\left<src\right>$ $\left<dst\right>$\par
+Copia il/i file \textit{src} nel file o directory \textit{dst}. Opzioni: \begin{itemize}
+	\item -r, -R, --recursive: Copia le directory ricorsivamente. Obbligatoria per directory, facoltativa per singoli file.
+\end{itemize}
+
+\noindent$\left<\textbf{Show Stack Directories}\right>::=$ dirs\par
+Stampa una lista delle directory presenti nella stack, con la working posta come prima voce dell'elenco.\newline
+
+\noindent$\left<\textbf{Pop Directory}\right>::=$ popd\par
+Rimuove la directory in cima alla pila e cambia la corrente a quella successiva.\newline
+
+\noindent$\left<\textbf{Push Directory}\right>::=$ pushd $\left<directory\right>$\par
+Aggiunge la directory indicata nel parametro in cima alla pila e la rende quella corrente.\newline
+
+\noindent$\left<\textbf{Move File}\right>::=$ mv $\left<src\right>$ $\left<dst\right>$\par
+Rinomina il file o la directory \textit{src} in \textit{dst}. Se la destinazione esiste già, \textit{src} viene ivi spostato. È possibile fornire più
+sorgenti da spostare o rinominare.\newline
+
+\noindent$\left<\textbf{Remove File}\right>::=$ rm $\overline{\left<options\right>}$ $\left<file\right>$\par
+Rimuove i file indicati come parametro. Di default non cancella directory. Opzioni: \begin{itemize}
+	\item -r, -R, --recursive: Elimina file e directory ricorsivamente. 
+	\item -f: Forza la rimozione di file e directory indicate.
+\end{itemize}
+
+\noindent Prima di poter continuare è necessario chiarire il concetto di \textbf{diritto}: un indicatore riferito a un utente, gruppo o altro che
+determina le operazioni attuabili dagli attori. In particolare abbiamo \textit{u} per l'utente, \textit{g} per i gruppi e \textit{o} per altri utenti
+quando si parla di proprietà del file, mentre vediamo \textit{r} per il diritto di lettura, \textit{w} per quello di scrittura e cancellazione, e
+\textit{x} per quello di esecuzione. Quando al posto di uno di questi indicatori è presente '\textit{-}', il diritto è negato.\par
+È possibile leggere la lista dei diritti relativi ai file come una codifica in binario, dove il diritto negato vale 0 e quello concesso 1. Questa non è
+statica, infatti i diritti possono essere modificati con il comando \textbf{chmod}:\newline
+
+\noindent \noindent$\left<\textbf{Change mode}\right>::=$ chmod $\overline{\left<options\right>}$ $\left<mode\right>$ $\left<file\right>$\par
+Modifica i bit dei permessi (modalità) di ciascun file nella lista indicata dal parametro $\left<file\right>$ secondo $\left<mode\right>$, presentato
+come una rappresentazione simbolica delle modifiche, come $u+x$ o $g=r$\footnote{In particolare, '+' è usato per aggiungere diritti, '=' per settarli e
+'-' per revocarli.}, oppure come un numero ottale rappresentante la nuova configurazione. Opzioni: \begin{itemize}
+	\item -R, --recursive: Modifica i diritti ricorsivamente.
+\end{itemize}
+
+\noindent \noindent$\left<\textbf{User mask}\right>::=$ umask $\overline{\left<value\right>}$\par
+Visualizza il valore della maschera di configurazione file, mentre se un value è fornito come parametro (rigorosamente in ottale), sarà assunto come
+nuova configurazione base per la creazione dei file.\newline
+
+\noindent \noindent$\left<\textbf{less}\right>::=$ less $\left<filename\right>$\par
+Questo comando consente di leggere file dalla Bash.\newline
+
+\noindent È possibile gestire stdin, stdout e stderr dei processi, per reindirizzarli con comandi particolari: \begin{itemize}
+	\item $>$: Reindirizza stdin a un file.
+	\item $>\&$: Reindirizza stdout o stderr a un file.
+	\item $>>$: Esegue append dello stdout a un file.
+	\item $<$: Reindirizza stdin leggendo da un file.
+\end{itemize}
+
+\noindent L'operatore \textbf{pipe} $'|'$ consente di concatenare l'esecuzione di più comandi, sicché l'output del primo venga usato come input del
+secondo e così via.
+
+\begin{comment}
+- ps (process status)
+- kill
+- alias (personalizzazione comandi)
+\end{comment}

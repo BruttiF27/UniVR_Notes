@@ -69,14 +69,9 @@ implementazione in sistemi con time-sharing.
     \caption{Diagramma di Gantt per algoritmo FCFS}
 \end{figure}
 
-\noindent 
-
-
-
-
-Un secondo algoritmo è quello di scheduling per brevità: \textbf{Shortest job first} (SJF), il quale associa a ogni processo la lunghezza della
-sequenza di operazioni CPU successiva. Quando è disponibile, si assegna al core la più breve lunghezza; a parità di valori, invece, è assegnato con
-logica FCFS. Supponiamo i processi: \[
+\noindent Un secondo algoritmo è quello di scheduling per brevità: \textbf{Shortest job first} (SJF), il quale associa a ogni processo la lunghezza
+della sequenza di operazioni CPU successiva. Quando è disponibile, si assegna al core la più breve lunghezza; a parità di valori, invece, è assegnato
+con logica FCFS. Supponiamo i processi: \[
     (P_1, 6ms)\quad (P_2, 8ms)\quad (P_3, 7ms)\quad (P_4, 3ms)
 \]
 \noindent Verranno eseguiti in base alla loro lunghezza, quindi nell'ordine: $P_4, P_1, P_3, P_2$, facendo risultare un tempo di attesa medio di: \[
@@ -93,7 +88,7 @@ il peso sulla predizione della storia recente e passata. Infatti, con $\alpha=0$
 solo la più recente sequenza di operazioni della CPU. Generalmente, questo valore corrisponde a $0,5$.\par
 L'algoritmo SJF può essere con o senza prelazione; la scelta si compie quando un nuovo processo si accoda alla ready queue mentre un altro è in
 esecuzione. L'implementazione con prelazione riprende il controllo del core dal processo attivo se quello nuovo risulta più breve, mentre quello senza
-prelazione lascia lo lascia terminare prima di riassegnare il core.
+prelazione lo lascia terminare prima di riassegnare il core.
 
 \begin{figure}[h]
     \centering
@@ -123,9 +118,9 @@ diretta conseguenza le prestazioni. È quindi necessario trovare un compromesso 
     \caption{Diagramma di Gantt per algoritmo RR}
 \end{figure}
 
-\noindent L'algoritmo di scheduling con \textbf{priorità} è un caso più generale di SJF, che vede associato ad ogni processo un valore di priorità, in
-base al quale sarà assegnato il core di esecuzione. Le priorità sono indicate con un intervallo di numeri il cui significato è arbitrario e va deciso
-durante l'implementazione. In questo contesto useremo valori più bassi per indicare priorità più alte.\par
+\noindent L'algoritmo di scheduling con priorità \textbf{Shortest Remaining Time First} (SRTF) è un caso più generale di SJF, che vede associato ad ogni
+processo un valore di priorità, in base al quale sarà assegnato il core di esecuzione. Le priorità sono indicate con un intervallo di numeri il cui
+significato è arbitrario e va deciso durante l'implementazione. In questo contesto useremo valori più bassi per indicare priorità più alte.\par
 L'algoritmo può essere sia con prelazione che senza; nel primo caso sottrae forzatamente il core al processo in essere quando nella ready queue se ne
 inserisce uno nuovo di priorità più alta, mentre nel secondo si pone semplicemente in cima alla coda il nuovo processo, il quale sarà eseguito dopo la
 terminazione di quello attivo.\par
@@ -157,7 +152,12 @@ invecchiamento per evitare di incorrere in starvation. Generalmente, questo algo
     \item Metodo per determinare quando spostare un processo in code meno prioritarie.
     \item Metodo per determinare la coda di priorità nella quale inserire un processo.
 \end{itemize}
-\noindent Questa dinamica lo rende l'algoritmo più generale di quelli discussi, ma anche il più complesso da implementare.
+\noindent Questa dinamica lo rende l'algoritmo più generale di quelli discussi, ma anche il più complesso da implementare. Inoltre, a causa del sistema
+di priorità, presenta una bassa equità. Un'idea per aumentare questo valore è quella della \textbf{schedulazione a lotteria}, dove ad ogni job è fornito
+un certo numero di "biglietti" in base alla propria lunghezza\footnote{Quelli brevi ne ricevono di più, quelli lunghi di meno.} e per ogni fetta di
+tempo se ne pesca uno vincente a caso, rendendo il tempo di esecuzione della CPU proporzionale al numero di biglietti posseduti da un dato job. Il
+problema di starvation si evita garantendo minimo un biglietto a ogni processo e così facendo, l'aggiunta o rimozione di un processo impatta anche tutti
+gli altri da eseguire.
 
 %
 

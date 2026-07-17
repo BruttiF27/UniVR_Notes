@@ -35,13 +35,18 @@
 \contentsline {section}{\numberline {7.3}Metodi di gestione e prevenzione}{63}{}%
 \contentsline {section}{\numberline {7.4}Elusione e rilevamento stallo}{63}{}%
 \contentsline {section}{\numberline {7.5}Ripristino}{63}{}%
-\contentsline {chapter}{\numberline {8}Bash}{64}{}%
-\contentsline {section}{\numberline {8.1}Programmazione Bash}{64}{}%
-\contentsline {chapter}{\numberline {9}API Posix}{65}{}%
-\contentsline {section}{\numberline {9.1}Gestione dei file}{65}{}%
-\contentsline {section}{\numberline {9.2}Gestione dei diritti}{65}{}%
-\contentsline {section}{\numberline {9.3}Lettura/scrittura}{65}{}%
-\contentsline {section}{\numberline {9.4}Gestione dei processi}{65}{}%
-\contentsline {section}{\numberline {9.5}Segnali}{65}{}%
-\contentsline {section}{\numberline {9.6}Comunicazione tra processi tramite PIPE}{65}{}%
-\contentsline {section}{\numberline {9.7}Pthread}{65}{}%
+\contentsline {chapter}{\numberline {8}Memoria centrale}{64}{}%
+\contentsline {chapter}{\numberline {9}Cache e memoria virtuale}{65}{}%
+\contentsline {chapter}{\numberline {10}Periferiche I/O}{66}{}%
+\contentsline {chapter}{\numberline {11}File system}{67}{}%
+\contentsline {chapter}{\numberline {12}Bash}{68}{}%
+\contentsline {section}{\numberline {12.1}Introduzione alla Bash}{68}{}%
+\contentsline {section}{\numberline {12.2}Comandi notevoli e diritti}{69}{}%
+\contentsline {chapter}{\numberline {13}API Posix}{72}{}%
+\contentsline {section}{\numberline {13.1}Gestione dei file}{72}{}%
+\contentsline {section}{\numberline {13.2}Gestione dei diritti}{72}{}%
+\contentsline {section}{\numberline {13.3}Lettura/scrittura}{72}{}%
+\contentsline {section}{\numberline {13.4}Gestione dei processi}{72}{}%
+\contentsline {section}{\numberline {13.5}Segnali}{72}{}%
+\contentsline {section}{\numberline {13.6}Comunicazione tra processi tramite PIPE}{72}{}%
+\contentsline {section}{\numberline {13.7}Pthread}{72}{}%

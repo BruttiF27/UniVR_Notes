@@ -1,0 +1,4 @@
+Lez1 - prog&sic reti
+
+- Scrivere applicazioni di rete
+- Programmazione e configurazione di reti

@@ -1,8 +1,34 @@
-\section{Richiami ai concetti fondamentali}
-
-%
-
 \section{Strumenti di analisi delle reti}
+L'analisi delle reti avviene mediante il tracciamento dei pacchetti scambiati al suo interno tra gli end-host. Lo strumento utilizzato nel corso si
+chiama \textbf{Wireshark} e si tratta di un applicativo multipiattaforma dotato di una GUI capace di eseguire gli scopi sovramenzionati. In genere, i
+software analizzatori di rete come questo si "intromettono" nelle interfacce di rete normalmente gestite dai sistemi operativi; in base alla modalità
+di esecuzione, sarà possibile interpretare i pacchetti (modalità utente) e anche intercettarli (modalità admin/superuser).\par
+In un setting normale del livello data-link, supponendo per esempio si stia attuando la procedura del protocollo ARP, il messaggio di richiesta è
+inviato in broadcast a tutti gli end-host connessi alla rete e sarà elaborato e corrisposto solo da quell'interfaccia il cui indirizzo MAC corrisponde
+a quello di destinazione indicato dal pacchetto. Tutte le altre interfacce vedranno il proprio sistema operativo spegnere il circuito di trasmissione
+della scheda di rete per ragioni di efficienza energetica e computazionale. Non invieranno quindi alcuna risposta.\par
+Wireshark cambia questo comportamento nelle macchine in cui è eseguito in modalità admin; attiva un determinato bit per attuare la \textbf{modalità
+promiscua}, consentendo di intercettare anche i pacchetti non destinati all'interfaccia in esame. Naturalmente, in base al mezzo fisico utilizzato per
+la configurazione della rete, varia la modalità di ricezione dei pacchetti: \begin{itemize}
+    \item \textbf{Wi-Fi}: Ogni host connesso alla rete invia pacchetti ad una determinata frequenza (2.4-5GHz) e possono essere captati da tutte le
+    schede di rete capaci di leggerle\footnote{Un pacchetto è leggibile quando il segnale è forte abbastanza.}.
+    \item \textbf{Ethernet}: I pacchetti sono inviati mediante un cavo ethernet (doppino\footnote{Ne esistono di due tipi: Unshielded twisted pair (UTP)
+    e Shielded twisted pair (STP).}) connesso ad uno switch, rendendo possibile captarli solamente se inviati in broadcast (selective flooding) da
+    quest'ultimo o direttamente alla rete in esame.
+\end{itemize}
+\noindent Altri applicativi CLI per l'analisi delle reti sono i seguenti: \begin{itemize}
+    \item \textbf{ping}: Applicativo implementato sul protocollo ICMP, il quale è usato per trasmettere informazioni relative a malfunzionamenti, come
+    TimeExceeded o DestinationUnreachable. Prevede quindi pacchetti di diagnostica, e in questo caso specifico fa uso di \textbf{echo request} ed
+    \textbf{echo reply}.\par
+    Lanciare un ping equivale all'invio di un echo request; l'interfaccia che lo riceve (se attive e obbedisce al protocollo) ritorna un echo reply.
+    Il comando calcola il roundtrip time tra le due interfacce.
+    \item \textbf{traceroute}: Basato sempre su ICMP, traccia tutta la strada che fa il pacchetto per arrivare a destinazione. Setta un TTL incrementale
+    a partire da 1 e gli hop effettuati sono riportati grazie all'errore TTL exceeded.
+    \item \textbf{nslookup}: Riporta l'indirizzo IP del DNS fornito come parametro.
+    \item \textbf{whois}: Riporta nome e cognome del proprietario attuale dell'indirizzo IP o dominio indicato come parametro.
+    \item \textbf{ifconfig}: Riporta lo stato delle interfacce di rete del proprio PC.
+    \item \textbf{route}: Interroga la propria tabella di routing per visualizzarla ed eventualmente modificarla.
+\end{itemize}
 
 %
 

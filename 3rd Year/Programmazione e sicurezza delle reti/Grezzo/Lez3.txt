@@ -1,0 +1,47 @@
+Lez3 - prog&sic reti
+
+--- Ripasso indirizzi IP
+prefisso, suffisso, Classless e Classful CIDR.
+
+D4Gateway: interfaccia verso la rete interna. (Rivedere, ti prego)
+
+Fun fact: Dove invero si preferirebbe un algoritmo di routing comprensivo dei pesi sicché venga calcolato il cammino minimo, nella pratica si suppone che tutti i collegamenti siano veloci, quindi il problema è ridotto al calcolo del cammino minimo in termini di hop.
+
+--- Strumenti di analisi di rete
+Nel corso sarà utilizzato Wireshark, un tool moderno con GUI multipiattaforma per analisi delle reti e tracciamento dei pacchetti.
+
+Gli analizzatori di rete sono software che si intromettono negli OS dove arrivano pacchetti dalle interfacce di rete. Possono intercettarli (solo come admin) e interpretarli (anche come utente).
+
+Quando wireshark è avviato in modalità admin, va a settare un bit che attiva la siddetta "promiscuous mode".
+Normalmente una scheda di rete riceve pacchetti da:
+    - Cavo ethernet, collegato allo switch e si ha controllo su cosa inviare.
+    - Configurazione Wi-fi: Qualunque cosa sia alla stessa frequenza (2.4/5GHz) viene captato dalla scheda di rete
+I pacchetti con corrispondente indirizzo MAC a quello della scheda di rete (verificato dall'interfaccia di rete, hanno 6 numeri in Hex) sono poi inviati al sistema operativo. Come visto nel precedente corso di reti, nell'header di livello 2 il dstMAC è il primo campo leggibile, sicché sia possibile scartare i pacchetti non destinati alla scheda in esame. La ragione dello scarto è per aumentare efficienza computazionale (meno pacchetti = meno interrupt) ed energetica.
+Con la modalità promiscua attivata, la scheda di rete ascolta ogni pacchetto ricevuto a prescindere dal MAC di destinazione. Ciò consente tuttavia di analizzare anche pacchetti eventualmente destinati ad altre interfacce e quindi altre persone.
+
+In wireshark puoi attivare la modalità promiscua ma anche filtrare le catture per evitare estrema inefficienza.
+Ai fini della visualizzazione è possibile mettere dei filtri a specifici byte.
+
+Jaguarshark è un comando poi per il tracciamento dei pacchetti tcp.
+
+Poi ci sono altri comandi utili CLI per l'analisi delle reti, sono scritti nel pdf della directory.
+
+- Ping
+pplicativo implementato sul protocollo ICMP, usato per trasmettere informazioni riguardanti malfunzionamenti (timeExceeded, destination unreachable) che prevede pacchetti di diagnostica: echo request ed echo reply
+
+Lanciare un ping a un DNS implica un echo request; la macchina che lo riceve (se è attiva e obbedisce all'ICMP), ritorna un echo reply. Calcola l'RTT tra le due macchine.
+
+- Traceroute
+Basato sempre su ICMP, traccia tutta la strada che fa il pacchetto per arrivare a destinazione. Setta un TTL incrementale a partire da 1 e i messaggi ritornati sono riportati grazie all'errore TTL exceeded.
+
+- nslookup
+Riporta l'indirizzo IP del DNS fornito come parametro.
+
+- whois
+Gli si può passare un dominio (DNS) o indirizzo IP. Il comando ritorna chi è, ovvero chi ha comprato quell'IP. Nel senso, proprio nome e cognome.
+
+- ifconfig (-a)
+Stato delle interfacce di rete del proprio PC.
+
+- route
+Interroga la propria tabella di routing per visualizzarla ed eventualmente modificarla.

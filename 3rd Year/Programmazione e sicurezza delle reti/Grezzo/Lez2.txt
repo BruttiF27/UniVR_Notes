@@ -1,0 +1,24 @@
+Lez2 - prog&sic reti
+
+--- Stack protocollare ISO-OSI, TCP-IP
+Le reti comunicano grazie ad uno standard, il protocollo.
+
+Applicazione
+Presentazione
+sessione
+trasporto
+rete
+collegamento dati
+fisico
+
+Applicazione: HTTP, Email
+    Standardizza il meccanismo e i formati dell'applicazione di rete che voglio usare.
+trasporto: TCP, UDP
+    Ingloba presentazione, sessione e trasporto per aggiungere meno header e aumentare l'efficienza computazionale con meno chiamate a funzione. Risolve il problema di mettere in comunicazione i processi (istanza attiva del programma eseguibile).
+    La definizione della formattazione dei byte apparteneva a presentazione, mentre a sessione apparteneva il compito di capire quando una comunicazione inizia/finisce.
+rete: IP
+    Prevede che la rete sia divisa tra host (ospitanti processi di una macchina) e router (Decide dove smistare i pacchetti con gli algoritmi di indirizzamento)
+collegamento dati: Ethernet, PPP, ATM
+    Come quel pacchetto va da un hop al successivo su internet, la scelta del mezzo fisico.
+fisico
+    Divisione dei byte nei singoli bit e trasmetterne uno alla volta con il mezzo scelto.

@@ -1,0 +1,17 @@
+Lez4 - prog&sic reti
+
+--- Funzionamento switch ethernet
+Ricordiamo che le reti ethernet richiedono le macchine connesse a vari switch tramite relativo cavo. Questo è detto cavo ethernet (doppino) e ce ne sono di due tipi:
+    - Non schermato (Unshielded twisted pair, UTP)
+    - Schermato (Shielded twisted pair, STP)
+Gli switch minori richiedono una porta apposita per connettersi allo switch principale, consentendo di aumentare il numero di porte disponibili.
+
+Uno switch (commutatore) riesce a gestire comunicazioni in parallelo e rimandare i pacchetti dalla sorgente alla destinazione grazie al protocollo ethernet e ai relativi header con indirizzi MAC.
+Ora, è verosimile che più end-host vogliano parlare ad una stessa destinazione. Come visto nel corso di reti precedente, grazie alla modalità store-n-forward, lo switch è capace di usare un proprio buffer per mantenere in memoria i pacchetti da inviare sequenzialmente.
+
+Gli switch, tuttavia, non conoscono al primo avvio le associazioni tra le porte e gli indirizzi MAC, ragion per cui è implementato un meccanismo di backwards learning, dove se non si conosce un'associazione, si invia il pacchetto ad ogni end-host (selective flooding), e sarà elaborato solo dalla destinazione, che ritornerà la risposta, come nel caso di ARP.
+
+Se su uno di questi end-host è attivata la promiscuous mode con wireshark, tuttavia, sarebbe possibile ascoltare questi pacchetti di flooding, ma una volta associata la porta, lo switch non invierà più il traffico destinato a questa destinazione in broadcast, rendendolo non tracciabile da wireshark con un end-host connesso a una porta diversa.
+ATTENZIONE: Questo discorso di tracciabilità vale solo per le reti ethernet. Nel caso di una wi-fi, i pacchetti viaggiano nell'aria e sono tutti tracciabili se il segnale è forte a sufficienza.
+
+In quanto inviare pacchetti in broadcast non è ideale per ragioni di sicurezza e risparmio energetico, non si creano reti lan con molte (oltre 100, per esempio) reti, bensì le si suddividono in W-lan che poi comunicano tramite il router.

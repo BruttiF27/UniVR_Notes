@@ -1,0 +1,15 @@
+Lez6 - prog&sic reti
+
+--- Interfaccia socket pt.2
+Cose da fare per programmare web app con socket:
+    1. Istanziare un riferimento all'interfaccia socket al quale bisogna attaccarsi per fruire dei servizi di rete.
+    2. Attua le chiamate a funzione per attivare la connessione.
+        - primitive UDP: UDPSend(), UDPReceive()
+        Attenzione che la receive è bloccante; ad ogni send deve corrispondere una receive, altrimenti non si chiuderà mai il server. Inoltre, UDP non implementa un sequence number. Dunque con pacchetti che superano la MTU non è possibile ricostruirli.
+        - primitive TCP: createTCPserver(port), acceptConnection(socket) closeConnection() TCPsend(), TCPReceive().
+        Receive e qaccept sono bloccanti. Receive per la stessa ragione di UDP, mentre per accept è necessario per l'attesa di apertura di una connessione. È inoltre possibile vedere una connessione TCP come un file; vale quindi il concetto di file descriptor.
+
+NB: È possibile fare web app con UDP implementando anche funzioni di acknowledge, ma dovrai scriverlo from scratch. Insomma, nulla vieta di modificare i protocolli.
+Ricordiamo che TCP è byte-oriented tra l'altro, frammenta e riordina da sé i vari byte dei pacchetti.
+
+La garanzia di consegna dei pacchetti del TCP è fondamentale per ulteriori protocolli come TLS e SSL per la sicurezza dei dati.

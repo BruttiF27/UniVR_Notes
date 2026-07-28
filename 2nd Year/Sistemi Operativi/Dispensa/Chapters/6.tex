@@ -155,7 +155,7 @@ variabile booleana \textbf{available}.
 \begin{lstlisting}[language=C]
     // Definizione di acquire
     acquire () {
-        while (!available) { /* Attendi */}
+        while (!available); // Attesa attiva
         available = false;
     }
 

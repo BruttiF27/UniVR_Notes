@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1784274242.57961 "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" "main.pdf" "main" 1784274243.43957 0
+["pdflatex"] 1785245349.84137 "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" "main.pdf" "main" 1785245351.52944 0
   "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" 1784274240.82545 1462 7e6a5edfc027de31639da45f6610fc1d ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -117,8 +117,8 @@
   "Chapters/3.tex" 1776438538 18740 13739da84c6e3b5725fe2136361d2d00 ""
   "Chapters/4.tex" 1777717703.85168 23145 07750f45fd5752452aebbd75b243dbf0 ""
   "Chapters/5.tex" 1784272728.87211 21769 1d9867f10f0aee93cf0d0200a306454d ""
-  "Chapters/6.tex" 1780652648.17054 33710 e97dee93f40e654e77ca3dc11325faf6 ""
-  "Chapters/7.tex" 1784273444.2585 277 3c3fff5227d1d19d97b71225a2a95388 ""
+  "Chapters/6.tex" 1784882630.01603 33711 b6e5ebac7508f364168692bb81bc96a5 ""
+  "Chapters/7.tex" 1785245349.56932 10985 31f4a0cb99a73448ff2ccb05e6ebe108 ""
   "Chapters/8.tex" 1784273836.18959 108 528894b8fa5dcd88bd5fe47bf1da61f0 ""
   "Chapters/9.tex" 1784274240.91034 115 2c2b5c3b0a35323b5900c688dd3b0aa2 ""
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
@@ -143,10 +143,11 @@
   "Images/parallelism_types.png" 1776951112 31765 15624e1e178187452e0a3c7bf89d71fc ""
   "Images/processScheduling_enqueueDiagram.png" 1775811064 45697 2b24bec717affd3fc9554b0f43f1d13e ""
   "Images/ready-wait_queues.png" 1775810522 40631 88ae5234f8eecb0b822d4302c50c4fab ""
+  "Images/resourceAllocationGraph.png" 1785241529.07181 29266 9a5220e0cfa73a1463168e7384333a64 ""
   "Images/single_and_multithreaded_processes.png" 1776949914 34623 9a2d934f913af9e575ef5f830bb9f9cb ""
-  "main.aux" 1784274243.36641 9815 f674f10c439d4043f49fa9c5e5cef2ea "pdflatex"
+  "main.aux" 1785245351.44666 9890 b57be84a283ff428501a864329a409fe "pdflatex"
   "main.tex" 1784274240.82545 1462 7e6a5edfc027de31639da45f6610fc1d ""
-  "main.toc" 1784274243.36741 3689 2d13cf1edaf75f20bc3f557f23a930f1 "pdflatex"
+  "main.toc" 1785245351.44766 3482 e28e14706369e71ba5a2473968032511 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

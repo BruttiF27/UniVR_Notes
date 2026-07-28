@@ -1,0 +1,134 @@
+Sistemi Operativi 2 - Sincronizzazione dei processi
+
+Richiamiamo che multiprocessing equivale ad avere più cpu, mentre multiprogramming ad avere multipli processi. Il multithreading implica avere fili multipli per ogni processo.
+Lo scheduler lavora in base all'algoritmo selezionato, mentre il dispatcher può scegliere di eseguire ogni filo a completamento o usare fette di tempo specifiche.
+In quanto il dispatcher schedula a piacimento, i programmi devono poter funzionare in ogni situazione. Abbiamo due casi principali su cui lavorare:
+    - fili indipendenti: Nessun dato è condiviso con altri processi, il risultato è deterministico e riproducibile. Inoltre, l'ordine di schedulazione non conta.
+    - fili cooperativi: Lo stato è condiviso tra più processi, il risultato è non deterministico come non riproducibile, per questa ragione, risulta difficile fare debugging.
+Le ragioni per le quali si mantiene un approccio di multithreading è in primis una condivisione delle risorse, velocizzazione del calcolo e anche una modularità che consente di dividere un problema grande in parti più piccole.
+
+Prendiamo come esempio un web server e supponiamo due casi particolari. Nel primo, si ha una versione non-cooperativa dove ogni filo di esecuzione è indipendente, mentre nel secondo si effettua una chiamata a fork per un approccio basato sul multithreading.
+Nel primo caso, se il web server diventa popolare, crollerebbe il throughput a causa di costi computazionali elevati. Una soluzione al problema è data dal secondo caso, in particolare allocando una pool di fili lavoratori, che rappresenta il massimo livello di multiprogrammazione. Il vantaggio diretto di avere più thread è poter condividere i dati in cache; nettamente più economico rispetto a creare processi completamente nuovi.
+
+Con la condivisione dei dati, tuttavia, è verosimile immaginare che i vari fili vogliano accedervi e modificarli, rendendo necessario un meccanismo di sincronizzazione per evitarne la corruzione. Definiamo per prima cosa le operazioni atomiche, quelle che vanno sempre a completamento oppure non si eseguono affatto. Sono come blocchi indivisibile fondamentali.
+Inoltre, i programmi con fili devono funzionare per qualunque sovrapposizione fra le sequenze dei singoli fili.
+
+-- Problema troppo latte
+Due persone condividono un frigo che può contenere un'unità di latte alla volta e lo scrutano ogni tot tempo per verificarne la presenza.
+    3.00 P1: guarda nel frigo, no latte - P2: null
+    3.05 P1: parte per il negozio - P2: null
+    3.10 P1: Arriva in negozio - P2: guarda nel frigo, no latte
+    3.15 P1 compra il latte - P2: parte per il negozio
+    3.20 P1: arriva a casa, lascia il latte - P2: arriva in negozio
+    3.25 P1: null - P2: compra il latte
+    3.30 P1: null - P2: arriva a casa, lascia il latte. Oops, il frigo è pieno.
+
+Alcune definizioni utili:
+    - sincronizzazione: usare operazioni atomiche deve garantire la cooperazione tra fili
+    - mutua esclusione: garantire che un solo filo effettua un'attività in un dato momento
+    - sezione critica: parte di codice condivisa che solo un filo può eseguire in un dato momento.
+    - lock: entità bloccante che ferma altri processi dal fare qualcosa (e.g. entrare in sezione critica)
+
+Il problema del latte è risolvibile usando questi concetti. In primis, riconosciamo che se serve, una persona compra, ma mai più di una allo stesso tempo deve farlo.
+Consideriamo atomiche le operazioni r/w. Una possibile soluzione vede l'utilizzo di un lock per evitare che l'altra persona compri il latte, quindi:
+```
+Thread A
+leave note A;
+while (note B) { // X
+    do nothing;
+}
+
+if (!milk) {
+    buy milk;
+}
+remove note A;
+
+Thread B
+leave note B;
+if (!note A) { // Y
+    if (!milk) {
+        buy milk;
+    }
+}
+```
+Questo approccio funziona perché in entrambi si garantisce che è sicuro comprare oppure l'altro compra e si può evitare di uscire. Tuttavia, l'altro processo che non deve comprare rimarrà in uno stato di attesa attiva. Non ideale.
+Se implementiamo invece altre due operazioni atomiche relative al lock, la soluzione diventa molto semplice:
+```
+milklock.acquire();
+if (!milk) buy milk; // Sezione critica
+milklock.release();
+```
+Astraendo le dinamiche di sincronizzazione con dei wrapper si ottiene una maggiore mantenibilità e chiarezza del codice. Infatti, le soluzioni ai problemi di sincronizzazioni implementano operazioni di alto livello sopra le atomiche fornite dall'hardware. Il lock è la prima di quelle che ci interessano.
+
+--- Lucchetti (Aggiungi dove serve alla sezione esistente, fino a monitor)
+Blocca altri processi dal fare qualcosa. Generalmente da acquisire quando un processo entra in sezione critica e da rilasciare quando ne esce. Quando altri processi vedono un lock non disponibile, attendono.
+Non abusarne, poiché più ne si mettono, più si incomberà in attesa attiva, distruggendo il throughput.
+
+Una migliore implementazione dei lucchetti vede l'utilizzo di una variabile lock e l'imposizione di mutua esclusione sulle operazioni di tale variabile.
+```
+int lock = FREE;
+
+acquire () {
+    disable interrupts;
+    if (lock == BUSY) {
+        put thread on wait queue;
+        sleep();
+        // enable interrupts?
+    } else lock = BUSY;
+
+    enable interrupts;
+
+}
+
+release () {
+    disable interrupts;
+    if (wait queue != empty) {
+        take thread off wait queue;
+        place thread on ready queue;
+    } else lock = FREE;
+    enable interrupts;
+}
+```
+
+Gli interrupts sono disabilitati perché vogliamo evitare interruzioni fra controllo e chiusura del lucchetto, altrimenti due threads potrebbero pensare di avere il controllo. È possibile migliorare ulteriormente l'implementazione usando l'operazione di test&set, mettendo i processi in attesa attiva solo per controllare automaticamente il valore del lucchetto:
+```
+int guard = 0;
+int lock = FREE;
+
+acquire () {
+    // short budy-wait time
+    while (test_and_set(guard));
+    if (lock == BUSY) {
+        put thread on wait queue;
+        sleep() && guard = 0; // da eseguire allo stesso momento.
+    } else {
+        lock = BUSY;
+        guard = 0;
+    }
+}
+
+release () {
+    // short busy-wait time
+    while (test_and_set(guard));
+    if (wait queue != empty) {
+        take thread off wait queue;
+        place thread on ready queue;
+    } else lock = FREE;
+    guard = 0;
+}
+```
+
+--- Semafori
+Lucchetti generalizzati; variabili di valore intero non negativo, che supportano le operazioni atomiche:
+    - wait()/p(): fa aspettare il thread finché il valore del semaforo diventa positivo, dopodiché lo decrementa di 1.
+    - signal()/v(): incrementa il valore del semaforo di 1, risvegliando un filo che ha chiamato wait(), se ne esiste uno.
+
+I semafori (binari) vengono usati per mutua esclusione e per vincoli di schedulazione
+
+--- Monitor
+Ulteriore evoluzione per la gestione dei lucchetti; un monitor è composto da un lucchetto e zero o più variabili condizionali per gestire accesso concorrente a dati condivisi.
+Il lucchetto fornisce la mutua esclsione a dati condivisi, è inizialmente libero, e come visto prima va preso quando si entra nei dati e rilasciato quando se ne esce.
+Le variabili di condizione sono una coda di fili in attesa di qualcosa all'interno della sezione critica.
+wait()
+signal()
+broadcast() sveglia tutti i fili in esecuzione

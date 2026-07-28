@@ -1,0 +1,23 @@
+Lab1 - Sistemi operativi II
+
+--- Pipe
+Pipe è uno stream di byte che permette ai processi di scambiare byte. In particolare è un buffer nella memoria del kernel del sistema operativo, e presenta le seguenti proprietà:
+    - I dati scorrono unidirezionalmente, un'estremità è usata per leggere, l'altra per scrivere.
+    - I dati passano sequenzialmente nell'ordine in cui sono stati scritti
+    - Pipe possono leggere dimensioni infinite.
+    - Leggere da una pipe vuota causa blocco finché almeno un byte non è scritto; alternativamente avviene un segnale di non terminazione (EINTR)
+    - Se la scrittura viene chiusa, un processo che legge dalla pipe vedrà EOF appena avrà letto tutti i byte ante-chiusura
+    - Scrittura è bloccata finché:
+        1. C'è spazio sufficiente per completare l'operazione atomicamente (65536B dimensione max pipe linux)
+        2. Avviene un segnale di non terminazione
+    - Scritture di blocchi più grandi di PIPE_BUF = 4096 possono essere spezzate in segmenti più piccoli di dimensione arbitraria.
+
+Le pipe si creano con la chiamata int pipe(int fd[2]); della libreria unistd.h.
+Ritorna 0 con successso, -1 con errore. In caso di successo restituisce due file descriptors aperti nell'array fd. fd[0] è lettura, fd[1] è scrittura.
+Le pipe si usano normalmente per consentire comunicazione fra processi collegati da una relazione gerarchica, quindi sono strettamente legate a fork(), generalmente chiamata dopo pipe().
+Un processo deve naturalmente usare solo il fd a lui utile, quindi chiuderà quello che non serve con close(fd[n]), altrimenti non si rispetta la caratteristica del flusso unidirezionale.
+
+Per leggere e scrivere si usano:
+    - read(fd[0], buf, SIZE)
+        buf è il buffer discusso prima, con SIZE=65536B
+    - write(fd[1], buf, strlen(buf))

@@ -644,6 +644,11 @@ INPUT Chapters/7.tex
 INPUT ./Chapters/7.tex
 INPUT ./Chapters/7.tex
 INPUT Chapters/7.tex
+INPUT ./Images/resourceAllocationGraph.png
+INPUT ./Images/resourceAllocationGraph.png
+INPUT Images/resourceAllocationGraph.png
+INPUT ./Images/resourceAllocationGraph.png
+INPUT ./Images/resourceAllocationGraph.png
 INPUT ./Chapters/8.tex
 INPUT ./Chapters/8.tex
 INPUT ./Chapters/8.tex

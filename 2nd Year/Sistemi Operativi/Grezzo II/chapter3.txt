@@ -1,0 +1,173 @@
+OS2 - Stallo
+
+Come già menzionato, una delle funzioni principali del sistema operativo è la gestione delle risorse condivise, intese come entità passive richieste dai thread per svolgere il proprio lavoro. Queste sono per esempio il tempo di cpu, spazio sul disco o la memoria. In particolare, ne distinguiamo due tipi: \begin{itemize}
+    \item \textbf{Prelazionabili}: È possibile sottrarle al thread durante l'esecuzione. Queste sono la CPU e chip di sicurezza.
+    \item \textbf{Non prelazionabili}: Devono restare in possesso al filo; sono lo spazio su disco e memoria virtuale.
+\end{itemize}
+
+\noindent Le risorse possono richiedere accesso esclusivo o condiviso, e in quanto tale è possibile trovare problemi di inedia (starvation), quindi un thread a bassa priorità che attende per una risorsa costantemente in uso da fili a più alta priorità, o stallo, un'attesa circolare per le risorse dove un thread A possiede res1 e attende res2, mentre thread b possiede res2 e attende res1.\par
+Una situazione di stallo implica anche starvation, ma non viceversa, perché l'inedia può potenzialmente concludersi, mentre lo stallo necessita per forza un intervento esterno. Inoltre, è un risultato non sempre deterministico, per esempio, coi seguenti due mutex che eseguono le primitive: \begin{itemize}
+    \item Thread A: x.P(), y.P(), y.V(), x.V()
+    \item Thread B: y.P(), x.P(), x.V(), y.V()
+\end{itemize}
+
+\noindent L'esecuzione delle istruzioni è soggetta a race condition, non garantendo risultati deterministici, quindi si ritiene necessaria una specifica temporizzazione con uno scheduling. In altri casi, invece è probabile che lo stallo capiti con risorse multiple, rendendo impossibile risolverlo in modo isolato per ogni risorsa.\par
+Facciamo l'esempio di \textbf{attraversamento ponte}, dove ogni segmento della strada può essere visto come risorsa e l'auto deve acquisire e possedere il segmento sotto di sé per muoversi. Per attraversare il ponte è necessario acquisire entrambi i segmenti.\par
+In caso di stallo, una macchina deve indietreggiare prelazionando la sua risorsa. È verosimile che più auto debbano indietreggiare. Inoltre, è possibile che si verifichi starvation se c'è molto traffico da un lato del ponte. In generale, esistono quattro requisiti per ottenere una situazione di stallo: \begin{itemize}
+    \item \textbf{Mutua esclusione}: Solo un filo alla volta può usare la risorsa.
+    \item \textbf{Attesa attiva}: Il filo che ha preso almeno una risorsa aspetta di ottenere le altre occupate da altri thread.
+    \item \textbf{No prelazione}: Le risorse sono rilasciate solo volontariamente dal filo che le ha prese, quando ha finito di usarle.
+    \item \textbf{Attesa circolare}: Un insieme di fili in attesa dove ognuno attende che si liberi la risorsa acquisita dal processo seguente, fino all'ultimo che attende quella del primo.
+\end{itemize}
+
+\noindent Per visualizzare le richieste dei vari fili è possibile servirsi del \textbf{grafo richiesta-allocazione}, che presenta un insieme di fili $\{F_1, ..., F_n\}$ e un insieme di risorse $\{R_1, ..., R_n\}$, le quali hanno $W_i$ istanze e ogni filo può usare una risorsa in tre modi: richiesta(), uso() e rilascio(). In particolare, una freccia da un filo a una risorsa rappresenta una richiesta, mentre viceversa è un'assegnazione.\par
+Capirlo è un buon punto di partenza, ma bisogna anche risolvere un eventuale stallo; esistono diversi approcci: \begin{itemize}
+    \item \textbf{Consentire stallo e risolverlo}: Quando un sistema va in stallo si può utilizzare un algoritmo apposito per riconoscere questa situazione e implementare un con il quale si forzi la prelazione delle risorse o si termini l'esecuzione di un compito.
+    \item \textbf{Assicurarsi di non entrare mai in stallo}: Ciò si ottiene monitorando ogni acquisizione dei lucchetti, negando selettivamente quelli che possono portare a stallo.
+    \item \textbf{Ignorare il problema}: Sorprendentemente è una strategia attuata da molti sistemi operativi, UNIX incluso.
+\end{itemize}
+
+\noindent Vediamo un esempio di algoritmo generale per riconoscere una situazione di stallo; definiamo un [X] vettore di m interi non negativi che rappresentano le istanze di risorse per ogni tipo. Definiamo i campi: \begin{itemize}
+    \item freeResources: Risorse libere per ogni tipo.
+    \item request_x: Richieste attuali del filo X.
+    \item alloc_x: Risorse attualmente possedute dal filo X.
+\end{itemize}
+
+\noindent Bisogna verificare se i compiti terminano automaticamente; se rimangono nella struttura UNFINISHED saranno in stallo:
+```
+    [Dispo] = freeResources;
+    // Aggiungi tutti i nodi a UNFINISHED
+
+    do {
+        done = true;
+        forAll (node \in UNFINISHED) {
+            if (request_{node} <= available) {
+                // Rimuovi il nodo da UNFINISHED
+                available = available + alloc_{node}
+                done = false
+            }
+        }
+    } while (done);
+```
+
+\noindent Riconosciuto lo stallo, si può terminare forzatamente il filo liberando le relative risorse, ma è probabile che si lasci il sistema in uno stato inconsistente. Alternativamente, se possibile, si possono prelazionare le risorse senza terminarlo, oppure più direttamente riavvolgere le azioni svolte dai fili in stallo.\par
+Se la soluzione che si vuole perseguire è quella di evitare lo stallo in toto, si può pensare di usare un meccanismo di memoria virtuale, dando l'impressione al sistema operativo di avere risorse infinite. Se ciò non è possibile, si può direttamente evitare di condividere risorse, sebbene non sia molto praticabile o efficiente, oppure non consentire l'attesa come si fa con le reti Ethernet in caso di collisione. Altre tecniche sono anche quella di imporre a tutti i fili di richiedere ogni risorsa necessaria fin dall'inizio e non partire senza averle, ma è verosimile che si sovrastimi il quantitativo, oppure di imporre a tutti i fili di richiedere le risorse in un ordine specifico per evitare usi ciclici delle risorse.\par
+Un esempio di prevenzione di stallo è l'applicazione dell'algoritmo del banchiere, dove in un approccio ideale si dichiarano in anticipo le risorse massime richieste e si consente a un filo di procedere se vale la relazione: \[
+    \text{risorse disponibili} - \text{risorse richieste} \geq \text{risorse massime rimanenti}
+\]
+
+\noindent Un approccio meno conservativo vede un'allocazione dinamica delle risorse; si valuta ogni richiesta e la si accetta se esiste un ordinamento di esecuzione dei fili privo di stallo. Si assume che ogni richiesta sia accettata e poi si esegue l'algoritmo di riconoscimento valutando \[
+    \text{request}_{\text{node}} \leq \text{available}
+\]
+
+\noindent La richiesta sarà accettata solo se il risultato è libero da stallo. Questa strategia mantiene il sistema in uno stato \textbf{sicuro}\footnote{Un algoritmo sicuro non causa situazioni di stallo.}, quindi esiste una sequenza di fili con il primo della lista che richiede tutte le risorse a lui necessarie; quando termina la sua esecuzione, il thread seguente fa lo stesso e così via.
+
+--- Esercizi
+5.3 (4) Applica l'algoritmo del banchiere con il seguente stato del sistema. Trova le risorse necessarie al completamento secondo la sottrazione [res_massime - res_assegnate]:
+
+   assegnate | massime | necessarie | disponibili
+   A B C D     A B C D   A B C D      A B C D
+p0 0 0 1 2     0 0 1 2   0 0 0 0      1 5 2 0
+p1 1 0 0 0     1 7 5 0   0 7 5 0
+p2 1 3 5 4     2 3 5 6   1 0 0 2
+p3 0 6 3 2     0 6 5 2   0 0 2 0
+p4 0 0 1 4     0 6 5 6   0 6 4 2
+
+p_i sono i processi. Chi può procedere?
+- p0 è stato calcolato che ha necessità 0 0 0 0 quindi potrebbe procedere senza problemi.
+- p1 ha necessità 0 7 5 0, ma non ci sono abbastanza risorse per i suoi fili B, C.
+- p2 richiede 1 0 0 2, non ci sono abbastanza risorse per il suo filo D.
+- p3 richiede 0 0 2 0, potrebbe procedere perché C ha due risorse disponibili.
+- p4 richiede 0 6 4 2, non ci sono abbastanza risorse per i suoi fili B, C, D.
+
+Supponiamo che proceda p0 e termini. Si liberano le sue risorse prese, quidni 1C e 2D, le quali vanno aggiunte a disponibili:
+
+   assegnate | massime | necessarie | disponibili
+   A B C D     A B C D   A B C D      A B C D
+p0 0 0 1 2     0 0 1 2   0 0 0 0      1 5 2 0
+p1 1 0 0 0     1 7 5 0   0 7 5 0      1 5 3 2
+p2 1 3 5 4     2 3 5 6   1 0 0 2
+p3 0 6 3 2     0 6 5 2   0 0 2 0
+p4 0 0 1 4     0 6 5 6   0 6 4 2
+
+Adesso valutiamo quali altri processi possono procedere, e così via fino al finirli tutti. Ora infatti può procedere anche p2. Supponiamo proceda proprio lui, liberando le due risorse:
+
+   assegnate | massime | necessarie | disponibili
+   A B C D     A B C D   A B C D      A B C D
+p0 0 0 1 2     0 0 1 2   0 0 0 0      1 5 2 0
+p1 1 0 0 0     1 7 5 0   0 7 5 0      1 5 3 2
+p2 1 3 5 4     2 3 5 6   1 0 0 2      2 8 8 6
+p3 0 6 3 2     0 6 5 2   0 0 2 0
+p4 0 0 1 4     0 6 5 6   0 6 4 2
+
+A sto punto possono procedere tutti, ma andiamo in ordine:
+   assegnate | massime | necessarie | disponibili
+   A B C D     A B C D   A B C D      A B C D
+p0 0 0 1 2     0 0 1 2   0 0 0 0      1 5 2 0
+p1 1 0 0 0     1 7 5 0   0 7 5 0      1 5 3 2
+p2 1 3 5 4     2 3 5 6   1 0 0 2      2 8 8 6
+p3 0 6 3 2     0 6 5 2   0 0 2 0      2 14 11 8
+p4 0 0 1 4     0 6 5 6   0 6 4 2      2 14 12 12
+
+Stallo prevenuto.
+
+--- Esercizio 5.5 (caso 3)
+Trovare le risorse necessarie per ogni processo e mostrare l'ordine di terminazione dei processi
+
+    allocazione | massimo | necessarie
+    A B C D       A B C D   A B C D
+p0  1 2 0 2       4 3 1 6   3 1 1 4
+p1  0 1 1 2       2 4 2 4   2 3 1 2
+p2  1 2 4 0       3 6 5 1   2 4 1 1
+p3  1 2 0 1       2 6 2 3   1 4 2 2
+p4  1 0 0 1       3 1 1 2   2 1 1 1
+
+Disponibili (caso a)
+A   B   C   D
+3   0   1   4
+
+Notare che non c'è un singolo processo che può procedere con le risorse attuali, ci sarà sicuramente uno stallo. Quindi non è sicuro.
+
+Disponibili (caso b)
+A   B   C   D
+3   1   1   4   Posso eseguire p0, p4. Scelgo p0
+4   3   1   6   Posso eseguire p1, p4. Scelgo p4
+5   3   1   7   Posso eseguire p1
+5   4   2   9   Posso eseguire p2, p3. Algoritmo sicuro.
+
+--- Esercizio 4.21
+Un sistema ha 5 unità nastro a disposizione per gli utenti. Un programma di analisi dati richiede 2 unità nastro: una per i dati grezzi, l'altra per quelli elaborati. Sia dato il seguente monitor per controllare l'accesso alle unità:
+
+```
+#define N 5
+
+monitor gestoreNastri {
+    int n_nastri, liberi[N];
+    condition serve_nastro;
+
+    entry allocaNastro {
+        int i;
+        while (n_nastri <= 0) {
+            wait(serve_nastro);
+        }
+        for (i=0; liberi[i] == 0; i++);
+        liberi[i] = 0;
+        n_nastri--;
+
+        return i;
+    }
+
+    void rilasciaNastro {
+        int i;
+        n_nastri++;
+        liberi[i] = 1;
+        wakeuo(serve_nastro);
+    }
+
+    int i;
+    n_nastri = N;
+    for (i=0; i < N; i++) {
+        liberi[i] = 1;
+    }
+}
+```

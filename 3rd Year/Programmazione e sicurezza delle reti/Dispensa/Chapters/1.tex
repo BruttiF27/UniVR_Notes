@@ -33,58 +33,45 @@ la configurazione della rete, varia la modalità di ricezione dei pacchetti: \be
 %
 
 \section{Programmazione modello client-server}
-Con interfaccia socket
+Un primo approccio alla scrittura di applicazioni web richiede comprendere le due prospettive che si andranno a interfacciare; in primo luogo quella del
+\textbf{software}, che comprende l'interfaccia delle syscall fornite dal sistema operativo, in secondo luogo quella della \textbf{rete}, dove si lavora
+a livello di trasporto con i protocolli UDP e TCP facendo comunicare i processi tramite socket. Distinguiamo inoltre i seguenti concetti fondamentali:
+\begin{itemize}
+    \item \textbf{Host}: Elaboratore o router le cui interfacce sono identificate mediante indirizzi IP, ai quali può essere associato anche un nome
+    Internet.
+    \item \textbf{Processo}: Programma in esecuzione sull'host che in un contesto di applicativi web trasmette/riceve pacchetti da/verso altri host
+    tramite la rete. I valori identificativi spaziano nell'intervallo $[0, ..., 65535]$.
+    \item \textbf{Applicazione}: Collaborazione tra un insieme di processi sparsi sulla rete per eseguire un compito.
+\end{itemize}
 
-\begin{comment}
-    Lez5 - prog&sic reti
+\noindent Partiamo dal presupposto che lo sviluppo delle applicazioni di rete si basano su due paradigmi principali: il modello \textbf{client-server} e
+\textbf{publisher-subscriber}, quest'ultimo approfondito più in là nella dispensa. Se consideriamo il primo pattern abbiamo due attori fondamentali i
+cui panni possono essere vestiti dai vari processi: il \textbf{client}, colui che fa il primo passo e invia le richieste, e il \textbf{server}, ciò che
+ne risponde e si rimette in attesa di ulteriori richieste\footnote{Il client può richiedere ma anche inviare informazioni, come nel caso di SMTP.
+Inoltre, nulla vieta di scrivere una web app con molteplici client e server.}.\par
+Un esempio di applicazione di rete è il Web stesso, i cui client sono i web browser come Chrome o Firefox cooperanti con un server HTTP Apache, oppure
+più semplicemente un'applicazione di messaggistica come Telegram o Whatsapp dove gli utenti si affidano a un server apposito per l'invio e ricezione dei
+messaggi.\par
+In base ai requisiti sarà necessario scegliere un protocollo per lo scambio delle sequenze di byte, per i quali abbiamo due strade principali:
+applicazioni \textbf{orientate al datagramma}, le quali si servono di UDP e che rendono ogni pacchetto scambiato indipendente dagli altri, e
+applicazioni \textbf{orientate alla connessione}, che fanno uso di TCP dando una relazione di appartenenza ai pacchetti.\par
+Adottando un protocollo è necessario implementare correttamente le relative funzioni; nel caso di UDP abbiamo uno scambio di messaggi non affidabile e
+per questa ragione è utilizzato comunemente per applicazioni multimediali, mentre per TCP sarà necessario rispettare i campi per il numero di sequenza,
+la meccanica di acknowledge, etc. Viene usato normalmente per applicazioni di scambio dati e l'insieme dei pacchetti è determinato dalla
+\textbf{sessione}, la quale inizia quando si instaura la connessione e termina la sua chiusura postuma all'invio dell'ultimo pacchetto. Inoltre, nulla
+vieta di modificare il protocollo base come lo si preferisca, sarebbe possibile rendere UDP affidabile.\newline
 
-Come scrivere programmi che funzionano sulla rete?
-C'è una prospettiva su due lati:
-    - software: Interfaccia data dalle chiamate di sistema.
-    - rete: Dove si lavora a livello di trasporto, si usano TCP/UDP in un socket.
+\noindent Quindi per scrivere applicazioni di rete con interfaccia socket è necessario istanziare un riferimento ad essa e attaccarcisi per usufruire
+dei servizi di rete. Instaurata la connessione con il relativo protocollo scelto, si potranno invocare le chiamate a funzione delle primitive per
+attivarla; in particolare abbiamo: \begin{itemize}
+    \item \textbf{UDP}: \textit{UDPSend()} per inviare un pacchetto, \textit{UDPReceive()} per riceverlo. Quest'ultima funzione è bloccante e senza
+    ricevere un pacchetto con send rimarrà indefinitamente in attesa.
+    \item \textbf{TCP}: \textit{createTCPserver()} per creare la connessione, \textit{acceptConnection()} per accettare unilateralmente l'apertura,
+    \textit{closeConnection()} per chiuderla unilateralmente, \textit{TCPSend()} per inviare pacchetti e \textit{TCPReceive()} per riceverli. In questo
+    contesto, sia receive che accept sono bloccanti; la prima per le stesse ragioni di UDP, mentre la seconda lo è perché richiede l'apertura di una
+    connessione.
+\end{itemize}
 
-La programmazione di rete si basa sul paradigma client-server.
-
---- Programmazione di rete client-server con interfaccia socket
-
-Distingui i termini:
-    - host: macchina (tendenzialmente) identificata con un IP a cui può anche essere associato un nome internet.
-    - processo: programma in esecuzione sull'host che trasmette/riceve pacchetti da/verso altri host tramite la rete. Valori: [0, ..., 65535]
-    - Applicazione: collaborazione tra un insieme di processi sparsi sulla rete per fare qualcosa per l'utente. (e.g. il Web è un'app e i processi collaboranti sono firefox, il browser web o Apache, il server HTTP)
-
-Il workflow tipico è il pacchetto è inviato dal server, dove viene tenuto e poi re-inviato al destinatario.
-
-La scrittura dei programmi in C con socket implica la conoscenza degli IP degli host e server.
-Naturalmente ricordiamo che trasmettiamo sequenze di byte (pacchetti/pdu/datagrammi).
-
-Se ogni pacchetto scambiato è indipendente dai precedenti e successivi. Le perdite dei pacchetti non sono tenute in considerazione (IP è best-effort). In questo contesto si dice applicazione orientata al datagramma.
-Di norma questo paradigma è usato per app multimediali.
-
-Alternativamente ci sono anche applicazioni orientate alla connessione, dove tra i pacchetti trasmessi c'è una relazione, qunidi parte di un messaggio più grande.
-Qui, come in TCP è necessario introdurre un numero di sequenza e acknowledge per poter ritrasmettere eventuali pacchetti persi. Sebbene garantisca la consegna totale, a causa dell'overhead aumentato c'è un consumo maggiore di risorse computazionali e di tempo.
-L'insieme dei pacchetti in questo contesto è determinato dalla sessione, che ha termine quando tutti i pacchetti dell'insieme sono stati inviati.
-Di norma questo paradigma è usato per app di scambio dati.
-
-Schemi di base che usano le app di rete:
-- Client-server
-    Situazione più frequente, dove il client fa ilprimo passo con una richiesta e il server ritorna una risposta per poi mettersi in attesa di altre richieste. (NB: non sempre il client richiede informazioni, può anche inviarle. Vedasi SMTP, si inviano dati al server. Inoltre, nulla vieta di scrivere una web app con multipli client e server.)
-
-    Client e server sono processi, non host. L'app di rete si costituisce di almeno un client e un server. Si dice infatti che un processo prende uno di questi due ruoli.
-- Publisher-subscriber
-
-Lez6 - prog&sic reti
-
---- Interfaccia socket pt.2
-Cose da fare per programmare web app con socket:
-    1. Istanziare un riferimento all'interfaccia socket al quale bisogna attaccarsi per fruire dei servizi di rete.
-    2. Attua le chiamate a funzione per attivare la connessione.
-        - primitive UDP: UDPSend(), UDPReceive()
-        Attenzione che la receive è bloccante; ad ogni send deve corrispondere una receive, altrimenti non si chiuderà mai il server. Inoltre, UDP non implementa un sequence number. Dunque con pacchetti che superano la MTU non è possibile ricostruirli.
-        - primitive TCP: createTCPserver(port), acceptConnection(socket) closeConnection() TCPsend(), TCPReceive().
-        Receive e qaccept sono bloccanti. Receive per la stessa ragione di UDP, mentre per accept è necessario per l'attesa di apertura di una connessione. È inoltre possibile vedere una connessione TCP come un file; vale quindi il concetto di file descriptor.
-
-NB: È possibile fare web app con UDP implementando anche funzioni di acknowledge, ma dovrai scriverlo from scratch. Insomma, nulla vieta di modificare i protocolli.
-Ricordiamo che TCP è byte-oriented tra l'altro, frammenta e riordina da sé i vari byte dei pacchetti.
-
-La garanzia di consegna dei pacchetti del TCP è fondamentale per ulteriori protocolli come TLS e SSL per la sicurezza dei dati.
-\end{comment}
+\noindent In particolare, per quanto riguarda le applicazioni orientate alla connessione, è possibile vedere una connessione TCP come un file, rendendo
+quindi possibile usare il concetto di file descriptor. Inoltre, la loro garanzia di consegna è fondamentale per ulteriori protocolli che si basano su
+di esso, come TLS o SSH per la sicurezza dei dati.

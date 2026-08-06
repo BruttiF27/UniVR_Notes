@@ -35,20 +35,20 @@
 \contentsline {chapter}{\numberline {8}Memoria centrale}{68}{}%
 \contentsline {section}{\numberline {8.1}Suddivisione della memoria}{68}{}%
 \contentsline {section}{\numberline {8.2}Allocazione contigua della memoria}{70}{}%
-\contentsline {section}{\numberline {8.3}Paginazione}{70}{}%
-\contentsline {section}{\numberline {8.4}Struttura della tabella delle pagine}{70}{}%
-\contentsline {section}{\numberline {8.5}Swapping dei processi}{70}{}%
-\contentsline {chapter}{\numberline {9}Cache e memoria virtuale}{71}{}%
-\contentsline {chapter}{\numberline {10}Periferiche I/O}{72}{}%
-\contentsline {chapter}{\numberline {11}File system}{73}{}%
-\contentsline {chapter}{\numberline {12}Bash}{74}{}%
-\contentsline {section}{\numberline {12.1}Introduzione alla Bash}{74}{}%
-\contentsline {section}{\numberline {12.2}Comandi notevoli e diritti}{75}{}%
-\contentsline {chapter}{\numberline {13}API Posix}{78}{}%
-\contentsline {section}{\numberline {13.1}Gestione dei file}{78}{}%
-\contentsline {section}{\numberline {13.2}Gestione dei diritti}{78}{}%
-\contentsline {section}{\numberline {13.3}Lettura/scrittura}{78}{}%
-\contentsline {section}{\numberline {13.4}Gestione dei processi}{78}{}%
-\contentsline {section}{\numberline {13.5}Segnali}{78}{}%
-\contentsline {section}{\numberline {13.6}Comunicazione tra processi tramite PIPE}{78}{}%
-\contentsline {section}{\numberline {13.7}Pthread}{78}{}%
+\contentsline {section}{\numberline {8.3}Paginazione}{72}{}%
+\contentsline {section}{\numberline {8.4}Struttura della tabella delle pagine}{74}{}%
+\contentsline {section}{\numberline {8.5}Avvicendamento dei processi}{75}{}%
+\contentsline {chapter}{\numberline {9}Cache e memoria virtuale}{77}{}%
+\contentsline {chapter}{\numberline {10}Periferiche I/O}{78}{}%
+\contentsline {chapter}{\numberline {11}File system}{79}{}%
+\contentsline {chapter}{\numberline {12}Bash}{80}{}%
+\contentsline {section}{\numberline {12.1}Introduzione alla Bash}{80}{}%
+\contentsline {section}{\numberline {12.2}Comandi notevoli e diritti}{81}{}%
+\contentsline {chapter}{\numberline {13}API Posix}{84}{}%
+\contentsline {section}{\numberline {13.1}Gestione dei file}{84}{}%
+\contentsline {section}{\numberline {13.2}Gestione dei diritti}{84}{}%
+\contentsline {section}{\numberline {13.3}Lettura/scrittura}{84}{}%
+\contentsline {section}{\numberline {13.4}Gestione dei processi}{84}{}%
+\contentsline {section}{\numberline {13.5}Segnali}{84}{}%
+\contentsline {section}{\numberline {13.6}Comunicazione tra processi tramite PIPE}{84}{}%
+\contentsline {section}{\numberline {13.7}Pthread}{84}{}%

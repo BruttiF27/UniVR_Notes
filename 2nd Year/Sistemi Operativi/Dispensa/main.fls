@@ -656,6 +656,16 @@ INPUT Chapters/8.tex
 INPUT ./Chapters/8.tex
 INPUT ./Chapters/8.tex
 INPUT Chapters/8.tex
+INPUT ./Images/checkCorrectMemoryArea.png
+INPUT ./Images/checkCorrectMemoryArea.png
+INPUT Images/checkCorrectMemoryArea.png
+INPUT ./Images/checkCorrectMemoryArea.png
+INPUT ./Images/checkCorrectMemoryArea.png
+INPUT ./Images/pagingHardware.png
+INPUT ./Images/pagingHardware.png
+INPUT Images/pagingHardware.png
+INPUT ./Images/pagingHardware.png
+INPUT ./Images/pagingHardware.png
 INPUT ./Chapters/9.tex
 INPUT ./Chapters/9.tex
 INPUT ./Chapters/9.tex

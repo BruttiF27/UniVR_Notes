@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1785929944.91652 "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" "main.pdf" "main" 1785929946.17831 0
+["pdflatex"] 1786023884.11442 "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" "main.pdf" "main" 1786023885.48944 0
   "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" 1784274240.82545 1462 7e6a5edfc027de31639da45f6610fc1d ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -119,7 +119,7 @@
   "Chapters/5.tex" 1784272728.87211 21769 1d9867f10f0aee93cf0d0200a306454d ""
   "Chapters/6.tex" 1784882630.01603 33711 b6e5ebac7508f364168692bb81bc96a5 ""
   "Chapters/7.tex" 1785245349.56932 10985 31f4a0cb99a73448ff2ccb05e6ebe108 ""
-  "Chapters/8.tex" 1785929944.64973 6862 eceb1869a3eb9a83058779fc425d7ffc ""
+  "Chapters/8.tex" 1786023883.8385 23571 04392cdbd6f4575b760bc890e99c5cd8 ""
   "Chapters/9.tex" 1784274240.91034 115 2c2b5c3b0a35323b5900c688dd3b0aa2 ""
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
   "Configs/formats.tex" 1741537610 162 94ad515d4f2656e52898454c9959e092 ""
@@ -133,6 +133,7 @@
   "Images/Structure_UNIX.png" 1774689066 36887 5d7d633632c75633e0ba33b0d9a1039a ""
   "Images/Structure_leveled.png" 1774689540 27945 64a749eb93199c1622ec5a39d43b7a55 ""
   "Images/Structure_microkernel.png" 1774689916 33546 5500c088bb695d23650d1004c46aca99 ""
+  "Images/checkCorrectMemoryArea.png" 1786008327.35443 25200 c71c95d8d6057363807fb4a426dfd8ad ""
   "Images/concurrence_and_parallelism.png" 1776950538 30632 9ed8e359845451c43906a4803c1200bb ""
   "Images/contextSwitch.png" 1775812820 55734 0bd6cb98e5e5b42bc35fa048c403edab ""
   "Images/gantt_FCFS.png" 1779011080.74253 7278 6f9c43581ac3afddd45d9b0d0a51c16b ""
@@ -140,14 +141,15 @@
   "Images/gantt_SJF.png" 1779011245.31698 8630 75482384e7474a6d50d6404fb2b40f58 ""
   "Images/gantt_priority.png" 1779011769.94568 9908 a0255e2b6e5b685ab6ac97833d5d02d3 ""
   "Images/multithreading_models.png" 1776952240 58416 2cb3540ab51fc315e4e16a67d121b1ec ""
+  "Images/pagingHardware.png" 1786016904.53246 34961 a169970bdddde2279059ea89bebe8b92 ""
   "Images/parallelism_types.png" 1776951112 31765 15624e1e178187452e0a3c7bf89d71fc ""
   "Images/processScheduling_enqueueDiagram.png" 1775811064 45697 2b24bec717affd3fc9554b0f43f1d13e ""
   "Images/ready-wait_queues.png" 1775810522 40631 88ae5234f8eecb0b822d4302c50c4fab ""
   "Images/resourceAllocationGraph.png" 1785241529.07181 29266 9a5220e0cfa73a1463168e7384333a64 ""
   "Images/single_and_multithreaded_processes.png" 1776949914 34623 9a2d934f913af9e575ef5f830bb9f9cb ""
-  "main.aux" 1785929946.10821 10473 a9c642a9bdec979dd486cac44d1ff6f1 "pdflatex"
+  "main.aux" 1786023885.41949 10763 e0ecb98a0808f853420cd45ad6bfde3f "pdflatex"
   "main.tex" 1784274240.82545 1462 7e6a5edfc027de31639da45f6610fc1d ""
-  "main.toc" 1785929946.10857 3860 00b15a618cde025a7edff6eea048758c "pdflatex"
+  "main.toc" 1786023885.42049 3866 0975390a2f5de26b9e024c7d5314c733 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

@@ -1,1 +1,153 @@
-% TODO Rivedere struttura capitolo in base al contenuto delle slide post-appunti presi. (Cache e memoria virtuale)
+\section{Cache e Translation Lookaside Buffer}
+Nel precedente capitolo abbiamo definito che cosa sono le pagine, cosa contengono e come funzionano, in particolare, all'interno della \textbf{Page
+Table Entry} (PTE) è presente un bit specifico di permesso per definire validità e permessi, il quale può essere analizzato in base alla validità per
+implementare alcuni algoritmi di paginazione: \begin{itemize}
+    \item \textbf{Paginazione su richiesta}: Tiene in memoria solo le pagine attive e pone le altre su disco, marcandole come invalide.
+    \item \textbf{Copy on Write}: Una chiamata a fork() fa condividere al figlio le stesse pagine fisiche del genitore, marcandole entrambe come sola 
+    lettura; solo alla prima scrittura su una di esse (page fault) viene effettivamente creata una copia privata.
+    \item \textbf{Zero fill on demand}: Le nuove pagine dati non devono contenere informazioni (sono poste a zero); si inizializzano le PTE come
+    invalide e il page fault produce una pagina azzerata. Inoltre, il sistema operativo crea pagine azzerate in background.
+\end{itemize}
+
+\noindent Con queste dinamiche, all'interno della MMU abbiamo due scenari possibili: il primo riguarda l'\textbf{hardware tree traversal}, dove per ogni
+indirizzo virtuale si prende il puntatore base della tabella e la si attraversa in hardware; se trova una PTE invalida, genera un page fault. Il secondo
+caso riguarda il software; ogni attraversamento avviene con esso ed è molto flessibile, ma ogni traduzione deve invocare un page fault.\par
+Per entrambi questi casi è estremamente utile l'introduzione della \textbf{cache}: un repositorio per copie che possono essere accedute in modo molto
+più veloce rispetto ad altre zone. Si calcola normalmente il tempo di accesso medio: \[
+    \overline{t} = (\text{hit rate} \cdot \text{hit time}) + (\text{miss rate}\cdot \text{miss time})
+\]
+
+\noindent L'utilità della cache è evidente: rende gli accessi, specie a dati usati frequentemente, più veloci rispetto al normale. Senza di essa,
+dovremmo tradurre ogni singolo accesso, eseguendo un minimo di 3 accessi in DRAM per ogni operazione di R/W. La soluzione proposta per evitare questo
+scenario è chiamata \textbf{Translation Lookaside Buffer} (TLB), il quale fa uso di due proprietà della cache: \begin{itemize}
+    \item \textbf{Località temporale}: Mantiene dati recentemente acceduti vicini al processore.
+    \item \textbf{Località spaziale}: Mantiene vicini al processore dati contigui a quelli già acceduti.
+\end{itemize}
+
+\noindent Come visto nel corso di architetture, tuttavia, la memoria cache è di dimenisione ridotta rispetto alla RAM e non può contenere ogni singolo
+indirizzo. Quando si cerca in cache un'informazione non ivi contenuta, si ha un \textbf{cache miss}, e sono inevitabili nei seguenti quattro scenari:
+\begin{itemize}
+    \item Inizio o primo accesso a un blocco.
+    \item Cache piena.
+    \item Collisione tra locazioni di memoria multiple mappate sulle stesse locazioni di cache.
+    \item Invalidazione, dove un altro processo modifica la memoria.
+\end{itemize}
+
+\noindent I blocchi inseriti in cache si ricavano tramite un indice, un'etichetta e un offset del blocco; il primo identifica un insieme quando
+mappiamo la memoria sulla cache, la seconda per riconoscere l'effettivo indirizzo presente, mentre l'ultimo determina dove leggere e scrivere
+all'interno del singolo blocco. Questa struttura è condivisa dai tre tipi di cache esistenti: \begin{itemize}
+    \item \textbf{Cache a mappatura diretta}: L'etichetta è sempre composta dai $32-N$ bit più significativi; il numero di bit dell'indice determina la
+    dimensione della cache, mentre i rimanenti sono l'offset.
+    \item \textbf{Cache completamente associativa}: Ogni blocco può contenere qualunque cosa, non esiste indice e bisogna confrontare in parallelo le
+    etichette di ogni riga.
+    \item \textbf{Cache set-associativa}: Esistono $N$ voci per indice della cache, come avere $N$ cache a mappatura diretta in parallelo.
+\end{itemize}
+
+\noindent Supponiamo ora uno spazio di memoria fisica da 32 blocchi e che il blocco in posizione 12 debba essere inserito in una cache a 8 posizioni.
+Se a mappatura diretta, può essere inserito solo in posizione 4 data la formula: \[
+    \text{numeroBlocco} \text{ mod } \text{posizioniCache} = 12 \text{ mod } 8 = 4
+\]
+\noindent In una cache set-associativa, dove i set sono 2, bisognerà suddividere le posizioni e prendere spazio per gli indici. Il blocco potrà stare
+ovunque nell'insieme 0, dato: \[
+    \text{numeroBlocco} \text{ mod } \frac{\text{posizioniCache}}{\text{numeroSet}} = 12 \text{ mod } \frac{8}{2} = 0
+\]
+\noindent In una cache completamente associativa, data l'assenza di indici, il blocco può essere inserito ovunque trovi spazio. Tuttavia, se la cache è
+piena, bisogna determinare un algoritmo per la sostituzione dei blocchi, in particolare, si può scegliere di rimuoverne uno \textbf{a caso} oppure
+quello usato \textbf{meno recentemente} (algoritmo LRU). Per quanto riguarda la scrittura in cache, inoltre, abbiamo due possibilità: \begin{itemize}
+    \item \textbf{Write through}: Si scrive l'informazione in cache e nel blocco di memoria di livello inferiore. Eventuali miss in lettura non
+    causeranno scritture addizionali, ma impiega il processore nella scrittura di un intero blocco.
+    \item \textbf{Write back}: Si scrive l'informazione solo in cache e il blocco modificato è scritto in memoria solo quando viene sostituito. Qui si
+    evitano le scritture preventive ma è un meccanismo più complesso da implementare e un miss in lettura fa scrivere un blocco sporco.
+\end{itemize}
+
+\noindent Le prestazioni della cache sono poi misurate in base al tempo che la CPU utilizza per compiere il suo lavoro; prima con gli accessi a memoria
+\textbf{orientati ai miss}: \[
+    \text{tempoCPU} = \text{IC}\left(
+        \text{CPI} + \frac{\text{accMem}}{\text{istr}}\cdot \text{rateoMiss}\cdot \text{penalitàMiss}
+        \right) \text{tempoCiclo}
+\]
+\noindent Dove gli elementi sono: \begin{itemize}
+    \item IC: Instruction count, il totale delle istruzioni che il programma deve eseguire.
+    \item CPI: Clock Per Instruction, il numero di cicli di clock necessari per completare l'istruzione.
+    \item accMem/istr: Accessi in memoria eseguiti per istruzione.
+    \item rateoMiss: Rateo dei cache miss.
+    \item penalitàMiss: Tempo richiesto per riportare l'elemento in cache.
+    \item tempoCiclo: Tempo richiesto per effettuare un ciclo di clock.
+\end{itemize}
+
+\noindent Se separiamo completamente la componente della memoria possiamo calcolare l'\textbf{Average Memory Access Time} (AMAT) con la seguente
+formula: \begin{equation}
+    \begin{split}
+        \text{AMAT} &= \text{rateoHit}\cdot \text{tempoHit} + \text{rateoMiss}\cdot \text{tempoMiss}\\
+            &= \text{tempoHit} + \text{rateoMiss}\cdot \text{penalitàMiss}
+    \end{split}
+\end{equation}
+
+\noindent Mentre con una cache di secondo livello bisogna considerare: \begin{equation}
+    \begin{split}
+        \text{AMAT}_1 &= \text{tempoHit}_1 + \text{rateoMiss}_1\cdot \text{penalitàMiss}_1\\
+            &= \text{tempoHit}_1 + \text{rateoMiss}_1\cdot \text{AMAT}_2\\
+            &= \text{tempoHit}_1 + \text{rateoMiss}_1(\text{tempoHit}_2 + \text{rateoMiss}_2\cdot \text{penalitàMiss}_2)
+    \end{split}
+\end{equation}
+
+\noindent Tutti questi meccanismi sono utilizzati all'interno del TLB per la traduzione degli indirizzi, per il cui buffer è possibile anche avere una
+gerarchia a livelli multipli, con velocità e dimensioni diverse. Naturalmente, l'attraversamento delle pagine può essere effettuato sia lato hardware
+che software; nel primo caso, con un miss, l'hardware della MMU scorrerà la tabella alla ricerca di una PTE e se la trova, la inserisce nel TLB,
+altrimenti si ha un page fault e il kernel deciderà cosa fare dopo.\par
+Se la tabella è attraversata in software, invece, il processore riceve un TLB fault e il kernel attraverserà la tabella a sua volta per trovare
+l'entry. Se è valida, la mette nel buffer, mentre se è invalida, chiamerà l'handler di page fault. Generalmente, molti sistemi operativi preferiscono
+usare l'hardware perché riutilizzano il meccanismo di traduzione per molte cose, come segmenti condivisi.\par
+Consideriamo ora il cambio di contesto: cambia lo spazio degli indirizzi, quindi le voci del TLB diventano tutte invalide. Si potrebbe includere il
+processID nel TLB, ma se cambia la tabella stessa bisognerà invalidare l'entry del buffer, perché altrimenti si potrebbe pensare che la pagina sia
+(o non sia) ancora in memoria.\par
+Ragioniamo infine sull'organizzazione del TLB. Sappiamo che deve essere necessariamente veloce, poiché è posto tra la CPU e la cache, facendo convenire
+una mappatura diretta o a bassa associatività. Introduce tuttavia un ritardo prima di accedere alla cache, ma è conveniente usarlo se il miss time è
+molto più alto rispetto a esso. Bisogna tuttavia stare attenti ai conflitti, poiché se il tempo della CPU è dedicato in maggioranza allo scambio di
+blocchi in cache, si verifica il \textbf{thrashing}.\par
+Tipicamente, i TLB sono organizzati come piccole cache (128-512 entry) completamente associative, la cui ricerca è per indirizzo virtuale e restituisce
+direttamente quello fisico ad altre informazioni. Se la completa associatività è troppo lenta, è inoltre possibile partizionare un piccolo \textbf{TLB
+Slice} da 4-16 voci con mappatura diretta. Le macchine con TLB incorporato sovrappongono la ricerca in esso con l'accesso alla cache, perché l'offset è
+disponibile da subito.
+
+%
+
+\section{Paginazione su richiesta}
+I programmi moderni richiedono una grande quantità di memoria fisica, ma non la usano tutto il tempo. Seguono normalmente la regola del 90-10, ovvero
+passano il $90\%$ del loro tempo nel $10\%$ del loro codice, rendendo uno spreco imporre che tutto il codice risieda in memoria. La soluzione è usare
+la memoria come cache del disco, dando l'illusione di avere uno spazio infinito e sfruttando il principio dell'\textbf{indirezione trasparente}, dove si
+supporta un posizionamento flessibile dei dati fisici la cui locazione variabile è trasparente al programma utente.\par
+In quanto implementante un meccanismo di caching, bisogna determinare le relative dinamiche: si tratta di una cache completamente associativa la cui
+dimensione del blocco è una pagina. Queste sono trovate prima guardando al TLB, poi alla tabella delle pagine. La politica di sostituzione è LRU e in
+caso di miss scendiamo al livello inferiore per recuperare la PTE, mentre per quanto riguarda la scrittura si sceglie il write-back. La paginazione su
+richiesta segue quindi il workflow: \begin{enumerate}
+    \item Se la PTE è valida, la pagina è in memoria e la voce punta alla pagina fisica.
+    \item Se la PTE non è valida, la pagina non è in memoria e usiamo le info nella PTE per trovarla nel livello inferiore.
+    \begin{enumerate}
+        \item La MMU lancia una trap verso il sistema operativo, è il page fault.
+        \item Il sistema operativo sceglie la pagina secondo LRU; se è modificata ne scrive il contenuto su disco.
+        \item Invalida la sua PTE e la relativa voce in TLB.
+        \item Carica una nuova pagina dal disco in memoria.
+        \item Aggiorna la PTE segnandola come valida per la nuova voce.
+        \item Riprende il filo dalla locazione di fault originale.
+        \item Il TLB per la nuova pagina sarà caricato alla ripresa del filo.
+        \item Intanto, mentre recupera pagine dal disco per un processo, il sistema operativo esegue un altro processo dalla coda di quelli pronti,
+        mentre il sospeso rimane nella coda wait.
+    \end{enumerate}
+\end{enumerate}
+
+\noindent Nell'ambito delle \textbf{eccezioni trasparenti}, per riprendere l'istruzione che ha causato un page fault è necessario svolgere la load/store
+dopo aver recuperato la pagina fisica. L'hardware aiuterà salvando l'istruzione che fallisce e lo stato corrente del processore per poter riprendere
+l'esecuzione da questo punto. Inoltre, se l'istruzione ha effetti collaterali, può essere necessario riavvolgerli oppure concluderli in toto.\par
+Esistono anche le \textbf{eccezioni precise}, dove lo stato della macchina è preservato come se il programma avesse eseguito fino all'istruzione
+incriminata. Lo stesso codice di sistema funziona su implementazioni differenti, ma presenta difficoltà in presenza di pipeline o esecuzioni fuori
+ordine. Alternativamente, si hanno \textbf{eccezioni imprecise}, un compromesso in favore delle prestazioni dove il software deve capire cosa va dove
+e ripristinare tutto alle condizioni di partenza.
+
+%
+
+\section{Sostituzione delle pagine} % Pag 39
+
+%
+
+\section{Allocazione dei frame e thrashing} % Pag 54

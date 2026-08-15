@@ -39,16 +39,20 @@
 \contentsline {section}{\numberline {8.4}Struttura della tabella delle pagine}{74}{}%
 \contentsline {section}{\numberline {8.5}Avvicendamento dei processi}{75}{}%
 \contentsline {chapter}{\numberline {9}Cache e memoria virtuale}{77}{}%
-\contentsline {chapter}{\numberline {10}Periferiche I/O}{78}{}%
-\contentsline {chapter}{\numberline {11}File system}{79}{}%
-\contentsline {chapter}{\numberline {12}Bash}{80}{}%
-\contentsline {section}{\numberline {12.1}Introduzione alla Bash}{80}{}%
-\contentsline {section}{\numberline {12.2}Comandi notevoli e diritti}{81}{}%
-\contentsline {chapter}{\numberline {13}API Posix}{84}{}%
-\contentsline {section}{\numberline {13.1}Gestione dei file}{84}{}%
-\contentsline {section}{\numberline {13.2}Gestione dei diritti}{84}{}%
-\contentsline {section}{\numberline {13.3}Lettura/scrittura}{84}{}%
-\contentsline {section}{\numberline {13.4}Gestione dei processi}{84}{}%
-\contentsline {section}{\numberline {13.5}Segnali}{84}{}%
-\contentsline {section}{\numberline {13.6}Comunicazione tra processi tramite PIPE}{84}{}%
-\contentsline {section}{\numberline {13.7}Pthread}{84}{}%
+\contentsline {section}{\numberline {9.1}Cache e Translation Lookaside Buffer}{77}{}%
+\contentsline {section}{\numberline {9.2}Paginazione su richiesta}{80}{}%
+\contentsline {section}{\numberline {9.3}Sostituzione delle pagine}{82}{}%
+\contentsline {section}{\numberline {9.4}Allocazione dei frame e thrashing}{82}{}%
+\contentsline {chapter}{\numberline {10}Periferiche I/O}{83}{}%
+\contentsline {chapter}{\numberline {11}File system}{84}{}%
+\contentsline {chapter}{\numberline {12}Bash}{85}{}%
+\contentsline {section}{\numberline {12.1}Introduzione alla Bash}{85}{}%
+\contentsline {section}{\numberline {12.2}Comandi notevoli e diritti}{86}{}%
+\contentsline {chapter}{\numberline {13}API Posix}{89}{}%
+\contentsline {section}{\numberline {13.1}Gestione dei file}{89}{}%
+\contentsline {section}{\numberline {13.2}Gestione dei diritti}{89}{}%
+\contentsline {section}{\numberline {13.3}Lettura/scrittura}{89}{}%
+\contentsline {section}{\numberline {13.4}Gestione dei processi}{89}{}%
+\contentsline {section}{\numberline {13.5}Segnali}{89}{}%
+\contentsline {section}{\numberline {13.6}Comunicazione tra processi tramite PIPE}{89}{}%
+\contentsline {section}{\numberline {13.7}Pthread}{89}{}%

@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1786023884.11442 "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" "main.pdf" "main" 1786023885.48944 0
+["pdflatex"] 1786785363.61542 "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" "main.pdf" "main" 1786785365.16536 0
   "/home/F27/Desktop/UniVR/2nd Year/Sistemi Operativi/Dispensa/main.tex" 1784274240.82545 1462 7e6a5edfc027de31639da45f6610fc1d ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -43,6 +43,7 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb" 1248133631 36554 b67dc2cfa451409e100b3fcf5f506509 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb" 1248133631 32001 6aeea3afe875097b1eb0da29acd61e28 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1248133631 36741 fa121aac0049305630cf160b86157ee4 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb" 1248133631 37166 8ab3487cbe3ab49ebce74c29ea2418db ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1248133631 35469 70d41d2b9ea31d5d813066df7c99281c ""
@@ -120,7 +121,7 @@
   "Chapters/6.tex" 1784882630.01603 33711 b6e5ebac7508f364168692bb81bc96a5 ""
   "Chapters/7.tex" 1785245349.56932 10985 31f4a0cb99a73448ff2ccb05e6ebe108 ""
   "Chapters/8.tex" 1786023883.8385 23571 04392cdbd6f4575b760bc890e99c5cd8 ""
-  "Chapters/9.tex" 1784274240.91034 115 2c2b5c3b0a35323b5900c688dd3b0aa2 ""
+  "Chapters/9.tex" 1786785363.33607 12836 f231eddf74a0c554ce316859af61acd4 ""
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
   "Configs/formats.tex" 1741537610 162 94ad515d4f2656e52898454c9959e092 ""
   "Configs/packages.tex" 1782288323.38545 1100 77f1fe0c1de34efb431a1c6953598365 ""
@@ -147,9 +148,9 @@
   "Images/ready-wait_queues.png" 1775810522 40631 88ae5234f8eecb0b822d4302c50c4fab ""
   "Images/resourceAllocationGraph.png" 1785241529.07181 29266 9a5220e0cfa73a1463168e7384333a64 ""
   "Images/single_and_multithreaded_processes.png" 1776949914 34623 9a2d934f913af9e575ef5f830bb9f9cb ""
-  "main.aux" 1786023885.41949 10763 e0ecb98a0808f853420cd45ad6bfde3f "pdflatex"
+  "main.aux" 1786785365.0932 11245 b7b0aae72dec6ef18fc3021bc511d79f "pdflatex"
   "main.tex" 1784274240.82545 1462 7e6a5edfc027de31639da45f6610fc1d ""
-  "main.toc" 1786023885.42049 3866 0975390a2f5de26b9e024c7d5314c733 "pdflatex"
+  "main.toc" 1786785365.09486 4184 fe30b635a22be79f6f16977b06f7b4f4 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

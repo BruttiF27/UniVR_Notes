@@ -146,8 +146,175 @@ e ripristinare tutto alle condizioni di partenza.
 
 %
 
-\section{Sostituzione delle pagine} % Pag 39
+\section{Sostituzione delle pagine}
+Per sostituzione delle pagine intendiamo il meccanismo che ne rimuove una o più per poi rimpiazzarle con altre richieste da processi che devono essere
+eseguiti. Si tratta di un problema per qualunque tipo di cache, ma è particolarmente importante per le pagine, poiché bisogna tenere le pagine
+importanti in memoria quanto più possibile e il costo di una sostituzione con criterio sbagliato è un numero maggiore di accessi al disco, annichilendo
+le prestazioni. Tra le principali politiche troviamo: \begin{itemize}
+    \item \textbf{FIFO}: Scarta la pagina più vecchia, lasciando risiedere in memoria per lo stesso tempo ogni pagina. Essendo il tempo di permanenza
+    l'unico criterio di rimozione, è una pessima scelta, perché pone sullo stesso piano le pagine realmente importanti e quelle secondarie.
+    \item \textbf{Minimum}: Sostituisce la pagina che non verrà usata per più lungo tempo. Funge da caso di riferimento ottimo, ma per sfruttarlo al
+    massimo occorrerebbe prevedere il futuro.
+    \item \textbf{Random}: Sostituisce una pagina a caso; è una soluzione tipica per i TLB e richiede un hardware semplice, tuttavia, non è facile
+    predire il suo comportamento in tempo reale.
+    \item \textbf{LRU}: Sostituisce la pagina usata meno recentemente. Sfrutta il principio di località, quindi se qualcosa non si usa per un pò, è
+    improbabile che venga usato nel breve termine. Normalmente si implementa usando una lista concatenata, dove ad ogni accesso togliamo una pagina
+    dalla lista e la mettiamo in testa; la coda manterrà la pagina LRU.
+\end{itemize}
+
+\noindent\textbf{Esempio: FIFO}\par
+Supponiamo di avere tre posizioni per pagine nella memoria e quattro pagine virtuali, con la sequenza di riferimenti: ABCABDADBCB. Il flusso di
+sostituzione è: \begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+         & A & B & C & A & B & D & A & D & B & C & B\\
+        \hline
+        1 & A & a & a & a & a & D & d & d & d & C & c\\
+        \hline
+        2 & & B & b & b & b & b & A & a & a & a & a\\
+        \hline
+        3 & & & C & c & c & c & c & c & B & b & b\\
+        \hline
+    \end{tabular}
+    \caption{Flusso FIFO}
+\end{table}
+
+\noindent Qui è possibile notare un totale di sette page fault: i primi tre per inserire A, B, C in cache, il quarto quando è richiesta D ed è
+sostituita A; pessima scelta, in quanto verrà usata anche dopo, il quinto per, appunto, reinserire A sostituendo B, il sesto per reinserire B
+sostituendo C, e l'ultimo per reinserire C rimuovendo D.\newline
+
+\noindent\textbf{Esempio: Minimum}\par
+Supponiamo di avere la sequenza di riferimenti ABCABDADBCB con tre posizioni in cache. Il flusso di sostituzione è: \begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+         & A & B & C & A & B & D & A & D & B & C & B\\
+        \hline
+        1 & A & a & a & a & a & a & a & a & a & C & c\\
+        \hline
+        2 & & B & b & b & b & b & b & b & b & b & b\\
+        \hline
+        3 & & & C & c & c & D & d & d & d & d & d\\
+        \hline
+    \end{tabular}
+    \caption{Flusso MIN}
+\end{table}
+
+\noindent Abbiamo i primi tre fault per inserire in cache le pagine, ma MIN riconosce, conoscendo il futuro, che la pagina C è quella usata di meno
+nella sequenza per un suo determinato intervallo. Fa il quarto fault inserendo D al posto di C, e quando quest'ultima viene richiesta, rimuove A perché
+non verrà più usata, facendo il quinto e ultimo fault.\newline
+
+\noindent\textbf{Esempio: Least Recently Used}\par
+Supponiamo di avere la sequenza di riferimenti ABCABDADBCB con tre posizioni in cache. Il flusso di sostituzione è: \begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+         & A & B & C & A & B & D & A & D & B & C & B\\
+        \hline
+        1 & A & a & a & a & a & a & a & a & a & C & c\\
+        \hline
+        2 & & B & b & b & b & b & b & b & b & b & b\\
+        \hline
+        3 & & & C & c & c & D & d & d & d & d & d\\
+        \hline
+    \end{tabular}
+    \caption{Flusso LRU}
+\end{table}
+
+\noindent Qui è possibile notare come LRU sia un'approssimazione di MIN, perché mostra un flusso identico al secondo; oltre ai tre fault iniziali, ne
+esegue altri due. Per il quarto, l'algoritmo rionosce che C è stata la pagina meno richiesta recentemente; viene dunque rimossa e sostituita da D.
+Il quinto avviene per la stessa ragione: A non è stata richiesta per più lungo tempo, ed è stata sostituita da C.\par
+Attenzione però, LRU trova il caso pessimo quando la sequenza di riferimenti continua a richiedere pagine diverse a ogni passo, come per esempio
+ABCDABCDABCD. Ciò comporterebbe un page fault ad ogni nuova richiesta nel caso delle tre posizioni. Si potrebbe pensare che aumentando la dimensione
+della cache il miss rate diminuisca proporzionalmente, e con MIN ed LRU funziona, ma non succede con ogni algoritmo di sostituzione, come il FIFO.
+Questa discrepanza si chiama \textbf{Anomalia di Belady}. L'algoritmo LRU può inoltre avere più implementazioni; in uno scenario ideale si manterrebbe
+il tempo corrente di ogni accesso ad una pagina e una lista di pagine ordinate per istante di accesso, ma sarebbe troppo costoso da implementare nella
+realtà. Per questo motivo ci si affida all'\textbf{algoritmo dell'orologio}, il quale organizza le pagine fisiche in un "cerchio" con una singola
+lancetta che si muove. Si tratta di un'approssimazione di LRU che sostituisce una vecchia pagina, ma non necessariamente la più vecchia. Presenta le
+seguenti caratteristiche: \begin{itemize}
+    \item Sfrutta lo \textbf{use bit} per ogni pagina: Ad ogni accesso, l'hardware imposta questo bit per segnalare un accesso effettuato. Se non è
+    stato toccato, significa che non vi è stato alcun accesso negli ultimi tempi.
+    \item In presenza di un page fault, si attiva la lancetta dell'orologio. Controlla lo use bit di ogni pagina; se 1 lo azzera e non fa altro, se 0 è
+    un candidato per la rimozione e lo si toglie.
+    \item Nel peggiore degli scenari, se tutti gli use bit sono posti a 1, servirà un giro intero per impostare gli use bit di ogni pagina a zero. In
+    questo caso specifico, essendo ora tutti gli use bit azzerati, scarterà il primo zero trovato nel secondo giro, come FIFO.
+\end{itemize}
+
+\noindent Si può notare che se la lancetta avanza lentamente, allora ci sono pochi page fault o si trova presto il candidato per la sostituzione. Al
+contrario, se è veloce, ci sono molti page fault o molti use bit sono impostati. Ci troviamo a lavorare con due gruppi di pagine, dunque: recenti e
+datate.\par
+L'algoritmo dell'orologio si chiama anche "seconda chance", ma è possibile aumentare il numero di queste possibilità prima di essere scartati. Ciò si
+ottiene facendo mantenere dal sistema operativo un contatore per pagina del numero di passate, il cui valore, se corrisponde ad un limite \textit{N},
+farà scartare la pagina. Se la PTE ha use bit a 1, lo resetta a 0 e azzera il contatore.\par
+La scelta del valore N dipende da ciò che si vuole ottenere; se è grande, avremo una migliore approssimazione di LRU, ma se è piccolo risulta essere
+più efficiente e usa meno tempo per trovare la pagina da sostituire. Inoltre, per quanto riguarda le pagine sporche, è preferibile dare loro una
+possibilità in più perché il loro costo di sostituzione è maggiore, in quanto va salvata. Generalmente viene effettuato il write-back quando il
+contatore raggiunge N. Quindi, i bit delle varie PTE che servono veramente sono: \begin{itemize}
+    \item Use: Impostato quando si fa riferimento alla pagina, resettato dall'orologio.
+    \item Modified: Impostato quando la pagina è modificata, resettato quando la pagina è scritta su disco.
+    \item Valid: Segnala se il programma può fare riferimento a questa pagina.
+    \item Read-only: Segnala se il programma può solamente leggere la pagina senza modificarla.
+\end{itemize}
+
+\noindent Non necessariamente questi bit devono essere supportati in hardware; è possibile emulare quello di modifica usando il bit read-only, settando
+ogni pagina come in sola lettura all'inizio. Successivamente, a fronte di scrittura, si invia una trap al sistema operativo, che imposta il suo modified
+bit software e pone la pagina come scrivibile. Quando la pagina ritorna dal disco, verrà marcata come sola lettura. Un ragionamento simile è applicabile
+anche per lo use bit, impostando ogni pagina come invalida, anche se presente in memoria.\par
+Infine, è possibile ottenere una migliore approssimazione dell'algoritmo LRU implementando due liste, concretizzando la divisione dei due gruppi di
+pagine: \begin{itemize}
+    \item \textbf{Lista attiva} (RW): Pagine il cui accesso si effettua alla massima velocità.
+    \item \textbf{Lista Seconda Chance} (SC): Pagine che stanno usando la loro seconda possibilità.
+\end{itemize}
+
+\noindent Se non si trova la pagina nella lista RW, si ha un page fault e la PTE nella sua coda sarà marcata come invalida e spostata in cima alla lista
+SC. Se la pagina richiesta si trova in quest'ultima lista, la si marcherà come scrivibile e verrà spostata in cima alla lista RW; alternativamente, se
+non è trovata, viene presa dal disco e caricata in cima alla lista attiva, rimuovendo inoltre la pagina in coda alla lista SC. La dimensione di
+quest'ultima tende ad avere un valore intermedio, che consente di avere un numero basso di accessi al disco, ma allo stesso tempo richiede tempo extra
+per le trap al sistema operativo. Inoltre, se ritorniamo sui TLB, abbiamo due opzioni per lo use bit: \begin{itemize}
+    \item Hardware lo imposta nel TLB e, quando sostituiamo una sua PTE, in software copiamo lo use bit nella tabella delle pagine.
+    \item In software gestiamo le PTE del TLB come una lista FIFO e qualunque cosa non sia al suo interno è una lista SC, gestita secondo LRU.
+\end{itemize}
+
+\noindent Con l'algoritmo dell'orologio può inoltre essere utile avere una \textbf{mappatura inversa}, quindi da fisica a virtuale. Questo perché
+l'algoritmo scorre attraverso le pagine e, se stiamo condividendo, è verosimile trovare diverse pagine virtuali per pagina fisica. L'inversione
+consentirebbe di andare direttamente alla fonte fisica evitando di controllare ogni pagina virtuale.
 
 %
 
-\section{Allocazione dei frame e thrashing} % Pag 54
+\section{Allocazione delle pagine e thrashing}
+Bisogna chiederci ora le modalità di allocazione della memoria fra i diversi processi, perché ognuno richiede un numero minimo di pagine. È necessario
+assicurarsi che ogni processo caricato in memoria possa effettuare progressi, sapendo che il rimpiazzamento può estendersi \textbf{globalmente},
+consentendo al processo di selezionare la sua posizione dall'insieme totale, quindi anche da posizioni di altri processi, e \textbf{localmente},
+consentendo al processo di selezionare solamente dal proprio insieme di posizioni. Abbiamo in primo luogo tre idee di \textbf{allocazione fissa}:
+\begin{itemize}
+    \item \textbf{Allocazione equa}: Ogni processo ottiene la stessa quantità di memoria in base alla dimensione di quest'ultima. Se la memoria ha 100
+    posizioni, con 5 processi, ognuno ne otterrebbe 20, per esempio.
+    \item \textbf{Allocazione proporzionale}: Allocare in funzione della dimensione del processo, secondo la formula: \[
+        a_i = \frac{s_i}{S}\cdot m
+    \]
+    \noindent Dove $a_i$ è l'allocazione per il processo $p_i$, $s_i$ è la dimensione del processo $p_i$ con $S = \sum s_i$, e $m$ rappresenta il numero
+    totale di posizioni.
+    \item \textbf{Allocazione prioritaria}: Schema proporzionale che fa uso delle priorità invece della dimensione. Se un processo $p_i$ genera un page
+    fault, seleziona per il rimpiazzo una posizione di un processo con meno priorità.
+\end{itemize}
+
+\noindent Alternativamente potremmo proporre uno \textbf{schema adattivo}, secondo la \textbf{frequenza di page fault}. Bisognerà stabilire un tasso di
+page fault accettabile e modificare il numero di posizioni disponibili per il processo in base ad esso. Se il corrente è troppo basso, il processo
+perde una posizione, se troppo alto, ne guadagna una. Attenzione, però: in mancanza di memoria sufficiente, il tasso di page fault diventa molto alto,
+causando uno scarso uso della CPU e un sistema operativo che passa gran parte del tempo a scambiare pagine su disco: è \textbf{Thrashing}.\par
+La sequenza di riferimenti alla memoria di un programma presenta la località spaziale e temporale. Un gruppo di pagine accedute in un certo intervallo
+di tempo è detto \textbf{working set} e definisce il numero minimo di pagine richieste al processo per lavorare bene. Dunque, se non c'è abbastanza
+memoria per questo insieme, si va in thrashing. Definiamo la finestra del working set come $\Delta$, un numero variabile di riferimenti a pagina, e
+$WS_i$ il working set del processo $p_i$, che rappresenta l'insieme totale di pagine riferite nella finestra più recente. Sappiamo che: \begin{itemize}
+    \item Se $\Delta$ è troppo piccolo non cattura l'intera località.
+    \item Se $\Delta$ è troppo grande copre località multiple.
+    \item Se $\Delta = \infty$ copre l'intero programma.
+\end{itemize}
+
+\noindent Definiamo inoltre $D = \sum WS_i$ come il totale di posizioni richieste; se è maggiore del totale delle posizioni disponibili $m$, si va in
+thrashing. Quindi se $D > m$, sospendi o scambia il processo.\par
+Per quanto riguarda i page \textbf{miss obbligati}, quindi quando si tocca una pagina per la prima volta oppure la si deve reinserire in cache dopo una
+sostituzione, abbiamo due strategie: in primo luogo, il \textbf{clustering}: a fronte di un page fault, carica multiple pagine attorno a quella
+incriminata, perché l'efficienza del disco è maggiore per letture sequenziali. In secondo luogo, possiamo usare un algoritmo per \textbf{tracciare il
+working set} di un'applicazione; al ritorno da uno scambio, si ricarica quanto tracciato.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  23 AUG 2026 12:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  29 AUG 2026 16:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -350,21 +350,21 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [1] (./main.toc [2
 
-])
+] [3])
 \tf@toc=\write4
 \openout4 = `main.toc'.
 
- [3]
+ [4]
 Capitolo 1.
-(./Chapters/1.tex [4
+(./Chapters/1.tex [5
 
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
-<Images/AbstractComponents.png, id=26, 141.52875pt x 302.12875pt>
+<Images/AbstractComponents.png, id=29, 141.52875pt x 302.12875pt>
 File: Images/AbstractComponents.png Graphic file (type png)
 <use Images/AbstractComponents.png>
 Package pdftex.def Info: Images/AbstractComponents.png  used on input line 24.
 (pdftex.def)             Requested size: 89.99863pt x 192.13083pt.
-<Images/ModernPCDynamic.png, id=28, 382.42876pt x 304.13625pt>
+<Images/ModernPCDynamic.png, id=31, 382.42876pt x 304.13625pt>
 File: Images/ModernPCDynamic.png Graphic file (type png)
 <use Images/ModernPCDynamic.png>
 Package pdftex.def Info: Images/ModernPCDynamic.png  used on input line 33.
@@ -373,54 +373,54 @@ Package pdftex.def Info: Images/ModernPCDynamic.png  used on input line 33.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5 <./Images/AbstractComponents.png>]
-<Images/MemConf_multiprogrammedOS.png, id=33, 141.52875pt x 221.82875pt>
+[6 <./Images/AbstractComponents.png>]
+<Images/MemConf_multiprogrammedOS.png, id=37, 141.52875pt x 221.82875pt>
 File: Images/MemConf_multiprogrammedOS.png Graphic file (type png)
 <use Images/MemConf_multiprogrammedOS.png>
 Package pdftex.def Info: Images/MemConf_multiprogrammedOS.png  used on input line 47.
 (pdftex.def)             Requested size: 89.99863pt x 141.06615pt.
- [6 <./Images/ModernPCDynamic.png>] [7 <./Images/MemConf_multiprogrammedOS.png>] [8]
+ [7 <./Images/ModernPCDynamic.png>] [8 <./Images/MemConf_multiprogrammedOS.png>] [9]
 Underfull \hbox (badness 10000) in paragraph at lines 88--89
 
  []
 
-) [9]
+) [10]
 Capitolo 2.
-(./Chapters/2.tex [10
+(./Chapters/2.tex [11
 
 ]
-<Images/OS_services.png, id=52, 583.17876pt x 392.46625pt>
+<Images/OS_services.png, id=55, 583.17876pt x 392.46625pt>
 File: Images/OS_services.png Graphic file (type png)
 <use Images/OS_services.png>
 Package pdftex.def Info: Images/OS_services.png  used on input line 17.
 (pdftex.def)             Requested size: 450.0pt x 302.8467pt.
- [11 <./Images/OS_services.png>] [12]
+ [12 <./Images/OS_services.png>] [13]
 Overfull \hbox (0.30476pt too wide) in paragraph at lines 44--45
 \OT1/cmr/m/n/12 co-me no-me, ti-po o co-di-ci di pro-te-zio-ne $(\OML/cmm/m/it/12 get[]file[]attributes\OT1/cmr/m/n/12 ()\OML/cmm/m/it/12 ; set[]file[]attributes\OT1/cmr/m/n/12 ())$.
  []
 
-[13] [14]
+[14] [15]
 Underfull \hbox (badness 10000) in paragraph at lines 67--68
 
  []
 
-[15]
+[16]
 Underfull \hbox (badness 10000) in paragraph at lines 84--85
 
  []
 
-<Images/Structure_UNIX.png, id=72, 477.785pt x 302.12875pt>
+<Images/Structure_UNIX.png, id=75, 477.785pt x 302.12875pt>
 File: Images/Structure_UNIX.png Graphic file (type png)
 <use Images/Structure_UNIX.png>
 Package pdftex.def Info: Images/Structure_UNIX.png  used on input line 90.
 (pdftex.def)             Requested size: 247.50137pt x 156.50853pt.
-<Images/Structure_Linux.png, id=73, 422.57875pt x 462.72874pt>
+<Images/Structure_Linux.png, id=76, 422.57875pt x 462.72874pt>
 File: Images/Structure_Linux.png Graphic file (type png)
 <use Images/Structure_Linux.png>
 Package pdftex.def Info: Images/Structure_Linux.png  used on input line 92.
 (pdftex.def)             Requested size: 179.99725pt x 197.10547pt.
-[16]
-<Images/Structure_leveled.png, id=77, 342.27875pt x 342.27875pt>
+[17]
+<Images/Structure_leveled.png, id=80, 342.27875pt x 342.27875pt>
 File: Images/Structure_leveled.png Graphic file (type png)
 <use Images/Structure_leveled.png>
 Package pdftex.def Info: Images/Structure_leveled.png  used on input line 99.
@@ -429,18 +429,18 @@ Package pdftex.def Info: Images/Structure_leveled.png  used on input line 99.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[17 <./Images/Structure_UNIX.png> <./Images/Structure_Linux.png>]
-<Images/Structure_microkernel.png, id=84, 517.935pt x 302.12875pt>
+[18 <./Images/Structure_UNIX.png> <./Images/Structure_Linux.png>]
+<Images/Structure_microkernel.png, id=88, 517.935pt x 302.12875pt>
 File: Images/Structure_microkernel.png Graphic file (type png)
 <use Images/Structure_microkernel.png>
 Package pdftex.def Info: Images/Structure_microkernel.png  used on input line 107.
 (pdftex.def)             Requested size: 270.00275pt x 157.50893pt.
- [18 <./Images/Structure_leveled.png> <./Images/Structure_microkernel.png>]) [19]
+ [19 <./Images/Structure_leveled.png> <./Images/Structure_microkernel.png>]) [20]
 Capitolo 3.
-(./Chapters/3.tex [20
+(./Chapters/3.tex [21
 
 ]
-<Images/FSM_processes.png, id=97, 502.87875pt x 263.98625pt>
+<Images/FSM_processes.png, id=100, 502.87875pt x 263.98625pt>
 File: Images/FSM_processes.png Graphic file (type png)
 <use Images/FSM_processes.png>
 Package pdftex.def Info: Images/FSM_processes.png  used on input line 20.
@@ -450,19 +450,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 25--26
 
  []
 
-[21 <./Images/FSM_processes.png>]
-<Images/ready-wait_queues.png, id=102, 564.1075pt x 311.1625pt>
+[22 <./Images/FSM_processes.png>]
+<Images/ready-wait_queues.png, id=105, 564.1075pt x 311.1625pt>
 File: Images/ready-wait_queues.png Graphic file (type png)
 <use Images/ready-wait_queues.png>
 Package pdftex.def Info: Images/ready-wait_queues.png  used on input line 31.
 (pdftex.def)             Requested size: 450.0pt x 248.22289pt.
-<Images/processScheduling_enqueueDiagram.png, id=103, 558.085pt x 304.13625pt>
+<Images/processScheduling_enqueueDiagram.png, id=106, 558.085pt x 304.13625pt>
 File: Images/processScheduling_enqueueDiagram.png Graphic file (type png)
 <use Images/processScheduling_enqueueDiagram.png>
 Package pdftex.def Info: Images/processScheduling_enqueueDiagram.png  used on input line 43.
 (pdftex.def)             Requested size: 450.0pt x 245.23987pt.
- [22 <./Images/ready-wait_queues.png>]
-<Images/contextSwitch.png, id=108, 516.93124pt x 379.4175pt>
+ [23 <./Images/ready-wait_queues.png>]
+<Images/contextSwitch.png, id=111, 516.93124pt x 379.4175pt>
 File: Images/contextSwitch.png Graphic file (type png)
 <use Images/contextSwitch.png>
 Package pdftex.def Info: Images/contextSwitch.png  used on input line 51.
@@ -471,12 +471,12 @@ Package pdftex.def Info: Images/contextSwitch.png  used on input line 51.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[23 <./Images/processScheduling_enqueueDiagram.png>] [24 <./Images/contextSwitch.png>]
+[24 <./Images/processScheduling_enqueueDiagram.png>] [25 <./Images/contextSwitch.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 67--68
 
  []
 
-[25]
+[26]
 Underfull \hbox (badness 10000) in paragraph at lines 88--89
 
  []
@@ -486,12 +486,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 96--97
 
  []
 
-[26]
+[27]
 Underfull \hbox (badness 10000) in paragraph at lines 112--113
 
  []
 
-[27]) [28]
+[28]) [29]
 Capitolo 4.
 (./Chapters/4.tex
 Underfull \hbox (badness 10000) in paragraph at lines 5--7
@@ -503,15 +503,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 15--18
 
  []
 
-[29
+[30
 
 ]
-<Images/single_and_multithreaded_processes.png, id=135, 584.1825pt x 342.27875pt>
+<Images/single_and_multithreaded_processes.png, id=139, 584.1825pt x 342.27875pt>
 File: Images/single_and_multithreaded_processes.png Graphic file (type png)
 <use Images/single_and_multithreaded_processes.png>
 Package pdftex.def Info: Images/single_and_multithreaded_processes.png  used on input line 29.
 (pdftex.def)             Requested size: 404.99725pt x 237.30069pt.
-<Images/concurrence_and_parallelism.png, id=136, 432.61626pt x 341.275pt>
+<Images/concurrence_and_parallelism.png, id=140, 432.61626pt x 341.275pt>
 File: Images/concurrence_and_parallelism.png Graphic file (type png)
 <use Images/concurrence_and_parallelism.png>
 Package pdftex.def Info: Images/concurrence_and_parallelism.png  used on input line 41.
@@ -520,19 +520,19 @@ Package pdftex.def Info: Images/concurrence_and_parallelism.png  used on input l
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[30 <./Images/single_and_multithreaded_processes.png>]
-<Images/parallelism_types.png, id=142, 502.87875pt x 392.46625pt>
+[31 <./Images/single_and_multithreaded_processes.png>]
+<Images/parallelism_types.png, id=145, 502.87875pt x 392.46625pt>
 File: Images/parallelism_types.png Graphic file (type png)
 <use Images/parallelism_types.png>
 Package pdftex.def Info: Images/parallelism_types.png  used on input line 62.
 (pdftex.def)             Requested size: 404.99725pt x 316.0754pt.
- [31 <./Images/concurrence_and_parallelism.png>] [32 <./Images/parallelism_types.png>]
-<Images/multithreading_models.png, id=151, 613.29124pt x 235.88126pt>
+ [32 <./Images/concurrence_and_parallelism.png>] [33 <./Images/parallelism_types.png>]
+<Images/multithreading_models.png, id=154, 613.29124pt x 235.88126pt>
 File: Images/multithreading_models.png Graphic file (type png)
 <use Images/multithreading_models.png>
 Package pdftex.def Info: Images/multithreading_models.png  used on input line 87.
 (pdftex.def)             Requested size: 404.99725pt x 155.76848pt.
- [33 <./Images/multithreading_models.png>]
+ [34 <./Images/multithreading_models.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 98--101
 
  []
@@ -541,91 +541,91 @@ Underfull \hbox (badness 10000) in paragraph at lines 98--101
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 ) (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
-) [34] [35] [36]
+) [35] [36] [37]
 Underfull \hbox (badness 10000) in paragraph at lines 239--243
 
  []
 
-[37] [38]) [39]
+[38] [39]) [40]
 Capitolo 5.
-(./Chapters/5.tex [40
+(./Chapters/5.tex [41
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 30--34
 
  []
 
-[41]
-<Images/gantt_FCFS.png, id=183, 803.0pt x 86.3225pt>
+[42]
+<Images/gantt_FCFS.png, id=187, 803.0pt x 86.3225pt>
 File: Images/gantt_FCFS.png Graphic file (type png)
 <use Images/gantt_FCFS.png>
 Package pdftex.def Info: Images/gantt_FCFS.png  used on input line 68.
 (pdftex.def)             Requested size: 450.0pt x 48.37581pt.
- [42 <./Images/gantt_FCFS.png>]
-<Images/gantt_SJF.png, id=189, 803.0pt x 86.3225pt>
+ [43 <./Images/gantt_FCFS.png>]
+<Images/gantt_SJF.png, id=192, 803.0pt x 86.3225pt>
 File: Images/gantt_SJF.png Graphic file (type png)
 <use Images/gantt_SJF.png>
 Package pdftex.def Info: Images/gantt_SJF.png  used on input line 95.
 (pdftex.def)             Requested size: 450.0pt x 48.37581pt.
- [43 <./Images/gantt_SJF.png>]
-<Images/gantt_RR.png, id=195, 843.15pt x 86.3225pt>
+ [44 <./Images/gantt_SJF.png>]
+<Images/gantt_RR.png, id=198, 843.15pt x 86.3225pt>
 File: Images/gantt_RR.png Graphic file (type png)
 <use Images/gantt_RR.png>
 Package pdftex.def Info: Images/gantt_RR.png  used on input line 117.
 (pdftex.def)             Requested size: 450.0pt x 46.07208pt.
-<Images/gantt_priority.png, id=196, 803.0pt x 86.3225pt>
+<Images/gantt_priority.png, id=199, 803.0pt x 86.3225pt>
 File: Images/gantt_priority.png Graphic file (type png)
 <use Images/gantt_priority.png>
 Package pdftex.def Info: Images/gantt_priority.png  used on input line 135.
 (pdftex.def)             Requested size: 450.0pt x 48.37581pt.
- [44 <./Images/gantt_RR.png> <./Images/gantt_priority.png>] [45]
+ [45 <./Images/gantt_RR.png> <./Images/gantt_priority.png>] [46]
 
 Package Listings Warning: Text dropped after begin of listing on input line 186.
 
-[46] [47]) [48]
+[47] [48]) [49]
 Capitolo 6.
 (./Chapters/6.tex
 Underfull \hbox (badness 10000) in paragraph at lines 5--9
 
  []
 
-[49
+[50
 
 ]
 
 Package Listings Warning: Text dropped after begin of listing on input line 50.
 
-[50] [51] [52] [53] [54] [55]
+[51] [52] [53] [54] [55] [56]
 Underfull \hbox (badness 10000) in paragraph at lines 237--241
 
  []
 
-[56] [57] [58] [59] [60] [61]) [62]
+[57] [58] [59] [60] [61] [62]) [63]
 Capitolo 7.
-(./Chapters/7.tex [63
+(./Chapters/7.tex [64
 
-] [64]
-<Images/resourceAllocationGraph.png, id=267, 322.20375pt x 396.48125pt>
+] [65]
+<Images/resourceAllocationGraph.png, id=270, 322.20375pt x 396.48125pt>
 File: Images/resourceAllocationGraph.png Graphic file (type png)
 <use Images/resourceAllocationGraph.png>
 Package pdftex.def Info: Images/resourceAllocationGraph.png  used on input line 53.
 (pdftex.def)             Requested size: 179.99725pt x 221.50165pt.
- [65 <./Images/resourceAllocationGraph.png>]
+ [66 <./Images/resourceAllocationGraph.png>]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[66]) [67]
+[67]) [68]
 Capitolo 8.
-(./Chapters/8.tex [68
+(./Chapters/8.tex [69
 
-] [69]
-<Images/checkCorrectMemoryArea.png, id=285, 624.3325pt x 262.9825pt>
+] [70]
+<Images/checkCorrectMemoryArea.png, id=288, 624.3325pt x 262.9825pt>
 File: Images/checkCorrectMemoryArea.png Graphic file (type png)
 <use Images/checkCorrectMemoryArea.png>
 Package pdftex.def Info: Images/checkCorrectMemoryArea.png  used on input line 65.
 (pdftex.def)             Requested size: 360.00137pt x 151.64311pt.
- [70 <./Images/checkCorrectMemoryArea.png>] [71]
-<Images/pagingHardware.png, id=293, 664.4825pt x 331.2375pt>
+ [71 <./Images/checkCorrectMemoryArea.png>] [72]
+<Images/pagingHardware.png, id=297, 664.4825pt x 331.2375pt>
 File: Images/pagingHardware.png Graphic file (type png)
 <use Images/pagingHardware.png>
 Package pdftex.def Info: Images/pagingHardware.png  used on input line 129.
@@ -634,33 +634,33 @@ Package pdftex.def Info: Images/pagingHardware.png  used on input line 129.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[72] [73 <./Images/pagingHardware.png>] [74] [75]) [76]
+[73] [74 <./Images/pagingHardware.png>] [75] [76]) [77]
 Capitolo 9.
-(./Chapters/9.tex [77
+(./Chapters/9.tex [78
 
-] [78] [79] [80] [81]
+] [79] [80] [81] [82]
 Underfull \hbox (badness 10000) in paragraph at lines 183--186
 
  []
 
-[82]
+[83]
 Underfull \hbox (badness 10000) in paragraph at lines 204--207
 
  []
 
-[83] [84] [85]) [86] [87]
+[84] [85] [86]) [87] [88]
 Capitolo 10.
-(./Chapters/10.tex) [88
+(./Chapters/10.tex [89
 
-]
+] [90] [91]) [92]
 Capitolo 11.
-(./Chapters/11.tex) [89
+(./Chapters/11.tex) [93
 
 ]
 Capitolo 12.
-(./Chapters/12.tex [90
+(./Chapters/12.tex [94
 
-] [91]
+] [95]
 Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
  []
@@ -685,7 +685,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 91--93
 
  []
 
-[92]
+[96]
 Underfull \hbox (badness 10000) in paragraph at lines 104--106
 
  []
@@ -700,9 +700,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 119--120
 
  []
 
-Excluding 'comment' comment.) [93]
+Excluding 'comment' comment.) [97]
 Capitolo 13.
-(./Chapters/13.tex) [94
+(./Chapters/13.tex) [98
 
 ] (./main.aux) ) 
 Here is how much of TeX's memory you used:
@@ -714,10 +714,10 @@ Here is how much of TeX's memory you used:
  1137 hyphenation exceptions out of 8191
  74i,18n,82p,1112b,1823s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (95 pages, 730304 bytes).
+Output written on main.pdf (99 pages, 742049 bytes).
 PDF statistics:
- 459 PDF objects out of 1000 (max. 8388607)
- 273 compressed objects within 3 object streams
+ 472 PDF objects out of 1000 (max. 8388607)
+ 282 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  116 words of extra memory for PDF output out of 10000 (max. 10000000)
 

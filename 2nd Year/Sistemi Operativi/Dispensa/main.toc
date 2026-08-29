@@ -1,58 +1,65 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {chapter}{\numberline {1}Introduzione ai sistemi operativi}{4}{}%
-\contentsline {section}{\numberline {1.1}Algoritmi sequenziali e richiami}{4}{}%
-\contentsline {section}{\numberline {1.2}Organizzazione di un sistema elaborativo}{5}{}%
-\contentsline {section}{\numberline {1.3}Attività del sistema operativo}{6}{}%
-\contentsline {section}{\numberline {1.4}Gestione delle risorse}{8}{}%
-\contentsline {chapter}{\numberline {2}Strutture dei sistemi operativi}{10}{}%
-\contentsline {section}{\numberline {2.1}Servizi e interfaccia del sistema operativo}{10}{}%
-\contentsline {section}{\numberline {2.2}Chiamate di sistema}{12}{}%
-\contentsline {section}{\numberline {2.3}Servizi di sistema, linker e loader}{14}{}%
-\contentsline {section}{\numberline {2.4}Struttura del sistema operativo}{16}{}%
-\contentsline {chapter}{\numberline {3}Processi}{20}{}%
-\contentsline {section}{\numberline {3.1}Scheduling e operazioni sui processi}{20}{}%
-\contentsline {section}{\numberline {3.2}Comunicazione tra processi}{26}{}%
-\contentsline {chapter}{\numberline {4}Thread e concorrenza}{29}{}%
-\contentsline {section}{\numberline {4.1}Programmazione multicore e multithreading}{29}{}%
-\contentsline {section}{\numberline {4.2}Librerie dei thread}{33}{}%
-\contentsline {section}{\numberline {4.3}Threading implicito}{35}{}%
-\contentsline {section}{\numberline {4.4}Problemi di gestione multithread}{36}{}%
-\contentsline {chapter}{\numberline {5}Scheduling della CPU}{40}{}%
-\contentsline {section}{\numberline {5.1}Concetti di base}{40}{}%
-\contentsline {section}{\numberline {5.2}Algoritmi di scheluding}{42}{}%
-\contentsline {section}{\numberline {5.3}Scheduling dei thread}{45}{}%
-\contentsline {section}{\numberline {5.4}Valutazione algoritmi}{47}{}%
-\contentsline {chapter}{\numberline {6}Sincronizzazione dei processi}{49}{}%
-\contentsline {section}{\numberline {6.1}Sezione critica e Peterson}{49}{}%
-\contentsline {section}{\numberline {6.2}Supporto hardware}{52}{}%
-\contentsline {section}{\numberline {6.3}Lock Mutex, Semafori e Monitor}{53}{}%
-\contentsline {section}{\numberline {6.4}Liveness}{58}{}%
-\contentsline {section}{\numberline {6.5}Esempi di sincronizzazione}{59}{}%
-\contentsline {chapter}{\numberline {7}Stallo dei processi}{63}{}%
-\contentsline {section}{\numberline {7.1}Stallo e multithread}{63}{}%
-\contentsline {section}{\numberline {7.2}Caratterizzazione e gestione dello stallo}{64}{}%
-\contentsline {chapter}{\numberline {8}Memoria centrale}{68}{}%
-\contentsline {section}{\numberline {8.1}Suddivisione della memoria}{68}{}%
-\contentsline {section}{\numberline {8.2}Allocazione contigua della memoria}{70}{}%
-\contentsline {section}{\numberline {8.3}Paginazione}{72}{}%
-\contentsline {section}{\numberline {8.4}Struttura della tabella delle pagine}{74}{}%
-\contentsline {section}{\numberline {8.5}Avvicendamento dei processi}{75}{}%
-\contentsline {chapter}{\numberline {9}Cache e memoria virtuale}{77}{}%
-\contentsline {section}{\numberline {9.1}Cache e Translation Lookaside Buffer}{77}{}%
-\contentsline {section}{\numberline {9.2}Paginazione su richiesta}{80}{}%
-\contentsline {section}{\numberline {9.3}Sostituzione delle pagine}{82}{}%
-\contentsline {section}{\numberline {9.4}Allocazione delle pagine e thrashing}{85}{}%
-\contentsline {chapter}{\numberline {10}Periferiche I/O}{88}{}%
-\contentsline {chapter}{\numberline {11}File system}{89}{}%
-\contentsline {chapter}{\numberline {12}Bash}{90}{}%
-\contentsline {section}{\numberline {12.1}Introduzione alla Bash}{90}{}%
-\contentsline {section}{\numberline {12.2}Comandi notevoli e diritti}{91}{}%
-\contentsline {chapter}{\numberline {13}API Posix}{94}{}%
-\contentsline {section}{\numberline {13.1}Gestione dei file}{94}{}%
-\contentsline {section}{\numberline {13.2}Gestione dei diritti}{94}{}%
-\contentsline {section}{\numberline {13.3}Lettura/scrittura}{94}{}%
-\contentsline {section}{\numberline {13.4}Gestione dei processi}{94}{}%
-\contentsline {section}{\numberline {13.5}Segnali}{94}{}%
-\contentsline {section}{\numberline {13.6}Comunicazione tra processi tramite PIPE}{94}{}%
-\contentsline {section}{\numberline {13.7}Pthread}{94}{}%
+\contentsline {chapter}{\numberline {1}Introduzione ai sistemi operativi}{5}{}%
+\contentsline {section}{\numberline {1.1}Algoritmi sequenziali e richiami}{5}{}%
+\contentsline {section}{\numberline {1.2}Organizzazione di un sistema elaborativo}{6}{}%
+\contentsline {section}{\numberline {1.3}Attività del sistema operativo}{7}{}%
+\contentsline {section}{\numberline {1.4}Gestione delle risorse}{9}{}%
+\contentsline {chapter}{\numberline {2}Strutture dei sistemi operativi}{11}{}%
+\contentsline {section}{\numberline {2.1}Servizi e interfaccia del sistema operativo}{11}{}%
+\contentsline {section}{\numberline {2.2}Chiamate di sistema}{13}{}%
+\contentsline {section}{\numberline {2.3}Servizi di sistema, linker e loader}{15}{}%
+\contentsline {section}{\numberline {2.4}Struttura del sistema operativo}{17}{}%
+\contentsline {chapter}{\numberline {3}Processi}{21}{}%
+\contentsline {section}{\numberline {3.1}Scheduling e operazioni sui processi}{21}{}%
+\contentsline {section}{\numberline {3.2}Comunicazione tra processi}{27}{}%
+\contentsline {chapter}{\numberline {4}Thread e concorrenza}{30}{}%
+\contentsline {section}{\numberline {4.1}Programmazione multicore e multithreading}{30}{}%
+\contentsline {section}{\numberline {4.2}Librerie dei thread}{34}{}%
+\contentsline {section}{\numberline {4.3}Threading implicito}{36}{}%
+\contentsline {section}{\numberline {4.4}Problemi di gestione multithread}{37}{}%
+\contentsline {chapter}{\numberline {5}Scheduling della CPU}{41}{}%
+\contentsline {section}{\numberline {5.1}Concetti di base}{41}{}%
+\contentsline {section}{\numberline {5.2}Algoritmi di scheluding}{43}{}%
+\contentsline {section}{\numberline {5.3}Scheduling dei thread}{46}{}%
+\contentsline {section}{\numberline {5.4}Valutazione algoritmi}{48}{}%
+\contentsline {chapter}{\numberline {6}Sincronizzazione dei processi}{50}{}%
+\contentsline {section}{\numberline {6.1}Sezione critica e Peterson}{50}{}%
+\contentsline {section}{\numberline {6.2}Supporto hardware}{53}{}%
+\contentsline {section}{\numberline {6.3}Lock Mutex, Semafori e Monitor}{54}{}%
+\contentsline {section}{\numberline {6.4}Liveness}{59}{}%
+\contentsline {section}{\numberline {6.5}Esempi di sincronizzazione}{60}{}%
+\contentsline {chapter}{\numberline {7}Stallo dei processi}{64}{}%
+\contentsline {section}{\numberline {7.1}Stallo e multithread}{64}{}%
+\contentsline {section}{\numberline {7.2}Caratterizzazione e gestione dello stallo}{65}{}%
+\contentsline {chapter}{\numberline {8}Memoria centrale}{69}{}%
+\contentsline {section}{\numberline {8.1}Suddivisione della memoria}{69}{}%
+\contentsline {section}{\numberline {8.2}Allocazione contigua della memoria}{71}{}%
+\contentsline {section}{\numberline {8.3}Paginazione}{73}{}%
+\contentsline {section}{\numberline {8.4}Struttura della tabella delle pagine}{75}{}%
+\contentsline {section}{\numberline {8.5}Avvicendamento dei processi}{76}{}%
+\contentsline {chapter}{\numberline {9}Cache e memoria virtuale}{78}{}%
+\contentsline {section}{\numberline {9.1}Cache e Translation Lookaside Buffer}{78}{}%
+\contentsline {section}{\numberline {9.2}Paginazione su richiesta}{81}{}%
+\contentsline {section}{\numberline {9.3}Sostituzione delle pagine}{83}{}%
+\contentsline {section}{\numberline {9.4}Allocazione delle pagine e thrashing}{86}{}%
+\contentsline {chapter}{\numberline {10}Periferiche I/O}{89}{}%
+\contentsline {section}{\numberline {10.1}Hardware e Software I/O}{89}{}%
+\contentsline {section}{\numberline {10.2}Disco rigido e modello delle prestazioni}{91}{}%
+\contentsline {section}{\numberline {10.3}Schedulazione nel disco}{92}{}%
+\contentsline {chapter}{\numberline {11}File system}{93}{}%
+\contentsline {section}{\numberline {11.1}Progettazione di un file system}{93}{}%
+\contentsline {section}{\numberline {11.2}Directories}{93}{}%
+\contentsline {section}{\numberline {11.3}Cache del file system}{93}{}%
+\contentsline {section}{\numberline {11.4}Gestione errori}{93}{}%
+\contentsline {chapter}{\numberline {12}Bash}{94}{}%
+\contentsline {section}{\numberline {12.1}Introduzione alla Bash}{94}{}%
+\contentsline {section}{\numberline {12.2}Comandi notevoli e diritti}{95}{}%
+\contentsline {chapter}{\numberline {13}API Posix}{98}{}%
+\contentsline {section}{\numberline {13.1}Gestione dei file}{98}{}%
+\contentsline {section}{\numberline {13.2}Gestione dei diritti}{98}{}%
+\contentsline {section}{\numberline {13.3}Lettura/scrittura}{98}{}%
+\contentsline {section}{\numberline {13.4}Gestione dei processi}{98}{}%
+\contentsline {section}{\numberline {13.5}Segnali}{98}{}%
+\contentsline {section}{\numberline {13.6}Comunicazione tra processi tramite PIPE}{98}{}%
+\contentsline {section}{\numberline {13.7}Pthread}{98}{}%

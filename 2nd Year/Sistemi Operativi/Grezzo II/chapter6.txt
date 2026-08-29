@@ -1,0 +1,58 @@
+- Hardware e Software I/O % pag 1
+Il sistema operativo può funzionare in autonomia senza un meccanismo di input-output, tuttavia, come macchina utilitaria risulterebbe inutile. Per questa ragione si fa utilizzo delle periferiche, le quali consentono l'interazione uomo-macchina con un'interfaccia apposita, ma presentano alcune questioni da risolvere: \begin{itemize}
+    \item Presentano fallimenti del supporto fisico ed errori di trasmissione.
+    \item In quanto dipendenti dalle persone, non è possibile predire il loro comportamento.
+    \item Possono risultare lenti.
+\end{itemize}
+
+\noindent È necessario capire quindi come gestirli appropriatamente sapendo che sono impredicibili. Inoltre, differenti periferiche possono lavorare con diversi parametri, come un singolo byte alla volta oppure interi blocchi, ai quali si può accedere casualmente o sequenzialmente. I dispositivi possono poi inviare interruzioni quando è necessario servirli, ma potrebbero anche richiedere un monitoraggio periodico\footnote{Chiamato anche \textbf{polling}, è una richiesta periodica di un evento.}.\par
+Naturalmente, le varie periferiche lavorano a velocità differenti; è preferibile non far perdere tempo in attesa a dispositivi lenti e non dare un alto costo di interfacciamento a quelli veloci. Il sistema operativo deve saper gestire questi intervalli di tempo.\par
+Chiariamo che l'obiettivo del sotto-sistema di input-output è quello di fornire interfacce software uniformi nonostante l'ampio spettro di hardware diversi, ed è ottenuto con il \textbf{device driver}, il quale implementa concretamente le funzionalità. Tipicamente, presentano due componenti: la \textbf{superiore}, interfaccia del kernel al device driver, è acceduta da chiamate di sistema e implementa l'insieme di chiamate standard come open() e close(); inizia inoltre l'I/O verso il dispositivo e può bloccare il thread fino a completamento dell'operazione. La parte \textbf{inferiore}, invece, è eseguita come procedura di interruzione; recupera gli ingressi o trasferisce il prossimo blocco di uscite e può risvegliare i thread bloccati se l'operazione I/O è completata.\par
+Per quanto riguarda i dispositivi dotati di driver, invece, ne esistono tre categorie principali: \begin{itemize}
+    \item \textbf{A blocchi}: Dischi, nastri, DVD-ROM; questi accedono a blocchi di dati usando comandi come open(), read(), write() o seek(). Hanno inoltre accesso al file system oppure all'I/O grezzo, come anche ad un file mappato in memoria.
+    \item \textbf{A caratteri}: Tastiere, mouse, porte seriali e alcuni USB; fanno uso di un singolo carattere alla volta con le funzioni get() e put(). Esistono librerie basate su questi comandi per permettere modifiche di linee.
+    \item \textbf{Di rete}: Ethernet, Wireless, Bluetooth; presentano un'interfaccia propria data la loro diversità. Unix e Windows includono la \textbf{socket}, la quale separa il protocollo di rete dalle operazioni ivi effettuate. Fanno uso di pipe, FIFO, flussi, code, caselle di posta e molto altro.
+\end{itemize}
+
+\noindent Ci sono poi tre tipi principali di interfacce per la gestione del tempo di comunicazione: \begin{itemize}
+    \item \textbf{Bloccante}: Ferma il processo fino al termine dell'operazione. Per esempio, se richiede dati con read(), attenderà fino al termine del trasferimento dati, mentre se chiama write(), attenderà finché il dispositivo è pronto per ricevere dati.
+    \item \textbf{Non bloccante}: Restituisce subito i byte trasferiti con successo dalla richiesta di lettura/scrittura. Può ritornare un risultato nullo per entrambe.
+    \item \textbf{Asincrona}: Prende un puntatore al buffer utente ed effettua un ritorno immediato; alla richiesta di dati, il kernel riempie il buffer, mentre per inviarne li preleverà. Al termine dell'operazione notificherà l'utente.
+\end{itemize}
+
+\noindent Bisogna chiarire ora in che modo il processore è capace di interagire con i dispositivi; la CPU detiene un insieme di registri R/W e può anche contenere memoria per code di richieste o immagini bitmap. A prescindere dalla complessità delle connessioni e dei BUS, il processore accederà alle due aree in due modalità: con le istruzioni di input-output oppure con l'I/O mappato in memoria, quindi istruzioni di load/store che considerano le due aree di memoria come se fossero in quella fisica.\par
+Il trasferimento dati da e verso la CPU può inoltre avvenire in due modalità: in un contesto di \textbf{I/O programmato} ogni byte è trasferito dal processore con istruzioni I/O o load/store e richiede un hardware semplice, facile da programmare, ma consuma cicli macchina proporzionali alla dimensione dei dati. La seconda opzione è quella dell'\textbf{Accesso diretto alla memoria} (DMA), che dà al controllore l'accesso al bus della memoria, consentendo un trasferimento diretto tra periferica e CPU.\par
+Naturalmente, per capire quando interrompere e riprendere i processi, il sistema operativo richiede di conoscere quando le operazioni sono completate oppure quando sono riscontrati degli errori. In genere, i dispositivi fanno uso di interruzioni e polling in base a dove è più conveniente; per esempio, in un dispositivo di rete a banda larga, si usa un interrupt per il primo pacchetto in arrivo, mentre si continua a interrogare per i pacchetti seguenti fino a completamento della prima operazione.
+
+- Disco rigido e modello delle prestazioni % pag 16
+Richiamiamo alla memoria le proprietà dei dischi fissi magnetici affrontate nel corso di architettura degli elaboratori: sono dispositivi composti da un tronco, il quale presenta un braccio dove è presente una spira che reagisce emettendo un campo magnetico in base all'elettricità ricevuta. Questa testina è posizionata sopra l'effettivo disco, sul quale sono presenti ulteriori testine che reagiscono al campo. In base alla reazione è possibile capire se sono state modificate o meno.\par
+La testina si muove sul braccio per indirizzare la traccia dell'informazione; più tracce compongono un settore e più settori compongono blocchi. Questi sono elementi indirizzabili indipendentemente, mentre gli elementi indirizzabili senza muovere la testina sono i cilindri.\par
+Naturalmente, la densità delle testine per i bit è costante, con più settori nelle tracce esterne e la velocità di lettura varia in base alla traccia indirizzata. Le prestazioni di un disco si misurano con tempi di risposta e throughput; i fattori che aumentano la latenza possono essere i percorsi software, il controllore hardware, ma anche il supporto fisico del disco, che è particolarmente fragile. Inoltre, più il disco ha parti utilizzate, più si avranno incrementi di latenza.\newline
+
+\noindent Il processo di lettura e scrittura dei dati in un disco magnetico si divide in tre fase: \begin{enumerate}
+    \item \textbf{Tempo di ricerca}: Dovuto alla ricerca del posizionamento corretto delle testine sulla traccia.
+    \item \textbf{Latenza rotazionale}: Attesa affinché il settore desiderato sia sotto le testine.
+    \item \textbf{Tempo di trasferimento}: Trasferimento di un blocco di bit, quindi un settore, che si trova sotto le testine
+\end{enumerate}
+
+\noindent In generale, dipendentemente dalla dimensione del disco, ci sono da 500 a 20000 tracce per piatto e da 32 a 800 settori per traccia. Un disco magnetico moderno presenta anche 2TB di spazio con una densità di circa 340GB/pollice quadrato, con i seguenti ritardi: \begin{itemize}
+    \item Tempo di ricerca medio: Tra $5ms$ e $12ms$.
+    \item Latenza di rotazione: Circa dai $16ms$ agli $8ms$ per giro.
+    \item Tempo di trasferimento: In funzione di un settore, la cui dimensione è tipicamente di $512B$ o $1KB$, della velocità di rotazione, da $3600RPM$ a $15000RPM$, della densità dei dati, da $50Kb$ a $2Mb$ per traccia, e del diametro del disco, da $1$ a $5.25$ pollici.
+\end{itemize}
+
+\noindent Dei valori tipici per quanto riguarda l'elaborazione dei dati sono quelli da $2MB$ a $250MB$ elaborati al secondo. La chiave per usare il disco in modo efficace è quella di minimizzare i ritardi di ricerca e rotazione.
+
+- Schedulazione nel disco % pag 23
+Il disco è capace di servire una sola richiesta alla volta, quindi bisogna porci la domanda dell'ordine in cui scegliere le richieste attualmente in coda. Anche qui possiamo applicare diverse politiche, come nella schedulazione vista in precedenza: \begin{itemize}
+    \item \textbf{FIFO}: Alto valore di equità fra i richiedenti, ma essendo che le posizioni dei dati possono essere molto diverse, ciò porta ad avere ricerche inefficienti.
+    \item \textbf{Shortest Seek Time First} (SSTF): Prende la richiesta più vicina localmente rispetto a quella attuale con il tempo di rotazione minore. Valido nel ridurre le ricerche, ma può causare inedia.
+    \item \textbf{Scan}: Prende la richiesta più vicina che si trova nell'attuale direzione di spostamento. Non causa inedia.
+    \item \textbf{Circular-Scan}: Più equo rispetto a scan perché non favorisce i dati in mezzo al disco e si muove in una sola direzione.
+\end{itemize}
+
+\noindent Per quanto riguarda il tempo di coda, invece, è necessario applicare un pò di \textbf{teoria delle code}, che riguarda il comportamento di lungo termine in cui il tasso di arrivo delle richieste è uguale a quello di partenza. In particolare, la \textbf{Legge di little} afferma che: \[
+    \text{Numero medio di compiti} = \text{Tasso di arrivo} \cdot \text{Tempo medio di risposta}
+\]
+
+\noindent La legge si applica a qualunque sistema in equilibrio, a patto che nella scatola del sistema della coda nulla si crei o distrugga. È osservato quindi il numero di compiti in coda quando si entra rispetto a quando si esce.

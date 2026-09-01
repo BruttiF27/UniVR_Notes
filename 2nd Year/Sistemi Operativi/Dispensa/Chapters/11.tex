@@ -1,8 +1,108 @@
 \section{Progettazione di un file system} % pag 1
+Il \textbf{sistema di archiviazione} è uno strato del sistema operativo che trasforma l'interfaccia standardizzata dei dischi o altri dispositivi a
+blocchi in un insieme di file e directory. I compiti che deve svolgere riguardano: \begin{itemize}
+    \item \textbf{Gestione del disco}: Raccolta di blocchi in file.
+    \item \textbf{Denominazione}: Interfaccia richiesta per trovare i file in base al nome e non con i blocchi.
+    \item \textbf{Protezione}: Strati per mantenere i dati in sicurezza.
+    \item \textbf{Affidabilità/Resilienza}: Preservazione dei file nonostante fallimenti lato software o hardware.
+\end{itemize}
+
+\noindent L'utente, quando fa uso di un calcolatore, vedrà solamente una strutturazione dei dati specifica del sistema operativo, perché sarà il sistema
+operativo a gestire tutte le dinamiche richieste per presentare ciò che di facciata interessa all'utente. Infatti, è lui che è capace di vedere i gruppi
+di blocchi su cui lavorare con eventuali chiamate di sistema, dove saranno visti come collezioni di byte.\par
+In un contesto tale, i \textbf{file} sono di fatto degli insiemi di blocchi organizzati sequenzialmente nello spazio logico, i quali, su sistemi UNIX,
+hanno dimensione di $4KB$. Essendo questi ultimi l'unità minima di trasferimento del file system, anche se un'operazione richiede pochi byte, verrà
+caricato l'intero blocco che concerne la zona desiderata. Le \textbf{directory}, invece, sono gli indici visibili agli utenti che associano dei nomi ai
+file. Il contenuto del disco è acceduto come un vettore lineare di settori; si presentano quindi due opzioni per la gestione dei blocchi:
+\begin{itemize}
+    \item Identificare i settori come vettori, quindi avere un array per cilindro, superficie e settore. Non è molto usato.
+    \item \textbf{Logical Block Addressing} (LBA): Ogni settore presenta un indirizzo intero da zero a un numero massimo di settori.
+\end{itemize}
+
+\noindent Supponiamo che il controllore converta un indirizzo a una posizione fisica; nel primo caso il sistema operativo o quello di avvio devono
+gestire i settori guasti, mentre nel secondo è l'hardware a lavorarci, schermando il sistema operativo dalla struttura del disco. Inoltre, è necessario
+tenere traccia dei blocchi liberi sul disco; una mappa di bit per rappresentare l'occupazione dei settori è proposta come buona soluzione, sulla quale è
+possibile costruire un'\textbf{intestazione dei file} per capire a quali zone della sua struttura logica appartengano i blocchi.\par
+Bisogna chiedersi ora come progettare i \textbf{modelli di accesso}, per i quali esistono tre soluzioni principali: l'\textbf{accesso sequenziale} legge
+e scrive i byte in ordine, quello \textbf{casuale}, invece, esegue le medesime operazioni in mezzo a un vettore, mentre l'accesso \textbf{basato sul
+contenuto} chiede di recuperare un numero di byte in base a un input specifico. Quest'ultima soluzione non è molto supportata in quanto di norma si
+costruiscono basi di dati sopra l'accesso al disco, per indicizzare il contenuto.\par
+In ogni caso, l'organizzazione dei file su disco mantiene sempre tre obiettivi principali: massimizzazione delle prestazioni sequenziali, un accesso
+casuale ai file semplificato e una facile gestione dei file. Per raggiungere questi scopi esistono più tecniche: \begin{itemize}
+    \item \textbf{Allocazione contigua}: Fa uso di un intervallo contiguo di blocchi nello spazio logico e cerca una mappa di bit per trovare la
+    posizione migliore. L'header contiene il primo blocco del file e la sua dimensione in blocchi. Consente un accesso sequenziale veloce e un accesso
+    casuale facile, tuttavia, presenta spesso il problema di frammentazione esterna, rendendo difficile ingrandire il file.
+    \item \textbf{Allocazione con lista collegata}: L'intestazione del file definisce i puntatori ad ogni blocco; rende semplice ingrandire
+    dinamicamente il file, ma presenta un accesso sequenziale inefficiente. Inoltre, se si perde un blocco, si perde il resto del file.
+    \item \textbf{Allocazione indicizzata}: Il sistema alloca un blocco di intestazione del file contenente un vettore di puntatori, grande a
+    sufficienza da puntare a tutti i blocchi. La dimensione del file deve essere dichiarata dall'utente. Entro questa grandezza è semplice accrescere il
+    file e ha un accesso casuale rapido, ma andando oltre la dimensione della tabella può risultare problematico ricercare i blocchi.
+    \item \textbf{Allocazione indicizzata multilivello}: La tecnica propone un'intestazione, detta \textbf{inode}, con $13$ puntatori non equivalenti e
+    una tabella di dimensione fissata. L'idea generale è voler essere efficienti con file di dimensione esigua, mantenendo allo stesso tempo un costo
+    computazionale ragionevole per file grandi.
+\end{itemize}
+
+\noindent In particolare, per quest'ultima tecnica, supponendo per semplicità che i blocchi abbiano dimensione $1KB$, i primi $10$ puntatori puntano a
+blocchi di dati, l'$11$ a un \textbf{blocco indiretto}, contenente $256$ puntatori a blocchi di dati, il $12$ a un \textbf{blocco doppiamente indiretto},
+che ne contiene altri $256$, ma a blocchi indiretti, e il $13$ a un \textbf{blocco triplamente indiretto}. Ciò consente di puntare a $16$ Mega blocchi
+di dati totali.\par
+Questa tecnica, usata in \textbf{UNIX 4.1}, pone un limite superiore alla dimensione di un file pari a $16GB$ e vede i puntatori riempiti dinamicamente.
+Supponiamo, per esempio, di aver già caricato in memoria il blocco intestazione; avremo i seguenti scenari: \begin{itemize}
+    \item Ottenere il blocco n.5: Rientrando tra i primi 10 puntatori dei blocchi diretti, è necessario effettuare un singolo accesso.
+    \item Ottenere il blocco n.23: Rientrando nell'intervallo $(11, 256)$, è necessario effettuare due accessi: uno per il blocco indiretto, l'altro per
+    il dato.
+    \item Ottenere il blocco n.340: Rientrando nell'intervallo $(257, 64K)$, è necessario effettuare tre accessi: uno per il blocco doppiamente
+    indiretto, uno per quello singolarmente indiretto, e l'ultimo per il dato.
+\end{itemize}
+
+\noindent Un'altra soluzione è quella proposta da \textbf{Cray-1 DEMOS}, la cui struttura di file system è simile alla segmentazione. L'idea è di
+ridurre le ricerche sul disco mediante l'uso di allocazione contigua nel caso normale, ma permettendo allo stesso tempo la flessibilità di
+un'allocazione non contigua.\par
+L'intestazione presenta una tabella di base e la dimensione, con 10 puntatori a gruppi di blocchi; ogni gruppo è dato da blocchi contigui nel disco, i
+quali si ricercano mediante una bitmap. I blocchi vuoti presentano il valore 0 nella mappa, mentre per file di grandi dimensioni (grandezza maggiore di
+10 gruppi), si imposta un flag chiamato \textbf{BIGFILE} e ogni voce della tabella ad esso relativa punterà a un gruppo indiretto di blocchi.\par
+Lo schema DEMOS presenta un accesso sequenziale veloce e le aree libere si uniscono in modo semplice, ed è facile trovare gruppi di blocchi liberi, ma
+nel caso di un disco pieno non sono disponibili lunghe sequenze di blocchi: frammentazione. La soluzione a questo problema si ottiene usando uno spazio
+"di riserva", generalmente il $10\%$ del disco, per mantenere i benefici dell'allocazione contigua.\newline
+
+\noindent In ogni caso, tutte le informazioni su un file sono contenute nella sua intestazione, la quale, una volta caricata, rende localizzabili tutti
+gli altri blocchi del file. Su UNIX è chiamata \textbf{inode} ed è una risorsa globale identificata da un indice, detto \textbf{inumber}.\par
+Le interfacce grafiche consentono agli utenti di specificare nomi testuali o di cliccare su icone per richiedere file particolari; più a basso livello,
+per consentire questo meccanismo, si ha la \textbf{denominazione}, un processo tramite il quale il sistema operativo traduce nomi utente in risorse di
+sistema. Per i file traduce da stringa/icona in un inumber per trovare l'inode, mentre per file system globali farà la stessa cosa, ma creando una
+combinazione di indirizzo e inumber.
 
 %
 
-\section{Directories} % pag 19
+\section{Directory} % pag 19
+Rispetto ai file, le \textbf{directory} sono un concetto molto più semplice: una tabella di coppie (fileName, inumber) sfruttata per la denominazione.
+Spesso sono memorizzate a loro volta in ulteriori file e devono poter essere cercate velocemente; sono poi manipolate mediante chiamate di sistema come
+\textbf{mkdir} o \textbf{rmdir}.\par
+Normalmente, le directory sono organizzate in una struttura gerarchica, consentendo alla voce fileName di poter essere il nome di un'altra directory, ma
+molti sistemi consentono una struttura organizzata come grafo aciclico; in un contesto tale si avranno: \begin{itemize}
+    \item \textbf{Hard-link}: Nomi diversi per lo stesso file.
+    \item \textbf{Soft-link}: Puntatore scorciatoria a un file.
+\end{itemize}
+
+\noindent La \textbf{risoluzione dei nomi} (naming) vede l'attraversamento della sequenza di directory fino al file richiesto; per esempio, per
+arrivare al file indicato nel path \textbf{/my/book/count} si avranno i seguenti accessi: \begin{enumerate}
+    \item Lettura dell'intestazione di root: "/".
+    \item Lettura del primo blocco dati della radice.
+    \item Lettura dell'intestazione di "my".
+    \item Lettura del primo blocco dati per "my", cercando "book".
+    \item Lettura dell'intestazione di "book".
+    \item Lettura del primo blocco dati per "book", cercando "count".
+    \item Lettura dell'intestazione di "count".
+\end{enumerate}
+
+\noindent In ogni momento si tiene conto della posizione attuale all'interno del file system con un puntatore per spazio-indirizzi a un inode di
+directory, chiamato \textbf{current working directory} (CWD). È ciò che consente di specificare nomi relativi al posto di dichiarare il path assoluto
+ogni volta.\par
+Naturalmente bisogna anche memorizzare gli inode in tal modo da accedervi velocemente; nei primi UNIX, le intestazioni erano memorizzate in uno spazio
+speciale nei cilindri più esterni, ma in tempi recenti hanno spostato queste informazioni in tal modo da essere più vicine ai blocchi di dati. Difatti,
+capita spesso che l'inode sia memorizzato nello stesso gruppo di cilindri della directory contenente il file. Si tratta di un approccio affidabile,
+perché qualsiasi cosa succeda al disco si possono trovare tutti i file e siccome le intestazioni sono molto più piccole di un blocco intero, è possibile
+recuperarne più di una in un solo accesso al disco.
 
 %
 

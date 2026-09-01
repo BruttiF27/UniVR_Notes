@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  29 AUG 2026 16:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  1 SEP 2026 11:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -654,13 +654,18 @@ Capitolo 10.
 
 ] [90] [91]) [92]
 Capitolo 11.
-(./Chapters/11.tex) [93
+(./Chapters/11.tex [93
 
-]
+] [94]
+Underfull \hbox (badness 10000) in paragraph at lines 64--67
+
+ []
+
+[95]) [96] [97]
 Capitolo 12.
-(./Chapters/12.tex [94
+(./Chapters/12.tex [98
 
-] [95]
+] [99]
 Underfull \hbox (badness 10000) in paragraph at lines 74--75
 
  []
@@ -685,7 +690,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 91--93
 
  []
 
-[96]
+[100]
 Underfull \hbox (badness 10000) in paragraph at lines 104--106
 
  []
@@ -700,9 +705,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 119--120
 
  []
 
-Excluding 'comment' comment.) [97]
+Excluding 'comment' comment.) [101]
 Capitolo 13.
-(./Chapters/13.tex) [98
+(./Chapters/13.tex) [102
 
 ] (./main.aux) ) 
 Here is how much of TeX's memory you used:
@@ -714,10 +719,10 @@ Here is how much of TeX's memory you used:
  1137 hyphenation exceptions out of 8191
  74i,18n,82p,1112b,1823s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (99 pages, 742049 bytes).
+Output written on main.pdf (103 pages, 752788 bytes).
 PDF statistics:
- 472 PDF objects out of 1000 (max. 8388607)
- 282 compressed objects within 3 object streams
+ 485 PDF objects out of 1000 (max. 8388607)
+ 291 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  116 words of extra memory for PDF output out of 10000 (max. 10000000)
 

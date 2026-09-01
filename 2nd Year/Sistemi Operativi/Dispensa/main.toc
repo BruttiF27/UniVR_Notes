@@ -49,17 +49,17 @@
 \contentsline {section}{\numberline {10.3}Schedulazione nel disco}{92}{}%
 \contentsline {chapter}{\numberline {11}File system}{93}{}%
 \contentsline {section}{\numberline {11.1}Progettazione di un file system}{93}{}%
-\contentsline {section}{\numberline {11.2}Directories}{93}{}%
-\contentsline {section}{\numberline {11.3}Cache del file system}{93}{}%
-\contentsline {section}{\numberline {11.4}Gestione errori}{93}{}%
-\contentsline {chapter}{\numberline {12}Bash}{94}{}%
-\contentsline {section}{\numberline {12.1}Introduzione alla Bash}{94}{}%
-\contentsline {section}{\numberline {12.2}Comandi notevoli e diritti}{95}{}%
-\contentsline {chapter}{\numberline {13}API Posix}{98}{}%
-\contentsline {section}{\numberline {13.1}Gestione dei file}{98}{}%
-\contentsline {section}{\numberline {13.2}Gestione dei diritti}{98}{}%
-\contentsline {section}{\numberline {13.3}Lettura/scrittura}{98}{}%
-\contentsline {section}{\numberline {13.4}Gestione dei processi}{98}{}%
-\contentsline {section}{\numberline {13.5}Segnali}{98}{}%
-\contentsline {section}{\numberline {13.6}Comunicazione tra processi tramite PIPE}{98}{}%
-\contentsline {section}{\numberline {13.7}Pthread}{98}{}%
+\contentsline {section}{\numberline {11.2}Directory}{96}{}%
+\contentsline {section}{\numberline {11.3}Cache del file system}{97}{}%
+\contentsline {section}{\numberline {11.4}Gestione errori}{97}{}%
+\contentsline {chapter}{\numberline {12}Bash}{98}{}%
+\contentsline {section}{\numberline {12.1}Introduzione alla Bash}{98}{}%
+\contentsline {section}{\numberline {12.2}Comandi notevoli e diritti}{99}{}%
+\contentsline {chapter}{\numberline {13}API Posix}{102}{}%
+\contentsline {section}{\numberline {13.1}Gestione dei file}{102}{}%
+\contentsline {section}{\numberline {13.2}Gestione dei diritti}{102}{}%
+\contentsline {section}{\numberline {13.3}Lettura/scrittura}{102}{}%
+\contentsline {section}{\numberline {13.4}Gestione dei processi}{102}{}%
+\contentsline {section}{\numberline {13.5}Segnali}{102}{}%
+\contentsline {section}{\numberline {13.6}Comunicazione tra processi tramite PIPE}{102}{}%
+\contentsline {section}{\numberline {13.7}Pthread}{102}{}%

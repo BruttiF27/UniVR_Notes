@@ -11,6 +11,7 @@ English translation? Why would you ever consider that?
   - Programmazione 2: Eventualmente da revisionare
   - Sistemi: Aggiungere esercizi
   - Reti di calcolatori: Aggiungere esercizi
+  - Sistemi Operativi: Eventualmente da aggiornare il contenuto del laboratorio.
 - Terzo anno:
   - Nothing?
 
@@ -23,7 +24,6 @@ English translation? Why would you ever consider that?
 - Secondo anno:
   - Algoritmi: Non finita, in iato fino a nuovo ordine.
   - Ingegneria del software: Non finita, in iato fino a nuovo ordine.
-  - Sistemi operativi: Attualmente in lavorazione.
   - Analisi matematica 2: Ha contenuto, ma è da rivedere.
   - Fisica 2: Completamento previsto entro settembre 2027.
 - Terzo anno:

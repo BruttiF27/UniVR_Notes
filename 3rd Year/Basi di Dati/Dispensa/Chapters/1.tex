@@ -1,1 +1,72 @@
-\section{Sec1}
+\section{Applicazioni gestionali e DBMS}
+Le \textbf{Applicazioni} informatiche in ambito gestionale sono nate negli anni '70 e sono caratterizzate da algoritmi di elaborazione semplici e una
+grande quantità di dati condivisi da più applicazioni, ambo derivanti dall'ambiente in cui sono introdotte, chiamato \textbf{sistema informativo}.
+Quest'ultimo è definito formalmente come l'\textit{insieme delle attività umane e dei dispositivi di memorizzazione ed elaborazione atte alla gestione e
+all'organizzazione di informazioni di interesse per un'organizzazione}. Il sistema informativo è composto a sua volta da due componenti: \begin{itemize}
+    \item \textbf{Dato}:  Elemento di conoscenza di base, costituito da simboli da elaborare.
+    \item \textbf{Informazione}: Interpretazione dei dati che consente di ottenere conoscenza di fatti e situazioni.
+\end{itemize}
+
+\noindent È possibile studiare il comportamento dei sistemi informativi mediante diagrammi di flusso, i quali \textbf{definiscono} archivi, sorgenti,
+utenti, procedure e flussi di dati, quindi rappresentano le informazioni come collezioni di dati. Questi elementi portano a quella che è chiamata
+\textbf{soluzione convenzionale}, che mostra i vari programmi interagire col file system, il quale mantiene i dati. Tuttavia presenta alcuni problemi,
+come per esempio un accesso lento ai dati e la loro ridondanza.\par
+Un'altra soluzione pone come middleware posto tra le applicazioni e il file system un \textbf{Database Management System} (DBMS), un sistema che
+gestisce le \textbf{basi di dati} su memoria secondaria, assicurando affidabilità, privatezza e accesso efficiente. Presenta inoltre due vantaggi
+principali: \begin{itemize}
+    \item \textbf{Maggiore astrazione}: I dati sono visti come oggetti o righe di tabelle quando il DBMS si interfaccia con le applicazioni.
+    \item \textbf{Maggiore efficacia}: L'accesso ai dati è basato su un linguaggio di interazione.
+\end{itemize}
+
+\noindent In particolare, i \textbf{linguaggi di interazione} si dividono in due categorie: la prima è atta alla \textbf{definizione dei dati} (DDL),
+mentre la seconda concerne la \textbf{manipolazione dei dati} (DML), a sua volta suddivisa in \textbf{linguaggi di interrogazione}, per estrarre
+informazioni dal DB,  e \textbf{di manipolazione}, per popolare il DB o modificarne i dati. Il DBMS fornisce inoltre un \textbf{Modello dei Dati},
+l'insieme dei costrutti per la descrizione di struttura e proprietà dell'informazione all'interno del DB. Ad oggi, vengono utilizzati i seguenti
+modelli: \begin{itemize}
+    \item Modello relazionale: SQL92 o SQL2
+    \item Modello a oggetti
+    \item Modello object-relational: SQL99 o SQL3
+    \item Modello basato su documenti: JSON
+    \item Modelli NoSQL: Basati su colonne, costrutti chiave-valore
+\end{itemize}
+
+\noindent Bisogna tuttavia fare attenzione a distinguere il modello dei dati dallo \textbf{schema del DB}, la descrizione di struttura e proprietà della
+base di dati che fa uso dei costrutti del modello, e dall'\textbf{istanza del DB}, costituita dagli effettivi valori che popolano le strutture dati in
+una determinata istanza. In soldoni, il modello definisce i costrutti, lo schema la loro relativa implementazione e l'istanza una situazione specifica
+con determinati valori.\par
+Passiamo ora all'architettura generale dei DBMS: presentano tre livelli: \textbf{esterno}, che descrive una porzione dello schema logico per
+un'interfaccia specifica, \textbf{logico}, la rappresentazione di struttura e proprietà del DB, definite con il modello dei dati, e \textbf{interno},
+rappresentante il DB mediante le strutture fisiche di memorizzazione. In un contesto tale è necessario chiarire che le basi di dati devono mantenere due
+tipi di indipendenza: \begin{itemize}
+    \item \textbf{Fisica}: Schema logico è indipendente da quello interno, facendo sì che la variazioni sul secondo non impattino il primo.
+    \item \textbf{Logica}: Schemi esterni indipendenti da quello logico, facendo sì che le variazioni nel secondo, purché non rimuovano dati, non
+	impattano i primi.
+\end{itemize}
+
+%
+
+\section{Creazione di una base di dati}
+Per progettare adeguatamente una base di dati è necessario studiare il ciclo di vita del processo di automazione all'interno di un sistema informativo.
+In primo luogo è richiesto uno \textbf{studio di fattibilità} per definire costi ed eventuali alternative; segue la \textbf{raccolta e analisi dei 
+requisiti} del sistema, producendo una descrizione completa ma informale, per poi terminare con l'effettiva \textbf{progettazione}. Quest'ultima fase è
+suddivisa in due attività: \begin{itemize}
+    \item \textbf{Progettazione dei dati}: Descrizione formale dei dati attraverso lo schema, comprende l'implementazione del DBMS seguita dalla
+	validazione e collaudo.
+    \item \textbf{Progettazione delle applicazioni}: Descrizione formale delle applicazioni attraverso le specifiche.
+\end{itemize}
+
+\noindent In questo corso ci concentreremo sulle metodologie di progettazione dei dati. Un buon metodo è costituito da una decomposizione iniziale in
+passi dell'attività di progetto, attuazione di strategie e modelli di riferimento da seguire, come anche di criteri di scelta da applicare. La
+metodologia deve inoltre essere generale, semplice da usare, ma soprattutto in grado di produrre un risultato completo e corretto.\par
+Nel concreto, la progettazione dei dati presenta tre fasi principali: \textbf{concettuale}, per rappresentare il contenuto informativo del DB
+formalmente e indipendente da tecnologia e operazioni, portando alla creazione dello schema concettuale, \textbf{logica} per tradurre lo schema
+concettuale in quello logico, aderente al modello dei dati del DBMS scelto, e \textbf{fisica}, per completare lo schema logico coi parametri relativi
+alla memorizzazione fisica dei dati e metodi di accesso per garantire efficienza, fornendo lo schema fisico.
+
+%
+
+\section{Progettazione concettuale}
+
+%
+
+\section{Progettazione logica}

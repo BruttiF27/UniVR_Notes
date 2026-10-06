@@ -27,9 +27,9 @@ English translation? Why would you ever consider that?
   - Analisi matematica 2: Ha contenuto, ma è da rivedere.
   - Fisica 2: Completamento previsto entro settembre 2027.
 - Terzo anno:
-  - Basi di dati: Completamento previsto entro giugno 2027.
-  - Elaborazione di segnali e immagini: Completamento previsto entro febbraio 2027.
-  - Fondamenti dell'informatica: Completamento previsto entro febbraio 2027.
+  - Basi di dati: Attualmente in lavorazione.
+  - Elaborazione di segnali e immagini: Attualmente in lavorazione.
+  - Fondamenti dell'informatica: Attualmente in lavorazione.
   - Linguaggi: Completamento previsto entro giugno 2027.
   - Programmazione e sicurezza delle reti: Attualmente in lavorazione.
-  - Intelligenza artificiale: Completamento previsto entro febbraio 2027.
+  - Intelligenza artificiale: Completamento previsto entro giugno 2027.

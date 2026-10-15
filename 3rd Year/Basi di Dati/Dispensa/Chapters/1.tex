@@ -66,6 +66,49 @@ alla memorizzazione fisica dei dati e metodi di accesso per garantire efficienza
 %
 
 \section{Progettazione concettuale}
+Il modello storicamente usato per la progettazione concettuale delle basi di dati è quello \textbf{Entità-Relazione} (ER); propone un insieme di
+strumenti grafici formali e indipendenti dalla tecnologia\footnote{Privi di qualsivoglia ottimizzazioni o semplificazioni che possono avere luogo in
+base agli strumenti scelti.}, detti \textbf{costrutti}, per specificare struttura e proprietà dei dati da rappresentare al suo interno.\par
+La definizione di ogni costrutto si ha specificando il loro significato, sintassi grafica e relative istanze; quelli di base sono: \begin{itemize}
+    \item \textbf{Entità}: Classe di oggetti con attributi comuni, esistenza autonoma e identificazione univoca, rappresentate con un rettangolo
+    contenente il loro nome.
+    \item \textbf{Relazione}: Legame logico tra due o più entità, rappresentate da un rombo a cui si collegano attraverso linee le entità coinvolte.
+    Il nome è posto vicino alla forma geometrica.
+    \item \textbf{Attributo}: Proprietà elementare di un'entità o una relazione; associa a ogni loro istanza un singolo valore appartenente a un
+    dominio, indicandolo con una piccola riga alla cui estremità è posto un pallino vuoto con a fianco il suo nome.
+\end{itemize}
+
+\noindent Ognuno di questi costrutti si può \textbf{istanziare}, ovvero concretizzare, all'interno della base di dati; sono annotati con
+$I(nomeCostrutto)$ e i relativi insiemi sono detti \textbf{popolazioni}. Alla nascita della base di dati ogni popolazione è vuota, poiché nessun
+costrutto è stato ancora istanziato. Istanziare un'entità significa aggiungere un oggetto alla base di dati e farlo per un attributo corrisponde ad
+associare un valore del dominio che assume a un'istanza di entità o relazione. Per queste ultime in particolare, definiamo le loro istanze come
+n-uple di istanze di entità; formalmente: \[
+    (e_1, ..., e_n)\text{, con } e_i\in I(E_i), 1 \leq i \leq n
+\]
+
+\noindent E la relativa popolazione rappresenta l'insieme delle coppie delle due entità coinvolte relazionate in un certo istante di tempo. Si tratta
+di una rappresentazione univoca, quindi non è possibile annotare più n-uple allo stesso modo.
+
+\begin{comment}
+% TODO Inserisci immagini entità, relazione
+
+Lez5 Basi di dati - 15-10-26
+
+- Esercizio ER1, ricava il drawio
+
+--- Adesso ha iniziato le slide ER2
+Necessario identificare quali entità sono corrette e quali non. Nelle relazione non puoi usare questo costrutto seguente.
+- Identificatore di entità: Data un'entità E, è un insieme di proprietà (attributi e/o relazioni) che identificano univocamente le istanze dell'entità.
+	Le proprietà identificano univocamente le istanze di E se non esistono due istanze di E che presentano gli stessi valoru/istanze nelle proprietà dell'insieme.
+	Si rappresenta graficamente in più modi:
+		- Se un identificatore è costituito da un solo attributo, si riempie il pallino di colore.
+		- (Identificatori interni) Se è costituito da più attributi va tirata una riga tra i due con all'estremità il pallino pieno. Attenzione che senza la riga, si sta dicendo che
+			due identificatori stanno identificando qualcosa di diverso.
+		- (Identificatori esterni) Se include una relazione, quest'ultima deve comportarsi come una funzione, quindi essere una singola istanza per identificare l'oggetto.
+	Gli identificatori implicano anche un tipo di dipendenza dall'identificatore, perché senza di essi non si avrebbe modo di capire cosa sono. Non è per nessun motivo possibile
+	dare un identificatore a un'istanza di relazione.
+
+\end{comment}
 
 %
 

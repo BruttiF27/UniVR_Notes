@@ -1,0 +1,47 @@
+27-11-25 - Basi di dati
+
+Esercizio ER1 - trasformazione in schema logico
+Relazioni, quindi tabelle:
+	- STUDENTE (\underline{MATR}, NOME, COGNOME, DATA_NASCITA, DATA_IMMATRICOLAZIONE, DATA_LAUREA*)
+	- SESSIONE_LAUREA (\underline{DATA})
+	- INSEGNAMENTO (\underline{DENOMINAZIONE, AA}, ANNO, DOCENTE)
+	- FREQUENZA (\underline{STUDENTE, INSEGNAMENTO, AA}, PERCENTUALE)		// Questa qui sarebbe la tabella delle chiavi.
+	- ESAME (\underline{STUDENTE, INSEGNAMENTO, AA}, DATA, VOTO)
+
+STUDENTE è una chiave esportata dalla tabella STUDENTE, ed INSEGNAMENTO, AA sono due chiavi esportate da INSEGNAMENTO.
+DATA_LAUREA è una chiave poi esportata da sessione di laurea.
+
+Esercizio ER2 - trasformazione in schema logico
+Relazioni:
+	- FILIALE (\underline{CODICE}, NOME, INDIRIZZO, NUM_CLIENTI)
+	- CONTO_CORRENTE (\underline{FILIALE, NUMERO}, SALDO)		// FILIALE chiave esportata da FILIALE
+	- CLIENTE (\underline{CODICE_FISCALE}, NOME, COGNOME, DATA_NASCITA, PROFESSIONE)
+	- NUMERO_TELEFONO (\underline{CODICE_FISCALE, NUMERO_TELEFONO})		// CODICE FISCALE E NUMERO DI TELEFONO CHIAVI PRIMARIE ESPORTATE DA CLIENTE.
+	- INSTESTAZIONE (\underline{FILIALE, CONTO, CLIENTE})		// Tutti gli attributi son chiave. I primi due esportati da CONTO_CORRENTE, l'ultimo da CLIENTE.
+	- MOVIMENTO (\underline{FILALE, CONTO, NUMERO}, DATA, TIPO, VALORE)		// Filiale e conto esportate da conto corrente. Numero è identificativo della rel.
+	
+--- Tecnologia noSQL: sistemi document based
+Traduzione in modello relazionale con tecnologia NoSQL (Not only SQL), che è quella attualmente in uso dal 2005.
+Sono tecnologie molto veloci, rispetto al solo relazionale, indipendentemente dalla dimensione del db.
+
+Gli approcci NoSQL sono:
+	- Sistemi key-value: Tutti i dati rappresentati con coppie (chiave, valore), dove la chiave identifica le istanze e valore può avere una qualsiasi struttura. Un esempio è HADOOP.
+	- Sistemi document-store: Dati rappresentati come collezioni di documenti, quindi oggetti con struttura complessa. Ogni oggetto della collezione ha dati incapsulati senza schema fisso; consentono la definizione di indici secondari su proprietà degli oggetti. Esempi sono MongoDB e CouchBase.
+	- Sistemi extensible-record-store o column store: Dati rappresentati da collezioni di record, dette tabelle, dove ognuno ha una certa lista di colonne che può variare da record a record. Esempi sono BigTable, HBase e Cassandra.
+	- Sistemi graph-store: Le collezioni di dati sono grafi. I nodi rappresentano oggetti, gli archi le relazioni o proprietà. Esempi sono OrientDB o Neo4j.
+	
+Le caratteristiche di questi modelli sono:
+	- dati rappresentati da collezioni di oggetti, i documenti.
+	- Gli oggetti hanno struttura complessa
+	- Incapsulamento valido
+	- Gli oggetti di una collezione non devono necessariamente avere la stessa struttura, ma dovrebbero condividere un nucleo di proprietà comuni.
+	
+Per progettare dati usando questo approccio bisogna:
+	- scegliere la chiave di accesso
+	- Definire una struttura dei documenti, quindi anche il grado di incapsulamento
+	- Scegliere come rappresentare i legami fra i documenti
+In particolare, esistono due approcci per rappresentare le relazioni fra i documenti:
+	- con riferimenti che si ottengono esportando l'id del documento (normalizzato)
+		Porta inevitabilmente a degli schemi normalizzati.
+	- con documenti nidificati (embedded)
+		Porta a schemi non normalizzati e parzialmente ridondanti, tuttavia sono efficienti in lettura.

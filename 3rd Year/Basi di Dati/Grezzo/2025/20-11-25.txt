@@ -1,0 +1,25 @@
+20-11-25 Basi di dati
+
+--- Vincoli interrelazionali
+Impongono restrizioni al contenuto di una relazione e specificano una condizione che ogni tupl della relazione deve soddisfare rispetto alle tuple di altre relazioni del DB.
+Una sottocategoria di sti vincoli include quelli di integrità referenziale. Per mantenerli è necessario che si riferisca a qualcosa. È definito come, fra un insieme di attributi Y di R_1 ed un altro K, chiave primaria di un'altra relazione R_2, se per ogni istanza r_1 di R_1 e per ogni istanza r_2 di R_2, vale:
+	\forall t\in r_1 : \exists s\in r_2 : \forall i\in {1, ..., p} : t[A_i] = s[K_i]
+In questo caso il valore esiste ed il vincolo è rispettato. Quando il valore non c'è, si usa il valore NULL. La definizione è la stessa, ma si aggiunge \lor (\exists i\in {1, ..., p} : t[A_i] = NULL). Quest'ultima modifica è necessaria per la gestinoe di legami opzionali.
+
+- Notazione per indicaee vincoli strutturali
+La chiave primaria di una relazione R(X) è indicata sottolineando gli attributi della chave.
+Per esempio, supponiamo venga scelta come chiave primaria di treno l'insieme {Numero}. Si scrive:
+	TRENO(\underline{Numero}, OraPart, MinutoPart, Categoria, Destinazione, OraArr, MinutoArr)
+	
+--- Progettazione logica
+Per ora è indirizzata solo verso i sistemi relazionali, ma è estendibile anche ad altri tipi di sistemi.
+Vogliamo produrre uno schema logico per descrivere il contenuto della base di dati, specificato nello schema concettuale Fasi:
+	- Studio dello schema concettuale e ristrutturazione dello stesso
+		Ha l'obiettivo di semplificare la traduzione in schema logico ed ottimizzare le strutture rispetto al carico di lavoro. Il carico di lavoro è dato dalla dimensione dei dati e le relative operazioni, le quali hanno un costo ed una frequenza.
+		Qui si analizzano eventuali ridondanze per eliminarle, si eliminano le generalizzazioni. Inoltre si scelgono gli identificatori principali e si accorpano/partizionano entità e relazioni.
+			- Tre modi per rimuovere generalizzazioni:
+				1. Accorpare entità figlie nel padre: elimino i figli e metto i loro attributi nel padre come opzionali. Otterrà anche le loro relazioni.
+				2. Accorpare il padre nelle figlie
+				3. Sostituire la generalizzazione con relazioni
+	- Traduzione nel modello logico rispettando eventuali vincoli di integrità
+	- Creazione della documentazione

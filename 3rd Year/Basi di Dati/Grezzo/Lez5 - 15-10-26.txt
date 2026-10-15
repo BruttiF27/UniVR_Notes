@@ -1,0 +1,15 @@
+Lez5 Basi di dati - 15-10-26
+
+- Esercizio ER1, ricava il drawio
+
+--- Adesso ha iniziato le slide ER2
+Necessario identificare quali entità sono corrette e quali non. Nelle relazione non puoi usare questo costrutto seguente.
+- Identificatore di entità: Data un'entità E, è un insieme di proprietà (attributi e/o relazioni) che identificano univocamente le istanze dell'entità.
+	Le proprietà identificano univocamente le istanze di E se non esistono due istanze di E che presentano gli stessi valoru/istanze nelle proprietà dell'insieme.
+	Si rappresenta graficamente in più modi:
+		- Se un identificatore è costituito da un solo attributo, si riempie il pallino di colore.
+		- (Identificatori interni) Se è costituito da più attributi va tirata una riga tra i due con all'estremità il pallino pieno. Attenzione che senza la riga, si sta dicendo che
+			due identificatori stanno identificando qualcosa di diverso.
+		- (Identificatori esterni) Se include una relazione, quest'ultima deve comportarsi come una funzione, quindi essere una singola istanza per identificare l'oggetto.
+	Gli identificatori implicano anche un tipo di dipendenza dall'identificatore, perché senza di essi non si avrebbe modo di capire cosa sono. Non è per nessun motivo possibile
+	dare un identificatore a un'istanza di relazione.

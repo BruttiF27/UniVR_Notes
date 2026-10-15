@@ -1,0 +1,46 @@
+13-11-25 Basi di dati
+
+--- Progettazione nel modello relazionale
+Per la progettazione logica utilizzeremo la definizione del modello relazionale come insieme di tuple.
+
+Come progettare una base di dati relazionale e come rappresentarne i dati?
+	- Lo schema è costituito da un insieme di relazioni, quindi bisogna produrre le tabelle.
+	- Come implementare i requisiti nello schema e quante (e quali) relazioni definire sono le domande sulle quali bisogna basarsi.
+	
+Lo strumento formale di definizione delle dipendenze è dato dalle dipendenze funzionali; esplicitano le proprietà esplicitate nello schema concettuale.
+
+Ex:
+Supponiamo di voler rappresentare le informazioni sulla proprietà degli appartamenti a verona, e per ogni appartamento serva il codice univoco, categoria catastale ed indirizzo composto da via, civico e subalterno.
+Per ogni proprietario registriamo CF, nome cognome e DOB. Un appartamento può essere in comproprietà ed un proprietario può avere più appartamenti.
+
+- Quali sono le proprietà elementari che devo descrivere?
+Posso fare una tabella unica, comprensiva di ogni dato. Sta cosa è oscena perché:
+	- Quale istanza sto rappresentando in questa struttura? Una riga della tabella, sì, ma cosa?
+		La relazione fra l'appartamento ed uno dei suoi proprietari.
+		- Non possiamo allora rappresentare un appartamento senza i dati della persona e viceversa. È nammerda.
+	- Qual è il processo informativo che genera le righe? Che vincoli impone aver associato un evento a queste righe?
+		- Ci sono delle ridondanze da eliminare
+	- Ogni valore è significativo? Non si possono ammettere campi vuoti.
+		- Possono esserci alcuni campi vuoti perché non tutti gli stabili possono avere un proprietario.
+		
+Come risolvere le anomalie?
+	Possiamo anzitutto ridurre la ridondanza nei dati decomponendo la relazione. Potremmo per esempio separare le relazioni fra appartamento e proprietario, creando due tabelle diverse. In questo caso non avremmo doppioni. Tuttavia così facendo perdiamo la relazione di proprietà dell'immobile, introducendo un altro problema. Quindi non va bene.
+	Oppure potremmo sempre avere due tabelle, una per appartamento e l'altra per proprietario, con entrambe il codice fiscale della persona. Così manterremmo la dipendenza dell'immobile dal proprietario, costituendo un identificatore. Siamo costretti tuttavia ad ammettere una ridondanza. Lo stesso accadrebbe usando il codice univoco dell'immobile.
+	Potremmo creare una tabella dedicata che esprime il legame di proprietà dell'immobile, quindi tre tabelle. Sebbene possa risultare ridondante per codice univoco e codice fiscale, in questo caso non perderemmo alcuna relazione. È l'equivalente della relazione a livello concettuale. Inoltre è solo in questo modo che si possono rappresentare le chiavi. Abbiamo quindi la soluzione.
+	
+--
+
+I modelli relazionali sono value-based, quindi sono completamente indipendenti dall'implementazione e schema fisico. È facile trasferire dati fra i sistemi e qui viene rappresentato solo ciò che è rilevante per il sistema informativo.
+
+Come definiremo uno schema di una relazione?
+	Costituito dal nome della relazione e da un insieme di nomi per i suoi attributi. Si nota con R(X), oppure R(A_1, ..., A_n) oppure R(A_1:D_1, ..., A_n:D_n)
+
+Ed uno schema di una base di dati? (riprendi segnatura dalle slide)
+
+Ed un'istanza di una relazione di schema R(X)?
+	Insieme r di tuple su X. r = {t_1, ..., t_k}
+	
+Ed un'istanza di una base di dati di schema S?
+	S = {R_1(X_1), ..., R_n(X_n)}
+
+Il database è costituito dall'insieme delle istanze delle relazioni che compaiono nello schema. db = {r_1, ..., r_n}

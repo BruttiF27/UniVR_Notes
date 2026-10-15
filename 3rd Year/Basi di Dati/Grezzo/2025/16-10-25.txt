@@ -1,0 +1,52 @@
+16-10-25 Basi di dati
+
+--- Costrutto: identificatore di entità
+Significato: data un'entità, è un insieme di proprietà (attributi e/o relazioni) che identificano univocamente le istanze dell'entità.
+Riesce a svolgere il suo lavoro se non esistono due istanze dell'entità che presentano gli stessi valori/istanze nelle proprietà dell'insieme. Quindi non ci devono essere duplicati per poter distinguere gli oggetti dell'entità.
+
+Un'entità può avere uno o più identificatori, come anche avere identificatori costituiti da più attributi. Ciò dipende dalle richieste del sistema informativo.
+Si indicano con un pallino pieno.
+Per le entità si dicono identificatori interni, contengono solo attributi.
+
+Se invece l'identificatore contiene una relazione (fatto da attributo e relazione), ha una sintassi diversa. La relazione deve necessariamente essere una funzione, quindi collegare a una istanza di E una determinata altra istanza.
+La relazione nell'identificatore collega ad un'altra istanza, ok? La cosa deve essere deterministica, non può collegare due istanze uguali per più oggetti.
+In questo caso parliamo quindi di identificatori esterni, perché la determinazione dell'oggetto avviene tramite una relazione esterna all'entità.
+
+Non esistono identificatori di relazione. Non fanno parte del linguaggio del modello ER.
+Se serve quindi specificare qualcosa di simile, si possono cambiare le entità coinvolte. È un limite del modello ER.
+
+Esempio: consideriamo l'entità persona, nei requisiti servono codice fiscale, nome, cognome e data di nascita di un gruppo di persone.
+Useremo come identificatore l'attributo codice fiscale, uno strumento perfetto per tenere distinte le istanze e non creare doppioni. Gli altri attributi non vanno bene perché potrebbero avere nome uguale etc.
+Se tuttavia voglio usare un altro identificatore, posso dire che la terna di nome, cognome e DOB ne compone un altro. È una cosa possibile.
+
+L'identificatore di entità rappresenta due cose:
+	- Un vincolo, perché limita la popolazione di un'entità.
+	- Una regola di corrispondenza fra le istanze delle entità e gli oggetti del sistema informativo.
+	
+Ricordare però che gli identificatori devono essere proprietà con un senso per il sistema informativo, qunidi deve essere necessariamente un attributo o una relazione dato nelle specifiche. L'introduzione di attributi usati come ID non ha alcun senso.
+
+--- Costrutto: Vincoli di cardinalità sulle relazioni
+Data una relazione i vincoli di cardinalità sono specificati per ogni entità in essa coinvolti. Specificano:
+	- Il numero minimo
+	- Il numero massimo
+Di istanze della relazione a cui un'istanza di entità deve/può partecipare.
+Specifico il modo in cui le entità entrano a contatto con la relazione. Si indica graficamente con: (min_i, max_j).
+Solo alcune popolazioni potranno accedere alla relazione, insomma.
+
+Valori possibili per MIN_i:
+	- 0, indica che la partecipazione alla relazione R delle istanze dell'entità E è opzionale.
+	- 1, indica che la partecipazione è invece obbligatoria.
+	- num>1 (più raro), indica che per ogni istanza di E, devono essere presenti almeno num occorrenze della relazione R che la coinvolgono.
+Il vincolo minimo è molto forte, perché se per esempio il valore è posto a 1, significa che non posso far nascere un'entità senza che si crei anche una relazione.
+	
+Valori possibili per MAX_i:
+	- 1, indica che un'istanza di E_i può al massimo partecipare a una sola occorrenza di R. Se R è binaria, è una funzione.
+	- N, indica che un'istanza di E_i può partecipare a più occorrenze di R senza alcun limite.
+	- num>1, indica che per ogni istanza di E_i possono essere presenti al più num occorrenze della relazione R che la coinvolgono.
+	
+Esempio: supponiamo di avere le entità persona e comune, ipotizziamo che nei requisiti serva gestire la residenza delle persone nei comuni italiani.
+Una persona può avere al massimo una residenza. Il numero minimo (e massimo) di istanze di residenza al quale una persona può partecipare è 1.
+Per quanto riguarda il comune invece. Questo può esistere anche senza avere residenti, quindi diciamo che può anche essere dichiarato senza che partecipi alla relazione. Quindi il minimo sarà 0. Il massimo è N perché il numero degli eventuali residenti è potenzialmente infinito.
+
+--- Relazioni ER e associazioni UML
+La rappresentazione dei vincoli di cardinalità nell'ER è diversa dalla sintassi degli UML. È invertita.

@@ -1,0 +1,54 @@
+25-11-25 - Basi di dati
+
+Soluzioni possibili per rimuovere le generalizzazioni
+
+Sol1: Accorpamento nel padre
+Passi:
+	- Eliminazione delle entità figlie
+	- Accorpamento nel padre di ogni attributo dei figli come attributi opzionali
+	- Accorpamento nel padre delle relazioni che coinvolgono le entità figlie, assegnando cardinalità minima uguale a zero a lato entità padre.
+	- Aggiunta di attributo TIPO per distinguere nel padre le occorrenze dei figli.
+	
+Sol2: Accorpamento nei figli
+Precondizione: La generalizzazione deve essere TOTALE.
+Passi:
+	- Elimina il padre
+	- Replica gli attributi del padre su ogni figlio
+	- Partiziona sui figli le relazioni che coinvolgono l'entità padre assegnando cardinalità minima uguale a zero, lato entità esterne.
+	
+Sol3: Sostituzione con relazioni.
+Passi:
+	- Elimino la generalizzazione e inserisco n relazinoi fra padre e ciascuna delle n entità figlie.
+	- Tutti gli attributi conserveranno la loro locazione.
+	
+Partizionamento di entità:
+Ovvero la sostituzione di un'entità dallo schema con una coppia di entità con stesso identificatore e una relazione uno a uno che le lega fra di loro.
+Questa si esegue solo nel caso in cui ci siano operazioni frequenti che trattano solo un sottoinsieme degli attributi dell'entità da partizionare.
+Si può fare anche eliminando gli attributi multivalore.
+
+Scelta di identificatori principali, quindi le chiavi.
+Ne dobbiamo scegliere uno perché verrà usato come chiave primaria che rappresenta le relazioni del modello.
+Le chiavi necessariamente non possono avere valori nulli ed è preferibile che abbiano pochi attributi e che siano usati nelle operazioni.
+Tendenzialmente si prende l'identificatore più piccolo.
+
+--- Progettazione logica 2
+Da qua supponiamo di aver ristrutturato lo schema concettuale. Passiamo alla sua traduzione. Si tratta di un processo quasi automatico applicando allo schema concettuale ristrutturato apposite regole.
+Ogni regola è applicata ad un costrutto del modello concettuale e produce una o più strutture del modello relazionale.
+
+Regole auree valide generalmente:
+	- Un'istanza di entità è rappresentata con una tupla
+	- Un'istanza di relazione è rappresentata con un legame fra tuple o con una tupla esplicita.
+	- L'identificatore principale di un'entità è rappresentato con la chiave primaria della tabella che implementa l'entità.
+	
+Classificazione delle relazioni binarie del modello ER
+	- uno a uno: se ambo le entità nella relazione hanno cardinalità massima uguale ad 1
+	- uno a molti: se una delle entità nella relazione ha card. max uguale a 1, mentre l'altra ha card. max maggiore di 1
+	- molti a molti: se ambo le entità della relazione hanno card. max maggiore di 1.
+	
+Regole di traduzione:
+	- entità: Un'entità con attributi 'b,c' ed un id 'a' diventa \implies E(\underline{a}, b, c)
+		se 'a,b' sono identificatori e 'c' è opzionale: E(\underline{a,b}, c*)
+	- relazione uno a molti: E_1(\underline{a}, b, c, g), E_2(\underline{g}, h, i)		// Qui g è messo per vincolare il contenuto alla tabella di E_1
+		Se abbiamo un identificatore esterno: E_1(\underline{a,g}, b, c); E_2(\underline{g}, h, i)
+	- relazione uno a uno: E_1(\underline{a}, b, c, g); E_2(\underline{g}, h, i) oppure scegliamo E_1(\underline{a}, b, c); E_2(\underline{g}, h, i, a)
+	- relazione molti a molti: E_1(\underline{a}, b, c); E_2(\underline{g}, h, i); R(\underline{a,g})		// R rappresenta coppie di istanze di entità

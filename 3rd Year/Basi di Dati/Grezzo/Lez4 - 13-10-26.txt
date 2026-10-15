@@ -1,0 +1,29 @@
+Lez4 Basi di dati - 13-10-26
+
+--- Modello entità relazione
+Modello usato storicamente per la progettazione concettuale delle basi di dati;
+propone un insieme di strumenti formali per specificare struttura e proprietà dei
+dati da rappresentare nel modello. Si tratta di una rappresentazione grafica
+indipendente dalla tecnologia, ovvero priva di qualsivoglia ottimizzazioni o 
+semplificazioni che possono avere luogo in base agli strumenti scelti.\par
+I suoi strumenti formali sono detti \textbf{costrutti} e ognuno di loro si definisce
+specificando significato, sintassi grafica e relative istanze. Sono: \begin{itemize}
+	\item \textbf{Entità}: Rappresenta una classe di oggetti con attributi comuni,
+		esistenza autonoma e identificazinoe univoca. La loro sintassi grafica è un
+		rettangolo che contiene il nome della classe.\par
+		Le classi possono avere istanze, le quali si indicano con $I(NomeClasse)$. 
+		L'insieme di questi oggetti rappresenta la popolazione dell'entità e alla
+		creazione della base di dati è un insieme vuoto.
+	\item \textbf{Relazione}: Rappresenta un legame logico tra due o più entità.
+		Ne esistono di binarie, ternarie e ricorsive. Si indicano con un rombo a cui
+		si collegano attraverso linee le entità coinvolte. Il suo nome è scritto a
+		fianco del rombo.\par
+		L'istanza di una relazione è formalmente definita come n-upla di istanze di
+		entità: \[(e_1, ..., e_n)\text{, con } e_i\in I(E_i), 1 \leq i \leq n\]
+		\noindent La popolazione della relazione rappresenta l'insieme delle coppie
+		delle due entità coinvolte che sono in relazione in un certo istante di 
+		tempo. Non è possibile rappresentare la stessa n-upla più volte.
+	\item \textbf{Attributo}: Rappresenta una proprietà elementare di un'entità o relazione. Associa ad ogni istanza dei primi due costrutti un singolo valore appartenente a un dominio. Si indica con una piccola riga alla cui estremità sporge un pallino vuoto. L'istanza dell'attributo è un valore che esso assume in un'istanza dell'entità o della relazione.
+\end{itemize}
+
+% TODO Inserisci immagini entità, relazione

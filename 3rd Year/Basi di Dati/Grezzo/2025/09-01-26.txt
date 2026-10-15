@@ -1,0 +1,47 @@
+09-01-26 - Basi di dati
+
+--- Algebra relazionale, seconda parte
+Cardinalità (numero di tuple nel risultato, determina la complessità) degli operatori specifici
+	Selezione:	\leq |\sigma_F(r_1)| \leq
+	Proiezione: \leq |\prod_Y(r_1)| \leq
+	
+Numero minimo di tuple dopo selezione: 0
+
+--- Operatori di giunzione (di join)
+Sono operatori binari che consentono di unire (ricollegare tra loro) tuple rappresentate in tabelle separate. Aiuta a ridurre ridondanze nelle tabelle sfruttando le chiavi ivi usate.
+	Date due relazioni r_1, r_2 di schema X_1, x_2 rispettivamente, gli operatori di Join generano tuple t nella relazione risultato a partire dalle coppie di tuple (t_1, t_2)\in r_1 x r_2 che soddisfano una certa condizione detta predicato di join.
+	
+Operatori di base:
+	- Join naturale: Il predicato di join si basa sugli attributi comuni alle due relazioni, quindi è dipendente dallo schema.
+	Vedere il simbolo sui lucidi, sono due triangoli collegati dal loro vertice in punto medio. Sembra fare una farfalla. Da qua lo indico con \farf.
+	r_1 \farf r_2 = r_3, dove si considererà X_1 \cup X_2.
+	L'istanza è definita come r_3 = {t | \exists t_1\in r_1 : \exists t_2\in r_2 : t[X_1]=t_1 \land t[X_2]=t_2}
+	
+Il predicato di join è implicito e corrisponde a una condizione di uguaglianza tra gli attributi comuni alle due relazioni.
+
+```
+# Esempio
+DOCENTE (CFDocente, Nome, Cognome)
+CORSO (Nome, CFDocente)
+
+Si richiede di produrre l'insieme dei corsi riportando nome del corso e cognome del docente
+
+\prod_{nomeCorsi, Cognome}(
+	\rho_{Nome\to NomeCorso} (CORSO) \farf DOCENTE)
+```
+
+Proprietà del join naturale
+- Si dice completo se:
+	- \forall t\in r_1 : \exists t\in r_1 \farf r_2 : t[X_1] = t_1 \land
+		\forall t_2\in r_2 : \exists t \in r_1 \farf r_2 : t[X_2] = t_2
+		Se join natural enon è completo, le tuple che non contribuiscono al risultato si dicono dangling
+		
+- Commutativo
+- Assocuativo
+- Se le relazioni hanno lo stesso schema, allora r_1 \farf r_2 = r_1 \cap r_2
+- Se le relazioni non hanno attributi comuni allora r_1 \farf r_2 = r_1 \times r_2 (prodotto cartesiano)
+
+In generale la cardinalità del join naturale è: 0 \leq |r_1 \farf r_2| \leq |r_1| \dot |r_2|
+Mentre se il join è completo: max(|r_1|, |r_2|) \leq |r_1 \farf r_2| \leq |r_1| \dot |r_2|
+Se X_1 \cap X_2 è una superchiave per r_2: 0 \leq |r_1 \farf r_2| \leq |r_1|
+Mentre se X_1\cap X_2 è una superchiave per r_2 e esiste un vincolo di integrità referenziale fra X_1\cap X_2 ... manca altro

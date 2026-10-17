@@ -1,7 +1,78 @@
+\section{Concetti di base e tipi di segnali}
+Il corso di elaborazione dei segnali e immagini provvede a fornire strumenti, sia pratici che teorici, per l'elaborazione di segnali n-dimensionali,
+rappresentanti quantità fisiche o strutture visive. Conoscere le caratteristiche dei segnali per elaborare immagini e interpretarne il contenuto è
+una competenza che aiuta a interagire e conoscere fenomeni di vario tipo, la quale è tipicamente applicata in vari ambiti: creazione di contenuti
+multimediali, ispezioni visive per il controllo qualità, medico, per fare diagnosi, o videosorveglianza. Esistono diversi tipi di segnali, ma tutti
+seguono il seguente iter di elaborazione: \begin{itemize}
+	\item Ricezione del \textbf{segnale analogico} tramite apposito strumento. Si ottiene una funzione continua $x(t)$.
+	\item \textbf{Campionamento}: Divide la funzione in più intervalli di tempo dal	valore discreto $x[t]$.
+	\item Quantizzazione: Mappatura di ogni campione ottenuto per arrotondarli a valori discreti $x_q[t]$.
+\end{itemize}
 
+\noindent Il risultato di questo processo è un segnale digitale, descritto da una sequenza di numeri, sulla quale si può attuare l'iter di elaborazione,
+inteso come l'esecuzione di operazioni matematiche su di essa. Dopodiché, sarà necessario riportare il segnale modificato nel dominio del tempo, quindi
+in forma analogica, nel rispetto del teorema di Nyquist-Shannon. Oggi ogni computer ha a disposizione vari programmi per la conversione dei segnali, i
+cui due tipi principali sono \textbf{unidimensionali} e \textbf{bidimensionali}. I primi descrivono tipicamente quantità fisiche in funzione di una
+variabile indipendente, come il tempo. Il campionamento discretizza la variabile indipendente, mentre la quantizzazione si occupa dell'ampiezza del
+segnale.\par
+I \textbf{segnali 2D}, invece, sono una rappresentazione di una scena o oggetto visuale, la quale è descritta tramite una matrice bidimensionale i cui
+elementi, detti \textbf{pixel}, contengono valori numerici relativi a componenti di colore. In questo contesto, campionamento e quantizzazione
+concernono lo spazio nelle due dimensioni; a partire da un'immagine analogica, la si passa per il sistema di conversione, il quale la proietterà su una
+matrice per poterla campionare\footnote{Fun fact, negli anni '20 si usava fondamentalmente la stessa tecnica e i valori dei "pixel" erano ottenuti
+tramite trasmissioni telegrafiche.}. In base al risultato ottenuto, la si discretizzerà determinando i valori relativi al colore contenuti dentro ai
+pixel. In particolare, per le immagini digitali definiamo alcune misure legate al campionamento: \begin{itemize}
+	\item \textbf{Dimensione}: Numero di pixel disponibili all'interno della matrice, definito come il prodotto tra pixel orizzontali e verticali: \[
+		\text{pixel}_H\times \text{pixel}_V
+	\]
+	\item \textbf{Risoluzione}: Numero di punti generati all'interno di un'area	pre-definita, come per esempio un $cm^2$. Si tratta di un valore legato
+	al supporto che genera l'immagine. Più sono, più l'immagine sarà risoluta e più bassa sarà la probabilità di perdere dati.
+\end{itemize}
 
+\noindent Come già menzionato, i valori all'interno dei pixel della matrice riguardano le componenti del colore, le quali sono descritte dalla \textbf{
+profondità del colore}, legata alla quantizzazione, determina il numero di bit allocati per fare variazioni di colore\footnote{tipicamente sono $8b$ per
+canale, quindi un intervallo di $[0, 255]$. Non necessariamente ogni pixel deve avere la stessa profondità}, e dallo \textbf{spazio colore}, una scala
+la cui somma dei tre elementi determina il colore effettivo. In particolare, esistono più spazi: \begin{itemize}
+	\item \textbf{RGB}: Red Green Blue è la più comune e fa uso della somma dei valori degli omonimi tre colori primari.
+	\item \textbf{HSL}: Hue Saturation Lightness determina il colore in base alla tinta (colore effettivo), saturazione (la sua intensità rispetto al
+	grigio) e luminosità.
+	\item \textbf{CMY}: Cyan, Magenta, Yellow, partendo dal bianco, sottrae i tre valori per creare le varie tinte.
+\end{itemize}
 
+\noindent Avere più spazi colori a disposizione è molto importante, poiché consente di effettuare operazioni su un range di caratteristiche più ampio.
+In particolar modo si fa uso degli \textbf{istogrammi delle immagini}, i quali agiscono come rappresentazione grafica della distribuzione delle tonalità
+dell'immagine, consentendo di giudicare i valori tonali in una grafica più contenuta. Lo si può inoltre fornire ai computer per effettuare elaborazioni
+specifiche su una determinata proprietà dell'immagine in questione. Generalmente, si ottengono immagini visivamente accettabili quando l'istogramma è
+piatto, poiché avendo più valori contrastanti è più semplice notare le eventuali differenze.\par
+Supponiamo ora di avere quattro elementi di colori diversi su uno sfondo omogeneo. Ci è possibile isolarli facilmente grazie all'istogramma, perché avrà
+il picco più alto data la prevalenza del colore di sfondo. Rimuovendolo, si isoleranno gli elementi. Altri tipi di segnali affrontati in questo corso
+saranno: \begin{itemize}
+	\item \textbf{Immagini dinamiche}: Video, composti da un insieme discreto di immagini, campionate in un determinato intervallo di tempo (FPS).
+	\item \textbf{Immagini volumetriche}: Volume di un'immagine ottenuto estendendo	la matrice di campionamento in tre dimensioni.
+	\item \textbf{3D Mesh}: Visualizzazione della superficie tridimensionale di un modello il cui involucro è mappabile su un'immagine 2D tramite mappa
+	UV.
+\end{itemize}
 
-\begin{comment}
-	Introduzione a Sistemi e Signali con enfasi sulle principali tipologie di segnali e immagini in ambito biomedico. Sistemi lineari tempo invarianti (LTIS) a tempo continuo e tempo discreto, risposta impulsiva, zero-input e zero-state, funzione di trasferimento, stabilità dei sistemi, analisi delle proprietà dei LTIS
-\end{comment}
+%
+
+\section{Modalità di immagini}
+Oltre ai tipi di immagine discussi esisono anche varie \textbf{modalità} per la loro acquisizione in base allo strumento o al sensore usato. In
+particolare abbiamo: \begin{itemize}
+	\item \textbf{Immagini di profondità}: Chiamate anche mappe range, enfatizzano la geometria dell'immagine indicando la distanza dell'oggetto
+	ritratto in base al valore dei pixel della matrice. Il valore di profondità è legato al punto di vista dello strumento usato per l'acquisizione, ed
+	è definito come la distanza tra punto di vista della camera e il primo punto dell'oggetto incontrato lungo il raggio di proiezione. Tipicamente sono
+	usate per la conversione di immagini tridimensionali in modelli 3D.
+	\item \textbf{Immagini stereo}: Chiamate anche mappe di disparità, sono il prodotto di due immagini acquisite da due punti di vista diversi,
+	tipicamente usate quando si vogliono acquisire informazioni geometriche tridimensionali di una scena intera.\par
+	Osservando uno stesso oggetto da due punti di vista diversi si proiettano due rette su di esso, consentendo di disambiguare la posizione esatta del
+	punto sull'asse di proiezione. Sfruttano inoltre il concetto di \textbf{parallasse}, che mostra come la distanza varia la velocità di spostamento
+	degli oggetti all'interno della scena; in particolare, più vicini sono, più velocemente si sposteranno.
+	\item \textbf{Immagini ultrasuoni}: Acquisite tramite elaborazione dei segnali ultrasuoni, codificano la profondità di una scena in base al tempo di
+	andata e ritorno che compie il segnale emesso dopo aver rimbalzato sull'oggetto. Sono tipicamente usate per le diagnosi in ambito medico e possono
+	essere a due o tre dimensioni.
+	\item \textbf{Immagini termiche}: Codificano le proprietà termiche di una determinata scena, definito un intervallo di valori relativo alla
+	temperatura. Generalmente usate per la videosorveglianza o nell'edilizia per rilevare eventuali dispersioni di calore.
+	\item \textbf{Immagini satellitari}: Categoria generale di immagini bidimensionali che consentono di avere una vista particolarmente ampia su una
+	zona specifica della Terra.
+	\item \textbf{Immagini radar}: Acquisite tramite elaborazione dei segnali di onde radio; consentono di mostrare oggetti o proprietà di una scena
+	che normalmente sarebbero invisibili. Sono infatti usate spesso in ambito meteorologico per indicare valori di umidità o altro.
+\end{itemize}

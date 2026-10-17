@@ -1,0 +1,55 @@
+23-10-25 ESI
+
+--- Analisi di sistemi LTI a tempo continuo
+Richiami alla tassonomia dei sistemi
+
+Trovare un modo per caratterizzare il sistema dei sistemi LTI.
+Sistema identificato come black box nel quale entra input f(t) ed esce output y(t)
+
+L'identificazione del sistema si fa attraverso la risposta impulsiva h(t), serve a determinare come il sistema evolve con un determinato input e spiega come il sistema risponde quando in ingresso non abbiamo nessun segnale.
+Ci serviremo del fatto che il sistema è lineare, identificheremo h(t) e poi useremo l'operazione di convoluzione.
+
+- [Proprietà di decomposizione]
+La risposta totale del sistema è la somma fra la risposta a zero input (quando f(t)= 0) + la risposta a stato zero (quando lo assumiamo a riposo e gli diamo uno stimolo).
+La linearità ci consente di valutare separatamente le due risposte che compongono quella totale. Se l'input può essere espresso come la somma di semplici componenti, l'output può essere ottenuto come la somma delle risposte ad ogni componente, le quali sono indipendenti l'una dall'altra.
+
+Sistemi rappresentati tramite equazioni differenziali, legate da una legge del sistema stesso.
+-- Notazioni per le derivate da 1 a n.
+al posto di y'(t) usiamo Dy. y''(t) = D^2y etc, etc. D è noto come l'operatore di derivata.
+
+- Esempio: 3y'(t) + 2y(t) = 0
+	(3Dy(t) + 2y(t)) = 0
+	y(t)(3D + 2) = 0 \implies 3D+2 = 0 
+	
+Ora dobbiamo scrivere l'equazione in forma polinomiale
+- Esempio: (3D+2)y(t) = (D+1)f(t) \implies Q(D)y(t) = P(D)f(t) //*Questa
+	dove Q(D) = 3D+2 e P(D) = D+1
+Questa equazione* rappresenta l'insieme di operazioni di derivazione di diverso ordine da fare su input e output. Rappresenta quindi la relazione del sistema.
+Si assume ci siano più entrate che uscite. Input a destra, output a sinistra.
+
+-- Calcolo della risposta zero-input
+È la risposta y(t) quando l'input f(t) = 0. La chiameremo y_0(t).
+Per il calcolo avremo che: Q(D)y_0(t) = 0.
+
+Ci serve una funzione che non cambia forma se derivata. L'esponenziale.
+y_0(t) = ce^{\lambda t}. Ora dovremo calcolare c e \lambda.
+	D^ny_0(t) = c\lambda^ne^{\lambda t}
+	
+	Sostituendo alla forma generale otteniamo:
+	c(\lambda^n + a_{n-1}\lambda^{n-1} + a_{n-2}\lambda^{n-2} + a_1\lambda + a_0)e^{\lambda t} = 0. Dividi per c ed e^{\lambda t} e hai l'equazione caratteristica del sistema.
+	
+// Rivedi ricetta su come fare per trovare equazione caratteristica, sta sulle slide.
+
+In base alle radici è possibile verificare se un sistema è stabile, non stabile etc.
+Casi ottenibili (tali e quali a quelli di analisi 2, eq. differenziali):
+	- Radici distinte
+	- Radici uguali
+	- Radici complesse
+	
+Ora ci sono da identificare le costanti. Servono n condizioni ausiliarie per n costanti. Se siamo a t=0 sono condizioni iniziali.
+
+--- Risposta zero-state
+Risposta del sistema in base a determinate condizioni iniziali, date da un \delta.
+Dopo aver dato l'input col delta, il sistema risponderà con una risposta zero-input.
+
+// Perdonami me del futuro, non ce la faccio più. Ma in ogni caso sarebbe stato utile guardare le sue slide. Inoltre, registra e posta tutto.

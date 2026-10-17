@@ -1,0 +1,82 @@
+Lez1 Elaborazione segnali e immagini - 08-10-26
+
+--- Segnali 1D
+Segnale analogico è funzione continua che rappresenta la variazione di una quantità fisica rispettivamente a una variabile indipendente.
+I segnali sono rappresentati con equazioni differenziali; un segnale digitale è ottenuto da un segnale analogico dopo che è passato da campionamento e quantizzazione.
+Il primo processo discretizza la variabile indipendente (si determina quante volte nel tempo di studia il segnale), mentre l'altra discretizza l'ampiezza (il valore) del segnale.
+
+Fare ciò ci consente di avere una sequenza di campioni. x(t) \to x[n] \to x_q[n]
+
+Segnale analogico è una funzione continua nel tempo
+Il campionamento stabilisce intervalli lungo l'asse x e in quali istanti osservare il segnale (arrotondato)
+La quantizzazione mappa ogni campione e la porta a valori discreti.
+
+A fine processo otteniamo quindi una sequenza di numeri con i quali si può effettuare delle operazioni matematiche.
+Elaborare un segnale quindi significa discretizzare un segnale analogico e compiere delle operazioni matematiche. Il risultato dell'elaborazione è poi un segnale che si riporta
+da discreto a continuo.
+
+Discretizzando è possibile perdere informazioni. Inoltre bisogna vedere se un segnale è ricostruibile in modo analogico a partire dalla sua discretizzazione.
+C'era una legge alla fine del corso di sistemi. E' quella.
+
+Nei pc ci sono naturalmente dei programmi che convertono segnali analogici a digitali.
+
+--- Segnali 2D
+Un'immagine digitale è una rappresentazione discreta di una scena o oggetto visuale, prodotta da campionamento e quantizzazinoe.
+General,ente salvata come matrice bidimensionale di pixel, dove ogni pixel (inteso come elemento x_{ij}) della matrice è associato a valori numerici che rappresentano intensità o
+componenti di colore, come valori di scala di grigi oppure canali RGB.
+
+Il campionamento in questo caso riguarda lo spazio, quindi l'immagihne si esprime spazialmente sulle due dimensioni, con una discretizzazione che rispecchia ciò, quindi lavora
+sempre su due dimensioni.
+
+Il valore del pixel è inizialmente un valore continuo che viene discretizzato con campionamento e quantizzazione, ovviamente, in base al parametro di quantizzazione definito.
+Questo valore può essere relativo all'intensità del colore, per esempio. La scala RGB consente di ottenere ogni colore.
+
+C'è una discretizzazione spaziale e in merito all'intensità del colore. Si parte da una scena continua per poi diventare un segnale discreto con questi valori.
+
+--- Intermissione storica
+Prime rappresentazioni di immagini si ottenevano con le trasmissioni da telegrafo negli anni 20. Cool.
+S'appoggiava la foto su una griglia e in base alla convenzione si trasmetteva il segnale elettrico. E' praticamente il concetto di campionamento: l'osservazione del valore per ogni
+cella disponibile e si inviava quello.
+A destinazione, ricevuta la sequenza di codice, la si può associare alla propria griglia per ricostruire l'immagine. Also cool.
+
+--- Campionamento e quantizzazione di immagini digitali
+Si parte da un'immagine analogica, la quale passata per il sistema di conversione, la proietta nella griglia per campionarla e poi in base a questo risultato, la si discretizza
+determinando i valori relativi al colore. Naturalmente, sono valori discreti.
+
+Dimensione dell'immagine: Numero di pixel disponibili all'interno della matrice, definito come Hor\times Ver
+Risoluzione di un'immagine: Numero di punti generati dentro un'area pre-definita, come per esempio in un cm^2. Si tratta di un valore legato al supporto che genera l'immagine.
+	Più punti all'interno di un'area, più alta sarà la risoluzione. Un minor numero di punti indica una loro maggiore grandezza, e più probabilità di perdita di dati.
+
+Dimensione e risoluzione sono legate al campionamento.
+
+Profondità di colore: Numero di bit allocati per fare variazioni di colore, generalmente lo standard è 8b/canale, quindi [0-255] valori. Valore legato alla quantizzazione.
+
+Alle volte è possibile modificare i bit allocati per alcune zone specifiche della griglia, per ottimizzare.
+
+Spazio colore: Fa riferimento al concetto di sintesi additiva, è la scala la cui somma dei tre elementi determina il colore. RGB è un esempio e la sua base è nera. Non a caso #000000
+	è nero.
+	
+Esistono diversi tipi di spazi colore, come HSL (tinta, sautrazione, intensità luminosa) o CMY (Ciano, Magenta, Giallo). E' semplice passare da uno spazio all'altro.
+
+Lavorare su un'immagine digitale significa quindi lavorare sui numeri salvati nei suoi pixel, per poi ritornare il segnale analogico.
+
+--- Image histogram
+Tipo di istogramma che agisce come rappresentazione grafica della distribuzione delle tonalità dell'immagine digitale. Plotta il numero di pixel per ogni valore tonale.
+Guardando all'istogramma per un'immagine specifica è possibile giudicare l'intera distribuzione tonale.
+Questo è comodo perché alle volte è meglio concentrarsi sull'intensità del colore per ricostruire le immagini, piuttosto che altro. Soprattutto per il computer che deve elaborarli
+quei valori.
+
+Generalmente, per ottenere immagini visivamente accettabili, si cerca di avere un istogramma piatto, perché avendo più valori contrastanti è più semplice notare le differenze.
+
+-- Segmentazione basata su istogramma
+Supponiamo di avere quattro elementi di colori diversi su uno sfondo omogeneo. E' possibile isolarli facilmente grazie all'istogramma, perché avrà il picco più alto data la prevalenza
+del colore di sfondo. Rimuovendolo, si isoleranno gli elementi. Questa operazione sinergizza naturalmente con lo spazio colore scelto.
+
+--- Immagini dinamiche
+Video è composto da un insieme discreto di immagini, campionate in un determinato intervallo di tempo (FPS)
+
+--- Immagini volumetriche
+Volume ottenuto estendendo la griglia in tre dimensioni. Matrice 3D.
+
+--- 3D mesh
+Visualizzazione della parte esterna, quindi esclusivamente della superficie tridimensionale. E' possibile mappare l'involucro sull'immagine tramite mappa UV.

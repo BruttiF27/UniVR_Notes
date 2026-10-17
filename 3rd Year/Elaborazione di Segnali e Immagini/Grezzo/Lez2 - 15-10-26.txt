@@ -1,0 +1,76 @@
+Lez2 Elaborazione segnali e immagini - 15-10-26
+
+--- Modalità di immagine
+Diversi atrumenti e sensori possono creare diverse modalità di immagine.
+
+- Immagini di profondità (mappe range):
+Enfatizza informazione geometrica dell'immagine.
+Indica la distanza di un oggetto in base al valore dei pixel della matrice.
+Divide quindi lo spazio da punti vicini a lontani in base all'intensità del grigio.
+La profondità è legata sempre dal punto di vista della camera che ha ottenuto
+l'immagine (camera inteso come strumento di acquisizione immagine)
+La profondità è la distanza tra il raggio della camera e il primo punto dell'oggetto
+che incontra.
+
+Sono usate per convertire immagini tridimensionali in modelli 3D.
+
+- Immagini stereo:
+Sempre la profondità ma in modo diverso (visto meglio poi)
+
+Modalità diffusa per catturare informazioni geometriche 3D di una scena intera.
+Osservare una scena da due punti di vista è il modo più comune per ottenere
+informazioni da una scena intera. Simula il comportamento dell'occhio umano in merito
+alla percezinoe della profondità.
+
+Osservando una stessa struttura con due camere si proiettano due rette sull'immagine.
+Tutti i punti sulle rette sono possibili proiezioni 3d dell'immagine.
+Con due viste è possibile disambiguare dove sta il punto sull'asse di proiezione.
+
+Due viste producono una mappa di disparità, che fa riferimento al concetto di
+parallasse, che mostra come la distanza varia lo spostamento degli oggetti:
+	- Se si spostano poco, sono più lontani.
+	- Se si spostano tanto, sono più vicini.
+	
+Compito per casa: Guarda la scena iniziale di bambi, peak.
+
+Insomma si prendono due immagini per generare quella di profondità
+
+- Immagini ultrasuoni: 
+Immagini normalmente usate per fare diagnosi in ambito medico, tipo ecografia.
+Ciò che è codificato è la profondità senza coinvolgere telecamere, bensì sonar.
+Si calcola la distanza in base a quanto tempo ritorna indiettro il segnale acustico
+dopo essere rimbalzato su un oggetto. Un roundtrip time, basically.
+
+Il segnale usato per la creazione dell'immagine sta all'interno dello spettro degli
+ultrasuoni.
+
+Qui il legame coi segnali è più netto, poiché si lancia un segnale acustico a un
+tempo t. L'invio e il ritorno sono i picchi.
+Questo tipo di immagini possono essere sia bidimensionali che tridimensionali.
+
+- Immagini termica:
+Codificano le proprietà termiche di una scena. Spesso usate nella videosorveglianza
+o l'edilizia per rilevare dispersione del calore.
+Si definisce un range di temperatura e i pixel terranno il valore mappato.
+Tendenzialmente i colori caldi indicano calore, mentre quelli freddi una sua assenza
+
+- Immagini satellitari:
+Categoria generale che hanno una visione molto ampia. Aiutano a osservare una parte
+molto estesa della terra.
+
+- Immagini radar
+Spesso usate in campo meteorologico, colgono segnali di onde radio da sensori per
+convertirli in una rappresentazione grafica.
+
+-----
+
+Conoscere le caratteristiche dei segnali per elaborare immagini ed interpretarne il
+contenuto aiuta ad interagire e conoscere fenomeni diversi.
+
+L'elaborazione di immagini e segnali ha applicazioni in vari ambiti, come quello di
+film e videogiochi, ispezione visiva (quality control), diagnosi mediche o
+videosorveglianza.
+
+----- Implementazione dell'ai in tal contesto
+Generazione di contenuti multimediali a partire da informazioni semantiche
+Object recognition

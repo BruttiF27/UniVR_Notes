@@ -1,11 +1,129 @@
-\section{Linguaggi e grammatiche}
-\section{Automi a stati finiti e linguaggi regolari}
-\section{Linguaggi liberi da contesto, forme normali e automi a pila}
-\section{Classificazione di Chomsky}
+\section{Storia dell'informatica}
+L'\textbf{informatica}, abbreviazione di informazione automatica è una scienza nata negli anni '60 dalla fusione di vari aspetti scientifici e
+ingegneristici. In particolare ha un'origine \textbf{matematica}, dove si è definito che cosa sia "calcolare", e una \textbf{tecnologica}, determinante
+gli strumenti utilizzati per il calcolo. Quest'ultimo, nel senso moderno, nasce nell'epoca dell'Illuminismo ed è dovuto, in ambito del Determinismo,
+alla necessità di approssimare logaritmi e funzioni trigonometriche mediante polinomi, ottenendo un risultato univoco a partire da date condizioni
+iniziali.\par
+Formalizzate queste tecniche nel '700, si vide successivamente la necessità di \textbf{meccanizzare} il calcolo. Il primo strumento funzionante fu la
+\textbf{macchina analitica}, creata da Charles Babbage e Ada Lovelace nel 19° secolo; proponeva un concetto rivoluzionario: la possibilità di
+programmazione per poter ritornare risultati in base ai parametri forniti. Poteva essere usata per sviluppare qualsiasi funzione di complessità e
+generalità arbitrarie, ripetendo operazioni sugli stessi elementi.\par
+Le origini matematiche dell'informatica ebbero invece luogo con la necessità di verificare se la matematica fosse formalizzabile come insieme finito non
+contraddittorio di assiomi. Ciò non è possibile, perché ci si scontra inevitabilmente con le contraddizioni e gli assurdi. L'effettivo limite di ciò
+che è calcolabile e non fu definito con il \textbf{teorema di incompletezza} di Gödel; la restrizione del range di studio fu fondamentale per avere
+un'idea più chiara del dominio operativo. Andando avanti con gli anni, Alan Turing ideò l'omonima macchina, la cui idea principale era la possibilità
+interpretare il \textbf{calcolo} come sequenza anche infinita di sostituzioni di simboli: un algoritmo. Questo era naturalmente un programma finito dove
+ogni passo dipende da altrettante informazioni finite. Separa inoltre il controllo dalla memoria, ponendo le basi per quello che sarebbero diventati
+i calcolatori moderni. Oltre a ciò, insieme a Church definì la \textbf{Tesi di Church-Turing}, la quale afferma che se un problema è intuitivamente
+calcolabile, allora esisterà una macchina di Turing (MDT) o un dispositivo equivalente\footnote{Strumenti come lambda-calcolo, funzioni ricorsive o
+linguaggi di programmazione turing completi.} in grado di risolverlo, ovvero calcolarlo. L'ambito di studio dell'informatica è interamente incluso
+nell'insieme delle funzioni calcolabili, ovvero i problemi, le cui soluzioni sono fornite dagli algoritmi.
+
+%
+
+\section{Contestualizzazione}
+Studiare la teoria della ricorsione e della calcolabilità è utile per fornire consapevolezza in merito ai limiti logici assoluti; insegna in primo luogo
+a riconoscere problemi impossibili, fornisce un criterio per capire quando fermarsi e permette di partire da assunzioni più chiare durante lo sviluppo
+software.\par
+Tutte queste competenze sono in ogni caso usate durante il \textbf{calcolo}, formalmente definito come la risoluzione di un problema tramite un
+algoritmo, indipendentemente da quanto tempo o spazio è richiesto per la computazione. Come già menzionato, tuttavia, non sarà sempre possibile trovare
+una soluzione per ogni problema proposto, anche se formalmente definibile; per questa ragione, in termini pratici, non esistono programmi che
+verifichino la correttezza assoluta o la sicurezza di un dato software. Ciò che più si avvicina allo scenario di controllo ideale è l'\textbf{analisi
+del software}, ovvero la verifica del comportamento del programma in base a ciò che ci si aspetta. In particolar modo bisogna garantire: \begin{itemize}
+	\item \textbf{Affidabilità}: Il software non deve andare in crash improvvisamente.
+	\item \textbf{Sicurezza}: Il software, interfacciandosi con utenti esterni, non deve essere violato o manipolato.
+	\item \textbf{Protezione}: Il software, se in controllo di sistemi critici, non deve causare incidenti.
+\end{itemize}
+
+\noindent Idealmente, dato un qualunque software con una data proprietà di interesse, esisterebbe un programma di analisi atto al calcolo automatico e
+preciso del soddisfacimento della stessa in tempo finito: il debugger ideale. Tuttavia, non è realistico che esista, poiché non abbiamo modo di
+verificare a priori se un programma termini o meno; in altre parole non può esistere: \[
+	\text{Per ogni programma } p\in \mathbb{L}, \text{ halt}(p) = \text{true} \iff p\text{ termina}
+\]
+
+\noindent Ciò vale anche per un eventuale programma antivirus ideale, che segnalerebbe correttamente ogni malware nel caso in cui i relativi programmi
+in questione eseguissero compiti malevoli, come rubare o cifrare i dati. Questo perché non è possibile creare un algoritmo universale per un'analisi
+infallibile; tenendo a mente la definizione appena discussa, supponiamo un malware $M$ che esegue un secondo programma $P$ su un dato input $x$: se
+$P(x)$ termina, un file viene rimosso, altrimenti non arriva mai alla cancellazione. Non potendo sapere se un programma termini a priori, non sarà
+altrettanto possibile segnalarlo come malware, mostrando il limite logico.\par
+Ancora più difficile sarebbe dimostrare che un software sta agendo in modo malevolo quando il discriminante è una proprietà semantica non banale, come
+la cifratura dei dati, nel caso dei ransomware. Da ciò, il \textbf{Teorema di Rice}: non esiste un algoritmo tale che per ogni programma sia capace di
+decidere automaticamente una proprietà semantica non banale, come per esempio la terminazione, fornire un risultato specifico, o determinare se due
+computazioni siano equivalenti.\par
+Ciò non significa che tutto sia precluso; bisogna accettare i limiti imposti dall'insieme dei problemi calcolabili per lavorare esclusivamente su questi
+ultimi. In questi termini, non sarà possibile avere analisi automatiche corrette e complete, come anche ottenere risposte sempre precise, data dalla
+possibilità del verificarsi di falsi negativi e positivi. In ogni caso, esistono più iter di lavoro per l'analisi del software: \begin{itemize}
+	\item \textbf{Model checking}: Controllo esaustivo di un modello del programma da analizzare.
+	\item \textbf{Analisi statica}: Controllo automatico ed esaustivo sul programma senza che venga eseguito.
+	\item \textbf{Testing}: Verifica di un sottoinsieme delle esecuzioni del sistema.
+	\item \textbf{Antivirus firma e sandbox}: Sistema difensivo probabilistico, vulnerabile a stealthing.
+\end{itemize}
+
+%
+
+\section{Problema dell'Informatica}
+Prima di definire formalmente il problema che l'Informatica si pone di risolvere, è necessario chiarire alcuni concetti preliminari: sappiamo in primo
+luogo che il dominio di lavoro è un sottoinsieme dell'insieme dei numeri naturali $\mathbb{N}$ contenente le funzioni calcolabili, le quali sono
+definite come un insieme di coppie appartenenti alle parti di $\mathbb{N}$, ovvero: \[
+	f\in \mathcal{P}(\mathbb{N}\times \mathbb{N})
+\]
+
+\noindent Per conoscere quante sono le funzioni del suddetto dominio, quindi la \textbf{cardinalità} dell'insieme $\mathcal{P}(\mathbb{N}\times
+\mathbb{N})$, notiamo che il numero di elementi all'interno di $\mathbb{N}\times\mathbb{N}$ ed $\mathbb{N}$ è equivalente e come conseguenza diretta
+sono entrambi numerabili e ordinabili. In questi termini esiste quindi una biezione univoca tra i due insiemi, ovvero che a ogni input corrisponde un
+output. La cardinalità dell'insieme delle parti $\mathcal{P}(\mathbb{N}\times \mathbb{N})$ sarà a sua volta equivalente a quella delle funzioni
+$\mathbb{N}\times\mathbb{N}$, dimostrando che esistono tante funzione quanti sottoinsiemi di $\mathbb{N}$.\par
+Si ritiene ora necessario capire quanti algoritmi risolutivi esistano, definiti in termini logici come sequenze di simboli su un alfabeto $\Sigma$, il
+quale deve essere finito e non vuoto; esisteranno quindi tanti programmi quante sono le stringhe componibili con il suddetto alfabeto, il cui insieme
+è indicato con $\Sigma^*$. Per esempio: \[
+	\Sigma = \{a, b\} \implies \Sigma^* = \{\epsilon, a, b, aa, ab, ba, bb, aaa, ...\}
+\]
+
+\noindent Dove $\epsilon$ rappresenta la stringa vuota. Si tratta di un insieme ordinabile privo di un limite superiore e in quanto tale può essere
+messo in relazione con quello dei naturali; ne concludiamo che: \[
+	|\Sigma^*| = |\mathbb{N}|
+\]
+
+\noindent Dunque la cardinalità dell'insieme degli algoritmi è equivalente a quella dell'insieme dei naturali. Inoltre, per il \textbf{teorema di
+Cantor}, si può dimostrare come l'insieme delle parti avrà sempre cardinalità maggiore rispetto a quello intero; per esempio: \[
+	S = \{a, b\} \implies \mathcal{P}(S) = \{\{a\}, \{b\}, \emptyset, \{a,b\}\} \implies |S| = 2; |\mathcal{P}(S)| = 4
+\]
+
+%
+
+\section{Concetti di base richiesti}
+
+
 
 \begin{comment}
-	Linguaggi e grammatiche,
-	Automi a stati finiti e linguaggi regolari,
-	Linguaggi liberi da contesto, forme normali e automi a pila,
-	Classificazione di Chomsky (cenni).
+--- Concetti base
+	- f: D\to C		D è dominio, C è codominio
+	- f\subseteq D\times C
+	- range(f) = {c\in C | \exists d\in D.f(d) = c}, l'insieme degli elementi che possiamo ottenere come output nel codominio, quindi la sua immagine.
+	
+--- induzione matematica
+Sia A \leq \subseteq A\times A relazione antisimmetrica e transitiva, ma non riflessiva.
+Per poter avere un'induzione si richiede che \leq sia ben fondata, quindi non esistono catene discendenti infinite (rivedi cosa intende con catena)
+Se le catene non sono infinite, significa che ci sono degli elementi minimali, ai quali ci si blocca. Sono i garanti della terminazione. Il loro insieme forma la base di A.
+
+Il principio di induzione dice che:
+Dato (A, \leq) ben fondato.
+Dato \pi proprietà sugli elementi di A
+
+\forall a\in A, \pi(a) \iff 
+	- Passo base: \forall a\in Base(A).\pi(a)
+	- Passo induttivo: \forall b < a.\pi(b) \implies \pi(a)
+	
+Se valgono ambo i passi, l'induzione è dimostrata. In particolare la difficoltà è provare che l'ipotesi induttiva [\forall b < a.\pi(b)] implica la tesi \pi(a)
+
+EG: \forall n\geq 1 \Sigma_{i=1}^n i = \frac{n(n+1)}{2} = \pi(n)
+Con A = N, la Base(A) = 0
+
+	- Passo base: n=1
+		\pi(1) \implies \Sigma_{i=1}^1 = \frac{1(1+1)}{2} = 1. Corretto.
+		
+	- Passo induttivo: \forall n \in N {0,1}.\pi(n)
+		- Ipotesi induttiva: \forall m < n.\pi(n)
+		\sum_{i=1}^n = \sum_{i=1}^{n-1} i+n = \frac{(n+1)(n-1+1)}{2}+n = \frac{n(n-1)}{2}+n = \frac{(n+1)n}{2}
+
 \end{comment}

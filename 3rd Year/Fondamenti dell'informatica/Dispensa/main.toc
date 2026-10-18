@@ -1,6 +1,11 @@
-\contentsline {chapter}{\numberline {1}Automi e linguaggi formali}{3}{}%
-\contentsline {section}{\numberline {1.1}Linguaggi e grammatiche}{3}{}%
-\contentsline {section}{\numberline {1.2}Automi a stati finiti e linguaggi regolari}{3}{}%
-\contentsline {section}{\numberline {1.3}Linguaggi liberi da contesto, forme normali e automi a pila}{3}{}%
-\contentsline {section}{\numberline {1.4}Classificazione di Chomsky}{3}{}%
-\contentsline {chapter}{\numberline {2}Teoria della calcolabilità}{4}{}%
+\contentsline {chapter}{\numberline {1}Introduzione}{3}{}%
+\contentsline {section}{\numberline {1.1}Storia dell'informatica}{3}{}%
+\contentsline {section}{\numberline {1.2}Contestualizzazione}{4}{}%
+\contentsline {section}{\numberline {1.3}Problema dell'Informatica}{5}{}%
+\contentsline {section}{\numberline {1.4}Concetti di base richiesti}{6}{}%
+\contentsline {chapter}{\numberline {2}Automi e linguaggi formali}{7}{}%
+\contentsline {section}{\numberline {2.1}Linguaggi e grammatiche}{7}{}%
+\contentsline {section}{\numberline {2.2}Automi a stati finiti e linguaggi regolari}{7}{}%
+\contentsline {section}{\numberline {2.3}Linguaggi liberi da contesto, forme normali e automi a pila}{7}{}%
+\contentsline {section}{\numberline {2.4}Classificazione di Chomsky}{7}{}%
+\contentsline {chapter}{\numberline {3}Teoria della calcolabilità}{8}{}%

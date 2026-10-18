@@ -1,0 +1,236 @@
+01-12-25 - FondInfo
+
+--- Teorema di specializzazione (SMN)
+Dà uno strumento aggiuntivo oltre la macchina di Turing per implementare una funzione calcolabile.
+Fissa la possibilità di garantire l'esistenza di una funzione totale.
+
+\lambda xy . x+y
+
+input(x), input(y)
+while (y>0) {
+	y--;
+	x++;
+}
+output(x)
+
+Se diamo una funzione con y=5, la funzione sarà \lambda x.x+5.
+input(x)
+y = 5;
+
+while (y>0) {
+	y--;
+	x++;
+}
+output(x)
+
+Th. \forall n,m \geq 1, esiste una funzione totale ricorsiva s tale che \forall x,y_1, ..., y_m:
+	\lambdaz_1 ... z_n . \phi x(y_1 ... y_m z_1 ... z_n) = \lambda z_1 ... z_n \phi s(x, y_1 ... y_m)(z_1 ... z_n), dove:
+		- Le z sono gli input che rimangono incognite.
+		- \phi x è il codice
+		- le y sono gli input che specializzano
+		- \phi s è la trasformazione totale del codice x e considerando gli input specializzati y_1 ... y_m
+		
+Dimostrazione su: m = n = 1, il caso particolare più semplice.
+\lambda z. \phi x(y,z)
+Fissiamo x_0 programma e y_0 l'input su cui specializzare, ottenendo la funzione: \lambda z.\phi x_0(y_0, z)		// \phi x_0 è la funzione calcolata dalla MdT,
+																													// Il cui codice è aritmetizzato in x_0
+La funzione è ovviamente calcolabile, quindi, per la tesi di Church, esiste una MdT che la calcola, il cui codice dipende, ed è costruibile ricorsivamente, da x codice originale e
+y input specializzato. Esiste dunque una funzione ricorsiva totale, il cui codice è s(x_0y_0) con s funzione totale.
+Quindi la funzione di questo codice \phi_{s(x_0y_0)}(z) = \lambda z.\phi_{x_0}(y_0, z)
+
+--- Prima Proiezione di Futamura
+Dato un programma sorgente appartenente ad un linguaggio di programmazione, esiste una trasformazione in un programma semanticamente equivalente target in un altro linguaggio.
+
+Dimostrazione: Supponiamo che Int sia la macchina universale; un programma che calcola qualcosa, il quale prende in input un dato ed esegue il programma su di esso.
+Int(p,d) = P(d)
+Supponiamo ora uno specializzatore spec con un programma Q a due input. Lo specializzatore di Q rispetto a un dato è esattamente Q', che integra nel suo codice l'input
+specializzato d.
+Spec(Q, d) = Q_d.
+
+Dunque, in soldoni: target = Spec(Int, source)
+Quindi con uno specializzatore ed un interprete possiamo garantire un compiler.
+
+-- Linguaggio turing-completo
+Consente di calcolare tutte le funzioni intuitivamente calcolabili, ed è un modello equivalente alle macchine di turing.
+\exists p . \phi_p = \lambda x.0
+\exists p . \phi_p = \lambda x.x+1
+\exists p . \phi_p = \lambda x.x (proiezione)
+\exists p . \phi_p = \phi_a \circ \phi_m (composizione di due programmi)
+\exisrs p . \phi_p = \phi_{while}B{Q} (minimizzazione)
+\exists p . \phi_p(x,y) = \phi_x(y)
+\exists spec . \phi_{spec}(xy)(z) = \lambda z . \phi_x(y,z)
+
+Un linguaggio che non permette cicli non deterministici, quindi non ammette while, non è un linguaggiuo turing-completo.
+
+--- Gerarchia di Chomsky (ancora porcodio)
+Più per capire dove ci troviamo nella CAZZO di tassonomia delle funzioni calcolabili.
+
+ASD \subset Grammatiche CF \subset Funzioni primitive ricorsive \subset totali \subset Parziali ricorsive 
+a^n \subset a^mb^n \subset a^{2^n} \subset a^{ack} \subset 
+
+Capiamo, le primitive ricorsive totali si dicono ricordivi, le parziali ricorsive sono ricorsivamente enumerabili, mentre i problemi non decidibili sono non ricorsivamente
+enumerabili.
+
+Da quello che abbiamo appena visto possiamo concludere che \exists MdT m . L = L(m) = {y | \phi_m(y)END}.
+\phi_x funzione parziale ricorsiva ha come dominio tutti gli y per i quali il programma termina, quindi, come appena visto, dom(\phi_x) = {y | \phi_m(y)END}.
+
+--- Teoria della ricorsione
+Tutti i linguaggi, ovvero gli insiemim caratterizzati dalle MdT.
+Definizione di ricorsivamente numerabile: Un insieme di elementi (numeri) costruibili in modo algoritmico
+
+Definizione formale:
+Un insieme I\subseteq \mathbb{N} è re (ricorsivamente enumerabile) se è il dominio di una funzione parziale ricorsiva, quindi se:
+\exists \phi_x PR . dom(\phi_x) = I
+
+Useremo W_x per indicare il dominio di \phi_x, quindi un insieme re.
+
+Se abbiamo \phi_x PR \implies W_x = dom(\phi_x) è re.
+Se abbiamo I\subseteq\mathbb{N} e riusciamo a costruire la sua funzione semicaratteristica \psi_I(x) = \begin{cases}
+	1 x\in I\\
+	ciclo infinito altrimenti
+\end{cases} \implies dom(\psi_I) = I
+
+Per dimostrare che un insieme è re, bisogna fornire l'algoritmo della funzione semicaratteristica. Questo deve terminare sse è dato in input un elemento dell'insieme.
+
+- Insiemi ricorsivi: esiste un algoritmo che decide se un elemento sta o meno nell'insieme. Sono caratterizzati da una funzione totale, il cui dominio è ovviamente \mathbb{N}.
+Un insieme I è ricorsivo se esiste una funzione totale f_I tale che f_I(x) = \begin{cases}
+	1 x\in I\\
+	0 x\notin I
+\end{cases}. f_I è detta funzione caratteristica di I.
+
+Per dimostrar che un insieme è ricorsivo, bisogna fornire l'algoritmo che calcola la sua funzione caratteristica.
+Per esempio, {x | x è pari} \implies input(x), y = xmod2.
+z = neg(y)
+output(z)
+
+f è la caratteristica di I: \begin{cases}
+	1 x\in I\\		// x pari
+	0 x\notin I		// x dispari
+\end{cases}
+
+--- Esempio
+
+I = {x | \exists n.x = n^2}
+
+// Questa funzione non va bene come caratteristica in quanto non totale.
+input(x)
+n = 0;
+while (x != n^2) {
+	n++;
+}
+
+// Questa è corretta, è totale.
+input(x)
+n = 0;
+while (n <= x) {
+	if (x == n) return 1;
+	n++;
+}
+return 0;
+
+f_I = \begin{cases}
+	1 \exists n.x=n^2\\
+	0
+\end{cases}
+
+/*-*/*-*/*-*/*-*/*-*/*-*/*-*/*-*/*-*/*-*/*-*/*-*/*-*/*-*/*-*/*-*/*-*/
+
+Problema della terminazione: {x | \exists y.\phi_x(y)END}. Determina i programmi che terminano su almeno un input.
+Vediamo una variante: {x | \phi_x(0)\downarrow}
+
+input(x)
+stop = 0;
+build \phi_x		// Segnala che esiste un algoritmo ricorsivo
+
+while (!stop) {
+	execute next step \phi_x(0)
+	if \phi_x(0)\downarrow stop = 1;
+}
+return 1;
+
+--- I = {x | \exists y.\phi_x(y)\downarrow}
+input(x)
+y=0;
+stop = 0;
+
+// Questo algoritmo diverge anche per x\in I. Questa cosa non va bene.
+while (!stop) {
+	execute next step \phi_x(y);
+	if (\phi_x(y)\downarrow) stop=1;
+}
+return 1;
+
+--- Passi di calcolo:
+Già sai che i computer fanno le cose un passo alla volta. Si può descrivere induttivamente.
+	Passo 0: esegue un passo di 	\phi_x(0) se \downarrow, allora fine. Se non termino, eseguo un passo successivo.
+	Passo n+1: Esegue un passo per \phi_x(0), \phi_x(1), ..., \phi_x(n) se non vengono terminate prima.
+	
+Algoritmo dovetail si chiama questo, apparentemente.
+
+Semicaratteristica per I:
+input(x)
+costruiamo \phi_x (esiste una procedura ricordsiva per costruire \phi_x da x)
+y = 0;
+stop = 0;
+
+while (!stop) {
+	for (i from 1 to y) {
+		execute next step \phi_x(i);
+		if \phi_x(i)\downarrow stop=1;
+		y++;
+	}
+}
+return 1;
+
+Th: Algoritmo ricorsivo \implies Algoritmo re
+\exists f_A(x) = \begin{cases}
+	1 x\in A\\
+	0 x\notin A
+\end{cases} Ma allora possiamo definire: \psi_A(x) = \begin{cases}
+	1 f_a(x) = 1\\
+	while true (f_A(x) = 0)
+\end{cases}
+
+Supponiamo C_A algoritmo che calcola f_A. Questa è la sua semicaratteristica.
+input(x)
+y=C_A(x)
+if (y=1) output(y)
+else while (true) x=x;
+
+Teorema di Post: Un insieme A è ricorsivo sse A e il suo complemento \overline{A} sono re.
+Dim: Se A è ricorsivo \implies A re, ed analogamente costruiamo la semicaratteristica per \overline{A}. f_{\overline{A}} = \begin{cases}
+	1 f_A(x) = 0\\
+	\uparrow altrimenti
+\end{cases}
+
+Siamo ora A, \overline{A} re. Allora \psi_A = \begin{cases}
+	1 x\in A\\
+	\uparrow alrimenti
+\end{cases}
+\psi_A(x) = \begin{cases}
+	1 x\in \overline{A}\\
+	\uparrow altrimenti
+\end{cases}
+
+input(x)
+stop = 0;
+while (!stop) {
+	next step C_A(x)
+	if (C_A(x)\downarrow) output(1)
+	next step C_{\overline{A}}(x)
+	if (C_{\overline{A}}\downarrow) output(0)
+}
+
+// Il dolore è dentro di me
+
+A_m = {x | \phi_x(x)\downarrow in meno di m passi}		// Programma ricorsivo perché m è un input.
+Bisogna fornire l'algoritmo della funzione caratteristica f_{A_m}(x) = \begin{cases}
+	1 x\in A_m\\
+	0 x\notin A_m
+\end{cases}
+
+for (i from 1 to m) {
+	execute next step \phi_x(x)
+	if (\phi_x(x)\downarrow) output(1)
+}
+output(0)

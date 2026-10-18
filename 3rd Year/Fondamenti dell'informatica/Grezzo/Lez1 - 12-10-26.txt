@@ -1,0 +1,48 @@
+Lez1 Fondamenti - 12-10-26
+
+Esame, svolto sempre tutto lo stesso giorno:
+	> Quiz di sbarramento (Max 18)
+		Presenta 15 domande a scelta multipla di definizioni, risultati fondamentali ed esercizi standard. +2 if correct, -0.5 if wrong, +0 if not given
+		Sopra il 17.5 si può tentare lo scritto o registrare 18. Una volta superato il quiz con voto minimo 18 non si ripete più e rimane sempre valido fino all'ultimo appello.
+	> Scritto (Max 26)
+		Insieme di esercizi composto da due parti superabili separatamente. Il voto è composto dalla loro media e non è necessario avere la sufficienza in ambo le due parti.
+		Caso estremo: 6 e 30. Agli appelli è possibile svolgere una sola delle due parti, puoi scegliere in sede, perché in ogni appello tutte le parti sono disponibili.
+		Calcolo voto complessivo: S = bonus + [(28*scritto/30)]
+		scritto = (parte1 + parte2)/2
+	> Orale (NON FARLO): Per nessun motivo bisogna fare l'orale.
+
+Syllabus:
+	- Matematica di base
+		- Induzione matematica
+	- Linguaggi formali
+		- Definizioni
+		- Proprietà linguaggi formali
+		- Gerarchia
+	- Calcolabilità
+		- Modelli formali per il calcolo
+		- Ricorsività
+		- Riducibilità funzionale
+		
+--- Effettiva lezione
+Informatica è una scienza che nasce negli anni 60 ed è la fusione tra scienza e ingegneria. Ha un'origine matematica, che ha definito calcolare e tecnologica, gli strumenti usati
+per il calcolo.
+Il calcolo nel senso moderno nasce con il determinismo, poter determinare un risultato univocamente dalle condizioni iniziali. La necessità nacque dal dover approssimare logaritmi,
+funzioni trigonometriche mediante polinomi. I primi tentativi di meccanizzazione di questo calcolo si ebbero con macchine a vapore, orologi e automi nel 1800.
+Venne costruita, sulla base del telaio di jacquard, la macchina analitica, dove era possibile programmare la macchina per effettuare i calcoli. Può esere usata per sviluppare
+qualsiasi funzione di complessità e generalità arbitrarie ripetendo operazioni sugli stessi elementi. Ad essa è fornito un programma, una sequenza ordinata di istruzioni operative
+e i dati.
+
+Le origini matematiche dell'informatica hanno luogo con la domanda se quest fosse formalizzabile come insieme finito non contraddittorio di assiomi. Non è possibile, perché si
+scontra con gli assurdi.
+Vediamo se è calcolabile come manipolazione automatica di simboli privati del loro significato. Con questa seconda domanda si arriva al teorema di incompleteza di Goedel
+Fondamentalmente il riconoscimento di questi limiti è il meccanismo per trovare nuove idee.
+Turing ha poi ideato l'omonima macchina, la cui dea è di calcolare come sequenza di sostituzioni di simboli, è un programma finito, ogni passo dipende da informazioni finite e si
+separa il controllo dalla memoria. Questo è il modello teorico dei calcolatori moderni.
+
+Scopo è avere una macchina universale per tutti i problemi. Il computer è tale macchina.
+
+Tesi di Church-Turing: Se un problema è intuitivamente calcolabile, allora esisterà una MDT o un dispositivo equivalente in grado di risolverlo, quindi di calcolarlo.
+Altri dispositivi equivalenti: lambda-calcolo, funzinoi ricorsive, linguaggi di programmazione turing completi.
+
+La calcolabilità è importante studiarla perché definisce l'effettivo limite di ciò che può e non può essere risolto.
+I problemi sono visti come funzioni e le relative soluzioni sono date dagli algoritmi, le quali rientrano tutte nei problemi calcolabili.

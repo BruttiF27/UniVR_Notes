@@ -1,0 +1,219 @@
+15-12-25 - fondinfo
+
+Siamo nella teoria della ricorsione, precedentemente visto il concetto di insieme ricorsivo, quindi che ha esistente una funzione totale ricorsiva definita su N per ogni n\in N.
+Un algoritmo calcola questa funzione, la quale è detta caratteristica di I
+// Inserire la formula per la definizione della funzione caratteristica (già vista in precedenza, riguarda f(x))
+
+Poi abbiamo visto insiemi ricorsivamente enumerabili, dove esiste una funzione parziale ricorsiva, quindi il suo dominio (dom\psi = {x | \psi(x)\downarrow}) è contenuto in N.
+In tal caso possono esistere elementi x\in N tali per cui la funzione non è definita. La funzione si dice semmicaratteristica di I ed è definita come:
+\forall x\in N . \psi(x) = \begin{cases}
+	1 x\in I\\
+	\uparrow altrimenti
+\end{cases}
+
+L'unico modo di dimostrare che I\subseteq N è ricorsivo bisogna fornire un algoritmo totale che implementi la funzione caratteristica.
+
+Per dimostrare invece che I non è ricorsivo, bisogna generare un assurdo. Quindi si suppone sia ricorsivo e si trova un caso dove si arrivi ad assurdo.
+In alternativa, abbiamo anche un altro metodo: il teorema di Reiß.
+
+Per dimostrare poi che I\subseteq N è re, bisogna fornire un algoritmo che implementa la sua funzione semicaratteristica.
+
+Per dimostrare che I\subseteq N non è re, bisogna usare il teorema di Post (A è ricorsivo \iff A e \overline{A} sono re).
+Oppure c'è anche un'altra via misteriosa.
+
+--- Teorema di Reiß
+Proprietà ha un significato diverso qui. Diciamo una proprietà su N: X\subseteq N. Quindi è un qualunque insieme sia sottoinsieme improprio di N.
+
+ex. Proprietà di essere pari: x è pari se x/2 = resto 0
+{x | x mod2 = 0}. Questo è l'insieme dei numeri pari e rappresenta in modo estensionale la priprietà dei numeri pari.
+Dunque ogni sottoinsieme di numeri rappresenta una proprietà.
+
+Grazie all'aritmetizzazione delle Macchine di Turing: X \subseteq N corrisponde una proprietà di programmi (MdT).
+Ne concludiamo che N è un programma, mentre \void non è un programma. Esistono |P(N)| proprietà, dove P è l'insieme delle parti di N, è una quantità non numerabile.
+
+\pi_1 = {P\in MdT | P ha 50 righe di codice}
+\pi_2 = {P\in MdT | \forall x\in N . P(x) = 5}
+
+L'obiettivo del teorema di Reiß è distinguere questi due programmi, dando una caratterizzazione delle proprietà, dette "proprietà estensionali".
+Guarderà quindi il comportamento del programma.
+
+Le proprietà estensionali sono:
+\pi \subseteq N proprietà, è detta estensionale se \forall x,y \in N: \[x\in\pi \land \phi_x = \phi_y \implies y\in\pi\]
+\phi_x e \phi_y sono le funzioni calcolate dalla MdT a indice x e y rispettivamente, quindi dai programmmi di indici rispettivi x e y.
+
+se: \begin{cases}
+	x soddisfa la proprietà (x\in\pi)\\
+	x \land y calcolano la stessa funzione
+\end{cases}, allora anche y soddisfa \pi, quindi (y\in \pi).
+Questo è un modo formale per dire quale proprietà è parte del programma. Consente di distinguerne vari.
+
+Per esempio, avessimo programmi P, P', dove il primo P \in \pi_1, \pi_2. Se aggiungo una riga al programma, facendolo diventare P', allora P' \in \pi_2.
+
+Alcuni esempi su proprietà estensionali:
+- \void, N non sono estensionali.
+
+- {x | \forall y . \phi_x(y) = y}; prendiamo z\in\pi, allora per definizione di \pi: \phi_z(y) = y \forall y
+	Prendiamo w t.c. \phi_z = \phi_w, allora \forall y . \phi_w(y) = \phi_z(y) = y.
+		Per definizione di \pi allora w\in \pi.
+	
+- \pi = {x | \phi_x definitavamente >= 3}, quindi \exists m.\forall n \geq m . \phi_x(n) = 3
+	z\in \pi, per definizione di \pi, allora \phi_z def >= 3 \equiv \exists m.\forall n >= m. \phi_z(n) \geq 3.
+	w t.c. \phi_z = \phi_w, \forall n . \phi_w(n) = \phi_z(n) \implies \forall n \gerq m.\phi_w(n) = \phi_z(n) \geq 3
+		Che, per definizione di \pi w\in \pi.
+		
+Capiamo che stiamo ragionando ESCLUSIVAMENTE sul comportamento della funzione e non sul programma stesso, indipendentemente dall'input.
+
+-- effettivo teorema di Rice, quella appena vista era la premessa
+Sia \pi una proprietà estensionale. \pi è ricorsiva \iff è banale, ovvero \void oppure N.
+
+Dimostrazione:
+	<- \pi è una proprietà banale, allora \pi=\void \lor \pi=N, e \void, N sono insiemi ricorsivi.
+	-> \pi è ricorsivo \implies \pi è banale \equiv \pi non è banale \implies \pi non ricorsivo.
+	
+Dunque prendiamo \pi ricorsivo \implies \exists g totale ricorsiva caratteristica:
+g(x) = \begin{cases}
+	1 x\in\pi\\
+	0 x\notin\pi
+\end{cases}
+
+Supponiamo che \pi non sia banale, quindi: 
+	- \pi \neq \void \equiv \exists a\in \pi
+	- \pi \neq N \equiv \exists b\notin \pi
+
+Se arrivi all'assurdo hai dimostrato che \pi=0 \lor \pi=N.
+Continuiamo h:N\to N: h(x) = \begin{cases}
+	a g(x)=0 (x\notin\pi)\\
+	b g(x)=1 (x\in\pi)
+\end{cases}
+
+Per il tworema della ricorsione di Kleene: h totale \implies \exists n_0 . \phi_{n_0} = \phi_{h_{n_0}}
+Ora, dove sta n_0 rispetto a \pi?
+	- Se n_0\in \pi (\phi_{n_0} = \phi_{h_{n_0}}) \pi è estensionale \implies h(n_0)\in\pi; ma h(n_0) = b\notin\pi, perché n_0\notin \pi. 
+	- Se n_0 \notin \pi \implies h(n_0) \notin \pi sempre per estensionalità, tuttavia h(n_0) = a\in\pi perché n_0\notin\pi.
+	Dunque \pi deve essere banale.
+	
+Esempi:
+	{x | \forall y . \phi_x(y)\downarrow}		// E' estensionale perché da una condizione sull'intera \phi_x.
+	{P | P contiene almeno un ciclo while}		// Non estensionale, non parlo del comportamento
+	{x | x ha dimensione \geq 1000}				// No
+	{P | P soddisfa confidenzialità}			// Sì
+	{x | \phi_x(x)\downarrow}					// E' l'insieme k, non è ricorsivo. Non è nemmeno estensionale. Chiede che una funzione dipendentemente dal codice termini.
+	
+\pi = {x | \phi_x(x)\downarrow}; z\in \pi \implies \phi_z(z)\downarrow, per def. di \pi \implies w . \phi_w = \phi_z \implies \phi_w(z) = \phi_z(z)\downarrow
+Per poter dire che w\in\pi dovremmo avere \phi_w(w)\downarrow. Non è estensionale perché qua chiediamo anche il codice stesso oltre al comportamento.
+
+--- Esercizi vari:
+A è ricorsivo?
+	- Se A = {x | \pi(x)}. Costruiamo la caratteristica e usiamo il teorema di post per dimostrare la ricorsività
+	- Se A = {f(x) | x\in N}. Dimostriamo f totale monotona non decrescente.
+	- Se A = {f(x) | \pi(x)}, come per esempio {x^2 | x pari}, va fornita la funzione caratteristica, come nel primo caso.
+	
+A non è ricorsivo?
+	- A è estensionale e non banale? Usiamo Rice per dimostrarlo.
+	- A non è estensionale? Costruisci un assurdo.
+	
+Ex 1. A = {x | W_x = \void}		// Insieme di programmi che divergono sempre, è un ciclo infinito.
+		= {x | \forall y . \phi_x(y)\uparrow}
+	
+Dimostriamo quindi A estensionale
+
+z\in A \implies (per definizione di A) W_z = \void \equiv \forall y . \phi_z(y)\uparrow
+w\in N . \phi_w = \phi_z \implies W_w = W_z, perché \forall y. \phi_w(y) = \phi_z(y)\uparrow
+	Ma sempre per definizione di A \implies w\in A.
+	
+A non banale : A\neq\void (\exists x\in A) A\neq N (\exists x \notin A)
+f(x) = \lambda x.x; questa è una funzione ricorsiva, quindi c'è una macchina di turing che la calcola ed esiste una n . \phi_n = f \implies W_n = N\neq \void \implies n\notin A
+	\implies A \notin N.
+	
+La caratteristica è quindi f(x) = \lambda x.\uparrow (while true do x=x). Questa è una funzione ricorsiva, quindi esiste una MdT che la calcola ed esiste m .
+	\phi_m = f \implies W_m = \void \implies m \in A \implies  A \neq \void. A è quindi non banale, e per Rice non è ricorsivo.
+	
+Ex 2. B = {x | W_x \neq \void}, complemento di A.
+	- Dimostrare B non ricorsivo con il teorema di rice.
+	
+Se A ricorsivo, allors \overline{A} è riocorsivo e hanno la stessa funziope caratteristica con output invertiti.
+Se B fosse ricorsivo, allora anche \overline{B} = A lo sarebbe. Ma siccome A non è ricorsivo, allora anche B non può essere ricorsivo.
+
+Dimostrazione che B è ricorsivo:
+W_x \neq 0 \off \exists y . \phi_x(y)\downarrow
+	input x. Costruiamo \phi_x, esiste una procedura ricorsiva per costruire la macchina di indice x.
+	
+	y = 0		// Bisogna cercare l'input di terminazione partendo da 0.
+	n = 0		// Conta i punti da terminare
+	
+	// Usciamo dal ciclo quando troviamo un input su cui \phi_x termina, quindi n=1
+	while (n = 0) {
+		for (i from 0 to y) {
+			esegui next step di \phi_x(i)
+			if (\phi_x(i) ha terminato nello step eseguito) n++;
+		}
+		y++;
+	}
+	return 1;
+	
+Poiché l'algoritmo termina esattamente sugli elementi in B e diverge esclusivamente sugli elementi non in B, B è re.
+
+---
+Per il teorema di Post, allora A = \overline{B} non può essere ricorsivo, poiché se A fosse re, essendo B re, allora A sarebbe ricorsivo (na roba assurda fra cioè)
+---
+
+Esempio di non estensionale - Ex3: C = {x | \phi_{x+3}(x)\downarrow}
+Questo non è estensionale perché prendendo:
+	- z\in C; \phi_{z+3}(z)\downarrow 
+	- \phi_w = \phi_z; \phi_{w+3}(z) = \phi_{z+3}(z)\downarrow
+	
+	\phi_{w+3}(w)? Allora? Ebbene, non è estensionale.
+	
+Supponiamo C ricorsivo \implies \exists f_C caratteristica
+f_c(x) = \bergin{cases}
+	1 x\in C\\
+	0 x\notin C
+\end{cases}
+
+Costruiamo D: 
+	input (x)
+	if (x > 2) z = x-3;
+	else return 0;
+	
+	costruisci \phi_z
+	if (f_C(x) == 1) {
+		while (true) x = x;
+	} else return 1;
+	
+D (y+3) \to z = (y+3)-3 = y
+D è calcolabile se f_C è calcolabile totale, quindi \exists y_0 . D = \phi_{y_0}
+
+D (y_0+3) \to z = y_0
+	Se f_C(x) = f_C(y_0+3) = 1		// se y_0+3\in C, \phi_{y_0+3}(y_0)\downarrow
+		\implies D(y_0+3)\uparrow	\phi_{y_0}(y_0+3)
+		
+Eh no dio porco
+Basta
+
+---
+
+A_i = {x | \forall n . \phi_x(n) = n^2, x > i}		// Insieme non ricorsivo per Rice, dimostriamo estensionabile.
+
+A_i = {x | \forall n . \phi_x(n) = n^2}
+
+z\in A_i:
+	- z > i
+	- \phi_z(n) = n^2 \forall n\in N
+	
+w . \phi_z = \phi_w
+	- w > i		// Sicuramente esiste w>i perché altrimenti avrei un insieme di programmi finito
+	- w <= i
+	
+Tecnica del padding, rivedere.
+
+Il mio stick è caldo come una torrida notte d'estate
+Il morbido movimento del booty della mia baddie ricorda il lento dondolio delle fronde degli alberi accarezzati dalla brezza primaverile (GRR POP POP POP)
+I miei racks si ergono come vette innevate (soldi)
+Mentre la lean si insinua nella soda (Lean)
+Il mio calice è sporco (SHUAA)
+
+Come scaglie di luce sul mare, in una sera lontana di agosto, silenzioso il mio collo brillava (shh)
+E mentre il giorno svaniva, un bagliore cremisi tingeva il Daytona
+Al polso portavo il tramonto (PA PA PRR)
+Pile di cash come colonne d'ercole ai confini del mondo (Bleah)
+non

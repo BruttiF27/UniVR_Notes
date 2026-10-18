@@ -1,0 +1,112 @@
+Lez2 Fondamenti - 13-10-26
+
+--- Il senso
+Studiare la teoria della ricorsione e della calcolabilità è utile per fornire consapevolezza in merito ai limiti logici assoluti; insegna in primo luogo a riconoscere problemi impossibili, fornisce un criterio per capire quando fermarsi e permette di partire da assunzioni più chiare durante lo sviluppo software.\par
+Per \textbf{calcolare} si intende risolvere un problema tramite un algoritmo indipendentemente da quanto tempo o spazio è richiesto per la computazione, ma, come già menzionato, non sarà sempre possibile trovare una soluzione per ogni problema proposto, anche se formalmente definibile; per questa ragione, se andiamo in ambito pratico, non esistono programmi che verifichino la correttezza assoluta o la sicurezza di un dato software. Ciò che più si avvicina allo scenario di controllo ideale è l'\textbf{analisi del software}, ovvero la verifica del comportamento del programma in base a ciò che ci si aspetta. In particolar modo bisogna garantire: \begin{itemize}
+	\item \textbf{Affidabilità}: Il software non deve crashare improvvisamente.
+	\item \textbf{Sicurezza}: Il software, interfacciandosi con utenti esterni, non deve essere violato o manipolato.
+	\item \textbf{Protezione}: Il software, se in controllo di sistemi critici, non deve causare incidenti.
+\end{itemize}
+
+--- Debugger ideale
+\noindent Idealmente, dato un qualunque software con una data proprietà di interesse, esisterebbe un programma di analisi atto al calcolo automatico e preciso del soddisfacimento di questa proprietà in tempo finito: il debugger ideale. Tuttavia non è realistico che esista, poiché non abbiamo modo di verificare a priori se un programma termini o meno: \[
+	\text{Per ogni programma } p\in \mathbb{L}, \text{halt}(p) = \text{true} \iff p\text{ termina}
+\]
+
+--- Antivirus ideale
+\noindent Questo discorso vale anche per un eventuale programma antivirus ideale, che segnalerebbe correttamente ogni malware se i programmi in questione eseguono compiti malevoli, come rubare o cifrare i dati. Non abbiamo modo di creare un algoritmo universale per osservare i software capace di dire se prima o poi agirà con intento malevolo; supponiamo infatti un malware $M$ che esegue un programma $P$ su un dato input $x$: se $P(x)$ termina, rimuove un file, altrimenti non arriva mai alla cancellazione. Verificandosi quest'ultimo caso non sarebbe possibile segnalare $M$ come malware, dimostrando il limite logico.
+
+--- Ransomware
+Generalmente indistinguibile da un software legittimo, perché legge molti file dell'utente, li cifra e salva questi file cifrati, per poi rendere inutilizzabili gli originali.
+Sapere che un programma cifra i dati è una proprietà non banale di base, è difficile capire quando è eseguito in modo malevolo.
+
+----- Teorema di rice: anticipo
+Non esiste un algoritmo tale che per ogni programma automaticamente decide una proprietà semantica non banale, come la terminazione, dare un certo risultato o determinare se due computazioni
+sono equivalenti.
+Questo non significa che tutto ci sia precluso: bisogna solo lavorare nell'ambito del calcolabile:
+	- rinunciare di avere analisi in toto automatiche
+	- Ci si restringe a solo una classe ristretta di programmi
+	- Non sempre si potrà fornire una risposta precisa
+	- Accettiamo falsi negativi e falsi positivi.
+
+La risposta universale non esiste e dipende dal contestp applicativo e le varie prorpietà da verificare.
+Tecniche di analisi dei programmi sono per esempio il model checking, che controlla un modello del programma da analizzare in modo esaustivo.
+Altrimenti c'è l'analisi statica, la quale lavora sul programma. E' esaustiva su input ed è completamente automatica.
+Poi esiste anche il testing, che osserva un sottoinsieme delle esecuzioni del sistema. E' un sottoinsieme preciso che riesce a dare risposte concrete.
+Esistono anche antivirus basati su firma, sistemi difensibi probabilistici. Di base girano bene ma possono essere elusi da tecniche di stealthing.
+Antivirus basati su sandbox pure, ma essendo anche loro probabilistici ptrebbero etichettare un comportamento normale come malevolo.
+
+--- Problema dell'informatica
+f:N\to N generica funzione matematica che associa i naturali ai naturali.
+Tra queste funzioni ci chiediamo quali siano calcolabili e quindi per le quali esiste un algoritmo che le calcola.
+Algoritmo inteso come sequenza finita, discreta e non ambigua di passi di calcolo.
+
+Per definizione, una funzione è un insieme di coppie in N\times N. Eg: f(2)=3 \to (2,3).
+Le funzioni calcolabili sono un sottoinsieme delle funzioni f: N\times N. Il dominio delle funzioni è dunque f\in P(N\times N), con P l'insieme delle parti di N\times N.
+
+Bisogna capire quante sono le funzioni del nostro dominio P(N\times N), quindi la cardinalità dell'insieme P.
+	- |N\times N| = |N| \equiv Carindalità di N\times N è uguale a quella di N.
+		\equiv L'insieme N\times N è numerabile come conseguenza diretta.
+		\equiv Esiste quindi una biezione/mappatura univoca tra N\times N ed N. (ad ogni in corrisponde un out, definizione di funzione)
+
+E' inoltre possibile mettere in ordine le coppie che si ottengono.
+
+La cardinalità dell'insieme P(N\times N) è quindi uguale a quella delle funzioni N\times N, quindi esattamente equivalente a quella dell'insieme dei numeri naturali.
+Insomma esistono tante funzioni quanti sottoinsiemi di N.
+
+Capito ora quante funzioni ci sono, bisogna chiarire quanti algoritmi esistano:
+Sono richiesti un paio di concetti preliominari:
+	- Definizione di algoritmo:
+		Dato un alfabeto \Sigma, inteso come un insieme finito e non vuoto di simboli, i quali saranno usati per comporre il programma/algoritmo
+	- Definizione di programma:
+		Sequenza di simboli (stringa) sull'alfabeto \Sigma.
+
+Dunque |programmi| = |stringhe su \Sigma|, esistono tanti programmi quante sono le stringhe componibili con l'alfabeto \Sigma.
+Per brevità, l'insieme delle stringhe finite su sigma si indica come \Sigma*
+
+Eg: \Sigma = {a, b}; \Sigma* = {\epsilon, a, b, aa, ab, ba, bb, aaa, ...}
+\epsilon è una stringa vuota.
+\Sigma* non ha esattamente un limite superiore, quindi è infinito. Le stringhe componibili hanno inoltre un ordine. Questo insieme può essere quindi messo in biezione con N
+esattamente perché i suoi elementi (di \Sigma*) possono essere ordinati.
+
+Dunque l'insieme è numerabile, ragion per cui: |\Sigma*| = |N|
+Ordiìunque la cardinalità dell'insieme dei provgrammi è uguale a quella di N. Esistono tanti programmi quanti sono i numeri naturali.
+
+--- Relazione tra |N| e |P(N)|, Teorema di Cantor
+\forall S.|S| < |P(S)|
+Dunque per ogni insieme S si avrà che la sua cardinalità sarà minore di quella dell'insieme delle sue parti.
+	- EG: 
+		S = {a, b}			\implies 		P(S) = {{a}, {b}, \emptyset, {ab}}		|S| = 2; |P(S)| = 4
+		S = \emptyset		\implies		P(S) = {\emptyset, {\emptyset}}			|S| = 0; |P(S)| = 1
+		
+--- Ipotesi del continuo: |P(N)| = |R|, quindi non è un insieme numerabile e di conseguenza non ordinabile. Ricorda, è un'ipotesi ancora non confutata.
+
+--- Concetti base
+	- f: D\to C		D è dominio, C è codominio
+	- f\subseteq D\times C
+	- range(f) = {c\in C | \exists d\in D.f(d) = c}, l'insieme degli elementi che possiamo ottenere come output nel codominio, quindi la sua immagine.
+	
+--- induzione matematica
+Sia A \leq \subseteq A\times A relazione antisimmetrica e transitiva, ma non riflessiva.
+Per poter avere un'induzione si richiede che \leq sia ben fondata, quindi non esistono catene discendenti infinite (rivedi cosa intende con catena)
+Se le catene non sono infinite, significa che ci sono degli elementi minimali, ai quali ci si blocca. Sono i garanti della terminazione. Il loro insieme forma la base di A.
+
+Il principio di induzione dice che:
+Dato (A, \leq) ben fondato.
+Dato \pi proprietà sugli elementi di A
+
+\forall a\in A, \pi(a) \iff 
+	- Passo base: \forall a\in Base(A).\pi(a)
+	- Passo induttivo: \forall b < a.\pi(b) \implies \pi(a)
+	
+Se valgono ambo i passi, l'induzione è dimostrata. In particolare la difficoltà è provare che l'ipotesi induttiva [\forall b < a.\pi(b)] implica la tesi \pi(a)
+
+EG: \forall n\geq 1 \Sigma_{i=1}^n i = \frac{n(n+1)}{2} = \pi(n)
+Con A = N, la Base(A) = 0
+
+	- Passo base: n=1
+		\pi(1) \implies \Sigma_{i=1}^1 = \frac{1(1+1)}{2} = 1. Corretto.
+		
+	- Passo induttivo: \forall n \in N {0,1}.\pi(n)
+		- Ipotesi induttiva: \forall m < n.\pi(n)
+		\sum_{i=1}^n = \sum_{i=1}^{n-1} i+n = \frac{(n+1)(n-1+1)}{2}+n = \frac{n(n-1)}{2}+n = \frac{(n+1)n}{2}

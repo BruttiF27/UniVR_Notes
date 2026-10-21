@@ -2,12 +2,13 @@
 \contentsline {section}{\numberline {1.1}Applicazioni gestionali e DBMS}{3}{}%
 \contentsline {section}{\numberline {1.2}Creazione di una base di dati}{4}{}%
 \contentsline {section}{\numberline {1.3}Progettazione concettuale}{5}{}%
-\contentsline {section}{\numberline {1.4}Progettazione logica}{6}{}%
-\contentsline {chapter}{\numberline {2}Interazione con un database}{7}{}%
-\contentsline {chapter}{\numberline {3}RDBMS e SQL in postgreSQL}{8}{}%
-\contentsline {chapter}{\numberline {4}Query e transazioni}{9}{}%
-\contentsline {chapter}{\numberline {5}Accesso a database da programmi Python}{10}{}%
-\contentsline {chapter}{\numberline {6}Uso di DBMS, NoSQL e MongoDB}{11}{}%
-\contentsline {chapter}{\numberline {7}Database Management Systems}{12}{}%
-\contentsline {chapter}{\numberline {8}Interrogazioni in SQL}{13}{}%
-\contentsline {chapter}{\numberline {9}Architettura NoSQL MongoDB}{14}{}%
+\contentsline {section}{\numberline {1.4}Progettazione logica}{9}{}%
+\contentsline {section}{\numberline {1.5}Esercizi svolti}{9}{}%
+\contentsline {chapter}{\numberline {2}Interazione con un database}{10}{}%
+\contentsline {chapter}{\numberline {3}RDBMS e SQL in postgreSQL}{11}{}%
+\contentsline {chapter}{\numberline {4}Query e transazioni}{12}{}%
+\contentsline {chapter}{\numberline {5}Accesso a database da programmi Python}{13}{}%
+\contentsline {chapter}{\numberline {6}Uso di DBMS, NoSQL e MongoDB}{14}{}%
+\contentsline {chapter}{\numberline {7}Database Management Systems}{15}{}%
+\contentsline {chapter}{\numberline {8}Interrogazioni in SQL}{16}{}%
+\contentsline {chapter}{\numberline {9}Architettura NoSQL MongoDB}{17}{}%

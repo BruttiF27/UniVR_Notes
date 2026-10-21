@@ -86,30 +86,115 @@ n-uple di istanze di entità; formalmente: \[
     (e_1, ..., e_n)\text{, con } e_i\in I(E_i), 1 \leq i \leq n
 \]
 
-\noindent E la relativa popolazione rappresenta l'insieme delle coppie delle due entità coinvolte relazionate in un certo istante di tempo. Si tratta
+\noindent E la relativa popolazione rappresenta l'insieme delle n-uple delle due entità coinvolte relazionate in un certo istante di tempo. Si tratta
 di una rappresentazione univoca, quindi non è possibile annotare più n-uple allo stesso modo.
+\begin{figure}[h]
+	\centering
+	\subcaptionbox{Entità}{\includegraphics[width=0.25\linewidth]{Images/Entity.png}}
+	\hfill
+	\subcaptionbox{Relazione}{\includegraphics[width=0.2\linewidth]{Images/Relation.png}}
+	\hfill
+	\subcaptionbox{Attributo}{\includegraphics[width=0.15\linewidth]{Images/Attribute.png}}
+\end{figure}
 
-\begin{comment}
-% TODO Inserisci immagini entità, relazione
+\noindent Durante la progettazione è comune avere la necessità di verificare la correttezza delle entità e quindi di distinguere quelle problematiche;
+il costrutto usato è l'\textbf{identificatore di entità}, il quale, data un'entità $E$, si compone di un'insieme di suoi attributi e/o relazioni capaci
+di identificare univocamente le sue istanze. Ciò è possibile, naturalmente, solo se non è consentita l'esistenza di più istanze di entità che presentino
+proprietà uguali. Graficamente si rappresenta in più modi: \begin{itemize}
+    \item Se è composto da un solo attributo, si colora l'intero pallino.
+    \item Se è composto da più attributi, si disegna una riga perpendicolare che attraversa entrambi i loro gambi, la quale avrà un pallino colorato in
+    una delle sue estremità\footnote{Senza la riga e disegnando due identificatori come nel primo caso, si indica che identificano due cose diverse}.
+    Si dicono \textbf{identificatori interni}.
+    \item Se è composto anche da una relazione, quest'ultima deve poter associare una sua istanza a una sola istanza dell'entità, agendo quindi come una
+    funzione\footnote{In riferimento alla cardinalità, la coppia è $(1,1)$.}. Si dicono \textbf{identificatori esterni}.
+\end{itemize}
 
-Lez5 Basi di dati - 15-10-26
+\noindent Bisogna fare attenzione alle modalità di implementazione degli identificatori: in primo luogo non è possibile darne uno a un'istanza di
+relazione, poiché queste sono già identificate e definite dalla n-upla di istanze delle entità in essa coinvolte; secondariamente perché l'utilizzo di
+identificatori implica due ulteriori concetti: \textbf{vincoli di definizione}, perché limita la popolazione di un'entità, e \textbf{regole di
+corrispondenza} tra le istanze dell'entità e del sistema informativo. È esattamente per quest'ultima ragione che la scelta degli identificatori va
+ponderata in base alle proprietà del sistema, poiché aggiungere attributi scollegati dal contesto può portare a una scorretta implementazione della
+base di dati.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/ID_types.png}
+    \caption{Sintassi grafica identificatore}
+\end{figure}
 
-- Esercizio ER1, ricava il drawio
+\noindent Un ulteriore costrutto utile per definire la totalità delle popolazioni è dato dai \textbf{vincoli di cardinalità} sulle relazioni, i quali
+specificano il numero minimo e massimo di istanze di una relazione $R$ a cui un'istanza di entità $E_i$ deve o può partecipare. Graficamente sono
+annotati come una coppia $(MIN_i, MAX_i)$, posta sulle linee colleganti entità e relazione; le variabili possono assumere valori diversi:
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Valore      & $MIN_i$                           & $MAX_i$\\
+        \hline
+        0           & Partecipazione opzionale alla     & Non assumibile\\
+                    & relazione $R$                     & \\
+        \hline
+        1           & Partecipazione obbligatoria alla  & Massimo una partecipazione di\\
+                    & relazione $R$                     & $E_i$ alla relazione $R$\\
+        \hline
+        N           & Non assumibile                    & Nessun limite di partecipazione\\
+                    &                                   & di $E_i$ alla relazione $R$\\
+        \hline
+        $num > 1$   & Esistenza di $num$ istanze di     & Per ogni istanza di entità $E_i$\\
+                    & relazione su ogni $E_i$           & possono esistere al più $num$\\
+                    &                                   & occorrenze della relazione $R$\\
+        \hline
+    \end{tabular}
+    \caption{Valori assumibili dalla coppia (min, max)}
+\end{table}
 
---- Adesso ha iniziato le slide ER2
-Necessario identificare quali entità sono corrette e quali non. Nelle relazione non puoi usare questo costrutto seguente.
-- Identificatore di entità: Data un'entità E, è un insieme di proprietà (attributi e/o relazioni) che identificano univocamente le istanze dell'entità.
-	Le proprietà identificano univocamente le istanze di E se non esistono due istanze di E che presentano gli stessi valoru/istanze nelle proprietà dell'insieme.
-	Si rappresenta graficamente in più modi:
-		- Se un identificatore è costituito da un solo attributo, si riempie il pallino di colore.
-		- (Identificatori interni) Se è costituito da più attributi va tirata una riga tra i due con all'estremità il pallino pieno. Attenzione che senza la riga, si sta dicendo che
-			due identificatori stanno identificando qualcosa di diverso.
-		- (Identificatori esterni) Se include una relazione, quest'ultima deve comportarsi come una funzione, quindi essere una singola istanza per identificare l'oggetto.
-	Gli identificatori implicano anche un tipo di dipendenza dall'identificatore, perché senza di essi non si avrebbe modo di capire cosa sono. Non è per nessun motivo possibile
-	dare un identificatore a un'istanza di relazione.
+\noindent In tal merito, è possibile associare un vincolo di cardinalità anche ai singoli attributi, annotandolo sulla linea dello stesso. In questo
+caso, la coppia può assumere i seguenti valori: \begin{itemize}
+    \item $(1,1)$: Valori di default, indicano un attributo obbligatorio con massimo una singola istanza.
+    \item $(0,1)$: Attributo opzionale.
+    \item $(1,N)$: Attributo obbligatorio multivalore.
+    \item $(0,N)$: Attributo opzionale e multivalore.
+\end{itemize}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\linewidth]{Images/Cardinality_example.png}
+    \caption{Sintassi grafica cardinalità}
+\end{figure}
 
-\end{comment}
+\noindent E ragionando sempre su di essi, è verosimile trovare all'interno di un sistema informativo più attributi con affinità di significato, ovvero
+con un qualche legame semantico, come per esempio essere una parte di un intero. Per rappresentare questa caratteristica si fa uso degli
+\textbf{attributi composti}, i quali aggregano le suddette proprietà. Graficamente è un costrutto rappresentato da un ovale vuoto, sul quale perimetro
+emergono le linee degli attributi che lo compongono.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Images/Composite_attribute.png}
+    \caption{Attributo composto}
+\end{figure}
+
+\noindent Può inoltre capitare che questo legame concerni anche le entità in toto; in un contesto tale si fa uso della \textbf{generalizzazione} delle
+entità, dove è presente un'entità padre $E$, più generale e tendenzialmente astratta, e un numero $n$ di entità figlie, le quali erediteranno ogni
+attributo, identificatore e relazione del padre. Esistono le seguenti modalità di generazione: \begin{itemize}
+    \item \textbf{Totale}: Tutte le istanze del padre sono anche istanze di almeno una figlia.
+    \item \textbf{Parziale}: Possono esistere istanze del padre che non sono istanze di almeno una figlia.
+    \item \textbf{Esclusiva}: Ogni istanza del padre è anche un'istanza esclusivamente di una figlia.
+    \item \textbf{Sovrapposta}: Possono esistere istanze del padre che sono anche istanze di più figlie.
+\end{itemize}
+
+\noindent Graficamente la generalizzazione è rappresentata con le entità figlie collegate al padre mediante frecce convergenti, alla cui giunzione è
+segnalata la modalità applicata mediante le seguenti coppie possibili, le cui iniziali rimandano al tipo di generalizzazione: \[
+    (t,e)\quad (t,s)\quad (p,e)\quad (p,s)
+\]
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/Generalization.png}
+    \caption{Esempio di generalizzazione}
+\end{figure}
+
+% TODO Il capitolo non è finito, ma il professore deve andare avanti con le lezioni.
 
 %
 
 \section{Progettazione logica}
+
+%
+
+\section{Esercizi svolti}

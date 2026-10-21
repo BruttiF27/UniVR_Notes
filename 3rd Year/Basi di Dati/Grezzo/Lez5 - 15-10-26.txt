@@ -12,4 +12,27 @@ Necessario identificare quali entità sono corrette e quali non. Nelle relazione
 			due identificatori stanno identificando qualcosa di diverso.
 		- (Identificatori esterni) Se include una relazione, quest'ultima deve comportarsi come una funzione, quindi essere una singola istanza per identificare l'oggetto.
 	Gli identificatori implicano anche un tipo di dipendenza dall'identificatore, perché senza di essi non si avrebbe modo di capire cosa sono. Non è per nessun motivo possibile
-	dare un identificatore a un'istanza di relazione.
+	dare un identificatore a un'istanza di relazione, poiché le istanze di relazione sono identificate dalla n-upla di istanze di entità che la definisce.
+
+Bisogna fare attenzione; l'identificatore di un'entità rappresenta due concetti allo stesso tempo:
+	- Vincolo di definizione, perché limita la popolazione di un'entità
+	- Regola di corrispondenza tra le istanze dell'entità e gli oggetti del sistema informativo.
+Per questa ragione bisogna considerare la scelta degli identificatori in base alle proprietà del sistema; aggiungere ID scollegati dai requisiti non è buona prassi.
+
+--- Vincoli di cardinalità sulle relazioni
+Un altro costrutto utile del modello è dato dai \textbf{vincoli di cardinalità} sulle relazioni, i quali specificano il numero minimo e massimo di istanze di una relazione R a cui un'istanza di entità E_i deve o può partecipare.\par
+Graficamente vengono specificati sulle linee colleganti entità e relazione con la sintassi $(MIN_i, MAX_i)$; queste variabili possono assumere alcuni valori con significati diversi:
+
+Per min:
+	- 0: Partecipazione dell'istanza dell'entità alla relazione è opzionale
+	- 1: Partecipazione dell'istanza dell'entità alla relazione è obbligatoria
+	- num>1: Per ogni istanza di E_i devono essere presenti almeno num occorrenze di relazione che la coinvolgono.
+
+Per max:
+	- 1 Un'istanza di E_i può al massimo partecipare a una sola occorrenza della relazione R
+	- N Un'istanza di E_i può partecipare a più occorrenze della relazione senza un limite massimo
+	- num>1: Per ogni istanza di E_i possono essere presenti fino a num occorrenze della relazione che la coinvolgono
+
+% TODO Inserisci disegno cardinalità
+
+Notare che una relazione R può partecipare a un identificatore esterno di un'entità E, solamente se l'entità partecipa alla relazione con vincolo di cardinalità (1,1), ovvero se è una funzione che associa a ogni istanza di E una singola istanza dell'altra entità coinvolta nella relazione, anche quando R è la sola proprietà identificativa.

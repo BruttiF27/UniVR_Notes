@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  15 OCT 2026 16:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  21 OCT 2026 13:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -208,22 +208,46 @@ Package: verbatim 2022-07-02 v1.5u LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks29
 \verbatim@line=\toks30
 \verbatim@in@stream=\read2
+) (/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/02/19 v1.6 Sub-captions (AR)
+ (/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/03/12 v3.6j Customizing captions (AR)
+ (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/03/12 v2.4 caption3 kernel (AR)
+\caption@tempdima=\dimen166
+\captionmargin=\dimen167
+\caption@leftmargin=\dimen168
+\caption@rightmargin=\dimen169
+\caption@width=\dimen170
+\caption@indent=\dimen171
+\caption@parindent=\dimen172
+\caption@hangindent=\dimen173
+Package caption Info: Standard document class detected.
+)
+\c@caption@flags=\count284
+\c@continuedfloat=\count285
+Package caption Info: listings package is loaded.
+)
+Package caption Info: New subtype `subfigure' on input line 239.
+\c@subfigure=\count286
+Package caption Info: New subtype `subtable' on input line 239.
+\c@subtable=\count287
 ))
 
 LaTeX Warning: \include should only be used after \begin{document} on input line 4.
 
 (./Configs/boxes.tex
-\c@theorem=\count284
-\c@definition=\count285
+\c@theorem=\count288
+\c@definition=\count289
 )
-\c@eg=\count286
+\c@eg=\count290
 
 
 LaTeX Warning: \include should only be used after \begin{document} on input line 5.
 
 (./Configs/formats.tex) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count287
+\l__color_backend_stack_int=\count291
 \l__pdf_internal_box=\box56
 ) (./main.aux)
 \openout1 = `main.aux'.
@@ -244,16 +268,16 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 9.
 LaTeX Font Info:    ... okay on input line 9.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count288
-\scratchdimen=\dimen166
+\scratchcounter=\count292
+\scratchdimen=\dimen174
 \scratchbox=\box57
-\nofMPsegments=\count289
-\nofMParguments=\count290
+\nofMPsegments=\count293
+\nofMParguments=\count294
 \everyMPshowfont=\toks31
-\MPscratchCnt=\count291
-\MPscratchDim=\dimen167
-\MPnumerator=\count292
-\makeMPintoPDFobject=\count293
+\MPscratchCnt=\count295
+\MPscratchDim=\dimen175
+\MPnumerator=\count296
+\makeMPintoPDFobject=\count297
 \everyMPtoPDFconversion=\toks32
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -261,7 +285,9 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\c@lstlisting=\count294
+\c@lstlisting=\count298
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 27.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -286,52 +312,90 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 Chapter 1.
 (./Chapters/1.tex [3
 
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [4] [5]) [6]
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [4] [5]
+<Images/Entity.png, id=34, 142.5325pt x 62.2325pt>
+File: Images/Entity.png Graphic file (type png)
+<use Images/Entity.png>
+Package pdftex.def Info: Images/Entity.png  used on input line 93.
+(pdftex.def)             Requested size: 112.5pt x 49.11945pt.
+<Images/Relation.png, id=36, 119.44624pt x 89.33376pt>
+File: Images/Relation.png Graphic file (type png)
+<use Images/Relation.png>
+Package pdftex.def Info: Images/Relation.png  used on input line 95.
+(pdftex.def)             Requested size: 89.99863pt x 67.30957pt.
+<Images/Attribute.png, id=37, 80.3pt x 87.32625pt>
+File: Images/Attribute.png Graphic file (type png)
+<use Images/Attribute.png>
+Package pdftex.def Info: Images/Attribute.png  used on input line 97.
+(pdftex.def)             Requested size: 67.49725pt x 73.4055pt.
+<Images/ID_types.png, id=38, 668.4975pt x 136.51pt>
+File: Images/ID_types.png Graphic file (type png)
+<use Images/ID_types.png>
+Package pdftex.def Info: Images/ID_types.png  used on input line 120.
+(pdftex.def)             Requested size: 450.0pt x 91.89447pt.
+ [6 <./Images/Entity.png> <./Images/Relation.png> <./Images/Attribute.png>] [7 <./Images/ID_types.png>]
+<Images/Cardinality_example.png, id=53, 503.8825pt x 75.28125pt>
+File: Images/Cardinality_example.png Graphic file (type png)
+<use Images/Cardinality_example.png>
+Package pdftex.def Info: Images/Cardinality_example.png  used on input line 159.
+(pdftex.def)             Requested size: 382.50275pt x 57.14656pt.
+<Images/Composite_attribute.png, id=54, 282.05376pt x 133.49875pt>
+File: Images/Composite_attribute.png Graphic file (type png)
+<use Images/Composite_attribute.png>
+Package pdftex.def Info: Images/Composite_attribute.png  used on input line 169.
+(pdftex.def)             Requested size: 225.0pt x 106.4956pt.
+ [8 <./Images/Cardinality_example.png> <./Images/Composite_attribute.png>]
+<Images/Generalization.png, id=60, 303.1325pt x 182.6825pt>
+File: Images/Generalization.png Graphic file (type png)
+<use Images/Generalization.png>
+Package pdftex.def Info: Images/Generalization.png  used on input line 188.
+(pdftex.def)             Requested size: 270.00275pt x 162.71791pt.
+) [9 <./Images/Generalization.png>]
 Chapter 2.
-(./Chapters/2.tex) [7
+(./Chapters/2.tex) [10
 
 ]
 Chapter 3.
-(./Chapters/3.tex) [8
+(./Chapters/3.tex) [11
 
 ]
 Chapter 4.
-(./Chapters/4.tex) [9
+(./Chapters/4.tex) [12
 
 ]
 Chapter 5.
-(./Chapters/5.tex) [10
+(./Chapters/5.tex) [13
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [11
+(./Chapters/6.tex) [14
 
 ]
 Chapter 7.
-(./Chapters/7.tex) [12
+(./Chapters/7.tex) [15
 
 ]
 Chapter 8.
-(./Chapters/8.tex) [13
+(./Chapters/8.tex) [16
 
 ]
 Chapter 9.
-(./Chapters/9.tex) [14
+(./Chapters/9.tex) [17
 
 ] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 5409 strings out of 476041
- 81217 string characters out of 5793174
- 1858388 words of memory out of 6000000
- 25762 multiletter control sequences out of 15000+600000
+ 6920 strings out of 476041
+ 110823 string characters out of 5793174
+ 1860388 words of memory out of 6000000
+ 27255 multiletter control sequences out of 15000+600000
  523856 words of font info for 79 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
- 64i,8n,67p,305b,265s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (15 pages, 178130 bytes).
+ 74i,10n,82p,363b,502s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on main.pdf (18 pages, 218112 bytes).
 PDF statistics:
- 129 PDF objects out of 1000 (max. 8388607)
- 81 compressed objects within 1 object stream
+ 158 PDF objects out of 1000 (max. 8388607)
+ 91 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

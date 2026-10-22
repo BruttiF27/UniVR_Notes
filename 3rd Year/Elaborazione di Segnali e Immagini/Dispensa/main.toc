@@ -1,14 +1,17 @@
 \contentsline {chapter}{\numberline {1}Introduzione}{3}{}%
 \contentsline {section}{\numberline {1.1}Concetti di base e tipi di segnali}{3}{}%
 \contentsline {section}{\numberline {1.2}Modalità di immagini}{5}{}%
-\contentsline {chapter}{\numberline {2}Formazione delle immagini}{7}{}%
-\contentsline {chapter}{\numberline {3}Calibrazione}{8}{}%
-\contentsline {chapter}{\numberline {4}Geometria proiettiva}{9}{}%
-\contentsline {chapter}{\numberline {5}Elaborazione di segnali}{10}{}%
-\contentsline {chapter}{\numberline {6}Filtri, edge e contorni}{11}{}%
-\contentsline {chapter}{\numberline {7}Segmentazione}{12}{}%
-\contentsline {chapter}{\numberline {8}Operatori morfologici}{13}{}%
-\contentsline {chapter}{\numberline {9}Utilizzo dell'AI}{14}{}%
-\contentsline {section}{\numberline {9.1}Riconoscimento e collegamento AI}{14}{}%
-\contentsline {section}{\numberline {9.2}Acquisizione e immagini range}{14}{}%
-\contentsline {section}{\numberline {9.3}Feature detection and matching}{14}{}%
+\contentsline {section}{\numberline {1.3}Richiami e proprietà dei segnali 1D}{6}{}%
+\contentsline {paragraph}{Segnale complesso esponenziale:}{7}{}%
+\contentsline {paragraph}{Segnali periodici:}{8}{}%
+\contentsline {paragraph}{Segnali sinusoidali:}{8}{}%
+\contentsline {chapter}{\numberline {2}Formazione delle immagini}{9}{}%
+\contentsline {chapter}{\numberline {3}Calibrazione}{10}{}%
+\contentsline {chapter}{\numberline {4}Geometria proiettiva}{11}{}%
+\contentsline {chapter}{\numberline {5}Filtri, edge e contorni}{12}{}%
+\contentsline {chapter}{\numberline {6}Segmentazione}{13}{}%
+\contentsline {chapter}{\numberline {7}Operatori morfologici}{14}{}%
+\contentsline {chapter}{\numberline {8}Utilizzo dell'AI}{15}{}%
+\contentsline {section}{\numberline {8.1}Riconoscimento e collegamento AI}{15}{}%
+\contentsline {section}{\numberline {8.2}Acquisizione e immagini range}{15}{}%
+\contentsline {section}{\numberline {8.3}Feature detection and matching}{15}{}%

@@ -31,5 +31,5 @@ English translation? Why would you ever consider that?
   - Elaborazione di segnali e immagini: Attualmente in lavorazione.
   - Fondamenti dell'informatica: Attualmente in lavorazione.
   - Linguaggi: Completamento previsto entro giugno 2027.
-  - Programmazione e sicurezza delle reti: Attualmente in lavorazione.
-  - Intelligenza artificiale: Completamento previsto entro giugno 2027.
+  - Programmazione e sicurezza delle reti: Completamento previsto entro giugno 2027.
+  - Intelligenza artificiale: Attualmente in lavorazione.

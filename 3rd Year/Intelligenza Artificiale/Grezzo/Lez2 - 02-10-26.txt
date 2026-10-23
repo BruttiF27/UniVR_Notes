@@ -1,0 +1,186 @@
+Lez2 Intelligenza Artificiale - 02-10-26
+
+--- Come definire un agente e la sua razionalità?
+Agente razionale fa la cosa giusta (usa la funzione dell'agente) in base ad una misura di performance.
+
+Supponiamo la funzione Reflex-Vacuum-Agent([location, status]) che ritorna un'azione.
+
+```
+if status = Dirty then return Suck
+else if location = A then return Right
+else if location = B then return Left
+```
+
+Se l'unica performance measure è la pulizia, questa funzione va benissimo, ma se aggiungiamo altre condizioni allor bisogna necessariamente rivedere l'algoritmo.
+
+Possiamo quindi dire che la qualità di un agente è un problema di ottimizzazione.
+
+Esempio: problema del patrolling
+Supponiamo tre stanze (A, B, C) e due robot (r1, r2). Il primo può vedere A e B, il secondo B e C. r1 inizia da A ed r2 da C. Il tempo usato per cambiare stanze è nullo.
+La performance measure è la somma minimizzata della average idleness di ogni stanza, intesa come la somma dell'intervallo di tempo per il quale la stanza non è visitata da alcun robot.
+
+Qual è un comportamento razionale in un ambiente simile? Definiamo il tempo in step e la seguente tabella:
+
+Status [r1, r2]         A       B       C
+[A, C]                  0       1       0
+[B, C]                  1       0       0
+[A, C]                  0       1       0
+[B, C]                  1       0       0
+
+Sum of idleness:        2       2       0
+Average idleness:       1/2     1/2     0
+    = 0.3
+
+Ora, sono attuabili più strategie in questo contesto e tutte daranno sempre la stessa average idleness. Tuttavia è preferibile "trattare" tutte le stanze allo stesso modo, nel senso che bisogna ottenere un vettore con valori più omogenei possibile.
+
+Un valore che in matematica determina l'omogeneità è la varianza. Più basso è, più omogenei saranno i valori, quindi bisogna dire all'agente di ottimizzare la soluzione in tal modo di minimizzare la varianza.
+
+Dunque per progettare un agente razionale è necessario specificare l'ambiente dove deve svolgere le sue mansioni, composto da:
+    - Performance measure: Risultato desiderato
+    - Environment
+    - Attuatori: Come l'agente può fare le azioni
+    - Sensori: Come l'agente percepisce l'ambiente
+
+Esistono diversi tipi di ambienti, ma tutti condividono la medesima struttura per poter definire il tipo di problema in gioco:
+    - Osservabile: Stato del mondo completamente osservabile e visibile dall'agente.
+    - Deterministico: Azioni hanno una conseguenza perfettamente predicibile dall'agente.
+    - Episodico: Azioni che l'agente compie non impattano le decisioni future, bensì la sola istanza di lavoro corrente. Inoltre, la strategia dell'agente non cambia.
+    - Statico: Sempre lo stesso ambiente, camiano solo le azioni dell'agente.
+    - Discreto: Problema esprimibile con sole variabili discrete.
+    - A singolo agente: Che presenta l'utilizzo di un singolo agente.
+Determinare il tipo di ambiente è fondamentale poiché determina a sua volta il design dell'agente.
+
+Un agente è formato quindi da un'architettura e un programma, dove input è la percezione corrente e l'output è la risposta ad esso, quindi la prossima azione che l'agente deve compiere. Ne esistono di quattro tipi basici:
+    - Simple reflex: Solo in base alla percezione corrente e le condizioni interne si determina la risposta.
+    - Reflex with state: Come quello di prima, ma mantiene uno stato interno. Utilizzato quando la conoscenza dell'environment non è sufficiente. Funziona correttamente se l'environment è deterministico, altrimenti non è possibile usarlo.
+    - Goal-based: È presente un obiettivo finale da raggiungere e l'agente avrà un blocchetto di codice in più che vede come il mondo evolve in base alla proprie azioni. Applicato correttamente se l'environment è totalmente visibile e deterministico.
+    - Utility-based: Dà un'utilità a ogni stato e si vuole massimizzare l'utilità.
+
+Ognuno di questi agenti può diventare learning agent, ovvero agente intelligente, per i quali sarà assegato un critico il cui compito è dire all'agente quanto bene performa in base al performance measure stabilito.
+
+--- Tipologie di problemi di ricerca nello spazio degli stati
+L'applicazione dell'ai è in primo luogo utilizzata nell'ambito dei problemi di ricerca dato un environment composto da stati.
+L'agente ci interagisce con sensori e attuatori e la sua funzione descrive che cosa in tutte le circostanze.
+
+Un agente perfettamente razionale, per com'è stato definito, massimiza la performance attesa. Il nostro compito sarà vedere varie strategie per la ricerca non informate e informate
+
+--- Definizione dei problemi
+Definisco uno stato, vedo delle strategie di ricerca con algoritmi generici per attuarle.
+
+Usiamo i problem-solving agents, basati sulla percezione di un environment con variabili inizializzate una sola volta. Ci sono naturalmente anche il goal e lo stato corrente.
+
+Lo stato si aggiorna tramite la percezione e in base a questo.
+    - Se la sequenza è vuota (quindi è il primo avvio), si va a formulare il goal, il problema e a definirla facendo partire il processo di ricerca sul problema definito. Poi si dice che si fa la prima azione della sequenza e la si esegue.
+    - Dopo la prima azione si riparte e l'agente riceve una nuova percezione, aggiornando lo stato, e attuerà la successiva, fino al termine.
+
+Questo tipo di problema è detto Single Problem Solving Agent, e ritorna un'azione in base al seguente environment statico, composto da:
+    - seq, sequenza di azioni inizialmente vuota
+    - state, una descrizione dello stato corrente dell'environment
+    - goal, l'obiettivo da definire all'avvio
+    - problema, la formulazione del problema
+
+In pseudocodice, svolge il seguente iter:
+```
+function Simple-Problem-Solving-Agent (percept)
+    state \gets Update-State(state, percept)
+    if seq is empty then
+        goal \gets Formulate-Goal(state)
+        problem \gets Formulate-Problem(state, goal)
+        seq \gets Search(problem)
+    action \gets First(seq)
+    seq \gets Rest(seq)
+    return action
+```
+
+Si tratta insomma di un goal-based agent applicato in un ambiente deterministico e completamente osservabile.
+
+Nel caso in cui l'environment non fosse osservabile, si avrebbe un problema conformant. L'agente sarebbe cieco e non avrebbe idea di dove si trovi e non avrà modo di capire se sta lavorando bene o male.
+
+Se i problemi non sono deterministici o parzialmente osservabili, si ha un problema di contingenza; le percezioni forniscono informazioni nuove in base allo stato corrente e il problema sarà risolvibile con un contingent plan.
+
+Se lo spazio degli stati è sconosciuto, invece, si ha un problema di esplorazione e verrà utilizzato quello che è chiamato reinforcement learning.
+
+Durante la risoluzione del problema si calcola il path cost, la sommatoria dei path step richiesti per arrivare alla soluzione. Naturalmente si dovrà scegliere il costo minore. Notare inoltre che è comune applicare una noOP, ovvero il non fare operazioni né cambiare stato. È importante implementarla perché alle volte spostarsi di stato è più costoso rispetto allo stare fermi, dato il path step cost.
+
+--- Tree-search problem
+Fare un'esplorazione simulata e offline. Si pianifica una sequenza, insomma. Si generano i successori degli stati già osservati, ovvero si espandono gli stati.
+
+```
+function Tree-Search(problem, strategy) returns solution or failure
+    initialize search tree using initial state of problem
+
+    do
+        if no candidates for expansion then return failure
+        choose a leaf node for expansion according to strategy
+        if node contains a goal state then return solution
+        else add successor nodes to search tree
+    end
+```
+
+L'algoritmo di ricerca degli alberi è BFS/DFS. Uno stato è una configurazione fisica del nodo, il quale contiene strutture dati con vari dati, come path cost e simili.
+
+In merito all'esplorazione, viene creata la frontiera: struttura dati dove s pongono i nodi in un certo ordine, determinato dalla strategia applicata.
+La frontiera ha quindi la sequenza dei passi da fare e se termina con una soluzione, si avrà avuto successo, altrimenti riporta un fallimento.
+
+All'interno della frontiera si effettua un pop dalla frontiera. Praticamente è una coda LIFO. Lo pseudocodice generale è:
+
+```
+function Tree-Search (problem, frontier) return solution or failure
+    frontier \gets insert(Make-Node(problem.initial-State))
+
+    while not isEmpty(frontier) do
+        node \gets Pop(frontier)
+        if problem.Goal-Test(node.State) then return node
+        frontier \gets InsertAll(Expand(node, problem))
+    end loop
+    return failure
+```
+
+Poi c'è il codice relativo all'espansione, che ritorna un insieme di nodi successori:
+```
+function Expand(node, problem) returns a set of nodes
+    successors \gets emptyset
+
+    for each action, result in Successor-Fn(problem, node.State)
+        do
+            s \gets new Node
+            s.Parent-Node \gets Node
+            s.Action \gets action
+            s.State \gets result
+            s.Path-Cost \gets node.Path-Cost + Step-Cost(node.State, action, result)
+            s.Depth \gets node.Depth+1
+            add s to successors set
+        return successors
+```
+
+Come già detto, le strategie sono valutate in più ambiti:
+    - completezza: Trova sempre una soluzione se esiste
+    - complessità temporale: Numero di nodi generati/espansi
+    - Complessità spaziale: Massimo numero di nodi in memoria
+    - Ottimalità: Trova sempre la soluzione di costo minimo
+
+Le complessità temporali e spaziali sono misurate in termini di:
+    - b: Massimo numero di figli che un nodo può avere all'interno dell'albero di ricerca
+    - d: profondità della soluzione di costo minimo
+    - m: profondità massima dello spazio degli stati (possibile che sia infinita)
+
+
+--- Problema degli stati ripetuti
+Non scoprire stati ripetuti potrebbe far diventare un problema di complessità lineare in uno esponenziale. Non ideale. Ciò è evitabile aggiungendo un insieme di stati già esplorati, simile a come si fa per gli alberi rb.
+
+La funzione in pseudocodice che implementa questa caratteristica è la graph search:
+```
+function Graph-Search(problem, frontier) return solution or failure
+    explored \gets emptyset
+    frontier \gets insert(Make-Node(problem.Initial-State))
+
+    while not IsEmpty(frontier) do
+        node \gets Pop(frontier)
+        if problem.Goal-Test(node.State) then return node
+        if node.State is not in explored then
+            add node.State to explored
+            frontier \gets InsertAll(Expand(node, problem))
+        end if
+    end loop
+    return failure
+```

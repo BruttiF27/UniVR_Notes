@@ -1,0 +1,15 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Agenti intelligenti}{3}{}%
+\contentsline {section}{\numberline {1.1}Agenti, razionalità e PEAS}{3}{}%
+\contentsline {section}{\numberline {1.2}Struttura degli agenti}{4}{}%
+\contentsline {section}{\numberline {1.3}Agenti Problem-solving e formulazione dei problemi}{4}{}%
+\contentsline {chapter}{\numberline {2}Risoluzione di problemi}{5}{}%
+\contentsline {section}{\numberline {2.1}Ricerca nello spazio degli stati}{5}{}%
+\contentsline {section}{\numberline {2.2}Valutazione delle strategie}{5}{}%
+\contentsline {section}{\numberline {2.3}Strategie di ricerca non informate}{5}{}%
+\contentsline {section}{\numberline {2.4}Ricerca in ambienti complessi}{5}{}%
+\contentsline {section}{\numberline {2.5}Soddisfacimento dei vincoli}{5}{}%
+\contentsline {chapter}{\numberline {3}Conoscenza, ragionamento e pianificazione}{6}{}%
+\contentsline {chapter}{\numberline {4}Conoscenza incerta}{7}{}%
+\contentsline {chapter}{\numberline {5}Apprendimento automatico}{8}{}%

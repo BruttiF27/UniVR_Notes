@@ -1,0 +1,230 @@
+\section{Ricerca nello spazio degli stati}
+
+%
+
+\section{Valutazione delle strategie}
+
+%
+
+\section{Strategie di ricerca non informate}
+
+%
+
+\section{Ricerca in ambienti complessi}
+
+%
+
+\section{Soddisfacimento dei vincoli}
+
+
+
+
+
+
+
+
+\begin{comment}
+
+
+
+
+
+
+
+
+
+Durante la risoluzione del problema si calcola il path cost, la sommatoria dei path step richiesti per arrivare alla soluzione. Naturalmente si dovrà scegliere il costo minore. Notare inoltre che è comune applicare una noOP, ovvero il non fare operazioni né cambiare stato. È importante implementarla perché alle volte spostarsi di stato è più costoso rispetto allo stare fermi, dato il path step cost.
+
+--- Tree-search problem
+Fare un'esplorazione simulata e offline. Si pianifica una sequenza, insomma. Si generano i successori degli stati già osservati, ovvero si espandono gli stati.
+
+```
+function Tree-Search(problem, strategy) returns solution or failure
+    initialize search tree using initial state of problem
+
+    do
+        if no candidates for expansion then return failure
+        choose a leaf node for expansion according to strategy
+        if node contains a goal state then return solution
+        else add successor nodes to search tree
+    end
+```
+
+L'algoritmo di ricerca degli alberi è BFS/DFS. Uno stato è una configurazione fisica del nodo, il quale contiene strutture dati con vari dati, come path cost e simili.
+
+In merito all'esplorazione, viene creata la frontiera: struttura dati dove s pongono i nodi in un certo ordine, determinato dalla strategia applicata.
+La frontiera ha quindi la sequenza dei passi da fare e se termina con una soluzione, si avrà avuto successo, altrimenti riporta un fallimento.
+
+All'interno della frontiera si effettua un pop dalla frontiera. Praticamente è una coda LIFO. Lo pseudocodice generale è:
+
+```
+function Tree-Search (problem, frontier) return solution or failure
+    frontier \gets insert(Make-Node(problem.initial-State))
+
+    while not isEmpty(frontier) do
+        node \gets Pop(frontier)
+        if problem.Goal-Test(node.State) then return node
+        frontier \gets InsertAll(Expand(node, problem))
+    end loop
+    return failure
+```
+
+Poi c'è il codice relativo all'espansione, che ritorna un insieme di nodi successori:
+```
+function Expand(node, problem) returns a set of nodes
+    successors \gets emptyset
+
+    for each action, result in Successor-Fn(problem, node.State)
+        do
+            s \gets new Node
+            s.Parent-Node \gets Node
+            s.Action \gets action
+            s.State \gets result
+            s.Path-Cost \gets node.Path-Cost + Step-Cost(node.State, action, result)
+            s.Depth \gets node.Depth+1
+            add s to successors set
+        return successors
+```
+
+Come già detto, le strategie sono valutate in più ambiti:
+    - completezza: Trova sempre una soluzione se esiste
+    - complessità temporale: Numero di nodi generati/espansi
+    - Complessità spaziale: Massimo numero di nodi in memoria
+    - Ottimalità: Trova sempre la soluzione di costo minimo
+
+Le complessità temporali e spaziali sono misurate in termini di:
+    - b: Massimo numero di figli che un nodo può avere all'interno dell'albero di ricerca
+    - d: profondità della soluzione di costo minimo
+    - m: profondità massima dello spazio degli stati (possibile che sia infinita)
+
+
+--- Problema degli stati ripetuti
+Non scoprire stati ripetuti potrebbe far diventare un problema di complessità lineare in uno esponenziale. Non ideale. Ciò è evitabile aggiungendo un insieme di stati già esplorati, simile a come si fa per gli alberi rb.
+
+La funzione in pseudocodice che implementa questa caratteristica è la graph search:
+```
+function Graph-Search(problem, frontier) return solution or failure
+    explored \gets emptyset
+    frontier \gets insert(Make-Node(problem.Initial-State))
+
+    while not IsEmpty(frontier) do
+        node \gets Pop(frontier)
+        if problem.Goal-Test(node.State) then return node
+        if node.State is not in explored then
+            add node.State to explored
+            frontier \gets InsertAll(Expand(node, problem))
+        end if
+    end loop
+    return failure
+```
+
+
+
+
+    Lez3 Intelligenza artificiale 08-10-26
+
+--- General tree search
+Agenti che risolvono problemi tramite la ricerca
+
+Tree search algorithm consente di trovare una soluzione negli stati interni all'agente.
+Differenza tra stato e nodo
+
+Abbiamo un problema (conoscenza dello stato iniziale e dell'environment) e una frontiera che contiene dati.
+
+```
+function Tree-search (problem, frontier) returns solution or failure
+frontier <- insert(make-node(problem.initialState))
+while not isEmpty(frontier) do
+node <- pop(frontier)
+
+... Manca il resto
+```
+
+--- Expand nodes
+function expand(node, problem) returns a set of nodes
+
+```
+successors <- empty set
+for each action, result in Successor-Fn(problem, node.state) do
+	s<- new node
+	s<- Parent-node node
+	s.Action <- 	
+... manca il resto
+```
+
+--- Strategie di ricerca
+Una strategia è definita prendendo l'ordine di espansione dei nodi e si valutano nelle dimensioni di correttezza e completezza (garantire sempre una soluzione se esiste)
+complessità di tempo e spazio, come anche di ottimalità (riesce a riportare sempre la soluzione migliore?). Complessità su tempo e spazio si misurano con:
+	- b: maximum branching factor: Numero massimo di figli che ciascun nodo ha
+	- d: profondità della soluzione a costo minimo
+	- m: Profondità massima dell'albero, quindi dello state space. Potrebbe essere infinito.
+	
+- stati ripetuti
+Non notare stati ripetuti può portare ad un espansione di un problema lineare in uno esponenziale: node^d, in pratica.
+
+--- Graph search
+Introduce una caratteristica ai nodi: explored, che indica se un nodo è già stato esplorato o meno. Consente di saltare quindi nodi già esplorati.
+
+```
+inserisci algoritmo graph search
+```
+
+
+
+----- Esempio ricerca problema vacuum cleaner
+State: <Locazione, r_a State, r_b State> \equiv <(A, B), (C, D), (C, D)>
+Actions: <R, L, S>, R: A->B, L: B->A, S: D->C, S: C->C
+
+Il goal è che tutte le piastrelle siano C, ovvero clean.
+Il problema è fully observable, lo sviluppo è, con tree-search:
+
+<A, C, D>
+
+Se faccio S genero <A, C, D>
+	S genera ora <A, C, D>
+	R genera ora <B, C, D>
+
+Se faccio R genero <B, C, D>
+	L genera <A, C, D>
+	S genera <B, C, C>	// Questo è un nodo di goal
+	
+b = 2	
+d = 2
+m = \infty
+	
+Tuttavia i nodi di goal devono essere estratti dalla frontiera espansa.
+Generalmente non si espande mai uno stesso nodo nello stesso branch, perché normalmente non cambia lo stato.
+\end{comment}
+
+\begin{comment}
+    --- Strategie di ricerca non informate
+Approcci di ricerca senza sapere nulla in merito al problema, perché usano solo le informazioni proposte nella definizione del problema. Sono attuabili con alcuni algoritmi come
+	- BFS graph search: Frontiera fifo ed espande il nodo più superficiale non espanso. TODO Aggiungi algoritmo
+		Proprietà: è completa se b è finito, compl tempo: O(b^d), compl. spazio: O(b^d), è ottima se si ha il medesimo costo per ogni step nell'albero, non in generale.
+	- Uniform-cost search: Espande il nodo non espanso dal costo minimo. Ordiniamo la frontiera per posto tenendo in mente sempre il nodo che costa meno.
+		Se i costi di spostamento sono uguali, ha proprietà equivalenti a BFS graph search.
+		Due modifiche da apportare per garantire ottimalità sempre:
+			1. Esegui il goal test when selecting nodes for expansion and not when generated.
+			2. Check if child node is already present inside the frontier with a higher cost, then replace the previous node.
+	- DFS graph search: Frontiera è una coda Lifo.
+		Non è completa, fallisce in loop infiniti. Tuttavia si può modificare per eludere
+		stati ripetuti. E' tuttavia completa in spazi finiti.
+		Tempo: O(b^m), atroce se m è molto più grande rispetto a d, ma se le soluzioni sono dense
+		potrebbe essere più veloce di BFS. Spazio: O(bm). Non è ottimale, né è possibile renderla tale.
+	 - Iterative deepening search: Esegui una DFS definendo un limite alla profondità dell'albero.
+		Il senso di questa strategia, è limitare la complessità spaziale. Introduce poi la possibilità di ritornare successo, fallimento e cutoff, in base al threshold scelto.
+		Si tratta di una soluzione completa, tempo O(b^d), spazio O(bd). Inoltre, se gli step costano 1 può essere modificata per esplorare alberi di costo uniforme.
+
+--- Wolf Sheep Cabbage problem
+Environment: <W, S, C, M, B>
+Init: <0,0,0,0,0>, Goal: <1,1,1,1,1>
+
+Action		Pre-cond				From					To
+carryW		s\neq c, w=m, m=b		(w,s,c,m,d) 	-> 		(!w,s,c,!m,!b)
+carryS		m=b, s=m				(w,s,c,m,d)		->		(w,!s,c,!m,!b)
+carryC		m=b, m=c, w\neq s		(w,s,c,m,d)		->		(w,s,!c,!m,!b)
+carryNthg	m=b, w\neq s, n\neq c	(w,s,c,m,d)		->		(w,s,c,!m,!b)
+
+Notare che m=b sempre, in ogni azione. E' quindi possibile semplificare rimuovendo
+questo elemento dalla tupla in toto, semplificando lo stato.
+\end{comment}

@@ -1,0 +1,102 @@
+Lez3 Intelligenza artificiale 08-10-26
+
+--- General tree search
+Agenti che risolvono problemi tramite la ricerca
+
+Tree search algorithm consente di trovare una soluzione negli stati interni all'agente.
+Differenza tra stato e nodo
+
+Abbiamo un problema (conoscenza dello stato iniziale e dell'environment) e una frontiera che contiene dati.
+
+```
+function Tree-search (problem, frontier) returns solution or failure
+frontier <- insert(make-node(problem.initialState))
+while not isEmpty(frontier) do
+node <- pop(frontier)
+
+... Manca il resto
+```
+
+--- Expand nodes
+function expand(node, problem) returns a set of nodes
+
+```
+successors <- empty set
+for each action, result in Successor-Fn(problem, node.state) do
+	s<- new node
+	s<- Parent-node node
+	s.Action <- 	
+... manca il resto
+```
+
+--- Strategie di ricerca
+Una strategia è definita prendendo l'ordine di espansione dei nodi e si valutano nelle dimensioni di correttezza e completezza (garantire sempre una soluzione se esiste)
+complessità di tempo e spazio, come anche di ottimalità (riesce a riportare sempre la soluzione migliore?). Complessità su tempo e spazio si misurano con:
+	- b: maximum branching factor: Numero massimo di figli che ciascun nodo ha
+	- d: profondità della soluzione a costo minimo
+	- m: Profondità massima dell'albero, quindi dello state space. Potrebbe essere infinito.
+	
+- stati ripetuti
+Non notare stati ripetuti può portare ad un espansione di un problema lineare in uno esponenziale: node^d, in pratica.
+
+--- Graph search
+Introduce una caratteristica ai nodi: explored, che indica se un nodo è già stato esplorato o meno. Consente di saltare quindi nodi già esplorati.
+
+```
+inserisci algoritmo graph search
+```
+
+----- Esempio ricerca problema vacuum cleaner
+State: <Locazione, r_a State, r_b State> \equiv <(A, B), (C, D), (C, D)>
+Actions: <R, L, S>, R: A->B, L: B->A, S: D->C, S: C->C
+
+Il goal è che tutte le piastrelle siano C, ovvero clean.
+Il problema è fully observable, lo sviluppo è, con tree-search:
+
+<A, C, D>
+
+Se faccio S genero <A, C, D>
+	S genera ora <A, C, D>
+	R genera ora <B, C, D>
+
+Se faccio R genero <B, C, D>
+	L genera <A, C, D>
+	S genera <B, C, C>	// Questo è un nodo di goal
+	
+b = 2	
+d = 2
+m = \infty
+	
+Tuttavia i nodi di goal devono essere estratti dalla frontiera espansa.
+Generalmente non si espande mai uno stesso nodo nello stesso branch, perché normalmente non cambia lo stato.
+
+--- Strategie di ricerca non informate
+Approcci di ricerca senza sapere nulla in merito al problema, perché usano solo le informazioni proposte nella definizione del problema. Sono attuabili con alcuni algoritmi come
+	- BFS graph search: Frontiera fifo ed espande il nodo più superficiale non espanso. TODO Aggiungi algoritmo
+		Proprietà: è completa se b è finito, compl tempo: O(b^d), compl. spazio: O(b^d), è ottima se si ha il medesimo costo per ogni step nell'albero, non in generale.
+	- Uniform-cost search: Espande il nodo non espanso dal costo minimo. Ordiniamo la frontiera per posto tenendo in mente sempre il nodo che costa meno.
+		Se i costi di spostamento sono uguali, ha proprietà equivalenti a BFS graph search.
+		Due modifiche da apportare per garantire ottimalità sempre:
+			1. Esegui il goal test when selecting nodes for expansion and not when generated.
+			2. Check if child node is already present inside the frontier with a higher cost, then replace the previous node.
+	- DFS graph search: Frontiera è una coda Lifo.
+		Non è completa, fallisce in loop infiniti. Tuttavia si può modificare per eludere
+		stati ripetuti. E' tuttavia completa in spazi finiti.
+		Tempo: O(b^m), atroce se m è molto più grande rispetto a d, ma se le soluzioni sono dense
+		potrebbe essere più veloce di BFS. Spazio: O(bm). Non è ottimale, né è possibile renderla tale.
+	 - Iterative deepening search: Esegui una DFS definendo un limite alla profondità dell'albero.
+		Il senso di questa strategia, è limitare la complessità spaziale. Introduce poi la possibilità di ritornare successo, fallimento e cutoff, in base al threshold scelto.
+		Si tratta di una soluzione completa, tempo O(b^d), spazio O(bd). Inoltre, se gli step costano 1 può essere modificata per esplorare alberi di costo uniforme.
+
+--- Wolf Sheep Cabbage problem
+Environment: <W, S, C, M, B>
+Init: <0,0,0,0,0>, Goal: <1,1,1,1,1>
+
+Action		Pre-cond				From					To
+carryW		s\neq c, w=m, m=b		(w,s,c,m,d) 	-> 		(!w,s,c,!m,!b)
+carryS		m=b, s=m				(w,s,c,m,d)		->		(w,!s,c,!m,!b)
+carryC		m=b, m=c, w\neq s		(w,s,c,m,d)		->		(w,s,!c,!m,!b)
+carryNthg	m=b, w\neq s, n\neq c	(w,s,c,m,d)		->		(w,s,c,!m,!b)
+
+Notare che m=b sempre, in ogni azione. E' quindi possibile semplificare rimuovendo
+questo elemento dalla tupla in toto, semplificando lo stato.

@@ -4,8 +4,14 @@
 \contentsline {section}{\numberline {1.3}Problema dell'Informatica}{5}{}%
 \contentsline {section}{\numberline {1.4}Concetti di base richiesti}{6}{}%
 \contentsline {chapter}{\numberline {2}Automi e linguaggi formali}{7}{}%
-\contentsline {section}{\numberline {2.1}Linguaggi e grammatiche}{7}{}%
-\contentsline {section}{\numberline {2.2}Automi a stati finiti e linguaggi regolari}{7}{}%
-\contentsline {section}{\numberline {2.3}Linguaggi liberi da contesto, forme normali e automi a pila}{7}{}%
-\contentsline {section}{\numberline {2.4}Classificazione di Chomsky}{7}{}%
-\contentsline {chapter}{\numberline {3}Teoria della calcolabilità}{8}{}%
+\contentsline {section}{\numberline {2.1}Linguaggi formali}{7}{}%
+\contentsline {section}{\numberline {2.2}Automi a stati finiti}{7}{}%
+\contentsline {subsection}{\numberline {2.2.1}Automi a stati finiti deterministici}{8}{}%
+\contentsline {paragraph}{Passo base:}{10}{}%
+\contentsline {paragraph}{Passo induttivo:}{11}{}%
+\contentsline {subsection}{\numberline {2.2.2}Automi a stati finiti non deterministici}{11}{}%
+\contentsline {section}{\numberline {2.3}Linguaggi liberi da contesto, forme normali e automi a pila}{11}{}%
+\contentsline {section}{\numberline {2.4}Classificazione di Chomsky}{11}{}%
+\contentsline {chapter}{\numberline {3}Teoria della calcolabilità}{12}{}%
+\contentsline {section}{\numberline {3.1}Meet and fuck kingdom, steve}{12}{}%
+\contentsline {section}{\numberline {3.2}Meet 'n HUH!?}{12}{}%

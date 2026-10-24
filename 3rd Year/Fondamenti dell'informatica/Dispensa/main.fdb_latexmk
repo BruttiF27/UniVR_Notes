@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1792318312.37604 "/home/F27/Desktop/UniVR/3rd Year/Fondamenti dell'Informatica/Dispensa/main.tex" "main.pdf" "main" 1792318312.641 0
+["pdflatex"] 1792849240.27222 "/home/F27/Desktop/UniVR/3rd Year/Fondamenti dell'Informatica/Dispensa/main.tex" "main.pdf" "main" 1792849240.91225 0
   "/home/F27/Desktop/UniVR/3rd Year/Fondamenti dell'Informatica/Dispensa/main.tex" 1791907280.7192 976 986bb63f1b523c6ca9b9a004a0cb09cc ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -39,7 +39,9 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb" 1248133631 36554 b67dc2cfa451409e100b3fcf5f506509 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb" 1248133631 32001 6aeea3afe875097b1eb0da29acd61e28 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1248133631 36741 fa121aac0049305630cf160b86157ee4 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1248133631 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1248133631 35752 024fb6c41858982481f6968b5fc26508 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1248133631 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
@@ -89,14 +91,15 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777382308.55095 4602016 72a039a3c4aea0fa25b5d35d65138f54 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777382069 7753793 49853c54d310b0d2fce2a6e72b3b1880 ""
   "Chapters/1.tex" 1792318312.21632 10338 dd17b0f671b7f53322fce4df27f3372d ""
-  "Chapters/2.tex" 1791907108.29563 396 b51b8357ee99953fb48d2742f7b9033c ""
-  "Chapters/3.tex" 1791907108.20973 482 dc25ac4c6cf78721d3a2dd13aa3179f2 ""
+  "Chapters/2.tex" 1792849240.00649 9208 8d63199d8cb3a0db0303a1a5f4d2b0c1 ""
+  "Chapters/3.tex" 1792844920.78596 547 153c6514fca8964010d60da33825d263 ""
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
   "Configs/formats.tex" 1741537610 162 94ad515d4f2656e52898454c9959e092 ""
   "Configs/packages.tex" 1760543948 1028 ba2fc4b35c2aa8acba53a0f57c2a9784 ""
-  "main.aux" 1792318312.59683 1552 94004d95332cb20ccb8e81d111e3f5f8 "pdflatex"
+  "Images/DFA_example.png" 1792845446.72205 38436 9a2a37fefaa248ecfecc09b133cadaee ""
+  "main.aux" 1792849240.81368 2461 2d112bfd6bab89247a3b38b732e76bd5 "pdflatex"
   "main.tex" 1791907280.7192 976 986bb63f1b523c6ca9b9a004a0cb09cc ""
-  "main.toc" 1792318312.59744 841 699080e9807e3404c4761215b10f94f7 "pdflatex"
+  "main.toc" 1792849240.81448 1240 9958b27ce502da046a5302b94a2f197c "pdflatex"
   (generated)
   "main.aux"
   "main.log"

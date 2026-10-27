@@ -1,0 +1,185 @@
+\section{Spazio di Hilbert}
+Definiamo lo \textbf{spazio di Hilbert} come uno spazio di vettori $\mathcal{H}$, definito su $\mathbb{R}$ o $\mathbb{C}$, il quale ha un prodotto
+interno: \[
+    \left<.,. \right> : \mathcal{H}\times \mathcal{H} \to \mathbb{C}
+\]
+
+\noindent Il prodotto, supposto che sia lineare nel suo primo argomento, soddisfa alcune proprietà: \begin{itemize}
+    \item \textbf{Linearità}: Per $z,z',\omega\in \mathcal{H}$ e $\alpha, \beta\in \mathbb{C}$, vale $\left<\alpha z + \beta z', \omega\right> =
+    \alpha\left<z, \omega \right> + \beta\left<z', \omega \right>$
+    \item \textbf{Simmetria coniugata}: $\left<z, z' \right> = \overline{\left<z', z \right>}$
+    \item \textbf{Positività}: $\left<z, z \right> \geq 0$
+    \item \textbf{Definitività positiva}: $\left<z, z \right> = 0 \iff z = 0$
+\end{itemize}
+
+\noindent Il prodotto interno induce anche una norma $||z|| = \sqrt{\left< z, z\right>}$, rispetto alla quale lo spazio Hilbertiano è completo. Questa
+sua caratteristica è anche ciò che lo distingue da altri spazi semplici di prodotti interni. Inoltre, in quanto completo, ogni sequenza di Cauchy $z_n$
+di elementi di $\mathcal{H}$, definita come: \[
+    ||z_n - z_m|| \to 0\quad \text{con n, m} \to +\infty
+\]
+
+\noindent convergerà, secondo la norma, a un elemento appartenente allo spazio $\mathcal{H}$, il quale, per segnali unidimensionali, è considerato come
+$\mathcal{H} = L^2(\mathbb{R};\mathbb{C})$, i cui elementi sono funzioni misurabili che associano un valore dei reali a uno nei complessi e soddisfano:
+\[
+    \int_{-\infty}^{+\infty} |z(t)|^2 dt < +\infty
+\]
+
+\noindent Concludendo che un segnale complesso a energia finita appartiene allo spazio dei segnali $z\in L^2(\mathbb{R};\mathbb{C})$, la cui forma
+vettoriale è data da: \[
+    (\alpha z + \beta z')(t) = \alpha z(t) + \beta z'(t)
+\]
+
+\noindent Dove $z, z'$ sono i vettori dei segnali, mentre $z(t), z'(t)$ sono numeri complessi che indicano il valore assunto dal vettore segnale al
+tempo $t$.\par
+Nel contesto della teoria dei segnali, il \textbf{prodotto interno} dei segnali può essere interpretato come l'\textbf{energia} del segnale. Questo
+perché, a partire dalla forma del prodotto interno standard nello spazio hilbertiano, otteniamo la norma: \[
+    \left<z, z' \right> = \int_{-\infty}^{+\infty} z(t)\overline{z'(t)} dt \implies ||z|| = \sqrt{\left<z, z \right>}
+\]
+
+\noindent Di conseguenza, se rimuoviamo la radice elevando la scrittura al quadrato, otteniamo: \[
+    ||z||^2 = \left<z, z \right> = \int_{-\infty}^{+\infty} z(t)\overline{z(t)} dt
+\]
+
+\noindent E siccome vale $z(t)\overline{z(t)} = |z(t)|^2$, possiamo concludere la tesi, dimostrando che il prodotto interno è interpretabile come
+l'energia del segnale, la cui simmetria è garantita dal complesso coniugato.\par
+Negli spazi di Hilbert, quindi anche negli Euclidei, un vettore può essere scritto come la combinazione dei suoi elementi lungo gli assi cartesiani,
+ottenuti attraverso proiezioni: \[
+    x = x_1e_1 + x_2e_2 + ... \implies x_k = \left< x, e_k\right>
+\]
+
+\noindent Dove l'insieme $e_k$ è una base ortonormale per lo spazio, detta \textbf{base canonica}. Similmente, nello spazio hilbertiano abbiamo: \[
+    z(t) = \sum_{k}c_k\phi_k(t)
+\]
+
+\noindent Dove il segnale generico $z(t)\in \mathcal{H}$ è definito come combinazione lineare tra una base ortonormale $\phi_k$ e i coefficienti $c_k$.
+Diciamo inoltre, che la base è ortonormale se: \[
+    \left<\phi_k, \phi_m \right> = \delta_{km}\quad \text{con } \delta_{km} = \begin{cases}
+        1, k=m\\
+        0, k\neq m
+    \end{cases}
+\]
+
+\noindent Ogni funzione base ha quindi una norma unitaria $||\phi_k|| = 1$ e i coefficienti sono dati da $c_k = \left<z, \phi_k \right>$.
+
+%
+
+\section{Basi di Fourier}
+Introdotto lo spazio di lavoro, possiamo definire la \textbf{base di Fourier} $\{\phi_k(t)\}$, la quale è composta dalle funzioni di base: \[
+    \phi_k(t) = \frac{1}{\sqrt{T}}e^{j2\pi kt/T}\quad \text{con }k\in\mathbb{Z}
+\]
+
+\noindent Per la quale ogni funzione di base è parametrizzata da $\omega_k = \frac{2\pi k}{T}$. Si può inoltre notare come appartenga alla classe di
+funzioni sinusoidali complesse $z_k(t) = Ae^{j(\omega_kt+\phi_0)}$, dove: \begin{itemize}
+    \item \textbf{Ampiezza}: $A = \frac{1}{\sqrt{T}}$
+    \item \textbf{Frequenza angolare}: $\omega_k = \frac{2\pi k}{T}$
+    \item \textbf{Fase iniziale}: $\phi_0 = 0$
+    \item \textbf{Parte reale}: $Re\{\phi_k(t)\} = \frac{1}{\sqrt{T}}cos\left(\frac{2\pi kt}{T}\right)$
+    \item \textbf{Parte immaginaria}: $Im\{\phi_k(t)\} = \frac{1}{\sqrt{T}}sin\left(\frac{2\pi kt}{T}\right)$
+    \item \textbf{Modulo}: $|\phi_k(t)| = \frac{1}{\sqrt{T}}$
+    \item \textbf{Arg}: $arg(\phi_k(t)) = \omega_kt = \frac{2\pi kt}{T}$
+\end{itemize}
+
+\noindent $T$, come già menzionato, è detto periodo fondamentale, per il quale sono definite anche le frequenze fondamentali che ritornano le frequenze
+della base di Fourier: \[
+    \omega_k = \frac{2\pi k}{T} = k\omega_0\quad f_k = \frac{k}{T} = kf_0
+\]
+
+\noindent Nominiamo, in questi termini $k=1$ la \textbf{frequenza fondamentale}, annotata con $\omega_1 = 1\omega_0 = \omega_0$, e con valori di $k$
+maggiori di $1$ diremo che sono la seconda, terza, quarta \textbf{armonica}, e così via. Invece, per quanto riguarda valori negativi, il segnale è
+rappresentato da una componente dalla frequenza negativa $\omega_{-k} = -\omega_k$. Dunque possiamo dire che $\phi_k(t)$ è la k-esima funzione di base
+complessa armonica.\par
+La base è interpretabile geometricamente per ogni valore fissato $t$; il numero complesso dato dalla base è un punto sul cerchio $|z| =
+\frac{1}{\sqrt{T}}$, e al variare di $t$, ruota il punto intorno all'origine mantenendo un raggio costante uguale a $\frac{1}{\sqrt{T}}$ con posizione
+angolare data da $\frac{2\pi kt}{T}$. In particolare: \begin{itemize}
+    \item Con $k>0$ si ha una rotazione antioraria.
+    \item Con $k<0$ si ha una rotazione oraria.
+    \item Con $k=0$ non si ha alcuna rotazione.
+\end{itemize}
+
+\noindent Infine, le funzioni di \textbf{base di Fourier} formano una \textbf{base ortonormale} dello spazio $L^2([0,T], \mathbb{C})$, infatti: \[
+    \left<\phi_k, \phi_m \right> = \int_{0}^{T} \phi_k(t)\overline{\phi_m(t)} dt = \delta_{km}
+\]
+
+\noindent Il risultato è detto \textbf{delta di Kronecker}, e rispetta le proprietà dell'ortonormalità; mostrando contemporaneamente che le funzioni di
+base hanno norma unitaria $||\phi_k|| = 1$ e sono mutuamente ortogonali, dunque l’insieme $\{\phi_k\}$ è una base ortonormale e per ogni
+$z(t)\in L^2([0,T], \mathbb{C})$ possiamo scrivere: \[
+    z(t) = \sum_{k\in \mathbb{Z}} c_k\phi_k(t)
+\]
+
+%
+
+\section{Serie di Fourier}
+Dato un segnale periodico $z(t)\in L^2([0,T], \mathbb{C})$, è possibile espandere il segnale nella forma discussa pocanzi: \[
+    z(t) = \sum_{k = -\infty}^{+\infty} c_k\phi_k(t)
+\]
+
+\noindent Dove i coefficienti sono le proiezioni di $x$ sulle funzioni di base di Fourier: $c_k = \left<x, \phi_k \right>$. Sostituendo la definizione
+del prodotto interno otteniamo la \textbf{serie di Fourier}: \[
+    c_k = \frac{1}{\sqrt{T}} \int_0^T x(t)e^{-j\omega_k t} dt
+\]
+
+\noindent Ogni coefficiente $c_k$ indica quanto la frequenza $\omega_k = \frac{2\pi k}{T}$ è presente all'interno del segnale; in altre parole
+rappresenta la proiezione del segnale sulla sinusoide di frequenza $\omega_k$\par
+Grazie alla serie di Fourier è possibile fare delle inferenze in merito alle componenti della scrittura. In particolare, se consideriamo la componente
+k-esima della serie $z_k(t) = c_k\phi_k(t)$ e scriviamo il coefficiente complesso di Fourier in forma polare, otteniamo: \[
+    c_k = |c_k|e^{jarg(c_k)}
+\]
+
+\noindent E da questo ricaviamo: \begin{equation}
+    \begin{split}
+        z_k(t) &= c_k\phi_k(t)\\
+            &= |c_k|e^{jarg(c_k)}\cdot \frac{1}{\sqrt{T}}e^{j\omega_k t}\\
+            &= \frac{|c_k|}{\sqrt{T}}e^{j(\omega_kt + arg(c_k))}
+    \end{split}
+\end{equation}
+
+\noindent Dunque $z_k(t)$ è una sinusoide complessa della forma $A_ke^{j(\omega_kt + \phi_{0,k})}$, dove: \begin{itemize}
+    \item \textbf{Ampiezza}: $A_k = |z_k(t)| = |c_k||\phi_k(t)| = \frac{|c_k|}{\sqrt{T}}$
+    \item \textbf{Fase}: $arg(z_k(t)) = \omega_kt + arg(c_k)$
+    \item \textbf{Fase iniziale}: $\phi_{0,k} = arg(c_k)$
+\end{itemize}
+
+\noindent Inoltre, sapendo che $c_k$ è un numero complesso; $|c_k|$ controlla la scala del componente e $\omega_kt$ fornisce la fase dipendente dal
+tempo. In questi termini, la funzione $c_k\phi_k(t)$ è detta componente armonica k-esima del segnale.
+
+%
+
+\section{Trasformata di Fourier}
+Quando parliamo di segnali non periodici, il periodo fondamentale $T$ tende idealmente a infinito, avvicinando sempre di più le frequenze discrete
+$\omega_k = \frac{2\pi k}{T}$, eventualmente facendo loro formare un insieme continuo. In questi termini, la sommatoria della serie di Fourier diventa
+un integrale della forma: \[
+    x(t) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{+\infty} X(\omega)e^{i\omega t}d\omega
+\]
+
+\noindent Dal quale possiamo definire la \textbf{trasformata di Fourier}: \[
+    X(\omega) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{+\infty} x(t)e^{-i\omega t} dt
+\]
+
+\noindent In particolare, la funzione $\phi_\omega(t) = \frac{1}{\sqrt{2\pi}}e^{i\omega t}$ rappresenta le funzioni di base associate alla frequenza
+$\omega$. Formalmente si scrive: \[
+    X(\omega) = \left<x, \phi_\omega \right>
+\]
+
+\noindent E indica che la $X(\omega)$ è la proiezione del segnale sulla sinusoide complessa di frequenza $\omega$. Attenzione, tuttavia, che le funzioni
+$e^{i\omega t}$ non appartengono allo spazio $L^2(\mathbb{R}, \mathbb{C})$, dunque, nel caso non periodico, non sono funzioni di base ordinarie dello
+spazio di Hilbert, bensì quello che fanno è formare una base generalizzata; per questa ragione è più corretto dire che la trasformata di Fourier è la
+\textbf{rappresentazione} di un segnale rispetto a una famiglia continua di funzioni di base generalizzata, come quella delle sinusoidi complesse.\par
+In ogni caso, facendo uso della trasformata, è possibile passare dal dominio del tempo, i cui segnali sono in forma $x(t)$ a quello delle frequenze
+$X(\omega)$, dove ogni valore è una proiezione: $X(\omega) = \left<x, \phi_\omega \right>$. Per ricostruire il segnale è necessario possedere i valori
+di ampiezza $|X(\omega)|$ e fase $arg(X(\omega))$. Inoltre, siccome la trasformata di Fourier è un operatore unitario, è preservato il prodotto interno
+e, di conseguenza, la norma: \[
+    \int_{-\infty}^{+\infty} |x(t)|^2 dt = \int_{-\infty}^{+\infty} |X(\omega)|^2 d\omega
+\]
+
+\noindent Questa scrittura è detta \textbf{relazione di Parseval} sotto convenzione simmetrica, e la quantità $|X(\omega)|^2$ è interpretabile come
+densità di energia rispetto alla frequenza, rendendo calcolabile l'energia totale del segnale anche nel dominio delle frequenze. Se si vogliono
+considerare solo le frequenze contenute in una certa \textbf{banda} $B$, è possibile moltiplicare lo spettro per una funzione indicatore: \[
+    X_B(\omega) = X(\omega)l_B(\omega)
+\]
+
+\noindent Che fornirà il segnale filtrato: \[
+    x_B(t) = \frac{1}{\sqrt{2\pi}}\int_B X(\omega)e^{i\omega t}d\omega
+\]
+
+\noindent Il quale è una proiezione sul subspazio generato dalle sinusoidi le cui frequenze si trovano all'interno della banda. Un filtro ideale è
+considerabile come un operatore di proiezione sullo spazio delle frequenze.

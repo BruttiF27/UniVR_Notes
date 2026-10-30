@@ -1,0 +1,148 @@
+LezBoh 29-10-26 - Intelligenza artificiale
+
+--- Lezione precedente ha definito il constraint satisfaction problem
+
+--- Definizione della formulazione standard per Constraint Problems
+Stati definiti da valori assegnati finora. Lo stato iniziale ha un assegnamento vuoto
+e la funzione successore assegna un valore a una variabile priva di esso che non
+crea conflitti con l'assegnamento attuale.
+Se non ci sono assegnamenti legali, fallisci. Si tratta di un problema irrisolvibile
+L'obiettivo è ottenere il completamento dell'assignment.
+
+Questa definizione è valida per ogni CSP e ogni soluzione appare a profondità n con
+n variabili, rendendo puù utile un'applicazione di DFS rispetto a BFS.
+Attenzione che b = (n-l)d a profondità l, dunque ci saranno n|d^n foglie. Troppe.
+
+Gli assegnamenti delle variabili sono commutativi e bisogna solo considerare gli
+assegnamenti a una singola variabile a ogni nodo. In questi termini b=d e ci saranno
+un totale di d^n foglie.
+	Una DFS per CSP con assegnazione di singola variabile è detto algoritmo di
+ricerca backtracking, ed è l'algoritmo non informato di base per i CSP.
+
+```
+function Backtracking-Search(csp) returns solution or failure
+return Backtrack({}, csp)
+
+function Backtrack (assignment, csp) returns solution or failure
+	if assignment is complete then return assignment
+	var <- Select-Unassigned-Variable(csp)
+	for each value in Order-Domain-Values(var, assignment, csp) do
+		if value is consistent with assignment then
+			add {var = value} to assignment
+			inferences <- Inferences(csp, var, value)
+			if inferences \neq failure then
+				add inferences to assignment
+				result <- Backtrack(assignment, csp)
+				if result ̸= failure then
+					return result
+				endif
+			endif
+		endif
+		remove {var = value} and inferences from assignment
+	endfor
+	return failure
+```
+
+Il backtracking è migliorabile ragionando su una riduzione dello spazio di ricerca
+effettivamente esplorato mediante tecniche euristiche.
+
+--- Ordinamento variabili e loro valori
+Un'euristica di questo tipo è quella dei minimum remaining values, dove si sceglie
+la variabile con il minor numero di valori legali rimanenti; molto utile quando si
+vuole ricercare un fallimento.
+
+Può capitare di avere variabili con un totale di minimum remaining values uguale. In
+tal caso bisogna affidarsi a un'altra euristica, usata come tie-breaker: la
+degree-euristic: sceglie la variabile che ha più vincoli su quelle rimanenti.
+(Nel senso che vincola il maggior numero di variabili) E' un'altro fail-fast come la
+precedente.
+
+Una volta scelta una variabile bisogna considerare quale valore assegnarle. La tecnica
+euristica da usare è quella del least constraining value, che sceglie il valore meno
+vincolante per la variabile. Deve escludere il numero minimo di valori nelle variabili
+rimanenti.
+
+Usare queste tre tecniche mediamente si riesce a risolvere i problemi in tempi minori,
+se applicate correttamente.
+
+--- Consistenza locale
+Alle volte si vuole cambiare il problema per portare in avanti le assegnazioni da fare
+è possibile studiare i vincoli e inferirne di nuovi. Per esempio, se abbiamo:
+C = {C1:(x1\neq x2), C2:(x2\neq x3)}
+Possiamo inferire il vincolo C3 : (x1 = x3) se gli elementi dell'insieme sono x1, x2, x3
+
+Aggiungendo vincoli si riduce lo spazio di ricerca e quindi il tempo usato.
+Aggiungerne, tuttavia, richiede più computazione e ogni volta che a una variabile si
+assegna un valore bisogna controllare più vincoli.
+	Se i vincoli sono solamente binari, avremmo un massimo di O(n) controlli, mentre
+con vincoli r-ari sarà possibile avere O(n^{r-1}) controlli.
+
+Se ogni foglia è un goal state, si dice che una rete R è backtrack free, sulla quale
+una DFS assicura un assegnamento completo e consistente. 
+
+--- Look-ahead
+Fare inferenza solo fino a un certo numero di variabili per prevedere l'impatto della
+mossa successiva, ovvero come la mossa successiva vincola assegnamenti futuri. Si
+tratta di una strategia efficiente per aggiornare informazioni per scegliere la
+prossima variabile o valore.
+
+Due strategie sono:
+Il forward checking controlla variabili prive di assegnamenti separatamente
+L'arc consistency propaga la consistenza degli archi.
+
+Usarle farà incorrere costi maggiori per assegnare valori, in quanto è necessario
+propagare i vincoli, tuttavia è possibile restringere lo spazio di ricerca in modo
+significativo, trovando valori che renderebbero il problema inconsistente, rimuovendo
+la mossa verso quella direzione.
+	Tendenzialmente non ci sono cambi nella peggiore performance, si tratta più che altro
+di un trade-off tra costi e benefici.
+
+Il forward checking in particolare propaga l'effetto di un valore selezionato a
+variabili future separatamente. Se i domini di un futuro diventno vuoti, prova il
+prossimo valore per la variabile attuale.
+
+La complessità di fare forward checking è O(ek^2), dove:
+	- e_u sono i consistency checks per ogni valore di ogni futura variabile
+	- k valore per ogni futura variabile O(e_uk)
+	- \sum_u e_u = e, allora O(ek)
+	- k valore per la variabile corrente
+	
+Non è possibile in generale risolvere una rete a vincoli facendo solo backtrack
+search e look ahead.
+
+- Arc-consistency look ahead
+Forzare una consistenza completa su tutte le variabili rimanenti. Si seleziona un
+valore per la variabile corrente x_i = a e si forza il vincolo su tutte le variabili
+non assegnate tali per cui x_i = a.
+	Un arco x_k \to x_j è consistente se e solo se per ogni assegnamento di x_k c'è
+almeno un assegnamento di x_j consistente col vincolo (x_k, x_j).
+
+Se nessun valore di x_j è consistente con un dato valore di x_k = c, rimuoviamo
+direttamente c dal dominio di x_k.
+Il forward checking fa rispettare la consistenza con ogni variabile non assegnata a 
+un nuovo assegnamento.
+
+La consistenza degli archi è un vincolo molto potente che in alcuni casi rende
+superfluo fare backtracking. Vedi un sudoku con qualche numero inserito; potrebbe
+essere risolto interamente solo forzando la consistenza degli archi, perché eliminerebbe
+i valori illegali per il dominio delle variabili controllate, facendo rispettare la
+regola del gioco.
+
+Per quanto riguarda l'arc consistency, il suo miglior algoritmo è AC-4, di complessità
+O(ek^2), mentre nel peggiore degli scenari è O(ek^3).
+
+Definiamo quindi una rete consistente:
+	- R_{x_i, x_j} è AC sse x_i è consistente in rispetto a x_j e x_j è AC rispetto a
+		x_i
+	- R è AC sse lo sono anche tutti i suoi vincoli
+	- Può assicurare che una coppia di variabili siano AC
+	- La revising AC su una variabile potrebbe rendere un'altra inconsistente.
+	- Richiede procedure sistematiche per garantire AC sulle reti.
+
+Inoltre:	
+Una consistenza e un dominio vuoto crea un problema inconsistente.
+Una consistenza e tutti i domini non vuoti non porta a un problema consistente.
+La consistenza non è completa se il controllo AC è binario.
+	
+Se invece si usa AC su domini tutti non vuoti e non ci sono cicli per grafi primali
+e si hanno vincoli binari, si avrà una consistent backtrack free network.

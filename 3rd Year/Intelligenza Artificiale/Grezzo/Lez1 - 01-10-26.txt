@@ -1,5 +1,3 @@
 Lez1 Intelligenza Artificiale - 01-10-26
 
-Cosa è l'intelligenza artificiale?
-Differenze tra AI, Machine Learning, AI generativa e AI agentica?
-
+Il campo dell'\textbf{intelligenza artificiale} ha lo scopo di comprendere e creare entità intelligenti, macchine capaci di calcolare come agire in modo efficace e sicuro in base alla situazione presa in esame. Si tratta di una disciplina molto ampia e suddivisa in un gran numero di sottoinsiemi; alcuni di questi, come l'apprendimento e la percezione, sono sottoambiti generali, mentre in altri casi è possibile applicare l'AI anche per problemi specifici, come la dimostrazione di teoremi matematici.

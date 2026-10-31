@@ -1,0 +1,41 @@
+Lez9 Basi di dati - 29-10-26
+
+--- Parrebbe essere una lezione di esercizi, dove spiega le modalità di approccio
+degli esercizi
+
+--- Strategie di progettazione
+Lo sviluppo di uno schema concettuale può avvenire con più approcci:
+	- Top-down
+		1. Considera le specifiche globalmente per produrre uno schema iniziale
+			completo ma con pochi concetti astratti.
+		2. Raffina i concetti astratti fino ad arrivare allo schema completo in
+			ogni dettaglio.
+	- Bottom-up
+		1. Decomponi le specifiche in parti elementari
+		2. Genera gli schemi per tutte le parti individuate
+		3. Fondere gli schemi ottenuti e integrarli con i costrutti del modello ER
+			per raggiungere lo schema finale.
+	- Inside-out
+		1. Individua alcuni concetti importanti dalle specifiche
+		2. Genera gli schemi per i concetti guida
+		3. Fondi gli schemi precedenti per generare quello finale.
+		
+E' necessario dare uno standard sulla qualità dello schema concettuale, determinata
+dalla sua analisi, che è divisa in più fasi:
+	- Verifica di correttezza: Uno schema è corretto se utilizza i costrutti del
+		modello concettuale adottato.
+	- Verifica di completezza: Uno schema è completo se rappresenta tutte le informazioni
+		di interesse e le operazioni indicate nelle specifiche possono essere tutte
+		eseguibili.
+	- Verifica di minimalità: Uno schema è minimale quando ogni concetto descritto nei
+		requisiti è rappresentato una sola volta. Non contiene quindi ridondanze.
+	- Verifica di leggibilità: Chiarezza grafica dello schema. Curabile con scelta dei
+		nomi appropriata e non disegnando linee sovrapposte.
+		
+Per semplificare lo schema è possibile separare anche le relazioni ternarie in entità
+oppure in due relazioni binarie.
+
+% TODO Disegnare le immagini
+
+--- Esercizio ER4
+Un casello è legato a una e una sola autostrada. Ovvio, no?

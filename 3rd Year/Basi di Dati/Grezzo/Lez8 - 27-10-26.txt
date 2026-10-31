@@ -1,0 +1,20 @@
+Lez8 Basi di dati 27-10-26
+
+--- Relazioni ternarie nel modello ER
+
+% TODO Fai il disegno di esempio
+
+Una relazione ternaria non è usata molto frequentemente, ma viene applicata quando
+un'istanza del concetto richiede sempre la presenza di tre istanze di entità per
+esistere, senza alcuna eccezione, e non esistono situazioni nelle quali la terna
+debba essere rappresentata più volte.\par
+Sono usate poco perché è facile applicarle erroneamente; bisogna assicurarsi che
+i requisiti per il suo uso siano rispettati sempre; capita spesso che si ottenga una
+rappresentazione corretta se non migliore usando relazioni binarie.
+
+Inoltre, se la terna è l'unione di due relazioni binarie indipendenti è probabile che
+la relazione ternaria sia ridondante e che possa essere sostituita da due binarie
+per esempio.\par
+Tuttavia le relazioni ternarie potrebbero essere utili per aggiungere uno storico a
+una binaria. Aggiungendo l'entità del tempo è possibile rappresentare più volte la
+stessa coppia in tempi diversi.

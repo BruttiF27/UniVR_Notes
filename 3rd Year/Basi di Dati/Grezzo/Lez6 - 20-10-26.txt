@@ -1,0 +1,23 @@
+Lez6 Basi di dati - 20-10-26
+
+--- Attributo opzionale e multivalore
+Trattasi di un attributo al quale è associato un vincolo di cardinalità. Il default è (1,1) ed è posto sulla linea dell'attributo. Altri valori della coppia sono:
+    - (0,1): Attributo opzionale
+    - (1,N): Attributo multivalore
+    - (0,N): Attributo opzionale e multivalore
+
+--- Attributo composto
+Aggrega gli attributi di un'entità o relazione che presentano affinità di significato, ovvero che hanno un qualche legame semantico. Graficamente è rappresentato da un ovale dal quale emergono gli attributi che lo compongono.
+
+--- Generalizzazione di entità
+Si tratta di un legame logico tra un'entità padre E ed un numero n di entità figlie, dove il genitore rappresenta una classe più generale e astratta rispetto alle figlie. Notare che ogni istanza delle figlie è anche istanza del padre e ogni proprietà del padre, quindi attributi, identificatori e relazioni, è ereditata dai figli.
+
+Esistono più modalità di generalizzazione:
+    - totale: ogni istanza del padre è anche istanza di almeno una figlia, altrimenti è detta parziale
+    - esclusiva: ogni istanza del padre è istanza strettamente di una figlia, altrimenti è detta sovrapposta
+
+Graficamente si collegano le entità figlie al padre mediante una freccia verso quest'ultimo, alla cui giunzione è indicato il tipo di generalizzazione; in particolare:
+    - (t,e): totale ed esclusiva
+    - (t,s): totale e sovrapposta
+    - (p,e): parziale ed esclusiva
+    - (p,s): parziale e sovrapposta

@@ -189,7 +189,52 @@ segnalata la modalità applicata mediante le seguenti coppie possibili, le cui i
     \caption{Esempio di generalizzazione}
 \end{figure}
 
-% TODO Il capitolo non è finito, ma il professore deve andare avanti con le lezioni.
+\noindent Un ulteriore costrutto utile per condensare le scritture è quello della \textbf{relazione ternaria}, tuttavia non è usato comunemente, poiché
+deve rispettare dei vincoli per poter essere utilizzata: richiede sempre la presenza di tre istanze di entità per esistere e non esistono situazioni
+nelle quali la terna debba essere rappresentata più volte.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{Images/Ternary_relation.png}
+    \caption{Esempio di relazione ternaria}
+\end{figure}
+
+\noindent Date queste restrizioni, è comune imbattersi in scenari dove la relazione richieda solo una coppia e non una terna; sarà necessario cambiare
+la scrittura in una rappresentante tre relazioni indipendenti fra le entità in gioco. Alternativamente, se la relazione ternaria è l'unione di due
+relazioni binarie indipendenti, è verosimile che la prima sia ridondante e che possa essere sostituita dalle sole due relazioni indipendenti.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/Ternary_to_indipendent.png}
+    \caption{Correzione da relazione ternaria a tre indipendenti}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/Ternary_to_two_binaries.png}
+    \caption{Correzione da relazione ternaria a due binarie indipendenti}
+\end{figure}
+
+\noindent Tuttavia, le terne possono essere utili per aggiungere uno storico a una relazione binaria; aggiungendo l'entità del tempo sarebbe possibile
+rappresentare più volte una stessa coppia in tempi diversi. Passando ora alle strategie di approccio alla progettazione concettuale, ne esistono tre
+principali:
+
+\paragraph{Approccio Top-Down:} Considera le specifiche globalmente per produrre uno schema iniziale completo, ma con pochi concetti astratti, per poi
+raffinarli fino a concretizzarli in ogni dettaglio, ottenendo lo schema finale.
+
+\paragraph{Approccio Bottom-Up:} Si decompongono le specifiche in parti elementari per le quali si generano relativi schemi. Il prodotto finito è la
+fusione di tutti gli schemi precedenti mediante i costrutti del modello ER.
+
+\paragraph{Approccio Inside-Out:} Individua alcuni concetti chiave importanti delle specifiche e genera i relativi schemi. Il prodotto finito è la loro
+fusione mediante i costrutti del modello ER.\newline
+
+\noindent Inoltre, è necessario garantire un certo livello di qualità dello schema concettuale, determinato dalla sua analisi, divisa in più step:
+\begin{enumerate}
+    \item \textbf{Verifica di correttezza}: Uno schema è corretto se utilizza appropriatamente i costrutti del modello concettuale adottato.
+    \item \textbf{Verifica di completezza}: Uno schema è completo se rappresenta tutte le informazioni di interesse e le operazioni indicate nelle
+        specifiche.
+    \item \textbf{Verifica di minimalità}: Uno schema è minimale quando ogni concetto indicato nei requisiti è rappresentato una sola volta. È quindi
+        privo di ridondanze.
+    \item \textbf{Verifica di leggibilità}: Uno schema è chiaro quando si ha cura della rappresentazione grafica. È una caratteristica curabile con
+        una scelta di nomi appropriata ed evitando di disegnare linee sovrapposte o contorte.
+\end{enumerate}
 
 %
 

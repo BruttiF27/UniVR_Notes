@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  21 OCT 2026 13:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2026.4.28)  31 OCT 2026 10:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -350,52 +350,72 @@ File: Images/Generalization.png Graphic file (type png)
 <use Images/Generalization.png>
 Package pdftex.def Info: Images/Generalization.png  used on input line 188.
 (pdftex.def)             Requested size: 270.00275pt x 162.71791pt.
-) [9 <./Images/Generalization.png>]
+<Images/Ternary_relation.png, id=61, 343.2825pt x 142.5325pt>
+File: Images/Ternary_relation.png Graphic file (type png)
+<use Images/Ternary_relation.png>
+Package pdftex.def Info: Images/Ternary_relation.png  used on input line 197.
+(pdftex.def)             Requested size: 270.00275pt x 112.10573pt.
+<Images/Ternary_to_indipendent.png, id=62, 793.96625pt x 151.56625pt>
+File: Images/Ternary_to_indipendent.png Graphic file (type png)
+<use Images/Ternary_to_indipendent.png>
+Package pdftex.def Info: Images/Ternary_to_indipendent.png  used on input line 206.
+(pdftex.def)             Requested size: 450.0pt x 85.90567pt.
+<Images/Ternary_to_two_binaries.png, id=63, 793.96625pt x 151.56625pt>
+File: Images/Ternary_to_two_binaries.png Graphic file (type png)
+<use Images/Ternary_to_two_binaries.png>
+Package pdftex.def Info: Images/Ternary_to_two_binaries.png  used on input line 211.
+(pdftex.def)             Requested size: 450.0pt x 85.90567pt.
+ [9 <./Images/Generalization.png> <./Images/Ternary_relation.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 225--227
+
+ []
+
+[10 <./Images/Ternary_to_indipendent.png> <./Images/Ternary_to_two_binaries.png>]) [11]
 Chapter 2.
-(./Chapters/2.tex) [10
+(./Chapters/2.tex) [12
 
 ]
 Chapter 3.
-(./Chapters/3.tex) [11
+(./Chapters/3.tex) [13
 
 ]
 Chapter 4.
-(./Chapters/4.tex) [12
+(./Chapters/4.tex) [14
 
 ]
 Chapter 5.
-(./Chapters/5.tex) [13
+(./Chapters/5.tex) [15
 
 ]
 Chapter 6.
-(./Chapters/6.tex) [14
+(./Chapters/6.tex) [16
 
 ]
 Chapter 7.
-(./Chapters/7.tex) [15
+(./Chapters/7.tex) [17
 
 ]
 Chapter 8.
-(./Chapters/8.tex) [16
+(./Chapters/8.tex) [18
 
 ]
 Chapter 9.
-(./Chapters/9.tex) [17
+(./Chapters/9.tex) [19
 
 ] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 6920 strings out of 476041
- 110823 string characters out of 5793174
+ 6941 strings out of 476041
+ 111553 string characters out of 5793174
  1860388 words of memory out of 6000000
- 27255 multiletter control sequences out of 15000+600000
+ 27273 multiletter control sequences out of 15000+600000
  523856 words of font info for 79 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
  74i,10n,82p,363b,502s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on main.pdf (18 pages, 218112 bytes).
+Output written on main.pdf (20 pages, 238072 bytes).
 PDF statistics:
- 158 PDF objects out of 1000 (max. 8388607)
- 91 compressed objects within 1 object stream
+ 171 PDF objects out of 1000 (max. 8388607)
+ 96 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

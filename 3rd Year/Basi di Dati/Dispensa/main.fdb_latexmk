@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1792581363.44627 "/home/F27/Desktop/UniVR/3rd Year/Basi di dati/Dispensa/main.tex" "main.pdf" "main" 1792581364.2937 0
+["pdflatex"] 1793438148.12928 "/home/F27/Desktop/UniVR/3rd Year/Basi di dati/Dispensa/main.tex" "main.pdf" "main" 1793438148.87332 0
   "/home/F27/Desktop/UniVR/3rd Year/Basi di dati/Dispensa/main.tex" 1791206461.52157 1332 3058fcd26f1f6e35383a5001dce94a10 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -93,7 +93,7 @@
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1775001600 40900 887e0dc8cac988a9e9c574af364cf837 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777382308.55095 4602016 72a039a3c4aea0fa25b5d35d65138f54 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777382069 7753793 49853c54d310b0d2fce2a6e72b3b1880 ""
-  "Chapters/1.tex" 1792581363.15716 14963 ae1914886d4157e458bae8e5009a8f35 ""
+  "Chapters/1.tex" 1793438147.86553 18136 0f39c910a317f754dbc7498c0d7df83c ""
   "Chapters/2.tex" 1791206526.0268 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Chapters/3.tex" 1759428902 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Chapters/4.tex" 1759428904 0 d41d8cd98f00b204e9800998ecf8427e ""
@@ -103,7 +103,7 @@
   "Chapters/8.tex" 1759429006 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Chapters/9.tex" 1759429014 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
-  "Configs/formats.tex" 1741537610 162 94ad515d4f2656e52898454c9959e092 ""
+  "Configs/formats.tex" 1793437433.84377 192 1cf1b9f9d311af7166fd6c0ff934aec7 ""
   "Configs/packages.tex" 1792568956.95317 1052 1c0d4e0a0348582d6b8ee21f8be9b8ab ""
   "Images/Attribute.png" 1792568635.48598 4238 c3b14cf98a1e84a429e3834ca06a00e9 ""
   "Images/Cardinality_example.png" 1792571842.94848 9340 dcbe5f13e1957c81c304b449472639d5 ""
@@ -112,9 +112,12 @@
   "Images/Generalization.png" 1792579590.70492 8554 0c48989f3dd666a30c2e9a961279d205 ""
   "Images/ID_types.png" 1792570210.2791 19444 f5cfb17028dafb9100bcb1dbdd72f16e ""
   "Images/Relation.png" 1792568587.18317 3848 ce44342a85b70a2020d1fce3efb414f8 ""
-  "main.aux" 1792581364.13454 3035 ce0fb951bb4f952e0b727468ab9c9685 "pdflatex"
+  "Images/Ternary_relation.png" 1793435588.7365 10341 b8b67ad9b37bb49cb88e267a4ad3db93 ""
+  "Images/Ternary_to_indipendent.png" 1793436319.60294 26472 7b4498fb001ab3eaf6199ce6b3c2bb43 ""
+  "Images/Ternary_to_two_binaries.png" 1793436368.36542 22595 a9cae88caa3625c63becf1bbbfd45a16 ""
+  "main.aux" 1793438148.76254 3802 2004b3eddc1655f83ebfca82d4ac3ce8 "pdflatex"
   "main.tex" 1791206461.52157 1332 3058fcd26f1f6e35383a5001dce94a10 ""
-  "main.toc" 1792581364.13554 1039 01f584d76f192dc9a1e2f0282c5d88b9 "pdflatex"
+  "main.toc" 1793438148.76254 1206 9d53ee53c9eaa4e4dc306f5776a37b84 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

@@ -100,8 +100,8 @@ lunghezza di $x$, mostrando che: \[ \begin{cases}
 \end{cases} \]
 
 \paragraph{Passo base:} $|x| = 0 \iff x = \epsilon$\par
-Bisogna prendere la più piccola lunghezza che garantisca sia stringhe in $L$ che stringhe ad esso non appartenenti. |x| = 2 è sufficiente. Procediamo a
-dimostrare la base per ogni lunghezza fino a due: \begin{itemize}
+Bisogna prendere la più piccola lunghezza che garantisca sia stringhe in $L$ che stringhe ad esso non appartenenti. $|x|$ = 2 è sufficiente. Procediamo
+a dimostrare la base per ogni lunghezza fino a due: \begin{itemize}
     \item $|x| = 0$: \[
         \hat{\delta}(q_0, x) = \hat{\delta}(q_0, \epsilon) = q_0\notin F
     \]
@@ -140,11 +140,95 @@ legge. Definiamo i casi: \begin{itemize}
 \end{itemize}
 
 \subsection{Automi a stati finiti non deterministici}
+Un automa a stati finiti non deterministico (NFA), similmente al precedente, è una quintupla $M = \left<Q, \Sigma, \delta, q_0, F\right>$, dove $Q,
+\Sigma, q_0$ ed $F\subseteq Q$ mantengono il precedente significato, mentre la funzione di transizione diventa: \[
+    \delta : Q\times \Sigma \to \mathcal{P}(Q)
+\]
 
-%
+\noindent Notare che ora è possibile accettare un numero maggiore di linguaggi, siccome $\delta$ è ora capace di ritornare un insieme di stati; per
+esempio è ammesso $\delta(q, a)$ per qualche $q\in Q$ e $a\in \Sigma$. Come conseguenza diretta, anche la chiusura transitiva subisce la stessa
+variazione, ed è ottenibile nel modo seguente: \[ \begin{cases}
+    \hat{\delta}(q, \epsilon) = \{q\}\\
+    \hat{\delta}(q, \omega a) = \cup_{p\in \hat{\delta}(q,\omega)}\delta(p,a)
+\end{cases} \]
 
-\section{Linguaggi liberi da contesto, forme normali e automi a pila}
+\noindent Per costruzione, è inoltre permesso che la $\delta(q, a) = \emptyset$, perché è un elemento appartenente all'insieme delle parti di $Q$. Una
+stringa $x$ è invece accettata se l'intersezione tra la funzione $\hat{\delta}(q_0, x)$ e l'insieme degli stati finali $F$ non è vuota; in questi
+termini, la definizione del linguaggio accettato da questi automi è: \[
+    L(M) = \{x\in \Sigma^* : \hat{\delta}(q_0, x) \cap F \neq \emptyset\}
+\]
 
-%
+\noindent La rappresentazione grafica degli NFA mediante grafo non cambia, ma la matrice di transizione, dato il non determinismo, richiede che sia
+indicato un insieme di stati raggiungibili. Supponiamo per esempio un NFA dalle seguenti caratteristiche: \begin{itemize}
+    \item $Q = \{q_0, q_1, q_2\}$
+    \item $\Sigma = \{0, 1\}$
+    \item Stato iniziale $q_0$
+    \item Insieme stati finali $F = \{q_2\}$
+\end{itemize}
 
-\section{Classificazione di Chomsky}
+\noindent E che bisogni verificare se ammette il linguaggio $L = \{x\in \Sigma^* | x \text{ contiene almeno due '1'}\}$. La dimostrazione fa uso del
+teorema di \textbf{Rabin-Scott}, il quale afferma che dato un NFA $M$, esisterà un DFA $M'$ tale per cui valga $L(M) = L(M')$, ovvero che il linguaggio
+sia accettato da entrambi.\par
+Questo enunciato si basa sul fatto che i DFA si possano vedere come casi particolari di NFA in cui la funzione di transizione restituisce sempre insiemi
+costituiti da un solo stato. Dunque: \[
+	M = \left<Q, \Sigma, \delta, q_0, F \right> \implies M' = \left< Q', \Sigma, \delta', q_0', F'\right> \text{tale che } L(M) = L(M')
+\]
+
+\noindent Si vuole quindi costruire $M'$ a partire da $M$, il quale sarà composto da: \begin{itemize}
+	\item $Q' = \mathcal{P}(Q)$: Insieme delle parti degli stati di $M$.
+	\item $q_0' = \{q_0\}$: Stato iniziale per entrambi gli automi.
+	\item $F' = \{P \subseteq Q | P\cap F \neq \emptyset\}$: Insieme di stati di $M'$ che contengono almeno uno stato finale di $M$.
+	\item $\delta'(P,a) = \cup_{p\in P}\delta(p,a)$: Funzione di transizione che determina tutti gli stati raggiungibili.
+\end{itemize}
+
+\noindent Per dimostrare il teorema è necessario provare che il linguaggio è riconosciuto da entrambi gli automi, usando l'induzione sulla lunghezza
+della stringa di input $x$, tale che: \[
+	\hat{\delta}(q_0, x) = \hat{\delta'}(q_0', x)
+\]
+
+\noindent Per $|x| = 0$ si ha un risultato banale, poiché per costruzione abbiamo $q_0' = \{q_0\}$ e una stringa vuota $x = \epsilon$. Ragioniamo quindi
+sul passo induttivo e diciamo che l'ipotesi valga per ogni $x$ tale per cui $|x| \leq m$. Considerando $xa$ una stringa di lunghezza $m+1$, avremo:
+\begin{equation}
+	\begin{aligned}
+		\hat{\delta'}(q_0', xa) &= \delta'(\hat{\delta'}(q_0', x), a) & \text{Definizione di $\hat{\dot}$ nei DFA}\\
+			&= \delta'(\hat{\delta}(q_0, x), a) & \text{Per ipotesi induttiva}\\
+			&= \cup_{p\in \hat{\delta}(q_0, x)} \delta(p,a) & \text{Definizione di } \delta'\\
+			&= \hat{\delta}(q_0, xa) & \text{Definizione di $\hat{\dot}$ nei NFA}
+	\end{aligned}
+\end{equation}
+
+\noindent L'enunciato del teorema segue dal fatto che: \begin{equation}
+	\begin{aligned}
+		x\in L(M) &\iff \hat{\delta}(q_0, x) \cap F\neq \emptyset & \text{Definizione linguaggio NFA}\\
+			&\iff \hat{\delta'}(q_0', x) \cap F\neq \emptyset & \text{Proprietà dei NFA}\\
+			&\iff \hat{\delta'}(q_0', x) \in F' & \text{Definizione di } F'\\
+			&\iff x\in L(M') & \text{Definizione linguaggio DFA}
+	\end{aligned}
+\end{equation}
+
+\subsection{NFA con epsilon transizioni}
+Esistono ulteriori automi capaci di cambiare stato senza che debbano leggere alcun simbolo, gli automi a stati finiti non deterministici con
+$\epsilon$-transizioni ($\epsilon$-NFA), per i quali bisogna capire se questa loro caratteristica cambi la classe dei linguaggi riconoscibili. Sono
+anch'essi definiti come una quintupla: \[
+	N = \left<Q, \Sigma, \delta, q_0, F \right>
+\]
+
+\noindent I cui elementi sono tutti uguali a quelli degli NFA, eccezion fatta per la funzione di transizione e relativa chiusura transitiva: \[
+	\delta : Q\times (\Sigma \cup \{\epsilon\}) \to \mathcal{P}(Q);\quad \hat{\delta} : Q\times \Sigma^* \to \mathcal{P}(Q)
+\]
+
+\noindent Dalla definizione è chiaro che accetta ogni simbolo dell'alfabeto $\Sigma$ e anche una stringa vuota. Tuttavia è necessario distinguere
+l'insieme di tutti quelli stati raggiungibili senza leggere simboli. Definiamo quindi: \begin{itemize}
+	\item $\epsilon$-closure(q): Insieme degli stati raggiungibili seguendo archi con simboli $\epsilon$ dell'automa.
+	\item $\epsilon$-closure $Q\to \mathcal{P}(Q)$: Funzione di transizione degli stati senza leggere simboli.
+\end{itemize}
+
+\noindent Le cui chiusure transitive sono definite con: \[ \begin{cases}
+	\hat{\delta}(q, \epsilon) &= \epsilon-closure(q) = \delta(q, \epsilon)\\
+	\hat{\delta}(q, \omega a) &= \cup_{p \in \hat{\delta}(q, \omega)} \epsilon-closure(\delta(p,a))
+\end{cases} \]
+
+\noindent Definiamo infine il linguaggio accettato dagli $\epsilon$-NFA, il cui automa sarà capace di arrivare a uno stato finale con la chiusura
+transitiva: \[
+	L(N) = \{x | \hat{\delta}(q_0, x) \cap F \neq \emptyset\}
+\]

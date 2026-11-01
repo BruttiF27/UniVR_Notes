@@ -3,15 +3,21 @@
 \contentsline {section}{\numberline {1.2}Contestualizzazione}{4}{}%
 \contentsline {section}{\numberline {1.3}Problema dell'Informatica}{5}{}%
 \contentsline {section}{\numberline {1.4}Concetti di base richiesti}{6}{}%
-\contentsline {chapter}{\numberline {2}Automi e linguaggi formali}{7}{}%
+\contentsline {chapter}{\numberline {2}Linguaggi formali e automi}{7}{}%
 \contentsline {section}{\numberline {2.1}Linguaggi formali}{7}{}%
 \contentsline {section}{\numberline {2.2}Automi a stati finiti}{7}{}%
 \contentsline {subsection}{\numberline {2.2.1}Automi a stati finiti deterministici}{8}{}%
 \contentsline {paragraph}{Passo base:}{10}{}%
 \contentsline {paragraph}{Passo induttivo:}{11}{}%
 \contentsline {subsection}{\numberline {2.2.2}Automi a stati finiti non deterministici}{11}{}%
-\contentsline {section}{\numberline {2.3}Linguaggi liberi da contesto, forme normali e automi a pila}{11}{}%
-\contentsline {section}{\numberline {2.4}Classificazione di Chomsky}{11}{}%
-\contentsline {chapter}{\numberline {3}Teoria della calcolabilità}{12}{}%
-\contentsline {section}{\numberline {3.1}Meet and fuck kingdom, steve}{12}{}%
-\contentsline {section}{\numberline {3.2}Meet 'n HUH!?}{12}{}%
+\contentsline {subsection}{\numberline {2.2.3}NFA con epsilon transizioni}{13}{}%
+\contentsline {chapter}{\numberline {3}Linguaggi regolari}{14}{}%
+\contentsline {section}{\numberline {3.1}Operazioni ed espressioni regolari}{14}{}%
+\contentsline {section}{\numberline {3.2}Teorema di Myhill-Nerode e minimizzazione}{14}{}%
+\contentsline {section}{\numberline {3.3}Pumping lemma per linguaggi regolari}{14}{}%
+\contentsline {chapter}{\numberline {4}Linguaggi liberi da contesto}{15}{}%
+\contentsline {section}{\numberline {4.1}Linguaggi liberi da contesto, forme normali e automi a pila}{15}{}%
+\contentsline {section}{\numberline {4.2}Classificazione di Chomsky}{15}{}%
+\contentsline {chapter}{\numberline {5}Teoria della calcolabilità}{16}{}%
+\contentsline {section}{\numberline {5.1}Meet and fuck kingdom, steve}{16}{}%
+\contentsline {section}{\numberline {5.2}Meet 'n HUH!?}{16}{}%

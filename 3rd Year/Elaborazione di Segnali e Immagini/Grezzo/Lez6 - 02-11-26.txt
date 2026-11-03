@@ -1,0 +1,80 @@
+Lez6 Elaborazione dei segnali e immagini - 02-11-26
+
+--- Teorema della convoluzione
+\hat{f*g} = \sqrt{2\pi} F(\omega)\cdot G(\omega)
+
+Mette in relazione la trasformata di fourier con la convoluzione; la convoluzione di due segnali nel dominio del tempo è equivalente al prodotto dei segnali nel dominio delle
+frequenze. Dunque a seconda di cosa conviene, puoi moltiplicare i segnali (prodotto per componenti) nel tempo oppure usare la convoluzione nelle frequenze.
+
+- Dimostrazione teorema
+\begin{equation}
+	\hat{f*g} &= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} (f*g)(t)\cdot e^{-i\omega t} dt\\
+		&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} f(\tau)g(t-\tau)\cdot e^{-i\omega t} d\tau dt\\
+\end{equation}
+
+Con $s = t-\tau, t = st\tau$. In tal caso e^{-i\omega t} = e^{-i\omega(s+\tau)} = e^{-i\omega s}e^{-i\omega\tau}
+
+// Continua dalla prima equazione, sapendo le nuove definizioni t ed s
+// Il prof dice di essersi dimenticato un fattore di scala 2\pi per garantire che anche il secondo integrale sia una TdF. Gli integrali devono essere la formula della TdF.
+\begin{equation}
+		&= \frac{1}{\sqrt{2\pi}} (\int_{-\infty}^{+\infty} f(\tau)e^{-i\omega\tau} d\tau)(\int_{-\infty}^{+\infty} g(s)e^{-i\omega s} ds)\\
+		&= \sqrt{2\pi} F(\omega)G(\omega)
+\end{equation}
+
+Naturalmente è possibile fare convoluzione fra due segnali nel dominio delle frequenze.
+C'è una relazione tra convoluzione e TdF: Il prodotto di segnali nel dominio del tempo diventa una convoluzione nelle frequenze.
+
+Consideriamo infatti:
+// Convoluzione
+(F*G)(\omega) = \int_{-\infty}^{+\infty}F(\ni)G(\omega-\ni)d\ni
+// Antitrasformata
+F^{-1}{F*G} = \sqrt{2\pi} f(t)g(t)
+
+\hat{f\cdot g}(\omega) = \frac{1}{\sqrt{2\pi}} (F*G)(\omega)
+
+- Dimostrazione (rivedere)
+// Partiamo dalla convoluzione di due segnali nel tempo
+\hat{fg} = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} f(t)g(t) e^{-i\omega t} dt
+	&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} f(t) \int_{-\infty}^{+\infty} G(\ni)e^{i\ni t} d\ni e^{-i\omega t} dt
+	&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} G(\ni) [\int_{-\infty}^{+\infty} f(t)e^{-i(\omega-\ni) t} dt]d\ni		// Notare l'integrale nella quadra, è una TdF
+	&= \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} F(\omega-\ni)\cdot G(\ni) d\ni
+	&= \frac{1}{\sqrt{2\pi}} (F*G)(\omega)
+	
+----- Trasformazione dei segnali - definizione di sistema
+Un sistema è una "regola" che prende in input un segnale x(t) e produce un segnale di output y(t) (risposta al sistema rispetto a x(t)). Detiene un elemento T che trasforma il
+segnale e può essere un dispositivo fisico, un filtro, un operatore matematico e molt'altro.
+
+--- Proprietà dei sistemi
+
+\paragraph{Linearità:} Detta anche \textbf{superposition}, afferma che sommare o scalare l'input provoca la somma o la scalatura anche nell'output. \[
+	T{ax_i + bx_2} \equiv aT{x_i} + bT{x_2}; \text{Con a,b scalari}
+\]
+
+\noindent E' comoda perché input e output possono essere in domini diversi; se si modifica uno con le due operazioni, così farà automaticamente anche l'output senza ulteriori
+operazioni del caso.
+
+\paragraph{Tempo-invarianza:} Aggiungendo un ritardo (time shift) al segnale di input, lo si provocherà anche in quello di output: \[
+	T{x(t-t_0)} = y(t-t_0)
+\]
+
+\noindent Chiariamo che questa proprietà non è universale; altri sistemi possono presentare una tempo-varianza, dove in base si troverà nel tempo il segnale di input, quello di
+output potrebbe essere amplificato o modificato. Per esempio x(t-t_0) \implies tx(t-t_0)
+
+\paragraph{Causalità:} Un sistema si dice causale se il suo output al tempo t dipende solo dal segnale di input fino al tempo t e mai dopo. Fondamentale per poter permettere
+una trasformazione in tempo reale. \[
+	y(t) = 2x(t) è causale, y = 2x(t-1) pure, y(t) = x(t+1) invece no, perché si richiede sapere +1 per sapere come trasformare y(t)
+\]
+
+\paragraph{Memoria:} Un sistema senza memoria calcola l'output al tempo t usando solo il valore dell'input al tempo t. Altrimenti ha memoria, lol.
+Un sistema causale con memoria non può richiederle di conoscere il futuro, come dice la proprietà \[
+	y(t) = f(x(t))
+\]
+
+\paragraph{Stabilità:} Una proprietà che vale per l'input prima della trasformazione vale anche dopo per l'output, detta in parole povere.
+	- Bounded input-Bounded output (BIBO): Se il segnale si trova sempre all'interno di un certo intervallo: |x(t)| \leq M \forall t \implies |y(t)| \leq N \forall t
+		con M < \+infty e N > +\infty
+		
+\paragraph{Invertibilità:} Un sistema è invertibile quando il suo output contiene informazioni sufficienti per ricostruire l'input.
+
+--- Sistemi LTI
+Sistemi che detengono le proprietà di linearità e tempo invarianza. Ma dai? In queste condizioni, il sistema si comporta come una convoluzione. Yay.

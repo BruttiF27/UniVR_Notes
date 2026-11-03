@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1793108389.94556 "/home/F27/Desktop/UniVR/3rd Year/Elaborazione di segnali e immagini/Dispensa/main.tex" "main.pdf" "main" 1793108390.58895 0
-  "/home/F27/Desktop/UniVR/3rd Year/Elaborazione di segnali e immagini/Dispensa/main.tex" 1793098307.20864 1289 4baf69afbfe43e541681d503d273483d ""
+["pdflatex"] 1793704248.84078 "/home/F27/Desktop/UniVR/3rd Year/Elaborazione di segnali e immagini/Dispensa/main.tex" "main.pdf" "main" 1793704249.16157 0
+  "/home/F27/Desktop/UniVR/3rd Year/Elaborazione di segnali e immagini/Dispensa/main.tex" 1793697775.35458 1289 66c6e44c10b4d3ae76f966dbd17bed00 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -94,8 +94,8 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777382308.55095 4602016 72a039a3c4aea0fa25b5d35d65138f54 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777382069 7753793 49853c54d310b0d2fce2a6e72b3b1880 ""
   "Chapters/1.tex" 1793098307.20864 14185 11fe9e9131c38ccbee4cb060ef647d45 ""
-  "Chapters/2.tex" 1793108389.04888 11451 bf394cac84507089f3575f2754c6c149 ""
-  "Chapters/3.tex" 1792228659.9917 0 d41d8cd98f00b204e9800998ecf8427e ""
+  "Chapters/2.tex" 1793697775.26644 13800 65386702cde9c90cb60f67aa75312b14 ""
+  "Chapters/3.tex" 1793704248.35267 6698 0b883cb2f3363d6f2a5460b958a8b7df ""
   "Chapters/4.tex" 1792228659.9927 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Chapters/5.tex" 1792228659.9927 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Chapters/6.tex" 1792228659.9927 0 d41d8cd98f00b204e9800998ecf8427e ""
@@ -105,9 +105,9 @@
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
   "Configs/formats.tex" 1760625942 169 92cdab9857b81aeb67c3412b8db54e46 ""
   "Configs/packages.tex" 1760624174 1028 ba2fc4b35c2aa8acba53a0f57c2a9784 ""
-  "main.aux" 1793108390.48489 3147 7b3eb3cb9a58d7cd744fbcd2e2a5b1ca "pdflatex"
-  "main.tex" 1793098307.20864 1289 4baf69afbfe43e541681d503d273483d ""
-  "main.toc" 1793108390.48489 1528 6049616b5e6a1bc65b3c9a83cb8f3ba2 "pdflatex"
+  "main.aux" 1793704249.11049 3998 d3f08a5046b149bc9f04b60b3c01d4e8 "pdflatex"
+  "main.tex" 1793697775.35458 1289 66c6e44c10b4d3ae76f966dbd17bed00 ""
+  "main.toc" 1793704249.11124 2010 0c5130cb7b31e919ecf098bf1a037afe "pdflatex"
   (generated)
   "main.aux"
   "main.log"

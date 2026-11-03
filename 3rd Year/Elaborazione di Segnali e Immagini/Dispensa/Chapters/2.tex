@@ -76,7 +76,7 @@ funzioni sinusoidali complesse $z_k(t) = Ae^{j(\omega_kt+\phi_0)}$, dove: \begin
     \item \textbf{Parte reale}: $Re\{\phi_k(t)\} = \frac{1}{\sqrt{T}}cos\left(\frac{2\pi kt}{T}\right)$
     \item \textbf{Parte immaginaria}: $Im\{\phi_k(t)\} = \frac{1}{\sqrt{T}}sin\left(\frac{2\pi kt}{T}\right)$
     \item \textbf{Modulo}: $|\phi_k(t)| = \frac{1}{\sqrt{T}}$
-    \item \textbf{Arg}: $arg(\phi_k(t)) = \omega_kt = \frac{2\pi kt}{T}$
+    \item \textbf{Fase}: $arg(\phi_k(t)) = \omega_kt = \frac{2\pi kt}{T}$
 \end{itemize}
 
 \noindent $T$, come già menzionato, è detto periodo fondamentale, per il quale sono definite anche le frequenze fondamentali che ritornano le frequenze
@@ -101,10 +101,14 @@ angolare data da $\frac{2\pi kt}{T}$. In particolare: \begin{itemize}
 \]
 
 \noindent Il risultato è detto \textbf{delta di Kronecker}, e rispetta le proprietà dell'ortonormalità; mostrando contemporaneamente che le funzioni di
-base hanno norma unitaria $||\phi_k|| = 1$ e sono mutuamente ortogonali, dunque l’insieme $\{\phi_k\}$ è una base ortonormale e per ogni
+base hanno norma unitaria $||\phi_k|| = 1$ e sono mutuamente ortogonali, dunque l'insieme $\{\phi_k\}$ è una base ortonormale e per ogni
 $z(t)\in L^2([0,T], \mathbb{C})$ possiamo scrivere: \[
     z(t) = \sum_{k\in \mathbb{Z}} c_k\phi_k(t)
 \]
+
+\noindent Per definizione, il delta di Kronecker può assumere solo i valori discreti $0,1$, e per questa ragione ne si fa uso nei segnali digitali. Per
+quanto riguarda i valori continui, invece, si utilizza il \textbf{delta di Dirac}, la cui funzione è la medesima, ma è capace di assumere anche valori
+non discreti, rendendolo utile per lo studio dei segnali nel dominio del tempo.
 
 %
 
@@ -151,7 +155,8 @@ un integrale della forma: \[
     x(t) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{+\infty} X(\omega)e^{i\omega t}d\omega
 \]
 
-\noindent Dal quale possiamo definire la \textbf{trasformata di Fourier}: \[
+\noindent Dal quale possiamo definire la \textbf{trasformata di Fourier}, un operatore che prende una funzione in input e ne ritorna il prodotto
+scalare tra di essa e la funzione sinusoide complessa di frequenza $\omega$: \[
     X(\omega) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{+\infty} x(t)e^{-i\omega t} dt
 \]
 
@@ -165,9 +170,12 @@ $e^{i\omega t}$ non appartengono allo spazio $L^2(\mathbb{R}, \mathbb{C})$, dunq
 spazio di Hilbert, bensì quello che fanno è formare una base generalizzata; per questa ragione è più corretto dire che la trasformata di Fourier è la
 \textbf{rappresentazione} di un segnale rispetto a una famiglia continua di funzioni di base generalizzata, come quella delle sinusoidi complesse.\par
 In ogni caso, facendo uso della trasformata, è possibile passare dal dominio del tempo, i cui segnali sono in forma $x(t)$ a quello delle frequenze
-$X(\omega)$, dove ogni valore è una proiezione: $X(\omega) = \left<x, \phi_\omega \right>$. Per ricostruire il segnale è necessario possedere i valori
-di ampiezza $|X(\omega)|$ e fase $arg(X(\omega))$. Inoltre, siccome la trasformata di Fourier è un operatore unitario, è preservato il prodotto interno
-e, di conseguenza, la norma: \[
+$X(\omega)$, dove ogni valore è una proiezione: $X(\omega) = \left<x, \phi_\omega \right>$. Per ricostruire il segnale, invece, è necessario possedere i
+valori di ampiezza $|X(\omega)|$ e fase $arg(X(\omega))$, per poi usare l'\textbf{antitrasformata}: \[
+    x(t) = \int_{-\infty}^{+\infty} X(\omega)\phi_\omega(t) d\omega = \sum_k c_k\phi_k(t)
+\]
+
+\noindent Inoltre, siccome la trasformata di Fourier è un operatore unitario, è preservato il prodotto interno e, di conseguenza, la norma: \[
     \int_{-\infty}^{+\infty} |x(t)|^2 dt = \int_{-\infty}^{+\infty} |X(\omega)|^2 d\omega
 \]
 
@@ -182,4 +190,21 @@ considerare solo le frequenze contenute in una certa \textbf{banda} $B$, è poss
 \]
 
 \noindent Il quale è una proiezione sul subspazio generato dalle sinusoidi le cui frequenze si trovano all'interno della banda. Un filtro ideale è
-considerabile come un operatore di proiezione sullo spazio delle frequenze.
+considerabile come un operatore di proiezione sullo spazio delle frequenze.\par
+Conoscere il contenuto frequenziale dei segnali grazie a Fourier è fondamentale per poter processarli; consente infatti di interpretare i segnali grazie
+a una maggiore facilità di manipolazione, data dai valori discreti. Nel dominio del tempo, infatti, non è possibile avere un segnale "puro", perché di
+norma è disturbato da altri. Il dominio delle frequenze risolve questo problema fornendo un ambiente privo di contaminazioni.
+
+%
+
+\section{Larghezza spaziale e spettrale}
+Terminiamo il capitolo con una piccola digressione grafica; esiste una relazione tra la forma del segnale nel dominio dello spazio e delle frequenze.
+Definiamo \textbf{larghezza spaziale}\footnote{Da non confondersi con la frequenza spaziale, che misura quanto velocemente un segnale oscilla per ogni
+unità di distanza} $L$ di un segnale quella quantità che indica quanto la funzione si estende lungo la coordinata spaziale del tempo $t$ ed è compresa
+nell'intervallo $[-L/2, L/2]$. La \textbf{larghezza spettrale} (o frequenziale) è il valore analogo all'interno del dominio delle frequenze.\par
+Queste due misure sono inversamente proporzionali: un segnale con una larghezza spaziale stretta nel dominio del tempo avrà un'ampia larghezza spettrale
+e viceversa. Esistono anche dei casi particolari: \begin{itemize}
+    \item Una funzione costante nello spazio diventa un impulso nel dominio delle frequenze.
+    \item Una funzione rettangolare di lunghezza $L$ diventa una funzione $sinc$, la quale ha il suo primo zero in $\omega = \pm 1/L$.
+    \item Una gaussiana con un certo $\sigma$ nel tempo ne diventa un'altra con $\sigma_\omega = 1/\sigma_t$.
+\end{itemize}

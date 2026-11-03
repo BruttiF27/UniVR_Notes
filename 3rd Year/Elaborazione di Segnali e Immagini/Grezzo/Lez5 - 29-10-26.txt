@@ -1,0 +1,69 @@
+Lez5 Elaborazione segnali e immagini - 29-10-26
+
+--- Ha fatto la TDF, my bad, ho già fatto la scorsa lezione
+Operatore che prende una funzione ritonra il prodotto scalare tra il segnale di
+input e la funzione sinusoide complessa di frequenza \omega
+
+Interpretazione TdF
+Funzione interpretata come la rappresentazione del segnale dal dominio del tempo a
+quello delle frequenze
+
+L'antitrasformata è invece il prodotto scalare tra il valore della TdF X(t) e le
+basi di fourier \phi(t)
+
+--- Mo sta menzionando le basi di fourier
+Negli appunti è indicata la base di ourier per un periodo specifico T, ma per
+generalizzarla si può sostituire 2\pi alla T per comprendere il periodo intero.
+
+Ah, quando dice "arg()" intendeva la fase.
+
+kronecker può avere 0,1 e si usa nei discreti. Verrà usata nel guardare segnali
+digitali
+dirac può assumere valori continui e si usa nel dominio del tempo.
+
+Il segnale nel tempo x(t) nel dominio delle frequenze diventa X(\omega), in cui ogni
+suo valore è dato dal prodotto scalare tra il segnale nel tempo e le basi continue.
+
+Capire il contenuto frequenziale dei segnali grazie alla TdF è fondamentale per poter
+fare signal processing. Permette di interpretare i segnali grazie a una maggiore 
+facilità di manipolazione. Questo perché nel dominio del tempo non è possibile avere
+un segnale puro, facilmente definibile, perché di norma è influenzato da altre
+frequenze; passando al dominio delle frequenze si avranno valori discreti con i quali
+poter lavorare più facilmente, in un ambiente privo di contaminazioni.
+
+TODO: aggiungere che la relazione di Parseval mostra che l'energia si conserva dal
+dominio del tempo a quello delle frequenze.
+
+--- Relazione tra la forma del segnale nel dominio spaziale e frequenziale
+Definiamo Largezza Spaziale per un segnale quella quantità che indica lo span
+totale del segnale nello spazio.
+Lo spazio è un intervallo dato da -L a L, due punti che indicano, nel piano cartesiano
+i punti estremi della funzione.
+	Si ha poi la larghezza frequenziale, la stessa cosa, solo che al posto del tempo si
+hanno le frequenze.
+
+Una proprietà fondamentale dice che la larghezza spaziale e quella frequenziale sono
+inversamente proporzionali. Quindi un segnale che ha una larghezza stretta nel dominio
+del tempo, in quello delle frequenze ne avrà una larghezza ampia e viceversa.
+
+Casi particolari suati nel signal processing:
+	- funzione costante nello spazio: Diventa un impulso nelle frequenze
+	- funzione rettangolare con L sua lunghezza: Diventa una funzione sinc
+		la quale ha il suo primo zero in \omega=\pm 1/L
+	- Una gaussiana con un certo \sigma nel tempo: Diventa una gaussiana dove
+		\sigma_\omega = 1/\sigma_t, quindi si allarga la campana.
+
+--- Filtri dei segnali
+Convoluzione, yay. Siano due funzioni f,g:R\to C. La loro convoluzione è: \[
+	(f*g)(t) = \int_{-\infty}^{+\infty} f(\tau)g(t-\tau) f\tau
+\]
+
+\noindent Descrive come un segnale di input f è cambiato da un sistema la cui risposta
+è g. Fondamentalmente, tenendo uno dei segnali fermo (tendenzialmente f), si inverte
+e fa scorrere g sul primo, formando un'area in base al tempo t considerato.
+
+Proprietà:
+	- Commutativa: f*g = g*f
+	- Associativa: (f*g)*h = f*(g*h)
+	- Distributiva rispetto ad addizione: f*(g*h) = f*g + f*h
+	- Linearità rispetto allo scalare: (af)*g = a(f*g)

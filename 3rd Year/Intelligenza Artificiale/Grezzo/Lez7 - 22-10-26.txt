@@ -1,0 +1,3 @@
+Lez7 Intelligenza artificiale - 22-10-26
+
+--- Ricerca locale in spazi discreti

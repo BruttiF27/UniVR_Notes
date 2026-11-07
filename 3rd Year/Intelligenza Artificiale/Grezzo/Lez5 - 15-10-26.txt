@@ -1,0 +1,36 @@
+Lez5 Intelligenza artificiale - 15-10-26
+
+--- Strategie di ricerca informate
+Le strategie di ricerca informate sfruttano conoscenze specifiche del dominio applicativo per fornire suggerimenti, i quali prendono la forma di una \textbf{funzione euristica} $h(n)$, su dove si possa trovare l'obiettivo. La funzione rappresenta il costo stimato del cammino di costo minimo dallo stato del nodo $n$ a quello di un obiettivo. Inoltre, risultano in generale più efficienti rispetto a strategie non informate.
+
+\paragraph{Greedy Best-First search:} Sfrutta la funzione euristica $h(n)$ su ogni nodo per determinare quale riporti il valore più basso, quindi più vicino all'obiettivo, per poi espanderlo. La frontiera è implementata come una coda di ordine crescente sul valore delle $h(n)$ calcolate.\par
+Dunque, partendo dallo stato iniziale, si effettua la sua espansione, per poi scegliere il passo seguente in base ai path cost dei nodi successivi. Si continua a scegliere quello di costo minimo fino al raggiungimento dell'obiettivo. L'algoritmo: \begin{itemize}
+    \item \textbf{Non completo}: Potrebbe rimanere bloccato in cicli, ma può diventarlo in uno spazio finito con un controllo su stati ripetuti.
+    \item \textbf{Complessità temporale}: $O(b^m)$, tuttavia una buona euristica può fornire buoni miglioramenti.
+    \item \textbf{Complessità spaziale}: $O(b^m)$, perché mantiene tutti i nodi in memoria
+    \item \textbf{Non ottimale}.
+\end{itemize}
+
+\paragraph{A$^*$ search:} Altro algoritmo basato sull'approccio best-first la cui idea è di evitare l'espansione di cammini più dispendiosi rispetto a quello minimo trovato. Sfrutta la funzione di valutazione: \[
+    f(n) = g(n) + h(n)
+\]
+
+\noindent Dove $g(n)$ è il costo del cammino dal nodo iniziale ad $n$ ed $h(n)$ è il costo stimato per raggiungere l'obiettivo partendo da $n$. Ciò rende $f(n)$ il costo stimato del cammino migliore che continua da $n$ fino a un obiettivo.\par
+Inoltre, A$^*$ fa uso di un'euristica ammissibile, la quale sarà definita meglio più avanti. \begin{itemize}
+    \item \textbf{Completo}, a meno che non ci siano infinitamente tanti nodi con $f \leq f(G)$
+    \item \textbf{Complessità temporale}: Esponenziale in [errore relativo in h $\times$ lunghezza soluzione]
+    \item \textbf{Complessità spaziale}: Mantiene tutti i nodi in memoria.
+    \item \textbf{Ottimale}, ma richiede di fare assunzioni sull'euristica, come l'ammissibilità e la consistenza, e dipende dalla strategia di ricerca.
+\end{itemize}
+
+\noindent Definiamo ora un'euristica \textbf{ammissibile} se non sovrastima mai il costo reale $h^*(n)$ per arrivare all'obiettivo a partire da $n$; nel caso in cui sbagli, potrà essere solo per difetto e mai per eccesso. Rispetta la relazione: \[
+    h(n) \leq h^*(n);\quad h(n) \geq 0;\quad h(G) = 0 \text{ con G obiettivo}
+\]
+
+\noindent Una condizione più forte è fornita dalle euristiche \textbf{consistenti}, per le quali la stima da $n$ non può essere peggiore della stima da un nodo $n'$, successore di $n$, sommata al costo reale per andare da $n$ a $n'$. Si tratta quindi di una disuguaglianza triangolare applicata al grafo di ricerca; formalmente: \[
+    h(n) \leq c(n, a, n') + h(n');\quad \text{$a$ azione che genera $n'$}
+\]
+
+\noindent La conseguenza pratica di questa condizione è che i valori $f(n)$ di A$^*$ non decrescono mai lungo un cammino, garantendo anche l'ottimalità trovando la soluzione di costo minimo. Inoltre ogni euristica consistente è anche ammissibile, ma non viceversa.\par
+Se consideriamo ora due euristiche ammissibili $h_1, h_2$, e per ogni nodo vale $h_2(n) \geq h_1(n)$, allora si dice che $h_2$ \textbf{domina} $h_1$, e, poiché più informata, risulterà migliore rispetto all'altra. La dominanza fornisce quindi un criterio per scegliere l'euristica migliore applicata al caso in esame.\par
+Per costruire euristiche ammissibili ci si affida ai \textbf{problemi rilassati}; contesti nei quali si prende il problema originale e si rimuovono (rilassano) alcuni vincoli sulle azioni, rendendo il problema più semplice da risolvere. Il costo della soluzione ottima di questo nuovo problema risulta essere un'euristica ammissibile anche per l'originale, perché ogni soluzione di quest'ultimo è valida anche sui problemi rilassati, il cui costo non supererà mai quello vero.

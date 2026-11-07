@@ -84,45 +84,175 @@ degli RB alberi. \textbf{Graph-Search()} è l'algoritmo che implementa questa ca
 %
 
 \section{Strategie di ricerca non informate}
+Le strategie di ricerca non informate sono approcci di ricerca che fanno uso esclusivamente delle informazioni disponibili nella definizione del
+problema. Sono attuabili con più algoritmi, tra cui i seguenti:
 
+\paragraph{Breadth-First-Search:} Attua un'espansione sul nodo più superficiale non ancora espanso. La frontiera è implementata come una coda FIFO.
+\begin{algorithm}[h]
+    \caption{BFS(problem) \textbf{returns} solution or failure}
+    \begin{algorithmic}[i]
+        \State node $\gets$ node with State = problem.Initial-State, Path-Cost = 0
+        \If{problem.Goal-Test(node.State)} \textbf{return} node
+        \EndIf
+        \State explored $\gets \emptyset$, frontier $\gets$ queue with single node element
+        \Loop
+            \If{frontier = $\emptyset$} \textbf{return} failure
+            \EndIf
+            \State add node.State to explored
+            \For{each action in problem.Actions(node.State)}
+                \State child $\gets$ Child-Node(problem, node, action)
+                \If{child.State $\notin$ explored or frontier}
+                    \If{problem.Goal-Test(child.State)} \textbf{return} child
+                    \EndIf
+                    \State frontier $\gets$ insert(child)
+                \EndIf
+            \EndFor
+        \EndLoop
+    \end{algorithmic}
+\end{algorithm}
 
+\noindent L'algoritmo è \textbf{completo} in quanto $b$ ha valore finito, presenta una \textbf{complessità temporale} e \textbf{spaziale} di $O(b^d)$
+poiché il massimo numero di figli che un nodo ha cresce esponenzialmente andando verso le foglie, i quali sono tenuti in memoria. Dato questo
+salvataggio, è sconsigliato implementarlo quando si ha un grande numero di nodi. Inoltre, è \textbf{ottimale} solamente quando il costo per ogni step è
+uguale, qunidi non in termini generali.
 
-\begin{comment}
-    --- Strategie di ricerca non informate
-Approcci di ricerca senza sapere nulla in merito al problema, perché usano solo le informazioni proposte nella definizione del problema. Sono attuabili con alcuni algoritmi come
-	- BFS graph search: Frontiera fifo ed espande il nodo più superficiale non espanso. TODO Aggiungi algoritmo
-		Proprietà: è completa se b è finito, compl tempo: O(b^d), compl. spazio: O(b^d), è ottima se si ha il medesimo costo per ogni step nell'albero, non in generale.
-	- Uniform-cost search: Espande il nodo non espanso dal costo minimo. Ordiniamo la frontiera per posto tenendo in mente sempre il nodo che costa meno.
-		Se i costi di spostamento sono uguali, ha proprietà equivalenti a BFS graph search.
-		Due modifiche da apportare per garantire ottimalità sempre:
-			1. Esegui il goal test when selecting nodes for expansion and not when generated.
-			2. Check if child node is already present inside the frontier with a higher cost, then replace the previous node.
-	- DFS graph search: Frontiera è una coda Lifo.
-		Non è completa, fallisce in loop infiniti. Tuttavia si può modificare per eludere
-		stati ripetuti. E' tuttavia completa in spazi finiti.
-		Tempo: O(b^m), atroce se m è molto più grande rispetto a d, ma se le soluzioni sono dense
-		potrebbe essere più veloce di BFS. Spazio: O(bm). Non è ottimale, né è possibile renderla tale.
-	 - Iterative deepening search: Esegui una DFS definendo un limite alla profondità dell'albero.
-		Il senso di questa strategia, è limitare la complessità spaziale. Introduce poi la possibilità di ritornare successo, fallimento e cutoff, in base al threshold scelto.
-		Si tratta di una soluzione completa, tempo O(b^d), spazio O(bd). Inoltre, se gli step costano 1 può essere modificata per esplorare alberi di costo uniforme.
+\paragraph{Uniform-Cost-Search:} Algoritmo greedy che espande il nodo il cui step ha costo minore. Si tratta di una rielaborazione di Dijkstra
+specializzato nella ricerca. Per implementarlo è richiesta una frontiera data da una coda che ordina i path-cost in modo crescente. Inoltre, rispetto a
+BFS, è consigliato applicare due modifiche per garantire ottimalità: chiamare il goal-test \textit{durante} la selezione del nodo per l'espansione e
+controllare se un nodo figlio sia già presente nella frontiera con un costo maggiore; in tal caso, bisognerà rimpiazzarlo con quello appena trovato.
+Inoltre: \begin{itemize}
+    \item \textbf{Completo} se lo step cost è $\geq \epsilon$.
+    \item \textbf{Complessità temporale}: Data dal numero di nodi con $g\leq$ costo della soluzione ottimale $C^*: O(b^{1+\lfloor C^*/\epsilon\rfloor})$.
+    \item \textbf{Complessità spaziale}: Data dal numero di nodi con $g\leq$ costo della soluzione ottimale $C^*: O(b^{1+\lfloor C^*/\epsilon\rfloor})$.
+    \item \textbf{Ottimale} poiché i nodi si espandono per l'ordine crescente di $g(n)$.
+\end{itemize}
 
---- Wolf Sheep Cabbage problem
-Environment: <W, S, C, M, B>
-Init: <0,0,0,0,0>, Goal: <1,1,1,1,1>
+\paragraph{Depth-First-Search:} Espande il nodo di profondità maggiore non ancora espanso. Richiede una frontiera implementata con coda LIFO. Inoltre:
+\begin{itemize}
+    \item \textbf{Non completo}: Fallisce quando si ha una profondità infinita oppure trova dei cicli infiniti.
+    \item \textbf{Complessità temporale}: $O(b^m)$; Atroce quando la profondità massima dello spazio degli stati $m$ è molto maggiore di $d$, ovvero
+        quella della soluzione di costo minimo. Tuttavia, se le soluzioni sono dense, potrebbe essere più veloce di BFS.
+    \item \textbf{Complessità spaziale}: $O(bm)$, lineare.
+    \item \textbf{Non ottimale}.
+\end{itemize}
 
-Action		Pre-cond				From					To
-carryW		s\neq c, w=m, m=b		(w,s,c,m,d) 	-> 		(!w,s,c,!m,!b)
-carryS		m=b, s=m				(w,s,c,m,d)		->		(w,!s,c,!m,!b)
-carryC		m=b, m=c, w\neq s		(w,s,c,m,d)		->		(w,s,!c,!m,!b)
-carryNthg	m=b, w\neq s, n\neq c	(w,s,c,m,d)		->		(w,s,c,!m,!b)
+\paragraph{Iterative-Deepening-Search:} Strategia che ritorna una soluzione chiamando una sotto-procedura chiamata \textbf{Depth-Limited Search}, basata
+sulla logica di DFS ma aggiungendo uno specifico limite di profondità, sotto al quale non controllerà i nodi: \begin{algorithm}[h]
+    \caption{IDS(problem) \textbf{returns} solution}
+    \begin{algorithmic}[i]
+        \For{depth $\gets$ 0 \textbf{to} $\infty$}
+            \State result $\gets$ DLS(problem, depth)
+            \If{result $\neq$ cutoff} \textbf{return} result
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
 
-Notare che m=b sempre, in ogni azione. E' quindi possibile semplificare rimuovendo
-questo elemento dalla tupla in toto, semplificando lo stato.
-\end{comment}
+\noindent Notare la chiamata a DLS, la quale fa uso di una chiamata a \textbf{Recursive-DLS()}, un'ulteriore procedura ricorsiva. Le implementazioni in
+pseudocodice sono: \begin{algorithm}[h]
+    \caption{DLS(problem, limit) \textbf{returns} solution, failure or cutoff}
+    \begin{algorithmic}[i]
+        \State R-DLS(Make-Node(problem.Initial-State), problem, limit)
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[h]
+    \caption{R-DLS(node, problem, limit) \textbf{returns} solution, failure or cutoff}
+    \begin{algorithmic}[i]
+        \If{problem.Goal-Test(node.State)} \textbf{return} node
+        \ElsIf{limit = 0} \textbf{return} cutoff
+        \Else
+            \State cutoff-occurred $\gets$ false
+            \For{each action in problem.Actions(node.State)}
+                \State child $\gets$ Child-Node(problem, node, action)
+                \State result $\gets$ R-DLS(child, problem, limit-1)
+                \If{result = cutoff} cutoff-occurred $\gets$ true
+                \ElsIf{result $\neq$ failure} \textbf{return} result
+                \EndIf
+            \EndFor
+            \If{cutoff-occurred} \textbf{return} cutoff
+            \Else \textbf{ return} failure
+            \EndIf
+        \EndIf
+    \end{algorithmic}
+\end{algorithm}
+
+\noindent Questa strategie propone un algoritmo \textbf{completo}, con una \textbf{complessità temporale} di $O(b^d)$ e \textbf{spaziale} di $O(bd)$. È
+anche ottimale se lo step cost è uguale a uno; inoltre, può essere modificato per esplorare alberi di costo uniforme.
 
 %
 
-\section{Ricerca in ambienti complessi}
+\section{Strategie di ricerca informate}
+Le strategie di ricerca informate sfruttano conoscenze specifiche del dominio applicativo per fornire suggerimenti, i quali prendono la forma di una
+\textbf{funzione euristica} $h(n)$, su dove si possa trovare l'obiettivo. La funzione rappresenta il costo stimato del cammino di costo minimo dallo
+stato del nodo $n$ a quello di un obiettivo. Inoltre, risultano in generale più efficienti rispetto a strategie non informate.
+
+\paragraph{Greedy Best-First search:} Sfrutta la funzione euristica $h(n)$ su ogni nodo per determinare quale riporti il valore più basso, quindi più
+vicino all'obiettivo, per poi espanderlo. La frontiera è implementata come una coda di ordine crescente sul valore delle $h(n)$ calcolate.\par
+Dunque, partendo dallo stato iniziale, si effettua la sua espansione, per poi scegliere il passo seguente in base ai path cost dei nodi successivi. Si
+continua a scegliere quello di costo minimo fino al raggiungimento dell'obiettivo.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/Greedy-Best-First-Search.png}
+    \caption{Esempio di Greedy best first search}
+\end{figure}
+
+\noindent L'algoritmo presenta poi le seguenti caratteristiche: \begin{itemize}
+    \item \textbf{Non completo}: Potrebbe rimanere bloccato in cicli, ma può diventarlo in uno spazio finito con un controllo su stati ripetuti.
+    \item \textbf{Complessità temporale}: $O(b^m)$, tuttavia una buona euristica può fornire buoni miglioramenti.
+    \item \textbf{Complessità spaziale}: $O(b^m)$, perché mantiene tutti i nodi in memoria
+    \item \textbf{Non ottimale}.
+\end{itemize}
+
+\paragraph{A$^*$ search:} Altro algoritmo basato sull'approccio best-first la cui idea è di evitare l'espansione di cammini più dispendiosi rispetto a
+quello minimo trovato. Sfrutta la funzione di valutazione: \[
+    f(n) = g(n) + h(n)
+\]
+
+\noindent Dove $g(n)$ è il costo del cammino dal nodo iniziale ad $n$ ed $h(n)$ è il costo stimato per raggiungere l'obiettivo partendo da $n$. Ciò
+rende $f(n)$ il costo stimato del cammino migliore che continua da $n$ fino a un obiettivo. Inoltre, A$^*$ fa uso di un'euristica ammissibile, la quale
+sarà definita meglio più avanti.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{Images/A-Star-Search.png}
+    \caption{Esempio di A$^*$ search}
+\end{figure}
+
+\noindent L'algoritmo presenta le seguenti caratteristiche: \begin{itemize}
+    \item \textbf{Completo}, a meno che non ci siano infinitamente tanti nodi con $f \leq f(G)$
+    \item \textbf{Complessità temporale}: Esponenziale in [err. relativo in $h$ $\times$ lunghezza sol.]
+    \item \textbf{Complessità spaziale}: Mantiene tutti i nodi in memoria.
+    \item \textbf{Ottimale}, ma richiede di fare assunzioni sull'euristica, come l'ammissibilità e la consistenza, e dipende dalla strategia di ricerca.
+\end{itemize}
+
+\noindent Definiamo ora un'euristica \textbf{ammissibile} se non sovrastima mai il costo reale $h^*(n)$ per arrivare all'obiettivo a partire da $n$; nel
+caso in cui sbagli, potrà essere solo per difetto e mai per eccesso. Rispetta la relazione: \[
+    h(n) \leq h^*(n);\quad h(n) \geq 0;\quad h(G) = 0 \text{ con G obiettivo}
+\]
+
+\noindent Una condizione più forte è fornita dalle euristiche \textbf{consistenti}, per le quali la stima da $n$ non può essere peggiore della stima da
+un nodo $n'$, successore di $n$, sommata al costo reale per andare da $n$ a $n'$. Si tratta quindi di una disuguaglianza triangolare applicata al grafo
+di ricerca; formalmente: \[
+    h(n) \leq c(n, a, n') + h(n');\quad \text{$a$ azione che genera $n'$}
+\]
+
+\noindent La conseguenza pratica di questa condizione è che i valori $f(n)$ di A$^*$ non decrescono mai lungo un cammino, garantendo anche l'ottimalità
+trovando la soluzione di costo minimo. Inoltre ogni euristica consistente è anche ammissibile, ma non viceversa.\par
+Se consideriamo ora due euristiche ammissibili $h_1, h_2$, e per ogni nodo vale $h_2(n) \geq h_1(n)$, allora si dice che $h_2$ \textbf{domina} $h_1$, e,
+poiché più informata, risulterà migliore rispetto all'altra. La dominanza fornisce quindi un criterio per scegliere l'euristica migliore applicata al
+caso in esame.\par
+Per costruire euristiche ammissibili ci si affida ai \textbf{problemi rilassati}; contesti nei quali si prende il problema originale e si rimuovono
+(rilassano) alcuni vincoli sulle azioni, rendendo il problema più semplice da risolvere. Il costo della soluzione ottima di questo nuovo problema
+risulta essere un'euristica ammissibile anche per l'originale, perché ogni soluzione di quest'ultimo è valida anche sui problemi rilassati, il cui costo
+non supererà mai quello vero.
+
+
+
+
+
+%
+
+\section{Ricerca locale}
 
 %
 

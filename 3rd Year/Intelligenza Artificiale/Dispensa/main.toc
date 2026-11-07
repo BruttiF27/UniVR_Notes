@@ -7,8 +7,15 @@
 \contentsline {chapter}{\numberline {2}Risoluzione di problemi}{8}{}%
 \contentsline {section}{\numberline {2.1}Ricerca nello spazio degli stati}{8}{}%
 \contentsline {section}{\numberline {2.2}Strategie di ricerca non informate}{10}{}%
-\contentsline {section}{\numberline {2.3}Ricerca in ambienti complessi}{10}{}%
-\contentsline {section}{\numberline {2.4}Soddisfacimento dei vincoli}{10}{}%
-\contentsline {chapter}{\numberline {3}Conoscenza, ragionamento e pianificazione}{11}{}%
-\contentsline {chapter}{\numberline {4}Conoscenza incerta}{12}{}%
-\contentsline {chapter}{\numberline {5}Apprendimento automatico}{13}{}%
+\contentsline {paragraph}{Breadth-First-Search:}{10}{}%
+\contentsline {paragraph}{Uniform-Cost-Search:}{10}{}%
+\contentsline {paragraph}{Depth-First-Search:}{11}{}%
+\contentsline {paragraph}{Iterative-Deepening-Search:}{12}{}%
+\contentsline {section}{\numberline {2.3}Strategie di ricerca informate}{13}{}%
+\contentsline {paragraph}{Greedy Best-First search:}{13}{}%
+\contentsline {paragraph}{A$^*$ search:}{14}{}%
+\contentsline {section}{\numberline {2.4}Ricerca locale}{15}{}%
+\contentsline {section}{\numberline {2.5}Soddisfacimento dei vincoli}{15}{}%
+\contentsline {chapter}{\numberline {3}Conoscenza, ragionamento e pianificazione}{16}{}%
+\contentsline {chapter}{\numberline {4}Conoscenza incerta}{17}{}%
+\contentsline {chapter}{\numberline {5}Apprendimento automatico}{18}{}%

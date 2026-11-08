@@ -1,0 +1,162 @@
+Lez7 Fondamenti dell'informatica - 02-11-26
+
+--- Pumping lemma per i linguaggi regolari
+Fornisce una condizione necessaria alla regolarità di un linguaggio, ovvero una condizione sufficiente alla non regolarità.
+
+Pumping lemma: Se L è un linguaggio regolare, esiste un DFA M tale che L = L(M), ovvero che riconosce il suo linguaggio.
+	Allora: \exists k\in N tale che:
+		- \forall z\in L . |z|\geq k				// Si prendono tutte le stringhe z la cui cardinalità è \geq k.
+		- \exists z = uvw . |uv|\leq k, |v| > 0 	// una suddivisione di z in tre parti tale per cui le prime due hanno lunghezza minore o uguale di k e la terza maggiore di zero
+		- \forall i\in N . uv^iw\in L				// Non importa quanti caratteri aggiungi nel mezzo, se l'inizio e la fine son gli stessi, il linguaggio è regolare
+		
+Il pumping lemma è usato per dimostrare la non regolarità; richiede la negazione della condizione necessaria.
+Se \forall k \in N 
+	\exists z\in L . |z|\geq k
+	\forall z = uvw . |uv|\leq k, |v| > 0
+	\exists i\in N . uv^iw\notin L
+	
+E allora L non è regolare (rivedere col libro)
+
+--- Esempio - Vedi anche i disegni degli automi negli appunti della lezione
+L = {a^nb^n | n\in N}
+	Dunque \epsilon \in L, ab\in L, aabb\in L e così via.
+	
+Dimostrazione che L non è regolare. Se lo fosse, riconoscerebbe a^*b^* = {a^nb^m | n,m\in N}
+
+- \forall k: Prendiamo un generico valore k (generalmente usato per il pumping lemma) sul quale non deve esserci nessuna condizione, quindi la dimostrazione deve valere
+indipendentemente dal valore che k può assumere.
+
+- \exists z\in L . |z| \geq k: Scegliamo una stringa z\in L perché deve soddisfare le condizioni di appartenenza al linguaggio la cui cardinalità sia maggiore di k.
+	La scelta più naturale tende a essere z = a^kb^k \in L; |z| = 2k \geq k.
+	
+- \forall z = uvw . |uv| \leq k, |v| > 0: Se v contenesse b, allora conterrebbe tutte le ka e avrebbe una lunghezza maggiore di k. Per questa ragione, u e v devono essere contenute
+	all'interno della sequenza di a^k. (Vedere rappresentazione grafica sulle note della lezione).
+	Dunque z = uvw, dove uv\in a^k.
+	
+- \exists i . z_i = uv^iw \notin L (Vedere rappresentazionne grafica nelle note della lezione)
+	z_i = a^{k + (i-1)|v|}b^k
+	
+	Negli esercizi si prova a trovare quanto prima la condizione di appartenenza al linguaggio L; grazie al non rispetto di essa si può capire la i per la quale si può dimostrare
+	la non appartenenza al linguaggio.
+	Supponiamo a^nb^m\in L \iff n = m; in tal caso z_i\in L \iff k + (i-1)|v| = k \equiv (i-1)|v| = 0
+	
+	Prendiamo ora i=2, per esempio. In tal caso z_2 \in L \iff (2-1)|v| = 0 \implies |v| = 0, che è assurdo. Non appartenenza dimostrata.
+	
+	z_2 quindi non appartiene al linguaggio L.
+	
+--- Altro esempio linguaggio non regolare L = {0^n | n è quadrato perfetto} = {0^n | \exists m . n = m^2}
+
+1. Condizione di appartenenza al linguaggio: 0^n\in L \iff \exists m\in N . n = m^2
+
+2. Prendiamo il generico k nei naturali: k\in N
+	z\in L . |z| \geq k; z = 0^h con h \geq k ed h quadrato. Ciò esiste per ogni k perché esistono infiniti quadrati.
+		La necessità di questo cambio è dovuta al fatto che se avessimo preso k direttamente, la dimostrazione sarebbe valsa solo per k quadrato, data la condizione di appartenenza,
+		e non per ogni k.
+		
+3. Ripartizione di z: \forall z = uvw . |uv|\leq k, |v| > 0 
+	\exists i . uv^iw\notin L
+	
+	z_i = uv^iw = 0^{h+(i-1)|v|}
+	
+	// Tendenzialmente va bene i=2 in molti casi per dimostrare la non appartenenza, ma NON SEMPRE. NON. SEMPRE.
+	i = 2 \implies z_2 = 0^{h+|v|}
+	
+	// Necessario scrivere h in funzione di k
+	z = 0^{k^2}, |z| = k^2 \geq k	
+	// Ciò trasforma la scrittura di z_i e z_2 in:
+	z_i = 0^{k^2+(i-1)|v|}
+	z_2 = 0^{k^2+|v|} \in L \iff k^2|v| è un quadrato, ovvero:
+		\iff \exists j\in N . k^2 + |v| = j^2 \implies j^2 > k^2 \equiv j > k.
+		
+	// Il quadrato è una funzione crescente, dunqueù
+	\exists m . j = k+m
+	
+	// Dunque
+	\exists j\in N . k^2 + |v| \iff k^2 + |v| = (k+m)^2
+		= k^2 + 2kn + m^2
+		
+	|v| = 2km + m^2 > 2k \geq k \implies |v| > k
+	
+	// Ciò implica
+	|uv| = |u| + |v| \geq |u| > k \implies |uv| > k, che è assurdo, date le ipotesi sulle divisioni uvw.
+	
+	In quanto assurdo, z_2 \notin L.
+	
+--- Altro esempio, suppongo?
+L = {0^n0^{n+1} | n\in N} = {0^{2n+1} | n\in N}		// Regolare perché sono sempre gli stessi simboli
+L' = {0^n1^{n+1} | n\in N}							// Non regolare
+L'' = {0^n10^{n+1} | n\in N}						// Non regolare
+
+L_m = {0^m10^{m+n} | n,m\in N}						// Regolare perché m è noto e fissato L_m = L(m)
+L = {0^m10^{m+n} | n,m\in N} = \cup_{m\in N} L_m	// Non regolare
+
+--- Esercizio, dimostrare non regolarità di L = {0^m10^{m+n} | n,m\in N}
+
+1. Fissiamo k\in N e prendiamo z\in L . |z| \geq k
+	- Se prendiamo m=1, n=k, abbiamo 010^k. Non si inserisce nessun legame da far saltare per dimostrare non regolarità.
+	- Se prendiamo m = n = k, abbiamo 0^k10^{2k}. Neanche questo ideale
+	- Se prendiamo m = k, n = 0, otteniamo z = 0^k10^k. Ciò fa sì che v sia sempre all'interno di a^k.
+	
+	Attenzione però che la generica stringa z = 0^i10^i \in L \iff \exists n . j = i+n \iff j \geq i. Questa condizione va bene da violare per uscire dal linguaggio. j=n no, perché
+	non è forte abbastanza.
+	
+2. z = uvw . |uv| > 0, |v| > 0 \implies v\in 0^k
+	z_i = 0^{k+(i+1)|v|}10^k
+	
+	Prendiamo quindi i=2
+	z_2 = 0^{k+|v|}10^k\in L \iff k \geq k+|v| \implies 0 \geq |v|, che è assurdo per le ipotesi su uvw. Dunque z_2 \notin L.
+
+----- Altro esercizio che mostra l'utilità delle operazioni sui linguaggi regolari (E' davvero molto lungo e contorto)
+L_m = {0^m10^{n+m} | m < n} = {0^m10^{m+n} | \exists i > 0 . n = m+i} = {0^m10^{m+m+i} | i > 0} = {0^m10^{2m + i} | i > 0} = {0^m10^{2m}} \cdot {0^i | i \geq 0}
+
+Grazie alla manipolazione algebrica, se prendiamo L_3, abbiamo che è uguale a {0^310^6} \cdot {0^i | i > 0}
+
+\forall m . L_m = {0^m10^{2m}} \cdot {0^i | i > 0}		// Possiamo considerare solo le seconde graffe come un linguaggio a sé stante ed L_m come concatenazione dei due elementi.
+
+Se L' è regolare, essendo 0^m10^{2m}} regolare, siccome è finito, per le proprietà di chiusura deo linguaggi regolari rispetto alla concatenzaione, abbiamo che L_m è regolare.
+
+Per farlo bisogna dimostrare x\in L' \implies \hat{\delta}(q_0, x) = q_1 e che x\notin L' \implies \hat{\delta}(q_0, x) = q_1.
+	In particolare per il secondo caso:
+		- x\notin L' e contiene 1 \implies \hat{\delta}(q_0, x) = q_2
+		- x\notin L' e non contiene 1 \implies \hat{\delta}(q_0, x) = q_0
+		
+Base: (Rivedi sulle note, sono stanco capo)
+	- |x| = 0
+	- |x| = 1
+	
+Induttivo: (Rivediti anche questo sulle note, sono più stanco, capo)
+	Ipotesi induttiva: \forall x . |x| \leq n . 1 \land 2 \land 3
+	- |x| = n+1:
+	
+	- x\in L' e x = x'0: Rivedi su note
+	- x\in L' e x = x'1: IMPOSSIBILE
+	- x\notin L' e x = x'0: Rivedi su note
+	- x\notin L' e x = x'1: Rivedi su note
+	
+--- Notazioni utili usate
+- x\in L . |x|_1: Lunghezza di 1 all'interno della stringa x
+- x\in L . x[i] con i\geq 1\in N: Simbolo in posizione i, letteralmente la sintassi di array in C.
+- x\in L . x^#: Lunghezza di x, equivale a |x|.
+- L_m: m è un parametro del linguaggio.
+- Quando l'alfabeto è sottointeso, è sempre \Sigma = {0,1}
+
+--- Altro esercizio, non ce la faccio più
+Notare che scrivo N per brevità, ma invero indica l'insieme dei naturali \mathbb{N}.
+
+L_m = {x\in {0,1}^* | |x|_1 \in mN}, ovvero che n^0 di 1 multiplo di m
+
+Tipicamente la richiesta per linguaggi di questo tipo è dimostrare la regolarità per un m fissato, normalmente m=3.
+
+	- L_0 = {0^n | n\in N}
+	- L_1 = \Sigma^*
+	...
+	- L_3 = {x | |x|_1 \in 3N} \implies \epsilon\in L_3
+	
+	// Vedi il disegno dell'automa nelle note
+	
+	- x\in L \implies \hat{\delta}(q_0, x) = q_0
+	- x\notin L e |x|_1 mod 3 = 1:  // Mod è modulus, corrisponde a % in C, aggiungi con le note
+	- x\notin L e |x|_1 mod 3 = 2: \hat{\delta}(q_0, x) = q_2
+	
+	Base: Vedi su note lezione
+	Induttivo: Vedi su note lezione

@@ -13,11 +13,17 @@
 \contentsline {subsection}{\numberline {2.2.3}NFA con epsilon transizioni}{13}{}%
 \contentsline {chapter}{\numberline {3}Linguaggi regolari}{14}{}%
 \contentsline {section}{\numberline {3.1}Operazioni ed espressioni regolari}{14}{}%
-\contentsline {section}{\numberline {3.2}Teorema di Myhill-Nerode e minimizzazione}{14}{}%
-\contentsline {section}{\numberline {3.3}Pumping lemma per linguaggi regolari}{14}{}%
-\contentsline {chapter}{\numberline {4}Linguaggi liberi da contesto}{15}{}%
-\contentsline {section}{\numberline {4.1}Linguaggi liberi da contesto, forme normali e automi a pila}{15}{}%
-\contentsline {section}{\numberline {4.2}Classificazione di Chomsky}{15}{}%
-\contentsline {chapter}{\numberline {5}Teoria della calcolabilità}{16}{}%
-\contentsline {section}{\numberline {5.1}Meet and fuck kingdom, steve}{16}{}%
-\contentsline {section}{\numberline {5.2}Meet 'n HUH!?}{16}{}%
+\contentsline {paragraph}{Unione:}{14}{}%
+\contentsline {paragraph}{Concatenazione:}{14}{}%
+\contentsline {paragraph}{Stella di Kleene:}{14}{}%
+\contentsline {section}{\numberline {3.2}Proprietà principali dei linguaggi regolari}{17}{}%
+\contentsline {paragraph}{Proprietà di chiusura:}{17}{}%
+\contentsline {paragraph}{Proprietà di decidibilità:}{17}{}%
+\contentsline {section}{\numberline {3.3}Teorema di Myhill-Nerode}{17}{}%
+\contentsline {section}{\numberline {3.4}Pumping lemma per linguaggi regolari}{19}{}%
+\contentsline {chapter}{\numberline {4}Linguaggi liberi da contesto}{20}{}%
+\contentsline {section}{\numberline {4.1}Linguaggi liberi da contesto, forme normali e automi a pila}{20}{}%
+\contentsline {section}{\numberline {4.2}Classificazione di Chomsky}{20}{}%
+\contentsline {chapter}{\numberline {5}Teoria della calcolabilità}{21}{}%
+\contentsline {section}{\numberline {5.1}Meet and fuck kingdom, steve}{21}{}%
+\contentsline {section}{\numberline {5.2}Meet 'n HUH!?}{21}{}%

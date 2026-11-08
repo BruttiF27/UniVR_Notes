@@ -1,8 +1,187 @@
 \section{Operazioni ed espressioni regolari}
+Esiste un modo alternativo per la descrizione dei linguaggi regolari, ovvero quelli accettati dagli automi a stati finiti. Questi presentano un'algebra
+di operazioni per poter essere manipolati a partire da un alfabeto $\Sigma$ sul quale sono definiti.
+
+\paragraph{Unione:} Sia $\Sigma$ un alfabeto e $L_1, L_2$ insiemi di stringhe di $\Sigma^*$; l'unione di $L_1, L_2$ si definisce: \[
+    L_1 \cup L_2 = \{x | x\in L_1 \lor x\in L_2\}
+\]
+
+\paragraph{Concatenazione:} Sia $\Sigma$ un alfabeto e $L_1, L_2$ insiemi di stringhe di $\Sigma^*$; la concatenazione di $L_1, L_2$ si definisce: \[
+    L_1L_2 = \{xy \in \Sigma^* : x\in L_1, y\in L_2\}
+\]
+
+\noindent Inoltre: \[ \begin{cases}
+    \epsilon \in L_1 \implies L_2\subseteq L_1L_2\\
+    \epsilon \in L_2 \implies L_1\subseteq L_1L_2
+\end{cases} \]
+
+\paragraph{Stella di Kleene:} Sia $\Sigma$ un alfabeto e $L$ insiemi di stringhe su $\Sigma^*$; la chiusura o stella di Kleene si definisce: \[
+    L^* = \cup_{i \geq 0}L^i;\quad \begin{cases}
+			L^0 = {\epsilon} \neq \emptyset\\
+			L^{i+1} = LL^i
+        \end{cases}
+\]
+
+\noindent Mentre la chiusura positiva di $L$, annotata come $L^+$, è data dall'insieme \[
+    L^+ = \cup_{i \geq 1} L^i
+\]
+
+\noindent Si tratta, in altre parole, di una \textbf{concatenazione iterativa} di linguaggi. Per esempio, con un linguaggio $L = \{ab\}$, avremmo:
+\begin{equation}
+    \begin{split}
+        L^0 &= \{\epsilon\}\\
+        L^1 &= \{ab\} \cdot \{\epsilon\} = \{ab\}\\
+        L^2 &= \{ab\} \cdot L^1 = \{ab\} \cdot \{ab\} = \{abab\}\\
+        L^3 &= \{ab\} \cdot L^2 = \{ab\} \cdot \{abab\} = \{ababab\}
+    \end{split}
+\end{equation}
+
+\noindent Oltre alle operazioni, i linguaggi regolari presentano anche \textbf{espressioni}, costrutti simbolici per la loro rappresentazione, definiti
+tramite induzione. Partendo sempre da un alfabeto $\Sigma$, abbiamo: \begin{itemize}
+    \item $\emptyset$: Espressione regolare che denota il linguaggio vuoto.
+    \item $\epsilon$: Espressione regolare che denota il linguaggio composto solo dalla stringa vuota $\{\epsilon\}$.
+    \item $a\in \Sigma$: Espressione regolare che denota il linguaggio composto dalla stringa di input $\{a\}$.
+\end{itemize}
+
+\noindent Date ora $r,s$ due espressioni regolari che rappresentano due linguaggi $R,S$ rispettivamente, abbiamo: \begin{itemize}
+    \item $r+s$: Espressione regolare che denota l'operazione di unione $R\cup S$.
+    \item $rs$: Espressione regolare che denota l'operazione di concatenazione $R\cdot S$.
+    \item $r^*$: Espressione regolare che denota l'operazione di stella di Kleene $R^*$.
+\end{itemize}
+
+\noindent Esiste inoltre un'equivalenza tra DFA ed espressioni regolari, mostrata dal teorema di \textbf{McNaughton-Yamada}, il quale afferma che, data
+un'espressione regolare $r$, allora esiste un $M$ $\epsilon$-NFA tale che valga $L(M) = L(r)$. Ciò è dimostrabile per induzione sulla complessità
+strutturale di $r$. Costruiamo dunque un $\epsilon$-NFA con un solo stato finale; avremo tre casi base: \begin{itemize}
+	\item Un automa con un singolo stato $q_0$, corrispondente a quello finale, riconosce il linguaggio $\{\epsilon\}$.
+	\item Un automa con due stati non collegati $q_0, q_1$, con quest'ultimo quello finale, riconosce il linguaggio $\emptyset$.
+	\item Un automa con due stati collegati $q_0, q_1$, con quest'ultimo quello finale e raggiungibile leggendo $a$, riconosce il linguaggio $\{a\}$.
+\end{itemize}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/McNaughton-Yamada_base.png}
+    \caption{Passi base McNaughton-Yamada}
+\end{figure}
+
+\noindent Per quanto riguarda i passi induttivi, l'esistenza dei seguenti automi è sempre assicurata dall'ipotesi enunciata. Abbiamo: \begin{itemize}
+	\item $r = r_1+r_2$. Per un $i=1,2$, indicato come $', ''$ nel grafo, sia $M_i$ con stato iniziale $q_0^i$ e stato finale $q_f^i$ l'automa che
+        riconosce $L(r_i)$. Il seguente automa riconosce infatti $L(r) = L(r_1)\cup L(r_2)$:
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\linewidth]{Images/McNaughton-Yamada_induction-1.png}
+            \caption{Passo induttivo 1 McNaughton-Yamada}
+        \end{figure}
+	\item $r = r_1r_2$. Per un $i=1,2$, indicato come $', ''$ nel grafo, sia $M_i$ con stato iniziale $q_0^i$ e stato finale $q_f^i$ l'automa che
+        riconosce $L(r_i)$. Il seguente automa riconosce $L(r_1)L(r_2)$:
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.9\linewidth]{Images/McNaughton-Yamada_induction-2.png}
+            \caption{Passo induttivo 2 McNaughton-Yamada}
+        \end{figure}
+	\item $r = r_1^*$. Sia $M_1$ con stato iniziale $q_0'$ e stato finale $q_f'$ l'automa che riconosce $L(r_1)$. Il seguente automa riconosce
+        $L(r) = (L(r_1))^*$:
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.75\linewidth]{Images/McNaughton-Yamada_induction-3.png}
+            \caption{Passo induttivo 3 McNaughton-Yamada}
+        \end{figure}
+\end{itemize}
 
 %
 
-\section{Teorema di Myhill-Nerode e minimizzazione}
+\section{Proprietà principali dei linguaggi regolari}
+I linguaggi regolari detengono inoltre alcune proprietà fondamentali:
+
+\paragraph{Proprietà di chiusura:} I LR sono chiusi rispetto alle operazioni di unione e intersezione finite, stella di Kleene e concatenazione. Dunque,
+dato un certo numero finito $n$ di linguaggi regolari, valgono: \[
+	\forall n . L_1 \cup L_2 \cup ... \cup L_n\in REG;\quad L_1 \cap L_2 \cap ... \cap L_n\in REG
+\]
+
+\noindent Come valgono anche: \[
+	L_1\cdot L_2\in REG;\quad L_1^*\in REG
+\]
+
+\noindent La chiusura vale inoltre per la complementazione e quindi anche per le leggi di De Morgan. Dunque: \[
+	L\in REG \implies \overline{L} = \Sigma^* / L\in REG
+\]
+
+\paragraph{Proprietà di decidibilità:} Determina l'insieme di stringhe accettate da un DFA con $n$ stati. Per esempio: \begin{itemize}
+	\item $L \neq \emptyset$ è decidibile, perché la relazione vale solamente se esiste un $M$ automa che accetta una stringa $x$ tale che $|x| < |Q|$.
+	\item $|L| = \omega$, un linguaggio infinito, è decidibile perché è tale se e solo se esiste una stringa $x\in L(M)$ tale per cui $n\leq |x| < 2n$,
+    con $n = |Q|$.
+	\item Dati due automi $M_1, M_2$ tali che $L(M_1) = L(M_2)$, il linguaggio è decidibile.
+\end{itemize}
+
+%
+
+\section{Teorema di Myhill-Nerode}
+Il \textbf{Teorema di Myhill-Nerode} è la terza proprietà fondamentale dei linguaggi regolari, la quale afferma l'esistenza dell'automa minimo per ogni
+linguaggio regolare $L$, ma prima di essere introdotto è necessario chiarire alcuni concetti di base legati alla logica matematica.\par
+Dato un insieme $S$, una \textbf{relazione di equivalenza} $R\subseteq S\times S$ induce una partizione di $S = S_1\cup S_2\cup ...$, dove per ogni $i$
+$S_i\neq\emptyset$ e per ogni $i, j, i\neq j$ valgono: \begin{enumerate}
+    \item $S_i\cap S_j = \emptyset$.
+    \item $(\forall a, b\in S_i)a R b$.
+    \item $(\forall a\in S_i)(\forall b\in S_j)\neq(a R b)$
+\end{enumerate}
+
+\noindent Le $S_i$ sono \textbf{classi di equivalenza}; se $a\in S_i$ usiamo $[a]_R$ per denotare la classe. Se l'insieme $S$ è partizionato in un
+numero finito di classi, $R$ è l'\textbf{indice finito} $(k)$ sull'insieme.\par
+Inoltre, date due relazioni di equivalenza $R_1, R_2$ sullo stesso insieme $S$, diciamo che la prima è un \textbf{raffinamento} della seconda se ogni
+$S_i$ della partizione indotta da $R_1$ è sottoinsieme di equivalenza della partizione indotta da $R_2$.\par
+Supponiamo adesso un linguaggio $L\subseteq \Sigma^*$ al quale associamo la relazione $R_L\subseteq \Sigma^*\times \Sigma^*$ definita come: \[
+    xR_Ly \iff (\forall z\in \Sigma^*)(xz\in L \iff yz\in L)
+\]
+
+\noindent Possiamo allo stesso modo associare una relazione $R_M\subseteq \Sigma^*\times \Sigma^*$ a un $M$ DFA, la quale sarà definita come: \[
+    xR_M y \iff \hat{\delta}(q_0, x) = \hat{\delta}(q_0, y)
+\]
+
+\noindent Definiamo in particolare $L_q = \{x\in \Sigma^* : \hat{\delta}(q_0, x) = q\}$ il linguaggio associato allo stato $q$ dell'automa. L'insieme
+dei linguaggi associati a ogni stato dell'automa sono le classi di equivalenza di $R_M$.\par
+Diciamo poi che una relazione $R\subseteq \Sigma^* \times \Sigma^*$ è \textbf{invariante a destra} (rispetto alla concatenazione) se gode della
+proprietà: \[
+    xRy \implies (\forall z\in \Sigma^*)(xz R yz)
+\]
+
+\noindent Dunque, concatenando una qualunque stringa $z$ a $x$ e $y$ elementi dello stesso insieme della partizione, questi rimangono ugualmente in
+relazione. La stringa $z$, dunque, non varia la relazione rispetto all'estensione della stringa iniziale verso destra.\par
+Ora possiamo enunciare il teorema di \textbf{Myhill-Nerode}, per il quale i seguenti enunciati sono equivalenti: \begin{enumerate}
+    \item $L\subseteq \Sigma^*$ è riconosciuto da un DFA.
+    \item $L$ è unione di classi di equivalenza di $\Sigma^*$ indotte da una relazione di equivalenza invariante a destra e di indice finito.
+    \item $R_L$ è di indice finito.
+\end{enumerate}
+
+\noindent Procediamo con la sua dimostrazione: \begin{itemize}
+    \item [$1\to 2$]: Sia $L$ accettato da un $M$ DFA; consideriamo la relazione $R = R_M$, la quale abbiamo visto essere invariante a destra. Per
+    questa ragione i vari insiemi: \[
+        L_q = \{x\in \Sigma^* : \hat{\delta}(q_0, x) = q\}
+    \]
+    \noindent Costituiscono le classi di equivalenza della partizione indotta da $R_M$.
+    \item [$2\to 3$]: Vogliamo ora dimostrare che ogni relazione di equivalenza $R$ che soddisfa il secondo punto è un raffinamento di $R_L$ e che
+    quindi la prima abbia un numero di classi maggiore o uguale rispetto ad esso.\par
+    Sia $y\in [x]_R$; siccome $R$ è invariante a destra per ipotesi, varrà anche $xz R yz$ per ogni stringa $z\in \Sigma^*$. Dato che $L$ è l'unione
+    delle classi di equivalenza di $R$, abbiamo che: \[
+        vRw \implies v\in L \iff w\in L;\quad\text{Di conseguenza:} \forall z\in \Sigma^*, xz\in L \iff yz\in L
+    \]
+    \noindent Ma quindi $xR_L y$ per definizione e $y\in [x]_{R_L}$. L'indice di $R_L$ è minore o uguale di quello di $R$, che per ipotesi è finito.
+    \item [$3\to 1$]: Necessario costruire un DFA $M'$ i cui elementi sono: \begin{itemize}
+        \item $Q'$: Insieme finito per ipotesi di classi di equivalenza di $R_L$.
+        \item $\Sigma'$: Alfabeto uguale a quello di $L$.
+        \item $\delta'([x], a) = [xa]$
+        \item $q_0' = [\epsilon]$
+        \item $F' = \{[x] : x\in L\}$
+    \end{itemize}
+
+    \noindent Mostriamo quindi che $L(M') = L$. Anzitutto si verifica per induzione su $|y| \geq 0$ che $\hat{\delta'}([x], y) = [xy]$. Si ha quindi: \[
+        \hat{\delta'}(q_0', x) = \hat{\delta'}([\epsilon], x) = [\epsilon x] = [x]
+    \]
+
+    \noindent E dunque: \[
+        x\in L(M') \iff \hat{\delta'}(q_0', x) \iff [x]\in F' \iff x\in L
+    \]
+\end{itemize}
 
 %
 

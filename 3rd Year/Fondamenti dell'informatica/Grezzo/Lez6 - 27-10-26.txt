@@ -1,0 +1,71 @@
+Lez6 Fondamenti dell'informatica - 27-10-26
+
+--- Teorema di Myhill-Nerode
+Il \textbf{Teorema di Myhill-Nerode} è la terza proprietà fondamentale dei linguaggi regolari, la quale afferma l'esistenza dell'automa minimo per ogni linguaggio regolare $L$, ma prima di essere introdotto è necessario chiarire alcuni concetti di base legati alla logica matematica.\par
+Dato un insieme $S$, una \textbf{relazione di equivalenza} $R\subseteq S\times S$ induce una partizione di $S = S_1\cup S_2\cup ...$, dove per ogni $i$ $S_i\neq\emptyset$ e per ogni $i, j, i\neq j$ valgono: \begin{enumerate}
+    \item $S_i\cap S_j\neq \emptyset$.
+    \item $(\forall a, b\in S_i)a R b$.
+    \item $(\forall a\in S_i)(\forall b\in S_j)\neq(a R b)$
+\end{enumerate}
+
+\noindent Le $S_i$ sono \textbf{classi di equivalenza}; se $a\in S_i$ usiamo $[a]_R$ per denotare la classe. Se l'insieme $S$ è partizionato in un numero finito di classi, $R$ è l'\textbf{indice finito} $(k)$ sull'insieme.\par
+Inoltre, date due relazioni di equivalenza $R_1, R_2$ sullo stesso insieme $S$, diciamo che la prima è un \textbf{raffinamento} della seconda se ogni $S_i$ della partizione indotta da $R_1$ è sottoinsieme di equivalenza della partizione indotta da $R_2$.\par
+Supponiamo adesso un linguaggio $L\subseteq \Sigma^*$ al quale associamo la relazione $R_L\subseteq \Sigma^*\times \Sigma^*$ definita come: \[
+    xR_Ly \iff (\forall z\in \Sigma^*)(xz\in L \iff yz\in L)
+\]
+
+\noindent Possiamo allo stesso modo associare una relazione $R_M\subseteq \Sigma^*\times \Sigma^*$ a un $M$ DFA, la quale sarà definita come: \[
+    xR_M y \iff \hat{\delta}(q_0, x) = \hat{\delta}(q_0, y)
+\]
+
+\noindent Definiamo in particolare $L_q = \{x\in \Sigma^* : \hat{\delta}(q_0, x) = q\}$ il linguaggio associato allo stato $q$ dell'automa. L'insieme dei linguaggi associati a ogni stato dell'automa sono le classi di equivalenza di $R_M$.\par
+Diciamo poi che una relazione $R\subseteq \Sigma^* \times \Sigma^*$ è \textbf{invariante a destra} (rispetto alla concatenazione) se gode della proprietà: \[
+    xRy \implies (\forall z\in \Sigma^*)(xz R yz)
+\]
+
+\noindent Dunque, concatenando una qualunque stringa $z$ a $x$ e $y$ elementi dello stesso insieme della partizione, questi rimangono ugualmente in relazione. La stringa $z$, dunque, non varia la relazione rispetto all'estensione della stringa iniziale verso destra.\par
+Ora possiamo enunciare il teorema di \textbf{Myhill-Nerode}, per il quale i seguenti enunciati sono equivalenti: \begin{enumerate}
+    \item $L\subseteq \Sigma^*$ è riconosciuto da un DFA.
+    \item $L$ è unione di classi di equivalenza di $\Sigma^*$ indotte da una relazione di equivalenza invariante a destra e di indice finito.
+    \item $R_L$ è di indice finito.
+\end{enumerate}
+
+\noindent Procediamo con la sua dimostrazione: \begin{itemize}
+    \item [$1\to 2$]: Sia $L$ accettato da un $M$ DFA; consideriamo la relazione $R = R_M$, la quale abbiamo visto essere invariante a destra. Per questa ragione i vari insiemi: \[
+        L_q = \{x\in \Sigma^* : \hat{\delta}(q_0, x) = q\}
+    \]
+    \noindent Costituiscono le classi di equivalenza della partizione indotta da $R_M$.
+    \item [$2\to 3$]: Vogliamo ora dimostrare che ogni relazione di equivalenza $R$ che soddisfa il secondo punto è un raffinamento di $R_L$ e che quindi la prima abbia un numero di classi maggiore o uguale rispetto ad esso.\par
+    Sia $y\in [x]_R$; siccome $R$ è invariante a destra per ipotesi, varrà anche $xz R yz$ per ogni stringa $z\in \Sigma^*$. Dato che $L$ è l'unione delle classi di equivalenza di $R$, abbiamo che: \[
+        vRw \implies v\in L \iff w\in L;\quad\text{Di conseguenza:} \forall z\in \Sigma^*, xz\in L \iff yz\in L
+    \]
+    \noindent Ma quindi $xR_L y$ per definizione e $y\in [x]_{R_L}$. L'indice di $R_L$ è minore di quello di $R$, che per ipotesi è finito.
+    \item [$3\to 1$]: Necessario costruire un DFA $M'$ i cui elementi sono: \begin{itemize}
+        \item $Q'$: Insieme finito per ipotesi di classi di equivalenza di $R_L$.
+        \item $\Sigma'$: Linguaggio uguale a quello di $L$.
+        \item $\delta'([x], a) = [xa]$
+        \item $q_0' = [\epsilon]$
+        \item $F' = \{[x] : x\in L\}$
+    \end{itemize}
+
+    \noindent Mostriamo quindi che $L(M') = L$. Anzitutto si verifica per induzione su $|y| \geq 0$ che $\hat{\delta'}([x], y) = [xy]$. Si ha quindi: \[
+        \hat{\delta'}(q_0', x) = \hat{\delta'}([\epsilon], x) = [\epsilon x] = [x]
+    \]
+
+    \noindent E dunque: \[
+        x\in L(M') \iff \hat{\delta'}(q_0', x) \iff [x]\in F' \iff x\in L
+    \]
+\end{itemize}
+
+
+% TODO Riprendi da pumping lemma, secondo 00:12
+
+
+----- 2025
+--- Pumping lemma TODO Rivedere, sembra un pochino incasinata come cosa.
+Fornisce una condizione \pi necessaria alla regolarità. Diciamo che L regolare \implies \pi_L, quindi se non vale la condizione, il linguaggio non è regolare.
+
+Con L regolare abbiamo che:
+	\exists k\in \mathbb{N} tale che (\forall z \in L) \land |z| > k, esiste una suddivisione di z in tre sottostringhe: z 0 uvw.
+	La suddivisione è tale che |uv| \leq k, |v|>0
+		\forall i \in N | uv^iw \in L.

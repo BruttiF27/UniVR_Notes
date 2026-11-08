@@ -36,7 +36,7 @@ Esiste un modo alternativo per la descrizione dei linguaggi regolari, ovvero que
     \end{split}
 \end{equation}
 
-\noindent Oltre alle operazioni, i linguaggi regolari presentano anche \textbf{espressioni}, un costrutto simbolico per la loro rappresentazione, definito tramite induzione. Partendo sempre da un alfabeto $\Sigma$, abbiamo: \begin{itemize}
+\noindent Oltre alle operazioni, i linguaggi regolari presentano anche \textbf{espressioni}, costrutti simbolici per la loro rappresentazione, definiti tramite induzione. Partendo sempre da un alfabeto $\Sigma$, abbiamo: \begin{itemize}
     \item $\emptyset$: Espressione regolare che denota il linguaggio vuoto.
     \item $\epsilon$: Espressione regolare che denota il linguaggio composto solo dalla stringa vuota $\{\epsilon\}$.
     \item $a\in \Sigma$: Espressione regolare che denota il linguaggio composto dalla stringa di input $\{a\}$.
@@ -48,55 +48,42 @@ Esiste un modo alternativo per la descrizione dei linguaggi regolari, ovvero que
     \item $r^*$: Espressione regolare che denota l'operazione di stella di Kleene $R^*$.
 \end{itemize}
 
-% TODO Riprendi dal teorema prima di McNaughton-Yamada, secondo 00:16
+\noindent Esiste inoltre un'equivalenza tra DFA ed espressioni regolari, mostrata dal teorema di \textbf{McNaughton-Yamada}, il quale afferma che, data un'espressione regolare $r$, allora esiste un $M$ $\epsilon$-NFA tale che valga $L(M) = L(r)$. Ciò è dimostrabile per induzione sulla complessità strutturale di $r$.\par
+Costruiamo dunque un $\epsilon$-NFA con un solo stato finale; avremo tre casi base: \begin{itemize}
+	\item Un automa con un singolo stato $q_0$, corrispondente a quello finale, riconosce il linguaggio $\{\epsilon\}$.
+	\item Un automa con due stati non collegati $q_0, q_1$, con quest'ultimo quello finale, riconosce il linguaggio $\emptyset$.
+	\item Un automa con due stati collegati $q_0, q_1$, con quest'ultimo quello finale e raggiungibile leggendo $a$, riconosce il linguaggio $\{a\}$.
+\end{itemize}
 
+\noindent Per quanto riguarda i passi induttivi, l'esistenza dei seguenti automi è sempre assicurata dall'ipotesi enunciata. Abbiamo: \begin{itemize}
+	\item $r = r_1+r_2$. Per un $i=1,2$, indicato come $', ''$ nel grafo, sia $M_i$ con stato iniziale $q_0^i$ e stato finale $q_f^i$ l'automa che riconosce $L(r_i)$. Il seguente automa riconosce infatti $L(r) = L(r_1)\cup L(r_2)$:
 
+	% TODO Inserisci induzione 1
+	\item $r = r_1r_2$. Per un $i=1,2$, indicato come $', ''$ nel grafo, sia $M_i$ con stato iniziale $q_0^i$ e stato finale $q_f^i$ l'automa che riconosce $L(r_i)$. Il seguente automa riconosce $L(r_1)L(r_2)$:
 
+	% TODO Inserisci induzione 2
+	\item $r = r_1^*$. Sia $M_1$ con stato iniziale $q_0'$ e stato finale $q_f'$ l'automa che riconosce $L(r_1)$. Il seguente automa riconosce $L(r) = (L(r_1))^*$:
 
+	% TODO Inserisci induzione 3
+\end{itemize}
 
------ 2025
+--- Proprietà dei linguaggi regolari
+I linguaggi regolari detengono inoltre alcune proprietà fondamentali:
 
-1* + 0* + (10)* \equiv {1^n|n\in N} \cup {0^n|n\in N} \cup {(10)^n|n\in N}}
+\paragraph{Proprietà di chiusura:} I LR sono chiusi rispetto alle operazioni di unione e intersezione finite, stella di Kleene e concatenazione. Dunque, dato un certo numero $n$ di linguaggi regolari, valgono: \[
+	\forall n . L_1 \cup L_2 \cup ... \cup L_n\in REG;\quad L_1 \cap L_2 \cap ... \cap L_n\in REG
+\]
 
--- Equivalenza
-	- Th.1: Se esiste un automa DFA M, allora esiste r espressione regolare t.c. il linguaggioo riconosciuto dall'automa è esattamente L(M) = L(r)
-		L regolare \implies \exists M DFA \implies \exists r \in ER t.c. L(r) = L
+\noindent Come valgono anche: \[
+	L_1\cdot L_2\in REG;\quad L_1^*\in REG
+\]
 
-	- Th.2: Data r espressione regolare (ER),allore esiste un \epsilon-NFA M t.c. L(r) = L(M)
-		\epsilon 	-> q_0					L(M) = {\epsilon}
-		\void    	-> q_0   q_1			L(M) = \void
-		a 			-> q_0\to q_1			L(M) = {a}
+\noindent La chiusura vale inoltre per la complementazione e quindi anche per le leggi di De Morgan. Dunque: \[
+	L\in REG \implies \overline{L} = \Sigma^* / L\in REG
+\]
 
-		r,s espressioni regolari. Per ipotesi induttiva supponiamo che abbiano uno stesso \epsilon-NFA, quindi:
-			1. \exists M_1 . L(M_1) = L(r)
-			2. \exists M_2 . L(M_2) = L(s)
-
-			- r+s: 			L(M_1) \cup L(M_2) = L(r) \cup L(s) = L(r+s)
-			- r*s: 			L(M_1)*L(M_2) = L(r)*L(s) = L(rs)
-			- r*: 			L(r) = L(M_1)
-								\cup_{M=0} L(M_1) \cup {\epsilon}
-									&= \cup_{M\in N} L(M_1)\\
-									&= \cup_{M\in N} L(r) = L(r*)
-
-Mettiamo di voler costruire un DFA con l'insieme L = {\sigma\in \Sigma* | \sigma contiene almeno due 1}. Devo dimostrare che è regolare e necessariamente lo si fa con l'automa relativo.
-Poi si dimostra che L = L(M).
-
---- Proprietà dei linguaggi regolari LR
-Tre proprietà totali:
-	1. Prop. di chiusura:
-	2. Prop. di decidibilità
-	3. Esistenza dell'automa minimo
-	4. Condizione necessAaria poiché un linguaggio sia regolare.
-
--- Proprietà di chiusura: Rispetto a quale operazioni i linguaggi sono chiusi?
-Operazioni: *, \cup, concatenazione, \cap, complementazione
-
-	Th1. I linguaggi regolari sono chiusi rispetto a stella di Kleene, unione finita e concatenazione.
-		L1, L2 regolari significa L1*, L1\cup L2, L1L2 sono tutti regolari. Segnalare che puoi farlo per le proprietà di chiusura.
-
-	Th2. I linguaggi regolari sono chiusi rispetto alla complementazione
-		Valgono inoltre le leggi di De morgan, che rendono possibile dimostrare che i linguaggi regolari son chiusi anche per l'intersezione.
-
--- Proprietà di decidibilità: Insieme di stringhe accettate da un DFA (linguaggio regolare) con n stati.
-	1. L(M) \neq\void \iff accetta almeno una stringa di lunghezza \leq n
-	2. L(M) è infinito sse accetta almeno una stringa lunga l con n \leq l < 2n
+\paragraph{Proprietà di decidibilità:} Determina l'insieme di stringhe accettate da un DFA con $n$ stati. Per esempio: \begin{itemize}
+	\item $L \neq \emptyset$ è decidibile, perché la relazione vale solamente se esiste un $M$ automa che accetta una stringa $x$ tale che $|x| < |Q|$.
+	\item $|L| = \omega$, un linguaggio infinito, è decidibile perché è tale se e solo se esiste una stringa $x\in L(M)$ tale per cui $n\leq |x|\leq 2n$, con $n = |Q|$.
+	\item Dati due automi $M_1, M_2$ tali che $L(M_1) = L(M_2)$, il linguaggio è decidibile.
+\end{itemize}

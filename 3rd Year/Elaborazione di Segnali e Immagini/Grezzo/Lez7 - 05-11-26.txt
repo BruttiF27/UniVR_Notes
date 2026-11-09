@@ -1,0 +1,142 @@
+Lez7 Elaborazione segnali e immagini - 05-11-26
+
+--- Sistemi LTI
+Esiste in particolare una certa classe di sistemi chiamata \textbf{lineari
+tempo-invarianti} (LTI), i quali detengono le omonime proprietà che gli consentono di
+avere una rappresentazione mediante la convoluzione.\par
+Per capire che cosa fa il sistema è necessario introdurre la \textbf{risposta all'
+impulso} $h(t)$, ovvero il suo output quando il segnale di entrata è un delta di
+Dirac $\delta(t)$: \[
+	h(t) = T\{\delta(t)\}
+\]
+
+\noindent Sappiamo che ogni input può essere rappresentato come una collezione pesata
+di impulsi traslati nel tempo: \[
+	x(t) = \int_{-\infty}^{+\infty} x(\tau)\delta(t-\tau) d\tau = x(t)*\delta(t)
+\]
+
+\noindent E per i sistemi LTI, ogni impulso produce una copia di $h(t)$ e la loro
+linearità ci consente di sommare tutte le risposte ottenute. Ne consegue che: \[
+	y(t) = T{x}(t) = \int_{-\infty}^{+\infty} x(\tau)h(t-\tau) d\tau = (x*h)(t)
+\]
+
+\noindent Dunque un sistema LTI con risposta all'impulso $h(t)$ è sempre una
+convoluzione con dell'input con $h$, la quale agisce come \textbf{kernel} del filtro
+ed è capace di determinare completamente il comportamento di I/O del sistema quando
+lo si considera in uno stato iniziale di riposo. La formula corrispondente nel
+dominio delle frequenze è: \[
+	y[n] = (x*h)[n] = \sum_{m = -\infty}^{\infty} x[m]h[n-m] =
+		\sum_{m=-\infty}^{\infty} h[m]x[n-m]
+\]
+
+\noindent Dove $h[n]$ è la risposta all'impulso sul campione $n=0$, quindi centrata
+sull'origine. Se si considera la trasformata di Fourier di $h(t)$ otteniamo la
+\textbf{risposta in frequenza}, la quale non cambia internamente e fornisce una
+descrizione del sistema LTI nel dominio delle frequenze: \[
+	H(\omega) = \mathcal{F}{h(t)} = \frac{Y(\omega)}{X(\omega)}
+\]
+
+\noindent Sappiamo che per il teorema della convoluzione, nel dominio delle
+frequenze si passa da convoluzione a prodotto, facendoci ottenere \[
+	Y(\omega) = H(\omega)\cdot X(\omega)
+\]
+
+\noindent Ne concludiamo che i sistemi LTI sono descritti dalla convoluzione nel tempo
+e dal prodotto nelle frequenze; in particolare, $H(\omega)$, detta anche
+\textbf{funzione di trasferimento}, fornisce informazioni in merito ai cambi di fase e
+la scala.
+
+--- Filtri notevoli
+Per un filtro LTI a tempo discreto, la risposta all'impulso $h[m]$ è il suo output
+quando il segnale in entrata è un impulso. Dunque per ogni input $x[n]$, la risposta è: \[
+	y[n] = \sum_{m = -\infty}^{\infty} h[m]x[n-m]
+\]
+
+\noindent A partire da ciò possiamo introdurre alcuni filtri notevoli che pesano le
+entrate con la funzione di trasferimento.
+
+\paragraph{Filtro media mobile:} Esegue la media degli ultimi $M$ campioni. Generalmente
+applicato nel dominio delle frequenze, smussa il segnale attenuando variazioni di
+frequenza elevata. Si definisce come: \[
+	h[m] = \begin{cases}
+		1/M & m = 0,1, ..., M-1\\
+		0 & \text{Altrimenti}
+	\end{cases}
+\]
+
+\noindent E l'output risultante è: \[
+	y[n] = \frac{x[n] + x[n-1] + ... + x[n-N+1]}{M}
+\]
+
+\noindent Il filtro controlla sequenzialmente ogni campioni ed effettuerà la media
+tra quello corrente e tutti i precedenti. Per esempio, con $M=3$ si prenderanno gli
+ultimi $3$ campioni e ne si calcolerà la media, con $M=4$ lo si farà con $4$ e così
+via. Come conseguenza diretta, maggiore sarà tale valore, tanto più smussato sarà
+il segnale di output.\par
+Notare infine che l'applicazione di questo filtro implica anche la perdita di alcune
+informazioni, poiché lo smussamento del segnale limita il range delle frequenze
+considerata e alcune di loro saranno quindi rimosse.
+
+\paragraph{Filtro gaussiano:}
+Similmente alla media mobile, calcola una media dei valori del segnale e dà più peso
+a quelli vicini al centro della funzione. Nel dominio delle frequenze è definito come: \[
+	h[m] = \frac{e^{-m^2/2\sigma^2}}{\sum_{r=-K}^K e^{-r^2/2\sigma^2}}
+\]
+
+\noindent Il denominatore ha lo scopo di normalizzare i pesi, sicché la loro somma
+risulti $1$ e che il peso sia sempre compreso tra $[0,1]$; l'output risultante è: \[
+	y[n] = \sum_{m = -K}^K h[m]x[n-m]
+\]
+
+\paragraph{Filtro di Notch:} Classe di filtri che rimuove una frequenza digitale
+specifica $\omega_0$. Un'impostazione comune definisce la propria risposta in
+frequenza come: \[
+	H(\omega) = \frac{1-2cos(\omega_0)z^{-1}+z^{-2}}{1-2rcos(\omega_0)z^{-1}+r^2z^{-2}};\quad
+		\text{Con } 0 < r < 1
+\]
+
+\noindent Ciò che fa il filtro è creare degli zeri sulle frequenze da rimuovere; il
+denominatore controlla quanto stretto è l'intervallo di frequenze $\omega_0$. Più
+vicino è a $1$, più stretto sarà.
+
+\paragraph{Filtro passa-basso ideale:} Filtro che rimuove tutte le frequenze al di
+sopra di un certo limite $f_c$. Una sua versione ideale ha una risposta in frequenza
+definita come: \[
+	H(f) = \begin{cases}
+		1, |f| \leq f_c\\
+		0, |f| > f_c
+	\end{cases}
+\]
+
+\noindent La cui risposta all'impulso è una funzione sinc: \[
+	h(t) = 2f_c sinc(2f_ct),\quad sinc(u) = \frac{sin(\pi u)}{\pi u}
+\]
+
+\noindent Questo filtro rappresenta un utile modello teorico, tuttavia si estende infinitamente in ambo le direzioni del tempo, rendendolo non causale e impossibile da implementare esattamente in tempo reale; nella pratica viene infatti approssimato. Inoltre, esiste anche il complementare \textbf{passa-alto}, che rimuove tutte le frequenze al di sotto del taglio.
+
+Naturalmente esiste anche il complementare \textbf{passa-alto}.
+
+--- Digitalizzazione
+Per poter elaborare i segnali è necessario che questi siano convertiti da analogici a digitali tramite un convertitore \textbf{analog-to-digital} (ADC), il quale segue i passi: \begin{enumerate}
+	\item \textbf{Misurazione del segnale}: Un sensore trasforma la quantità fisica del segnale in un voltaggio $x(t)$ che può cambiare nel tempo.
+	\item \textbf{Filtraggio per rimuovere frequenze troppo alte}: Prima del campionamento è necessario utilizzare un filtro passa-basso per rimuovere le frequenze che l'ADC non riesce a captare in modo affidabile. L'output è: \[
+			y(t) = (x*h)(t)
+	\]
+	\noindent Ovvero una convoluzione dell'input con la risposta all'impulso. Previene l'aliasing.
+	\item \textbf{Scelta della frequenza di campionamento e misurazione}: L'ADC misura il voltaggio filtrato a intervalli regolari $T$, quindi a una frequenza di $F_s = 1/T$, facendo risultare la sequenza: \[
+		y[n] = y(nT)
+	\]
+	\noindent Se la frequenza più alta da preservare è $B$, il minimo teorico assumibile dalla frequenza di campionamento per poter ricostruire il segnale fedelmente è $f_s > 2B$\footnote{Questa è la condizione di Nyquist nel teorema di Nyquist-Shannon, approfondita più avanti}.
+	\item \textbf{Quantizzazione di ogni misura}: L'ADC arrotonda ogni voltaggio misurato a un determinato range di interi dato dal numero di bit assegnati. Con $b$ bit per campione ci sono $2^b$ codici possibili.
+	\item \textbf{Encoding a bit}: Ogni valore quantizzato è salvato come numero binario, la cui sequenza rappresenta tutte le informazioni discusse prima.
+\end{enumerate}
+
+--- Teorema di Nyquist-Shannon
+Il \textbf{Teorema di Nyquist-Shannon} afferma che un segnale continuo a banda limitata può, in teoria, essere perfettamente ricostruito da campioni uniformi se la frequenza di campionamento è più grande del doppio della sua frequenza più alta $f_{max}$\footnote{Il valore della frequenza massima determina anche la banda $B$.}, ovvero: \[
+	f_s > 2f_{max}
+\]
+
+\noindent Dove $f_s$ è la frequenza di campionamento. Campionare troppo lentamente causa il fenomeno dell'\textbf{aliasing}, dove due componenti frequenziali si sovrascrivono l'una con l'altra, diventando indistinguibili. Inoltre: \begin{itemize}
+	\item \textbf{Rateo di Nyquist} $2f_{max}$: Rateo minimo necessario per evitare aliasing quando un segnale la cui massima frequenza è $f_{max}$ viene campionato.
+	\item \textbf{Frequenza di Nyquist} $f_s/2$: Frequenza massima che il sistema di campionamento può rappresentare senza aliasing.
+\end{itemize}

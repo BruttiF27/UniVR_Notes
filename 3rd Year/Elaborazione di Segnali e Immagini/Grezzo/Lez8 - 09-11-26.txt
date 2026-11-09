@@ -1,0 +1,94 @@
+Lez8 Elaborazione di segnali e immagini - 09-11-26
+
+Pro tip: ADC significa analog to Digital Converter
+
+--- Collegamento fra la frequenza di campionamento e il segnale
+frequenza di campionamento f_s = \frac{1}{T_s}, con T_s periodo di campionamento.
+Un campionatore ideale misura il segnale continuo x(t) in t = nT_s, con n\in Z.
+Quindi dal continuo estraggo osservazioni discrete per un n totale di intervalli T_s.
+
+- Pro tip: Notare che gli n in nT_s rappresentati come 1T_s, 2T_s e così via, nel
+piano cartesiano mostrano la distanza dall'origine.
+
+Possiamo vedere questi intervalli in modo diverso; il segnale campionato è: \[
+	X_s(T) = \sum_{n = -\infty}^{+\infty} x(nT_s)\delta(t - nT_s)
+\]
+
+\noindent Quindi una sommatoria di tutti i delta di dirac (impulsi) riscalati per il
+valore del segnale: risulta essere un treno di impulsi la cui area di ognuno
+è riscalata in base al valore del segnale di input. Dimostrazione: \[
+	\int_{-\infty}^{+\infty} x(t)\delta(t - nT_s) dt = \int_{-\infty}^{+\infty}
+		x(nT_s) \delta(t - nT_s) dt = x(nT_s)
+\]
+
+\noindent Questo prodotto è equivalente al moltiplicare una funzione per uno scalare,
+sebbene i due prodotti siano funzioni; questo perché il delta di dirac ha area 0 o 1
+per la sua proprietà, quindi nelle aree che non ci interessa risulta essere 0, mentre
+dove ci interessa l'area del delta viene riscalata con il valore di x(nT_s).
+
+In particolare, il treno di impulsi si rappresenta con: \[
+	p(t) = \sum_n \delta(t - nT_s) \implies x_s = x(t)p(t)
+\]
+
+\noindent Il processo di campionamento è fondamentalmente il prodotto tra il treno di
+impulsi p(t) e un'altra funzione che ne scala il valore dell'area x(t).
+Applicando la TdF al treno di impulsi si genera un ulteriore treno di impulsi nel
+dominio delle frequenze. E' molto utile. \[
+	P(f) = f_s \sum_{k = -\infty}^{\infty} \delta(f - kf_s)
+\]
+
+\noindent Qui torna la regola del prodotto di Fourier; un prodotto nel tempo è una
+convoluzione nelle frequenze, dunque: \[
+	x(t) * \delta(t) = x(t) \implies x(t) * \delta(t - nT_s) = x(nT_s)
+\]
+
+Seguendo questa logica, facendo la convoluzione con un treno di impulsi avrò tante
+copie dello stesso segnale shiftato nel tempo in base al valore di n: \[
+	x(t) * (\delta(t - 2T_s) + \delta(t - 3T_s))
+\]
+
+\noindent Questo è mostrato nel dominio del tempo ma vale anche in quello delle
+frequenze. Dunque, la convoluzione di X(f) con un treno di impulsi nello spettro
+(dominio delle frequenze) P(f) produce una copia shiftata di X(f) per ogni impulso
+del treno, la quale sarà ripetuta in ogni intervallo di campionamento.
+	Qua bisogna infatti considerare il valore della frequenza di campionamento f_s
+perché per il teorema di nyquist-shannon bisogna che f_s > 2B, perché se campioniamo
+a intervalli maggiori di 2B abbiamo che in un intervallo c'è una copia sola; se è
+minore succede una sovrapposizione tra le funzioni (aliasing), impedendoci di
+ricostruire il segnale fedelmente.
+
+--- Come evitare l'aliasing
+Esiste un filtro anti-aliasing.
+
+Prima del campionamento, si applica un filtro passa basso sul segnale originale,
+forzando l'input a rispettare la condizione di nyquist $f_s < 2B$ e rimuovendo tutte quelle
+frequenze superiori a quella di campionamento: \[
+	y(t) = x(t) * h_{aa}(t) \implies Y(f) = X(f)H_{aa}(f)
+\]
+
+\noindent Tuttavia, è bene ricordare che applicare questo filtro rimuove informazini
+dal segnale originale.
+
+--- Convertitore digitale ad analogico (DAC)
+Noi stiamo considerando il segnale ancora come una sequenza di campioni, tra i cui
+elementi è presente una discontinuità che nel segnale originale non c'era.
+
+Ogni valore binario (discreto) viene convertito in valore continuo di ampiezze
+q[n], approssimazioni del valore di ampiezza continuo del segnale originale.
+
+La ricostruzione si basa su due passaggi:
+	- Prima è necessario definire una ricostruzione che connette le discontinuità con
+		una	retta (zero-order reconstruction) \[
+			x_{ZOH}(t) = q[n] per nT_s \leq t < (n+1)T_s
+		\]
+		\noindent La funzione connette i puntini praticamente.
+	- Uso di un filtro passa-basso per rendere la funzione continua: \[
+			x_r(t) = x_{ZOH}(t) * h_r(t)
+		\]
+		\noindent Questa è la funzione di ricostruzione del segnale, che prende la ZOH
+		convoluta con la risposta all'impulso del filtro passa-basso.
+
+\noindent Alternativamente, la teoria dei segnali dice che è possibile ricostruire
+il segnale effettuando un'interpolazione con una funzione sinc.
+Nella pratica, tuttavia, è estremamente difficile creare un'implementazione di sinc,
+dunque si preferisce l'approccio zero order.

@@ -21,13 +21,13 @@
 \contentsline {paragraph}{Filtro di Notch:}{19}{}%
 \contentsline {paragraph}{Filtro passa-basso ideale:}{20}{}%
 \contentsline {section}{\numberline {2.5}Digitalizzazione dei segnali}{20}{}%
-\contentsline {chapter}{\numberline {3}Formazione delle immagini}{22}{}%
-\contentsline {chapter}{\numberline {4}Filtri, edge e contorni}{23}{}%
-\contentsline {chapter}{\numberline {5}Calibrazione}{24}{}%
-\contentsline {chapter}{\numberline {6}Geometria proiettiva}{25}{}%
-\contentsline {chapter}{\numberline {7}Segmentazione}{26}{}%
-\contentsline {chapter}{\numberline {8}Operatori morfologici}{27}{}%
-\contentsline {chapter}{\numberline {9}Utilizzo dell'AI}{28}{}%
-\contentsline {section}{\numberline {9.1}Riconoscimento e collegamento AI}{28}{}%
-\contentsline {section}{\numberline {9.2}Acquisizione e immagini range}{28}{}%
-\contentsline {section}{\numberline {9.3}Feature detection and matching}{28}{}%
+\contentsline {chapter}{\numberline {3}Formazione delle immagini}{24}{}%
+\contentsline {chapter}{\numberline {4}Filtri, edge e contorni}{25}{}%
+\contentsline {chapter}{\numberline {5}Calibrazione}{26}{}%
+\contentsline {chapter}{\numberline {6}Geometria proiettiva}{27}{}%
+\contentsline {chapter}{\numberline {7}Segmentazione}{28}{}%
+\contentsline {chapter}{\numberline {8}Operatori morfologici}{29}{}%
+\contentsline {chapter}{\numberline {9}Utilizzo dell'AI}{30}{}%
+\contentsline {section}{\numberline {9.1}Riconoscimento e collegamento AI}{30}{}%
+\contentsline {section}{\numberline {9.2}Acquisizione e immagini range}{30}{}%
+\contentsline {section}{\numberline {9.3}Feature detection and matching}{30}{}%

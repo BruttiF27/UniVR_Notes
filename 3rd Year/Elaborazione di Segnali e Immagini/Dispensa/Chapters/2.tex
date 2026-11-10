@@ -441,4 +441,67 @@ frequenziali si sovrascrivono l'una con l'altra, diventando indistinguibili. Ino
 	\item \textbf{Frequenza di Nyquist} $f_s/2$: Frequenza massima che il sistema di campionamento può rappresentare senza aliasing.
 \end{itemize}
 
-% TODO Riprendi dalla lezione 8
+\noindent Sia ora la frequenza di campionamento $f_s = \frac{1}{T_s}$, con $T_s$ periodo di campionamento. Un campionatore ideale misura il segnale
+continuo $x(t)$ in $t = nT_s$, dove $n\in \mathbb{Z}$, quindi estraendo osservazioni discrete per un totale $n$ di intervalli $T_s$. Nel piano
+cartesiano, i valori di $n$ determinano la distanza geometrica dall'origine, dunque più alte saranno le cifre, maggiore sarà la distanza.\par
+Possiamo rappresentare queste misure come impulsi la cui area è data dai valori campionati dall'input: \[
+	x_s(t) = \sum_{n = -\infty}^{+\infty} x(nT_s)\delta(t - nT_s)
+\]
+
+\noindent Questo è dimostrabile ricordando che il valore dell'area del delta di Dirac è uguale a $1$ date le sue proprietà; ne consegue che: \[
+	\int_{-\infty}^{+\infty} x(t)\delta(t - nT_s) dt =
+		\int_{-\infty}^{+\infty} x(nT_s) \delta(t - nT_s) dt = x(nT_s)
+\] 
+
+\noindent Il prodotto risulta essere equivalente ad una moltiplicazione per uno scalare, il cui ruolo è coperto dal valore di $x(nT_s)$. Nella pratica,
+i filtri ADC fanno uso di una sequenza di delta di Dirac spaziati di $T_s$ secondi, chiamata \textbf{treno di impulsi} $p(t)$, ed è rappresentato da: \[
+	p(t) = \sum_n \delta(t - nT_s) \implies x_s = x(t)p(t)
+\]
+
+\noindent Il processo di campionamento può dunque essere scritto come il prodotto tra il valore della funzione $x(t)$ e il treno di impulsi $p(t)$.
+Notare inoltre che applicando la trasformata di Fourier a un treno di impulsi, ne risulterà un altro treno di impulsi nel dominio delle frequenze: \[
+	P(f) = f_s \sum_{k = -\infty}^{\infty} \delta(f - kf_s)
+\]
+
+\noindent E siccome la regola del prodotto di Fourier dice che un prodotto nel tempo è una convoluzione nelle frequenze, possiamo aggiungere che: \[
+	X_s(f) = X(f) * P(f) = f_s \sum_{k = -\infty}^{\infty} X(f - kf_s)
+\]
+
+\noindent In altre parole, il campionamento crea copie di $X(f)$, centrate a: \[
+	..., -2f_s, -f_s, 0, f_s, 2f_s, ...
+\]
+
+\noindent E in questi termini, data la funzione delta traslata, otteniamo una copia del segnale di input $x(t)$ traslata di $nT_s$: \[
+	x(t) * \delta(t) = x(t) \implies x(t) * \delta(t - nT_s) = x(t - nT_s)
+\]
+
+\noindent Questo è mostrato nel dominio del tempo ma vale anche in quello delle frequenze; la convoluzione di $X(f)$ con un treno di impulsi nello
+spettro $P(f)$ produce una copia traslata di $X(f)$ per ogni impulso del treno, la quale sarà ripetuta in ogni intervallo di campionamento.\par
+Ora, dato il problema dell'aliasing si è trovata una soluzione con un filtro \textbf{anti aliasing}, un passa-basso applicato sul segnale originale per
+forzarlo a rispettare la condizione di Nyquist. Prima del campionamento, questo filtro produce un output dato da: \[
+	y(t) = x(t) * h_{aa}(t) \implies Y(f) = X(f)H_{aa}(f)
+\]
+
+\noindent Questo filtro risolve il problema, però la rimozione di frequenze implica anche la perdita di informazioni. In ogni caso, fa ottenere un
+segnale digitale sul quale si possono compiere elaborazioni e che è anche ricostruibile; ricostruzione che avviene grazie a un convertitore
+\textbf{digitale ad analogico} (DAC).\par
+I segnali digitali sono una sequenza di campioni tra i cui elementi è presente una discontinuità che nel segnale originale non c'era; inoltre, bisogna
+riportarli a valori continui. La ricostruzione agisce in primo luogo sui valori binari e li ritrasforma in ampiezze discrete $q[n]$ con relativi scala,
+segno e frequenza di campionamento.\par
+Lo scopo del DAC è associare ogni $q[n]$ a un voltaggio analogico o corrente; generalmente mantiene ogni valore finché non arriva il prossimo campione
+con: \[
+	x_{ZOH}(t) = q[n] \text{ per } nT_s \leq t < (n+1)T_s
+\]
+
+\noindent Ciò è chiamato \textbf{zero-order hold} e il suo output mantiene ogni valore campionato fino al seguente intervallo, creando geometricamente 
+una linea che connette ogni valore. In parole povere, connette i puntini.\par
+Un filtro passa-basso analogico è poi utilizzato per sopprimere tutte le copie la cui frequenza è al di sopra della banda desiderata, per poi smussare i
+gradini creati dallo zero-order hold: \[
+	x_r(t) = x_{ZOH}(t) * h_r(t)
+\]
+
+\noindent Questa è la funzione di ricostruzione del segnale, chiamata \textbf{filtraggio anti-immagine}; attenua le immagini spettrali prodotte
+convertendole in tempo continuo.\par
+Sebbene questo sia l'approccio più usato nella pratica, è presente pure un modello teoretico dato dalla teoria dei segnali: sarebbe possibile
+ricostruire il segnale originale effettuando un'interpolazione con una funzione sinc, tuttavia, è di difficile implementazione, rendendola poco
+preferibile.

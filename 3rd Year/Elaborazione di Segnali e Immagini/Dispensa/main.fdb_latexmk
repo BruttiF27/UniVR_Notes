@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1794254440.31563 "/home/F27/Desktop/UniVR/3rd Year/Elaborazione di segnali e immagini/Dispensa/main.tex" "main.pdf" "main" 1794254440.87715 0
+["pdflatex"] 1794327101.07178 "/home/F27/Desktop/UniVR/3rd Year/Elaborazione di segnali e immagini/Dispensa/main.tex" "main.pdf" "main" 1794327101.80073 0
   "/home/F27/Desktop/UniVR/3rd Year/Elaborazione di segnali e immagini/Dispensa/main.tex" 1794251274.09824 1269 fb8813ac2131796d8bf569633f8aece0 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -94,7 +94,7 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777382308.55095 4602016 72a039a3c4aea0fa25b5d35d65138f54 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777382069 7753793 49853c54d310b0d2fce2a6e72b3b1880 ""
   "Chapters/1.tex" 1793098307.20864 14185 11fe9e9131c38ccbee4cb060ef647d45 ""
-  "Chapters/2.tex" 1794254410.01195 28288 16f496d67cc83b4a33ebb33776e54289 ""
+  "Chapters/2.tex" 1794327100.78398 32881 9f21777a0018223dd485bc07608a30d7 ""
   "Chapters/3.tex" 1794254439.35934 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Chapters/4.tex" 1792228659.9927 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Chapters/5.tex" 1792228659.9927 0 d41d8cd98f00b204e9800998ecf8427e ""
@@ -105,9 +105,9 @@
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
   "Configs/formats.tex" 1760625942 169 92cdab9857b81aeb67c3412b8db54e46 ""
   "Configs/packages.tex" 1760624174 1028 ba2fc4b35c2aa8acba53a0f57c2a9784 ""
-  "main.aux" 1794254440.82591 4140 e5514ac9d11802492eeee97da5515155 "pdflatex"
+  "main.aux" 1794327101.6852 4140 7cf6abac4909ba0c39c6f89ebd56b548 "pdflatex"
   "main.tex" 1794251274.09824 1269 fb8813ac2131796d8bf569633f8aece0 ""
-  "main.toc" 1794254440.82591 2070 2192ccf687641550b007c83a6e67bcb9 "pdflatex"
+  "main.toc" 1794327101.6852 2070 96f1ff9d28fa3c573e993179b564464c "pdflatex"
   (generated)
   "main.aux"
   "main.log"

@@ -1,0 +1,31 @@
+Lez13 Basi di dati - 12-11-26
+
+--- Esempio di rappresentazione di dati, schema e istanza
+Generalmente, una base di dati relazionale è costituita da più relazioni, quindi bisogna capire in che modo implementare i requisiti nel modello e come definire le relazioni.\par
+Supponiamo di voler rappresentare in un DB relazionale le informazioni sulle proprietà degli appartamenti di Verona, dove: \begin{itemize}
+    \item Per ogni appartamento vogliamo memorizzare codice univoco, categoria catastale e l'indirizzo composto da via, numero civico, subalterno.
+    \item Per ogni proprietario registriamo codice fiscale, nome, cognome e data di nascita.
+    \item Un appartamento può essere in comproprietà e un proprietario può avere più appartamenti.
+\end{itemize}
+
+\noindent Non è ideale creare una singola relazione contenente ogni attributo, perché in tal caso non sarebbe possibile rappresentare un appartamento senza proprietario o viceversa, senza contare che i dati di un appartamento verrebbero replicati per ogni proprietario, producendo, quindi, una \textbf{ridondanza}. La sua presenza implica tre anomalie: \begin{itemize}
+    \item \textbf{Di aggiornamento}: Per aggiornare il valore di un attributo bisognerà anche modificarlo su più tuple.
+    \item \textbf{Di inserimento}: Per inserire una nuova tupla è necessario inserire valori al momento sconosciuti per attributi non disponibili.
+    \item \textbf{Di cancellazione}: Per cancellare una tupla bisognerà anche cancellare valori ancora validi oppure inserire valori nulli per gli attributi da rimuovere.
+\end{itemize}
+
+\noindent Naturalmente, è possibile ridurre le ridondanze nei dati decomponendo la singola relazione, quindi bisogna fare attenzione e dividere appropriatamente gli attributi. Notare inoltre che i \textbf{legami tra relazioni} si realizzano attraverso la replicazione di un insieme di attributi, dove il legame tra due tuple è stabilito quando queste presentano gli stessi valori negli attributi replicati.\par
+Infine, il modello relazionale è \textbf{basato su valori}, quindi non prevede uso di alcun puntatore per rappresentare i legami; implica inoltre una completa indipendenza da implementazione e schema fisico, come anche un trasferimento dei dati tra sistemi più semplice, poiché è rappresentato solo ciò che è rilevante per il sistema informativo. Altri concetti importanti che riguardano il modello relazionale sono: \begin{itemize}
+    \item \textbf{Schema di una relazione}: Costituito dal nome della relazione e un insieme di nomi per i suoi attributi: \[
+        R(\Chi) \equiv R(A_1, ..., A_n) \equiv R(A_1:D_1, ..., A_n:D_n)
+    \]
+    \item \textbf{Schema di una base di dati}: Costituito da un insieme di schemi di relazioni: \[
+        S = \{R_1(\Chi_1), ..., R_n(\Chi_n)\}, \text{ con } R_1\neq R_2\neq ...\neq R_n
+    \]
+    \item \textbf{Istanza di una relazione di schema}: Insieme $r$ di tuple su $\Chi$: \[
+        r = \{t_1, ..., t_n\}
+    \]
+    \item \textbf{Istanza di una base di dati di schema}: Insieme di istanze delle relazioni $R_1(\Chi_1), ..., R_n(\Chi_n)$: \[
+        db = \{r_1, ..., r_n\}
+    \]
+\end{itemize}

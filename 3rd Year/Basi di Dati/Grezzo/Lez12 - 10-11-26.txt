@@ -1,0 +1,69 @@
+Lez12 Basi di dati - 10-11-26
+
+--- Modello relazionale, costrutto relazione
+Il \textbf{modello relazionale} è uno degli approcci usati oggi per l'implementazione dei dati, il quale si basa su due concetti: \textbf{relazioni} e \textbf{tabelle}, facilmente riconducibili l'uno all'altro. Una tale strutturazione è capace di rispondere al requisito di indipendenza dei dati, ponendo una distinzione tra il livello fisico e quello logico all'interno della descrizione dei dati; eventuali utenti o sviluppatori che vogliono accedervi faranno riferimento esclusivamente al livello logico e non avranno necessità di conoscere anche la strutturazione fisica del modello. Per una visuale completa, forniamo una descrizione per ogni suo costrutto principale:
+
+\paragraph{Domini di base:} Date le proprietà delle istanze di informazioni da rappresentare, questi domini forniscono i loro valori. Tipicamente sono caratteri, stringhe, interi, intervalli e istanti di tempo, e molto altro.
+
+\paragraph{Relazioni e tabelle:} Una relazione a livello logico è rappresentata come una tabella, un contenitore di dati la cui struttura è composta da una lista di colonne come:
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        MILANO & 20100 & 1.300.000\\
+        \hline
+        VERONA & 37100 & 350.000\\
+        \hline
+        BRESCIA & 25100 & 250.000\\
+        \hline
+    \end{tabular}
+\end{table}
+
+\noindent Come si può vedere, forma una matrice, dove: \begin{itemize}
+    \item \textbf{Celle}: Rappresentano il valore specifico della proprietà di un'istanza dell'informazione.
+    \item \textbf{Righe}: Rappresentano tutte le caratteristiche di un'istanza dell'informazione.
+    \item \textbf{Colonne}: Rappresentano una stessa proprietà delle istanze dell'informazione.
+\end{itemize}
+
+\noindent Le relazioni possono essere definite formalmente anche come insieme di ennuple, dove dati $n$ insiemi di valori (domini) $D_1, ..., D_n$ e indicato il loro prodotto cartesiano con: \[
+    D_1 \times ... \times D_n = \{(v_1, ..., v_n) | v_1\times D_1\times ... \times v_n\times D_n\}
+\]
+
+\noindent Una relazione $\rho$ di grado $n$ è un qualsiasi sottoinsieme del prodotto cartesiano: \[
+    \rho \subseteq D_1 \times ... \times D_n
+\]
+
+\noindent Dove $(v_1, .., v_n)$ è una ennupla della relazione e $|\rho|$ il suo numero di ennuple, quindi la cardinalità, la quale deve essere sempre finita, mentre per quanto riguarda i domini può anche essere infinita. Inoltre, si esume da tale definizione che non è definito alcun ordinamento sulle ennuple $(v_1, ..., v_n)$, sulle quali non sono ammessi nemmeno duplicati. Tuttavia, i singoli valori al loro interno hanno un ordinamento. Un esempio è: \[
+    \rho = \{(\text{MILANO}, 20100, 1.300.000), (\text{VERONA}, 37100, 350.000), (\text{BRESCIA}, 25100, 250.000)\}
+\]
+
+\noindent Ovvero $\rho\subseteq D_1\times D_2\times D_3$, dove il primo dominio concerne le stringhe di caratteri e gli altri due sono numeri interi.\par
+Per \textbf{accedere} ai valori di una ennupla si deve indicare la $i-$esima posizione con: \[
+    t[i]
+\]
+
+\noindent Tuttavia non è una modalità efficace per l'uso pratico delle relazioni e si preferisce assegnare un \textbf{nome} alle colonne, portandoci alla definizione di \textbf{relazione come insieme di tuple}: sia $\Chi$ un insieme di nomi e $\Delta$ l'insieme di tutti i domini di base ammessi dal modello. Definiamo la funzione: \[
+    DOM:\Chi\to \Delta
+\]
+
+% TODO ricontrolla correttezza dei simboli, non si vedono dalle slide del prof
+\noindent Quella che associa a ogni nome $A$ di $\Chi$, detto anche \textbf{attributo}, un dominio $DOM(A)$ di $\Delta$.\par
+Inoltre, una tupla $t$ su $\Chi$ è una funzione $t:\Chi \to \cup_{A\in X}DOM(A)$, dove $t[A] = v\in DOM(A)$. Una relazione su $\Chi$ è quindi un insieme di tuple su di esso, dove $\Chi$ è l'insieme di attributi della relazione. Riprendendo la relazione delle città di prima, abbiamo ora: \[
+    \Chi = \{\text{Nome}, \text{CAP}, \text{Abitanti}\};\quad \rho_{\Chi} = \{t_1, t_2, t_3\}
+\]
+
+\noindent Dove i domini di base risultanti da $\Chi$ sono $DOM(Nome)$, che concerne stringhe di caratteri, e $DOM(CAP), DOM(Abitanti)$, i quali sono numeri interi. La relazione $\rho_{\Chi}$ è invece definita esplicitamente come: \begin{itemize}
+    \item $t_1[Nome] = MILANO, t_2[Nome] = VERONA, t_3[Nome] = BRESCIA$
+    \item $t_1[CAP] = 20100, t_2[CAP] = 37100, t_3[CAP] = 25100$
+    \item $t_1[Abitanti] = 1.300.000, t_2[Abitanti] = 350.000, t_3[Abitanti] = 250.000$
+\end{itemize}
+
+\noindent In un contesto tale, una relazione è un insieme di tuple e in quanto tale non può averne di duplicate. I domini per gli attributi possono solo essere quelli di base; non ne ammettono altri, né prodotti cartesiani di domini. Generalmente, una base di dati relazionale è costituita da più relazioni.
+
+
+\paragraph{Superchiavi, chiavi e chiavi primarie}
+
+\paragraph{Vincoli di integrità referenziale}
+
+\paragraph{Vincoli di integrità generici}

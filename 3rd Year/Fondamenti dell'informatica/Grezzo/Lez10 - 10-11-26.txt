@@ -1,0 +1,122 @@
+Lez10 Fondamenti dell'informatica - 10-11-26
+
+--- Proprietà di chiusura
+I linguaggi CF sono chiusi, differentemente a quelli regolari, solo per unione, concatenazione e stella di Kleene.
+
+- L_1, L_2 due linguaggi CF allora L_1 \cup L_2 è a sua volta CF, L_1*L_2 pure e L_1^* anche.
+
+- Dim:
+L_1, L_2 sono CF per definizione, allora esistono G_1 e G_2 che generano i due linguaggi, dunque L_1 = L(G_1) e L_2 = L(G_2).
+Qua bisogna costruire una grammatica che effettivamente li accetta.
+
+	- L_1 \cup L_2 \implies G_\nu = <V1 \cup V2 \cup {s}, T1\cup T2, P_\nu, S>
+		P_\nu : {S \to S_1|S_2} \cup P_1 \cup P_2; (V1 \cap V2 = \emptyset, T1 \cap T2 = \emptyset)
+		
+	- L_1L_2 \implies G_. = <V1 \cup V2 \cup {s}, T1\cup T2, P_., S>
+		P_\nu : P1 \cup P2 \cup {S \to S_1S_2}
+		
+	- L_1^* \implies G_* = <V1 \cup {S}, T1, P_*, S>
+		P_* = P1 \cup {S \to \epsilon | S_1S}
+		
+\cup_{i\in N} L_i : L_i tutti CF \neg\implies \cup_{i\in N} L_i CF.
+L'unione quindi non si applica quando i linguaggi sono infiniti.
+
+- I linguaggi CF non sono chiusi per intersezione
+Per dimostrarlo formiamo un caso in cui L_1, L_2 sono due CF, ma L_1 \cap L_2 non crea un linguaggio CF.
+
+Prendiamo L_1 = {a^ib^ic^j | i,j\in N}, dove i e j non hanno relazione. Scriviamo la grammatica G_1 con le seguenti produzioni:
+	- S \to RC
+	- C \to cC | \epsilon
+	- R \to aRb | \epsilon
+	
+Sostituendo, otteniamo:
+	- S \to aRbC
+		\to aaRbbC
+		\to aabbC
+		\to aabbcC
+		\to aabbccC
+		\to aabbcccC
+		\to aabbccc 	// L_1 è quindi CF
+		
+Ora prendiamo L_2 = {a^jb^ic^i | i,j\in N}, con le produzioni:
+	- S \to \epsilon | AR
+	- R \to bRc | \epsilon
+	- A \to aA | \epsilon
+	
+Otteniamo:
+	- S \to AR \to aAR
+		\to aaAR
+		\to aaaAR
+		\to aaaR
+		\to aaabRc \to aaabbRcc \to aaabbcc		// QUindi ancvhe L_2 è CF.
+		
+Se adesso prendiamo L_1 \cap L_2 = {a^ib^jc^k | a^ib^jc^k \in L_1 e a^ib^jc^k \in L_2}, con:
+	- {a^ib^jc^k | j = i e j = k} // Le condizioni j=i e j=k sono richieste dall'appartenenza ai linguaggi rispettivamente.
+
+Da qua troviamo che {a^ib^jc^k | i=j=k} = {a^nb^nc^n | n\in N}, ma non è un linguaggio CF.
+
+- I linguaggi CF non sono chiusi per complementazione, qundi L CF \neg\implies C è CF.
+Questo è dovuto alle leggi di de morgan, dove L_1 \cap L_2 = \overline{C_1 \cup C_2}
+
+--- Proprietà di decisione
+	- L(G) = \emptyset è decidibile 			// Dimostrazione banale grazie all'iter di riduzione delle grammatiche, rimuovendo tutti i simboli inutili.
+	- L(G) è finito è problema decidibile 		// Non vederne la dimostrazione, è superflua per quello che mi serve.
+	- L(G) è infinito è problema decidibile		// Ricordo che decidibile si intende poter riportare vero o falso in un numero finito di passi
+	- x\in L(G) è decidibile					// Curiosa questa cosa perché è fondamentalmente il parsing che effettuano i compilatori per capire se la sintassi è corretta.
+	
+--- Automi a pila
+Permettono di identificare distinzioni all'interno dei CF che non si noterebbero con le sole grammatiche. Prendiamo un linguaggio CF {a^nb^n | n\in N} non regolare.
+Un DFA non esiste in quanto non regolare. Le produzioni sono:
+	- S \to \epsilon | aSb
+	
+Si aggiunge al nastro dell'automa una stack, che consente di avere una memoria e si aggiungono le operazioni di push (aggiungi un simbolo in cima) e pop (rimuovi un simbolo dalla
+cima).
+
+% TODO Vedi disegnino del nastro
+
+--- APND N = <Q, \Sigma, R, \delta, q_0, z_0, F>
+	- Q insieme finito di stati
+	- \Sigma alfabeto finito non vuoto che è il nastro di input
+	- R alfabeto finito dei simboli usati nella pila
+	- q_0\in Q stato iniziale
+	- z_0\in R simbolo iniziale della pila
+	- F\subseteq Q stati finali
+	- \delta : Q\times (\Sigma \cup {\epsilon}) \times R \implies \mathcal{P}(Q\times R)
+		- <q, s, z> \to
+			- <q_1, \gamma_1>, con \gamma\in R^*
+			- <q_2, \gamma_2>
+			
+Gli automi a pila si descrivono con una descrizione istantanea, che è la rappresentazione dello stato e della stack in una certa istanza: <q, aw, z\alpha>
+Quindi, stato, simbolo in lettura a, simboli che restano da leggere w, z simbolo in testa alla stack e \alpha simboli sulla pila
+
+Questa descrizione transita col cambio di stato. Diventa <q', w, \gamma'\alpha>, con \gamma' la sequenza di simboli aggiunti in testa alla stack.
+
+Ci sono due modi per accettare un linguaggio; dato M APND definiamo L_p(M) = {x\in \Sigma^* | <q_0, x, z_0> \to^* <q, \epsilon, \epsilon>, q\in Q} il linguaggio riconosciuto
+per pila vuota. Questi linguaggi svuotano quindi la stack al completamento della lettura.
+
+Alternativamente ci sono gli L_F(M) = {x\in \Sigma^* | <q_0, x, z_0> \to^* <q, \epsilon, \alpha>}, con q\in F e \alpha\in R^*. Questi sono i linguaggi delle stringhe per stato finale.
+
+Quindi ci sono più opzioni, quale scegliere dipende dal caso.
+
+--- Qui ha mostrato un esempio dalle slide, esempio (deterministico e non deterministico)
+
+--- Corrispondenza tra grammatiche CF e APND (automi a pila non deterministici)
+Passa attraverso la forma normale di Greibach. In essa, ogni produzione è del tipo A \to a\alpha con a simbolo terminale (a\in T) e \alpha simbolo non terminale (\alpha\in V^*)
+La sequenza di simboli non terminali corrispondono all'alfabeto della stack.
+
+Inoltre, ogni linguaggio CF può esse3re riconosciuto da un APND con un solo stato. In tal modo se lo stato è unico, non è una variabile.
+
+% TODO Vedere il relativo esempio nelle slide (sia M l'APND con 1 solo stato q definito dalla seguente relazione di transizione:)
+
+I CF, come già visto, sono riconosciuti da APND. Esistono a questo punto grammatiche per i linguaggi regolari che li caratterizzano?
+Sì, sono le grammatiche regolari, la cui caratteristica è avere la stessa struttura delle produzioni per le CF, ma esiste un vincolo forte sulle produzioni a destra. Si dicono
+per questa ragione lineari destre.
+
+Ovvero che A \to wB, con w\in T^* oppure A \to w. Ogni non terminale può generare solo terminali.
+
+Se li proviamo a mettere in forma normale di Greibach, otteniamo:
+	- A\to aB, con a\in T e B\in V
+	- A\to a
+	
+Questo permette la corrispondenza coi linguaggi regolari. Il linguaggio generato da tale grammatica è quindi regolare. Questo risultato ricorda anche che i linguaggi regolari
+sono un sottoinsieme di quelli CF.

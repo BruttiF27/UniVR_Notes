@@ -1,0 +1,185 @@
+Lez9 Fondamenti dell'informatica - 09-11-26
+
+--- Semplificazioni delle grammatiche CF
+Si possono eliminare componenti inutili all'interno del linguaggio, semplificando la grammatica e consentendoci di concentrarci solo sugli elementi di nostro interesse.
+
+- Eliminazione dei simboli inutili
+Data una grammatica G = <V, T, P, S>, un generico simbolo terminale o non terminale è utile se esiste almeno una derivazione S \implies_* x \alpha x \\beta \implies_* \omega
+Con \alpha, \beta\in (V \cup T)^*, \omega\in T^*.
+Dunque esiste almeno una dervazione da S a una sequenzaa \omega di simboli terminali che usa x. E' evidente che la formula sia divisa in due fasi.
+
+Data quindi una grammatica G = <{A,B,C,D,E,S}, {0,1,2,3}, P, S}>
+	
+	Dove:
+		- V = {A,B,C,D,E,S}
+		- T = {0,1,2,3}
+	
+	Le cui produzioni P sono:
+		- S \to \epsilon|A||B|D
+		- A \to 0|0A0|B|E
+		- B \to 1|1B1|A|E
+		- C \to A|B|2
+		- D \to \epsilon|D
+		- E \to \epsilon
+
+1. Eliminazione dei simboli non terminali che NON raggiungono simboli terminali
+	L'idea è partire dai simboli terminali e all'indiietro nelle produzioni si cercano i simboli collegati. Quelli non collegati sono inutili.
+	Iterativamente costruiamo l'insieme di simboli non terminali $T^i$, i quali in passi i raggiungono almeno un simbolo terminale.
+
+	- \Gamma^0 = \emptyset
+	- \Gamma^1 = {A, B, C}
+	- \Gamma^2 = {A, B, C, S}	// Notare nelle produzioni che A, B sono generati da S. Per questo si aggiunge. Allo stesso modo, C genera A, B, ma è già nell'insieme.
+	- \Gamma^3 = {A, B, C, S}	// Questi sono tutti i non terminali che raggiungono terminali.
+
+	Da qua otteniamo una nuova grammatica G' = <V\cap \Gamma^3, T, P', S>, dalla quale sono eliminati D ed E. Le nuove produzioni P' sono: P' = P / {D\to \epsilon | D, E\to \epsilon}
+
+2. Eliminazione di tutti i simboli non raggiunti dal simbolo iniziale
+
+	- S \to \epsilon|A|B
+	- A \to B|0A0|0
+	- B \to A|1B1|1|\epsilon
+	- C \to A|B|2
+	
+	L'idea è costruire iterativamente l'insieme dei simboli ragginnti da S, con \Gamma^i l'insieme dei simboli che in i passi da S sono generati.
+	
+	- \Gamma^0 = {S} 			// Portato dentro s perché non può essere generato
+	- \Gamma^1 = {A, B} \cup {S} = {A, B, S}
+	- \Gamma^2 = {A, B, S, 0, 1}	// Questo è il punto fisso perché sono stati raggiunti simboli terminali
+	- \Gamma^3 = \Gamma^2
+	
+	Da qua ottenimo un'altra nuova grammaticva G'' = <V'\cap \Gamma^3, T \cap \Gamma^3, P'', S>, con:
+		- V'\cap \Gamma^3 = {A, B, S} // Eliminato C con le sue relative produzioni
+		- T \cap \Gamma^3 = {0, 1}		// Eliminato 2 e 3
+		
+	Le produzioni diventano P'':
+		- S \to A|B|\epsilon
+		- A \to B|0A0|0
+		- B \to A|1B1|\epsilon
+		
+3. Eliminazione delle \epsilon-produzioni
+	Eliminiamo ora x\to \epsilon con x\in V / {S}, considerando sempre la grammatica G'' ottenuta.
+
+	Necessaria la costruzione di un \Gamma^i per costruire l'insieme dei simboli non terminali che generano \epsilon.
+		- \Gamma^0 = \emptyset
+		- \Gamma^1 = {S, B}
+		- \Gamma^2 = {S, A, B}
+	
+	Procediamo con la riduzione delle produzioni:
+		- S \to \epsilon|A|B
+		- A \to B|0A0|0
+		- B \to A|1B1|1|\epsilon	// Non voglio che sia scritto \epsilon, quindi lo sostituisco con ciò che fa effettivamente:
+		
+	Quindi le nuove produzioni P''' sono:
+		- S \to B|A|\epsilon
+		- A \to B|0A0|0|00		// Perché A \to 0A0 \to 0B0 \to 00
+		- B \to A|1B1|1|11
+
+	Fondamentalmente si prende ogni produzione in cui compare a destra un simbolo in \Gamma^3 (in questo caso \Gamma^2 in quanto punto fisso) (i simboli che generano \epsilon) e 
+	aggiungo la stessa produzione in cui il simbolo è sostituito con \epsilon.
+
+	Per esempio: 
+		- A\in \Gamma^2 \implies A \to 0A0 \cup A \to 0\epsilon 0 = 00
+		- B\in \Gamma^2 \implies B \to 1B1 \cup B \to 1\epsilon 1 = 11
+	
+	Otteniamo infine la grammatica G''' = <V'', T'', P''', S>
+	
+4. Eliminazione delle produzioni unitarie A\to B
+Le produzioni unitarie equivalgono alla rappresentazione dello stesso concetto e non ha senso tenerle. Per rimuoverle si segue un ragionamento analogo a quello delle \epsilon-prod.
+
+Eventuali produzione unitarie nella grammatica G''' sono: S\to A, S\to B, A\to B, B\to A.
+
+	Produzioni:
+		- S \to \epsilon|A|B
+		- A \to 0|00|0A0|B
+		- B \to 1|11|1B1|A
+		
+	Sostituiamo la A con le relative produzioni in S: S \to \epsilon|A|B = S \to \epsilon|0|00|0A0|B
+	Idem per B: S \to \epsilon|0|00|0A0|1|11|0A0	// No, non serve ri-sostituire A perché hai già aggiunto tutto prima.
+	
+	Poi facciamolo con quelle indicate in A: A \to 0|00|0A0|1|11|0A0
+	E quelle di B: B \to 1|11|1B1|0|00|0A0
+	
+Possiamo osservare infine che:
+	- S \to \epsilon|0|00|0A0|1|11|0A0
+	- A \to 0|00|0A0|1|11|0A0
+	- B \to 1|11|1B1|0|00|0A0
+	
+E si può vedere come si possano accorpare in S perché producono lo stesso linguaggio, facendoci ottenere:
+	- S\to \epsilon
+	- S\to 0|1
+	- S\to 00|0S0|11|1S1
+
+--- Forma normale di Chomsky
+Le semplificazioni servono per poter scrivere le grammatiche in forma normale.
+Data G CF è in forma normale di Chomsky se ogni produzione è del tipo A\to BC o A\to a, con A, B, C\in V e a\in T.
+Ogni grammatica CF senza simboli inutili, \epsilon-produzioni e produzioni unitarie può essere trasformata in forma normale di Chomsky.
+
+Esempio: 
+	- S\to \epsilon
+	- S\to 0|1
+	- S\to 00|0S0|11|1S1
+	
+Prendiamo X_1 nuovo simbolo V' = V\cup {X_1} e diamogli il significato di essere 0, X_1 \to 0.
+In tal caso, avremo:
+	- S\to X_1X_1 | X_1SX_1 | 11 | 1S1		// Non va ancora bene
+	
+Prendiamo ora X_2 nuovo tale che V'' = V'\cup {X_2}, dove X_2 \to X_1S
+	- S\to X_1X_1 | X_2X_1 | 11 | 1S1
+	
+Tocca aggiungere un X_3 perché 11 e 1S1 non vanno bene
+	- S\to X_1X_1 | X_2X_1 | X_3X_3 | X_3SX_3
+	
+Ultimo, prendiamo X_4 dove X_4 \to X_3S
+	- S\to  X_1X_1 | X_2X_1 | X_3X_3 | X_4X_3	// Ora va tutto bene ed è in forma normale di chomsky
+	
+Le produzioni sono diventate:
+	- S\to \epsilon|0|1|X_1X_1|X_2X_1|X_3X_3|X_4X_3
+	- X_1 \to 0
+	- X_2 \to X_1S
+	- X_3 \to 1
+	- X_4 \to X_3S
+	
+Il vantaggio di questa forma è che l'albero di verivazione di una forma normale di chomsky è sempre binario.
+
+--- Pumping lemma per i linguaggi CF
+Ha esattamente la stessa struttura del pumping lemma per i linguaggi regolari. E' una condizione necessaria \Pi perché un linguaggio sia CF. Se \neg\Pi, allora il linguaggio non
+può essere CF.
+
+Se L è CF, allora esiste una grammatica context free G tale che L = L(G). Allora:
+	\exists k\in N t.c. 
+		\forall z\in L . |z| \geq k
+		\exists z = uvwxy, |vwx|\leq k e |vx| > 0
+		\forall i\in N . uv^iwx^iy \in L
+
+% TODO Vedi disegnino nelle note della prof, quello con le righe che indicano le partizioni della stringa uvwxy
+
+--- Dimostrazione pumping lemma linguaggi CF
+Sia L un linguaggio CF e una grammatica G CF tale che L = L(G)
+Supponiamo G in forma normale di Chomsky, ovvero dove A\to a e A\to BC.
+
+Prendiamo n = |V| il numero di simboli non terminali.
+Nell'albero di derivazione (che è binario, ricordo) partendo da S si avrà un'altezza di 2^{h-1}
+Inoltre, k = 2^n, il valore del lemma.
+
+Troviamo ora una z\in L tale che |z| \geq k, quindi |z| \geq 2^n.
+
+% TODO Vedi disegnino secondo albero di derivazinoe (è il triangolino)
+
+Avendo un numero di 2^n foglie avrò un'altezza di n+1.
+Il cammino massimo sarà invece 2^{(n-1)+1} e attraverserà n+2 nodi. Questo avrà la foglia terminale e n+1 nodi etichettati con simboli non terminali.
+
+Ora, avendo un numero n di simboli terminali, nel cammino almeno un simbolo non terminale è ripetuto due volte. E' impossibile avere tutti non terminali diversi.
+Questo perché abbiamo un numero n+1 di nodi nel cammino. Quel +1 lo fa ripetere almeno uno.
+
+% TODO Vedi altro disegnino dell'albero di detivazione (il terzo stavolta, fa vedere il senso della divisione in cinque parti della stringa, wild.)
+
+- Uso del pumping lemma per dimostrare un Linguaggio non CF
+Il teorema da dimostrare è praticamente la negazione di quello usato per dimostrare che il linguaggio è CF:
+	\forall k\in N
+		\exists z. |z| \geq k
+		\forall z = uvwxy . |vwx|\leq k, |vx| > 0
+		\exists i . uv^iwx^iy \notin L
+		
+% TODO Vedere ulteriore disegnino sulla divisione in cinque parti di z
+
+--- Seguono esercizi vari su dimostrazioni di linguaggi CF, preferibile rivederli con calma.

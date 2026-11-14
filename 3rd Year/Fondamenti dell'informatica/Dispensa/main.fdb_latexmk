@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1794144149.33919 "/home/F27/Desktop/UniVR/3rd Year/Fondamenti dell'Informatica/Dispensa/main.tex" "main.pdf" "main" 1794144149.93261 0
+["pdflatex"] 1794649905.18149 "/home/F27/Desktop/UniVR/3rd Year/Fondamenti dell'Informatica/Dispensa/main.tex" "main.pdf" "main" 1794649906.01007 0
   "/home/F27/Desktop/UniVR/3rd Year/Fondamenti dell'Informatica/Dispensa/main.tex" 1793539094.86073 1086 7103d635fee0fe06a261e46da1b6031d ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -94,7 +94,7 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777382069 7753793 49853c54d310b0d2fce2a6e72b3b1880 ""
   "Chapters/1.tex" 1792318312.21632 10338 dd17b0f671b7f53322fce4df27f3372d ""
   "Chapters/2.tex" 1793535848.99148 14988 b4e02c88658a1a5dc2287575447001e4 ""
-  "Chapters/3.tex" 1794144148.28532 10970 2db7a54768e1980fd00515460dcdbd66 ""
+  "Chapters/3.tex" 1794649904.91179 14209 ef3ccc061f5724f3779475376007577f ""
   "Chapters/4.tex" 1793539089.60659 110 9d6c3c599b748942c3251362b362d34a ""
   "Chapters/5.tex" 1793539094.85971 547 153c6514fca8964010d60da33825d263 ""
   "Configs/boxes.tex" 1741537640 105 f954940cf4b37fa479aa44bd5b1341c1 ""
@@ -105,9 +105,11 @@
   "Images/McNaughton-Yamada_induction-1.png" 1794126914.03446 27406 5259454a9e0ccd717991e7f5971daa60 ""
   "Images/McNaughton-Yamada_induction-2.png" 1794127134.63049 21728 13569a89951027b90055081d10775289 ""
   "Images/McNaughton-Yamada_induction-3.png" 1794127568.90796 21104 3948150a5e928dbf852d60a0b5190eda ""
-  "main.aux" 1794144149.87753 4489 0f6ded822b6cdce0b94f5ac8fb35c12a "pdflatex"
+  "Images/PumpingLemma_example.png" 1794645486.90705 23771 dfecd15becfefebfb72bdf06c8fbee68 ""
+  "Images/PumpingLemma_subdivision.png" 1794649294.90781 40919 f5e67b6207899973b286138760234bda ""
+  "main.aux" 1794649905.91358 4768 640dc35ec333b4abb12377dd0f2ea3c9 "pdflatex"
   "main.tex" 1793539094.86073 1086 7103d635fee0fe06a261e46da1b6031d ""
-  "main.toc" 1794144149.87753 2067 b79c8da437d8fddf0844f47ce8593c87 "pdflatex"
+  "main.toc" 1794649905.91458 2067 fee3a364d0b55c88d6c924f7c63da3c4 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

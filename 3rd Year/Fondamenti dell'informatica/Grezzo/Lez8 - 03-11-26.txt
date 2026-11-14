@@ -1,0 +1,25 @@
+Lez8 Fondamenti dell'informatica - 03-11-26
+
+--- Linguaggi liberi da contesto
+I \textbf{linguaggi liberi da contesto} (Context-Free, CF) sono un insieme più generale di linguaggi che necessita di una specifica \textbf{grammatica} per essere generato. Questa si definisce come una quadrupla $G = \left<V, T, P, S\right>$, dove: \begin{itemize}
+    \item $V$: Insieme finito di simboli non terminali.
+    \item $T$: Insieme finito di simboli terminali, tale che $V\cap T = \emptyset$.
+    \item $P$: Insieme finito di produzioni, le quali hanno forma $A\to\alpha$, dove $A\in V$ è un simbolo non terminale e $\alpha\in (V\cup T)^*$. Quest'ultima è sostituibile a una qualunque occorrenza di $A$.
+    \item $S\in V$: Simbolo iniziale.
+\end{itemize}
+
+\noindent Supponiamo per esempio $G = \left<\{E\}, \{0, 1, (, ), AND, OR, NOT\}, P, E \right>$, i cui elementi nelle seconde graffe rappresentano l'alfabeto del linguaggio generato. Avremo le seguenti produzioni: \[ \begin{cases}
+    E\to 0\\
+    E\to 1\\
+    E\to (E AND E)\\
+    E\to (E OR E)\\
+    E\to (NOT E)
+\end{cases} \]
+
+\noindent Scrittura che può essere contratta come: \[
+    E\to 0|1|(E AND E)|(E OR E)|(NOT E)
+\]
+
+\noindent Naturalmente, le grammatiche servono a generare linguaggi
+
+% TODO riprendi da Lez8, linguaggio generato, sec 0:00:06

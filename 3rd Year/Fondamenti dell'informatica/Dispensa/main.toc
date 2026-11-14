@@ -20,10 +20,10 @@
 \contentsline {paragraph}{Proprietà di chiusura:}{17}{}%
 \contentsline {paragraph}{Proprietà di decidibilità:}{17}{}%
 \contentsline {section}{\numberline {3.3}Teorema di Myhill-Nerode}{17}{}%
-\contentsline {section}{\numberline {3.4}Pumping lemma per linguaggi regolari}{19}{}%
-\contentsline {chapter}{\numberline {4}Linguaggi liberi da contesto}{20}{}%
-\contentsline {section}{\numberline {4.1}Linguaggi liberi da contesto, forme normali e automi a pila}{20}{}%
-\contentsline {section}{\numberline {4.2}Classificazione di Chomsky}{20}{}%
-\contentsline {chapter}{\numberline {5}Teoria della calcolabilità}{21}{}%
-\contentsline {section}{\numberline {5.1}Meet and fuck kingdom, steve}{21}{}%
-\contentsline {section}{\numberline {5.2}Meet 'n HUH!?}{21}{}%
+\contentsline {section}{\numberline {3.4}Pumping lemma per linguaggi regolari}{20}{}%
+\contentsline {chapter}{\numberline {4}Linguaggi liberi da contesto}{22}{}%
+\contentsline {section}{\numberline {4.1}Linguaggi liberi da contesto, forme normali e automi a pila}{22}{}%
+\contentsline {section}{\numberline {4.2}Classificazione di Chomsky}{22}{}%
+\contentsline {chapter}{\numberline {5}Teoria della calcolabilità}{23}{}%
+\contentsline {section}{\numberline {5.1}Meet and fuck kingdom, steve}{23}{}%
+\contentsline {section}{\numberline {5.2}Meet 'n HUH!?}{23}{}%

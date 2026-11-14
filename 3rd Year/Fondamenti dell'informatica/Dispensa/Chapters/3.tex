@@ -186,3 +186,66 @@ Ora possiamo enunciare il teorema di \textbf{Myhill-Nerode}, per il quale i segu
 %
 
 \section{Pumping lemma per linguaggi regolari}
+Introduciamo ora una proprietà molto importante e utile per dimostrare quando i linguaggi sono regolari: il \textbf{pumping lemma}. Fornisce una
+condizione $\Pi$ necessaria alla regolarità dei linguaggi, intuitivamente: \[
+    L \text{ regolare } \implies \Pi
+\]
+
+\noindent Formalmente, se abbiamo un linguaggio regolare $L$, allora: \begin{equation}
+    \begin{split}
+        \Pi &: \exists k\in \mathbb{N} .\\
+            & \forall z\in L . |z|\geq k\\
+            & \exists z = uvw . |uv|\leq k \land |v| > 0\\
+            & \forall i\in \mathbb{N} . uv^iw\in L
+    \end{split}
+\end{equation}
+
+\noindent Fondamentalmente, considerando una qualunque stringa $z$, afferma che esiste una sua suddivisione in tre parti $uvw$, per la quale se si
+ripete $i$ volte quella di mezzo $v$, il linguaggio rimane ugualmente regolare.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/PumpingLemma_example.png}
+    \caption{Esempio suddivisione Pumping Lemma}
+\end{figure}
+
+\noindent Il pumping lemma è utile anche per dimostrare quando un linguaggio non è regolare e rappresenta una condizione sufficiente per tale
+caratteristica. Basta negare l'intera proprietà: \begin{equation}
+    \begin{split}
+        \neg\Pi &: \forall k\in \mathbb{N}\\
+            & \exists z\in L . |z|\geq k\\
+            & \forall z = uvw . |uv|\leq k \land |v| > 0\\
+            & \exists i . uv^iw\notin L
+    \end{split}
+\end{equation}
+
+\noindent Per la dimostrazione supponiamo un automa minimo $M$ con stati $Q = \{q_0, q_1, ..., q_n\}$ e un linguaggio regolare $L = L(M)$:
+\begin{enumerate}
+    \item $\forall k$: Prendiamo un valore generico $k$ sul quale non deve esserci nessuna condizione. Ciò farà valere la dimostrazione per ogni
+        valore che $k$ può assumere.
+    \item $\exists z\in L . |z|\geq k$: Scegliamo una stringa $z\in L$ la cui cardinalità è maggiore o uguale di $k$, dunque: \[
+            z = a^kb^k\in L;\quad |z| = 2k\geq k
+        \]
+    \item $\forall z = uvw . |uv|\leq k \land |v|>0$: Creiamo una suddivisione in tre parti dove $v$ non contiene $b$, perché in tal caso avrebbe 
+        lunghezza maggiore di $k$. Dunque: \[
+            z = uvw;\quad uv\in a^k
+        \]
+    \item $\exists i . uv^iw\notin L$: Prendiamo una $z_i$, siccome la parte ripetuta è compresa solo in $a^k$ consegue che: \[
+            z_i = uv^iw = a^{k+(i-1)|v|}b^k
+        \]
+    \noindent Riprendendo la condizione di appartenenza ai linguaggi regolari, notiamo che $a^nb^m\in L \iff n = m$, ma con la nostra stringa risulta:
+        \begin{equation}
+            \begin{split}
+                z_i = a^{k+(i-1)|v|}b^k\in L &\iff k + (i-1)|v| = k\\
+                    &\iff (i-1)|v| = 0
+            \end{split}
+        \end{equation}
+        \noindent Prendendo $i=2$, osserviamo $(2-1)|v| = 0 \implies |v|=0$, che è assurdo, viste le ipotesi sulla suddivisione. La cardinalità della
+        parte ripetuta deve essere maggiore di zero, dunque la stringa $z_2$ non è accettata dal linguaggio, il quale non sarà regolare.
+\end{enumerate}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/PumpingLemma_subdivision.png}
+    \caption{Suddivisione delle stringhe $z_i$}
+\end{figure}

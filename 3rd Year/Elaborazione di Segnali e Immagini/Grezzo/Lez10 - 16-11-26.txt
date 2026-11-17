@@ -1,0 +1,42 @@
+Lez10 Elaborazione di segnali e immagini - 16-11-26
+
+--- Acquisizione di immagini digitali
+Nel mondo reale una modalità di percezione dell'ambiente circostante è la vista, con la quale otteniamo varie informazioni come il colore, la luminosità, etc. Allo stesso modo, i calcolatori devono compiere un'elaborazione per ogni raggio di luce emesso da una determinata fonte. Tuttavia, attuarla per tutti i possibili raggi è un lavoro oneroso, per questa ragione si fa uso del \textbf{path tracing}; si prende in primo luogo un punto di vista dato dal sensore utilizzato e si considerano esclusivamente quei raggi della luce che vengono captati. Si arriverà quindi a un'immagine digitale a partire dai valori di intensità luminosi ottenuti dal sensore, i quali saranno campionati, discretizzati, e infine codificati nella relativa matrice di pixel.\par
+In particolar modo, la relazione tra immagine digitale e immagine nel mondo fisico è determinata dal processo di acquisizione, che a sua volta dipende dal tipo di sensore utilizzato e la sua prospettiva sulla vista. L'acquisizione effettiva delle immagini si fonda su quattro concetti principali: \begin{itemize}
+	\item \textbf{Processo ottico}: Manipolazione della vista mediante sistemi fisici ottici, capaci di trasformare le intensità luminose in numeri.
+	\item \textbf{Processo fotometrico}: Correzione e miglioramento delle immagini tenendo conto delle modalità di interazione che un oggetto ha quando è colpito dalla luce.
+	\item \textbf{Geometria dell'immagine}: Relazione geometrica tra gli oggetti 3D della scena e i pixel che stanno sull'immagine. Consegue una perdita di informazioni nel passaggio a 2D e cambi delle unità di misura.
+	\item \textbf{Digitalizzazione dell'immagine}: Processo di conversione del segnale analogico nei valori della matrice di pixel.
+\end{itemize}
+
+\noindent Naturalmente, ci sono più fattori da tenere in considerazione, come gli elementi specifici del sensore utilizzato. Ogni macchina presenta un tipo di \textbf{lente} che ne caratterizza l'ottica; tipicamente ne si ha una sola, ma in sensori più complessi può capitare che ce ne siano di più. A prescindere da ciò, lo scopo è lo stesso: piegare la luce per formare un'immagine.\par
+Un altro elemento importante è quello della \textbf{lunghezza focale}, la distanza dal centro ottico di una lente al suo fuoco. Modificando tale valore, si avrà un effetto di zoom-in o zoom-out, in base al suo decrementare o incrementare, rispettivamente. Inoltre, in una telecamera dotata di sensori, permette di creare il \textbf{Field Of View} (FOV), l'ampiezza angolare della scena catturata dalla camera, dove in genere una minore lunghezza focale consente di avere un FOV più ampio.\par
+Ultimo elemento ma non per importanza è l'\textbf{apertura angolare}, l'angolo del cono di luce che le lenti accettano da un punto della scena; corrisponde al foro che nelle fotocamere fa passare la luce. Più è ampio, più raggi di luce saranno ammessi.
+
+\paragraph{Processo ottico:} I raggi di luce entrano nella telecamera tramite apertura angolare (pupilla) e colpiscono uno schermo o \textbf{piano di immagine}, sul quale è presente un dispositivo fotosensibile capace di registrare intensità luminose. Queste ultime in particolare sono i raggi di luce riflessi dalle superfici degli oggetti. Sono inoltre presenti alcuni filtri ottici per la scomposizione delle varie componenti frequenziali dei raggi che ci consentono di estrarre il colore. Tuttavia, la loro presenza non è sufficiente a garantire la qualità di un'immagine, per questo dobbiamo introdurre il concetto di \textbf{messa a fuoco}: la convergenza di tutti i raggi di luce riflessi da un determinato oggetto in un punto $p$ del piano dell'immagine. Se così non fosse, si genererebbe una \textbf{sfocatura}.\par
+Tra tutti i raggi entranti, ne è uno principale che genera il punto $p$, detto \textbf{punto focale}, sul piano dell'immagine, mentre tutti gli altri migliorano la sua intensità luminosa. Si determina la sua messa a fuoco con l'equazione della distanza fornita dal modello delle lenti sottili; consideriamo infatti un punto la cui luce è riflessa nelle lenti, si creerà inevitabilmente un \textbf{cerchio di confusione}, il cui diametro, se è minore della dimensione di una cella di immagine, garantisce che il punto sia a fuoco, altrimenti risulterà sfocato. La dimensione di tale cerchio è determinata in più modi: \begin{itemize}
+	\item In base alle proprietà delle lenti.
+	\item Lontananza del piano dell'immagine dal fuoco.
+	\item Apertura della camera.
+\end{itemize}
+
+\noindent In particolare, per quest'ultimo punto, nella pratica si traduce come lo spessore del foro che permette di far entrare i raggi di luce all'interno del sensore. Più largo è, più ne entreranno e sarà più semplice creare un alone. Esiste anche un modello ideale, detto a \textbf{punta di spillo}, che consente di avere un fuoco totale, che ha la sua implementazione nella realtà con le \textbf{pinpoint cameras}, le quali, tuttavia, richiedono necessariamente più tempo per creare immagini data la poca luminosità entrante.\par
+L'alternativa per ottenere immagini a fuoco è l'implementazione di un \textbf{sistema ottico} e meccanico composto da lenti, aperture e altri elementi creati appositamente per far sì che ogni raggio proveniente dallo stesso punto 3D converga su un singolo punto di immagine. Questo sofisticato sistema detiene il \textbf{diaframma}, un insieme di lame sovrapposte all'interno della lente con il quale è possibile regolare l'apertura della camera; come conseguenza diretta permette di impostare il \textbf{tempo di esposizione}, l'intervallo di tempo entro il quale al piano dell'immagine è consentito ricevere luce.
+
+\paragraph{Processo fotometrico:} I valori acquisiti dalle immagini naturalmente non dipendono esclusivamente dallo strumento, bensì anche dalle proprietà deglla scena e degli oggetti osservati; lo studio di queste dinamiche è ambito della \textbf{radiometria}, la quale si occupa della relazione tra la quantità di energia luminosa riflessa dagli oggetti e quella registrata dai sensori, cercando di modellare quanta luce effettivamente li raggiunge.\par
+Diversi oggetti hanno naturalmente diverse \textbf{proprietà di riflettanza}, dove, più alta è, più luce arriverà alla camera. Analizzare questo aspetto non ci consente solo di ottenere il colore degli oggetti, bensì anche informazioni riguardo la loro superficie, la quale sarà liscia con un maggior valore di luce riflessa. In genere, nell'ambito di elaborazione delle immagini si tende ad assumere che le superfici osservate siano completamente opache, quindi ruvide e dunque riflettenti raggi di luce in direzioni diverse non precisate; questo perché è impossibile avere un oggetto perfettamente liscio. Ciò è contenuto nel modello \textbf{Lambertiano}: \[
+	L = \rho I^Tn
+\]
+
+\noindent Dove la luce riflessa $L$ è indipendente dal punto di osservazione ed è ricavata dal prodotto tra l'\textbf{albedo della superficie} $\rho$, ovvero una costante positiva dipendente dal materiale, la luce incidente $I$ e la norma della superficie $n$.
+
+\paragraph{Geometria dell'immagine:}
+
+% TODO Il professore deve finire di spiegare questa parte.
+
+\begin{comment}
+--- Geometria dell'immagine
+Supponiamo di avere un'immagine ottenuta da una pinhole camera; per ogni punto della
+scena sarà generato un singolo raggio. Sarà creata un'immagine con il principio della
+camera oscura, ovvero all'incontrario.
+\end{comment}

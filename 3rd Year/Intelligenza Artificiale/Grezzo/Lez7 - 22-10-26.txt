@@ -1,3 +1,47 @@
 Lez7 Intelligenza artificiale - 22-10-26
 
 --- Ricerca locale in spazi discreti
+In molti problemi di ottimizzazione il cammino è irrilevante, poiché il goal state è dato dalla soluzione. In questi termini lo spazio degli stati va rappresentato come un insieme di configurazioni complete e il nostro scopo è trovare quella ottimale che soddisfa determinati vincoli dati dal problema.\par
+Un approccio risolutivo per questo tipo di problema sono gli \textbf{algoritmi di miglioramento iterativo}, i quali mantengono un singolo stato corrente, quindi una configurazione, e cercano di migliorarla fino a ottenere la soluzione. Ciò è eseguibile in uno spazio costante, che si applica bene per ricerche online e offline. Alcuni esempi di applicazione sono dati dal problema del \textbf{traveling salesman} o da quello delle \textbf{n-regine}, i quali si risolvono molto velocemente o istantaneamente con questo approccio.\par
+Definiamo dunque l'algoritmo di \textbf{ascesa} o \textbf{discesa} graduale verso la soluzione, detto anche \textbf{hill-climbing}: \begin{algorithm}[h]
+    \caption{Hill-Climbing(problem) \textbf{returns} state that is a local maximum}
+    \begin{algorithmic}[i]
+        \State current $\gets$ Make-Node(problem.Initial-State)
+        \Loop
+            \State neighbor $\gets$ highest-valued successor of current
+            \If{neighbor.Value $\leq$ current.Value}
+                \State \textbf{return} current.State
+            \EndIf
+            \State current $\gets$ neighbor
+        \EndLoop
+    \end{algorithmic}
+\end{algorithm}
+
+\noindent Questo è tuttavia un algoritmo che non garantisce un'ottimizzazione assoluta della funzione, poiché non consente di fare "cattive scelte". Supponiamo di trovarci in uno spazio degli stati dove è applicata questa dinamica; nel caso in cui il massimo globale si trovasse solo dopo aver percorso scelte non migliorative, questo algoritmo non riuscirebbe a trovarlo.\par
+Implementare la possibilità di considerare scelte peggiorative ci porta all'algoritmo di \textbf{ricottura simulata} (simulated annealing), la cui idea di base è proprio questa, ma cerca di ridurre gradualmente la frequenza di scelte non migliorative. Ciò causa un maggior numero di mosse casuali all'inizio, ma durante l'esecuzione si prenderanno scelte sempre più ponderate, raffinando la ricerca. \begin{algorithm}[h]
+    \caption{Simulated-Annealing(problem, schefule) \textbf{returns} solution state}
+    \begin{algorithmic}[i]
+        \State current $\gets$ Make-Node(problem.Initial-State)
+        \For{t $\gets$ 1 to $\infty$}
+            \State T $\gets$ schedule(t)
+            \If{T = 0} \textbf{return} current
+            \EndIf
+            \State next $\gets$ randomly selected successor of current
+            \State $\Delta$E $\gets$ next.Value - current.Value
+            \If{$\Delta$E $>$ 0} current $\gets$ next
+            \Else current $\gets$ next only with probability $e^{\DeltaE/T}$
+            \EndIf
+        \EndFor
+    \end{algorithmic}
+\end{algorithm}
+
+\noindent Ad una "temperatura" fissata $T$, la probabilità di occupazione degli stati raggiunge la distribuzione di Boltzmann: \[
+    p(x) = \alpha e^{\frac{E(x)}{kT}}
+\]
+
+\noindent Con la diminuzione di $T$ si raggiunge sempre lo stato migliore $x^*$, poiché vale: \[
+    e^{\frac{E(x^*)}{kT}} / e^{\frac{E(x)}{kT}} = e^{\frac{E(x^*)-E(x)}{kT}} \gg 1 \text{ per valori piccoli di } T
+\]
+
+\noindent Un ulteriore algoritmo è quello della \textbf{local beam search}, la cui idea è di tenere un numero $k$ di stati al posto di uno solo, per poi scegliere quello migliore tra tutti i loro successori. Le ricerche che trovano stati buoni reclutano ulteriori ricerche per aggiungersi a loro, ma ciò causa spesso che tutti gli stati $k$ si trovino sulla stessa collina locale nella funzione. Dunque potrebbe essere utile scegliere i $k$ successori a caso, con un bias per quelli migliori.\par
+Introduciamo quindi gli \textbf{algoritmi genetici}, la cui base è una local beam search stocastica nella quale si generano i successori da coppie di stati, codificati come stringhe.

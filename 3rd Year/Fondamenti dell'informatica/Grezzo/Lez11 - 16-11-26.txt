@@ -1,0 +1,76 @@
+Lez11 Fondamenti dell'informatica - 16-11-26
+
+--- Gerarchia di Chomsky (Ultimo argomento di teoria della prima parte)
+Gerarchia che pone una visuale insiemistica applicata alle varie grammatiche che generano linguaggi:
+	- \emptyset \subseteq regolari \subseteq context free \subseteq dipendenti dal contesto \subseteq Problemi/Linguaggi calcolabili \subseteq Problemi non calcolabili
+
+Inoltre, non ricordo se l'aveva già menzionato, ma l'esistenza degli automi a pila a stati finiti non deterministici (APND) implica l'esistenza di automi a pila a stati finiti
+deterministici (APD). Esistono, sì, ma non consentono di catturare e quindi caratterizzare ogni linguaggio CF. 
+
+Per completezza, le grammatiche dipendenti da contesto hanno un nastro capace di leggere in ogni direzione e sono capaci di riconoscere linguaggi come L = {a^nb^nc^n | n\in N}:
+	- S \to aSBc | aBc
+	- cB \to Bc
+	- bB \to bb
+	- bC \to bc
+	- cC \to cc
+	- aB \to ab
+	
+--- Tipi di esercizi prima parte (linguaggi e grammatiche)
+
+- Classificazione di linguaggi L\subseteq \Sigma^*:
+	- Linguaggi regolari: 
+		1a. Dimostra che L è finito e hai terminato.
+		1b. Se L è infinito crea un automa a stati finiti deterministico M e dimostra che accetta il linguaggio, quindi L = L(M).
+	- Linguaggi context free non regolari
+		1. Usa il pumping lemma per dimostrare che non è un linguaggio regolare
+		2. Crea una grammatica G tale che L = L(G), quindi che generi il linguaggio
+	- Linguaggio non context free
+		1. Usa il pumping lemma per dimostrare che il linguaggio non è context-free
+		
+--- Esercizio 1.4 eserciziario Ling. CF
+L = {0^m1^n1^n0^m | n,m\in N, n+m > 0}	// Notare che \epsilon \notin L, perché almeno n o m deve avere almeno un simbolo per far risultare tutto sempre > 0.
+	= {0^m1^{2n}0^m | n,m\in N, n+m > 0}
+	
+// Sebbene nell'esercizio base non sia richiesto, è bene dimostrare anche la non regolarità del linguaggio con il pumping lemma.
+Una buona scelta potrebbe essere z = 0^k1^20^k \in L
+
+1. Costruisci la grammatica G = <>, con produzioni:
+	- S \to 0S0 | 00 | A
+	- A \to 1A1 | 11 		// Andava bene anche A\to 11A|11
+
+2. Dimostriamo che L = L(G):
+	Tesi 1. L\subseteq L(G) : x\in L
+		x = 0^m1^{2n}0^n \implies S \implies^* x		// Per induzione su |x|
+		
+	Tesi 2. L(G) \subseteq L : S\implies_n x, allora x\in L	// Per induzione su n
+	
+Tesi 1 - base: Siccome \epsilon \notin L, prendiamo la successiva base minima: 00\in L, 11\in L.
+S\to 00, S\to A\to 11
+
+Tesi 1 - induzione: \forall |x| < n . x\in L, allora S\implies^* x. Dimostriamo che vale per |x| = n
+x\in L . \exists i,m . i+m > 0, con x = 0^i1^{2m}0^i
+
+Se m \geq 1 \implies m-1 \geq 0, quindi:	
+	- Se m-1 = 0, x' = 0^i0^i
+		Se x' è tale, allora |x'|<n, per cui per ipotesi induttiva, S\implies^* x' \equiv S\implies^* 0^i0^i \equiv S\implies^* 0^{i-1}S0^{i-1} \to 0^{i-1}000^{i-1}
+		i \geq 1, quindi u-1 \geq 0.
+		
+		// TODO C'è una freccia blu. Scrivi quello che indica la freccia blu.
+	
+	- Se m-1 > 0, x' = 0^i1^(2(m-1))0^i 			// Dunque la lunghezza |x'| < n
+	
+		// TODO Rivedi caso 2. Perdonami, me del futuro, ma sono tanto stanco. Qui c'è una seconda freccia blu. Segui anche quella, ma è diversa dalla precedente, che era per caso 1.
+
+Tesi 2 - base: L(G) \subseteq L. Se S genera x, allora x\in L.
+	S\to 00, siccome vale S\to a\to 11\in L, allora S produce una stringa del linguaggio.
+
+
+Tesi 2 - induzione:
+	// TODO Vedi note, sono stanco
+	
+--- Bro un altro esercizio, sto male. Questo è il 2.2 e dice che non è CF
+
+Ne deduco che lo scopo dell'esercizio sia dimostrare che il linguaggio non è context free.
+Dunque prendere le condizioni di appartenenza al linguaggio e abusare sessualmente del pumping lemma.
+
+--- Altro esercizio non CF, è il 2.5

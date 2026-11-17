@@ -1,0 +1,6 @@
+Lez12 Fondamenti dell'informatica - 17-11-26
+
+--- Ha iniziato con un esercizio di classificazione dei linguaggi;  1.10 CF e 2.12 non CF
+Nelle note ha scritto molto similmente i termini h e k; In quel mini-sistemino, ha scritto 3+k = 3+h \implies h = k
+
+--- Esercizio 2.4 non CF

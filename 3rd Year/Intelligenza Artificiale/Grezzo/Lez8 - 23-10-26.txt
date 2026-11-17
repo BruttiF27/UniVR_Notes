@@ -1,0 +1,60 @@
+Lez8 Intelligenza artificiale - 23-10-26
+
+--- Ricerca locale nello spazio continuo
+Supponiamo di dover localizzare tre aeroporti in romania per minimizzare la somma delle distanze quadrate da ogni città al loro aeroporto più vicino. Un problema del genere si definisce:
+	- Airport loc: (x_1, y_1), (x_2, y_2), (x_3, y_3)
+	- City loc: (x_c, y_c)
+	- C_a città più vicine all'aeroporto a, dove a = {1,2,3}
+	
+L'obiettivo è minimizzare: \[
+	\sum_a \sum_{c\in C_a}(x_a - x_c)^2 + (y_a - y_c)^2
+\]
+
+\noindent Lavorare in un dominio continuo può risultare problematico, dunque si cerca di passare al discreto. Si fissa un $\delta$ e lo si considera positivamente e negativamente in ogni coordinata, per poi applicare un algoritmo di ricerca discreto, come l'hill climbing visto in precedenza. Si potrebbero anche considerare perturbazioni casuali, come la first-choice hill climbing, dove l'agente continua a provare a salire fin quando una perturbazione non migliora lo stato, oppure nel caso di simulated annealing si sceglie lo stato a caso.
+
+Il tema ora è il calcolo del gradiente di $f(X)$ analiticamente. I metodi per computarlo fanno (sì, quella roba di analisi 2): \[
+	\nabla f(X) = \left(\frac{\partial f}{\partial x_1}, ..., \frac{\partial f}{\partial x_n} \right)
+\]
+
+\noindent Per l'esempio degli aeroporti abbiamo: \[
+	f(X) = \sum_a\sum_{c\in C_a}(x_a - x_c)^2 + (y_a-y_c)^2;\quad
+		X = {x_1, y_1, x_2, y_2, x_3, y_3};\quad n = 6
+\]
+
+\noindent La cui derivata parziale del primo elemento è: \[
+	\frac{\partial f}{\partial x_1} = \sum_{c\in C_1} 2(x_1 - x_c)
+\]
+
+\noindent Dunque per trovare gli estremi bisogna risolvere l'equazione differenziale per un gradientr uguale a zero. Ciò non è sempre possibile globalmente, però, per questa ragione si cerca di ragionare in termini locali, effettuando degli aggiornamenti nella direzione dove la collina cresce per ogni coordinata, dove maggiore è la ripidità (e quindi il valore della derivata è alto), maggiore sarà lo step da fare per quella specifica coordinata.\par
+Si considera quindi una funzione generale $g(x_1, x_2)$ che genera aggiornamenti per il metodo che computa il gradiente, nella forma: \[
+	x_1\gets x_1+\alpha \cdot \frac{\partial g(x_1, x_2)}{\partial x_1};\quad
+		x_2\gets x_2 + \alpha \cdot \frac{\partial g(x_1, x_2)}{\partial x_2}
+\]
+
+\noindent $\alpha$ è la dimensione dello step, una costante piccola il cui valore è critico da determinare, poiché se è troppo grande può saltare delle soluzioni, mentre se è troppo piccolo potrebbe richiedere l'esecuzione di troppi step.
+
+Una soluzione efficace per molti problemi di ricerca locale nello spazio continuo è fornito dalla tecnica di \textbf{Newton-Raphson}, la quale consente di trovare le radici di una funzione nella forma $g(x) = 0$. Segue: \begin{enumerate}
+	\item Fissa una stima della radice $\overline{x_0}$
+	\item Aggiorna iterativamente la stima: $\overline{x}_{n+1} = \overline{x} - \frac{g(\overline{x}_n)}{g'(\overline{x}_n)}$
+\end{enumerate}
+
+% TODO Porcodio non voglio rivedermi analisi 2 TwT
+
+--- Interpretazione geometrica del metodo di Newton:
+Assumiamo che $y = f(x)$ abbia una radice dove $x=r$, la tangente al punto $(a, f(a))$ è $y = f(a) + (x-a)f'(a)$.
+Consideriamo b come l'intercetta per la tangente, 0 = f(a) + (x-a)f'(a), allora: \[
+	b = a - \frac{f(a)}{f'(a)}
+\]
+
+\noindent b sarebbe la prossima stima per un metodo di newton che parte da a. Attenzione che cambi repentini a f(x) in a, intese come non linearità forti, possono risultare in stime sbagliate del prossimo punto. Per questa ragione $f(x)$ deve essere liscia e generalmente si assume che f''(x) sia continua vicino a r. Inoltre scegliere x_0 è cruciale.
+
+Tornando al gradiente, per trovare un estremo per f(X) vogliamo trovare un \overline{X} tale per cui il gradiente sia uguale a zero. Per far ciò possiamo usare il metodo di newton, dove g(X) è \nabla f(X).
+In tal caso, le equazioni di aggiornamento nella forma matriciale-vettoriali diventano: \[
+	x\gets x - H_f^{-1}(x) f(x);\quad \text{dove } H_{ij} = \partial^2 f / \partial x_i \partial x_j
+\]
+
+\noindent Per problemi a dimensione elevata si tende ad approssimare l'hessiana. Notare inoltre che questo è un metodo LOCALE, dunque porta con sé i problemi di massimo locale, etc.
+Un restart casuale e simulated annealing possono essere utili per evitare tali problemi.
+
+Alle volte non ci è possibile computare un gradiente uguale a zero localmente; per esempio se la posizione di un insieme di aeroporti richiedesse una simulazione su larga scala avremmo troppo spazio di lavoro.
+La soluzione è affidarci al gradiente empirico: la risposta di f(X) a un piccolo incremento o decremento di X. Si applica nella ricerca del gradiente empirico, che è uguale all'hill climbing ma in una salsa discreta dello spazio di ricerca.

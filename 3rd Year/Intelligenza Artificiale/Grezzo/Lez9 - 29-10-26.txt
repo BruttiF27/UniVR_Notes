@@ -1,4 +1,4 @@
-LezBoh 29-10-26 - Intelligenza artificiale
+Lez9 29-10-26 - Intelligenza artificiale
 
 --- Lezione precedente ha definito il constraint satisfaction problem
 

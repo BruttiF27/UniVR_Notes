@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1794932451.15423 "/home/F27/Desktop/UniVR/3rd Year/Intelligenza artificiale/Dispensa/main.tex" "main.pdf" "main" 1794932451.53679 0
+["pdflatex"] 1795013526.68003 "/home/F27/Desktop/UniVR/3rd Year/Intelligenza artificiale/Dispensa/main.tex" "main.pdf" "main" 1795013527.1198 0
   "/home/F27/Desktop/UniVR/3rd Year/Intelligenza artificiale/Dispensa/main.tex" 1792773021.00985 1096 ee3965a14a6532cc08053df647531961 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -39,9 +39,12 @@
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb" 1248133631 36554 b67dc2cfa451409e100b3fcf5f506509 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb" 1248133631 32001 6aeea3afe875097b1eb0da29acd61e28 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb" 1248133631 30251 6afa5cb1d0204815a708a080681d4674 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb" 1248133631 36741 fa121aac0049305630cf160b86157ee4 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb" 1248133631 37166 8ab3487cbe3ab49ebce74c29ea2418db ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb" 1248133631 35469 70d41d2b9ea31d5d813066df7c99281c ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb" 1248133631 32734 69e00a6b65cedb993666e42eedb3d48f ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1248133631 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb" 1248133631 34586 5a65dc15601f9c74fe3fb3f37b3b8b6f ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
@@ -100,7 +103,7 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777382308.55095 4602016 72a039a3c4aea0fa25b5d35d65138f54 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777382069 7753793 49853c54d310b0d2fce2a6e72b3b1880 ""
   "Chapters/1.tex" 1793355401.95291 9427 3b037bda734015606502ff697f2e5ba6 ""
-  "Chapters/2.tex" 1794932450.96325 24638 c4d2706f0f9753a46157f376dc8687b1 ""
+  "Chapters/2.tex" 1795013525.72471 24699 e3395447c6bb1d609e13e2d43f01b179 ""
   "Chapters/3.tex" 1792773994.35116 89 6d222b18fe2d813a111e20da82b1a761 ""
   "Chapters/4.tex" 1792773546.76739 90 f3d0f23fba94fbee585eb14c61e1d458 ""
   "Chapters/5.tex" 1792773546.76777 77 bacde7d2f0385eac769bd43ab331cf8d ""
@@ -110,9 +113,9 @@
   "Images/A-Star-Search.png" 1793972002.86582 76668 caddfa5df5bf93bcf299315709b506cf ""
   "Images/Agent.png" 1793349960.32926 20206 0b6000781b4f1d0b08b5260d03a015bb ""
   "Images/Greedy-Best-First-Search.png" 1793969547.71814 43834 2dfd11acd5ec9bd7229d0d06e46bbc3b ""
-  "main.aux" 1794932451.4869 4678 67de0203ac21a86e4a3e68d323e57850 "pdflatex"
+  "main.aux" 1795013527.05131 5037 6b28938ff4ae191988a7a003a3599b4a "pdflatex"
   "main.tex" 1792773021.00985 1096 ee3965a14a6532cc08053df647531961 ""
-  "main.toc" 1794932451.4875 1356 7a16e25b1f4a5589e90b505cfd8112cd "pdflatex"
+  "main.toc" 1795013527.05231 1356 1613de3a70a44da0c1013dcefd5e2820 "pdflatex"
   (generated)
   "main.aux"
   "main.log"

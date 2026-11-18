@@ -15,7 +15,7 @@
 \contentsline {paragraph}{Greedy Best-First search:}{13}{}%
 \contentsline {paragraph}{A$^*$ search:}{14}{}%
 \contentsline {section}{\numberline {2.4}Ricerca locale}{15}{}%
-\contentsline {section}{\numberline {2.5}Soddisfacimento dei vincoli}{15}{}%
-\contentsline {chapter}{\numberline {3}Conoscenza, ragionamento e pianificazione}{16}{}%
-\contentsline {chapter}{\numberline {4}Conoscenza incerta}{17}{}%
-\contentsline {chapter}{\numberline {5}Apprendimento automatico}{18}{}%
+\contentsline {section}{\numberline {2.5}Soddisfacimento dei vincoli}{19}{}%
+\contentsline {chapter}{\numberline {3}Conoscenza, ragionamento e pianificazione}{20}{}%
+\contentsline {chapter}{\numberline {4}Conoscenza incerta}{21}{}%
+\contentsline {chapter}{\numberline {5}Apprendimento automatico}{22}{}%

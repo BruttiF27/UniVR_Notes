@@ -1,0 +1,11 @@
+Lez15 Basi di dati - 19-11-26
+
+--- Progettazione logica
+L'obiettivo di questa fase della progettazione è la produzione di uno schema logico che descriva in modo corretto ed efficace ogni informazione contenuta nello schema concettuale. In primo luogo è necessaria una ristrutturazione di tale prodotto, poiché semplifica la successiva fase di traduzione e consente di ottimizzare le strutture rispetto al carico di lavoro\footnote{Inteso come dimensione dei dati e caratteristiche delle operazioni.}. Sono inoltre presenti alcune sottofasi per una buona progettazione: \begin{itemize}
+    \item Analisi delle ridondanze dovute a presenza di dati derivabili.
+    \item Eliminazione delle generalizzazioni.
+    \item Accorpamento/partizionamento di entità e relazioni.
+    \item Scelta degli identificatori principali.
+\end{itemize}
+
+% TODO Riprendi da slide 7 - Progettazione logica

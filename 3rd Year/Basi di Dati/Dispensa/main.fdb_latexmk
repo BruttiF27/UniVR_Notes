@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1794575280.37803 "/home/F27/Desktop/UniVR/3rd Year/Basi di dati/Dispensa/main.tex" "main.pdf" "main" 1794575281.15399 0
+["pdflatex"] 1795167958.56249 "/home/F27/Desktop/UniVR/3rd Year/Basi di dati/Dispensa/main.tex" "main.pdf" "main" 1795167959.39979 0
   "/home/F27/Desktop/UniVR/3rd Year/Basi di dati/Dispensa/main.tex" 1791206461.52157 1332 3058fcd26f1f6e35383a5001dce94a10 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -94,7 +94,7 @@
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1775001600 40900 887e0dc8cac988a9e9c574af364cf837 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1777382308.55095 4602016 72a039a3c4aea0fa25b5d35d65138f54 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1777382069 7753793 49853c54d310b0d2fce2a6e72b3b1880 ""
-  "Chapters/1.tex" 1794575280.10575 26124 f3964f417684e1134d6268e7d7673853 ""
+  "Chapters/1.tex" 1795167958.27862 31534 f62fe8f7a22e963326366371898e3aee ""
   "Chapters/2.tex" 1791206526.0268 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Chapters/3.tex" 1759428902 0 d41d8cd98f00b204e9800998ecf8427e ""
   "Chapters/4.tex" 1759428904 0 d41d8cd98f00b204e9800998ecf8427e ""
@@ -113,12 +113,13 @@
   "Images/Generalization.png" 1792579590.70492 8554 0c48989f3dd666a30c2e9a961279d205 ""
   "Images/ID_types.png" 1792570210.2791 19444 f5cfb17028dafb9100bcb1dbdd72f16e ""
   "Images/Relation.png" 1792568587.18317 3848 ce44342a85b70a2020d1fce3efb414f8 ""
+  "Images/Structural_bindings.png" 1795166373.4667 14467 519cc9bb6165db2617cf4fbd59863f2e ""
   "Images/Ternary_relation.png" 1793435588.7365 10341 b8b67ad9b37bb49cb88e267a4ad3db93 ""
   "Images/Ternary_to_indipendent.png" 1793436319.60294 26472 7b4498fb001ab3eaf6199ce6b3c2bb43 ""
   "Images/Ternary_to_two_binaries.png" 1793436368.36542 22595 a9cae88caa3625c63becf1bbbfd45a16 ""
-  "main.aux" 1794575281.05675 3835 a6da209293433d059e2b81caf480cec1 "pdflatex"
+  "main.aux" 1795167959.28511 4365 6af48c04717ae71226dda55c60bb6b8e "pdflatex"
   "main.tex" 1791206461.52157 1332 3058fcd26f1f6e35383a5001dce94a10 ""
-  "main.toc" 1794575281.05775 1239 d2250d740bc9eb93fd0453a49cafdf4b "pdflatex"
+  "main.toc" 1795167959.28611 1465 ae3de85617f109f79dd155d139288d7e "pdflatex"
   (generated)
   "main.aux"
   "main.log"

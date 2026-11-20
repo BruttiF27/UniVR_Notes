@@ -293,7 +293,6 @@ modello. Definiamo la funzione: \[
     DOM:X\to \Delta
 \]
 
-% TODO ricontrolla correttezza dei simboli, non si vedono dalle slide del prof
 \noindent Quella che associa a ogni nome $A$ di $X$, detto anche \textbf{attributo}, un dominio $DOM(A)$ di $\Delta$. Inoltre, una tupla $t$ su $X$ è
 una funzione $t:X \to \cup_{A\in X}DOM(A)$, dove $t[A] = v\in DOM(A)$. Una relazione su $X$ è quindi un insieme di tuple su di esso, dove $X$ è
 l'insieme di attributi della relazione. Riprendendo la relazione delle città di prima, abbiamo ora: \[
@@ -346,15 +345,80 @@ che è rilevante per il sistema informativo. Altri concetti importanti che rigua
     \]
 \end{itemize}
 
+\noindent Riprendendo la definizione di relazione si può notare che ogni tupla deve sempre contenere nei propri attributi dei valori significativi
+appartenenti ai domini di base del modello, tuttavia non è sempre possibile avere ogni valore per tutti gli attributi di una tupla. Ciò può accadere per
+più motivi, per esempio se il valore di un attributo è opzionale a livello concettuale oppure se è sconosciuto alla base di dati. In questi termini
+diciamo che tale valore di un attributo $A$ è \textbf{sconosciuto} o \textbf{inesistente}; per gestire queste situazioni si introduce nel modello il
+\textbf{valore nullo}, assumibile dagli attributi come per normali valori del dominio di base. La definizione di una tupla su $X$ diventa: \[
+    t:X\to \{NULL\} \cup (\cup_{A\in X} DOM(A));\quad\text{Dove } t[A] = \nu\in DOM(A) \lor t[A] = NULL
+\]
 
+\noindent Notare in particolar modo che la presenza di valori nulli è accettabile al più in \textbf{una parte} degli attributi di una tupla, rendendo
+impossibile averne di soli valori nulli. In particolare, in attributi replicati per rappresentare i legami, questi valori potrebbero rendere
+inutilizzabile l'informazione.\par
+Spesso è necessario introdurre dei \textbf{vincoli di integrità} sulla popolazione di una base di dati per escludere istanze non corrette rispetto al
+sistema informativo. Prendono la forma di una condizione espressa da un predicato che deve essere sempre soddisfatta da ogni istanza della base di dati.
+Supponiamo per esempio la relazione: \[
+    CLOCK(Hours, Minutes, Seconds)
+\]
 
+\noindent I predicati esprimerebbero i seguenti vincoli: \begin{itemize}
+    \item $\forall t\in CLOCK : t[Hours] \in \{0, ..., 23\}$
+    \item $\forall t\in CLOCK : t[Minutes] \in \{0, ..., 59\}$
+    \item $\forall t\in CLOCK : t[Seconds] \in \{0, ..., 59\}$
+\end{itemize}
+
+\noindent Esistono poi più tipi di vincoli che presentano una classificazione; in particolare alcuni di loro, detti \textbf{vincoli strutturali}, hanno
+maggiore importanza in quanto garantiscono proprietà valide per tutti gli schemi relazionali. Per eventuali esempi sarà utilizzata la relazione: \[
+    TRENO(Num, DepHour, DepMin, Category, Dst, ArrHour, ArrMin)
+\]
+
+\paragraph{Vincoli di dominio:} Impongono una restrizione sul dominio di un attributo di una relazione. Sulla relazione del treno potrebbero essere: \[
+    \forall t\in TRENO : t[Num] > 0;\quad \forall t\in TRENO : t[DepHour]\in \{0, ..., 23\}
+\]
+
+\paragraph{Vincoli di tupla:} Impongono una restrizione alla combinazione di valori che una tupla può assumere in modo indipendente dalle altre. Sulla
+relazione del treno potrebbero essere: \[
+    \forall t\in TRENO : t[Num] > 5000 \implies t[Category] = 'regional'
+\]
+
+\paragraph{Vincoli intrarelazionali:} Impongono una restrizione al contenuto di una relazione e specificano una determinata condizione, la quale deve
+essere soddisfatta da ogni tupla della stessa relazione. Ne esiste una sotto-categoria: \begin{itemize}
+    \item \textbf{Superchiavi}: Data una relazione di schema $R(X)$ e un insieme di attributi $K\subset X$, un vincolo è superchiave per la relazione se,
+        per ogni istanza $r$ di $R(X)$, vale: \[
+        \forall t, t'\in r:t\neq t' \implies t[K]\neq t'[K];\quad\text{Con } t[K]\neq t'[K] \equiv \exists A_i\in K : t[A_i]\neq t'[A_i]
+        \]
+        \noindent In altre parole ogni tupla di $r$ deve essere diversa.
+    \item \textbf{Chiave candidata}: Data una relazione di schema $R(X)$ e un insieme di attributi $K\subset X$, un vincolo è chiave candidata per
+        $R(X)$ se $K$ è una superchiave per $R(X)$ e vale: \[
+        \neg\exists K'\subset K : K' \text{ è superchiave per } R(X)
+        \]
+        \noindent Inoltre, esiste sempre una chiave candidata $K$ per una relazione $R(X)$. Consideriamo $X$ superchiave per la relazione, se la prima
+        non ha sottoinsiemi propri che sono superchiave, allora $X$ è la chiave candidata.\par
+        Se così non è si riapplica lo stesso ragionamento ricorsivamente al sottoinsieme di $X$ che è superchiave; in quanto la cardinalità di $X$ è
+        finita e l'insieme vuoto non è superchiave, si potrà sempre trovare una chiave per $R(X)$ in un numero finito di passi.
+    \item \textbf{Chiave primaria}: Data una relazione di schema $R(X)$, la sua chiave primaria $K$ è la chiave candidata scelta per identificare le
+        tuple della relazione. Questa non contiene mai valori nulli e su di essa viene generata una struttura di accesso ai dati come supporto per le
+        interrogazioni. Si indica graficamente sottolineando gli attributi che la compongono.
+\end{itemize}
+
+\paragraph{Vincoli interrelazionali:} Impongono una restrizione al contenuto di una relazione e specificano una determinata condizione, la quale deve
+essere soddisfatta da ogni tupla rispetto alle tuple di altre relazioni della base di dati. Una sottocategoria degna di nota è quella dei
+\textbf{vincoli di integrità referenziale}, i quali, tra un insieme di attributi $Y = \{A_1, ..., A_p\}$ di $R_1$ e un altro $K = \{K_1, ..., K_p\}$,
+chiave primaria di un'altra relazione $R_2$, sono soddisfatti se per ogni istanza $r_1$ di $R_1$ e ogni istanza $r_2$ di $R_2$ vale: \[
+    \forall t\in r_1 : \exists s\in r_2 : \forall i\in \{1, ..., p\} : t[A_i] = s[K_i]
+\]
+
+\noindent Graficamente si indica riquadrando gli attributi soggetti al vincolo e collegando con una freccia il riquadro alla relazione da cui proviene
+la chiave.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\linewidth]{Images/Structural_bindings.png}
+    \caption{Esempio vincoli strutturali}
+\end{figure}
 
 \begin{comment}
-\paragraph{Superchiavi, chiavi e chiavi primarie}
 
-\paragraph{Vincoli di integrità referenziale}
-
-\paragraph{Vincoli di integrità generici}
 \end{comment}
 
 %

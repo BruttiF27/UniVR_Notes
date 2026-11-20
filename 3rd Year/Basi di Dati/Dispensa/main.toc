@@ -6,12 +6,16 @@
 \contentsline {paragraph}{Approccio Bottom-Up:}{10}{}%
 \contentsline {paragraph}{Approccio Inside-Out:}{10}{}%
 \contentsline {section}{\numberline {1.4}Progettazione logica: modello relazionale}{11}{}%
-\contentsline {section}{\numberline {1.5}Esercizi svolti}{14}{}%
-\contentsline {chapter}{\numberline {2}Interazione con un database}{15}{}%
-\contentsline {chapter}{\numberline {3}RDBMS e SQL in postgreSQL}{16}{}%
-\contentsline {chapter}{\numberline {4}Query e transazioni}{17}{}%
-\contentsline {chapter}{\numberline {5}Accesso a database da programmi Python}{18}{}%
-\contentsline {chapter}{\numberline {6}Uso di DBMS, NoSQL e MongoDB}{19}{}%
-\contentsline {chapter}{\numberline {7}Database Management Systems}{20}{}%
-\contentsline {chapter}{\numberline {8}Interrogazioni in SQL}{21}{}%
-\contentsline {chapter}{\numberline {9}Architettura NoSQL MongoDB}{22}{}%
+\contentsline {paragraph}{Vincoli di dominio:}{15}{}%
+\contentsline {paragraph}{Vincoli di tupla:}{15}{}%
+\contentsline {paragraph}{Vincoli intrarelazionali:}{15}{}%
+\contentsline {paragraph}{Vincoli interrelazionali:}{16}{}%
+\contentsline {section}{\numberline {1.5}Esercizi svolti}{16}{}%
+\contentsline {chapter}{\numberline {2}Interazione con un database}{17}{}%
+\contentsline {chapter}{\numberline {3}RDBMS e SQL in postgreSQL}{18}{}%
+\contentsline {chapter}{\numberline {4}Query e transazioni}{19}{}%
+\contentsline {chapter}{\numberline {5}Accesso a database da programmi Python}{20}{}%
+\contentsline {chapter}{\numberline {6}Uso di DBMS, NoSQL e MongoDB}{21}{}%
+\contentsline {chapter}{\numberline {7}Database Management Systems}{22}{}%
+\contentsline {chapter}{\numberline {8}Interrogazioni in SQL}{23}{}%
+\contentsline {chapter}{\numberline {9}Architettura NoSQL MongoDB}{24}{}%

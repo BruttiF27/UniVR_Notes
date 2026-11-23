@@ -1,12 +1,12 @@
 Lez9 Fondamenti dell'informatica - 09-11-26
 
 --- Semplificazioni delle grammatiche CF
-Si possono eliminare componenti inutili all'interno del linguaggio, semplificando la grammatica e consentendoci di concentrarci solo sugli elementi di nostro interesse.
+Si possono eliminare componenti inutili all'interno del linguaggio, semplificando la grammatica e consentendoci di concentrarci solo sugli elementi di nostro interesse. Intuitivamente, sono i simboli non terminali che non raggiungono terminali o che non sono raggiunti dal simbolo iniziale $S$.
 
 - Eliminazione dei simboli inutili
-Data una grammatica G = <V, T, P, S>, un generico simbolo terminale o non terminale è utile se esiste almeno una derivazione S \implies_* x \alpha x \\beta \implies_* \omega
+Data una grammatica G = <V, T, P, S>, un generico simbolo terminale o non terminale è utile se esiste almeno una derivazione S \implies_* x \alpha x \beta \implies_* \omega
 Con \alpha, \beta\in (V \cup T)^*, \omega\in T^*.
-Dunque esiste almeno una dervazione da S a una sequenzaa \omega di simboli terminali che usa x. E' evidente che la formula sia divisa in due fasi.
+Dunque esiste almeno una dervazione da S a una sequenza \omega di simboli terminali che usa x. E' evidente che la formula sia divisa in due fasi.
 
 Data quindi una grammatica G = <{A,B,C,D,E,S}, {0,1,2,3}, P, S}>
 	

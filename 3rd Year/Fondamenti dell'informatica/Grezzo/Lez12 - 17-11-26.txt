@@ -4,3 +4,37 @@ Lez12 Fondamenti dell'informatica - 17-11-26
 Nelle note ha scritto molto similmente i termini h e k; In quel mini-sistemino, ha scritto 3+k = 3+h \implies h = k
 
 --- Esercizio 2.4 non CF
+L = {0^n | n numero primo}
+
+- Condizioni di appartenenza: 0^i\in L \iff \exists h \notin {i, 1} . h chiude i.
+
+Prendiamo una stringa z. Mi raccomando non z = 0^k perché non varrebbe \forall k, bensì solo per k primo. La h serve proprio a questo, dunque:
+h \geq k . h primo: esiste sempre perché i numeri primi sono infiniti.
+
+Prendiamo z = 0^h. Allora:
+	z_i = 0^{h+(i-1)|vx|} \in L \iff
+		\exists j primo . h + (i-1)|vx| = j		// Questa è la definizione di numero primo
+		
+Prendiamo i = h+1 per cercare di raccogliere, otteniamo: h + (h+1-1)|vx| = h+h|vx| = h(1+|vx|)
+Notiamo che j è multiplo di due valori che necessariamente sono diversi da 1, quindi non è primo. Dunque z_{h+1}\notin L.
+
+--- Esercizio 2.6 non CF (Questo non è nel compito MAI, però è utile a capire come scegliere la stringa z.)
+
+z[i] = {w\in \Sigma^* | il simbolo in posizione i da sx è 0} 		// A sto giro si fornisce un insieme.
+
+Prendiamo per esempio z[2], allora z[2] = {000, 10111, 0001}. Il secondo posto della stringa è sempre 0 in questo caso.
+
+Consideriamo ora il linguaggio L = \cup_n z[n^2]
+
+Voglio prendere l'unione di tutti i linguaggi con la proprietà indicata nell'insieme z[i].
+Siccome è un'unione ci basta che una sola stringa abbia 0 alla posizione di un quadrato e vedere se è accettata nel linguaggio. Se sì, hai finito.
+
+- Condizioni di appartenenza: w\in L \iff w_{n^2} = 0
+Prendiamo z = 1^{...}0, facendo in modo che la posizione dello 0 sia un quadrato.
+
+Prendiamo k\in N tale che z = 1^{k^2-1}0
+
+La figata che puoi fare qui è trasformare il vincolo sulla posizione su un vincolo sulla lunghezza, rendendo questa sempre un quadrato.
+In tal caso: z = 1^{(k+1)^2-1}0, si avrà |z| = (k+1)^2
+
+% ATTENZIONE: poi fa vedere z_2, ma è un altro modo di risolvere l'esercizio, è come è eseguito nell'eserciziario.

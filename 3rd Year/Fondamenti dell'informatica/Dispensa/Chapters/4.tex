@@ -1,4 +1,172 @@
-\section{Linguaggi liberi da contesto, forme normali e automi a pila}
+\section{Linguaggi liberi da contesto}
+I \textbf{linguaggi liberi da contesto} (Context-Free, CF) sono un insieme più generale di linguaggi che necessita di una specifica \textbf{grammatica}
+per essere generato. Questa si definisce come una quadrupla $G = \left<V, T, P, S\right>$, dove: \begin{itemize}
+    \item $V$: Insieme finito di simboli non terminali.
+    \item $T$: Insieme finito di simboli terminali, tale che $V\cap T = \emptyset$.
+    \item $P$: Insieme finito di produzioni, le quali hanno forma $A\to\alpha$, dove $A\in V$ è un simbolo non terminale e $\alpha\in (V\cup T)^*$.
+        Quest'ultima è sostituibile a una qualunque occorrenza di $A$.
+    \item $S\in V$: Simbolo iniziale.
+\end{itemize}
+
+\noindent Supponiamo per esempio $G = \left<\{E\}, \{0, 1, (, ), AND, OR, NOT\}, P, E \right>$, i cui elementi nelle seconde graffe rappresentano
+l'alfabeto del linguaggio generato. Avremo le seguenti produzioni: \[ \begin{cases}
+    E\to 0\\
+    E\to 1\\
+    E\to (E \text{ AND } E)\\
+    E\to (E \text{ OR } E)\\
+    E\to (\text{NOT } E)
+\end{cases} \]
+
+\noindent Scrittura che può essere contratta come: \[
+    E\to 0|1|(E \text{ AND } E)|(E \text{ OR } E)|(\text{NOT } E)
+\]
+
+\noindent Naturalmente, le grammatiche servono a generare linguaggi con le seguenti relazioni: \[
+    \xRightarrow{G}, \xRightarrow{G}_i, \xRightarrow{G}_* \subseteq (V\cup T)^*\times (V\cup T)^*
+\]
+
+\noindent Dove se $A\to \beta\in P$ e $\alpha, \gamma\in (V\cup T)^*$, allora $\alpha A \gamma \xRightarrow{G} \alpha \beta \gamma$. Diciamo qui che
+$\alpha A \gamma$ deriva immediatamente $\alpha \beta \gamma$.\par
+Inoltre, finché dentro $\alpha, \beta, \gamma$ sono presenti simboli non terminali, la generazione può continuare fino a ottenere una stringa in $T^*$.
+Possiamo ora fornire la definizione di \textbf{linguaggio generato} dalla grammatica $G$: \begin{itemize}
+    \item $\xRightarrow{G}_i$: Applicazione di $i$ passi di derivazione, ovvero di $i$ produzioni.
+    \item $\xRightarrow{G}^*$: Esistenza di un numero di passi di derivazione non specificato.
+    \item $\alpha\implies_i \beta$: Da $\alpha$ si deriva o genera $\beta$ in $i$ passi
+    \item $\alpha\implies_* \beta$: Da $\alpha$ è possibile derivare o generare $\beta$.
+\end{itemize}
+
+\noindent Il linguaggio generato dalla grammatica $L(G) = \{x\in T^* | S\xRightarrow{G}_* x\}$ è l'insieme di tutte le stringhe in $T^*$ generate nella
+grammatica, il quale si definisce \textbf{libero da cntesto} (CF) se esiste una grammatica altrettanto libera da contesto dotata di simboli terminali
+$\Sigma$ capace di generarlo, facendo quindi valere $L = L(G)$.\par
+Inoltre, due grammatiche $G_1, G_2$ si dicono equivalenti quando entrambe riescono a generare uno stesso linguaggio, dunque $L(G_1) = L(G_2)$. La
+procedura di dimostrazione segue due passi: \begin{enumerate}
+    \item $L\subseteq L(G)$: Conferma che tutte le stringhe di $L$ sono generabili in $G$. Ciò si fa per induzione sulla lunghezza di una stringa $x$:
+    \[
+        x\in L \implies S\implies_* x
+    \]
+    \item $L(G)\subseteq L$: Conferma che tutte le stringhe generabili in $G$ sono in $L$. Dimostrato per induzione sul numero di passi $i$: \[
+        S\implies_i x \implies x\in L
+    \]
+\end{enumerate}
+
+\noindent Le derivazioni generate dalle grammatiche sono visualizzabili appropriatamente grazie a strutture ad albero, dette \textbf{alberi di
+derivazione} (parse tree), i quali, data una grammatica CF $G = \left<V, T, P, S\right>$, sono tali che: \begin{itemize}
+    \item Ogni vertice ha un'etichetta in $V\cup T\cup \{\epsilon\}$.
+    \item L'etichetta della radice è nei simboli non terminali $V$.
+    \item Ogni vertice interno ha etichetta nei simboli non terminali $V$.
+    \item Se un vertice $n$ ha etichetta in $A$ e $n_1, ..., n_k$ sono i suoi figli ordinati da sinistra a destra, etichettati con $X_1, ..., X_k$, allora $A\to X_1...X_k\in P$.
+    \item Se un vertice ha etichetta $\epsilon$ allora è una foglia ed è l'unico figlio di suo padre.
+\end{itemize}
+
+\noindent Per esempio, supponiamo una produzione $E\to 0|1|(E \text{ OR } E)|(E \text{ AND } E)|(\text{NOT } E)$, avremo il seguente albero di
+derivazione: \begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[    
+        level distance=1.5cm,
+        level 1/.style={sibling distance=2cm},
+        level 2/.style={sibling distance=1.3cm},
+        level 3/.style={sibling distance=1.3cm},
+        level 4/.style={sibling distance=1.3cm}
+    ]
+
+    \node {$E$}
+        child {node {$($}}
+        child {node {$E$}
+            child {node {$($}}
+            child {node {$E$}
+                child {node {$0$}}
+            }
+            child {node {$OR$}}
+            child {node {$E$}
+                child {node {$1$}}
+            }
+            child {node {$)$}}
+        }
+        child {node {$AND$}}
+        child {node {$E$}
+            child {node {$1$}}
+        }
+        child {node {$)$}};
+    \end{tikzpicture}
+    \caption{Esempio di albero di derivazione}
+\end{figure}
+
+\noindent In tal merito, data una grammatica $G$ libera da contesto, vale $S\xRightarrow{G}_* \alpha$ se e solo se esiste un albero di derivazione con
+radice $S$ e sequenza di foglie $\alpha$. Siccome un albero di derivazione rappresenta un certo insieme di possibili derivazioni di una stessa stringa,
+ciò implica che possano esistere più alberi per la stessa parola e quando questi condividono la radice $S$ diciamo che la grammatica CF è
+\textbf{ambigua}. Eventuali linguaggi che possono essere generati solamente da tali grammatiche si chiamano \textbf{inerentemente ambigui}.
+
+%
+
+\section{Semplificazione delle grammatiche CF}
+Lavorare con grammatiche complesse può risultare oneroso, per questa ragione sono stati creati alcuni modi per restringere la forma delle produzioni a
+loro permesse senza alterare la classe dei linguaggi che riconoscono. In particolare, queste trasformazioni hanno lo scopo di raggiungere \textbf{forme
+normali}, le quali descrivono le produzioni con vincoli di forma su $\alpha$. Ne esistono di due tipi: \begin{itemize}
+    \item \textbf{Chomsky}: $A\to BC, A\to a$, dove $B,C\in V, a\in T$.
+    \item \textbf{Greibach}: $A\to a\alpha$, dove $a\in T, \alpha\in (T\cup V)^*$.
+\end{itemize}
+
+\noindent Ciò implica che per ogni grammatica CF tutte le produzioni possono essere trasformate in forma normale, siccome ogni linguaggio CF può essere
+generato da una grammatica in forma normale. Per arrivarci, è necessario eseguire tre operazioni di \textbf{semplificazione}.
+
+\paragraph{Eliminazione dei simboli inutili:} Data una grammatica $G = \left<V, T, P, S\right>$ diciamo che un generico simbolo $x$ terminale o non
+terminale è utile quando esiste almeno una derivazione dal simbolo iniziale $S$ a una sequenza di simboli terminali $\omega$ che ne fa uso. Dunque: \[
+    S\xRightarrow{}_* \alpha x\beta \xRightarrow{}_* \omega;\quad \text{Dove } \alpha, \beta \in (V\cup T)^*, \omega\in T^*
+\]
+
+\noindent Questa operazione si divide in due parti: in primo luogo si fa una rimozione dei simboli non terminali che non raggiungono simboli terminali,
+alla quale segue la rimozione dei simboli non terminali non raggiunti da quello iniziale $S$. Supponiamo quindi una grammatica
+$G = \left<\{A,B,C,D,E,S\}, \{0,1,2,3\}, P, S\right>$, dove: \[
+    V = \{A,B,C,D,E,S\}\quad T = \{0,1,2,3\}
+\]
+
+\noindent Le cui produzioni $P$ sono: \begin{itemize}
+    \item $S \to \epsilon|A|B|D$
+    \item $A \to 0|0A0|B|E$
+    \item $B \to 1|1B1|A|E$
+    \item $C \to A|B|2$
+    \item $D \to \epsilon|D$
+    \item $E \to \epsilon$
+\end{itemize}
+
+\noindent L'idea è di partire dai simboli terminali e verificare all'indietro nelle produzioni la presenza dei vari simboli non terminali. Quelli che
+sono indicati nelle produzioni ma non sono ottenuti con questo ragionamento sono inutili. Dunque, costruiamo l'insieme di simboli non terminali
+$\Gamma^i$ iterativamente, i cui elementi raggiungeranno almeno un simbolo terminale in un numero $i$ di passi. Notiamo che le produzioni che contengono
+simboli terminali sono $A, B, C$, quindi aggiungiamole a $\Gamma^1$; è possibile vedere anche che $S$ genera $A$ e $B$, quindi va aggiunto a $\Gamma^2$.
+Non sono presenti altri simboli utili per la prima fase; risulta quindi: \[
+    \Gamma^0 = \emptyset\quad \Gamma^1 = \{A, B, C\}\quad \Gamma^2 = \{A, B, C, S\}
+\]
+
+\noindent Da qui otteniamo la nuova grammatica $G' = \left<V\cap \Gamma^2, T, P', S\right>$ con nuove produzioni $P' = P / \{D\to \epsilon | D,
+E\to \epsilon\}$. Procediamo ora con la rimozione dei simboli non terminali che non sono raggiunti dal simbolo iniziale $S$; abbiamo ottenuto le nuove
+produzioni: \begin{itemize}
+    \item $S \to \epsilon|A|B$
+    \item $A \to 0|0A0|B$
+    \item $B \to 1|1B1|A|\epsilon$
+    \item $C \to A|B|2$
+\end{itemize}
+
+\noindent Sempre iterativamente, creiamo l'insieme $\Gamma^i$ dei simboli raggiunti da $S$ in $i$ passi: \[
+    \Gamma^0 = \{S\}\quad \Gamma^1 = \{A, B, S\}\quad \Gamma^2 = \{A, B, S, 0, 1\}
+\]
+
+\noindent Otteniamo un'ulteriore grammatica $G'' = \left<V'\cap \Gamma^2, T' \cap \Gamma^2, P'', S \right>$, dove $V'$ è l'insieme dei non terminali da
+cui è stato rimosso $C$, in quanto non generato da $S$, e $T'$ è l'insieme dei terminali da cui sono stati rimossi $2,3$. Ne consegue che le produzioni
+$P''$ sono: \begin{itemize}
+    \item $S \to \epsilon|A|B$
+    \item $A \to 0|0A0|B$
+    \item $B \to 1|1B1|A|\epsilon$
+\end{itemize}
+
+% TODO Riprendi da lez9
+
+\paragraph{Eliminazione delle produzioni unitarie:}
+
+\paragraph{Eliminazione delle $\epsilon$-produzioni:}
+
+%
+
+\section{Automi a pila}
 
 %
 

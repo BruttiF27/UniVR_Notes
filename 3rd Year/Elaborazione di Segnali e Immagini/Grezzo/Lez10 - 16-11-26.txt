@@ -30,13 +30,14 @@ Diversi oggetti hanno naturalmente diverse \textbf{proprietà di riflettanza}, d
 
 \noindent Dove la luce riflessa $L$ è indipendente dal punto di osservazione ed è ricavata dal prodotto tra l'\textbf{albedo della superficie} $\rho$, ovvero una costante positiva dipendente dal materiale, la luce incidente $I$ e la norma della superficie $n$.
 
-\paragraph{Geometria dell'immagine:}
+\paragraph{Geometria dell'immagine:} Supponiamo di avere una camera a punta di spillo che osserva un oggetto; per ogni punto della scena sarà quindi ottenuto un singolo raggio e sarà proiettata un'immagine ruotata di $180^\circ$ sul piano dell'immagine grazie all'effetto della \textbf{camera oscura}. Fondamentalmente stiamo usando due sistemi: \begin{itemize}
+	\item \textbf{Piano focale}: Detiene il foro dal quale entrano i raggi di luce e considera tre coordinate $X, Y, Z$.
+	\item \textbf{Piano immagine}: Riceve la proiezione dell'immagine osservata, considera altrettante coordinate $X', Y', Z'$.
+\end{itemize}
 
-% TODO Il professore deve finire di spiegare questa parte.
+\noindent Per determinare la geometria dell'immagine bisogna considerare il sistema del piano dell'immagine; data $f$ distanza focale, le equazioni per ricavarle sono: \[
+	X' = \frac{-fX}{Z};\quad Y' = \frac{-fY}{Z};\quad Z' = -f
+\]
 
-\begin{comment}
---- Geometria dell'immagine
-Supponiamo di avere un'immagine ottenuta da una pinhole camera; per ogni punto della
-scena sarà generato un singolo raggio. Sarà creata un'immagine con il principio della
-camera oscura, ovvero all'incontrario.
-\end{comment}
+\noindent E definiscono il processo di acquisizione dell'immagine chiamato prospettiva proiettiva. Il denominatore $Z$ determina l'effetto della prospettiva: la dimensione della proiezione di un oggetto dipende infatti dalla distanza a cui si trova l'osservatore. Intuitivamente, oggetti piccoli saranno più distanti e quelli grandi si troveranno a una distanza minore.\par
+Può capitare di avere oggetti sottili; possiamo approssimare la prospettiva proiettiva con una proiezione ortografica, detta \textbf{prospettica di weack}.

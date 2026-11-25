@@ -66,12 +66,130 @@ liscio. Ciò è contenuto nel modello \textbf{Lambertiano}: \[
 \noindent Dove la luce riflessa $L$ è indipendente dal punto di osservazione ed è ricavata dal prodotto tra l'\textbf{albedo della superficie} $\rho$,
 ovvero una costante positiva dipendente dal materiale, la luce incidente $I$ e il vettore normale della superficie $n$.
 
-\paragraph{Geometria dell'immagine:}
+\paragraph{Geometria dell'immagine:} Supponiamo di avere una camera a punta di spillo che osserva un oggetto; per ogni punto della scena sarà quindi
+ottenuto un singolo raggio e sarà proiettata un'immagine ruotata di $180^\circ$ sul piano dell'immagine grazie all'effetto della \textbf{camera oscura}.
+Fondamentalmente stiamo usando due sistemi: \begin{itemize}
+	\item \textbf{Piano focale}: Detiene il foro dal quale entrano i raggi di luce e considera tre coordinate $X, Y, Z$.
+	\item \textbf{Piano immagine}: Riceve la proiezione dell'immagine osservata, considera altrettante coordinate $X', Y', Z'$.
+\end{itemize}
 
-% TODO Il professore deve finire di spiegare questa parte.
-\begin{comment}
---- Geometria dell'immagine
-Supponiamo di avere un'immagine ottenuta da una pinhole camera; per ogni punto della
-scena sarà generato un singolo raggio. Sarà creata un'immagine con il principio della
-camera oscura, ovvero all'incontrario.
-\end{comment}
+\noindent Per determinare la geometria dell'immagine bisogna considerare il sistema del piano dell'immagine; data $f$ distanza focale, le equazioni per
+ricavarle sono: \[
+	X' = \frac{-fX}{Z};\quad Y' = \frac{-fY}{Z};\quad Z' = -f
+\]
+
+\noindent E definiscono il processo di acquisizione dell'immagine chiamato prospettiva proiettiva. Il denominatore $Z$ determina l'effetto della
+prospettiva: la dimensione della proiezione di un oggetto dipende infatti dalla distanza a cui si trova l'osservatore. Intuitivamente, oggetti più
+distanti creeranno una proiezione più piccola, mentre se sono più vicini ne faranno una più grande.\par
+Può capitare di avere oggetti sottili; possiamo approssimare la prospettiva proiettiva con una proiezione ortografica, detta \textbf{prospettica debole}.
+
+%
+
+\section{Calibrazione e triangolazione}
+Come è possibile intuire, esiste una relazione tra gli oggetti osservati nel mondo reale e quelli proiettati sul piano dell'immagine; in particolare
+bisogna considerare i parametri che regolano l'acquisizione, quali la luminosità o l'apertura dell'immagine, per esempio. Capire come stimare tali
+parametri è fondamentale per comprendere che cosa realmente accade nei processi che li mappano alla griglia di campionamento. La \textbf{calibrazione
+della camera} si occupa esattamente di questo e ci consente anche di recuperare quelle informazioni dimensionali che sono perse con la proiezione in due
+dimensioni.\par
+Consideriamo il modello con camera a punta di spillo; come visto nella geometria dell'immagine si impostano i due sistemi di piano focale e immagine e
+quando un punto $M$ è ottenuto sul piano focale questo viene proiettato sull'altro, creando $m$. Grazie all'effetto camera oscura, sono creati due
+triangoli simili, dandoci la relazione: \[
+	\frac{f}{Z} = \frac{-u}{X} = \frac{-v}{Y} \implies u = \frac{-f}{Z}X, v = \frac{-f}{Z}Y
+\]
+
+\noindent Dunque un punto $M$ sul piano focale viene proiettato su quello dell'immagine nelle coordinate $(u,v)$ e lo chiamiamo $m$. Per poter lavorare
+più facilmente con tale dinamica sul piano proiettivo, introduciamo un arteficio matematico che consiste nel convertire le coordinate cartesiane in
+\textbf{coordinate omogenee}, nelle quali si aggiunge una dimensione di valore $1$ al vettore delle coordinate, facendo risultare: \[
+	M = [X, Y, Z, 1]\quad m = [u, v, 1]
+\]
+
+\noindent Nell'applicare le elaborazioni ai punti è comune che il valore $1$ aggiunto cambi; una prima utilità del passaggio a coordinate omogenee è
+la possibilità di recuperare le informazioni ritornando alle precedenti coordinate, dividendo ogni coordinata del sistema per l'ultima, ovvero quella
+che era il valore aggiunto $1$. Dunque, supponendo un punto $m$ di coordinate $(x_1, x_2, x_3)$: \[
+	\tilde{m} = (x_1/x_3, x_2/x_3)
+\]
+
+\noindent Eventuali istanze dove $x_3=0$ non sono poi un problema, in quanto geometricamente interpretabili come punto che sta all'infinito. Questa è
+la seconda utilità di lavorare nello spazio omogeneo, poiché tutti i punti giacciono sullo stesso spazio.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.6\linewidth]{Images/Camera_planes.png}
+	\caption{Piani della camera}
+\end{figure}
+
+\noindent Dato il modo in cui le immagini sono recepite, diciamo che proiettiamo un punto 3D sul piano 2D a meno di un fattore di scala e conoscendo la
+\textbf{matrice di proiezione} $P$ è possibile fare inferenze in merito alla relazione tra i punti nei due spazi. Si tratta della matrice $3\times 4$
+applicata nella seguente equazione, detta \textbf{equazione per la proiezione prospettica}:
+\[ Z \begin{bmatrix}
+	u\\
+	v\\
+	1
+\end{bmatrix} = Z \begin{bmatrix}
+	-f X/Z\\
+	-f Y/Z\\
+	1
+\end{bmatrix} = \begin{bmatrix}
+	-fX\\
+	-fY\\
+	Z
+\end{bmatrix} = \begin{bmatrix}
+	-f & 0 & 0 & 0\\
+	0 & -f & 0 & 0\\
+	0 & 0 & 1 & 0
+\end{bmatrix} \begin{bmatrix}
+	X\\
+	Y\\
+	Z\\
+	1
+\end{bmatrix} \]
+
+\noindent In modo più compatto, possiamo ricavare il punto proiettato $m$ grazie al prodotto tra matrice di proiezione $P$ e il vettore coordinate del
+punto $M$, diviso per la distanza focale $Z$: \[
+	m = \frac{1}{Z}PM
+\]
+
+\noindent Cerchiamo tuttavia di dare un modello più generale; è bene ricordare che nei sistemi di riferimento utilizzati il centro non coincide con
+l'origine, la quale si trova in coordinate $(0,0)$. Per questo motivo è necessario aggiungere uno scalare per entrambe con lo scopo di definire il
+centro focale, in questo caso nominato $u_0, v_0$.\par
+Come già menzionato in precedenza, durante il processo di mappatura, è inevitabile perdere determinate informazioni a causa del cambio dell'unità di
+misura da metri a pixel. Questa conversione dipende inoltre dalla dimensione della cella all'interno della griglia di campionamento, facendo dipendere
+i punti anche da ulteriori due scalari $k_u, k_v$, i quali indicano lo spessore o l'altezza del singolo rettangolino. Il modello generale per ricavare
+le coordinate sul piano immagine risulta essere: \[ \begin{cases}
+	u = k_u \frac{-f}{z}x + u_0\\
+	v = k_v \frac{-f}{z}y + v_0
+\end{cases} \]
+
+\noindent L'effettiva conversione delle coordinate metriche a quelle in pixel avviene grazie alla seguente matrice trasformativa: \[ A = \begin{bmatrix}
+	-k_u & 0 & u_0\\
+	0 & -k_v & v_0\\
+	0 & 0 & 1
+\end{bmatrix} \]
+
+\noindent La quale è utilizzata nella seguente moltiplicazione per ottenere gli effettivi valori della matrice di prospettiva: \[
+	P = A\begin{bmatrix}
+	-f & 0 & 0 & 0\\
+	0 & -f & 0 & 0\\
+	0 & 0 & 1 & 0
+\end{bmatrix} = \begin{bmatrix}
+	fk_u & 0 & u_0 & 0\\
+	0 & fk_v & v_0 & 0\\
+	0 & 0 & 1 & 0
+\end{bmatrix} = K[I_3, 0] \]
+
+\noindent Dove $K$ è detta la \textbf{matrice dei parametri intrinseci} e $[I_3, 0]$ è una matrice $3\times 4$ che codifica l'essenza delle
+trasformazioni percettive senza parametri; è ottenuta quando il fotogramma di riferimento del mondo 3D coincide con quello della camera e i punti
+dell'immagine sono espressi in coordinate omogenee normalizzate, ovvero $q = K^{-1}m$.\par
+I parametri intrinseci della rispettiva matrice sono il \textbf{punto principale} (centro focale) e la \textbf{distanza focale} in pixel lungo i due
+assi $u,v$, ma esistono anche quelli \textbf{estrinseci}, ovvero \textbf{rotazione} e \textbf{traslazione}, i quali sono definiti da tre valori, uno per
+ogni coordinata metrica, e hanno lo scopo di portare i punti dallo spazio 3D a quello 2D. Tali valori sono applicati su una matrice quadrata $3\times 3$,
+la quale potrà essere ruotata secondo le regole fornite dall'algebra lineare.\par
+Tale matrice, detta \textbf{matrice di rotazione}, è molto importante perché è anche ortogonale\footnote{La lunghezza, quindi la norma, è conservata
+anche dopo una rotazione.} ed essendo i tre valori dei parametri sotto forma di angoli di Eulero, sarà sempre possibile ricavarne una matrice e
+viceversa.
+
+% TODO Manca la triangolazione, ma il prof deve spiegarla
+
+%
+
+\section{Geometria proiettiva}

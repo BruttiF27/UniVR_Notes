@@ -1,0 +1,74 @@
+Lez11 Elaborazione di segnali e immagini - 23-11-26
+
+--- Calibrazione e triangolazione
+Vedremo la relazione tra mondo 3d e 2d, capire quali sono i processi di proiezione dell'immagine che mappano il mondo vero sul piano immagine.
+Processo regolato da un insieme di parametri, visti la scorsa volta, come l'apertura dell'immagine, la luminosità etc.
+Questa è una funzione lineare che si può mappare nella matrice.
+
+Bisogna capire come stimare tali parametri al fine di poter governare il mapping da 3d a 2d; questo si chiama \textbf{calibrazione della camera}.
+La proiezione da 3d a 2d fa perdere le informazioni metriche del mondo 3d. Studiare la calibrazione ci permette anche di recuperarle a partire dalla mappatura 2d.
+
+--- Calibrazione
+Consideriamo ik modello pinhole, dove è presente un piccolo foro al centro della telecamera detto centro ottico. Qui entra un solo raggio di luce e si imposta un sistema a tre assi F detto piano focale. Un sistema parallelo, detto piano dell'immagine è conterrà la mappatura del primo.
+	Quando un punto M è preso sul piano focale viene proiettato su quello dell'immagine, ottenendo m. La proiezione ricorda l'effetto camera oscura, dove la proiezione è inversa.
+	
+Essendo che vengono creati due triangoli simili, c'è una relazione: f/Z = -u/X = -v/Y
+
+Quindi un punto M viene mappato nelle coordinate u = \frac{-f}{X}, v = \frac{-f}{Z}Y.
+Visibile la relazione tra il punto nel piano XYZ e quello dell'immagine uv.
+Intuitivamente, un oggetto lontano appare più piccolo, infatti nell'equazione Z è posto come denominatore.
+
+Per poter gestire meglio questi calcoli è necessario introdurre un arteficio matematico. Tendenzialmente nell'elaborazione delle immagini si preferisce lavorare sul piano proiettivo.
+
+Nella pratica, possiamo trasformare le coordinate cartesiane in omogenee aggiungendo una dimensione la quale avrà valore 1.
+Quindi m sarà di coordinate [u,v,1] e M di coordinate [X,Y,Z,1].
+Quando poi si elaborano i punti nello spazio proiettivo è verosimile che il valore 1 cambi; per tornare alla situazione di prima si effettuerà un'operazione per passare da coordinate omogenee a cartesiane.
+
+Per farlo, supponiamo un punto m di coordinate (x1, x2, x3) omogenee. Per tornare a quello cartesiano si fa \tilde{m} = (x1/x3, x2/x3), ovvero si dividono le coordinate per l'ultima del vettore.
+Prendendo in considerazione la divisione è importante notare che se una coordinata al denominatore è uguale a zero ci troviamo una situazione ingestibile.
+Tuttavia, geometricamente la possiamo interpretare come un punto che sta all'infinito.
+L'esigenza di spostarci nel piano omogeneo deriva proprio da questo, per poter considerare anche questo tipo di scenari.
+Definiamo infatti intuitivamente lo spazio proiettivo come uno spazio cartesiano al quale sono aggiunti punti all'infinito.
+Quando nel piano cartesiano si ha un punto uguale a zero in una coordinata, indica una direzione; nel piano proiettivo anche queste sono nello stesso spazio.
+
+Noi proiettiamo il punto 3d sul 2d a meno di un fattore di scala
+% TODO Inserire equazione per proiezione prospettica
+
+Se conosco la matrice P quindi conosco la relazione tra i punti 3d e 2d. Ma questo riguarda solo il modello proiettivo.
+Quando noi trattiamo le immagini, il sistema di riferimento dell'immagine non è al centro, bensì in alto a sinistra, al punto (0,0). Dunque la relazione di proiezione è traslata di un valore u_0, v_0 che indica dove sta il centro effettivo dell'immagine. \[
+	\begin{cases}
+		u &= \frac{-f}{z}x + u_0\\
+		v &= \frac{-f}{z}y + v_0
+	\end{cases}
+\]
+
+\noindent Nel momento in cui si mappano i punti sul piano, poi su di questi ultimi creo l'immagine, e cambio il sistema di riferimento perché passo da metri a pixel. La conversione della misura in pixel dipende dalla dimensione del quadratino del piano, data dai valori di scala k_u, k_v, dunque dalla griglia di campionamento: \[
+	\begin{cases}
+		u &= k_u \frac{-f}{z}x + u_0\\
+		v &= k_v \frac{-f}{z}y + v_0
+	\end{cases}
+\]
+
+\noindent Se mettiamo insieme tutto ciò insieme alla distanza focale creiamo i \textbf{parametri intrinseci}. Fondamentalmente è una modellazione delle coordinate reali a quelle in pixel tramite una trasformazione A: \begin{pmatrix}
+	-k_u & 0 & u_0\\
+	0 & -k_v & v_0\\
+	0 & 0 & 1
+\end{pmatrix}
+
+\noindent La matrice A trasforma le coordinate da metri a pixel. La molitplicazione risulta:
+
+% TODO Inserisci moltiplicazione tra matrici dove risulta P, slide 10
+
+K diventa la matrice dei parametri intrinseci, mentre [I_3, 0] codifica l'essenza delle trasformazioni percettive senza parametri. Si ottiene quando la reference del mondo coincide con il frame della reference della camera e i punti dell'immagini sono espressi in coordinate di immagine normalizzate.
+
+Fun fact: Esisterebbe un quinto parametro intrinseco che riguarda la rotazione dell'oggetto.
+
+Insomma per governare gli oggetti nel sistema di riferimento mondo è necessario proiettarli nel sistema di riferimento camera, quindi si spostano i punti da 3d a 2d. A quel punto mi serviranno dei parametri.
+
+Bisogna codificare una rotazione per ogni coordinata reale, parametrizzata dagli angoli creati per ogni asse. Questi valori sono poi applicati su una matrice 3x3, la quale potrà essere ruotata secondo quanto dice l'algebra lineare.
+Diciamo R matrice di rotazione 3x3. Questa è anche ortogonale (quando moltiplico R con un vettore, la lunghezza, quindi la norma, si conserva anche dopo la rotazione). I tre valori degli angoli sono angoli di eulero; è sempre possibile ricavarne una matrice e viceversa.
+
+Con tutte queste informazioni definisco la matrice prospettica P = K[R,t]
+
+% TODO Inserisci scrittura di t ed R, come anche la matrice P grande, che è la matrice di proiezione prospettica completa (full perspective matrix)
+

@@ -16,6 +16,12 @@
 \contentsline {paragraph}{A$^*$ search:}{14}{}%
 \contentsline {section}{\numberline {2.4}Ricerca locale}{15}{}%
 \contentsline {section}{\numberline {2.5}Soddisfacimento dei vincoli}{19}{}%
-\contentsline {chapter}{\numberline {3}Conoscenza, ragionamento e pianificazione}{20}{}%
-\contentsline {chapter}{\numberline {4}Conoscenza incerta}{21}{}%
-\contentsline {chapter}{\numberline {5}Apprendimento automatico}{22}{}%
+\contentsline {paragraph}{Ordinamento delle variabili:}{22}{}%
+\contentsline {paragraph}{Consistenza locale:}{22}{}%
+\contentsline {paragraph}{Look-ahead:}{22}{}%
+\contentsline {chapter}{\numberline {3}Conoscenza, ragionamento e pianificazione}{25}{}%
+\contentsline {section}{\numberline {3.1}Agenti basati sulla logica}{25}{}%
+\contentsline {section}{\numberline {3.2}Rappresentazione della conoscenza}{25}{}%
+\contentsline {section}{\numberline {3.3}Pianificazione automatica}{25}{}%
+\contentsline {chapter}{\numberline {4}Conoscenza incerta}{26}{}%
+\contentsline {chapter}{\numberline {5}Apprendimento automatico}{27}{}%

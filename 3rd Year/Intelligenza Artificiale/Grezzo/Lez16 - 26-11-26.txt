@@ -1,0 +1,90 @@
+Lez16 Intelligenza artificiale - 26-11-26
+
+--- Sequential decision making (a partire dalla slide 6, A simple approach)
+Possiamo modellare l'incertezza e scegliere le azioni in base al valore della expected utility, dove naturalmente si prende lo step che dà il valore massimo.
+
+Ciò è definito nel concetto di policy. Sta nelle slide precedenti, da rivedere in lezione precedente.
+
+--- Value iteration
+Calcola una regola di update e la applica su ogni stato. La formula è data dalla bellman backup: \[
+	v^{k+1}(s) = max_a \sum_{s'}p(s'|a, s)(r(s,a,s') + \gamma v^k(s'))
+\]
+
+\noindent Salva il valore di ogni stato per produrre nuove funzioni di stima, in totale (k+1). La soluzione ottimale di k+1 stadi usa la soluzione al problema di stage k. L'algoritmo di value iteration è: \begin{algorithm}
+	\begin{algorithmic}
+		\Do
+			\Delta\gets 0
+			\For{each s\in S}
+				tempo\gets v(s)
+				v(s) \gets max_a // Bell backup formula
+				\Delta\gets max(\Delta, |temp - v(s)|)
+		\While{\Delta < \theta} // Theta è un piccolo numero positivo
+	\end{algorithmic}
+\end{algorithm}
+
+\noindent L'output è una policy deterministica \pi, sicché: \[
+	\pi(s) = argmax_a\sum_{s'}p(s'|s, a)[r(s,a,s') + \gamma v(s')]
+\]
+
+\noindent Si segue l'utilità in base anche al transition model in questione, naturalmente.
+Alcune caratteristiche importanti della value iteration:
+	- Prima o poi converge all'ottimo, garantito pure per versioni asincrone affinché gli update di ogni stato sono fatti spesso all'infinito.
+	- La policy ottimale dell'orizzonte infinito è stazionaria; l'azione ottima in uno stato sempre la stessa in qualunque tempo.
+	- La complessità per iterazione è quadratica nel numero degli stati e lineare nel numero di azioni.
+	- Il rateo di convergenza è lineare.
+	
+--- Policy iteration
+Altro algoritmo che cerca la policy ottimale e massimo valore di utility simultaneamente.
+
+```
+\pi\gets arbirtary initial policy
+repeat until no change in \pi
+	compute utilities given \pi				// Policy evaluation
+	update \pi as if utilities were correct	// Policy improvement
+```	
+
+\noindent Dunque data una policy computa le utilità; continua a farlo fino a quando non viene più cambiato \pi, perché in tal caso significa che è stata ottenuta la policy migliore.
+Per computare le utility si usa la funzione: \[
+	v(s) = \sum_{s'} p(s'|s, \pi(s))(r(s, \pi(s), s') + \gamma v(s'))
+\]
+
+\noindent Può essere applicata risolvendo n equazioni lineari simultaneamente con n incognite, con una complessità esponenziale di O(n^3), oppure con approssimazioni iterative.\par
+Consideriamo ora il policy improvement step; vado a fare praticamente l'arg max di tutti gli stati. Se l'utility value può essere migliorato, la nuova azione è adottata dalla policy, migliorandone la performance.
+
+--- Modifica alla policy iteration
+Spesso la policy iteration di base converge in poche iterazioni, ma sono tutte costose. Idealmente si vorrebbero usare pochi step di value iteration con un \pi fissato, a partire dalla funzione di valore prodotta la volta precedente per produrre uno step di valutazione approssimato della policy.\par
+Spesso converge molto più velocemente di value iteration o policy iteration e tale modifica porta ad algoritmi molto più generali, nei quali gli aggiornamenti dei valori di Bellman e delle policy di Howard possono essere eseguiti localmente in qualunque ordine.
+
+```
+1. Inizializzazione
+v(s)\in R and \pi(s)\in A(s) arbitrariamente per ogni s\in S
+
+2. Policy evaluation
+Ripeti
+	\Delta \gets 0
+	For each s\in 
+		temp\gets v(s)
+		v(s) \gets Bellman backup formula
+		\Delta \gets max(\Delta, |temp-v(s)|)
+Until \Delta < \theta (small positive number)
+
+3. Policy improvement
+policy-stable\gets true
+for each s\in S
+	temp \gets \pi(s)
+	\pi(s) \gets argmax_a\sum_ etc etc
+	\if{tempo \neq \pi(s)} policy-stable\gets false
+\If policy-stable, stop and return v and \pi; else go to 2.
+```
+
+- Concetto di osservabilità parziale
+Tutti gli algoritmi discussi vanno solo se l'ambiente è completamente osservabile. Esiste un framework chiamato POMDP che detiene un modello di osservazione O(s, e) che definisce la probabilità che l'agente ottenga evidenza e quando si trova nello stato s.
+
+Se l'agente non conosce lo stato in cui si trova allora non ha senso di parlare di policy, capiamo. Bisogna adattarla.
+La policy ottimale in un POMDP è una funzione \pi(b) con b lo stato di credenza (distribuzione di probabilità sugli stati).
+Si può convertire un pomdp in un MDP nello spazio degli stati credenza, dove T(b, a, b') è la probabilità che il nuovo belief state è b', dato che il corrente belief state è b e l'agente fa a.
+
+Soluzioni proposte da questi algoritmi sono sempre approssimate perché modelli in un ambito realistico sarebbero molto demanding da un punto di vista computazionale. Considera n stati, con b un vettore a valori reali n-dimensionale. Risolverlo sarebbe molto difficile.
+
+--- Principi base del machine learning
+Da rivedere sulle slide

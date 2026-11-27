@@ -1,148 +1,114 @@
 Lez9 29-10-26 - Intelligenza artificiale
 
---- Lezione precedente ha definito il constraint satisfaction problem
+--- Problemi di soddisfacimento dei vincoli
+I \textbf{problemi di soddisfacimento dei vincoli} (CSP) sono una classe specializzata di problemi di identificazione i cui stati sono definiti da un insieme di variabili $X = X_i$ che possono assumere valori di un insieme di domini $D = D_i$ e il goal test prende la forma di un insieme di \textbf{vincoli} che specificano combinazioni valide di valori per sottoinsiemi di variabili; per lavorare su questa classe di problemi possiamo usare soluzioni che sfruttano tali caratteristiche, rendendo la risoluzione più efficiente rispetto ad approcci di ricerca standard.\par
+Supponiamo ora un problema dove è richiesto di colorare una mappa degli stati dell'Australia con tre colori a disposizione; il vincolo è che regioni adiacenti abbiano colori diversi. Le soluzioni saranno assegnamenti che rispettano tale restrizione: \begin{center}
+	\{WA = red, NT = green, Q = red, NSW = green, V = red, SA = blue, T = green\}
+\end{center}
 
---- Definizione della formulazione standard per Constraint Problems
-Stati definiti da valori assegnati finora. Lo stato iniziale ha un assegnamento vuoto
-e la funzione successore assegna un valore a una variabile priva di esso che non
-crea conflitti con l'assegnamento attuale.
-Se non ci sono assegnamenti legali, fallisci. Si tratta di un problema irrisolvibile
-L'obiettivo è ottenere il completamento dell'assignment.
+% TODO Inserisci immagini di australia bianca e australia colorata
 
-Questa definizione è valida per ogni CSP e ogni soluzione appare a profondità n con
-n variabili, rendendo puù utile un'applicazione di DFS rispetto a BFS.
-Attenzione che b = (n-l)d a profondità l, dunque ci saranno n|d^n foglie. Troppe.
+\noindent I CSP possono essere mappati tramite grafi, dove si ha un nodo per ogni variabile e un arco per ogni vincolo tra due variabili; prendiamo per esempio una tabella $3\times 3$ della parole crociate, il cui dominio delle variabili $D_i$ sono le lettere dell'alfabeto. Se le parole possibili sono MAP e ARC, creiamo i seguenti due vincoli: \begin{itemize}
+	\item C1 [\{x_1, x_2, x_3\}, (MAP)(ARC)]
+	\item C2 [\{x_2, x_4, x_5\}, (MAP)(ARC)]
+\end{itemize}
 
-Gli assegnamenti delle variabili sono commutativi e bisogna solo considerare gli
-assegnamenti a una singola variabile a ogni nodo. In questi termini b=d e ci saranno
-un totale di d^n foglie.
-	Una DFS per CSP con assegnazione di singola variabile è detto algoritmo di
-ricerca backtracking, ed è l'algoritmo non informato di base per i CSP.
+\noindent Data la conformazione della tabella, possiamo mappare il problema nel grafo:
 
-```
-function Backtracking-Search(csp) returns solution or failure
-return Backtrack({}, csp)
+% TODO Inserisci immagine problema crosswords e grafo con 5 stati
 
-function Backtrack (assignment, csp) returns solution or failure
-	if assignment is complete then return assignment
-	var <- Select-Unassigned-Variable(csp)
-	for each value in Order-Domain-Values(var, assignment, csp) do
-		if value is consistent with assignment then
-			add {var = value} to assignment
-			inferences <- Inferences(csp, var, value)
-			if inferences \neq failure then
-				add inferences to assignment
-				result <- Backtrack(assignment, csp)
-				if result ̸= failure then
-					return result
-				endif
-			endif
-		endif
-		remove {var = value} and inferences from assignment
-	endfor
-	return failure
-```
+\noindent Tuttavia ci sono anche altri modi per rappresentare il problema, come gli \textbf{ipergrafi}, dove ogni variabile ha un dominio esponenzialmente più largo:
 
-Il backtracking è migliorabile ragionando su una riduzione dello spazio di ricerca
-effettivamente esplorato mediante tecniche euristiche.
+% TODO Inserisci immaagine ipergrafo
 
---- Ordinamento variabili e loro valori
-Un'euristica di questo tipo è quella dei minimum remaining values, dove si sceglie
-la variabile con il minor numero di valori legali rimanenti; molto utile quando si
-vuole ricercare un fallimento.
+\noindent La possibilità di rappresentazione mediante grafi implica che è possibile considerare i CSP come \textbf{reti di vincoli}; questi sono infatti definiti come una tripla $CN = \left<X, D, C\right>$, dove: \begin{itemize}
+	\item $X = \{x_1, ..., x_n\}$: Insieme delle variabili.
+	\item $D = \{D_1, ..., D_n\}$: Insieme dei domini.
+	\item $C = \{(S_1, R_1), ..., (S_m, R_m)\}$: Insieme dei vincoli, dove $S_i\subseteq X$ è lo \textbf{scope}, ovvero l'insieme delle variabili coinvolte, e $R_i$ è il sottoinsieme del prodotto cartesiano delle variabili in $S_i$, il quale esprime le tuple accettabili in esso.
+\end{itemize}
 
-Può capitare di avere variabili con un totale di minimum remaining values uguale. In
-tal caso bisogna affidarsi a un'altra euristica, usata come tie-breaker: la
-degree-euristic: sceglie la variabile che ha più vincoli su quelle rimanenti.
-(Nel senso che vincola il maggior numero di variabili) E' un'altro fail-fast come la
-precedente.
+\noindent I compiti richiesti di norma sono quelli che riguardano controlli di consistenza, trovare una o tutte le soluzioni, contarle, oppure trovare la migliore, rendendolo un problema di ottimizzazione. In tal merito, ci possono essere anche soluzioni \textbf{totali}, ma anche \textbf{parziali}; dove entrambe rispettano i vincoli, la seconda considera un sottoinsieme delle variabili, e quando considera uno scope contenente solo variabili assegnate diciamo che è \textbf{consistente}. Tuttavia è bene far notare che una soluzione parziale consistente non necessariamente è parte di una soluzione totale.\par
+Prendiamo per esempio il problema delle n-regine, dove $n = 4$. In tal caso, avremo: \begin{itemize}
+	\item $X = \{x_1, ..., x_4\}$, una variabile per ogni regina in colonne differenti.
+	\item $D = \{D_1, ..., D_4\}$, una colonna per la regina $i\in [1, ..., 4]$.
+	\item $C = \{C_1, ..., C_6\}$, un vincolo per ogni coppia di variabili, sono le posizioni consentite per le due regine.
+\end{itemize}
 
-Una volta scelta una variabile bisogna considerare quale valore assegnarle. La tecnica
-euristica da usare è quella del least constraining value, che sceglie il valore meno
-vincolante per la variabile. Deve escludere il numero minimo di valori nelle variabili
-rimanenti.
+\noindent Una soluzione parziale consistente sarebbe $\{x_1 = 1, x_2 = 4, x_3 = 2\}$, perché non considera tutte e quattro le regine, mentre una totale risulterebbe $\{x_1 = 2, x_2 = 4, x_3 = 1, x_4 = 3\}$.\par
+I CSP hanno inoltre una formulazione di base comune, nella quale gli stati sono definiti dai valori assegnati fino all'istanza presa in esame. In particolare: \begin{itemize}
+	\item \textbf{Stato iniziale}: Assegnamento vuoto.
+	\item \textbf{Funzione successore}: Assegna un valore a una variabile del quale ne è priva che non crea conflitti con l'assegnamento attuale. Ciò implica un fallimento se non esistono assegnamenti che rispettano i vincoli, rendendo il problema irrisolvibile.
+	\item \textbf{Goal test}: Si verifica il completamento del compito fornito.
+\end{itemize}
 
-Usare queste tre tecniche mediamente si riesce a risolvere i problemi in tempi minori,
-se applicate correttamente.
+\noindent In questi termini, ogni soluzione appare a profondità $n$ con un totale di $n$ variabili, rendendo l'utilizzo di algoritmi basati su DFS particolarmente azzeccato. Inoltre, essendo che ci interessa soltanto la soluzione e non il percorso, possiamo lavorare anche su formulazioni di problemi a stati completi. L'unico problema è che a profondità $l$ si ha un numero massimo di figli $b = (n-l)d$, ovvero $n!d^n$ foglie. Inutile dire che non sono poche, ma se diciamo che gli assegnamenti alle variabili sono commutativi, tipo: \begin{center}
+	[if WA = red then NT = green] $=$ [if NT = green then WA = red]
+\end{center}
 
---- Consistenza locale
-Alle volte si vuole cambiare il problema per portare in avanti le assegnazioni da fare
-è possibile studiare i vincoli e inferirne di nuovi. Per esempio, se abbiamo:
-C = {C1:(x1\neq x2), C2:(x2\neq x3)}
-Possiamo inferire il vincolo C3 : (x1 = x3) se gli elementi dell'insieme sono x1, x2, x3
+\noindent Allora possiamo considerarli solamente per una variabile a ogni nodo, dunque la profondità equivarrà al numero di figli massimo $b = d$ e ci sarà un massimo di $d^n$ foglie. Un algoritmo DFS che implementa tale dinamica applicato su un CSP è detto \textbf{Backtracking search}, ed è l'algoritmo di base per le ricerche non informate su questi problemi.
 
-Aggiungendo vincoli si riduce lo spazio di ricerca e quindi il tempo usato.
-Aggiungerne, tuttavia, richiede più computazione e ogni volta che a una variabile si
-assegna un valore bisogna controllare più vincoli.
-	Se i vincoli sono solamente binari, avremmo un massimo di O(n) controlli, mentre
-con vincoli r-ari sarà possibile avere O(n^{r-1}) controlli.
+\begin{algorithm}[h]
+	\caption{Backtracking-Search(csp) returns solution or failure}
+	\begin{algorithmic}[i]
+		\State \textbf{return} Backtrack(\{\}, csp)
+	\end{algorithmic}
+\end{algorithm}
+\begin{algorithm}[h]
+	\caption{Backtrack (assignment, csp) returns solution or failure}
+	\begin{algorithmic}[i]
+		\If{assignment is complete} \textbf{return} assignment
+		\EndIf
+		\State var $\gets$ Select-Unassigned-Variable(csp)
+		\For{each value in Order-Domain-Values(var, assignment, csp)}
+			\If{value is consistent with assignment}
+				\State add \{var = value\} to assignment
+				\State inferences $\gets$ Inferences(csp, var, value)
+				\If{inferences $\neq$ failure}
+					\State add inferences to assignment
+					\State result $\gets$ Backtrack(assignment, csp)
+					\If{result $\neq$ failure} \textbf{return} result
+					\EndIf
+				\EndIf
+			\EndIf
+			\State remove \{var = value\} and interfaces from assignment
+		\EndFor
+		\textbf{return} failure
+	\end{algorithmic}
+\end{algorithm}
 
-Se ogni foglia è un goal state, si dice che una rete R è backtrack free, sulla quale
-una DFS assicura un assegnamento completo e consistente. 
+\noindent Il backtracking è ulteriormente migliorabile se si riduce la dimensione dello spazio esplorato, ma è necessario applicare alcune tecniche euristiche: ordinare variabili coi rispettivi valori, garantire consistenza degli archi o del percorso, implementare meccanismi di \textbf{look-ahead} per prevedere eventuali inconsistenze, o di \textbf{look-back} per capire dove fare backtracking, e infine decomporre l'albero per sfruttare la struttura del problema. Vediamoli separatamente:
 
---- Look-ahead
-Fare inferenza solo fino a un certo numero di variabili per prevedere l'impatto della
-mossa successiva, ovvero come la mossa successiva vincola assegnamenti futuri. Si
-tratta di una strategia efficiente per aggiornare informazioni per scegliere la
-prossima variabile o valore.
+\paragraph{Ordinamento delle variabili:} Tecniche come \textbf{minimum remaining values} scelgono la variabile con il minor numero di valori legali rimanenti, risulta particolarmente utile quando si ricerca un punto di fallimento. Nei casi in cui due variabili presentino lo stesso valore ci si affida a una seconda euristica, detta \textbf{degree-euristic}, che sceglie la variabile con più vincoli su quelle rimanenti.\par
+Compiuta la scelta, bisogna considerare il valore da assegnare, tipicamente scelto mediante \textbf{least constraining value}, che, come dice il nome, sceglie il valore meno vincolante, dando come diretta conseguenza più possibilità di scelta nei prossimi assegnamenti.
 
-Due strategie sono:
-Il forward checking controlla variabili prive di assegnamenti separatamente
-L'arc consistency propaga la consistenza degli archi.
+\paragraph{Consistenza locale:} In base al problema fornito, è possibile trovare alcuni vincoli impliciti che sono diretta conseguenza di quelli conosciuti; talune volte è utile renderli espliciti o inferirne di nuovi. Per esempio, con una rete di vincoli espressa come grafo a colori, abbiamo due vincoli: \[
+	C = \{C1:(x1\neq x2), C2:(x2\neq x3)\}
+\]
 
-Usarle farà incorrere costi maggiori per assegnare valori, in quanto è necessario
-propagare i vincoli, tuttavia è possibile restringere lo spazio di ricerca in modo
-significativo, trovando valori che renderebbero il problema inconsistente, rimuovendo
-la mossa verso quella direzione.
-	Tendenzialmente non ci sono cambi nella peggiore performance, si tratta più che altro
-di un trade-off tra costi e benefici.
+\noindent Per proprietà transitiva possiamo inferire un ulteriore vincolo $C3 : (x1 = x3)$ e potremo tranquillamente ignorare ogni assegnamento dove $(x_1 \neq x_3)$.\par
+L'aggiunta di vincoli implica la riduzione dello spazio di ricerca e quindi anche il tempo di esecuzione. Tuttavia, richiede ulteriore computazione e ogni volta che a una variabile si assegna un valore bisognerà controllare il soddisfacimento di tali restrizioni; formalmente, con $r$ vincoli si avrà un totale di $O(n^{r-1})$ controlli.\par
+Riprendendo la rete di vincoli di prima, ne esiste una classe particolare chiamata \textbf{backtrack free}, la quale ha la caratteristica di avere un goal state in ogni foglia. Eseguire un DFS su di essa assicura un assegnamento completo e consistente.
 
-Il forward checking in particolare propaga l'effetto di un valore selezionato a
-variabili future separatamente. Se i domini di un futuro diventno vuoti, prova il
-prossimo valore per la variabile attuale.
+\paragraph{Look-ahead:} Date inferenze fino a un certo numero di variabili in merito alla consistenza di archi e percorso, si cerca di prevedere l'impatto della mossa successiva, ovvero come andrà a vincolare gli assegnamenti futuri. Si tratta di un processo efficiente per aggiornare informazioni che aiuta a scegliere la prossima variabile e valore da assegnare, per il quale esistono due strategie: \begin{itemize}
+	\item \textbf{Forward checking}: Controlla variabili prive di assegnamenti separatamente.
+	\item \textbf{Arc consistency look-ahead}: Propaga la consistenza degli archi del grafo.
+\end{itemize}
 
-La complessità di fare forward checking è O(ek^2), dove:
-	- e_u sono i consistency checks per ogni valore di ogni futura variabile
-	- k valore per ogni futura variabile O(e_uk)
-	- \sum_u e_u = e, allora O(ek)
-	- k valore per la variabile corrente
-	
-Non è possibile in generale risolvere una rete a vincoli facendo solo backtrack
-search e look ahead.
+\noindent L'applicazione di tali strategie porta costi maggiori per quanto riguarda l'assegnazione di valori, poiché è necessario propagare i vincoli, ma restringe significativamente lo spazio di ricerca, trovando valori che renderebbero il problema inconsistente e rimuovendoli dai domini delle variabili successive. Generalmente nella sua applicazione non c'è molta differenza nei casi pessimi di esecuzione; si cerca più che altro di trovare un compromesso tra costi e benefici.\par
+Riprendendo il \textbf{forward checking}, la sua idea di base è tenere traccia dei valori legali rimanenti per le variabili prive di assegnazione. La ricerca ha fine quando una qualunque variabile non ha valori legali. La sua complessità è $O(ek^2)$, dove: \begin{itemize}
+	\item $e_u$ sono i controlli di consistenza per ogni valore di ogni futura variabile $x_u$.
+	\item $k$ è il valore per ogni futura variabile, $O(e_uk)$.
+	\item Se $\sum_u e_u = e$, allora la complessità è $O(ek)$ e $k$ è il valore della variabile attuale.
+\end{itemize}
 
-- Arc-consistency look ahead
-Forzare una consistenza completa su tutte le variabili rimanenti. Si seleziona un
-valore per la variabile corrente x_i = a e si forza il vincolo su tutte le variabili
-non assegnate tali per cui x_i = a.
-	Un arco x_k \to x_j è consistente se e solo se per ogni assegnamento di x_k c'è
-almeno un assegnamento di x_j consistente col vincolo (x_k, x_j).
+\nonindent Consideriamo ora la strategia di \textbf{arc consistency look-ahead}, la quale forza una consistenza completa su ogni variabile rimanente. Fondamentalmente seleziona un valore per la variabile attuale $x_i = a$ e si impone il vincolo su tutte le altre non assegnate tali per cui $x_i = a$.\par
+Diciamo che un \textbf{arco} $x_k\to x_j$ è \textbf{consistente} se e solo se per ogni assegnamento di $x_k$ c'è almeno un assegnamento di $x_j$ consistente col vincolo $(x_k, x_j)$. Se nessun valore di $x_j$ è consistente con un dato valore di $x_k = c$, rimuoviamo direttamente $c$ dal suo dominio.\par
+Questo è un vincolo molto potente che in alcuni casi rende addirittura superfluo fare backtracking; potrebbe risolvere un sudoku non vuoto perché eliminerebbe i valori illegali per il dominio delle variabili, facendo rispettare il vincolo del gioco. Il miglior algoritmo per la consistenza degli archi è \textbf{AC-4}, di complessità $O(ek^2)$. Ciò detto, possiamo definire \textbf{reti di vincoli con archi consistenti} (AC), le quali hanno le seguenti caratteristiche: \begin{itemize}
+	\item $R_{x_i, x_j}$ è AC se e solo se $x_i$ è consistente rispetto a $x_j$, il quale deve essere consistente rispetto a $x_i$.
+	\item $R$ è AC se e solo se lo sono anche tutti i suoi vincoli.
+	\item $R$ può assicurare che una coppia di variabili siano AC\footnote{Tuttavia una revising arc consistency su una variabile potrebbe renderne un'altra non AC.}.
+	\item Richiede procedure sistematiche per garantire AC sulle reti.
+\end{itemize}
 
-Se nessun valore di x_j è consistente con un dato valore di x_k = c, rimuoviamo
-direttamente c dal dominio di x_k.
-Il forward checking fa rispettare la consistenza con ogni variabile non assegnata a 
-un nuovo assegnamento.
-
-La consistenza degli archi è un vincolo molto potente che in alcuni casi rende
-superfluo fare backtracking. Vedi un sudoku con qualche numero inserito; potrebbe
-essere risolto interamente solo forzando la consistenza degli archi, perché eliminerebbe
-i valori illegali per il dominio delle variabili controllate, facendo rispettare la
-regola del gioco.
-
-Per quanto riguarda l'arc consistency, il suo miglior algoritmo è AC-4, di complessità
-O(ek^2), mentre nel peggiore degli scenari è O(ek^3).
-
-Definiamo quindi una rete consistente:
-	- R_{x_i, x_j} è AC sse x_i è consistente in rispetto a x_j e x_j è AC rispetto a
-		x_i
-	- R è AC sse lo sono anche tutti i suoi vincoli
-	- Può assicurare che una coppia di variabili siano AC
-	- La revising AC su una variabile potrebbe rendere un'altra inconsistente.
-	- Richiede procedure sistematiche per garantire AC sulle reti.
-
-Inoltre:	
-Una consistenza e un dominio vuoto crea un problema inconsistente.
-Una consistenza e tutti i domini non vuoti non porta a un problema consistente.
-La consistenza non è completa se il controllo AC è binario.
-	
-Se invece si usa AC su domini tutti non vuoti e non ci sono cicli per grafi primali
-e si hanno vincoli binari, si avrà una consistent backtrack free network.
+\noindent Inoltre, bisogna fare attenzione quando si ha un dominio vuoto, perché nonostante la consistenza degli archi si avrà un problema inconsistente. Ciò non significa però che se tutti i domini non sono vuoti si abbia un problema consistente, perché la consistenza degli archi \textbf{non} è \textbf{completa}, controlla solamente vincoli binari e singoli vincoli di dominio.\par
+Invece, in presenza di consistenza degli archi, tutti i domini non vuoti, grafi aciclici e vincoli binari si avrà una rete consistente e libera di backtrack. L'aciclicità del grafo è in particolar modo importante, perché lo rende Fondamentalmente un albero sul quale possiamo applicare l'AC.
